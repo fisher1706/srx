@@ -1,0 +1,57 @@
+*** Variables ***
+${LOGIN URL}				${url}/sign-in
+${BROWSER FF}        		ff 			
+${correct wrong email}  	example@example.com
+${incorrect email}			example.agilevision.io    		
+${element login button}		css:.btn
+${static distributor}		css:.table-striped > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(1) > a:nth-child(1)
+
+*** Keywords ***
+Goto Fees
+	Login In Admin Portal
+	Click Element		css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+	Is Fees Managemant
+
+Goto Admin Users
+	Login In Admin Portal
+	Click Element		${static distributor}
+
+Login In Admin Portal
+	Start Suite
+	Enter Correct Email
+	Enter Password
+    Correct Submit Login
+	Is Distributors Page
+
+Enter Correct Email
+    Input Text    id:email		${email}
+
+Enter Password
+    Input Text    id:password	${password}
+
+Correct Submit Login
+    Click Element				${element login button}
+
+Sign Out
+	Click Element	xpath:/html/body/div/div/div/div[1]/div/ul/li[4]/a
+
+Start Suite
+	Open Browser    ${LOGIN URL}    ${BROWSER FF}
+    Set Selenium Implicit Wait		20 second
+	Set Selenium Timeout			10 second
+
+Finish Suite
+	Close All Browsers
+
+Is Login Page
+	Element Text Should Be		xpath:/html/body/div/div/div/div/div/form/div[4]/label		Password
+
+Is Distributors Page
+	Element Text Should Be		xpath:/html/body/div/div/div/div[2]/div/div[1]/div/div/h1		Distributor Management
+	Element Text Should Be		css:.sidebar-user-info > p:nth-child(2)							${email}
+
+Is Distributor Info
+	Element Text Should Be		css:.back-link													Back to Distributors List
+
+Is Fees Managemant
+	Element Text Should Be		css:.distributor-management-header > h1:nth-child(1)			Fees Management
