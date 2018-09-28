@@ -6,8 +6,6 @@ Resource			../../../resources/resource.robot
 Resource			../../../resources/testData.robot
 
 *** Variables ***
-${edit first name}		edit first
-${edit last name}		edit last
 ${number of new row}
 ${number of row}
 ${filter button}		css:.filtering-options > button:nth-child(1)

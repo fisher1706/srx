@@ -20,7 +20,7 @@ Login In Distributor Portal
 Goto User Managemant
 	Login In Distributor Portal
 	Click Element		css:.sidebar-items-container > li:nth-child(1) > a:nth-child(1)
-	Is User Managemant
+	Is User Management
 
 Goto Fees
 	Login In Admin Portal
@@ -80,7 +80,7 @@ Is Distributor Info
 Is Fees Managemant
 	Element Text Should Be		css:.distributor-management-header > h1:nth-child(1)		Fees Management
 
-Is User Managemant
+Is User Management
 	Element Text Should Be		css:.user-management-header > h1:nth-child(1)			User Management
 
 Is Warehouse Management

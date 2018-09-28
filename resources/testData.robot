@@ -24,6 +24,8 @@ ${edit email}			edit.test@example.com
 ${edit code}			89000
 ${user first name}		First
 ${user last name}		Last
+${edit first name}		edit first
+${edit last name}		edit last
 ${counter}			0
 ${warehouse number}		1137
 ${edit warehouse number}	2020
