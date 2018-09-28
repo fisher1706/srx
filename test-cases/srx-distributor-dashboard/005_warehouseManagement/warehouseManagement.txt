@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup			Preparation
-Library				SeleniumLibrary
+Library			SeleniumLibrary
 Resource			../../../resources/resource.robot
 Resource			../../../resources/testData.robot
 
