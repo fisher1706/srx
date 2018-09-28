@@ -2,12 +2,10 @@
 Suite Setup			Preparation
 Suite Teardown			Finish Suite
 Library				SeleniumLibrary
-Resource			../../resources/resource.robot
-Resource			../../resources/testData.robot
+Resource			../../../resources/resource.robot
+Resource			../../../resources/testData.robot
 
 *** Variables ***
-${edit first name}		edit first
-${edit last name}		edit last
 ${number of new row}
 ${number of row}
 ${filter button}		css:.filtering-options > button:nth-child(1)
@@ -17,7 +15,7 @@ ${text buffer2}
 
 *** Test Cases ***
 Admin Users Menu Checking
-	[Tags]			AdminUsersMenuChecking
+	[Tags]				AdminUsersMenuChecking
 	Is Distributor Info
 	Element Text Should Be		css:.table-responsive > table:nth-child(1) > thead:nth-child(1) > tr:nth-child(1) > td:nth-child(2)	${static adress1}
 	Element Text Should Be		css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2)	${static adress2}
@@ -37,7 +35,7 @@ Admin Users Menu Checking
 	Is Admin Users Tab
 
 Invalid Add Admin User
-	[Tags]		InvalidAddAdminUser
+	[Tags]				InvalidAddAdminUser
 	Click Element			css:#distributor-details-tab-2
 	Is Admin Users Tab
 	Click Element			css:.text-right > button:nth-child(1)
@@ -248,12 +246,12 @@ Is Add User
 
 Is Discounts Tab
 	Sleep				1 second
-	Element Text Should Be		css:#distributor-details-pane-3 > h3:nth-child(1)       Discounts
+	Element Text Should Be		css:#distributor-details-pane-3 > h3:nth-child(1)	Discounts
 
 Is General Info Tab
 	Sleep				1 second
-	Element Text Should Be		css:#distributor-details-pane-1 > h3:nth-child(1)       Distributor information
+	Element Text Should Be		css:#distributor-details-pane-1 > h3:nth-child(1)	Distributor information
 
 Is Admin Users Tab
 	Sleep				1 second
-	Element Text Should Be		css:#distributor-details-pane-2 > div:nth-child(1) > div:nth-child(1) > h3:nth-child(1)       Admin Users
+	Element Text Should Be		css:#distributor-details-pane-2 > div:nth-child(1) > div:nth-child(1) > h3:nth-child(1)		Admin Users
