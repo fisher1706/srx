@@ -17,6 +17,11 @@ Login In Distributor Portal
 	Correct Submit Login
 	Is Warehouse Management
 
+Goto Customer Management
+	Login In Distributor Portal
+	Click Element		css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+	Is Customer Management
+
 Goto User Managemant
 	Login In Distributor Portal
 	Click Element		css:.sidebar-items-container > li:nth-child(1) > a:nth-child(1)
@@ -29,7 +34,13 @@ Goto Fees
 
 Goto Admin Users
 	Login In Admin Portal
-	Click Element		${static distributor}
+	Sleep				5 second
+	Click Element			css:#pageDropDown
+	Click Element			css:li.dropdown-item:nth-child(4) > a:nth-child(1)
+	Sleep				2 second
+	Number Of Rows E
+	Number Of Static Row E
+	Click Element		xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row e}]/td[1]/a
 
 Login In Admin Portal
 	Start Suite
@@ -70,6 +81,9 @@ Finish Suite
 Is Login Page
 	Element Text Should Be		xpath:/html/body/div/div/div/div/div/form/div[4]/label		Password
 
+Is Customer Management
+	Element Text Should Be		css:.customer-management-header > h1:nth-child(1)		Customer Management
+
 Is Distributors Page
 	Element Text Should Be		xpath:/html/body/div/div/div/div[2]/div/div[1]/div/div/h1	Distributor Management
 	Element Text Should Be		css:.sidebar-user-info > p:nth-child(2)				${email}
@@ -85,3 +99,13 @@ Is User Management
 
 Is Warehouse Management
 	Element Text Should Be		css:.warehouse-management-header > h1:nth-child(1)		Warehouse Management
+
+Number Of Rows E
+	${number of row e}		Get Element Count	xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+	Set Global Variable		${number of row e}
+
+Number Of Static Row E
+	: FOR	${counter e}  	IN RANGE  	1		${number of row e}
+	\	${text buffer1 e}		Get Text	xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter e}]/td[1]/a
+	\	Exit For Loop If	"${static name}"=="${text buffer1 e}"
+	Set Global Variable		${static row e}	${counter e}

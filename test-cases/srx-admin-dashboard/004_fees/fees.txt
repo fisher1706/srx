@@ -6,11 +6,11 @@ Resource			../../../resources/resource.robot
 Resource			../../../resources/testData.robot
 
 *** Variables ***
-${customer shiptos}		13-30
-${edit customer shiptos}	31-50
+${customer shiptos}		100000-150000
+${edit customer shiptos}	150001-200000
 ${monthly fee}			19
 ${edit monthly fee}		27
-${number of buttons}		301-500
+${number of buttons}		100000-150000
 ${monthly fee per button}	3
 ${srx row number}
 ${button row number}
@@ -64,6 +64,9 @@ Valid Add New SRXCloud Fee
 Checking New SRXCloud Fee
 	[Tags]		SRX
 	Sleep				5 second
+	Click Element			css:#uncontrolled-tab-example-pane-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > button:nth-child(1)
+	Click Element			css:#uncontrolled-tab-example-pane-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > ul:nth-child(2) > li:nth-child(4) > a:nth-child(1)
+	Sleep				5 second
 	Element Text Should Be 		${shiptos cell}		${customer shiptos}
 	Element Text Should Be		${fee cell}		$${monthly fee}
 
@@ -116,6 +119,9 @@ Valid Add New Button Fee
 Checking New Button Fee
 	[Tags]				Button
 	Sleep				5 second
+	Click Element			css:#uncontrolled-tab-example-pane-2 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > button:nth-child(1)
+	Click Element			css:#uncontrolled-tab-example-pane-2 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > ul:nth-child(2) > li:nth-child(4) > a:nth-child(1)
+	Sleep				5 second
 	Element Text Should Be		${number of buttons cell}	${number of buttons}
 	Element Text Should Be		${monthly fee cell}		$${monthly fee per button}
 
@@ -139,7 +145,17 @@ Delete Button Monthly Fee
 *** Keywords ***
 Preparation
 	Goto Fees
+	Click Element			css:#uncontrolled-tab-example-tab-3
+	Sleep				2 second
+	Click Element			css:#uncontrolled-tab-example-pane-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > button:nth-child(1)
+	Click Element			css:#uncontrolled-tab-example-pane-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > ul:nth-child(2) > li:nth-child(4) > a:nth-child(1)
+	Sleep				5 second
 	Number Of Rows SRX
+	Click Element			css:#uncontrolled-tab-example-tab-2
+	Sleep				2 second
+	Click Element			css:#uncontrolled-tab-example-pane-2 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > button:nth-child(1)
+	Click Element			css:#uncontrolled-tab-example-pane-2 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > ul:nth-child(2) > li:nth-child(4) > a:nth-child(1)
+	Sleep				5 second
 	Number Of Rows Button
 	${srx row number}=		Evaluate	${srx row}+1
 	${button row number}=		Evaluate	${button row}+1
