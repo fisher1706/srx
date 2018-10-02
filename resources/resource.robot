@@ -20,17 +20,26 @@ Login In Distributor Portal
 Goto Customer Management
 	Login In Distributor Portal
 	Click Element		css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+	Sleep				5 second
 	Is Customer Management
 
 Goto User Managemant
 	Login In Distributor Portal
 	Click Element		css:.sidebar-items-container > li:nth-child(1) > a:nth-child(1)
+	Sleep				5 second
 	Is User Management
 
 Goto Fees
 	Login In Admin Portal
 	Click Element		css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+	Sleep				5 second
 	Is Fees Managemant
+
+Goto Catalog
+	Login In Distributor Portal
+	Click Element			css:.sidebar-items-container > div:nth-child(2) > li:nth-child(3) > a:nth-child(1)
+	Sleep				5 second
+	Is Catalog
 
 Goto Admin Users
 	Login In Admin Portal
@@ -99,6 +108,9 @@ Is User Management
 
 Is Warehouse Management
 	Element Text Should Be		css:.warehouse-management-header > h1:nth-child(1)		Warehouse Management
+
+Is Catalog
+	Element Text Should Be		css:.customer-management-header > h1:nth-child(1)		Catalog
 
 Number Of Rows E
 	${number of row e}		Get Element Count	xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr

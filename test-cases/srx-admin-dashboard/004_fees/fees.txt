@@ -146,16 +146,16 @@ Delete Button Monthly Fee
 Preparation
 	Goto Fees
 	Click Element			css:#uncontrolled-tab-example-tab-3
-	Sleep				2 second
+	Sleep				4 second
 	Click Element			css:#uncontrolled-tab-example-pane-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > button:nth-child(1)
 	Click Element			css:#uncontrolled-tab-example-pane-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > ul:nth-child(2) > li:nth-child(4) > a:nth-child(1)
-	Sleep				5 second
+	Sleep				4 second
 	Number Of Rows SRX
 	Click Element			css:#uncontrolled-tab-example-tab-2
-	Sleep				2 second
+	Sleep				4 second
 	Click Element			css:#uncontrolled-tab-example-pane-2 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > button:nth-child(1)
 	Click Element			css:#uncontrolled-tab-example-pane-2 > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > ul:nth-child(2) > li:nth-child(4) > a:nth-child(1)
-	Sleep				5 second
+	Sleep				4 second
 	Number Of Rows Button
 	${srx row number}=		Evaluate	${srx row}+1
 	${button row number}=		Evaluate	${button row}+1

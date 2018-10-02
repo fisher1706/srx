@@ -33,3 +33,21 @@ ${test number}			5553535
 ${edit test number}		8800
 ${distributor contact info}	Last\n14033 5553535\ndynamic.test@example.com
 ${distributor edit info}	edit last\n89000 8800\nedit.test@example.com
+${round by}			10
+${edit round by}		20
+${level 1}			level 1
+${level 2}			level 2
+${level 3}			level 3
+${sub 1}			sub 1
+${sub 2}			sub 2
+${sub 3}			sub 3
+${edit level 1}			edit level 1
+${edit level 2}			edit level 2
+${edit level 3}			edit level 3
+${edit sub 1}			edit sub 1
+${edit sub 2}			edit sub 2
+${edit sub 3}			edit sub 3
+${keyword}			keyword
+${edit keyword}			edit keyword
+${test string}			test string
+${edit string}			edit string
