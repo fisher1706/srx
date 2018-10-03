@@ -6,7 +6,7 @@ ${dynamic full adress}		Test Street 1 Test Street 2 Test City AK 14033
 ${dynamic city}			Test City
 ${dynamic email}		dynamic.test@example.com
 ${dynamic code}			14033
-${static number}		8
+${static number}		
 ${static name}			Static Test
 ${static adress1}		Baker Street 221b
 ${static adress2}		Unnamed Street
@@ -29,3 +29,25 @@ ${edit last name}		edit last
 ${counter}			0
 ${warehouse number}		1137
 ${edit warehouse number}	2020
+${test number}			5553535
+${edit test number}		8800
+${distributor contact info}	Last\n14033 5553535\ndynamic.test@example.com
+${distributor edit info}	edit last\n89000 8800\nedit.test@example.com
+${round by}			10
+${edit round by}		20
+${level 1}			level 1
+${level 2}			level 2
+${level 3}			level 3
+${sub 1}			sub 1
+${sub 2}			sub 2
+${sub 3}			sub 3
+${edit level 1}			edit level 1
+${edit level 2}			edit level 2
+${edit level 3}			edit level 3
+${edit sub 1}			edit sub 1
+${edit sub 2}			edit sub 2
+${edit sub 3}			edit sub 3
+${keyword}			keyword
+${edit keyword}			edit keyword
+${test string}			test string
+${edit string}			edit string

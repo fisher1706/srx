@@ -71,6 +71,9 @@ Valid Add Distributor
 	
 Checking New Data
 	Sleep 				5 second
+	Click Element			css:#pageDropDown
+	Click Element			css:li.dropdown-item:nth-child(4) > a:nth-child(1)
+	Sleep				2 second
 	Element Text Should Be		xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[1]/a		${dynamic name}
 	Element Text Should Be		xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[3]/div		${dynamic full adress}
 	Element Text Should Be		xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[4]/div		Singular Billing
@@ -237,6 +240,10 @@ Name And Number And Email Filter
 *** Keywords ***
 Preparation
 	Login In Admin Portal
+	Sleep				5 second
+	Click Element			css:#pageDropDown
+	Click Element			css:li.dropdown-item:nth-child(4) > a:nth-child(1)
+	Sleep				2 second
 	Number Of Rows
 	Number Of Static Row
 	${dynamic row}=			Evaluate		${number of row}+1
@@ -249,10 +256,12 @@ Number Of Rows
 	Set Global Variable		${number of row}
 
 Number Of Static Row
-	: FOR	${counter}  	IN RANGE  	1		${number of row}
+	: FOR	${counter}  	IN RANGE  	1		${number of row}+1
 	\	${text buffer1}		Get Text	xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/a
 	\	Exit For Loop If	"${static name}"=="${text buffer1}"
 	Set Global Variable		${static row}	${counter}
+	${static number}		Get Text	xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[2]/div
+	Set Global Variable		${static number}
 
 Apply Filter
 	Sleep				1 second
