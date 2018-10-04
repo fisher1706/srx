@@ -4,6 +4,8 @@ Library                         XvfbRobot
 *** Variables ***
 ${LOGIN URL}                    https://${HOST}/sign-in
 ${browser}                      ff
+${X}                            1920
+${Y}                            1080
 ${correct wrong email}          example@example.com
 ${incorrect email}              example.agilevision.io
 ${element login button}         css:.btn
@@ -108,15 +110,15 @@ Sign Out
     Click Element               xpath:/html/body/div/div/div/div[1]/div/ul/li[4]/a
 
 Start Suite
-    Run Keyword If              "${browser}"=="xvbf"    Run Xvbf
-    Run Keyword Unless          "${browser}"=="xvbf"    Run Ff
+    Run Keyword If              "${browser}"=="xvfb"    Run Xvfb
+    Run Keyword Unless          "${browser}"=="xvfb"    Run Ff
     Set Selenium Implicit Wait                          20 second
     Set Selenium Timeout                                10 second
 
-Run Xvbf
-    Start Virtual Display       1920    1080
+Run Xvfb
+    Start Virtual Display       ${X}                    ${Y}
     Open Browser                ${LOGIN URL}
-    Set Window Size             1920    1080
+    Set Window Size             ${X}                    ${Y}
 
 Run Ff
     Open Browser                ${LOGIN URL}            ff
