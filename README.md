@@ -22,12 +22,12 @@ Also, you can use a test file instead of a folder:
 ```
 pybot -v email:<your_email> -v password:<your_password> -v HOST:<project_url> [testName].txt
 ```
-To run tests without using browser you need to execute command ***-v browser:xvbf***.
+To run tests without using browser you need to execute command ***-v browser:xvfb***.
 
 Examples of use:
 ```
-user@user-PC:~/../../srx-robot/test-cases/srx-admin-dashboard/001_login$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvbf login.txt
+user@user-PC:~/../../srx-robot/test-cases/srx-admin-dashboard/001_login$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb login.txt
 ```
 ```
-user@user-PC:~/../../srx-robot$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvbf test-cases/srx-admin-dashboard
+user@user-PC:~/../../srx-robot$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
 ```

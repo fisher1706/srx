@@ -22,7 +22,7 @@ Invalid Create New Customer
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:number_id                \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       css:.Select-input           \ue004
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[1]/div/div[1]/div[3]/div/div/div/span[1]/div[2]              \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
@@ -35,9 +35,9 @@ Valid Create New Customer
     Input Text                      id:name_id                  ${user first name}
     Input Text                      id:number_id                ${warehouse number}
     Click Element                   css:.Select-control
-    Press Key                       css:.Select-input           \ue015
-    Press Key                       css:.Select-input           \ue015
-    Press Key                       css:.Select-input           \ue007
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[1]/div/div[1]/div[3]/div/div/div/span[1]/div[2]              \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[1]/div/div[1]/div[3]/div/div/div/span[1]/div[2]              \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[1]/div/div[1]/div[3]/div/div/div/span[1]/div[2]              \ue007
     Click Element                   css:.modal-dialog-ok-button
 
 Checking New Customer
@@ -116,8 +116,8 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit customer button}     xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div/div[1]/button
-    Set Global Variable             ${delete customer button}   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div/div[2]/button
+    Set Global Variable             ${edit customer button}     xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div/div[1]/button
+    Set Global Variable             ${delete customer button}   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div/div[2]/button
 
 Is Add Customer
     Element Text Should Be          css:.modal-title            Add customer
