@@ -26,8 +26,8 @@ To run tests without using browser you need to execute command ***-v browser:xvb
 
 Examples of use:
 ```
-user@user-PC:~/../../srx-robot/test-cases/srx-admin-dashboard/001_login$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvbf login.txt
+user@user-PC:~/../../srx-robot/test-cases/srx-admin-dashboard/001_login$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb login.txt
 ```
 ```
-user@user-PC:~/../../srx-robot$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvbf test-cases/srx-admin-dashboard
+user@user-PC:~/../../srx-robot$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
 ```
