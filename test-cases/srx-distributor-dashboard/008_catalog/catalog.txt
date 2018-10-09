@@ -134,11 +134,11 @@ Sorting Catalog
     \   ${text buffer2}             Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${colomn}]/div
     \   Should Be Equal             ${text buffer1}         ${text buffer2}
 
-Upload Template
-    [Tags]                          ChromeOnly
-    Choose File                     id:file-upload          /home/provorov/Downloads/product.csv
-    ${text buffer}                  Get Text                css:.import-page-alert > strong:nth-child(2)
-    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+#Upload Template
+#    [Tags]                          ChromeOnly
+#    Choose File                     id:file-upload          /home/provorov/Downloads/product.csv
+#    ${text buffer}                  Get Text                css:.import-page-alert > strong:nth-child(2)
+#    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
 
 *** Keywords ***
 Preparation
