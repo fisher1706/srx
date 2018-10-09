@@ -37,6 +37,7 @@ ${edit round by}                20
 ${level 1}                      level 1
 ${level 2}                      level 2
 ${level 3}                      level 3
+${level 4}                      level 4
 ${sub 1}                        sub 1
 ${sub 2}                        sub 2
 ${sub 3}                        sub 3
@@ -53,3 +54,5 @@ ${keyword}                      keyword
 ${edit keyword}                 edit keyword
 ${test string}                  test string
 ${edit string}                  edit string
+${dynamic sku}                  DYNAMIC SKU
+${edit sku}                     EDIT SKU
