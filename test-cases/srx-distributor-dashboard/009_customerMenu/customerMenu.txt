@@ -125,7 +125,7 @@ Checking New User
 
 Edit User
     Click Element                   ${edit user button}
-    #Is Edit User
+    Is Edit User
     Click Element                   css:.close
     Sleep                           2 second
     Is Users
