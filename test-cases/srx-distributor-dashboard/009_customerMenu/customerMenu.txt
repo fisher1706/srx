@@ -26,6 +26,8 @@ Invalid Create New Shipto
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.zipCode_id                                                                                   \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Press Key                       id:poNumber_id                                                                                          \ue004
+    Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
     Is Shiptos
@@ -43,7 +45,8 @@ Valid Create New Shipto
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue015
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue015
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue007
-    Input Text                      address.zipCode_id      ${dynamic code}
+    Input Text                      id:address.zipCode_id   ${dynamic code}
+    Input Text                      id:poNumber_id          ${test number}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
     Is Shiptos
@@ -52,6 +55,7 @@ Checking New Shipto
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[1]/div      ${dynamic name}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[2]/div      ${dynamic full adress}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[3]/div      ${test number}
 
 Edit Shipto
     Click Element                   ${edit shipto button}
@@ -71,7 +75,8 @@ Edit Shipto
     Click Element                   css:.Select-control
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue013
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue007
-    Input Text                      address.zipCode_id      ${edit code}
+    Input Text                      id:address.zipCode_id   ${edit code}
+    Input Text                      id:poNumber_id          ${edit test number}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
     Is Shiptos
@@ -80,6 +85,7 @@ Checking Edit Shipto
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[1]/div      ${edit name}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[2]/div      ${edit full adress}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[3]/div      ${edit test number}
 
 Invalid Create New User
     [Tags]                          User
@@ -197,8 +203,8 @@ Preparation
     Number Of Rows Shiptos
     ${number of new row s}=         Evaluate                        ${number of row s}+1
     Set Global Variable             ${number of new row s}
-    Set Global Variable             ${edit shipto button}           xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[3]/div/div[1]/button
-    Set Global Variable             ${delete shipto button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[3]/div/div[2]/button
+    Set Global Variable             ${edit shipto button}           xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[4]/div/div[1]/button
+    Set Global Variable             ${delete shipto button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[4]/div/div[2]/button
     Click Element                   css:#customer-details-tab-4
     Sleep                           4 second
     Is Users
@@ -223,16 +229,21 @@ Is Users
     Element Text Should Be          css:#customer-details-pane-4 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h3:nth-child(1)     Customer Users
 
 Is Add Shipto
+    Sleep                           1 second
     Element Text Should Be          css:.modal-title                Add shipto
 
 Is Edit Shipto
+    Sleep                           1 second
     Element Text Should Be          css:.modal-title                Edit shipto
 
 Is Add User
+    Sleep                           1 second
     Element Text Should Be          css:.modal-title                Add customer user
 
 Is Edit User
+    Sleep                           1 second
     Element Text Should Be          css:.modal-title                Edit customer user
 
 Is Delete
+    Sleep                           1 second
     Element Text Should Be          css:.modal-title                Removal Confirmation

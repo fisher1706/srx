@@ -1,0 +1,335 @@
+*** Settings ***
+Test Setup                          Preparation
+Test Teardown                       Finish Suite
+Library                             SeleniumLibrary
+Resource                            ../../../resources/resource.robot
+Resource                            ../../../resources/testData.robot
+
+*** Test Cases ***
+General Settings
+    [Tags]                          ChromeOnly
+    Goto General Settings
+    Is General Settings
+    Choose File                     id:distributor-logo     /home/provorov/Downloads/RobotDynamic.png
+    ${text buffer}                  Get Text                css:.import-page-alert > p:nth-child(2) > strong:nth-child(1)
+    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Log To Console   Successfully imported!      ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+    Sleep                           6 second
+    Choose File                     id:distributor-logo     /home/provorov/Downloads/RobotStatic.png
+    ${text buffer}                  Get Text                css:.import-page-alert > p:nth-child(2) > strong:nth-child(1)
+    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Log To Console   Successfully imported!     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+    Sleep                           10 second
+    Choose File                     id:missing-image        /home/provorov/Downloads/SearchDynamic.png
+    ${text buffer}                  Get Text                css:.import-page-alert > p:nth-child(2) > strong:nth-child(1)
+    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Log To Console   Successfully imported!      ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+    Sleep                           6 second
+    Choose File                     id:missing-image        /home/provorov/Downloads/SearchStatic.png
+    ${text buffer}                  Get Text                css:.import-page-alert > p:nth-child(2) > strong:nth-child(1)
+    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Log To Console   Successfully imported!     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+    Sleep                           6 second
+
+Documents
+    [Tags]                          ChromeOnly      Documents
+    Goto Documents
+    Is Documents
+    Choose File                     id:file-upload          /home/provorov/Downloads/SearchDynamic.png
+    ${text buffer}                  Get Text                css:.import-page-alert > p:nth-child(2) > strong:nth-child(1)
+    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Log To Console       Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+    Sleep                           5 second
+    Choose File                     id:file-upload          /home/provorov/Downloads/SearchStatic.png
+    ${text buffer}                  Get Text                css:.import-page-alert > p:nth-child(2) > strong:nth-child(1)
+    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Log To Console       Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+    Sleep                           5 second
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[3]/td[5]/div/div/button
+    Click Element                   css:button.btn-danger:nth-child(2)
+    Sleep                           5 second
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[3]/td[5]/div/div/button
+    Click Element                   css:button.btn-danger:nth-child(2)
+    Sleep                           5 second
+    ${number of row}                Get Element Count       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    Run Keyword If                  ${number of row}==2     Successfull Upload      ELSE                Fail Upload
+    Sleep                           5 second
+
+Integrations
+    [Tags]                          ChromeOnly      Integrations
+    Goto Integrations
+    Is Integrations
+    Click Element                   css:#settings-pane-integrations > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Is Delete Location
+    Click Element                   css:.modal-dialog-cancel-button
+    Sleep                           2 second
+    Is Integrations
+    Click Element                   css:#settings-pane-integrations > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.rdt > input:nth-child(1)
+    Click Element                   css:td.rdtOld:nth-child(1)
+    Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
+    Click Element                   css:.close
+    Sleep                           2 second
+    Is Integrations
+    Click Element                   css:#settings-pane-integrations > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.rdt > input:nth-child(1)
+    Click Element                   css:.rdtDays > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(7)
+    Input Text                      id:description_id               ${keyword}
+    Click Element                   css:.modal-dialog-ok-button
+    Sleep                           5 second
+    Is Integrations
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[5]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[3]/div          ${keyword}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[5]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[5]/div/div/button
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]           ${keyword}
+    Click Element                   css:button.btn-danger:nth-child(2)
+    ${number of row}                Get Element Count       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[5]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    Run Keyword If                  ${number of row}==1     Fail    Fail    ELSE    Pass Execution      Pass
+    Sleep                           3 second
+
+Distributor Contact Info
+    [Tags]                          DistributorContactInfo
+    Goto Distributor Contact Info
+    Sleep                           4 second
+    Is Distributor Contact Info
+    Clear Element Text              id:name_id
+    Input Text                      id:name_id              ${dynamic name}
+    Clear Element Text              id:phone_id
+    Input Text                      id:phone_id             ${dynamic code}
+    Clear Element Text              id:email_id
+    Input Text                      id:email_id             ${dynamic email}
+    Clear Element Text              id:emergencyPhone_id
+    Input Text                      id:emergencyPhone_id    ${test number}
+    Click Element                   css:#settings-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           4 second
+    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Sleep                           4 second
+    Number Of Rows C
+    Number Of Static Row C
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Sleep                           4 second
+    Click Element                   id:customer-details-tab-2
+    Sleep                           4 second
+    ${value}                        Get Value               id:name_default_id
+    Run Keyword If                  "${value}"=="${dynamic name}"   Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:phone_default_id
+    Run Keyword If                  "${value}"=="${dynamic code}"   Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:email_default_id
+    Run Keyword If                  "${value}"=="${dynamic email}"  Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:emergencyPhone_default_id
+    Run Keyword If                  "${value}"=="${test number}"    Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
+    Click Element                   css:#customer-details-pane-2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           5 second
+    Reload Page
+    Sleep                           2 second
+    Click Element                   id:customer-details-tab-2
+    Sleep                           4 second
+    ${value}                        Get Value               id:name_id
+    Run Keyword If                  "${value}"=="${dynamic name}"   Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:phone_id
+    Run Keyword If                  "${value}"=="${dynamic code}"   Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:email_id
+    Run Keyword If                  "${value}"=="${dynamic email}"  Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:emergencyPhone_id
+    Run Keyword If                  "${value}"=="${test number}"    Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Sleep                           3 second
+    Goto Distributor Contact Info
+    Sleep                           1 second
+    Is Distributor Contact Info
+    Clear Element Text              id:name_id
+    Input Text                      id:name_id              ${edit name}
+    Clear Element Text              id:phone_id
+    Input Text                      id:phone_id             ${edit code}
+    Clear Element Text              id:email_id
+    Input Text                      id:email_id             ${edit email}
+    Clear Element Text              id:emergencyPhone_id
+    Input Text                      id:emergencyPhone_id    ${edit test number}
+    Click Element                   css:#settings-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           4 second
+    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Sleep                           4 second
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Sleep                           4 second
+    Click Element                   id:customer-details-tab-2
+    Sleep                           4 second
+    ${value}                        Get Value               id:name_default_id
+    Run Keyword If                  "${value}"=="${edit name}"   Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:phone_default_id
+    Run Keyword If                  "${value}"=="${edit code}"   Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:email_default_id
+    Run Keyword If                  "${value}"=="${edit email}"  Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:emergencyPhone_default_id
+    Run Keyword If                  "${value}"=="${edit test number}"    Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
+    Click Element                   css:#customer-details-pane-2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           5 second
+    Reload Page
+    Sleep                           2 second
+    Click Element                   id:customer-details-tab-2
+    Sleep                           4 second
+    ${value}                        Get Value               id:name_id
+    Run Keyword If                  "${value}"=="${edit name}"          Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:phone_id
+    Run Keyword If                  "${value}"=="${edit code}"          Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:email_id
+    Run Keyword If                  "${value}"=="${edit email}"         Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:emergencyPhone_id
+    Run Keyword If                  "${value}"=="${edit test number}"   Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Sleep                           3 second
+
+Cost Saving
+    [Tags]                          CostSaving
+    Goto Cost Saving
+    Sleep                           4 second
+    Is Cost Saving
+    Clear Element Text              id:laborCost_id
+    Input Text                      id:laborCost_id             ${test number 1}
+    Clear Element Text              id:timeToReplenish_id
+    Input Text                      id:timeToReplenish_id       ${test number 2}
+    Clear Element Text              id:timeToQuote_id
+    Input Text                      id:timeToQuote_id           ${test number 3}
+    Clear Element Text              id:timeToAudit_id
+    Input Text                      id:timeToAudit_id           ${test number 4}
+    Clear Element Text              id:deliveryCost_id
+    Input Text                      id:deliveryCost_id          ${test number 5}
+    Click Element                   css:#settings-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           4 second
+    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Sleep                           4 second
+    Number Of Rows C
+    Number Of Static Row C
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Sleep                           4 second
+    Click Element                   id:customer-details-tab-5
+    Sleep                           4 second
+    ${value}                        Get Value               id:laborCost_default_id
+    Run Keyword If                  "${value}"=="${test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToReplenish_default_id
+    Run Keyword If                  "${value}"=="${test number 2}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToQuote_default_id
+    Run Keyword If                  "${value}"=="${test number 3}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToAudit_default_id
+    Run Keyword If                  "${value}"=="${test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:deliveryCost_default_id
+    Run Keyword If                  "${value}"=="${test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[5]/div[2]/div/button
+    Click Element                   css:#customer-details-pane-5 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           5 second
+    Reload Page
+    Sleep                           2 second
+    Click Element                   id:customer-details-tab-5
+    Sleep                           4 second
+    ${value}                        Get Value               id:laborCost_id
+    Run Keyword If                  "${value}"=="${test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToReplenish_id
+    Run Keyword If                  "${value}"=="${test number 2}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToQuote_id
+    Run Keyword If                  "${value}"=="${test number 3}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToAudit_id
+    Run Keyword If                  "${value}"=="${test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:deliveryCost_id
+    Run Keyword If                  "${value}"=="${test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Sleep                           3 second
+    Goto Cost Saving
+    Sleep                           1 second
+    Is Cost Saving
+    Clear Element Text              id:laborCost_id
+    Input Text                      id:laborCost_id             ${edit test number 1}
+    Clear Element Text              id:timeToReplenish_id
+    Input Text                      id:timeToReplenish_id       ${edit test number 2}
+    Clear Element Text              id:timeToQuote_id
+    Input Text                      id:timeToQuote_id           ${edit test number 3}
+    Clear Element Text              id:timeToAudit_id
+    Input Text                      id:timeToAudit_id           ${edit test number 4}
+    Clear Element Text              id:deliveryCost_id
+    Input Text                      id:deliveryCost_id          ${edit test number 5}
+    Click Element                   css:#settings-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           4 second
+    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Sleep                           4 second
+    Number Of Rows C
+    Number Of Static Row C
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Sleep                           4 second
+    Click Element                   id:customer-details-tab-5
+    Sleep                           4 second
+    ${value}                        Get Value               id:laborCost_default_id
+    Run Keyword If                  "${value}"=="${edit test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToReplenish_default_id
+    Run Keyword If                  "${value}"=="${edit test number 2}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToQuote_default_id
+    Run Keyword If                  "${value}"=="${edit test number 3}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToAudit_default_id
+    Run Keyword If                  "${value}"=="${edit test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:deliveryCost_default_id
+    Run Keyword If                  "${value}"=="${edit test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[5]/div[2]/div/button
+    Click Element                   css:#customer-details-pane-5 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Sleep                           5 second
+    Reload Page
+    Sleep                           2 second
+    Click Element                   id:customer-details-tab-5
+    Sleep                           4 second
+    ${value}                        Get Value               id:laborCost_id
+    Run Keyword If                  "${value}"=="${edit test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToReplenish_id
+    Run Keyword If                  "${value}"=="${edit test number 2}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToQuote_id
+    Run Keyword If                  "${value}"=="${edit test number 3}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:timeToAudit_id
+    Run Keyword If                  "${value}"=="${edit test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
+    ${value}                        Get Value               id:deliveryCost_id
+    Run Keyword If                  "${value}"=="${edit test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
+    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Sleep                           3 second
+
+*** Keywords ***
+Preparation
+    Goto Settings
+
+Goto General Settings
+    Click Element                   id:settings-tab-general-settings
+    Sleep                           3 second
+
+Goto Documents
+    Click Element                   id:settings-tab-documents
+    Sleep                           3 second
+
+Goto Integrations
+    Click Element                   id:settings-tab-integrations
+    Sleep                           3 second
+
+Goto Distributor Contact Info
+    Click Element                   id:settings-tab-contact-info
+
+Goto Cost Saving
+    Click Element                   id:settings-tab-cost-savings
+
+Is Cost Saving
+    Element Should Be Visible       id:settings-pane-cost-savings
+
+Is Distributor Contact Info
+    Element Should Be Visible       id:settings-pane-contact-info
+
+Is Integrations
+    Element Should Be Visible       id:settings-pane-integrations
+
+Is Documents
+    Element Should Be Visible       id:settings-pane-documents
+
+Is General Settings
+    Element Should Be Visible       id:settings-pane-general-settings
+
+Is Delete Location
+    Element Text Should Be          css:.modal-title                Generate new API Key
