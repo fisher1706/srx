@@ -22,7 +22,7 @@ Also, you can use a test file instead of a folder:
 ```
 pybot -v email:<your_email> -v password:<your_password> -v HOST:<project_url> [testName].txt
 ```
-To run tests without using browser you need to execute command ***-v browser:xvbf***.
+To run tests without using browser you need to execute command ***-v browser:xvfb***.
 
 Examples of use:
 ```

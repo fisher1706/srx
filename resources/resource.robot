@@ -6,6 +6,8 @@ ${LOGIN URL}                    https://${HOST}/sign-in
 ${X}                            1920
 ${Y}                            1080
 ${browser}                      ff
+${X}                            1920
+${Y}                            1080
 ${correct wrong email}          example@example.com
 ${incorrect email}              example.agilevision.io
 ${element login button}         css:.btn
@@ -30,7 +32,6 @@ Goto Settings
     Sleep                       5 second
     Click Element               css:li.sidebar-item:nth-child(7) > a:nth-child(1)
     Sleep                       3 second
-    Is Settings
 
 Goto Usage History
     Login In Distributor Portal
@@ -110,16 +111,17 @@ Sign Out
     Click Element               xpath:/html/body/div/div/div/div[1]/div/ul/li[4]/a
 
 Start Suite
-    Run Keyword If              "${browser}"=="xvfb"    Run Xvfb
-    Run Keyword Unless          "${browser}"=="xvfb"    Run Ff
+    Run Keyword If              "${browser}"=="xvfb"    Run Xvfb    ELSE IF     "${browser}"=="chrome"      Run Chrome  ELSE    Run Ff
     Set Selenium Implicit Wait                          20 second
     Set Selenium Timeout                                10 second
 
 Run Xvfb
-    Start Virtual Display       ${X}    ${Y}
+    Start Virtual Display       ${X}                    ${Y}
     Open Browser                ${LOGIN URL}
-    Set Window Size             ${X}    ${Y}
+    Set Window Size             ${X}                    ${Y}
 
+Run Chrome
+    Open Browser                ${LOGIN URL}            chrome
 Run Ff
     Open Browser                ${LOGIN URL}            ff
 
@@ -148,26 +150,9 @@ Is Usage History
 Is Transactions
     Element Text Should Be      css:.customer-management-header > h1:nth-child(1)           Transactions
 
-Is Settings
-    Is Setting General Settings
-
 Is Setting General Settings
     Element Text Should Be      css:#settings-pane-1 > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(1) > strong:nth-child(1)      Distributor logo:
 
-Is Setting Distributor Contact Info
-    Element Text Should Be      css:#settings-pane-2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h1:nth-child(1)      Default Contact Info
-
-Is Setting Billing Settings
-    Element Text Should Be      css:.warehouse-management-header                            Global Payment Information
-
-Is Setting Documents
-    Element Text Should Be      css:.documents-management-header > h1:nth-child(1)          Documents
-
-Is Setting Integrations
-    Element text Should Be      css:.integration-management-header > h1:nth-child(1)        API Keys
-
-Is Setting Taxes
-    Element Text Should Be      css:#settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h1:nth-child(1)      Taxes
 
 Is Transaction Log
     Element Text Should Be      css:.customer-management-header > h1:nth-child(1)           Transaction Log
@@ -203,3 +188,9 @@ Number Of Static Row E
     \   ${text buffer1 e}       Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter e}]/td[1]/a
     \   Exit For Loop If        "${static name}"=="${text buffer1 e}"
     Set Global Variable         ${static row e}     ${counter e}
+
+Successfull Upload
+    Pass Execution                  Successfully imported!
+
+Fail Upload
+    Fail                            Operation failed!
