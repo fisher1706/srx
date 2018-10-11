@@ -56,3 +56,15 @@ ${test string}                  test string
 ${edit string}                  edit string
 ${dynamic sku}                  DYNAMIC SKU
 ${edit sku}                     EDIT SKU
+${test number 1}                100
+${test number 2}                200 
+${test number 3}                300
+${test number 4}                400
+${test number 5}                500
+${edit test number 1}           1000
+${edit test number 2}           2000
+${edit test number 3}           3000
+${edit test number 4}           4000
+${edit test number 5}           5000
+${test type}                    auto-type
+${edit test type}               edit-auto-type

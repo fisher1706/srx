@@ -79,6 +79,12 @@ Goto Catalog
     Sleep                       5 second
     Is Catalog
 
+Goto Customer Types
+    Login In Admin Portal
+    Click Element               css:li.sidebar-item:nth-child(4) > a:nth-child(1)
+    Sleep                       5 second
+    Is Customer Types
+
 Goto Admin Users
     Login In Admin Portal
     Sleep                       7 second
@@ -126,6 +132,9 @@ Run Ff
 Finish Suite
     Close All Browsers
 
+Is Customer Types
+    Element Text Should Be      css:.customer-types-management-header > h1:nth-child(1)     Customer Types Management
+
 Is Login Page
     Element Text Should Be      xpath:/html/body/div/div/div/div/div/form/div[4]/label      Password
 
@@ -150,7 +159,6 @@ Is Transactions
 
 Is Setting General Settings
     Element Text Should Be      css:#settings-pane-1 > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(1) > strong:nth-child(1)      Distributor logo:
-
 
 Is Transaction Log
     Element Text Should Be      css:.customer-management-header > h1:nth-child(1)           Transaction Log
