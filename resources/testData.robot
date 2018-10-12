@@ -68,3 +68,9 @@ ${edit test number 4}           4000
 ${edit test number 5}           5000
 ${test type}                    auto-type
 ${edit test type}               edit-auto-type
+${test del type}                auto-type-del
+${edit test del type}           edit-auto-type-del
+${year fee}                     4320
+${month fee}                    500
+${edit year fee}                9000
+${edit month fee}               1000

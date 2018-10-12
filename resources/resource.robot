@@ -112,7 +112,7 @@ Correct Submit Login
     Click Element               ${element login button}
 
 Sign Out
-    Click Element               xpath:/html/body/div/div/div/div[1]/div/ul/li[4]/a
+    Click Element               css:li.sidebar-item:nth-child(6) > a:nth-child(1)
 
 Start Suite
     Run Keyword If              "${browser}"=="xvfb"    Run Xvfb    ELSE IF     "${browser}"=="chrome"      Run Chrome  ELSE    Run Ff
