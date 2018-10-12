@@ -163,6 +163,7 @@ Sorting Distributors By Name
     Click Element                   css:th.sort-column:nth-child(1)
     ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/a
     Should Be Equal	                ${text buffer1}     ${text buffer2}
+    Click Element                   css:th.sort-column:nth-child(1)
 
 Sorting Distributors By Number
     [Tags]                          Sorting
@@ -171,6 +172,7 @@ Sorting Distributors By Number
     Click Element                   css:th.sort-column:nth-child(2)
     ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
+    Click Element                   css:th.sort-column:nth-child(2)
 
 Sorting Distributors By Email
     [Tags]                          Sorting
@@ -179,7 +181,8 @@ Sorting Distributors By Email
     Click Element	                css:th.sort-column:nth-child(5)
     ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[5]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
-
+    Click Element                   css:th.sort-column:nth-child(5)
+    
 Name Filter
     [Tags]                          NameFilter          Filter
     Click Element                   ${filter button}

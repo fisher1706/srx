@@ -133,6 +133,7 @@ Sorting Catalog
     \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
     \   ${text buffer2}             Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${colomn}]/div
     \   Should Be Equal             ${text buffer1}         ${text buffer2}
+    \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
 
 #Upload Template
 #    [Tags]                          ChromeOnly

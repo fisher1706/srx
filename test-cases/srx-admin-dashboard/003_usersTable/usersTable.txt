@@ -136,6 +136,7 @@ Sorting Users By Email
     Click Element                   css:th.sort-column:nth-child(1)
     ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
+    Click Element                   css:th.sort-column:nth-child(1)
 
 Sorting Users By First Name
     [Tags]                          Sorting             UsersSorting
@@ -145,6 +146,7 @@ Sorting Users By First Name
     ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
     Click Element                   css:th.sort-column:nth-child(2)
     ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div
+    Click Element                   css:th.sort-column:nth-child(2)
 
 Sorting Users By Last Name
     [Tags]                          Sorting             UsersSorting
@@ -155,7 +157,8 @@ Sorting Users By Last Name
     Click Element                   css:th.sort-column:nth-child(3)
     ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
-
+    Click Element                   css:th.sort-column:nth-child(3)
+    
 Email Filter
     [Tags]                          Filter
     Click Element                   css:#distributor-details-tab-2
