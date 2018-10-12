@@ -115,7 +115,7 @@ Delete Warehouse
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]		${edit email}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[6]		${edit email}
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           5 second
+    Sleep                           10 second
 
 Sorting Warehouses By SRX Number
     [Tags]                          Sorting                 WarehouseSorting

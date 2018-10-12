@@ -199,7 +199,7 @@ Delete User
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]      User
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[6]      2048
     Click Element                   css:button.btn-danger:nth-child(2)
-    Sleep                           5 second
+    Sleep                           10 second
 
 Delete Shipto
     Click Element                   css:#customer-details-tab-3

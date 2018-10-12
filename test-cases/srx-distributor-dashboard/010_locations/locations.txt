@@ -59,8 +59,9 @@ Valid Create New Location
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       40
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic name}
     Click Element                   css:.modal-dialog-ok-button
-    Sleep                           1 second
+    Sleep                           3 second
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
+    Sleep                           2 second
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
     Is Locations

@@ -94,7 +94,7 @@ Delete Customer
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          Z_Warehouse(9999)
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]          Not specified
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           5 second
+    Sleep                           10 second
 
 Sorting Users By Name
     [Tags]                          Sorting                     CustomerSorting
