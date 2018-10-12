@@ -140,6 +140,7 @@ Delete Location
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[12]         30
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[13]         40
     Click Element                   css:button.btn:nth-child(2)
+    Sleep                           7 second
 
 *** Keywords ***
 Preparation

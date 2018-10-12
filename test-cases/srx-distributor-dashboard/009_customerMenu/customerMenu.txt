@@ -129,7 +129,32 @@ Checking New User
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[4]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[5]/div     User
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[4]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[6]/div     ${edit name}
 
+
+Fail Delete Shipto
+    Click Element                   css:#customer-details-tab-3
+    Sleep                           4 second
+    Is Shiptos
+    Click Element                   ${delete shipto button}
+    Is Delete
+    Click Element                   css:.close
+    Sleep                           2 second
+    Is Shiptos
+    Click Element                   ${delete shipto button}
+    Click Element                   css:.modal-footer > button:nth-child(1)
+    Sleep                           2 second
+    Is Shiptos
+    Click Element                   ${delete shipto button}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]      ${edit name}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]      ${edit full adress}
+    Click Element                   css:button.btn-danger:nth-child(2)
+    Element Text Should Be          css:.external-page-alert > strong:nth-child(2)                              Operation failed!
+    Click Element                   css:.modal-footer > button:nth-child(1)
+    Sleep                           1 second
+
 Edit User
+    Click Element                   css:#customer-details-tab-4
+    Sleep                           4 second
+    Is Users
     Click Element                   ${edit user button}
     Is Edit User
     Click Element                   css:.close
@@ -156,6 +181,7 @@ Checking Edit User
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[4]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[5]/div     User
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[4]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[6]/div     2048
 
+
 Delete User
     Click Element                   ${delete user button}
     Is Delete
@@ -167,26 +193,17 @@ Delete User
     Sleep                           2 second
     Is Users
     Click Element                   ${delete user button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]		${dynamic email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]		${edit first name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]		${edit last name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]		User
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[6]		2048
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]      ${dynamic email}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]      ${edit first name}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]      ${edit last name}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]      User
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[6]      2048
     Click Element                   css:button.btn-danger:nth-child(2)
     Sleep                           5 second
 
 Delete Shipto
     Click Element                   css:#customer-details-tab-3
     Sleep                           4 second
-    Is Shiptos
-    Click Element                   ${delete shipto button}
-    Is Delete
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Shiptos
-    Click Element                   ${delete shipto button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
     Is Shiptos
     Click Element                   ${delete shipto button}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]		${edit name}

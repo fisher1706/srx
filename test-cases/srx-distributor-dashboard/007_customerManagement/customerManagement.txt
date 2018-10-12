@@ -41,7 +41,7 @@ Valid Create New Customer
     Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue015
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue007
-    ${selecting type}               Get Text                    xpath://*[@id="react-select-3--value-item"]
+    ${selecting type}               Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[1]/span
     Set Global Variable             ${selecting type}
     Click Element                   css:.modal-dialog-ok-button
 
