@@ -24,9 +24,6 @@ Admin Users Menu Checking
     Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(2)     ${static code}
     Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)     Singular Billing
     Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(2)     ${static email}
-    Click Element                   css:.back-link
-    Is Distributors Page
-    Click Element                   ${static distributor}
     Click Element                   css:#distributor-details-tab-3
     Is Discounts Tab
     Click Element                   css:#distributor-details-tab-1
@@ -40,7 +37,7 @@ Invalid Add Admin User
     Is Admin Users Tab
     Click Element                   css:.text-right > button:nth-child(1)
     Is Add User
-    Input Text                      id:email_id	${incorrect email}
+    Input Text                      id:email_id             ${incorrect email}
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Click Element                   css:.close
     Sleep                           2 second
@@ -63,20 +60,20 @@ Valid Add Admin User
     Is Admin Users Tab
     Click Element                   css:.text-right > button:nth-child(1)
     Is Add User
-    Input Text                      id:email_id             ${static email}
+    Input Text                      id:email_id             dprovorov+srx@agilevision.io
     Input Text                      id:firstName_id         ${user first name}
     Input Text                      id:lastName_id          ${user last name}
     Click Element                   css:.modal-dialog-ok-button
     Is Add User
     Element Should Be Visible       css:.external-page-alert > button:nth-child(1)
     Sleep                           1 second
-    Input Text                      id:email_id             ${correct wrong email}
+    Input Text                      id:email_id             ${user email}
     Click Element                   css:.modal-dialog-ok-button
     Is Admin Users Tab
 
 Checking New User
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div       ${correct wrong email}	
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div       ${user email}	
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div       ${user first name}
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div       ${user last name}
 
@@ -102,7 +99,7 @@ Edit User
 Checking Edit Data
     [Tags]                          EditUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div       ${correct wrong email}	
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div       ${user email}	
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div       ${edit first name}
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div       ${edit last name}
 
@@ -121,7 +118,7 @@ Delete User
     Is Admin Users Tab
     Click Element                   ${delete user button}
     Is Delete User
-    Table Cell Should Contain       css:table.table:nth-child(2)        2       1       ${correct wrong email}	
+    Table Cell Should Contain       css:table.table:nth-child(2)        2       1       ${user email}	
     Table Cell Should Contain       css:table.table:nth-child(2)        2       2       ${edit first name}
     Table Cell Should Contain       css:table.table:nth-child(2)        2       3       ${edit last name}
     Click Element                   css:button.btn:nth-child(2)
@@ -173,48 +170,48 @@ Email Filter
     Sleep                           2 second
     Is Admin Users Tab
     Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${static email}
+    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
     Apply Filter
 
 First Name Filter
     [Tags]                          Filter
     Click Element                   ${filter button}
-     Input Text                     css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${user first name}
-     Apply Filter
+    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${filter first}
+    Apply Filter
 
 Second Name Filter
     [Tags]                          Filter
     Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${user last name}
+    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${filter last}
     Apply Filter
 
 Email And First Name Filter
     [Tags]                          Filter
     Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${static email}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)	                        ${user first name}
+    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
+    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)	                        ${filter first}
     Apply Filter
 
 First Name And Second Name Filter
     [Tags]                          Filter
     Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${user last name}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${user first name}
+    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${filter last}
+    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${filter first}
     Apply Filter
 
 Email And Second Name Filter
     [Tags]                          Filter
     Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${static email}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${user last name}
+    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
+    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${filter last}
     Apply Filter
 
 Email And First Name And Second Name Filter
     [Tags]                          Filter
     Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${static email}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${user first name}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)	                        ${user last name}
+    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
+    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${filter first}
+    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)	                        ${filter last}
     Apply Filter
 
 *** Keywords ***
@@ -225,16 +222,17 @@ Preparation
     Set Global Variable             ${number of new row}
     Set Global Variable             ${edit user button}     xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div/div[1]/button
     Set Global Variable             ${delete user button}   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div/div[2]/button
+    
 
 Number Of Rows
     ${number of row}                Get Element Count       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
+    Set Global Variable             ${number of row}              
 
 Apply Filter
     Click Element                   ${apply filter}
     Sleep                           3 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     ${static email}
-    Click Element                   css:.button-left-margin
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     ${filter email}
+    Click Element                   css:button.button-right-margin:nth-child(2)
 
 Is Filtering User
     Element Text Should Be          css:.modal-title                                    Filtering options

@@ -6,7 +6,7 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Variables ***
-${filter clear}                     css:.button-left-margin
+${filter clear}                     css:button.button-right-margin:nth-child(2)
 ${filter apply}                     css:button.btn:nth-child(2)
 ${filter button}                    css:.filtering-options > button:nth-child(1)
 ${dynamic row}

@@ -74,3 +74,8 @@ ${year fee}                     4320
 ${month fee}                    500
 ${edit year fee}                9000
 ${edit month fee}               1000
+${filter email}                 filter@example.com
+${filter first}                 filter first
+${filter last}                  filter last
+${user email}                   user@example.com
+${edit user email}              edituser@example.com

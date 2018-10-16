@@ -13,7 +13,7 @@ ${number of row}
 *** Test Cases ***
 Invalid Create New Product
     Click Element                   css:.btn-primary
-    Is Add Product
+    #Is Add Product
     Click Element                   css:.close
     Sleep                           2 second
     Is Catalog

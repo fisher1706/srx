@@ -1,0 +1,101 @@
+*** Settings ***
+Suite Setup                         Preparation
+Library                             SeleniumLibrary
+Resource                            ../../../resources/resource.robot
+Resource                            ../../../resources/testData.robot
+
+*** Test Cases ***
+Change Base Fees
+    ${temp text1}                   Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
+    ${temp text2}                   Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${edit year fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${edit month fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    Reload Page
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  ${temp text1}
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  ${temp text2}
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${edit year fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${edit month fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    Click Element                   css:#uncontrolled-tab-example-pane-1 > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)
+    Sleep                           5 second
+    Reload Page
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  $${edit year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  $${edit month fee}
+
+Checking Base Fees
+    Goto Settings Sub
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[2]       $${edit year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[2]       $${edit month fee} per warehouse
+    Finish Suite
+
+Return Base Fees
+    Sleep                           7 second
+    Preparation
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${year fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${month fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    Reload Page
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  $${edit year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  $${edit month fee}
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${year fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
+    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${month fee}
+    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    Click Element                   css:#uncontrolled-tab-example-pane-1 > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)
+    Sleep                           5 second
+    Reload Page
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  $${year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  $${month fee}
+
+Checking Returned Base Fees
+    Goto Settings Sub
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[2]       $${year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[2]       $${month fee} per warehouse
+    Finish Suite
+
+*** Keywords ***
+Preparation
+    Goto Fees
+
+Goto Settings Sub
+    Finish Suite
+    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
+    Set Selenium Implicit Wait                                      20 second
+    Set Selenium Timeout                                            10 second
+    Enter Correct Email Sub
+    Enter Password
+    Correct Submit Login
+    Is Warehouse Management
+    Sleep                           7 second
+    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Sleep                           2 second
+    Click Element                   id:settings-tab-pricing-calc
+    Sleep                           3 second
+
+Run Xvfb Sub
+    Start Virtual Display           1920                            1080
+    Open Browser                    https://distributor-dev.storeroomlogix.com/sign-in
+    Set Window Size                 1920                            1080
+
+Run Chrome Sub
+    Open Browser                    https://distributor-dev.storeroomlogix.com/sign-in          chrome
+    
+Run Ff Sub
+    Open Browser                    https://distributor-dev.storeroomlogix.com/sign-in          ff
+
+Enter Correct Email Sub
+    Input Text                      id:email                        srx-group+dev-distributor@agilevision.io
+
+
