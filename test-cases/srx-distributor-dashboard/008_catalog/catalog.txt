@@ -12,6 +12,7 @@ ${number of row}
 
 *** Test Cases ***
 Invalid Create New Product
+    [Tags]                          Catalog
     Click Element                   css:.btn-primary
     #Is Add Product
     Click Element                   css:.close
@@ -33,6 +34,7 @@ Invalid Create New Product
     Is Catalog
 
 Valid Create New Product
+    [Tags]                          Catalog
     Click Element                   css:.btn-primary
     Is Add Product
     Input Text                      id:partSku_id                   ${random string}
@@ -55,6 +57,7 @@ Valid Create New Product
     Click Element                   css:.modal-dialog-ok-button
 
 Checking New Product
+    [Tags]                          Catalog
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${random string}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${dynamic code}
@@ -75,6 +78,7 @@ Checking New Product
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     ${warehouse number}
 
 Edit Product
+    [Tags]                          Catalog
     Click Element                   ${edit product button}
     Is Edit Product
     Click Element                   css:.close
@@ -105,6 +109,7 @@ Edit Product
     Click Element                   css:.modal-dialog-ok-button
 
 Checking Edit Product
+    [Tags]                          Catalog
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${edit code}
@@ -125,7 +130,7 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     ${edit warehouse number}
 
 Sorting Catalog
-    [Tags]                          Sorting                 ProductSorting
+    [Tags]                          Sorting                 ProductSorting      Catalog
     ${number of row}=               Evaluate                ${number of row}+1
     :FOR    ${colomn}               IN RANGE        1       18
     \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
@@ -143,7 +148,14 @@ Sorting Catalog
 
 *** Keywords ***
 Preparation
-    Goto Catalog
+    Start Suite
+    Enter Correct Email
+    Enter Password
+    Correct Submit Login
+    Is Warehouse Management
+    Click Element               css:.sidebar-items-container > div:nth-child(2) > li:nth-child(3) > a:nth-child(1)
+    Sleep                       5 second
+    Is Catalog
     Click Element                   id:pageDropDown
     Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
     Sleep                           5 second
