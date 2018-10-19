@@ -3,60 +3,86 @@ image: atlassian/default-image:2
 pipelines:
   custom: # Pipelines that can only be triggered manually
     dev:
-      - step:
-          script:
-            - add-apt-repository ppa:nilarimogard/webupd8
-            - apt-get update
-            - apt-get -y install python-wxgtk2.8
-            - apt-get -y install xvfb x11-xkb-utils
-            - apt-get -y install firefox xvfb
-            - curl -O https://bootstrap.pypa.io/get-pip.py
-            - python get-pip.py
-            - pip install robotframework
-            - pip install robotframework-xvfb
-            - pip install selenium
-            - pip install robotframework-selenium2library
-            - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
-            - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
-            - chmod +x geckodriver
-            - mv geckodriver /usr/local/bin/
       - parallel:
         - step:
             script:
+              - add-apt-repository ppa:nilarimogard/webupd8
+              - apt-get update
+              - apt-get -y install python-wxgtk2.8
+              - apt-get -y install xvfb x11-xkb-utils
+              - apt-get -y install firefox xvfb
+              - curl -O https://bootstrap.pypa.io/get-pip.py
+              - python get-pip.py
+              - pip install robotframework
+              - pip install robotframework-xvfb
+              - pip install selenium
+              - pip install robotframework-selenium2library
+              - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
+              - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
+              - chmod +x geckodriver
+              - mv geckodriver /usr/local/bin/
               - pybot -v email:srx-group+dev@agilevision.io -v password:srx-group -v HOST:admin-dev.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
             artifacts:
               - test-results/**
         - step:
             script:
+              - add-apt-repository ppa:nilarimogard/webupd8
+              - apt-get update
+              - apt-get -y install python-wxgtk2.8
+              - apt-get -y install xvfb x11-xkb-utils
+              - apt-get -y install firefox xvfb
+              - curl -O https://bootstrap.pypa.io/get-pip.py
+              - python get-pip.py
+              - pip install robotframework
+              - pip install robotframework-xvfb
+              - pip install selenium
+              - pip install robotframework-selenium2library
+              - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
+              - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
+              - chmod +x geckodriver
+              - mv geckodriver /usr/local/bin/
               - pybot -v email:srx-group+dev-distributor@agilevision.io -v password:srx-group -v HOST:distributor-dev.storeroomlogix.com -v browser:xvfb -e ChromeOnly -e Catalog test-cases/srx-distributor-dashboard
             artifacts:
               - test-results/**
     staging:
-      - step:
-          script:
-            - add-apt-repository ppa:nilarimogard/webupd8
-            - apt-get update
-            - apt-get -y install python-wxgtk2.8
-            - apt-get -y install xvfb x11-xkb-utils
-            - apt-get -y install firefox xvfb
-            - curl -O https://bootstrap.pypa.io/get-pip.py
-            - python get-pip.py
-            - pip install robotframework
-            - pip install robotframework-xvfb
-            - pip install selenium
-            - pip install robotframework-selenium2library
-            - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
-            - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
-            - chmod +x geckodriver
-            - mv geckodriver /usr/local/bin/
       - parallel:
         - step:
             script:
+              - add-apt-repository ppa:nilarimogard/webupd8
+              - apt-get update
+              - apt-get -y install python-wxgtk2.8
+              - apt-get -y install xvfb x11-xkb-utils
+              - apt-get -y install firefox xvfb
+              - curl -O https://bootstrap.pypa.io/get-pip.py
+              - python get-pip.py
+              - pip install robotframework
+              - pip install robotframework-xvfb
+              - pip install selenium
+              - pip install robotframework-selenium2library
+              - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
+              - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
+              - chmod +x geckodriver
+              - mv geckodriver /usr/local/bin/
               - pybot -v email:srx-group+staging@agilevision.io -v password:srx-group -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
             artifacts:
               - test-results/**
         - step:
             script:
+              - add-apt-repository ppa:nilarimogard/webupd8
+              - apt-get update
+              - apt-get -y install python-wxgtk2.8
+              - apt-get -y install xvfb x11-xkb-utils
+              - apt-get -y install firefox xvfb
+              - curl -O https://bootstrap.pypa.io/get-pip.py
+              - python get-pip.py
+              - pip install robotframework
+              - pip install robotframework-xvfb
+              - pip install selenium
+              - pip install robotframework-selenium2library
+              - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
+              - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
+              - chmod +x geckodriver
+              - mv geckodriver /usr/local/bin/
               - pybot -v email:srx-group+staging-distributor@agilevision.io -v password:srx-group -v HOST:distributor-staging.storeroomlogix.com -v browser:xvfb -e ChromeOnly -e Catalog test-cases/srx-distributor-dashboard
             artifacts:
               - test-results/**
