@@ -60,14 +60,17 @@ Integrations
     Is Integrations
     Click Element                   css:#settings-pane-integrations > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:.rdt > input:nth-child(1)
-    Click Element                   css:td.rdtOld:nth-child(1)
+    Click Element                   css:.rdt > input:nth-child(1)
+    Click Element                   css:.rdtPrev
+    Click Element                   css:.rdtOld
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   css:.close
     Sleep                           2 second
     Is Integrations
     Click Element                   css:#settings-pane-integrations > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:.rdt > input:nth-child(1)
-    Click Element                   css:.rdtDays > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(7)
+    Click Element                   css:.rdt > input:nth-child(1)
+    Click Element                   css:td.rdtNew:nth-child(7)
     Input Text                      id:description_id               ${keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
