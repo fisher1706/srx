@@ -59,19 +59,15 @@ Integrations
     Sleep                           2 second
     Is Integrations
     Click Element                   css:#settings-pane-integrations > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
-    Click Element                   css:.rdt > input:nth-child(1)
-    Click Element                   css:.rdt > input:nth-child(1)
-    Click Element                   css:.rdtPrev
-    Click Element                   css:.rdtOld
+    Input Text                      css:.rdt > input:nth-child(1)               10/18/2018, 12:00 AM
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   css:.close
     Sleep                           2 second
     Is Integrations
     Click Element                   css:#settings-pane-integrations > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
-    Click Element                   css:.rdt > input:nth-child(1)
-    Click Element                   css:.rdt > input:nth-child(1)
-    Click Element                   css:td.rdtNew:nth-child(7)
-    Input Text                      id:description_id               ${keyword}
+    Clear Element Text              css:.rdt > input:nth-child(1)
+    Input Text                      css:.rdt > input:nth-child(1)               7/18/2020, 12:00 A
+    Input Text                      id:description_id                           ${keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
     Is Integrations
@@ -79,9 +75,6 @@ Integrations
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[5]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[5]/div/div/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]           ${keyword}
     Click Element                   css:button.btn-danger:nth-child(2)
-    ${number of row}                Get Element Count       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[5]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Run Keyword If                  ${number of row}==1     Fail    Fail    ELSE    Pass Execution      Pass
-    Sleep                           3 second
 
 Pricing Information
     [Tags]                          PricingInformation
