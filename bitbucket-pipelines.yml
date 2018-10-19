@@ -22,14 +22,14 @@ pipelines:
             - mv geckodriver /usr/local/bin/
       - parallel:
         - step:
-          - script:
+            script:
               - pybot -v email:srx-group+dev@agilevision.io -v password:srx-group -v HOST:admin-dev.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
-          - artifacts:
+            artifacts:
               - test-results/**
         - step:
-          - script:
+            script:
               - pybot -v email:srx-group+dev-distributor@agilevision.io -v password:srx-group -v HOST:distributor-dev.storeroomlogix.com -v browser:xvfb -e ChromeOnly -e Catalog test-cases/srx-distributor-dashboard
-          - artifacts:
+            artifacts:
               - test-results/**
     staging:
       - step:
@@ -51,12 +51,12 @@ pipelines:
             - mv geckodriver /usr/local/bin/
       - parallel:
         - step:
-          - script:
+            script:
               - pybot -v email:srx-group+staging@agilevision.io -v password:srx-group -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
-          - artifacts:
+            artifacts:
               - test-results/**
         - step:
-          - script:
+            script:
               - pybot -v email:srx-group+staging-distributor@agilevision.io -v password:srx-group -v HOST:distributor-staging.storeroomlogix.com -v browser:xvfb -e ChromeOnly -e Catalog test-cases/srx-distributor-dashboard
-          - artifacts:
+            artifacts:
               - test-results/**
