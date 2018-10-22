@@ -9,7 +9,6 @@ ${Y}                            1080
 ${correct wrong email}          example@example.com
 ${incorrect email}              example.agilevision.io
 ${element login button}         css:.btn
-${static distributor}           css:.table-striped > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(1) > a:nth-child(1)
 
 *** Keywords ***
 Login In Distributor Portal
