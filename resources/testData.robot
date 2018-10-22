@@ -79,3 +79,9 @@ ${filter first}                 filter first
 ${filter last}                  filter last
 ${user email}                   user@example.com
 ${edit user email}              edituser@example.com
+${admin email}                  admin@example.com
+${admin edit email}             edit.admin@example.com
+${admin first}                  admin first
+${admin last}                   admin last
+${edit admin first}             edit admin first
+${edit admin last}              edit admin last
