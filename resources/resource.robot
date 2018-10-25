@@ -27,7 +27,7 @@ Goto Customer Menu
 Goto Settings
     Login In Distributor Portal
     Sleep                           5 second
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(8) > a:nth-child(1)
     Sleep                           3 second
 
 Goto Usage History
@@ -50,7 +50,7 @@ Goto Transaction Log
 
 Goto Locations
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(5) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(6) > a:nth-child(1)
     Sleep                           5 second
     Is Locations
 
