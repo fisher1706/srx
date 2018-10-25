@@ -143,6 +143,26 @@ Delete Location
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           7 second
 
+Prepare to sorting
+    [Tags]                          Preparation to sorting
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[4]/a
+    Sleep                           3 seconds
+    Click Element                   id=pageDropDown
+    Sleep                           1 second
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/span/ul/li[4]/a
+    Sleep                           4 seconds
+    ${numbers}                      Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    Sleep                           3 seconds                                    
+    Set Global Variable             ${numbers}
+
+Sorting
+    [Tags]                          Sorting
+    Set Global Variable             ${count}                 2
+    :FOR    ${var}                  IN                       @{SORTINGTYPES}
+    \       Make sorting            ${var}                   ${count}
+    \       ${count}=               Evaluate                 ${count}+1
+    \       Run Keyword If          ${count} == 12           Skip field
+
 *** Keywords ***
 Preparation
     Goto Locations
@@ -160,3 +180,20 @@ Is Delete Location
 Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row}
+
+Make sorting
+    [Arguments]                     ${field}                   ${rownum}
+    Click Element                   ${field}
+    Sleep                           3 seconds
+    ${firstField}                   Get Text                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${rownum}]
+    Sleep                           2 seconds
+    Click Element                   ${field}
+    Sleep                           2 seconds
+    ${lastField}                    Get Text                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[${rownum}]
+    Should Be Equal                 ${firstField}              ${lastField}
+    Sleep                           1 second
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/button
+    Sleep                           2 seconds
+
+Skip field
+      Set Global Variable           ${count}                   13
