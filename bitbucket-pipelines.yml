@@ -3,8 +3,7 @@ image: atlassian/default-image:2
 pipelines:
   custom: # Pipelines that can only be triggered manually
     dev:
-      - parallel:
-        - step:
+        - admin:
             script:
               - add-apt-repository ppa:nilarimogard/webupd8
               - apt-get update
@@ -24,7 +23,7 @@ pipelines:
               - pybot -v email:srx-group+dev@agilevision.io -v password:srx-group -v HOST:admin-dev.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
             artifacts:
               - test-results/**
-        - step:
+        - distributor:
             script:
               - add-apt-repository ppa:nilarimogard/webupd8
               - apt-get update
@@ -45,8 +44,7 @@ pipelines:
             artifacts:
               - test-results/**
     staging:
-      - parallel:
-        - step:
+        - admin:
             script:
               - add-apt-repository ppa:nilarimogard/webupd8
               - apt-get update
@@ -66,7 +64,7 @@ pipelines:
               - pybot -v email:srx-group+staging@agilevision.io -v password:srx-group -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
             artifacts:
               - test-results/**
-        - step:
+        - distributor:
             script:
               - add-apt-repository ppa:nilarimogard/webupd8
               - apt-get update
