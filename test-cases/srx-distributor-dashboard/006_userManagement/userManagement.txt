@@ -125,14 +125,23 @@ Sorting Users By Last Name
     Should Be Equal                 ${text buffer1}             ${text buffer2}
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[3]
     
+Sorting By Role
+    [Tags]                          Sorting                     UserSorting
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
+    ${text buffer1}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
+    ${text buffer2}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div
+    Should Be Equal                 ${text buffer1}             ${text buffer2}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
+    
 *** Keywords ***
 Preparation
     Goto User Managemant
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit user button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div/div[1]/button
-    Set Global Variable             ${delete user button}       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div/div[2]/button
+    Set Global Variable             ${edit user button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div/div[1]/button
+    Set Global Variable             ${delete user button}       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
 
 Is Add New User
     Element Text Should Be          css:.modal-title            Add user
