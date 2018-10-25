@@ -182,18 +182,18 @@ Number Of Rows
     Set Global Variable             ${number of row}
 
 Make sorting
-    [Arguments]                     ${field}                   ${rownum}
+    [Arguments]                     ${field}                    ${rownum}
     Click Element                   ${field}
     Sleep                           3 seconds
-    ${firstField}                   Get Text                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${rownum}]
+    ${firstField}                   Get Text                    xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${rownum}]
     Sleep                           2 seconds
     Click Element                   ${field}
     Sleep                           2 seconds
-    ${lastField}                    Get Text                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[${rownum}]
-    Should Be Equal                 ${firstField}              ${lastField}
+    ${lastField}                    Get Text                    xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[${rownum}]
+    Should Be Equal                 ${firstField}               ${lastField}
     Sleep                           1 second
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/button
     Sleep                           2 seconds
 
 Skip field
-      Set Global Variable           ${count}                   13
+      Set Global Variable           ${count}                    13
