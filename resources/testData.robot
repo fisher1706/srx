@@ -85,3 +85,7 @@ ${admin first}                  admin first
 ${admin last}                   admin last
 ${edit admin first}             edit admin first
 ${edit admin last}              edit admin last
+${market type}                  auto-market
+${edit market type}             edit-auto-market
+${market del type}              auto-market-del
+${edit market del type}         edit-auto-market-del
