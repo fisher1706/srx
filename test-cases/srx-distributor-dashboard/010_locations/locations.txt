@@ -96,7 +96,7 @@ Edit Location
     Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
     Sleep                           1 second
     Click Element                   css:.btn-lg
-    Sleep                           9 second
+    Sleep                           5 second
     Reload Page
 
 Checking Edit Location
@@ -115,8 +115,34 @@ Checking Edit Location
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[14]/div      30
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[15]/div      40
 
+Delete Button With DSN
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]
+    Input Text                      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            DSN
+    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
+    Sleep                           1 second
+    Click Element                   css:.btn-lg
+    Sleep                           2 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div[2]/div[2]/div/strong                                                        Operation failed!
+    Reload Page
+    Sleep                           5 second
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]
+    Input Text                      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            123
+    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
+    Sleep                           1 second
+    Click Element                   css:.btn-lg
+    Sleep                           5 second
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]    
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[2]/div/div[3]
+    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[1]/span[1]/div[2]     \ue004
+    Click Element                   css:.btn-lg
+    Sleep                           5 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div[2]/div[2]/div/strong                                                        Operation failed!
+    Reload Page
+    Sleep                           5 second
 
 Delete Location
+    [Tags]                          DeleteLocation
     Click Element                   ${check location}
     Click Element                   css:.btn-danger
     Is Delete Location
@@ -144,7 +170,7 @@ Delete Location
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[13]         30
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[14]         40
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           7 second
+    Sleep                           5 second
 
 *** Keywords ***
 Preparation

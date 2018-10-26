@@ -170,6 +170,3 @@ Go Up
     ${text buffer sub}              Get Text                                    xpath://*[@id="react-select-3--value-item"]
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="Not specified"       Go Down
-
-
-
