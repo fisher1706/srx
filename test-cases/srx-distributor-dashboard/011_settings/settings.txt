@@ -230,7 +230,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${dynamic email}"  Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${test number}"    Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(8) > a:nth-child(1)
     Sleep                           3 second
     Goto Distributor Contact Info
     Sleep                           1 second
@@ -277,7 +277,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${edit email}"         Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${edit test number}"   Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(8) > a:nth-child(1)
     Sleep                           3 second
 
 Cost Saving
@@ -336,7 +336,7 @@ Cost Saving
     Run Keyword If                  "${value}"=="${test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(8) > a:nth-child(1)
     Sleep                           3 second
     Goto Cost Saving
     Sleep                           1 second
@@ -392,7 +392,7 @@ Cost Saving
     Run Keyword If                  "${value}"=="${edit test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${edit test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(8) > a:nth-child(1)
     Sleep                           3 second
 
 *** Keywords ***

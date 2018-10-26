@@ -84,6 +84,12 @@ Goto Customer Types
     Sleep                           5 second
     Is Customer Types
 
+Goto Market Types
+    Login In Admin Portal
+    Click Element                   css:li.sidebar-item:nth-child(5) > a:nth-child(1)
+    Sleep                           5 second
+    Is Market Types
+
 Goto Admin Users
     Login In Admin Portal
     Sleep                           7 second
@@ -133,6 +139,9 @@ Finish Suite
 
 Is Customer Types
     Element Text Should Be          css:.customer-types-management-header > h1:nth-child(1)     Customer Types Management
+
+Is Market Types
+    Element Text Should Be          css:.market-types-management-header > h1:nth-child(1)       Market Types Management
 
 Is Login Page
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[4]/label      Password
