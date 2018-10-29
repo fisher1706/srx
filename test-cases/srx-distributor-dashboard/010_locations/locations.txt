@@ -77,9 +77,10 @@ Checking New Location
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[9]/div       ${level 4}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[10]/div      ${sub 4}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div      ${dynamic sku}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[12]/div      BUTTON
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div      30
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[14]/div      40
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[12]/div      1138
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div      BUTTON
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[14]/div      30
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[15]/div      40
 
 Edit Location
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]
@@ -95,7 +96,7 @@ Edit Location
     Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
     Sleep                           1 second
     Click Element                   css:.btn-lg
-    Sleep                           9 second
+    Sleep                           5 second
     Reload Page
 
 Checking Edit Location
@@ -109,12 +110,39 @@ Checking Edit Location
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[9]/div       ${level 4}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[10]/div      ${sub 4}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div      ${edit sku}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[12]/div      BUTTON
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div      30
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[14]/div      40
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[12]/div      1138
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div      BUTTON
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[14]/div      30
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[15]/div      40
 
+Delete Button With DSN
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]
+    Input Text                      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            DSN
+    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
+    Sleep                           1 second
+    Click Element                   css:.btn-lg
+    Sleep                           2 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div[2]/div[2]/div/strong                                                        Operation failed!
+    Reload Page
+    Sleep                           5 second
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]
+    Input Text                      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            123
+    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
+    Sleep                           1 second
+    Click Element                   css:.btn-lg
+    Sleep                           5 second
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]    
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[2]/div/div[3]
+    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[1]/span[1]/div[2]     \ue004
+    Click Element                   css:.btn-lg
+    Sleep                           5 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div[2]/div[2]/div/strong                                                        Operation failed!
+    Reload Page
+    Sleep                           5 second
 
 Delete Location
+    [Tags]                          DeleteLocation
     Click Element                   ${check location}
     Click Element                   css:.btn-danger
     Is Delete Location
@@ -137,31 +165,12 @@ Delete Location
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[8]          ${level 4}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[9]          ${sub 4}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[10]         ${edit sku}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[11]         BUTTON
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[12]         30
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[13]         40
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[11]         1138
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[12]         BUTTON
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[13]         30
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[14]         40
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           7 second
-
-Prepare to sorting
-    [Tags]                          Preparation to sorting
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[4]/a
-    Sleep                           3 seconds
-    Click Element                   id=pageDropDown
-    Sleep                           1 second
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/span/ul/li[4]/a
-    Sleep                           4 seconds
-    ${numbers}                      Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Sleep                           3 seconds                                    
-    Set Global Variable             ${numbers}
-
-Sorting
-    [Tags]                          Sorting
-    Set Global Variable             ${count}                 2
-    :FOR    ${var}                  IN                       @{SORTINGTYPES}
-    \       Make sorting            ${var}                   ${count}
-    \       ${count}=               Evaluate                 ${count}+1
-    \       Run Keyword If          ${count} == 12           Skip field
+    Sleep                           5 second
 
 *** Keywords ***
 Preparation
@@ -180,20 +189,3 @@ Is Delete Location
 Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row}
-
-Make sorting
-    [Arguments]                     ${field}                    ${rownum}
-    Click Element                   ${field}
-    Sleep                           3 seconds
-    ${firstField}                   Get Text                    xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${rownum}]
-    Sleep                           2 seconds
-    Click Element                   ${field}
-    Sleep                           2 seconds
-    ${lastField}                    Get Text                    xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[${rownum}]
-    Should Be Equal                 ${firstField}               ${lastField}
-    Sleep                           1 second
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/button
-    Sleep                           2 seconds
-
-Skip field
-      Set Global Variable           ${count}                    13
