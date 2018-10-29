@@ -168,8 +168,8 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit warehouse button}        xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[7]/div/div[1]/button
-    Set Global Variable             ${delete warehouse button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[7]/div/div[2]/button
+    Set Global Variable             ${edit warehouse button}        xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[8]/div/div[1]/button
+    Set Global Variable             ${delete warehouse button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[8]/div/div[2]/button
 
 Number Of Rows
     ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
