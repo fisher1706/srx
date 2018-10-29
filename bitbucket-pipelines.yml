@@ -15,6 +15,8 @@ pipelines:
             - pip install robotframework
             - pip install robotframework-xvfb
             - pip install selenium
+            - pip install -U requests
+            - pip install -U robotframework-requests
             - pip install robotframework-selenium2library
             - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
             - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
@@ -35,6 +37,8 @@ pipelines:
             - pip install robotframework
             - pip install robotframework-xvfb
             - pip install selenium
+            - pip install -U requests
+            - pip install -U robotframework-requests
             - pip install robotframework-selenium2library
             - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
             - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
@@ -56,6 +60,8 @@ pipelines:
             - pip install robotframework
             - pip install robotframework-xvfb
             - pip install selenium
+            - pip install -U requests
+            - pip install -U robotframework-requests
             - pip install robotframework-selenium2library
             - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
             - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
@@ -76,6 +82,8 @@ pipelines:
             - pip install robotframework
             - pip install robotframework-xvfb
             - pip install selenium
+            - pip install -U requests
+            - pip install -U robotframework-requests
             - pip install robotframework-selenium2library
             - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux32.tar.gz
             - tar -xvzf geckodriver-v0.23.0-linux32.tar.gz
