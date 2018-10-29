@@ -55,7 +55,7 @@ Goto Transaction Log
 
 Goto Locations
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(6) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
     Sleep                           5 second
     Is Locations
 
