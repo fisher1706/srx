@@ -8,7 +8,6 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Invalid Create New Security Group
     Click Element                   css:.btn-primary
-    Sleep                           2 second
     Is Create Security Group
     Element Should Be Disabled      css:.control-button
     Press Key                       id:name_id                 \ue004
@@ -16,7 +15,6 @@ Invalid Create New Security Group
     Click Element                   css:.back-link
     Is Security Groups
     Click Element                   css:.btn-primary
-    Sleep                           2 second
     Is Create Security Group
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div/div/form/table/tbody/tr[1]/td[1]/input
     Element Should Be Disabled      css:.control-button
@@ -27,23 +25,63 @@ Invalid Create New Security Group
     Click Element                   css:.back-link
     Is Security Groups
 
+Valid Create New Customer
+    Click Element                   css:.btn-primary
+    Is Create Security Group
+    Input Text                      id:name_id                  ${security group}
+    Click Element                   css:.control-button
+
+Checking New Security Group
+    Sleep                           5 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${security group}
+
+Edit Customer
+    Click Element                   ${edit group button}
+    Is Edit Security Group
+    Click Element                   css:.back-link
+    Is Security Groups
+    Click Element                   ${edit group button}
+    Is Edit Security Group
+    Input Text                      id:name_id                  ${edit security group}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div/div/form/table/tbody/tr[1]/td[1]/input
+    Click Element                   css:.control-button
+    
+Checking Edit Security Group
+    Sleep                           5 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${edit security group}
+
+Delete Customer
+    Click Element                   ${delete group button}
+    Is Delete Customer
+    Click Element                   css:.close
+    Sleep                           2 second
+    Is Customer Management
+    Click Element                   ${delete group button}
+    Click Element                   css:.modal-footer > button:nth-child(1)
+    Sleep                           2 second
+    Is Customer Management
+    Click Element                   ${delete group button}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td     ${edit security group}
+    Click Element                   css:button.btn:nth-child(2)
+    Sleep                           7 second
+
 *** Keywords ***
 Preparation
     Goto Security Groups
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit customer button}     xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
-    Set Global Variable             ${delete customer button}   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
+    Set Global Variable             ${edit group button}        xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
+    Set Global Variable             ${delete group button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
 
 Is Create Security Group
     Element Text Should Be          css:.security-groups-create-update-header > h1:nth-child(1)            Create security group
 
-Is Edit User
-    Element Text Should Be          css:.modal-title            Edit user
+Is Edit Security Group
+    Element Text Should Be          css:.security-groups-create-update-header > h1:nth-child(1)            Edit security group
 
 Is Delete User
-    Element Text Should Be          css:.modal-title            Removal Confirmation
+    Element Text Should Be          css:.security-groups-create-update-header > h1:nth-child(1)            Removal Confirmation
 
 Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
