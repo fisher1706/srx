@@ -24,6 +24,11 @@ Goto Customer Menu
     Number Of Static Row C
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
 
+Goto Security Groups
+    Login In Distributor Portal
+    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1) > span:nth-child(2) > span:nth-child(1)
+    Sleep                           5 second
+
 Goto Settings
     Login In Distributor Portal
     Sleep                           5 second
@@ -136,6 +141,9 @@ Run Ff
 
 Finish Suite
     Close All Browsers
+
+Is Security Groups
+    Element Text Should Be          css:.security-groups-management-header > h1:nth-child(1)    Security Groups
 
 Is Customer Types
     Element Text Should Be          css:.customer-types-management-header > h1:nth-child(1)     Customer Types Management

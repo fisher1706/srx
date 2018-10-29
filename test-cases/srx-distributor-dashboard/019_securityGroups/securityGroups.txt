@@ -1,0 +1,50 @@
+*** Settings ***
+Suite Setup                         Preparation
+#Suite Teardown                      Finish Suite
+Library                             SeleniumLibrary
+Resource                            ../../../resources/resource.robot
+Resource                            ../../../resources/testData.robot
+
+*** Test Cases ***
+Invalid Create New Security Group
+    Click Element                   css:.btn-primary
+    Sleep                           2 second
+    Is Create Security Group
+    Element Should Be Disabled      css:.control-button
+    Press Key                       id:name_id                 \ue004
+    Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1) 
+    Click Element                   css:.back-link
+    Is Security Groups
+    Click Element                   css:.btn-primary
+    Sleep                           2 second
+    Is Create Security Group
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div/div/form/table/tbody/tr[1]/td[1]/input
+    Element Should Be Disabled      css:.control-button
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div/div/form/table/tbody/tr[2]/td[1]/input
+    Element Should Be Disabled      css:.control-button
+    Input Text                      id:name_id                  ${security group}
+    Element Should Be Enabled       css:.control-button
+    Click Element                   css:.back-link
+    Is Security Groups
+
+*** Keywords ***
+Preparation
+    Goto Security Groups
+    Number Of Rows
+    ${number of new row}=           Evaluate                    ${number of row}+1
+    Set Global Variable             ${number of new row}
+    Set Global Variable             ${edit customer button}     xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
+    Set Global Variable             ${delete customer button}   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
+
+Is Create Security Group
+    Element Text Should Be          css:.security-groups-create-update-header > h1:nth-child(1)            Create security group
+
+Is Edit User
+    Element Text Should Be          css:.modal-title            Edit user
+
+Is Delete User
+    Element Text Should Be          css:.modal-title            Removal Confirmation
+
+Number Of Rows
+    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    Set Global Variable             ${number of row}
