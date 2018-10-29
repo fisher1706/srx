@@ -83,6 +83,10 @@ Preparation
     Set Global Variable             ${number of new row}
     Set Global Variable             ${edit button}                  xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div/div[1]/button
     Set Global Variable             ${delete button}                xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div/div[2]/button
+    ${SUB HOST}                     Return Sub Link
+    Set Global Variable             ${SUB HOST}
+    ${SUB EMAIL}                    Return Sub Email
+    Set Global Variable             ${SUB EMAIL}
 
 Is Add Customer Type
     Element Text Should Be          css:.modal-title                Add customer type
@@ -106,20 +110,6 @@ Number Of Static Row Sub
     \   ${text buffer1 c sub}       Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter c sub}]/td[1]/a
     \   Exit For Loop If            "Customer Z"=="${text buffer1 c sub}"
     Set Global Variable             ${static row c}     ${counter c sub}
-
-Run Xvfb Sub
-    Start Virtual Display           1920                            1080
-    Open Browser                    https://distributor-dev.storeroomlogix.com/sign-in
-    Set Window Size                 1920                            1080
-
-Run Chrome Sub
-    Open Browser                    https://distributor-dev.storeroomlogix.com/sign-in          chrome
-    
-Run Ff Sub
-    Open Browser                    https://distributor-dev.storeroomlogix.com/sign-in          ff
-
-Enter Correct Email Sub
-    Input Text                      id:email                        srx-group+dev-distributor@agilevision.io
 
 Go Down
     Click Element                   css:.Select-control

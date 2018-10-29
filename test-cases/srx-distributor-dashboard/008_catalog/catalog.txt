@@ -14,7 +14,7 @@ ${number of row}
 Invalid Create New Product
     [Tags]                          Catalog
     Click Element                   css:.btn-primary
-    #Is Add Product
+    Is Add Product
     Click Element                   css:.close
     Sleep                           2 second
     Is Catalog
@@ -131,7 +131,7 @@ Checking Edit Product
 
 Sorting Catalog
     [Tags]                          Sorting                 ProductSorting      Catalog
-    ${number of row}=               Evaluate                ${number of row}+1
+    Number Of Rows
     :FOR    ${colomn}               IN RANGE        1       18
     \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
     \   ${text buffer1}             Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${colomn}]/div

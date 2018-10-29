@@ -42,6 +42,10 @@ Second Check Document Status In Settings
 *** Keywords ***
 Preparation
     Goto Settings
+    ${SUB HOST}                     Return Sub Link
+    Set Global Variable             ${SUB HOST}
+    ${SUB EMAIL}                    Return Sub Email
+    Set Global Variable             ${SUB EMAIL}
 
 Goto Documents
     Click Element                   id:settings-tab-documents
@@ -69,20 +73,6 @@ Goto Documents Sub
     Sleep                           7 second
     Click Element                   css:li.sidebar-item:nth-child(3) > a:nth-child(1)
     Sleep                           3 second
-
-Run Xvfb Sub
-    Start Virtual Display           1920                            1080
-    Open Browser                    https://admin-dev.storeroomlogix.com/sign-in
-    Set Window Size                 1920                            1080
-
-Run Chrome Sub
-    Open Browser                    https://admin-dev.storeroomlogix.com/sign-in          chrome
-
-Run Ff Sub
-    Open Browser                    https://admin-dev.storeroomlogix.com/sign-in          ff
-
-Enter Correct Email Sub
-    Input Text                      id:email                        srx-group+dev@agilevision.io
 
 Number Of Rows
     ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
