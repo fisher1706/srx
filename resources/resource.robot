@@ -27,7 +27,7 @@ Goto Customer Menu
 Goto Settings
     Login In Distributor Portal
     Sleep                           5 second
-    Click Element                   css:li.sidebar-item:nth-child(8) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
     Sleep                           3 second
 
 Goto Usage History
