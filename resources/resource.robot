@@ -18,6 +18,13 @@ Login In Distributor Portal
     Correct Submit Login
     Is Warehouse Management
 
+Login In Customer Portal
+    Start Suite
+    Enter Correct Email
+    Enter Password
+    Correct Submit Login
+    Is Select A Shipto
+
 Goto Customer Menu
     Goto Customer Management
     Number Of Rows C
@@ -26,72 +33,72 @@ Goto Customer Menu
 
 Goto Security Groups
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1) > span:nth-child(2) > span:nth-child(1)
+    Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
 
 Goto Settings
     Login In Distributor Portal
     Sleep                           5 second
-    Click Element                   css:li.sidebar-item:nth-child(12) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/settings"]
     Sleep                           3 second
 
 Goto Usage History
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(5) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/usage-history"]
     Sleep                           5 second
     Is Usage History
 
 Goto Transactions
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(6) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/transactions"]
     Sleep                           5 second
     Is Transactions
 
 Goto Transaction Log
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/transaction-log"]
     Sleep                           5 second
     Is Transaction Log
 
 Goto Locations
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/locations"]
     Sleep                           5 second
     Is Locations
 
 Goto Customer Management
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(3) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customers"]
     Sleep                           5 second
     Is Customer Management
 
 Goto User Managemant
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(1) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/users"]
     Sleep                           5 second
     Is User Management
 
 Goto Fees
     Login In Admin Portal
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/fees"]
     Sleep                           5 second
     Is Fees Managemant
 
 Goto Catalog
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/catalog"]
     Sleep                           5 second
     Is Catalog
 
 Goto Customer Types
     Login In Admin Portal
-    Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customer-types"]
     Sleep                           5 second
     Is Customer Types
 
 Goto Market Types
     Login In Admin Portal
-    Click Element                   css:li.sidebar-item:nth-child(5) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/market-types"]
     Sleep                           5 second
     Is Market Types
 
@@ -122,7 +129,7 @@ Correct Submit Login
     Click Element                   ${element login button}
 
 Sign Out
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/sign-out"]
 
 Start Suite
     Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb    ELSE IF     "${browser}"=="chrome"      Run Chrome  ELSE    Run Ff
@@ -141,6 +148,12 @@ Run Ff
 
 Finish Suite
     Close All Browsers
+
+Is Customer Portal
+    Element Text Should Be          xpath:/html/body/div/div/div/div[1]/div/div/div/div[2]/p[2]     ${email}
+
+Is Select A Shipto
+    Element Text Should Be          css:.ship-to-select-label                                   Select a ship-to record
 
 Is Security Groups
     Element Text Should Be          css:.security-groups-management-header > h1:nth-child(1)    Security Groups
@@ -240,6 +253,18 @@ Return Sub Email
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev@agilevision.io
     Return From Keyword If          "${HOST}"=="admin-staging.storeroomlogix.com"           srx-group+staging-distributor@agilevision.io
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging@agilevision.io
+
+Return CSub Link
+    Return From Keyword If          "${HOST}"=="customer-dev.storeroomlogix.com"            distributor-dev.storeroomlogix.com
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         customer-dev.storeroomlogix.com
+    Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        distributor-staging.storeroomlogix.com
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     customer-staging.storeroomlogix.com
+    
+Return CSub Email
+    Return From Keyword If          "${HOST}"=="customer-dev.storeroomlogix.com"            srx-group+dev-distributor@agilevision.io
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-customer@agilevision.io
+    Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        srx-group+staging-distributor@agilevision.io
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-customer@agilevision.io
 
 Run Xvfb Sub
     Start Virtual Display           1920                            1080

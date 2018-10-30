@@ -128,6 +128,7 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[15]/div     ${edit test number}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div     ${edit keyword}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     ${edit warehouse number}
+    Set Global Variable             ${number of row}        ${number of new row}
 
 Sorting Catalog
     [Tags]                          Sorting                 ProductSorting      Catalog
