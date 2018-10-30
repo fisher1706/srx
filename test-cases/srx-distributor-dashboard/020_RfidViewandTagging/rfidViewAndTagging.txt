@@ -62,7 +62,7 @@ Adding two Rfid View and tagging
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[8]/a
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
-    :FOR       ${var}      IN RANGE            1   3
+    :FOR       ${var}      IN RANGE            1   4
     \    Click Element              xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/button
     \    ${buffer}=                 Generate Random String      18      [LETTERS]
     \    ${random string}=          Convert To Uppercase        ${buffer}
@@ -74,7 +74,6 @@ Adding two Rfid View and tagging
     \    Element Text Should Be     xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[4]/div[4]          OHI:${ohiCount}
     \    ${rfidCount}               Evaluate                ${rfidCount}+1
     Set Global Variable             ${ohiCount}
-    Set Global Variable             ${random string}
     Set Global Variable             ${rfidCount}
 
 Prepare to sorting
@@ -98,19 +97,14 @@ Sorting
 
 Post Request 
     [Tags]                          Post Request
-    Create Session                  httpbin                  https://api-dev.storeroomlogix.com/api/distributor/events/rfid     verify=true
-    &{headers}=                     Create Dictionary        Content-Type=application/json                                      ApiKey=${APIKEY}
-    Create File                     rfidJSON                 content=[{"rfidId": "${random string}", "state": "issued"}]
-    ${TextFileContent}=             Get File                 rfidJSON
-    ${resp}=                        Post Request             httpbin    /      data=${TextFileContent}    headers=${headers}
-    Should Be Equal As Strings      ${resp.status_code}      200
-    Sleep                           2 seconds
-    ${IssuedRFIDS}                  Evaluate                 ${IssuedRFIDS}+1
-    Set Global Variable             ${IssuedRFIDS}
+    ${RFIDnumberOne}                Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
+    ${RFIDnumberTwo}                Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[1]
+    Post Requests                   ${RFIDnumberOne}
+    Post Requests                   ${RFIDnumberTwo}
 
 Check OHI at this location
     [Tags]                          Check OHI at all pages
-    ${ohiCount}=                    Evaluate                 ${ohiCount}-5
+    ${ohiCount}=                    Evaluate                 ${ohiCount}-10
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
     Sleep                           3 seconds
     ${ohiLocPageValue}              Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[17]
@@ -161,6 +155,16 @@ Delete new location
     Sleep                           2 seconds
     ${numbers}=                     Evaluate                ${numbers}-1
     Set Global Variable             ${numbers}
+
+Open Transaction page
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[6]/a
+    Sleep                           3 seconds
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Sleep                           4 seconds
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Sleep                           4 seconds
+    ${lastTransaction}              Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
+    Should Be Equal As Strings      ${lastTransaction}      10
 
 *** Keywords ***
 
@@ -294,6 +298,20 @@ Make sorting
     Sleep                           1 second
     Click Element                   ${field}
     Sleep                           2 seconds
+
+
+Post Requests
+    [Arguments]                     ${rfidNum}
+    Create Session                  httpbin                  https://api-dev.storeroomlogix.com/api/distributor/events/rfid     verify=true
+    &{headers}=                     Create Dictionary        Content-Type=application/json                                      ApiKey=${APIKEY}
+    Create File                     rfidJSON                 content=[{"rfidId": "${rfidNum}", "state": "issued"}]
+    ${TextFileContent}=             Get File                 rfidJSON
+    ${resp}=                        Post Request             httpbin    /      data=${TextFileContent}    headers=${headers}
+    Should Be Equal As Strings      ${resp.status_code}      200
+    Sleep                           2 seconds
+    ${IssuedRFIDS}                  Evaluate                 ${IssuedRFIDS}+1
+    Set Global Variable             ${IssuedRFIDS}
+
 
 *** Variables ****
 
