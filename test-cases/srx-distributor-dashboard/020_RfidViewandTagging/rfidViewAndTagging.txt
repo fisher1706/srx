@@ -14,7 +14,7 @@ Suite Teardown                      Close All Browsers
 
 Prepare to testing ohi
     [Tags]                          Preparation
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[5]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
     Sleep                           3 seconds
     Click Element                   id=pageDropDown
     Sleep                           1 second
@@ -39,7 +39,7 @@ Create two locations with the same sku and type
 
 Creating new location for RFID tests
     [Tags]                          New location Creating
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[5]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
     Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}
@@ -59,7 +59,7 @@ Creating new location for RFID tests
 
 Adding two Rfid View and tagging
     [Tags]                          Adding two Rfids
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[4]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[8]/a
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
     :FOR       ${var}      IN RANGE            1   3
@@ -79,7 +79,7 @@ Adding two Rfid View and tagging
 
 Prepare to sorting
     [Tags]                          Preparation
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[4]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[8]/a
     Sleep                           3 seconds
     Click Element                   id=pageDropDown
     Sleep                           1 second
@@ -111,13 +111,13 @@ Post Request
 Check OHI at this location
     [Tags]                          Check OHI at all pages
     ${ohiCount}=                    Evaluate                 ${ohiCount}-5
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[5]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
     Sleep                           3 seconds
     ${ohiLocPageValue}              Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[17]
     Should Be Equal                 "${ohiLocPageValue}"     "${ohiCount}"
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[4]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[8]/a
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[4]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[8]/a
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
     Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[4]/div[4]          OHI:${ohiCount}
@@ -126,7 +126,7 @@ Check OHI at this location
     Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${rfidCount}]/td[2]                    ISSUED
 
 Change type to button and back
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[5]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
@@ -143,7 +143,7 @@ Change type to button and back
     Sleep                           2 seconds
 
 Check at RFID View and Tagging page issued RFIDs
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[4]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[8]/a
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
@@ -152,7 +152,7 @@ Check at RFID View and Tagging page issued RFIDs
     Should Be Equal                 ${IssuedRFIDS}         ${IssuedRFIDSnow}
 
 Delete new location
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[5]/a
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[1]/input
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/button
