@@ -131,15 +131,24 @@ Checking Edit Product
 
 Sorting Catalog
     [Tags]                          Sorting                 ProductSorting      Catalog
-    Number Of Rows
-    :FOR    ${colomn}               IN RANGE        1       18
-    \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
-    \   ${text buffer1}             Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${colomn}]/div
-    \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
-    \   ${text buffer2}             Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${colomn}]/div
-    \   Should Be Equal             ${text buffer1}         ${text buffer2}
-    \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
-
+    Sorting Column                  1
+    Sorting Column                  2
+    Sorting Column                  3
+    Sorting Column                  4
+    Sorting Column                  5
+    Sorting Column                  6
+    Sorting Column                  7
+    Sorting Column                  8
+    Sorting Column                  9
+    Sorting Column                  10
+    Sorting Column                  11
+    Sorting Column                  12
+    Sorting Column                  13
+    Sorting Column                  14
+    Sorting Column                  15
+    Sorting Column                  16
+    Sorting Column                  17
+    
 #Upload Template
 #    [Tags]                          ChromeOnly
 #    Choose File                     id:file-upload          /home/provorov/Downloads/product.csv
@@ -153,8 +162,8 @@ Preparation
     Enter Password
     Correct Submit Login
     Is Warehouse Management
-    Click Element               css:.sidebar-items-container > div:nth-child(2) > li:nth-child(3) > a:nth-child(1)
-    Sleep                       5 second
+    Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
+    Sleep                           5 second
     Is Catalog
     Click Element                   id:pageDropDown
     Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)

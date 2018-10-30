@@ -32,24 +32,24 @@ Goto Security Groups
 Goto Settings
     Login In Distributor Portal
     Sleep                           5 second
-    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(12) > a:nth-child(1)
     Sleep                           3 second
 
 Goto Usage History
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > div:nth-child(2) > li:nth-child(4) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(5) > a:nth-child(1)
     Sleep                           5 second
     Is Usage History
 
 Goto Transactions
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > li:nth-child(3) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(6) > a:nth-child(1)
     Sleep                           5 second
     Is Transactions
 
 Goto Transaction Log
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > li:nth-child(4) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
     Sleep                           5 second
     Is Transaction Log
 
@@ -61,13 +61,13 @@ Goto Locations
 
 Goto Customer Management
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(3) > a:nth-child(1)
     Sleep                           5 second
     Is Customer Management
 
 Goto User Managemant
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > li:nth-child(1) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(1) > a:nth-child(1)
     Sleep                           5 second
     Is User Management
 
@@ -79,7 +79,7 @@ Goto Fees
 
 Goto Catalog
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > div:nth-child(2) > li:nth-child(3) > a:nth-child(1)
+    Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
     Sleep                           5 second
     Is Catalog
 
@@ -190,6 +190,18 @@ Is Warehouse Management
 
 Is Catalog
     Element Text Should Be          css:.customer-management-header > h1:nth-child(1)           Catalog
+
+Sorting Column
+    [Arguments]                     ${column}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
 
 Number Of Rows C
     ${number of row c}              Get Element Count   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
