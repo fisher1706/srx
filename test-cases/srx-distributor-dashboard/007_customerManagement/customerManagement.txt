@@ -43,7 +43,12 @@ Valid Create New Customer
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue007
     ${selecting type}               Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[1]/span
     Set Global Variable             ${selecting type}
+    Click Element                   css:div.item-form-field:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue007
+    ${selecting market}             Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[1]/span
     Click Element                   css:.modal-dialog-ok-button
+    Set Global Variable             ${selecting market}
 
 Checking New Customer
     Sleep                           5 second
@@ -51,6 +56,7 @@ Checking New Customer
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${warehouse number}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      Z_Warehouse(9999)
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div      ${selecting type}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div      ${selecting market}
 
 Edit Customer
     [Tags]                          EditCustomer
@@ -69,6 +75,9 @@ Edit Customer
     Click Element                   css:.Select-control
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[3]/div/div/div/span[1]/div[2]            \ue013
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[3]/div/div/div/span[1]/div[2]            \ue007
+    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue013
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue007
     Click Element                   css:.modal-dialog-ok-button
     
 Checking Edit Customer
@@ -77,6 +86,7 @@ Checking Edit Customer
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${edit warehouse number}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      Z_Warehouse(9999)
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div      Not specified
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div      Not specified
 
 Delete Customer
     Click Element                   ${delete customer button}
@@ -93,6 +103,7 @@ Delete Customer
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${edit warehouse number}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          Z_Warehouse(9999)
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]          Not specified
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]          Not specified
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 

@@ -112,6 +112,36 @@ Goto Admin Users
     Number Of Static Row E
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row e}]/td[1]/a
 
+Goto Customer Info
+    Click Element                   id:customer-details-tab-general-info
+
+Is Customer Info
+    Element Should Be Visible       id:customer-details-pane-general-info
+
+Goto Customer Contact Info
+    Click Element                   id:customer-details-tab-contact-info
+
+Is Customer Contact Info
+    Element Should Be Visible       id:customer-details-pane-contact-info
+
+Goto Customer Shipto
+    Click Element                   id:customer-details-tab-shiptos
+
+Is Customer Shipto
+    Element Should Be Visible       id:customer-details-pane-shiptos
+
+Goto Customer Users
+    Click Element                   id:customer-details-tab-users
+
+Is Customer Users
+    Element Should Be Visible       id:customer-details-pane-users
+
+Goto Customer Cost Saving
+    Click Element                   id:customer-details-tab-cost-savings
+
+Is Customer Cost Saving
+    Element Should Be Visible       id:customer-details-pane-cost-savings
+
 Login In Admin Portal
     Start Suite
     Enter Correct Email
