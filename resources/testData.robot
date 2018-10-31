@@ -77,7 +77,7 @@ ${edit month fee}               1000
 ${filter email}                 filter@example.com
 ${filter first}                 filter first
 ${filter last}                  filter last
-${user email}                   user@example.com
+${user email}                   origin.user@example.com
 ${edit user email}              edituser@example.com
 ${admin email}                  admin@example.com
 ${admin edit email}             edit.admin@example.com
@@ -89,3 +89,12 @@ ${market type}                  auto-market
 ${edit market type}             edit-auto-market
 ${market del type}              auto-market-del
 ${edit market del type}         edit-auto-market-del
+${locationName}                 testLocName1
+${locationValue}                testLocValue1
+${minValue}                     20
+${maxValue}                     30
+@{RfidVandTsortingFields}       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]            xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[3]             xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[4]           xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
+${RfidAssociatedData}           TestDATA
+${APIKEY}                       m4DAfPuRurdzlsVrlen2
+${security group}               auto-security-group
+${edit security group}          auto-edit-security-group

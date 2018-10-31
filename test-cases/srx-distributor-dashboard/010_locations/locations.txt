@@ -95,6 +95,8 @@ Edit Location
     Input Text                      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div/div/input            ${edit sku}
     Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
     Sleep                           1 second
+    Click Element                   css:.modal-dialog-ok-button
+    Sleep                           1 second
     Click Element                   css:.btn-lg
     Sleep                           5 second
     Reload Page
@@ -137,9 +139,7 @@ Delete Button With DSN
     Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[1]/span[1]/div[2]     \ue004
     Click Element                   css:.btn-lg
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div[2]/div[2]/div/strong                                                        Operation failed!
-    Reload Page
-    Sleep                           5 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div                      RFID
 
 Delete Location
     [Tags]                          DeleteLocation
@@ -166,11 +166,28 @@ Delete Location
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[9]          ${sub 4}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[10]         ${edit sku}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[11]         1138
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[12]         BUTTON
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[13]         30
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[14]         40
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
+
+Sorting
+    [Tags]                          Sorting
+    Sorting Column                  2
+    Sorting Column                  3
+    Sorting Column                  4
+    Sorting Column                  5
+    Sorting Column                  6
+    Sorting Column                  7
+    Sorting Column                  8
+    Sorting Column                  9
+    Sorting Column                  10
+    Sorting Column                  11
+    Sorting Column                  13
+    Sorting Column                  14
+    Sorting Column                  15
+    Sorting Column                  16
+    Sorting Column                  17
 
 *** Keywords ***
 Preparation

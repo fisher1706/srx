@@ -222,13 +222,13 @@ Distributor Contact Info
     Input Text                      id:emergencyPhone_id    ${test number}
     Click Element                   css:#settings-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customers"]
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
-    Click Element                   id:customer-details-tab-2
+    Goto Customer Contact Info
     Sleep                           4 second
     ${value}                        Get Value               id:name_default_id
     Run Keyword If                  "${value}"=="${dynamic name}"   Log To Console      Pass    ELSE    Fail    Fail
@@ -242,11 +242,11 @@ Distributor Contact Info
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
-    Click Element                   css:#customer-details-pane-2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-details-pane-contact-info > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
-    Click Element                   id:customer-details-tab-2
+    Goto Customer Contact Info
     Sleep                           4 second
     ${value}                        Get Value               id:name_id
     Run Keyword If                  "${value}"=="${dynamic name}"   Log To Console      Pass    ELSE    Fail    Fail
@@ -256,7 +256,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${dynamic email}"  Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${test number}"    Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/settings"]
     Sleep                           3 second
     Goto Distributor Contact Info
     Sleep                           1 second
@@ -271,11 +271,11 @@ Distributor Contact Info
     Input Text                      id:emergencyPhone_id    ${edit test number}
     Click Element                   css:#settings-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customers"]
     Sleep                           4 second
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
-    Click Element                   id:customer-details-tab-2
+    Goto Customer Contact Info
     Sleep                           4 second
     ${value}                        Get Value               id:name_default_id
     Run Keyword If                  "${value}"=="${edit name}"   Log To Console      Pass    ELSE    Fail    Fail
@@ -289,11 +289,11 @@ Distributor Contact Info
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
-    Click Element                   css:#customer-details-pane-2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-details-pane-contact-info > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
-    Click Element                   id:customer-details-tab-2
+    Goto Customer Contact Info
     Sleep                           4 second
     ${value}                        Get Value               id:name_id
     Run Keyword If                  "${value}"=="${edit name}"          Log To Console      Pass    ELSE    Fail    Fail
@@ -303,7 +303,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${edit email}"         Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${edit test number}"   Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/settings"]
     Sleep                           3 second
 
 Cost Saving
@@ -323,13 +323,13 @@ Cost Saving
     Input Text                      id:deliveryCost_id          ${test number 5}
     Click Element                   css:#settings-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customers"]
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
-    Click Element                   id:customer-details-tab-5
+    Goto Customer Cost Saving
     Sleep                           4 second
     ${value}                        Get Value               id:laborCost_default_id
     Run Keyword If                  "${value}"=="${test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
@@ -346,11 +346,11 @@ Cost Saving
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[5]/div[2]/div/button
-    Click Element                   css:#customer-details-pane-5 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-details-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
-    Click Element                   id:customer-details-tab-5
+    Goto Customer Cost Saving
     Sleep                           4 second
     ${value}                        Get Value               id:laborCost_id
     Run Keyword If                  "${value}"=="${test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
@@ -362,7 +362,7 @@ Cost Saving
     Run Keyword If                  "${value}"=="${test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/settings"]
     Sleep                           3 second
     Goto Cost Saving
     Sleep                           1 second
@@ -379,13 +379,13 @@ Cost Saving
     Input Text                      id:deliveryCost_id          ${edit test number 5}
     Click Element                   css:#settings-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customers"]
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
-    Click Element                   id:customer-details-tab-5
+    Goto Customer Cost Saving
     Sleep                           4 second
     ${value}                        Get Value               id:laborCost_default_id
     Run Keyword If                  "${value}"=="${edit test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
@@ -402,11 +402,11 @@ Cost Saving
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[5]/div/div/div/div/div/div/form/div/div[5]/div[2]/div/button
-    Click Element                   css:#customer-details-pane-5 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-details-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
-    Click Element                   id:customer-details-tab-5
+    Goto Customer Cost Saving
     Sleep                           4 second
     ${value}                        Get Value               id:laborCost_id
     Run Keyword If                  "${value}"=="${edit test number 1}"      Log To Console      Pass    ELSE    Fail    Fail
@@ -418,7 +418,7 @@ Cost Saving
     Run Keyword If                  "${value}"=="${edit test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${edit test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/settings"]
     Sleep                           3 second
 
 *** Keywords ***

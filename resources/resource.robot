@@ -18,75 +18,87 @@ Login In Distributor Portal
     Correct Submit Login
     Is Warehouse Management
 
+Login In Customer Portal
+    Start Suite
+    Enter Correct Email
+    Enter Password
+    Correct Submit Login
+    Is Select A Shipto
+
 Goto Customer Menu
     Goto Customer Management
     Number Of Rows C
     Number Of Static Row C
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
 
+Goto Security Groups
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/security-groups"]
+    Sleep                           5 second
+
 Goto Settings
     Login In Distributor Portal
     Sleep                           5 second
-    Click Element                   css:li.sidebar-item:nth-child(9) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/settings"]
     Sleep                           3 second
 
 Goto Usage History
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > div:nth-child(2) > li:nth-child(4) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/usage-history"]
     Sleep                           5 second
     Is Usage History
 
 Goto Transactions
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > li:nth-child(3) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/transactions"]
     Sleep                           5 second
     Is Transactions
 
 Goto Transaction Log
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > li:nth-child(4) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/transaction-log"]
     Sleep                           5 second
     Is Transaction Log
 
 Goto Locations
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(6) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/locations"]
     Sleep                           5 second
     Is Locations
 
 Goto Customer Management
     Login In Distributor Portal
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customers"]
     Sleep                           5 second
     Is Customer Management
 
 Goto User Managemant
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > li:nth-child(1) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/users"]
     Sleep                           5 second
     Is User Management
 
 Goto Fees
     Login In Admin Portal
-    Click Element                   css:li.sidebar-item:nth-child(2) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/fees"]
     Sleep                           5 second
     Is Fees Managemant
 
 Goto Catalog
     Login In Distributor Portal
-    Click Element                   css:.sidebar-items-container > div:nth-child(2) > li:nth-child(3) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/catalog"]
     Sleep                           5 second
     Is Catalog
 
 Goto Customer Types
     Login In Admin Portal
-    Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/customer-types"]
     Sleep                           5 second
     Is Customer Types
 
 Goto Market Types
     Login In Admin Portal
-    Click Element                   css:li.sidebar-item:nth-child(5) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/market-types"]
     Sleep                           5 second
     Is Market Types
 
@@ -99,6 +111,36 @@ Goto Admin Users
     Number Of Rows E
     Number Of Static Row E
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row e}]/td[1]/a
+
+Goto Customer Info
+    Click Element                   id:customer-details-tab-general-info
+
+Is Customer Info
+    Element Should Be Visible       id:customer-details-pane-general-info
+
+Goto Customer Contact Info
+    Click Element                   id:customer-details-tab-contact-info
+
+Is Customer Contact Info
+    Element Should Be Visible       id:customer-details-pane-contact-info
+
+Goto Customer Shipto
+    Click Element                   id:customer-details-tab-shiptos
+
+Is Customer Shipto
+    Element Should Be Visible       id:customer-details-pane-shiptos
+
+Goto Customer Users
+    Click Element                   id:customer-details-tab-users
+
+Is Customer Users
+    Element Should Be Visible       id:customer-details-pane-users
+
+Goto Customer Cost Saving
+    Click Element                   id:customer-details-tab-cost-savings
+
+Is Customer Cost Saving
+    Element Should Be Visible       id:customer-details-pane-cost-savings
 
 Login In Admin Portal
     Start Suite
@@ -117,7 +159,7 @@ Correct Submit Login
     Click Element                   ${element login button}
 
 Sign Out
-    Click Element                   css:li.sidebar-item:nth-child(7) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/sign-out"]
 
 Start Suite
     Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb    ELSE IF     "${browser}"=="chrome"      Run Chrome  ELSE    Run Ff
@@ -136,6 +178,15 @@ Run Ff
 
 Finish Suite
     Close All Browsers
+
+Is Customer Portal
+    Element Text Should Be          xpath:/html/body/div/div/div/div[1]/div/div/div/div[2]/p[2]     ${email}
+
+Is Select A Shipto
+    Element Text Should Be          css:.ship-to-select-label                                   Select a ship-to record
+
+Is Security Groups
+    Element Text Should Be          css:.security-groups-management-header > h1:nth-child(1)    Security Groups
 
 Is Customer Types
     Element Text Should Be          css:.customer-types-management-header > h1:nth-child(1)     Customer Types Management
@@ -183,6 +234,18 @@ Is Warehouse Management
 Is Catalog
     Element Text Should Be          css:.customer-management-header > h1:nth-child(1)           Catalog
 
+Sorting Column
+    [Arguments]                     ${column}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+
 Number Of Rows C
     ${number of row c}              Get Element Count   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row c}
@@ -220,6 +283,18 @@ Return Sub Email
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev@agilevision.io
     Return From Keyword If          "${HOST}"=="admin-staging.storeroomlogix.com"           srx-group+staging-distributor@agilevision.io
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging@agilevision.io
+
+Return CSub Link
+    Return From Keyword If          "${HOST}"=="customer-dev.storeroomlogix.com"            distributor-dev.storeroomlogix.com
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         customer-dev.storeroomlogix.com
+    Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        distributor-staging.storeroomlogix.com
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     customer-staging.storeroomlogix.com
+    
+Return CSub Email
+    Return From Keyword If          "${HOST}"=="customer-dev.storeroomlogix.com"            srx-group+dev-distributor@agilevision.io
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-customer@agilevision.io
+    Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        srx-group+staging-distributor@agilevision.io
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-customer@agilevision.io
 
 Run Xvfb Sub
     Start Virtual Display           1920                            1080
