@@ -88,6 +88,14 @@ Prepare to sorting
     Sleep                           2 seconds                                    
     Set Global Variable             ${Sortnumbers}
 
+Check values from Location page
+    [Tags]                          Checking values from Location page
+    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[2]/div[4]        Min:${minValue}
+    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[3]/div[4]        Max:${maxValue}
+    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[2]/div[1]        Location Name 1:${locationName}
+    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[3]/div[1]        Location Value 1:${locationValue}
+
+
 Sorting
     [Tags]                          Rfid New and Tagging page Sorting
     Set Global Variable             ${count}                 1
@@ -101,6 +109,18 @@ Post Request
     ${RFIDnumberTwo}                Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[1]
     Post Requests                   ${RFIDnumberOne}
     Post Requests                   ${RFIDnumberTwo}
+
+Check Filtres
+    [Tags]                          Filter check
+    Sleep                           3 seconds
+    ${RFIDname}                     Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
+    ${creationDate}                 Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               ${RFIDname}                1
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               AVAILABLE                  2
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/input   ${creationDate}            3
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input               ${email}                   4
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input               ${RfidAssociatedData}      5
+
 
 Check OHI at this location
     [Tags]                          Check OHI at all pages
@@ -299,7 +319,6 @@ Make sorting
     Click Element                   ${field}
     Sleep                           2 seconds
 
-
 Post Requests
     [Arguments]                     ${rfidNum}
     Create Session                  httpbin                  https://api-dev.storeroomlogix.com/api/distributor/events/rfid     verify=true
@@ -312,6 +331,15 @@ Post Requests
     ${IssuedRFIDS}                  Evaluate                 ${IssuedRFIDS}+1
     Set Global Variable             ${IssuedRFIDS}
 
+Filter Check
+    [Arguments]                     ${inputField}            ${inputText}     ${checkingField}
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button
+    Input Text                      ${inputField}            ${inputText}
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
+    Sleep                           3 seconds
+    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${checkingField}]            ${inputText}
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button[2]
+    Sleep                           3 seconds
 
 *** Variables ****
 
