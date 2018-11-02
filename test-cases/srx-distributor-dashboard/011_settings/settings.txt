@@ -1,6 +1,6 @@
 *** Settings ***
 Test Setup                          Preparation
-#Test Teardown                       Finish Suite
+Test Teardown                       Finish Suite
 Library                             SeleniumLibrary
 Library                             RequestsLibrary
 Resource                            ../../../resources/resource.robot
