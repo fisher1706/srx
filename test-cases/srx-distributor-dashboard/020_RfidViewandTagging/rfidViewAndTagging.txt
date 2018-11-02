@@ -321,11 +321,9 @@ Make sorting
 
 Post Requests
     [Arguments]                     ${rfidNum}
-    Create Session                  httpbin                  https://api-dev.storeroomlogix.com/api/distributor/events/rfid     verify=true
-    &{headers}=                     Create Dictionary        Content-Type=application/json                                      ApiKey=${APIKEY}
-    Create File                     rfidJSON                 content=[{"rfidId": "${rfidNum}", "state": "issued"}]
-    ${TextFileContent}=             Get File                 rfidJSON
-    ${resp}=                        Post Request             httpbin    /      data=${TextFileContent}    headers=${headers}
+    Create Session                  httpbin                  https://${apiKey}:${apiKey}@api-dev.storeroomlogix.com/api/webhook/events/rfid        verify=true
+    &{headers}=                     Create Dictionary        Content-Type=application/json
+    ${resp}=                        Post Request             httpbin    /issued        data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${rfidNum}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp.status_code}      200
     Sleep                           2 seconds
     ${IssuedRFIDS}                  Evaluate                 ${IssuedRFIDS}+1
