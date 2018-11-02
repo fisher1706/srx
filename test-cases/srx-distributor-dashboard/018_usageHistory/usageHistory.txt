@@ -1,0 +1,27 @@
+*** Settings ***
+Suite Setup                         Preparation
+Suite Teardown                      Finish Suite
+Library                             SeleniumLibrary
+Resource                            ../../../resources/resource.robot
+Resource                            ../../../resources/testData.robot
+
+*** Test Cases ***
+Sorting Usage History
+    [Tags]                          Sorting
+    Sorting Column                  2
+    Sorting Column                  5
+    Sorting Column                  6
+    Sorting Column                  7
+    Sorting Column                  8
+    Sorting Column                  9
+
+*** Keywords ***
+Preparation
+    Goto Usage History
+    Number Of Rows
+    ${number of new row}=           Evaluate                    ${number of row}+1
+    Set Global Variable             ${number of new row}
+
+Number Of Rows
+    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    Set Global Variable             ${number of row}

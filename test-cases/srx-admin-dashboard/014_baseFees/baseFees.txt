@@ -122,7 +122,7 @@ Goto Settings Sub
     Correct Submit Login
     Is Warehouse Management
     Sleep                           7 second
-    Click Element                   css:li.sidebar-item:nth-child(8) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/settings"]
     Sleep                           2 second
     Click Element                   id:settings-tab-pricing-calc
     Sleep                           3 second

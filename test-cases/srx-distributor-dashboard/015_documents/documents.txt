@@ -71,7 +71,7 @@ Goto Documents Sub
     Enter Password
     Correct Submit Login
     Sleep                           7 second
-    Click Element                   css:li.sidebar-item:nth-child(3) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/documents"]
     Sleep                           3 second
 
 Number Of Rows
