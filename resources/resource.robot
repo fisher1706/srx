@@ -16,6 +16,7 @@ Login In Distributor Portal
     Enter Correct Email
     Enter Password
     Correct Submit Login
+    Click Element                   xpath://*[@href="/warehouses"]
     Is Warehouse Management
 
 Login In Customer Portal
