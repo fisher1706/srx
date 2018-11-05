@@ -150,11 +150,11 @@ Sorting Catalog
     Sorting Column                  16
     Sorting Column                  17
     
-Upload Template
-   [Tags]                          ChromeOnly
-   Choose File                     id:file-upload          /home/provorov/Downloads/product.csv
-   ${text buffer}                  Get Text                css:.import-page-alert > strong:nth-child(2)
-   Run Keyword If                  "${text buffer}"=="Successfully imported!"     Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
+# Upload Template
+#    [Tags]                          ChromeOnly
+#    Choose File                     id:file-upload          /home/provorov/Downloads/product.csv
+#    ${text buffer}                  Get Text                css:.import-page-alert > strong:nth-child(2)
+#    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
 
 Catalog Filtration
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               NYSFUCWSLUUUMJUUOZ
