@@ -2,6 +2,7 @@
 Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
+Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -115,6 +116,12 @@ Sorting Customers
     Sorting Column                  4
     Sorting Column                  5
 
+Customer Filtration
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               Customer A
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               1111
+    Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/span/div[1]    Test Customer
+    Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/span/div[1]    Not specified
+
 *** Keywords ***
 Preparation
     Goto Customer Management
@@ -136,3 +143,31 @@ Is Delete Customer
 Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row}
+
+Field Selector Check
+    [Arguments]                     ${fieldAdr}                 ${fieldType}
+    Click Element                   css:.button-right-margin
+    ${result} =                     Fetch From Left             ${fieldAdr}    2]/div/div/div/span/div[1]
+    ${newString}=                   Strip String                ${result}1]/div
+    ${fieldName}                    Get Text                    ${newString}
+    Go Down Selector                ${fieldAdr}                 ${fieldType}
+    Click Element                   css:button.btn:nth-child(2)
+    Sleep                           3 seconds
+    ${rowNum}                       Get Element Count           xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}=                      Evaluate                    ${rowNum}+1
+     :FOR    ${var}                 IN RANGE                    1   ${rowNum}
+    \       ${hz}                   Get Text                    xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       Run Keyword If          "${hz}" == "${fieldName}"   Field Comparing First Fields   ${var}        ${fieldType}
+    Click Element                   css:button.button-right-margin:nth-child(2)
+    Sleep                           2 seconds
+
+Go Down Selector
+    [Arguments]                     ${fieldAdr}                 ${field type}
+    Click Element                   ${fieldAdr}
+    ${result} =                     Fetch From Left             ${fieldAdr}    /div[1]
+    ${newString}=                   Strip String                ${result}[1]/div[2]
+    Press Key                       ${newString}                \ue015
+    Press Key                       ${newString}                \ue007              
+    ${text buffer sub}              Get Text                    ${fieldAdr}
+    Sleep                           1 second
+    Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down Selector    ${fieldAdr}    ${field type}
