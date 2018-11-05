@@ -127,9 +127,9 @@ Sorting Warehouses
     Sorting Column                  6
 
 Warehouse filtration
-    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       Last
-    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input       9999
-    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input       warehouseZ@example.com
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       Last
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input       9999
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input       warehouseZ@example.com
 
 *** Keywords ***
 Preparation
@@ -152,25 +152,3 @@ Is Edit Warehouse
 
 Is Delete Warehouse
     Element Text Should Be          css:.modal-title                Removal Confirmation
-
-Filter Check
-    [Arguments]                     ${inputField}            ${inputText}
-    Click Element                   css:.button-right-margin
-    Input Text                      ${inputField}            ${inputText}
-    ${result} =                     Fetch From Left          ${inputField}    2]/input
-    ${newString}=                   Strip String             ${result}1]/div
-    ${fieldName}                    Get Text                 ${newString}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           2 seconds
-    ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
-    ${rowNum}=                      Evaluate                 ${rowNum}+1
-     :FOR    ${var}                 IN RANGE             1   ${rowNum}
-    \        ${hz}                  Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
-    \       Run Keyword If          "${hz}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
-    Click Element                   css:button.button-right-margin:nth-child(2)
-    Sleep                           2 seconds
-
-Field Comparing
-    [Arguments]                     ${rowNum}       ${expectedValue}
-    ${rowValue}        Get Text     xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
-    Should Be Equal As Strings      ${rowValue}     ${expectedValue}

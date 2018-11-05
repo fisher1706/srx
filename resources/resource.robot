@@ -324,4 +324,25 @@ Run Ff Out
 
 Enter Correct Email Sub
     Input Text                      id:email                        ${SUB EMAIL}
-    
+
+Filter Check First Fields
+    [Arguments]                     ${inputField}            ${inputText}
+    Click Element                   css:.button-right-margin
+    Input Text                      ${inputField}            ${inputText}
+    ${result} =                     Fetch From Left          ${inputField}    2]/input
+    ${newString}=                   Strip String             ${result}1]/div
+    ${fieldName}                    Get Text                 ${newString}
+    Click Element                   css:button.btn:nth-child(2)
+    Sleep                           2 seconds
+    ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}=                      Evaluate                 ${rowNum}+1
+     :FOR    ${var}                 IN RANGE             1   ${rowNum}
+    \        ${hz}                  Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       Run Keyword If          "${hz}" == "${fieldName}"      Field Comparing First Fields   ${var}        ${inputText}
+    Click Element                   css:button.button-right-margin:nth-child(2)
+    Sleep                           2 seconds
+
+Field Comparing First Fields
+    [Arguments]                     ${rowNum}       ${expectedValue}
+    ${rowValue}        Get Text     xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
+    Should Be Equal As Strings      ${rowValue}     ${expectedValue}
