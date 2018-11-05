@@ -337,8 +337,8 @@ Filter Check First Fields
     ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
     ${rowNum}=                      Evaluate                 ${rowNum}+1
      :FOR    ${var}                 IN RANGE             1   ${rowNum}
-    \        ${hz}                  Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
-    \       Run Keyword If          "${hz}" == "${fieldName}"      Field Comparing First Fields   ${var}        ${inputText}
+    \        ${textInfo}            Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing First Fields   ${var}        ${inputText}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds
 
