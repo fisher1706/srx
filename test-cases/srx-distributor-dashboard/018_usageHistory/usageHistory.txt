@@ -16,6 +16,11 @@ Sorting Usage History
     Sorting Column                  8
     Sorting Column                  9
 
+Usage History Filtration
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input         101
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input         PAND F1X4LG6
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input         12
+
 *** Keywords ***
 Preparation
     Goto Usage History
@@ -27,7 +32,3 @@ Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row}
 
-Usage History Filtration
-    Filter Check First Fields       /html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input         101
-    Filter Check First Fields       /html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input         PAND F1X4LG6
-    Filter Check First Fields       /html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input         12
