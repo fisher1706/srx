@@ -19,11 +19,11 @@ Sorting Transactions
     Sorting Transactions Column     9
 
 Transactions Filtration
-    Filter Check Tr  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input  STATIC SKU
-    Filter Check Tr  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input  SSKU
-    Filter Check Tr  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input  30
-    Filter Check Tr  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input  4550
-    Field Selector Check Tr  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/div/div/div/span/div[1]  CUSTOMER
+    Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                      STATIC SKU
+    Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input                      SSKU
+    Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input                      30
+    Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input                      4550
+    Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/div/div/div/span/div[1]    CUSTOMER
 
 *** Keywords ***
 Preparation
@@ -52,51 +52,48 @@ Filter Check Tr
     [Arguments]                     ${inputField}            ${inputText}
     Click Element                   css:.button-right-margin
     Input Text                      ${inputField}            ${inputText}
-    ${result} =    Fetch From Left    ${inputField}    2]/input
-    ${newString}=        Strip String        ${result}1]/div
-    ${fieldName}            Get Text         ${newString}
+    ${result} =                     Fetch From Left          ${inputField}    2]/input
+    ${newString}=                   Strip String             ${result}1]/div
+    ${fieldName}                    Get Text                 ${newString}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           2 seconds
-    ${rowNum}       Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
-    ${rowNum}=              Evaluate        ${rowNum}+1
-    Log To Console          ${rowNum} is ELEMENTS
-     :FOR    ${var}      IN RANGE            1   ${rowNum}
-    \       ${hz}       Get Text            xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
-    \       Run Keyword If      "${hz}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
+    ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}=                      Evaluate                 ${rowNum}+1
+     :FOR    ${var}                 IN RANGE            1    ${rowNum}
+    \       ${textInfo}             Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       Run Keyword If         "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds
 
 Field Comparing
-    [Arguments]                     ${rowNum}       ${expectedValue}
-    ${rowValue}        Get Text              xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
-    Should Be Equal As Strings      ${rowValue}         ${expectedValue}
-    Log To Console              ${rowValue} is roW VAL and ${expectedValue} is EXPECTED
+    [Arguments]                     ${rowNum}               ${expectedValue}
+    ${rowValue}                     Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
+    Should Be Equal As Strings      ${rowValue}             ${expectedValue}
 
 Field Selector Check Tr
-    [Arguments]             ${fieldAdr}             ${fieldType}
+    [Arguments]                     ${fieldAdr}             ${fieldType}
     Click Element                   css:.button-right-margin
-    ${result} =    Fetch From Left    ${fieldAdr}    2]/div/div/div/span/div[1]
-    ${newString}=        Strip String        ${result}1]/div
-    ${fieldName}            Get Text         ${newString}
-    Go Down  ${fieldAdr}  ${fieldType}
+    ${result} =                     Fetch From Left         ${fieldAdr}    2]/div/div/div/span/div[1]
+    ${newString}=                   Strip String            ${result}1]/div
+    ${fieldName}                    Get Text                ${newString}
+    Go Down                         ${fieldAdr}             ${fieldType}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 seconds
-    ${rowNum}       Get Element Count                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
-    ${rowNum}=              Evaluate        ${rowNum}+1
-     :FOR    ${var}      IN RANGE            1   ${rowNum}
-    \       ${hz}       Get Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
-    \       Run Keyword If      "${hz}" == "${fieldName}"      Field Comparing   ${var}        ${fieldType}
+    ${rowNum}                       Get Element Count                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}=                      Evaluate                ${rowNum}+1
+     :FOR    ${var}                 IN RANGE            1   ${rowNum}
+    \       ${textInfo}             Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${fieldType}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds
 
 Go Down
-    [Arguments]          ${fieldAdr}                 ${field type}
+    [Arguments]                     ${fieldAdr}             ${field type}
     Click Element                   ${fieldAdr}
-    ${result} =    Fetch From Left    ${fieldAdr}    /div[1]
-    ${newString}=        Strip String        ${result}[1]/div[2]
+    ${result} =                     Fetch From Left         ${fieldAdr}    /div[1]
+    ${newString}=                   Strip String            ${result}[1]/div[2]
     Press Key                       ${newString}            \ue015
     Press Key                       ${newString}            \ue007              
     ${text buffer sub}              Get Text                 ${fieldAdr}
-    Log To Console   ${text buffer sub}
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${fieldAdr}    ${field type}
