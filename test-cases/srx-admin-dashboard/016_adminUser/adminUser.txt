@@ -223,7 +223,7 @@ Goto Users Sub
     Enter Password
     Correct Submit Login
     Sleep                           7 second
-    Click Element                   css:.sidebar-items-container > li:nth-child(1) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/users"]
     Sleep                           2 second
     Number Of Rows U
 
