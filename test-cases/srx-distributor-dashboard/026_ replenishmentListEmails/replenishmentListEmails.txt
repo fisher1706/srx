@@ -22,12 +22,12 @@ Set Email In Settings
     Run Keyword If                  ${buffer po number}==${first po number}     First PO    ELSE IF     ${buffer po number}==${second po number}    Second PO       ELSE    Fail    Exceptional situation! Incorrect PO Number!
     Click Link                      xpath://*[@href="/settings"]
     Goto Notification Emails
-    Sleep                           3 second
+    Sleep                           5 second
     Is Notification Emails
     Input Text                      id:replenishmentListEmails_id           ${replenishment email}
     Input Text                      id:activeReplenishmentListEmails_id     ${replenishment email}
     Click Element                   css:#settings-pane-notification-settings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
-    Sleep                           3 second
+    Sleep                           5 second
     Reload Page
     Checking Fields
 
@@ -42,7 +42,10 @@ Submit Quote After Settings
     Sleep                           5 second
 
 Checking From Settings
-    Checking Email
+    [Tags]                          IMAP
+    Run Keyword And Ignore Error    Checking Fail Email
+    Run Keyword If                  "${latest}"!="string"   Fail    Letter delivered
+
 
 Set Email In Warehouse
     Preparation
@@ -53,7 +56,7 @@ Set Email In Warehouse
     Input Text                      id:replenishmentListEmails_id           ${static email}
     Input Text                      id:activeReplenishmentListEmails_id     ${static email}
     Click Element                   css:#settings-pane-notification-settings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
-    Sleep                           3 second
+    Sleep                           5 second
     Click Link                      xpath://*[@href="/warehouses"]
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/a
     Click Element                   id:warehouse-details-tab-2
@@ -61,7 +64,7 @@ Set Email In Warehouse
     Input Text                      id:activeReplenishmentListEmails_id     ${replenishment email}
     Element Should Be Enabled       css:.control-button
     Click Element                   css:.control-button
-    Sleep                           3 second
+    Sleep                           5 second
     Checking Fields
 
 Submit Quote After Warehouse
@@ -74,7 +77,9 @@ Submit Quote After Warehouse
     Sleep                           5 second
 
 Checking From Warehouse
-    Checking Email
+    [Tags]                          IMAP
+    Run Keyword And Ignore Error    Checking Fail Email
+    Run Keyword If                  "${latest}"!="string"   Fail    Letter delivered
 
 Set Email In Customer
     Preparation
@@ -85,7 +90,7 @@ Set Email In Customer
     Input Text                      id:activeReplenishmentListEmails_id     ${static email}
     Element Should Be Enabled       css:.control-button
     Click Element                   css:.control-button
-    Sleep                           3 second
+    Sleep                           5 second
     Click Link                      xpath://*[@href="/customers"]
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
     Click Element                   id:customer-details-tab-6
@@ -93,7 +98,7 @@ Set Email In Customer
     Input Text                      id:activeReplenishmentListEmails_id     ${replenishment email}
     Element Should Be Enabled       css:#customer-details-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Click Element                   css:#customer-details-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
-    Sleep                           3 second
+    Sleep                           5 second
     Reload Page
     Checking Fields
     Click Element                   id:customer-details-tab-shiptos
@@ -110,10 +115,13 @@ Submit Quote After Customer
     Sleep                           5 second
 
 Checking From Customer
+    [Tags]                          IMAP
     Checking Email
 
 *** Keywords ***
 Preparation
+    Open Mailbox                    host=imap.rambler.ru            user=replenismentlist@rambler.ru        password=SRXgroup123
+    Mark All Emails As Read
     Goto Customer Menu
     ${SUB HOST}                     Return CSub Link
     Set Global Variable             ${SUB HOST}
@@ -177,9 +185,13 @@ Checking Fields
     Should Be Equal As Strings      ${first field}              ${replenishment email}
     Should Be Equal As Strings      ${second field}             ${replenishment email}
 
+Checking Fail Email
+    Set Global Variable             ${latest}                       string
+    ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
+
 Checking Email
-    Open Mailbox                    host=imap.rambler.ru            user=replenismentlist@rambler.ru        password=SRXgroup123
     ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=60         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
+    ${body}=                        Get Email Body                  ${latest}
     Finish Suite
     Sleep                           5 second
 
