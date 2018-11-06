@@ -22,7 +22,7 @@ Transactions Filtration
     Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                      STATIC SKU
     Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input                      SSKU
     Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input                      30
-    Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input                      4550
+    Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input                      2393
     Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/div/div/div/span/div[1]    CUSTOMER
 
 *** Keywords ***
@@ -59,9 +59,9 @@ Filter Check Tr
     Sleep                           2 seconds
     ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
     ${rowNum}=                      Evaluate                 ${rowNum}+1
-     :FOR    ${var}                 IN RANGE            1    ${rowNum}
+     :FOR   ${var}                  IN RANGE            1    ${rowNum}
     \       ${textInfo}             Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
-    \       Run Keyword If         "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
+    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds
 
@@ -79,9 +79,9 @@ Field Selector Check Tr
     Go Down                         ${fieldAdr}             ${fieldType}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 seconds
-    ${rowNum}                       Get Element Count                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}                       Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
     ${rowNum}=                      Evaluate                ${rowNum}+1
-     :FOR    ${var}                 IN RANGE            1   ${rowNum}
+     :FOR   ${var}                  IN RANGE            1   ${rowNum}
     \       ${textInfo}             Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
     \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${fieldType}
     Click Element                   css:button.button-right-margin:nth-child(2)

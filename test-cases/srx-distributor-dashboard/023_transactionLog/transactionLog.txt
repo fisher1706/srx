@@ -7,17 +7,17 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
-# Sorting Trasaction Log
-#     [Tags]                          Sorting
-#     Sorting Transaction Log Column                  1
-#     Sorting Transaction Log Column                  2
-#     Sorting Transaction Log Column                  3
-#     Sorting Transaction Log Column                  4
-#     Sorting Transaction Log Column                  5
-#     Sorting Transaction Log Column                  6
-#     Sorting Transaction Log Column                  7
-#     Sorting Transaction Log Column                  8
-#     Sorting Transaction Log Column                  9
+Sorting Trasaction Log
+    [Tags]                          Sorting
+    Sorting Transaction Log Column                  1
+    Sorting Transaction Log Column                  2
+    Sorting Transaction Log Column                  3
+    Sorting Transaction Log Column                  4
+    Sorting Transaction Log Column                  5
+    Sorting Transaction Log Column                  6
+    Sorting Transaction Log Column                  7
+    Sorting Transaction Log Column                  8
+    Sorting Transaction Log Column                  9
 
 Transactions Log Filtration
     Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                     STATIC SKU
@@ -59,7 +59,7 @@ Filter Check Tr
     Sleep                           2 seconds
     ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
     ${rowNum}=                      Evaluate                 ${rowNum}+1
-     :FOR    ${var}                 IN RANGE            1    ${rowNum}
+     :FOR   ${var}                  IN RANGE            1    ${rowNum}
     \       ${textInfo}             Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
     \       Run Keyword If         "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
     Click Element                   css:button.button-right-margin:nth-child(2)
@@ -79,9 +79,9 @@ Field Selector Check Tr
     Go Down                         ${fieldAdr}             ${fieldType}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 seconds
-    ${rowNum}                       Get Element Count                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}                       Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
     ${rowNum}=                      Evaluate                ${rowNum}+1
-     :FOR    ${var}                 IN RANGE            1   ${rowNum}
+     :FOR   ${var}                  IN RANGE            1   ${rowNum}
     \       ${textInfo}             Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
     \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${fieldType}
     Click Element                   css:button.button-right-margin:nth-child(2)
