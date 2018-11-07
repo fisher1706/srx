@@ -190,7 +190,7 @@ Is Select A Shipto
     Element Text Should Be          css:.ship-to-select-label                                   Select a ship-to record
 
 Is Security Groups
-    Element Text Should Be          css:.security-groups-management-header > h1:nth-child(1)    Security Groups
+    Element Text Should Be          css:.page-header > h1:nth-child(1)                          Security Groups
 
 Is Customer Types
     Element Text Should Be          css:.customer-types-management-header > h1:nth-child(1)     Customer Types Management
