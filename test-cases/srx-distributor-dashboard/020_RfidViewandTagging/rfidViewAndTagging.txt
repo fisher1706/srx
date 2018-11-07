@@ -48,10 +48,10 @@ Creating new location for RFID tests
     Input Text                      id=attributeName1_id                                    ${locationName}
     Input Text                      id=attributeValue1_id                                   ${locationValue}
     Click Element                   css:.Select-placeholder
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           2 seconds
     ${numbers}                      Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr                                   
@@ -198,8 +198,8 @@ Different locations creating
     Input Text                      id=attributeValue1_id                                   ${locationValue}
     Click Element                   css:.Select-placeholder
     :FOR    ${var}     IN RANGE     0    ${locationType}
-    \           Press Key           xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
+    \           Press Key           xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           2 seconds
     ${numbers}                      Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr                                   
@@ -298,8 +298,8 @@ Creating second the same location
     Input Text                      id=attributeValue1_id                                   ${locationValue}
     Click Element                   css:.Select-placeholder
     :FOR    ${var}     IN RANGE     0    ${locationType}
-    \           Press Key           xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
+    \           Press Key           xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Wait Until Page Contains        Operation failed!
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[1]/button/span[1]
