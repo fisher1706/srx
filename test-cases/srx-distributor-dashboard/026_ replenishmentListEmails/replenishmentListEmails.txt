@@ -202,18 +202,18 @@ Checking Email
     Sleep                           5 second
 
 If Active
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[7]/button
+    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
 
 If Quoted
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[7]/button
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[7]/button
+    Element Should Be Enabled       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
     Sleep                           3 second
     ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
     Should Be Equal As Strings      ${current status}       ACTIVE
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[7]/button
+    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
 
 If Other
-    ${disabled}                     Get Element Attribute       xpath:xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[7]/button
+    ${disabled}                     Get Element Attribute       xpath:xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
     ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
     Log To Console                  Exceptional situation!\nStatus: ${current status}\nButton disabled: ${disabled}
     Fail                            Fail

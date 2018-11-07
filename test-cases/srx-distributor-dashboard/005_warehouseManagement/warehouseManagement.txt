@@ -127,7 +127,7 @@ Sorting Warehouses
     Sorting Column                  6
 
 Warehouse filtration
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       Last
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       Z_Warehouse
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input       9999
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input       warehouseZ@example.com
 

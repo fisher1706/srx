@@ -228,7 +228,7 @@ Preparation
     Set Global Variable             ${delete shipto button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[4]/div/div[2]/button
     Goto Customer Users
     Sleep                           4 second
-    Is Cusdsfgtomer Users
+    Is Customer Users
     Number Of Rows Users
     ${number of new row u}=         Evaluate                        ${number of row u}+1
     Set Global Variable             ${number of new row u}

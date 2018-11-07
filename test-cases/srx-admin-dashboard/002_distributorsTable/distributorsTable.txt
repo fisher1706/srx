@@ -249,8 +249,8 @@ Preparation
     Number Of Static Row
     ${dynamic row}=                 Evaluate                        ${number of row}+1
     Set Global Variable             ${dynamic row}
-    Set Global Variable             ${edit button}                  xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[7]/div/div[2]/button
-    Set Global Variable             ${remove button}                xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[7]/div/div[3]/button
+    Set Global Variable             ${edit button}                  xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[7]/div/div[1]/button
+    Set Global Variable             ${remove button}                xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[7]/div/div[2]/button
 
 Number Of Rows
     ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
