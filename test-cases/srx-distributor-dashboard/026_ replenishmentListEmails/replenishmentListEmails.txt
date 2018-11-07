@@ -12,6 +12,7 @@ ${second po number}                 2393
 *** Test Cases ***
 Set Email In Settings
     Open Mailbox                    host=imap.ukr.net            user=replenishment@ukr.net        password=srx-group
+    Delete All Emails
     Click Element                   id:customer-details-tab-6
     Input Text                      id:replenishmentListEmails_id           ${static email}
     Input Text                      id:activeReplenishmentListEmails_id     ${static email}
@@ -39,6 +40,8 @@ Submit Quote After Settings
     ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
     Run Keyword If                  "${current status}"=="ACTIVE"   If Active   ELSE IF     "${current status}"=="QUOTED"   If Quoted   ELSE    If Other
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[1]/a
+    ${value}                        Get Element Attribute       id:po_number_field_id       value
+    Should Be Equal                 ${current po number}        ${value}
     Run Keyword If                  ${current po number}==${first po number}    Set Second      ELSE IF     ${current po number}==${second po number}    Set First      ELSE    Fail    Exceptional situation! Incorrect PO Number!
     Click Element                   css:.control-button
     Sleep                           5 second
@@ -188,13 +191,13 @@ Checking Fields
 Checking Fail Email
     Set Global Variable             ${latest}                       string
     ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
-    Mark Email As Read              ${latest}
+    Delete All Emails
     Set Global Variable             ${latest}
 
 Checking Email
     ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=60         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     ${body}=                        Get Email Body                  ${latest}
-    Mark Email As Read              ${latest}
+    Delete All Emails
     Finish Suite
     Sleep                           5 second
 
