@@ -2,6 +2,7 @@
 Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
+Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -189,6 +190,24 @@ Sorting
     Sorting Column                  16
     Sorting Column                  17
 
+Locations Filtration
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                     161
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input                     loc1n
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input                     loc1v
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input                     loc2n
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input                     loc2v
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/input                     loc3n
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[7]/div[2]/input                     loc3v
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[8]/div[2]/input                     loc4n
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[9]/div[2]/input                     loc4v
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[10]/div[2]/input                    STATIC SKU
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[11]/div[2]/input                    1138
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[13]/div[2]/input                    20
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[14]/div[2]/input                    100
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[15]/div[2]/input                    DSN
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[16]/div[2]/input                    0
+    Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[12]/div[2]/div/div/div/span/div[1]  RFID
+
 *** Keywords ***
 Preparation
     Goto Locations
@@ -206,3 +225,53 @@ Is Delete Location
 Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row}
+
+Filter Check
+    [Arguments]                     ${inputField}            ${inputText}
+    Click Element                   css:.button-right-margin
+    Input Text                      ${inputField}            ${inputText}
+    ${result} =                     Fetch From Left          ${inputField}    2]/input
+    ${newString}=                   Strip String             ${result}1]/div
+    ${fieldName}                    Get Text                 ${newString}
+    Click Element                   css:button.btn:nth-child(2)
+    Sleep                           2 seconds
+    ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}=                      Evaluate                 ${rowNum}+1
+     :FOR   ${var}                  IN RANGE            1    ${rowNum}
+    \       ${textInfo}             Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
+    Click Element                   css:button.button-right-margin:nth-child(2)
+    Sleep                           2 seconds
+
+Field Comparing
+    [Arguments]                     ${rowNum}               ${expectedValue}
+    ${rowValue}                     Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${rowNum}]
+    Should Be Equal As Strings      ${rowValue}             ${expectedValue}
+
+Field Selector Check
+    [Arguments]                     ${fieldAdr}             ${fieldType}
+    Click Element                   css:.button-right-margin
+    ${result} =                     Fetch From Left         ${fieldAdr}    2]/div/div/div/span/div[1]
+    ${newString}=                   Strip String            ${result}1]/div
+    ${fieldName}                    Get Text                ${newString}
+    Go Down                         ${fieldAdr}             ${fieldType}
+    Click Element                   css:button.btn:nth-child(2)
+    Sleep                           3 seconds
+    ${rowNum}                       Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}=                      Evaluate                ${rowNum}+1
+     :FOR    ${var}                 IN RANGE            1   ${rowNum}
+    \       ${textInfo}             Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${fieldType}
+    Click Element                   css:button.button-right-margin:nth-child(2)
+    Sleep                           2 seconds
+
+Go Down
+    [Arguments]                     ${fieldAdr}             ${field type}
+    Click Element                   ${fieldAdr}
+    ${result} =                     Fetch From Left         ${fieldAdr}    /div[1]
+    ${newString}=                   Strip String            ${result}[1]/div[2]
+    Press Key                       ${newString}            \ue015
+    Press Key                       ${newString}            \ue007              
+    ${text buffer sub}              Get Text                ${fieldAdr}
+    Sleep                           1 second
+    Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${fieldAdr}    ${field type}

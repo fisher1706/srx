@@ -2,6 +2,7 @@
 Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
+Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -133,7 +134,12 @@ Sorting By Role
     ${text buffer2}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div
     Should Be Equal                 ${text buffer1}             ${text buffer2}
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
-    
+
+User filtration
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input    srx-group+dev-distributor@agilevision.io
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input    admin first
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input    Last AZ
+
 *** Keywords ***
 Preparation
     Goto User Managemant
