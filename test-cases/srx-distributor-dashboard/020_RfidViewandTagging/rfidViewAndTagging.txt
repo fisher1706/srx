@@ -21,6 +21,17 @@ Prepare to testing ohi
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/span/ul/li[4]/a
     Sleep                           3 seconds
 
+Check Changes From Button to Standart and back
+    [Tags]                          Check Changes
+    Different locations creating    1
+    Sleep                           3 seconds
+    Change SKU in location          ${dynamic sku}1
+    Delete new location
+    Different locations creating    2
+    Sleep                           3 seconds
+    Change SkU in location          ${dynamic sku}1
+    Delete new location
+
 Create two locations with the same sku and type
     [Tags]                          Creating the same two locations
     :FOR    ${var}      IN RANGE            1   5
@@ -213,9 +224,9 @@ Different locations creating
     \           Press Key           xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
-    Sleep                           2 seconds
     ${numbers}                      Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr                                   
     Set Global Variable             ${numbers}
+    Sleep                           2 seconds
 
 Delete new location
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[1]/input
@@ -313,6 +324,16 @@ Field Comparing
     [Arguments]                     ${rowNum}               ${expectedValue}
     ${rowValue}                     Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
     Should Be Equal As Strings      ${rowValue}             ${expectedValue}
+
+Change SKU in location
+    [Arguments]                     ${locationSKUname}
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]
+    Input Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]/div/div/input      ${locationSKUname}
+    Press Key                       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]/div/div/input      \ue004
+    Sleep                           2 seconds
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Sleep                           3 seconds
 
 *** Variables ****
 
