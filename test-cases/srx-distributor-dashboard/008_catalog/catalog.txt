@@ -176,7 +176,7 @@ Preparation
     Is Catalog
     Click Element                   id:pageDropDown
     Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
-    Sleep                           5 second
+    Sleep                           7 second
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     ${buffer}=                      Generate Random String      18      [LETTERS]

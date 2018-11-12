@@ -98,5 +98,4 @@ ${RfidAssociatedData}           TestDATA
 ${APIKEY}                       m4DAfPuRurdzlsVrlen2
 ${security group}               auto-security-group
 ${edit security group}          auto-edit-security-group
-${replenishment email}          replenismentlist@rambler.ru
-${replenishment password}       SRXgroup123
+${replenishment email}          replenishment@ukr.net

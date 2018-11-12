@@ -141,15 +141,13 @@ Checking Users Number On Distributor Portal After Delete From Admin Portal
 Create Admin On Distributor Portal
     [Tags]                          AddSuperUser
     Goto Users Sub
-
     Click Element                   css:.btn-primary
     Input Text                      id:email_id                         ${admin email}
     Input Text                      id:firstName_id                     ${admin first}
     Input Text                      id:lastName_id                      ${admin last}
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   css:.Select-value
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]        \ue007
+    Click Element                   css:.Select-control
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/span[1]/div[2]        \ue007
     Click Element                   css:.modal-dialog-ok-button
     Set Global Variable             ${const number distributor 2}       ${number of row u}
     ${number of new row u}          Evaluate                            ${number of row u}+1

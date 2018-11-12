@@ -36,18 +36,18 @@ Valid Create New Customer
     Input Text                      id:name_id                  ${user first name}
     Input Text                      id:number_id                ${warehouse number}
     Click Element                   css:div.item-form-field:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[3]/div/div/div/span[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[3]/div/div/div/span[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[3]/div/div/div/span[1]/div[2]            \ue007
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/span[1]/div[2]        \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/span[1]/div[2]        \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/span[1]/div[2]        \ue007
     Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue007
-    ${selecting type}               Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[1]/span
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/span[1]/div[2]        \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/span[1]/div[2]        \ue007
+    ${selecting type}               Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/span[1]/div[1]/span
     Set Global Variable             ${selecting type}
     Click Element                   css:div.item-form-field:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[2]            \ue007
-    ${selecting market}             Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[5]/div/div/div/span[1]/div[1]/span
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/span[1]/div[2]        \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/span[1]/div[2]        \ue007
+    ${selecting market}             Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/span[1]/div[1]/span
     Click Element                   css:.modal-dialog-ok-button
     Set Global Variable             ${selecting market}
 
@@ -73,12 +73,12 @@ Edit Customer
     Click Element                   ${edit customer button}
     Input Text                      id:name_id                  ${edit first name}
     Input Text                      id:number_id                ${edit warehouse number}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[3]/div/div/div/span[1]/div[2]            \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[3]/div/div/div/span[1]/div[2]            \ue007
+    Click Element                   css:div.item-form-field:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/span[1]/div[2]        \ue013
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/span[1]/div[2]        \ue007
     Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[4]/div/div/div/span[1]/div[2]            \ue007
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/span[1]/div[2]        \ue013
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/span[1]/div[2]        \ue007
     Click Element                   css:.modal-dialog-ok-button
     
 Checking Edit Customer
