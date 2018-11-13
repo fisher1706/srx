@@ -248,6 +248,36 @@ Permissions Set 9 (Warehouses)
     Sleep                           1 second
     Section Is Not Present          xpath://*[@href="/warehouses"]
 
+Permissions Set 10 (RFID)
+    [Tags]                          Set10    RFID   Main
+    Switch Browser                  1
+    Click Element                   ${edit group button}
+    Set Permission                  5       1
+    Click Element                   css:.modal-dialog-ok-button
+    Switch Browser                  2
+    Section Is Present              xpath://*[@href="/sign-out"]
+    Reload Page
+    Section Is Present              xpath://*[@href="/rfid-view"]
+    Click Link                      xpath://*[@href="/rfid-view"]
+    Section Is Present              css:.rfid-create-button
+    Switch Browser                  1
+    Click Element                   ${edit group button}
+    Set Permission                  5       2
+    Click Element                   css:.modal-dialog-ok-button
+    Sleep                           1 second
+    Switch Browser                  2
+    Reload Page
+    Section Is Present              xpath://*[@href="/rfid-view"]
+    Section Is Not Present          css:.rfid-create-button
+    Switch Browser                  1
+    Click Element                   ${edit group button}
+    Clear Permission                5
+    Click Element                   css:.modal-dialog-ok-button
+    Switch Browser                  2
+    Reload Page
+    Sleep                           1 second
+    Section Is Not Present          xpath://*[@href="/rfid-view"]
+
 Settings Permissions Set 1 (GeneralSettings)
     [Tags]                          SSet1    GeneralSettings    Settings
     Settings Permissions            id:settings-tab-general-settings        5
@@ -394,4 +424,3 @@ Double Click
     [Arguments]                     ${row}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
-
