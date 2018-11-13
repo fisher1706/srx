@@ -96,8 +96,6 @@ Edit Location
     Input Text                      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div/div/input            ${edit sku}
     Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
     Sleep                           1 second
-    Click Element                   css:.modal-dialog-ok-button
-    Sleep                           1 second
     Click Element                   css:.btn-lg
     Sleep                           5 second
     Reload Page
