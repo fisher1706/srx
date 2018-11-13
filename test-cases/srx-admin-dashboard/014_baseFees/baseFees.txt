@@ -120,7 +120,6 @@ Goto Settings Sub
     Enter Correct Email Sub
     Enter Password
     Correct Submit Login
-    Is Warehouse Management
     Sleep                           7 second
     Click Link                      xpath://*[@href="/settings"]
     Sleep                           2 second

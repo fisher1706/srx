@@ -134,6 +134,7 @@ Warehouse filtration
 *** Keywords ***
 Preparation
     Login In Distributor Portal
+    Click Link                   xpath://*[@href="/warehouses"]
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}

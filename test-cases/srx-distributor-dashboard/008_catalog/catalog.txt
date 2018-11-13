@@ -170,7 +170,6 @@ Preparation
     Enter Correct Email
     Enter Password
     Correct Submit Login
-    Is Warehouse Management
     Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
     Sleep                           5 second
     Is Catalog
