@@ -5,27 +5,29 @@ Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
+*** Variable ***
+${index}                            1
+
 *** Test Cases ***
 Checking Quoted And Ordered List
     Click Element                   xpath:/html/body/div/div/div/div/div/div/button[1]
     Click Element                   css:.select-cutomer-shopto-button
     Is Customer Portal
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
-    ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
-    Run Keyword If                  "${current status}"=="ACTIVE"   If Active   ELSE IF     "${current status}"=="QUOTED"   If Quoted   ELSE    If Other
+    :FOR    ${index}  IN RANGE      1       11
+    \       ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${index}]/td[5]/div
+    \       Run Keyword If          "${current status}"=="QUOTED"   Exit For Loop
+    \       Run Keyword If          "${current status}"=="ACTIVE"   Exit For Loop
+    \       Set Global Variable     ${index}
+    Run Keyword If                  "${current status}"=="ACTIVE"   If Active   ELSE IF     "${current status}"=="QUOTED"   If Quoted
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[1]/a
     Click Element                   css:.control-button
     Sleep                           5 second
+    Element Text Should Be          css:.loading-indicator > div:nth-child(1) > h4:nth-child(2)     There are no active items.
+    Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
 
 Sorting List
     [Tags]                          Sorting
-    Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
-    Sleep                           4 second
-    Click Element                   id:pageDropDown
-    Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
-    Sleep                           2 second
-    Number Of Rows
     Sorting List                    1
     Sorting List                    2
     Sorting List                    3
@@ -51,21 +53,15 @@ Preparation
     Login In Customer Portal
 
 If Active
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
+    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${index}]/td[8]/button
 
 If Quoted
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
+    Element Should Be Enabled       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${index}]/td[8]/button
+    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${index}]/td[8]/button
     Sleep                           3 second
-    ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
+    ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${index}]/td[5]/div
     Should Be Equal As Strings      ${current status}       ACTIVE
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
-
-If Other
-    ${disabled}                     Get Element Attribute       xpath:xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
-    ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
-    Log To Console                  Exceptional situation!\nStatus: ${current status}\nButton disabled: ${disabled}
-    Fail                            Fail
+    Element Should Be Disabled      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${index}]/td[8]/button
 
 Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
@@ -76,10 +72,13 @@ Sorting List
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
     Sleep                           1 second
     ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Number Of Rows
     ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
     Sleep                           1 second
     ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
     ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
