@@ -198,6 +198,7 @@ Checking Email
     ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=60         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     ${body}=                        Get Email Body                  ${latest}
     Delete All Emails
+    Sleep                           5 second
     Finish Suite
     Sleep                           5 second
 

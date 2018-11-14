@@ -155,6 +155,18 @@ Checking Returned Static Data
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[4]/div     Singular Billing
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[5]/div     ${static email}
 
+Try To Remove Distributor
+    [Tags]                          TryToRemove
+    Click Element                   ${delete row button}
+    Table Cell Should Contain       css:table.table:nth-child(2)    2       1       del distr
+    Table Cell Should Contain       css:table.table:nth-child(2)    2       3       qwe qwe qwe AL 12345
+    Table Cell Should Contain       css:table.table:nth-child(2)    2       4       Singular Billing
+    Table Cell Should Contain       css:table.table:nth-child(2)    2       5       qwe@example.com
+    Click Element                   css:button.btn:nth-child(2)
+    Element Text Should Be          css:.external-page-alert > strong:nth-child(2)      Operation failed!
+    Click Element                   css:.modal-footer > button:nth-child(1)
+    Sleep                           3 second
+
 Sorting Distributors By Name
     [Tags]                          Sorting
     Click Element                   css:th.sort-column:nth-child(1)
@@ -247,10 +259,12 @@ Preparation
     Sleep                           2 second
     Number Of Rows
     Number Of Static Row
+    Number Of Delete Row
     ${dynamic row}=                 Evaluate                        ${number of row}+1
     Set Global Variable             ${dynamic row}
     Set Global Variable             ${edit button}                  xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[7]/div/div[1]/button
     Set Global Variable             ${remove button}                xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[7]/div/div[2]/button
+    Set Global Variable             ${delete row button}            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${delete row}]/td[7]/div/div[2]/button
 
 Number Of Rows
     ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
@@ -263,6 +277,12 @@ Number Of Static Row
     Set Global Variable             ${static row}   ${counter}
     ${static number}                Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[2]/div
     Set Global Variable             ${static number}
+
+Number Of Delete Row
+    : FOR   ${counter}              IN RANGE        1   ${number of row}+1
+    \   ${text buffer1}             Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/a
+    \   Exit For Loop If            "del distr"=="${text buffer1}"
+    Set Global Variable             ${delete row}   ${counter}
 
 Apply Filter
     Sleep                           1 second
