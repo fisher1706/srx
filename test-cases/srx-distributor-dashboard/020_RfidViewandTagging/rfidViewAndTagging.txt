@@ -45,7 +45,7 @@ Creating new location for RFID tests
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
-    Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}
+    Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}2
     Input Text                      id=orderingConfig-currentInventoryControls-min_id       ${minValue}
     Input Text                      id=orderingConfig-currentInventoryControls-max_id       ${maxValue}
     Input Text                      id=attributeName1_id                                    ${locationName}
@@ -67,9 +67,9 @@ Check Selector Input at RFID page
     ${text rfid sku}                Get Text               xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div
     Should Be Equal As Strings      ${text rfid sku}       No results found
     Reload Page
-    Input Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div/div[2]/input         ${dynamic sku}
+    Input Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div/div[2]/input         ${dynamic sku}2
     ${text rfid sku}                Get Text               xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div
-    Should Be Equal As Strings      ${text rfid sku}       ${dynamic sku}
+    Should Be Equal As Strings      ${text rfid sku}       ${dynamic sku}2
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div
 
 Adding RFID with false Transaction
@@ -141,7 +141,8 @@ Check Filtres
     ${creationDate}                 Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]
     Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div/div/div/span/div[1]                        AVAILABLE
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               ${email}                   4
-    # Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/input   ${creationDate}            3
+    Filter Check Date               xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/input   ${creationDate}            3          FROM
+    Filter Check Date               xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/input   ${creationDate}            3          TO
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input               ${RfidAssociatedData}      5
 
 
@@ -214,7 +215,7 @@ Open Transaction page
 Different locations creating
     [Arguments]                     ${locationType}
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
-    Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}
+    Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}2
     Input Text                      id=orderingConfig-currentInventoryControls-min_id       ${minValue}
     Input Text                      id=orderingConfig-currentInventoryControls-max_id       ${maxValue}
     Input Text                      id=attributeName1_id                                    ${locationName}+${locationType}
@@ -224,6 +225,7 @@ Different locations creating
     \           Press Key           xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue015
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
+    Sleep                           2 seconds
     ${numbers}                      Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr                                   
     Set Global Variable             ${numbers}
     Sleep                           2 seconds
@@ -246,7 +248,7 @@ OHI Check RFID
 Creating second the same location
     [Arguments]                     ${locationType}
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
-    Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}
+    Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}2
     Input Text                      id=orderingConfig-currentInventoryControls-min_id       ${minValue}
     Input Text                      id=orderingConfig-currentInventoryControls-max_id       ${maxValue}
     Input Text                      id=attributeName1_id                                    ${locationName}+${locationType}
@@ -333,6 +335,21 @@ Change SKU in location
     Press Key                       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]/div/div/input      \ue004
     Sleep                           2 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Sleep                           3 seconds
+
+Filter Check Date
+    [Arguments]                     ${inputField}            ${inputText}     ${checkingField}      ${fromTO}
+    ${resultFrom} =                 Fetch From Left          ${inputText}      M
+    ${leftPart} =                   Fetch From Left          ${resultFrom}     2018
+    ${rightPart} =                  Fetch From Right         ${resultFrom}     2018
+    ${resultTo} =                   Strip String             ${leftPart}2020${rightPart}
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button
+    Run Keyword If                  "${fromTO}" == "TO"      Input Text        ${inputField}            ${resultTo}     ELSE        Input Text        ${inputField}            ${resultFrom}
+    Sleep                           2 seconds
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
+    Sleep                           3 seconds
+    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${checkingField}]            ${inputText}
+    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button[2]
     Sleep                           3 seconds
 
 *** Variables ****
