@@ -28,7 +28,6 @@ Change Transaction State
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[6]/a
     Sleep                           3 seconds
     ${order number}                 Get Text            xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
-    Log To Console                  ${order number} is order number
     Set Global Variable             ${order number}
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[12]/div/div/button
     Go Down                         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span[1]/div[1]         SHIPPED
