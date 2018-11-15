@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup                         Preparation
-#Suite Teardown                      Finish Suite
+Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
 Library                             ImapLibrary
 Resource                            ../../../resources/resource.robot
@@ -12,6 +12,7 @@ ${second po number}                 2393
 *** Test Cases ***
 Set Email In Settings
     Open Mailbox                    host=imap.ukr.net            user=replenishment@ukr.net        password=srx-group
+    Run Keyword And Ignore Error    Checking Fail Email
     Delete All Emails
     Click Element                   id:customer-details-tab-6
     Input Text                      id:replenishmentListEmails_id           ${static email}

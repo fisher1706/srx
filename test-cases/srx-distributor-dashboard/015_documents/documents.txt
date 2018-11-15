@@ -12,6 +12,10 @@ Check Document Status In Settings
     ${status}                       Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[4]/div/span
     Set Global Variable             ${status}
 
+Checking Taxes Before Change
+    Goto Taxes
+    Run Keyword If                  "${status}"=="APPROVED"     Approved In Taxes    ELSE IF     "${status}"=="REJECTED"     Rejected In Taxes
+
 Check Document Status In Documents
     Goto Documents Sub
     Sleep                           2 second
@@ -27,7 +31,7 @@ Check Document Status In Documents
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[5]/div/span    ${status}
 
 Change Document Status
-    Run Keyword If                  "${status}"=="APPROVED"     Approved    ELSE IF     "${status}"=="REJECTED"     Rejected  
+    Run Keyword If                  "${status}"=="APPROVED"     Approved    ELSE IF     "${status}"=="REJECTED"     Rejected
     Sleep                           10 second
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[5]/div/span    ${restatus}
     Finish Suite
@@ -38,6 +42,10 @@ Second Check Document Status In Settings
     Goto Documents
     Is Documents
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[4]/div/span     ${restatus}
+
+Checking Taxes After Change
+    Goto Taxes
+    Run Keyword If                  "${restatus}"=="APPROVED"     Approved In Taxes    ELSE IF     "${restatus}"=="REJECTED"     Rejected In Taxes
 
 *** Keywords ***
 Preparation
@@ -50,6 +58,18 @@ Preparation
 Goto Documents
     Click Element                   id:settings-tab-documents
     Sleep                           3 second
+
+Goto Taxes
+    Click Element                   id:settings-tab-taxes
+    Sleep                           3 second
+
+Rejected In Taxes
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     4.75 %
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[2]/div     No
+
+Approved In Taxes
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     0 %
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[2]/div     Yes
 
 Approved
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[6]/div/div[2]/button
