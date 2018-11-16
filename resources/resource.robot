@@ -70,7 +70,6 @@ Goto Customer Management
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/customers"]
     Sleep                           5 second
-    Is Customer Management
 
 Goto User Managemant
     Login In Distributor Portal
@@ -377,7 +376,7 @@ Clear All Settings Permissions
 
 Clear Only Read
     [Arguments]                     ${row}
-    Set Permission                  ${row}      2
+    Set Permission                  ${row}          2
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[3]/label/input
 
 Clear Standart
