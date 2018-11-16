@@ -169,8 +169,8 @@ Edit User
     Click Element                   ${edit user button}
     Input Text                      id:firstName_id             ${edit first name}
     Input Text                      id:lastName_id              ${edit last name}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div[1]/label/input
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div[${number of new row s}]/label/input
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[1]/label/input
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[${number of new row s}]/label/input
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
     Is Customer Users

@@ -292,14 +292,14 @@ Apply Filter
     Click Element                   ${filter clear}
 
 Is Add Distributor
-    Element Text Should Be          css:.modal-title	Add distributor
+    Element Text Should Be          css:.modal-title    Add distributor
 
 Is Delete Distributor
-    Element Text Should Be          css:.modal-title	Removal Confirmation
+    Element Text Should Be          css:.modal-title    Removal Confirmation
 
 Is Edit Distributor
-    Element Text Should Be          css:.modal-title	Edit distributor
+    Element Text Should Be          css:.modal-title    Edit distributor
 
 Is Filter Dialog
-    Element Text Should Be          css:.modal-title	Filtering options
+    Element Text Should Be          css:.modal-title    Filtering options
     

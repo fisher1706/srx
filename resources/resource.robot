@@ -16,6 +16,7 @@ Login In Distributor Portal
     Enter Correct Email
     Enter Password
     Correct Submit Login
+    Sleep                           3 second
 
 Login In Customer Portal
     Start Suite
@@ -32,12 +33,12 @@ Goto Customer Menu
 
 Goto Security Groups
     Login In Distributor Portal
+    
     Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
 
 Goto Settings
     Login In Distributor Portal
-    Sleep                           5 second
     Click Link                      xpath://*[@href="/settings"]
     Sleep                           3 second
 
@@ -344,3 +345,47 @@ Field Comparing First Fields
     [Arguments]                     ${rowNum}       ${expectedValue}
     ${rowValue}        Get Text     xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
     Should Be Equal As Strings      ${rowValue}     ${expectedValue}
+
+Set Permission
+    [Arguments]                     ${row}      ${column}
+    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
+    Run Keyword If                  "${checked}"=="None"        Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
+
+Set Settings Permission
+    [Arguments]                     ${row}      ${column}
+    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
+    Run Keyword If                  "${checked}"=="None"        Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
+
+Clear Permission
+    [Arguments]                     ${row}
+    Run Keyword If                  ${row}==9     Clear Only Read     ${row}      ELSE IF     ${row}!=9     Clear Standart      ${row}
+    
+Clear Settings Permission
+    [Arguments]                     ${row}
+    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
+    Run Keyword If                  "${checked}"=="true"         Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
+
+Clear All Permissions
+    Set Suite Variable              ${index}        1
+    :FOR  ${index}  IN RANGE  1     14
+    \   Clear Permission            ${index}
+
+Clear All Settings Permissions
+    Set Suite Variable              ${index}        1
+    :FOR  ${index}  IN RANGE  1     12
+    \   Clear Settings Permission   ${index}
+
+Clear Only Read
+    [Arguments]                     ${row}
+    Set Permission                  ${row}      2
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[3]/label/input
+
+Clear Standart
+    [Arguments]                     ${row}
+    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
+    Run Keyword If                  "${checked}"=="None"        Double Click    ${row}      ELSE IF     "${checked}"=="true"    Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
+
+Double Click
+    [Arguments]                     ${row}
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
