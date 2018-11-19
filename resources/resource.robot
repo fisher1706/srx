@@ -396,3 +396,19 @@ Double Click
     [Arguments]                     ${row}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
+
+Section Is Present
+    [Arguments]                     ${section}
+    Run Keyword And Ignore Error    Checking Sections   ${section}
+    Run Keyword If                  "${check}"!="true"  Fail    Fail
+
+Section Is Not Present
+    [Arguments]                     ${section}
+    Run Keyword And Ignore Error    Checking Sections   ${section}
+    Run Keyword If                  "${check}"!="false"  Fail    Fail
+
+Checking Sections
+    [Arguments]                     ${section}
+    Set Global Variable             ${check}            false
+    Element Should Be Visible       ${section}
+    Set Global Variable             ${check}            true
