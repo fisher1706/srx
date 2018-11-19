@@ -17,7 +17,7 @@ Invalid Create New Location
     Click Element                   css:button.btn-primary
     Press Key                       id:orderingConfig-product-partSku_id                                                                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span[1]/div[2]            \ue004
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:orderingConfig-currentInventoryControls-min_id                                                       \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -36,8 +36,8 @@ Valid Create New Location
     Is Add Location
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
     Click Element                   css:div.item-form-field:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/span[1]/div[2]            \ue007
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue007
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       43
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       59
     Input Text                      id:attributeName1_id                                                                                    ${level 1}
@@ -135,7 +135,7 @@ Delete Button With DSN
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]    
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[2]/div/div[3]
-    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[1]/span[1]/div[2]     \ue004
+    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div/div/div/div[1]/div[1]/div[2]     \ue004
     Click Element                   css:.btn-lg
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div                      RFID
@@ -186,7 +186,6 @@ Sorting
     Sorting Column                  14
     Sorting Column                  15
     Sorting Column                  16
-    Sorting Column                  17
 
 Locations Filtration
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                     161

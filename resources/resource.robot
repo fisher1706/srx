@@ -95,6 +95,12 @@ Goto Customer Types
     Sleep                           5 second
     Is Customer Types
 
+Goto Warehouses
+    Login In Admin Portal
+    Click Link                      xpath://*[@href="/warehouses"]
+    Sleep                           5 second
+    Is Customer Types
+
 Goto Market Types
     Login In Admin Portal
     Click Link                      xpath://*[@href="/market-types"]
@@ -357,7 +363,9 @@ Set Settings Permission
 
 Clear Permission
     [Arguments]                     ${row}
-    Run Keyword If                  ${row}==9     Clear Only Read     ${row}      ELSE IF     ${row}!=9     Clear Standart      ${row}
+    Run Keyword If                  ${row}==10    Clear Only Read     ${row}
+    Run Keyword If                  ${row}==4     Clear Only Read     ${row}
+    Run Keyword If                  ${row}!=10 and ${row}!=4    Clear Standart      ${row}
     
 Clear Settings Permission
     [Arguments]                     ${row}
