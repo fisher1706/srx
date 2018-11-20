@@ -95,6 +95,12 @@ Goto Customer Types
     Sleep                           5 second
     Is Customer Types
 
+Goto Warehouses
+    Login In Admin Portal
+    Click Link                      xpath://*[@href="/warehouses"]
+    Sleep                           5 second
+    Is Customer Types
+
 Goto Market Types
     Login In Admin Portal
     Click Link                      xpath://*[@href="/market-types"]
@@ -357,7 +363,9 @@ Set Settings Permission
 
 Clear Permission
     [Arguments]                     ${row}
-    Run Keyword If                  ${row}==9     Clear Only Read     ${row}      ELSE IF     ${row}!=9     Clear Standart      ${row}
+    Run Keyword If                  ${row}==10    Clear Only Read     ${row}
+    Run Keyword If                  ${row}==4     Clear Only Read     ${row}
+    Run Keyword If                  ${row}!=10 and ${row}!=4    Clear Standart      ${row}
     
 Clear Settings Permission
     [Arguments]                     ${row}
@@ -388,3 +396,19 @@ Double Click
     [Arguments]                     ${row}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
+
+Section Is Present
+    [Arguments]                     ${section}
+    Run Keyword And Ignore Error    Checking Sections   ${section}
+    Run Keyword If                  "${check}"!="true"  Fail    Fail
+
+Section Is Not Present
+    [Arguments]                     ${section}
+    Run Keyword And Ignore Error    Checking Sections   ${section}
+    Run Keyword If                  "${check}"!="false"  Fail    Fail
+
+Checking Sections
+    [Arguments]                     ${section}
+    Set Global Variable             ${check}            false
+    Element Should Be Visible       ${section}
+    Set Global Variable             ${check}            true

@@ -40,9 +40,9 @@ Filter List
     Input Text                      css:div.row-spaced:nth-child(1) > div:nth-child(2) > input:nth-child(1)     STATIC SKU
     Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)     10
     Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/span[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/span[1]/div[2]            \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/span[1]/div[2]            \ue007
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/div[1]/div[2]            \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/div[1]/div[2]            \ue013
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/div[1]/div[2]            \ue007
     Click Element                   css:button.btn:nth-child(2)
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div     STATIC SKU
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div     10
