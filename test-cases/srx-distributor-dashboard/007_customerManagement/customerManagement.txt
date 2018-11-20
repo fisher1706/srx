@@ -111,6 +111,7 @@ Sorting Customers
     Sorting Column                  5
 
 Customer Filtration
+    [Tags]                          Filter
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                      Customer A
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input                      1111
     Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/div/div[1]    Test Customer
@@ -147,7 +148,7 @@ Number Of Rows
 Field Selector Check
     [Arguments]                     ${fieldAdr}                 ${fieldType}
     Click Element                   css:.button-right-margin
-    ${result} =                     Fetch From Left             ${fieldAdr}    2]/div/div/div/span/div[1]
+    ${result} =                     Fetch From Left             ${fieldAdr}    2]/div/div/div/div/div[1]
     ${newString}=                   Strip String                ${result}1]/div
     ${fieldName}                    Get Text                    ${newString}
     Go Down Selector                ${fieldAdr}                 ${fieldType}
