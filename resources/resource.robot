@@ -363,23 +363,25 @@ Set Settings Permission
 
 Clear Permission
     [Arguments]                     ${row}
-    Run Keyword If                  ${row}==10    Clear Only Read     ${row}
+    Run Keyword If                  ${row}==12    Clear Only Read     ${row}
     Run Keyword If                  ${row}==4     Clear Only Read     ${row}
-    Run Keyword If                  ${row}!=10 and ${row}!=4    Clear Standart      ${row}
-    
+    Run Keyword If                  ${row}==5     Clear Only Read     ${row}
+    Run Keyword If                  ${row}!=12 and ${row}!=4 and ${row}!=5      Clear Standart      ${row}
+
 Clear Settings Permission
     [Arguments]                     ${row}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
-    Run Keyword If                  "${checked}"=="true"         Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
+    Run Keyword If                  ${row}==12    Clear Settings Only Read     ${row}
+    Run Keyword If                  ${row}==3     Clear Settings Only Read     ${row}
+    Run Keyword If                  ${row}!=12 and ${row}!=3                    Clear Settings Standart      ${row}
 
 Clear All Permissions
     Set Suite Variable              ${index}        1
-    :FOR  ${index}  IN RANGE  1     14
+    :FOR  ${index}  IN RANGE  1     17
     \   Clear Permission            ${index}
 
 Clear All Settings Permissions
     Set Suite Variable              ${index}        1
-    :FOR  ${index}  IN RANGE  1     12
+    :FOR  ${index}  IN RANGE  1     14
     \   Clear Settings Permission   ${index}
 
 Clear Only Read
@@ -392,10 +394,25 @@ Clear Standart
     ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
     Run Keyword If                  "${checked}"=="None"        Double Click    ${row}      ELSE IF     "${checked}"=="true"    Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
 
+Clear Settings Only Read
+    [Arguments]                     ${row}
+    Set Settings Permission         ${row}          2
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[3]/label/input
+
+Clear Settings Standart
+    [Arguments]                     ${row}
+    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
+    Run Keyword If                  "${checked}"=="None"        Double Settings Click    ${row}      ELSE IF     "${checked}"=="true"    Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
+
 Double Click
     [Arguments]                     ${row}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
+
+Double Settings Click
+    [Arguments]                     ${row}
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
 
 Section Is Present
     [Arguments]                     ${section}
