@@ -6,6 +6,15 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
+Clear All
+    Switch Browser                  1
+    Click Element                   ${edit group button}
+    Clear All Permissions
+    Set Permission                  2       1
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
+    Clear All Settings Permissions
+    Click Element                   css:.modal-dialog-ok-button
+
 Permissions Set 1 (Catalog)
     [Tags]                          Set1    Catalog     Main
     Switch Browser                  1
@@ -92,7 +101,7 @@ Permissions Set 4 (Settings)
     [Tags]                          Set4    Settings    Main
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  6       1
+    Set Permission                  8       1
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Section Is Present              xpath://*[@href="/settings"]
@@ -100,7 +109,7 @@ Permissions Set 4 (Settings)
     Section Is Present              xpath://*[@href="/settings"]
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  6       2
+    Set Permission                  8       2
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
     Switch Browser                  2
@@ -108,7 +117,7 @@ Permissions Set 4 (Settings)
     Section Is Present              xpath://*[@href="/settings"]
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Clear Permission                6
+    Clear Permission                8
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Reload Page
@@ -119,7 +128,7 @@ Permissions Set 5 (Transactions)
     [Tags]                          Set5    Transactions    Main
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  7       1
+    Set Permission                  9       1
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Section Is Present              xpath://*[@href="/sign-out"]
@@ -129,7 +138,7 @@ Permissions Set 5 (Transactions)
     ${number1}                      Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  7       2
+    Set Permission                  9       2
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
     Switch Browser                  2
@@ -139,7 +148,7 @@ Permissions Set 5 (Transactions)
     Should Not Be Equal             ${number1}      ${number2}
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Clear Permission                7
+    Clear Permission                9
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Reload Page
@@ -150,7 +159,7 @@ Permissions Set 6 (TransactionLog)
     [Tags]                          Set6    TransactionLog      Main
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  8       2
+    Set Permission                  10       2
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Section Is Present              xpath://*[@href="/sign-out"]
@@ -159,7 +168,7 @@ Permissions Set 6 (TransactionLog)
     Click Link                      xpath://*[@href="/transaction-log"]
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[8]/td[3]/label/input
+    Clear Permission                10
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Reload Page
@@ -170,7 +179,7 @@ Permissions Set 7 (UsageHistory)
     [Tags]                          Set7    UsageHistory    Main
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  9       1
+    Set Permission                  11       1
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Section Is Present              xpath://*[@href="/sign-out"]
@@ -180,7 +189,7 @@ Permissions Set 7 (UsageHistory)
     Section Is Present              css:div.btn
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  9       2
+    Set Permission                  11       2
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
     Switch Browser                  2
@@ -189,7 +198,7 @@ Permissions Set 7 (UsageHistory)
     Section Is Not Present          css:div.btn
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Clear Permission                9
+    Clear Permission                11
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Reload Page
@@ -200,7 +209,7 @@ Permissions Set 8 (Users)
     [Tags]                          Set8    Users       Main
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  10      1
+    Set Permission                  12      1
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Section Is Present              xpath://*[@href="/sign-out"]
@@ -210,7 +219,7 @@ Permissions Set 8 (Users)
     Section Is Present              css:.btn-primary
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Clear Permission                10
+    Clear Permission                12
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Reload Page
@@ -221,7 +230,7 @@ Permissions Set 9 (Warehouses)
     [Tags]                          Set9    Warehouses      Main
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  11      1
+    Set Permission                  13      1
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Section Is Present              xpath://*[@href="/sign-out"]
@@ -231,7 +240,7 @@ Permissions Set 9 (Warehouses)
     ${number1}                      Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  11      2
+    Set Permission                  13      2
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
     Switch Browser                  2
@@ -241,7 +250,7 @@ Permissions Set 9 (Warehouses)
     Should Not Be Equal             ${number1}      ${number2}
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Clear Permission                11
+    Clear Permission                13
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Reload Page
@@ -252,7 +261,7 @@ Permissions Set 10 (RFID)
     [Tags]                          Set10    RFID   Main
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  5       1
+    Set Permission                  7       1
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Section Is Present              xpath://*[@href="/sign-out"]
@@ -262,7 +271,7 @@ Permissions Set 10 (RFID)
     Section Is Present              css:.rfid-create-button
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Set Permission                  5       2
+    Set Permission                  7       2
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
     Switch Browser                  2
@@ -271,7 +280,7 @@ Permissions Set 10 (RFID)
     Section Is Not Present          css:.rfid-create-button
     Switch Browser                  1
     Click Element                   ${edit group button}
-    Clear Permission                5
+    Clear Permission                7
     Click Element                   css:.modal-dialog-ok-button
     Switch Browser                  2
     Reload Page
@@ -374,26 +383,6 @@ Number Of Static Row G
     \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
     Set Global Variable             ${static row g}     ${counter g}
 
-Set Permission
-    [Arguments]                     ${row}      ${column}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
-
-Set Settings Permission
-    [Arguments]                     ${row}      ${column}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
-
-Clear Permission
-    [Arguments]                     ${row}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Double Click    ${row}      ELSE IF     "${checked}"=="true"    Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
-
-Clear Settings Permission
-    [Arguments]                     ${row}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Double Click    ${row}      ELSE IF     "${checked}"=="true"    Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
-
 Get Permission
     [Arguments]                     ${row}      ${column}
     ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
@@ -403,24 +392,3 @@ Get Settings Permission
     [Arguments]                     ${row}      ${column}
     ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
     Return From Keyword             ${checked}
-
-Section Is Present
-    [Arguments]                     ${section}
-    Run Keyword And Ignore Error    Checking Sections   ${section}
-    Run Keyword If                  "${check}"!="true"  Fail    Fail
-
-Section Is Not Present
-    [Arguments]                     ${section}
-    Run Keyword And Ignore Error    Checking Sections   ${section}
-    Run Keyword If                  "${check}"!="false"  Fail    Fail
-
-Checking Sections
-    [Arguments]                     ${section}
-    Set Global Variable             ${check}            false
-    Element Should Be Visible       ${section}
-    Set Global Variable             ${check}            true
-
-Double Click
-    [Arguments]                     ${row}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input

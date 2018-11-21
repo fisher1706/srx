@@ -53,6 +53,7 @@ Valid Create New Product
     Input Text                      id:upc_id                       ${test string}
     Input Text                      id:alternative_id               ${test number}
     Input Text                      id:keyword_id                   ${keyword}
+    Input Text                      id:image_id                     ${keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           3 second
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
@@ -61,23 +62,31 @@ Checking New Product
     [Tags]                          Catalog
     Sleep                           3 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${random string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${dynamic code}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div      ${dynamic adress1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div      ${dynamic adress2}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div      ${round by}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[7]/div      ${level 1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[8]/div      ${level 2}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[9]/div      ${level 3}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[10]/div     ${sub 1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div     ${sub 2}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[12]/div     ${sub 3}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div     ${dynamic city}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[14]/div     ${test string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[15]/div     ${test number}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div     ${keyword}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     10
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[18]/div     ${warehouse number}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[20]/div/div[1]/button
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${random string}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${dynamic code}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${user last name}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[4]/div[2]         ${dynamic adress1}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[5]/div[2]         ${dynamic adress2}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[6]/div[2]         ${round by}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[7]/div[2]         ${level 1}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[8]/div[2]         ${level 2}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[9]/div[2]         ${level 3}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[10]/div[2]        ${sub 1}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[11]/div[2]        ${sub 2}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[12]/div[2]        ${sub 3}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[13]/div[2]        ${dynamic city}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[14]/div[2]        ${test string}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${test number}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${keyword}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        10
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${warehouse number}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[19]/div[2]        ${keyword}
+    Click Element                   css:.close
+    Sleep                           3 second
 
 Edit Product
     [Tags]                          Catalog
@@ -109,6 +118,7 @@ Edit Product
     Input Text                      id:upc_id                           ${edit string}
     Input Text                      id:alternative_id                   ${edit test number}
     Input Text                      id:keyword_id                       ${edit keyword}
+    Input Text                      id:image_id                         ${edit keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           3 second
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
@@ -117,45 +127,39 @@ Checking Edit Product
     [Tags]                          Catalog
     Sleep                           3 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${edit code}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div      ${edit adress1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div      ${edit adress2}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div      ${edit round by}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[7]/div      ${edit level 1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[8]/div      ${edit level 2}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[9]/div      ${edit level 3}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[10]/div     ${edit sub 1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[11]/div     ${edit sub 2}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[12]/div     ${edit sub 3}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[13]/div     ${edit city}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[14]/div     ${edit string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[15]/div     ${edit test number}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div     ${edit keyword}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     20
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[18]/div     ${edit warehouse number}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[20]/div/div[1]/button
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${edit random string}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${edit code}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${edit last name}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[4]/div[2]         ${edit adress1}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[5]/div[2]         ${edit adress2}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[6]/div[2]         ${edit round by}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[7]/div[2]         ${edit level 1}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[8]/div[2]         ${edit level 2}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[9]/div[2]         ${edit level 3}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[10]/div[2]        ${edit sub 1}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[11]/div[2]        ${edit sub 2}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[12]/div[2]        ${edit sub 3}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[13]/div[2]        ${edit city}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[14]/div[2]        ${edit string}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${edit test number}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${edit keyword}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        20
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${edit warehouse number}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[19]/div[2]        ${edit keyword}
     Set Global Variable             ${number of row}        ${number of new row}
+    Click Element                   css:.close
+    Sleep                           3 second
 
 Sorting Catalog
     [Tags]                          Sorting                 ProductSorting      Catalog
     Sorting Catalog Column          1
-    Sorting Catalog Column          2
     Sorting Catalog Column          3
-    Sorting Catalog Column          4
-    Sorting Catalog Column          5
     Sorting Catalog Column          6
-    Sorting Catalog Column          7
-    Sorting Catalog Column          8
-    Sorting Catalog Column          9
-    Sorting Catalog Column          10
-    Sorting Catalog Column          11
-    Sorting Catalog Column          12
-    Sorting Catalog Column          13
-    Sorting Catalog Column          14
-    Sorting Catalog Column          15
-    Sorting Catalog Column          16
     Sorting Catalog Column          17
-    Sorting Catalog Column          18
 
 Catalog Filtration
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               NYSFUCWSLUUUMJUUOZ
@@ -198,7 +202,7 @@ Preparation
     Set Global Variable             ${random string}
     Set Global Variable             ${edit random string}
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit product button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[19]/div/div/button
+    Set Global Variable             ${edit product button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[20]/div/div[2]/button
 
 Number Of Rows G
     ${number of row g}              Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
