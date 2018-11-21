@@ -8,8 +8,7 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Check Document Status In Settings
     Goto Documents
-    Is Documents
-    ${status}                       Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[4]/div/span
+    ${status}                       Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[4]/div/span
     Set Global Variable             ${status}
 
 Checking Taxes Before Change
@@ -40,8 +39,7 @@ Change Document Status
 Second Check Document Status In Settings
     Preparation
     Goto Documents
-    Is Documents
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[4]/div/span     ${restatus}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[4]/div/span     ${restatus}
 
 Checking Taxes After Change
     Goto Taxes
@@ -56,20 +54,24 @@ Preparation
     Set Global Variable             ${SUB EMAIL}
 
 Goto Documents
-    Click Element                   id:settings-tab-documents
+    Click Element                   id:settings-tab-pricing-billing
+    Sleep                           1 second
+    Click Element                   id:pricing-billing-tab-documents
     Sleep                           3 second
 
 Goto Taxes
-    Click Element                   id:settings-tab-taxes
+    Click Element                   id:settings-tab-pricing-billing
+    Sleep                           1 second
+    Click Element                   id:pricing-billing-tab-taxes
     Sleep                           3 second
 
 Rejected In Taxes
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     4.75 %
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[2]/div     No
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     4.75 %
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[2]/div     No
 
 Approved In Taxes
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     0 %
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[6]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[2]/div     Yes
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     0 %
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[2]/div     Yes
 
 Approved
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[6]/div/div[2]/button
@@ -78,9 +80,6 @@ Approved
 Rejected
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[6]/div/div[1]/button
     Set Global Variable             ${restatus}                 APPROVED
-
-Is Documents
-    Element Should Be Visible       id:settings-pane-documents
 
 Goto Documents Sub
     Finish Suite

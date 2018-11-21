@@ -30,49 +30,10 @@ Change Base Fees
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  $${edit year fee}
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  $${edit month fee}
 
-Checking Other Fees On Admin Portal
-    [Tags]                          OtherFees
-    Click Element                   css:#uncontrolled-tab-example-tab-2
-    Sleep                           1 second
-    ${current button fee value}     Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
-    ${next button fee value}        Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div
-    ${current button fee number}    Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
-    ${next button fee number}       Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[1]/div
-    Set Suite Variable             ${current button fee value}
-    Sleep                           1 second
-    Set Suite Variable             ${next button fee value}
-    Sleep                           1 second
-    Set Global Variable             ${current button fee number}
-    Sleep                           1 second
-    Set Global Variable             ${next button fee number}
-    Sleep                           1 second
-    Click Element                   css:#uncontrolled-tab-example-tab-3
-    Sleep                           1 second
-    ${current srxcloud fee value}   Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
-    ${next srxcloud fee value}      Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div
-    ${current srxcloud fee number}  Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
-    ${next srxcloud fee number}     Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[1]/div
-    Set Global Variable             ${current srxcloud fee value}
-    Set Global Variable             ${next srxcloud fee value}
-    Set Global Variable             ${current srxcloud fee number}
-    Set Global Variable             ${next srxcloud fee number}
-
 Checking Base Fees
     Goto Settings Sub
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[2]      $${edit year fee}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[2]      $${edit month fee} per warehouse
-    Finish Suite
-    Sleep                           5 second
-
-Checking Other Fees On Distributor Portal
-    [Tags]                          OtherFees
-    Goto Settings Sub
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div[1]/b    Current monthly fee (${current button fee number} buttons):
-    #Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div[2]      $${current button fee value} per button
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[2]/div/div[2]/div[3]/div[1]      Next tier (${next button fee number} buttons):
-    #Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[2]/div/div[2]/div[3]/div[2]      $${next button fee value} per button
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[3]/div/div[2]/div[2]/div[1]/b    Current monthly fee (${current srxcloud fee number} shiptos):
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[3]/div/div[2]/div[3]/div[1]      Next tier (${next srxcloud fee number} shiptos):
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]      $${edit year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[2]/div[2]      $${edit month fee} per warehouse
     Finish Suite
     Sleep                           5 second
 
@@ -101,8 +62,8 @@ Return Base Fees
 
 Checking Returned Base Fees
     Goto Settings Sub
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[2]       $${year fee}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[10]/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[2]       $${month fee} per warehouse
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]       $${year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[2]/div[2]       $${month fee} per warehouse
 
 *** Keywords ***
 Preparation
@@ -123,7 +84,9 @@ Goto Settings Sub
     Sleep                           7 second
     Click Link                      xpath://*[@href="/settings"]
     Sleep                           2 second
-    Click Element                   id:settings-tab-pricing-calc
+    Click Element                   id:settings-tab-pricing-billing
+    Sleep                           1 second
+    Click Element                   id:pricing-billing-tab-pricing-calc
     Sleep                           3 second
 
 

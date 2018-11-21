@@ -25,14 +25,13 @@ Set Email In Settings
     Click Link                      xpath://*[@href="/settings"]
     Goto Notification Emails
     Sleep                           5 second
-    Is Notification Emails
     Clear Element Text              id:replenishmentListEmails_id
     Press Key                       id:replenishmentListEmails_id           \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Input Text                      id:replenishmentListEmails_id           ${replenishment email}
     Clear Element Text              id:activeReplenishmentListEmails_id
     Clear Element Text              id:discrepancyReplenishmentListEmails_id
-    Click Element                   css:#settings-pane-notification-settings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#enterprise-workflow-pane-notification-emails > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
     Checking Fields
@@ -63,10 +62,9 @@ Set Email In Warehouse
     Click Link                      xpath://*[@href="/settings"]
     Goto Notification Emails
     Sleep                           3 second
-    Is Notification Emails
     Input Text                      id:replenishmentListEmails_id           ${static email}
     Input Text                      id:activeReplenishmentListEmails_id     ${static email}
-    Click Element                   css:#settings-pane-notification-settings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#enterprise-workflow-pane-notification-emails > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Click Link                      xpath://*[@href="/warehouses"]
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/a
@@ -159,7 +157,7 @@ Goto Customer Portal Sub
     Correct Submit Login
     Is Select A Shipto
     Click Element                   xpath:/html/body/div/div/div/div/div/div/button[1]
-    Click Element                   css:.select-cutomer-shopto-button
+    Click Element                   css:.select-shipto-button
     Is Customer Portal Sub
 
 First PO
@@ -177,10 +175,10 @@ Set First
     Input Text                      id:po_number_field_id           ${first po number}
 
 Goto Notification Emails
-    Click Element                   id:settings-tab-notification-settings
-
-Is Notification Emails
-    Element Should Be Visible       id:settings-pane-notification-settings
+    Click Element                   id:settings-tab-enterprise-workflow
+    Sleep                           1 second
+    Click Element                   id:enterprise-workflow-tab-notification-emails
+    Sleep                           3 second
 
 Go Down
     Click Element                   css:div.item-form-field:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
