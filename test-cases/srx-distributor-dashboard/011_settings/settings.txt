@@ -166,6 +166,10 @@ Transaction Status Updates Logic
     Run Keyword If                  "${checked2}"=="true"           Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
     Sleep                           3 second
+    Reload Page
+    Goto Transaction Status Updates Logic
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[11]/div/button
@@ -188,8 +192,13 @@ Transaction Status Updates Logic
     Run Keyword If                  "${checked2}"=="None"           Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
     Sleep                           3 second
+    Reload Page
+    Goto Transaction Status Updates Logic
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
+    Sleep                           10 second
     ${rows}                         Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td
     Should Be Equal                 "${rows}"                       "10"
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
@@ -204,6 +213,10 @@ Transaction Status Updates Logic
     ${checked2}                     Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked1}"=="None"           Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Run Keyword If                  "${checked2}"=="None"           Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Sleep                           3 second
+    Reload Page
+    Goto Transaction Status Updates Logic
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
