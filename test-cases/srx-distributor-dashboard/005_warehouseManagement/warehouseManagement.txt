@@ -135,6 +135,9 @@ Warehouse filtration
 Preparation
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/warehouses"]
+    Sleep                           5 second
+    Reload Page
+    Sleep                           5 second
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
