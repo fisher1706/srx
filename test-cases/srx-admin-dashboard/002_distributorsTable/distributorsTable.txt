@@ -155,18 +155,6 @@ Checking Returned Static Data
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[4]/div     Singular Billing
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[5]/div     ${static email}
 
-Try To Remove Distributor
-    [Tags]                          TryToRemove
-    Click Element                   ${delete row button}
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       1       del distr
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       3       qwe qwe qwe AL 12345
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       4       Singular Billing
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       5       qwe@example.com
-    Click Element                   css:button.btn:nth-child(2)
-    Element Text Should Be          css:.external-page-alert > strong:nth-child(2)      Operation failed!
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           3 second
-
 Sorting Distributors By Name
     [Tags]                          Sorting
     Click Element                   css:th.sort-column:nth-child(1)
