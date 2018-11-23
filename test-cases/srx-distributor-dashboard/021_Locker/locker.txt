@@ -6,16 +6,10 @@ Library                             RequestsLibrary
 Library                             OperatingSystem
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
-Suite Setup                         Login In Distributor Portal
+Suite Setup                         Goto Locations
 Suite Teardown                      Close All Browsers
 
 *** Test Cases ***
-
-Open Locations page
-    [Tags]                          Open locations page
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
-    Sleep                           3 seconds
-
 Create Locker
     [Tags]                          Locker creating
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
@@ -156,7 +150,7 @@ Locker Request Not Multiply
 
 Open Transaction page
     [Arguments]                     ${expectedTransaction}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[6]/a
+    Click Link                      xpath://*[@href="/transactions"]
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
     Sleep                           4 seconds
@@ -164,7 +158,7 @@ Open Transaction page
     Sleep                           4 seconds
     ${lastTransaction}              Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
     Should Be Equal As Strings      ${lastTransaction}      ${expectedTransaction}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
+    Click Link                      xpath://*[@href="/locations"]
 
 Increasing OHI
     [Arguments]                     ${inc val}

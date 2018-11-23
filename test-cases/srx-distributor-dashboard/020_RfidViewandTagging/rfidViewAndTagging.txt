@@ -7,15 +7,13 @@ Library                             RequestsLibrary
 Library                             OperatingSystem
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
-Suite Setup                         Login In Distributor Portal
+Suite Setup                         Goto Locations
 Suite Teardown                      Close All Browsers
 
 *** Test Cases ***
 
 Prepare to testing ohi
     [Tags]                          Preparation
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[9]/a
-    Sleep                           3 seconds
     Click Element                   id=pageDropDown
     Sleep                           1 second
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/span/ul/li[4]/a
