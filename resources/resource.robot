@@ -37,6 +37,11 @@ Goto Security Groups
     Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
 
+Goto Camera View
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/camera-view"]
+    Sleep                           5 second
+
 Goto Settings
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/settings"]
