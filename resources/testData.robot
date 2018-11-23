@@ -93,7 +93,8 @@ ${locationName}                 testLocName1
 ${locationValue}                testLocValue1
 ${minValue}                     20
 ${maxValue}                     30
-@{RfidVandTsortingFields}       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]            xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[3]             xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[4]           xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
+${rfid sorting rows}            xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/
+@{RfidVandTsortingFields}       ${rfid sorting rows}th[1]   ${rfid sorting rows}th[2]   ${rfid sorting rows}th[3]   ${rfid sorting rows}th[4]   ${rfid sorting rows}th[5]
 ${RfidAssociatedData}           TestDATA
 ${APIKEY}                       m4DAfPuRurdzlsVrlen2
 ${security group}               auto-security-group
