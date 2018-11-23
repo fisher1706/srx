@@ -16,7 +16,8 @@ Login In Distributor Portal
     Enter Correct Email
     Enter Password
     Correct Submit Login
-    Sleep                           3 second
+    Section Is Present              xpath://*[@href="/sign-out"]
+    Sleep                           5 second
 
 Login In Customer Portal
     Start Suite
@@ -33,8 +34,12 @@ Goto Customer Menu
 
 Goto Security Groups
     Login In Distributor Portal
-    
     Click Link                      xpath://*[@href="/security-groups"]
+    Sleep                           5 second
+
+Goto Camera View
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/camera-view"]
     Sleep                           5 second
 
 Goto Settings

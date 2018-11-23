@@ -11,7 +11,7 @@ ${index}                            1
 *** Test Cases ***
 Checking Quoted And Ordered List
     Click Element                   xpath:/html/body/div/div/div/div/div/div/button[1]
-    Click Element                   css:.select-cutomer-shopto-button
+    Click Element                   css:.select-shipto-button
     Is Customer Portal
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
     :FOR    ${index}  IN RANGE      1       11
@@ -24,10 +24,10 @@ Checking Quoted And Ordered List
     Click Element                   css:.control-button
     Sleep                           5 second
     Element Text Should Be          css:.loading-indicator > div:nth-child(1) > h4:nth-child(2)     There are no active items.
-    Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
 
 Sorting List
     [Tags]                          Sorting
+    Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
     Sorting List                    1
     Sorting List                    2
     Sorting List                    3
