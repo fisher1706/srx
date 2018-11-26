@@ -83,7 +83,7 @@ Edit Security Group
     Click Element                   ${edit group button}
     Is Edit Security Group
     Input Text                      id:name_id                  ${edit security group}
-    Set Permission                  2           2
+    Set Permission                  2           1
     Set Permission                  3           1
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
     Set Settings Permission         2           1
@@ -93,7 +93,7 @@ Checking Edit Security Group
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]      ${edit security group}
     Click Element                   ${edit group button}
-    ${checked}                      Get Permission      2       2
+    ${checked}                      Get Permission      2       1
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail Fail
     ${checked}                      Get Permission      3       1
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail Fail

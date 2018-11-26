@@ -179,7 +179,7 @@ Transaction Status Updates Logic
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
-    ${error}                        Post Request                    httpbin    /items/71/split/30       headers=${headers}
+    ${error}                        Post Request                    httpbin    /items/793/split/30       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [400]>
     Click Link                      xpath://*[@href="/settings"]
     Goto Transaction Status Updates Logic
@@ -202,7 +202,7 @@ Transaction Status Updates Logic
     ${rows}                         Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td
     Should Be Equal                 "${rows}"                       "10"
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
-    ${error}                        Post Request                    httpbin    /items/71/split/30       headers=${headers}
+    ${error}                        Post Request                    httpbin    /items/793/split/30       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
     Click Link                      xpath://*[@href="/settings"]
     Goto Transaction Status Updates Logic
@@ -228,7 +228,7 @@ Transaction Status Updates Logic
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
-    ${error}                        Post Request                    httpbin    /items/71/split/30       headers=${headers}
+    ${error}                        Post Request                    httpbin    /items/793/split/30       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
 
 Distributor Contact Info
