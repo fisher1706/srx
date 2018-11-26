@@ -11,8 +11,8 @@ ${second po number}                 2393
 
 *** Test Cases ***
 Set Email In Settings
+    Open Mailbox                    host=imap.ukr.net               user=replenishment@ukr.net              password=srx-group      port=993
     Run Keyword And Ignore Error    Mailbox Open
-    Delete All Emails
     Click Element                   id:customer-details-tab-6
     Input Text                      id:replenishmentListEmails_id           ${static email}
     Input Text                      id:activeReplenishmentListEmails_id     ${static email}
@@ -230,7 +230,6 @@ If Other
     Fail                            Fail
 
 Mailbox Open
-    Open Mailbox                    host=imap.ukr.net               user=replenishment@ukr.net              password=srx-group
     ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     Delete All Emails
 
