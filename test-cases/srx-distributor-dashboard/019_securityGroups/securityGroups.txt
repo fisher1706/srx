@@ -23,7 +23,7 @@ Valid Create New Security Group
 
 Checking New Security Group
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]          ${security group}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]          ${security group}
 
 Create User With New Security Group
     [Tags]                          Test
@@ -91,7 +91,7 @@ Edit Security Group
     
 Checking Edit Security Group
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]      ${edit security group}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]      ${edit security group}
     Click Element                   ${edit group button}
     ${checked}                      Get Permission      2       1
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail Fail
@@ -110,15 +110,15 @@ Delete Security Group
 
 Sorting Security Groups
     [Tags]                          Sorting
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
-    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
-    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
-    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
-    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
+    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
+    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting 1 is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting 1 is failed
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
 
 Filter Security Groups
     [Tags]                          Filter
@@ -126,7 +126,7 @@ Filter Security Groups
     Input Text                      css:.form-control           Static Group
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]     Static Group
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]     Static Group
     Number Of Rows
     Should Be Equal                 "${number of row}"      "1"
 
@@ -136,8 +136,8 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit group button}        xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
-    Set Global Variable             ${delete group button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
+    Set Global Variable             ${edit group button}        xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
+    Set Global Variable             ${delete group button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
 
 Is Create Security Group
     Element Text Should Be          css:.modal-title            Create new custom security group
@@ -149,7 +149,7 @@ Is Delete Security Group
     Element Text Should Be          css:.modal-title            Removal Confirmation
 
 Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row}
 
 Number Of Rows U
