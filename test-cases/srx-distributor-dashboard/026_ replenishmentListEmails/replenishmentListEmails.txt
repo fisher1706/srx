@@ -13,14 +13,14 @@ ${second po number}                 2393
 Set Email In Settings
     Open Mailbox                    host=imap.ukr.net               user=replenishment@ukr.net              password=srx-group      port=993
     Run Keyword And Ignore Error    Mailbox Open
-    Click Element                   id:customer-details-tab-6
+    Goto Customers Notification Emails
     Input Text                      id:replenishmentListEmails_id           ${static email}
     Input Text                      id:activeReplenishmentListEmails_id     ${static email}
-    Element Should Be Enabled       css:#customer-details-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
-    Click Element                   css:#customer-details-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Element Should Be Enabled       css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           3 second
     Click Element                   id:customer-details-tab-shiptos
-    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
+    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
     Run Keyword If                  ${buffer po number}==${first po number}     First PO    ELSE IF     ${buffer po number}==${second po number}    Second PO       ELSE    Fail    Exceptional situation! Incorrect PO Number!
     Click Link                      xpath://*[@href="/settings"]
     Goto Notification Emails
@@ -108,20 +108,20 @@ Set Email In Customer
     Sleep                           5 second
     Click Link                      xpath://*[@href="/customers"]
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
-    Click Element                   id:customer-details-tab-6
+    Goto Customers Notification Emails
     Clear Element Text              id:replenishmentListEmails_id
     Press Key                       id:replenishmentListEmails_id           \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Input Text                      id:replenishmentListEmails_id           ${replenishment email}
     Clear Element Text              id:activeReplenishmentListEmails_id
     Clear Element Text              id:discrepancyReplenishmentListEmails_id
-    Element Should Be Enabled       css:#customer-details-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
-    Click Element                   css:#customer-details-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Element Should Be Enabled       css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
     Checking Fields
     Click Element                   id:customer-details-tab-shiptos
-    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
+    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
     Should Be Equal As Integers     ${buffer po number}     ${required po number}
 
 Submit Quote After Customer
@@ -208,7 +208,7 @@ Checking Fail Email
     Set Global Variable             ${latest}
 
 Checking Email
-    ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=60         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
+    ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=120        status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     ${body}=                        Get Email Body                  ${latest}
     Delete All Emails
     Sleep                           5 second
@@ -232,4 +232,9 @@ If Other
 Mailbox Open
     ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     Delete All Emails
+
+Goto Customers Notification Emails
+    Click Element                   id:customer-details-tab-settings
+    Sleep                           1 second
+    Click Element                   id:customer-settings-tab-6
 

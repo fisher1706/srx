@@ -20,13 +20,10 @@ Sorting Trasaction Log
     Sorting Transaction Log Column                  9
 
 Transactions Log Filtration
-    ${creationDate}                 Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[9]
     Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                     STATIC SKU
     Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/span/div[1]   CREATE
     Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/span/div[1]   ACTIVE
     Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/div/div/div/span/div[1]   CUSTOMER
-    Filter Check Date               xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/div/div/div/input         ${creationDate}    9      FROM
-    Filter Check Date               xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[7]/div[2]/div/div/div/input         ${creationDate}    9      TO
 
 *** Keywords ***
 Preparation
@@ -100,18 +97,3 @@ Go Down
     ${text buffer sub}              Get Text                 ${fieldAdr}
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${fieldAdr}    ${field type}
-
-Filter Check Date
-    [Arguments]                     ${inputField}            ${inputText}     ${checkingField}      ${fromTO}
-    ${resultFrom} =                 Fetch From Left          ${inputText}      M
-    ${leftPart} =                   Fetch From Left          ${resultFrom}     2018
-    ${rightPart} =                  Fetch From Right         ${resultFrom}     2018
-    ${resultTo} =                   Strip String             ${leftPart}2020${rightPart}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[2]/div[1]/div/button
-    Run Keyword If                  "${fromTO}" == "TO"      Input Text        ${inputField}            ${resultTo}     ELSE        Input Text        ${inputField}            ${resultFrom}
-    Sleep                           2 seconds
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
-    Sleep                           3 seconds
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${checkingField}]            ${inputText}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[2]/div[1]/div/button[2]
-    Sleep                           3 seconds
