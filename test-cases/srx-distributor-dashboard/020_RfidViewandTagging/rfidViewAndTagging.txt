@@ -72,7 +72,7 @@ Check Selector Input at RFID page
 
 Adding RFID with false Transaction
     [Tags]                          False Transaction
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/button
+    Click Element                   css:.rfid-create-button
     Input Text                      xpath://*[@id="transactionNumber_id"]                   195
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[3]
     Wait Until Page Contains        This transaction number is not for RFID location type
@@ -84,7 +84,7 @@ Adding three Rfid View and tagging
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
     :FOR       ${var}      IN RANGE            1   4
-    \    Click Element              xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/button
+    \    Click Element              css:.rfid-create-button
     \    ${buffer}=                 Generate Random String      18      [LETTERS]
     \    ${random string}=          Convert To Uppercase        ${buffer}
     \    Input Text                 id=labelId_id                                           ${random string}
