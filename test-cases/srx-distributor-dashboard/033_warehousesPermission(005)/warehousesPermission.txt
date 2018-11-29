@@ -118,19 +118,6 @@ Delete Warehouse
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
-Sorting Warehouses
-    [Tags]                          Sorting
-    Sorting Column                  1
-    Sorting Column                  2
-    Sorting Column                  3
-    Sorting Column                  5
-    Sorting Column                  6
-
-Warehouse filtration
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       Z_Warehouse
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input       9999
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input       warehouseZ@example.com
-
 *** Keywords ***
 Preparation
     Goto Security Groups
