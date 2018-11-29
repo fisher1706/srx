@@ -6,34 +6,16 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
-Invalid Create New Market Type
-    [Tags]                          InvalidCreateNewCustomer
-    Click Element                   css:.btn-primary
-    Is Add Market Type
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Market Types
-    Click Element                   css:.btn-primary
-    Press Key                       id:name_id                      \ue004
-    Element Should Be Enabled       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
-    Sleep                           2 second
-    Is Market Types
-
 Valid Create New Market Type
-    [Tags]                          ValidCreateNewCustomer
+    Set Global Variable             ${right size}                   ${number of row}
     Click Element                   css:.btn-primary
     Is Add Market Type
-    Input Text                      id:name_id                      ${market type}
+    Input Text                      id:name_id                      ${market del type}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
     Is Market Types
 
-Checking New Market Type In Table
-    Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div          ${market type}
-
-Checking New Market Type On Distributor Portal
+Checking New Market Type On Distributor Portal Not Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
     Click Element                   ${edit customer button sub}
@@ -41,7 +23,22 @@ Checking New Market Type On Distributor Portal
     Sleep                           1 second
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[5]/div      ${market type}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[5]/div      ${market del type}
+    Finish Suite
+
+Delete Market Type Not Delete
+    Sleep                           5 second
+    Preparation
+    Click Element                   ${delete button}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${market del type}
+    Click Element                   css:button.btn:nth-child(2)
+    Element Text Should Be          css:.external-page-alert > strong:nth-child(2)                                  Operation failed!
+    Click Element                   css:.modal-footer > button:nth-child(1)
+    Sleep                           5 second
+
+Checking New Market Type On Distributor Portal Delete
+    [Tags]                          CheckingOnDistributorPortal
+    Goto Customer Menu Sub
     Click Element                   ${edit customer button sub}
     Go Up
     Sleep                           1 second
@@ -50,56 +47,15 @@ Checking New Market Type On Distributor Portal
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[5]/div      Not specified
     Finish Suite
 
-Edit Market Type
+Delete Market Type Delete
     Sleep                           5 second
     Preparation
-    Click Element                   ${edit button}
-    Is Edit Market Type
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Market Types
-    Click Element                   ${edit button}
-    Click Element                   css:.modal-dialog-cancel-button
-    Sleep                           2 second
-    Is Market Types
-    Click Element                   ${edit button}
-    Input Text                      id:name_id                      ${edit market type}
-    Click Element                   css:.modal-dialog-ok-button
-    Sleep                           1 second
-    Is Market Types
-
-Delete Market Type
     Click Element                   ${delete button}
-    Is Delete Market Type
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Market Types
-    Click Element                   ${delete button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Is Market Types
-    Click Element                   ${delete button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${edit market type}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${market del type}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
-
-Sorting Market Types By Id
-    [Tags]                          Sorting
-    Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
-    Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}-1]/td[1]/div
-    Should Be Equal                 ${text buffer1}     ${text buffer2}
-    Click Element                   css:th.sort-column:nth-child(1)
-
-Sorting Market Types By Type
-    [Tags]                          Sorting
-    Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
-    Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}-1]/td[2]/div
-    Should Be Equal                 ${text buffer1}     ${text buffer2}
-    Click Element                   css:th.sort-column:nth-child(2)
+    ${current size}                 Get Element Count                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    Run Keyword If                  ${current size}==${right size}      Pass Execution      Pass    ELSE        Fail    Fail
 
 *** Keywords ***
 Goto Customer Menu Sub
@@ -160,7 +116,7 @@ Go Down
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue007
     ${text buffer sub}              Get Text                                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[1]/span
     Sleep                           1 second
-    Run Keyword If                  "${text buffer sub}"!="${market type}"        Go Down
+    Run Keyword If                  "${text buffer sub}"!="${market del type}"        Go Down
 
 Go Up
     Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
@@ -168,4 +124,4 @@ Go Up
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue007
     ${text buffer sub}              Get Text                                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[1]/span
     Sleep                           1 second
-    Run Keyword If                  "${text buffer sub}"!="Not specified"       Go Up
+    Run Keyword If                  "${text buffer sub}"!="Not specified"       Go Down

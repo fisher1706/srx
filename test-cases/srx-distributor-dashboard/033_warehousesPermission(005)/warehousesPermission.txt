@@ -118,22 +118,26 @@ Delete Warehouse
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
-Sorting Warehouses
-    [Tags]                          Sorting
-    Sorting Column                  1
-    Sorting Column                  2
-    Sorting Column                  3
-    Sorting Column                  5
-    Sorting Column                  6
-
-Warehouse filtration
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       Z_Warehouse
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input       9999
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input       warehouseZ@example.com
-
 *** Keywords ***
 Preparation
-    Login In Distributor Portal
+    Goto Security Groups
+    Number Of Rows G
+    Number Of Static Row G
+    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Click Element                   ${edit group button}
+    Clear All Permissions
+    Set Permission                  13       1
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
+    Clear All Settings Permissions
+    Click Element                   css:.modal-dialog-ok-button
+    Sleep                           3 second
+    Is Security Groups
+    Finish Suite
+    Sleep                           3 second
+    Start Suite
+    Input Text                      id:email        srx-group+dev-permissions@agilevision.io
+    Enter Password
+    Correct Submit Login
     Click Link                      xpath://*[@href="/warehouses"]
     Sleep                           5 second
     Reload Page
@@ -141,8 +145,8 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit warehouse button}        xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[8]/div/div[1]/button
-    Set Global Variable             ${delete warehouse button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[8]/div/div[2]/button
+    Set Global Variable             ${edit warehouse button}        xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[7]/div/div[1]/button
+    Set Global Variable             ${delete warehouse button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[7]/div/div[2]/button
 
 Number Of Rows
     ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
@@ -156,3 +160,13 @@ Is Edit Warehouse
 
 Is Delete Warehouse
     Element Text Should Be          css:.modal-title                Removal Confirmation
+
+Number Of Rows G
+    ${number of row g}              Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    Set Global Variable             ${number of row g}
+
+Number Of Static Row G
+    : FOR   ${counter}            IN RANGE    1   ${number of row g}+1
+    \   ${text buffer1 g}           Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/div
+    \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
+    Set Global Variable             ${static row g}     ${counter}

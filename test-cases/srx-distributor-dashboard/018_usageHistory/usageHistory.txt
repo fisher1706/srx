@@ -7,6 +7,17 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
+Checking New Item
+    [Tags]                          Check new Record
+    Click Element                   css:.button-right-margin
+    Input Text                      xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       ${order number}
+    Click Element                   css:button.btn:nth-child(2)
+    Sleep                           5 second
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div         ${order number}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[9]/div         Delivered
+    Click Element                   css:button.button-right-margin:nth-child(2)
+    Sleep                           3 second
+
 Sorting Usage History
     [Tags]                          Sorting
     Sorting Column                  2
@@ -17,13 +28,30 @@ Sorting Usage History
     Sorting Column                  9
 
 Usage History Filtration
+    [Tags]                          Filtration
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input         101
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input         59
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input         PAND F1X4LG6
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input         12
 
 *** Keywords ***
 Preparation
-    Goto Usage History
+    Goto Transactions
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[8]/div[1]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[8]/div[1]
+    ${order number}                 Get Text            xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
+    Set Global Variable             ${order number}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[12]/div/div/button
+    Go Down                         DELIVERED
+    Click Element                   css:.modal-dialog-ok-button
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/usage-history"]
+    Section Is Present              css:div.btn
+    Sleep                           5 second
+    Click Element                   id:pageDropDown
+    Sleep                           1 second
+    Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
+    Sleep                           1 second
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
@@ -32,3 +60,11 @@ Number Of Rows
     ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
     Set Global Variable             ${number of row}
 
+Go Down
+    [Arguments]                     ${field type}
+    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue015
+    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue007              
+    ${text buffer sub}              Get Text                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[1]
+    Sleep                           1 second
+    Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${field type}
