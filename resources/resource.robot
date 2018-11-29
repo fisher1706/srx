@@ -129,10 +129,9 @@ Is Customer Info
     Element Should Be Visible       id:customer-details-pane-general-info
 
 Goto Customer Contact Info
-    Click Element                   id:customer-details-tab-contact-info
-
-Is Customer Contact Info
-    Element Should Be Visible       id:customer-details-pane-contact-info
+    Click Element                   id:customer-details-tab-settings
+    Sleep                           1 second
+    Click Element                   id:customer-settings-tab-contact-info
 
 Goto Customer Shipto
     Click Element                   id:customer-details-tab-shiptos
@@ -147,10 +146,9 @@ Is Customer Users
     Element Should Be Visible       id:customer-details-pane-users
 
 Goto Customer Cost Saving
-    Click Element                   id:customer-details-tab-cost-savings
-
-Is Customer Cost Saving
-    Element Should Be Visible       id:customer-details-pane-cost-savings
+    Click Element                   id:customer-details-tab-settings
+    Sleep                           1 second
+    Click Element                   id:customer-settings-tab-cost-savings
 
 Login In Admin Portal
     Start Suite
