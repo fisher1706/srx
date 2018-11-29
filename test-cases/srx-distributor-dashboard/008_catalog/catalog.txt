@@ -12,6 +12,7 @@ ${number of row}
 
 *** Test Cases ***
 Invalid Create New Product
+    [Tags]                          Catalog
     Click Element                   css:.btn-primary
     Is Add Product
     Click Element                   css:.close
@@ -33,6 +34,7 @@ Invalid Create New Product
     Is Catalog
 
 Valid Create New Product
+    [Tags]                          Catalog
     Click Element                   css:.btn-primary
     Is Add Product
     Input Text                      id:partSku_id                   ${random string}
@@ -55,6 +57,7 @@ Valid Create New Product
     Click Element                   css:.modal-dialog-ok-button
 
 Checking New Product
+    [Tags]                          Catalog
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${random string}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${dynamic code}
@@ -75,6 +78,7 @@ Checking New Product
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     ${warehouse number}
 
 Edit Product
+    [Tags]                          Catalog
     Click Element                   ${edit product button}
     Is Edit Product
     Click Element                   css:.close
@@ -105,6 +109,7 @@ Edit Product
     Click Element                   css:.modal-dialog-ok-button
 
 Checking Edit Product
+    [Tags]                          Catalog
     Sleep                           5 second
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${edit code}
@@ -123,29 +128,55 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[15]/div     ${edit test number}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[16]/div     ${edit keyword}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     ${edit warehouse number}
+    Set Global Variable             ${number of row}        ${number of new row}
 
 Sorting Catalog
-    [Tags]                          Sorting                 ProductSorting
-    ${number of row}=               Evaluate                ${number of row}+1
-    :FOR    ${colomn}               IN RANGE        1       18
-    \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
-    \   ${text buffer1}             Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${colomn}]/div
-    \   Click Element               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${colomn}]
-    \   ${text buffer2}             Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${colomn}]/div
-    \   Should Be Equal             ${text buffer1}         ${text buffer2}
-
-#Upload Template
+    [Tags]                          Sorting                 ProductSorting      Catalog
+    Sorting Column                  1
+    Sorting Column                  2
+    Sorting Column                  3
+    Sorting Column                  4
+    Sorting Column                  5
+    Sorting Column                  6
+    Sorting Column                  7
+    Sorting Column                  8
+    Sorting Column                  9
+    Sorting Column                  10
+    Sorting Column                  11
+    Sorting Column                  12
+    Sorting Column                  13
+    Sorting Column                  14
+    Sorting Column                  15
+    Sorting Column                  16
+    Sorting Column                  17
+    
+# Upload Template
 #    [Tags]                          ChromeOnly
 #    Choose File                     id:file-upload          /home/provorov/Downloads/product.csv
 #    ${text buffer}                  Get Text                css:.import-page-alert > strong:nth-child(2)
 #    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
 
+Catalog Filtration
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               NYSFUCWSLUUUMJUUOZ
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               edit level 1
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input               edit level 2
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input               edit level 3
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input               Edit City
+    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/input               edit string
+
 *** Keywords ***
 Preparation
-    Goto Catalog
+    Start Suite
+    Enter Correct Email
+    Enter Password
+    Correct Submit Login
+    Is Warehouse Management
+    Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
+    Sleep                           5 second
+    Is Catalog
     Click Element                   id:pageDropDown
     Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
-    Sleep                           5 second
+    Sleep                           7 second
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     ${buffer}=                      Generate Random String      18      [LETTERS]

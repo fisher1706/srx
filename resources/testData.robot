@@ -56,3 +56,46 @@ ${test string}                  test string
 ${edit string}                  edit string
 ${dynamic sku}                  DYNAMIC SKU
 ${edit sku}                     EDIT SKU
+${test number 1}                100
+${test number 2}                200 
+${test number 3}                300
+${test number 4}                400
+${test number 5}                500
+${edit test number 1}           1000
+${edit test number 2}           2000
+${edit test number 3}           3000
+${edit test number 4}           4000
+${edit test number 5}           5000
+${test type}                    auto-type
+${edit test type}               edit-auto-type
+${test del type}                auto-type-del
+${edit test del type}           edit-auto-type-del
+${year fee}                     4320
+${month fee}                    500
+${edit year fee}                9000
+${edit month fee}               1000
+${filter email}                 filter@example.com
+${filter first}                 filter first
+${filter last}                  filter last
+${user email}                   origin.user@example.com
+${edit user email}              edituser@example.com
+${admin email}                  admin@example.com
+${admin edit email}             edit.admin@example.com
+${admin first}                  admin first
+${admin last}                   admin last
+${edit admin first}             edit admin first
+${edit admin last}              edit admin last
+${market type}                  auto-market
+${edit market type}             edit-auto-market
+${market del type}              auto-market-del
+${edit market del type}         edit-auto-market-del
+${locationName}                 testLocName1
+${locationValue}                testLocValue1
+${minValue}                     20
+${maxValue}                     30
+@{RfidVandTsortingFields}       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]            xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[3]             xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[4]           xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
+${RfidAssociatedData}           TestDATA
+${APIKEY}                       m4DAfPuRurdzlsVrlen2
+${security group}               auto-security-group
+${edit security group}          auto-edit-security-group
+${replenishment email}          replenishment@ukr.net
