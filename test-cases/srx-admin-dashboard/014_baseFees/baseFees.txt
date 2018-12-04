@@ -32,8 +32,8 @@ Change Base Fees
 
 Checking Base Fees
     Goto Settings Sub
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]      $${edit year fee}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[2]/div[2]      $${edit month fee} per warehouse
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[2]/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]      $${edit year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[2]/div/div/div/div/div[1]/div/div[2]/div[2]/div[2]      $${edit month fee} per warehouse
     Finish Suite
     Sleep                           5 second
 
@@ -62,8 +62,8 @@ Return Base Fees
 
 Checking Returned Base Fees
     Goto Settings Sub
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]       $${year fee}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[4]/div/div/div[4]/div/div/div/div/div[1]/div/div[2]/div[2]/div[2]       $${month fee} per warehouse
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[2]/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]       $${year fee}
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[2]/div/div/div/div/div[1]/div/div[2]/div[2]/div[2]       $${month fee} per warehouse
 
 *** Keywords ***
 Preparation
