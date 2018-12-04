@@ -16,11 +16,11 @@ Set Email In Settings
     Goto Customers Notification Emails
     Input Text                      id:replenishmentListEmails_id           ${static email}
     Input Text                      id:activeReplenishmentListEmails_id     ${static email}
-    Element Should Be Enabled       css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
-    Click Element                   css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Element Should Be Enabled       css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           3 second
     Click Element                   id:customer-details-tab-shiptos
-    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
+    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
     Run Keyword If                  ${buffer po number}==${first po number}     First PO    ELSE IF     ${buffer po number}==${second po number}    Second PO       ELSE    Fail    Exceptional situation! Incorrect PO Number!
     Click Link                      xpath://*[@href="/settings"]
     Goto Notification Emails
@@ -34,6 +34,8 @@ Set Email In Settings
     Click Element                   css:#enterprise-workflow-pane-notification-emails > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
+    Goto Notification Emails
+    Sleep                           1 second
     Checking Fields
 
 Submit Quote After Settings
@@ -115,13 +117,15 @@ Set Email In Customer
     Input Text                      id:replenishmentListEmails_id           ${replenishment email}
     Clear Element Text              id:activeReplenishmentListEmails_id
     Clear Element Text              id:discrepancyReplenishmentListEmails_id
-    Element Should Be Enabled       css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
-    Click Element                   css:#customer-settings-pane-6 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Element Should Be Enabled       css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
+    Goto Notification Emails
+    Sleep                           1 second
     Checking Fields
     Click Element                   id:customer-details-tab-shiptos
-    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
+    ${buffer po number}             Get Text        xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
     Should Be Equal As Integers     ${buffer po number}     ${required po number}
 
 Submit Quote After Customer
@@ -236,5 +240,5 @@ Mailbox Open
 Goto Customers Notification Emails
     Click Element                   id:customer-details-tab-settings
     Sleep                           1 second
-    Click Element                   id:customer-settings-tab-6
+    Click Element                   id:customer-settings-tab-notification-emails
 
