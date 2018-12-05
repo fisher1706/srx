@@ -121,7 +121,7 @@ Set Email In Customer
     Click Element                   css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
-    Goto Notification Emails
+    Goto Customers Notification Emails
     Sleep                           1 second
     Checking Fields
     Click Element                   id:customer-details-tab-shiptos
