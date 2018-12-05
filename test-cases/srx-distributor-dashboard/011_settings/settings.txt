@@ -24,8 +24,8 @@ Integrations
     Input Text                      id:description_id                           ${keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[3]/div          ${keyword}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[5]/div/div/button
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[3]/div          ${keyword}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[5]/div/div/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]           ${keyword}
     Click Element                   css:button.btn-danger:nth-child(2)
     Sleep                           3 second
@@ -34,46 +34,46 @@ Pricing Information
     [Tags]                          PricingInformation
     Goto Pricing Information
     Sleep                           3 second
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[1]/input
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[1]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[2]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[3]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[4]/input
+    Element Should Be Enabled       css:label.select-options:nth-child(1) > input:nth-child(1)
+    Click Element                   css:label.select-options:nth-child(1) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(2) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(3) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(4) > input:nth-child(1)
     Click Element                   css:#erp-integration-pane-pricing-integration > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[1]/input
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[1]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[2]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[3]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[4]/input
+    Element Should Be Enabled       css:label.select-options:nth-child(1) > input:nth-child(1)
+    Click Element                   css:label.select-options:nth-child(1) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(2) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(3) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(4) > input:nth-child(1)
     Reload Page
     Sleep                           5 second
     Goto Pricing Information
     Sleep                           3 second
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[1]/input
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[1]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[2]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[3]/input
-    Element Should Be Disabled      xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[2]/div/div/div/div[1]/div/div/div/label[4]/input
+    Element Should Be Enabled       css:label.select-options:nth-child(1) > input:nth-child(1)
+    Click Element                   css:label.select-options:nth-child(1) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(2) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(3) > input:nth-child(1)
+    Element Should Be Disabled      css:label.select-options:nth-child(4) > input:nth-child(1)
 
 Pricing And Ordering
     [Tags]                          PricingAndOrdering
     Goto Pricing And Ordering
     Sleep                           3 second
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/div/label[1]/input
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/div/label[2]/input
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/div/label[3]/input
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/div/label[3]/input
+    Element Should Be Enabled       css:.pricing-options-container > div:nth-child(3) > label:nth-child(1) > input:nth-child(1)
+    Element Should Be Enabled       css:.pricing-options-container > div:nth-child(3) > label:nth-child(2) > input:nth-child(1)
+    Element Should Be Enabled       css:.pricing-options-container > div:nth-child(3) > label:nth-child(3) > input:nth-child(1)
+    Click Element                   css:.pricing-options-container > div:nth-child(3) > label:nth-child(3) > input:nth-child(1)
     Click Element                   css:#enterprise-workflow-pane-pricing-ordering > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
     Reload Page
     Goto Pricing And Ordering
     Sleep                           3 second
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/div/label[3]/input     checked
+    ${checked}                      Get Element Attribute       css:.pricing-options-container > div:nth-child(3) > label:nth-child(3) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/div/label[1]/input     checked
+    ${checked}                      Get Element Attribute       css:.pricing-options-container > div:nth-child(3) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/div/label[2]/input     checked
+    ${checked}                      Get Element Attribute       css:.pricing-options-container > div:nth-child(3) > label:nth-child(2) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
 
 Order Close Logic
@@ -89,9 +89,9 @@ Order Close Logic
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:#enterprise-workflow-pane-order-close > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
@@ -102,16 +102,16 @@ Order Close Logic
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:#enterprise-workflow-pane-order-close > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
@@ -124,14 +124,14 @@ Transaction Status Updates Logic Tab
     [Tags]                          TransactionStatusUpdatesLogicTab
     Goto Transaction Status Updates Logic
     Sleep                           3 second
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     ${checked1}                     Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     ${checked2}                     Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked1}"=="${checked2}"    Click For Check     ELSE    No Operation
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Reload Page
     Sleep                           5 second
@@ -149,17 +149,17 @@ Transaction Status Updates Logic
     Create Session                  httpbin                         https://api-dev.storeroomlogix.com/api/distributor          verify=true
     Goto Transaction Status Updates Logic
     Sleep                           3 second
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     ${checked1}                     Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     ${checked2}                     Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked1}"=="None"           Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Run Keyword If                  "${checked2}"=="true"           Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Reload Page
     Goto Transaction Status Updates Logic
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
@@ -176,17 +176,17 @@ Transaction Status Updates Logic
     Click Link                      xpath://*[@href="/settings"]
     Goto Transaction Status Updates Logic
     Sleep                           3 second
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     ${checked1}                     Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     ${checked2}                     Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked1}"=="true"           Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Run Keyword If                  "${checked2}"=="None"           Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Reload Page
     Goto Transaction Status Updates Logic
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
@@ -199,17 +199,17 @@ Transaction Status Updates Logic
     Click Link                      xpath://*[@href="/settings"]
     Goto Transaction Status Updates Logic
     Sleep                           3 second
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     ${checked1}                     Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     ${checked2}                     Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked1}"=="None"           Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Run Keyword If                  "${checked2}"=="None"           Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Reload Page
     Goto Transaction Status Updates Logic
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
@@ -254,10 +254,10 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${dynamic email}"  Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_default_id
     Run Keyword If                  "${value}"=="${test number}"    Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
+    Click Element                   css:.item-form-fields > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.item-form-fields > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.item-form-fields > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.item-form-fields > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-contact-info > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
@@ -300,10 +300,10 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${edit email}"  Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_default_id
     Run Keyword If                  "${value}"=="${edit test number}"    Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[2]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
+    Click Element                   css:.item-form-fields > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.item-form-fields > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.item-form-fields > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:.item-form-fields > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-contact-info > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
@@ -355,11 +355,11 @@ Cost Saving
     Run Keyword If                  "${value}"=="${test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_default_id
     Run Keyword If                  "${value}"=="${test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[5]/div[2]/div/button
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
@@ -410,11 +410,11 @@ Cost Saving
     Run Keyword If                  "${value}"=="${edit test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_default_id
     Run Keyword If                  "${value}"=="${edit test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[1]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[2]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[3]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[4]/div[2]/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[3]/div/div/div/div/div/div/form/div/div[5]/div[2]/div/button
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
@@ -440,7 +440,7 @@ Preparation
 
 Click For Check
     Click Element                   css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div[3]/div/div/div/div[2]/div/button
+    Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     ${checked1}                     Get Element Attribute       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     ${checked2}                     Get Element Attribute       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
