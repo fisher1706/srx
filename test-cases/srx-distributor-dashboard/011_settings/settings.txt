@@ -28,7 +28,7 @@ Integrations
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[5]/div/div/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]           ${keyword}
     Click Element                   css:button.btn-danger:nth-child(2)
-    Sleep                           3 second
+    Sleep                           5 second
 
 Pricing Information
     [Tags]                          PricingInformation
