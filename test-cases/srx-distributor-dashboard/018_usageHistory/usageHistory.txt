@@ -20,12 +20,12 @@ Checking New Item
 
 Sorting Usage History
     [Tags]                          Sorting
-    Sorting Column                  2
-    Sorting Column                  5
-    Sorting Column                  6
-    Sorting Column                  7
-    Sorting Column                  8
-    Sorting Column                  9
+    Sorting Usage History           2
+    Sorting Usage History           5
+    Sorting Usage History           6
+    Sorting Usage History           7
+    Sorting Usage History           8
+    Sorting Usage History           9
 
 Usage History Filtration
     [Tags]                          Filtration
@@ -47,11 +47,8 @@ Preparation
     Sleep                           3 second
     Click Link                      xpath://*[@href="/usage-history"]
     Section Is Present              css:div.btn
-    Sleep                           5 second
-    Click Element                   id:pageDropDown
     Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
-    Sleep                           1 second
+    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
@@ -68,3 +65,17 @@ Go Down
     ${text buffer sub}              Get Text                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[1]
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${field type}
+
+Sorting Usage History
+    [Arguments]                     ${column}
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    Click Element                 css:li.page-item:nth-child(7) > a:nth-child(1)
+    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    Click Element                 css:li.page-item:nth-child(7) > a:nth-child(1)
+    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
