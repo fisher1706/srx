@@ -63,7 +63,6 @@ Goto Transaction Log
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/transaction-log"]
     Sleep                           5 second
-    Is Transaction Log
 
 Goto Locations
     Login In Distributor Portal
@@ -229,9 +228,6 @@ Is Transactions
 
 Is Setting General Settings
     Element Text Should Be          css:#settings-pane-1 > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(1) > strong:nth-child(1)      Distributor logo:
-
-Is Transaction Log
-    Element Text Should Be          css:.customer-management-header > h1:nth-child(1)           Transaction Log
 
 Is Locations
     Element Text Should Be          css:.locations-management-header > h1:nth-child(1)          Locations

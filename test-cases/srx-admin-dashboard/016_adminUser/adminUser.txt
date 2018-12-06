@@ -160,8 +160,16 @@ Checking Admin On Distributor Portal
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[2]/div            ${admin first}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[3]/div            ${admin last}
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[5]/div            Super User (Admin)
-    Finish Suite
+
+Edit Admin From Distributor Portal
+    [Tags]                          ContentSuperUser
+    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[6]/div/div[1]/button
+    Input Text                      id:firstName_id             ${edit admin first}
+    Input Text                      id:lastName_id              ${edit admin last}
+    Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
+    Finish Suite
+    Sleep                           3 second
 
 Checking Admin On Admin Portal
     [Tags]                          AddSuperUser
@@ -171,16 +179,16 @@ Checking Admin On Admin Portal
     Click Element                   css:#distributor-details-tab-2
     Is Admin Users Tab
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/div       ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div       ${admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div       ${admin last}
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div       ${edit admin first}
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
 
 Delete Admin
     [Tags]                          AddSuperUser
     Number Of Rows
     Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[4]/div/div[2]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${edit admin first}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${edit admin last}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           2 second
 

@@ -20,10 +20,11 @@ Sorting Trasaction Log
     Sorting Transaction Log Column                  9
 
 Transactions Log Filtration
+    [Tags]                          Filter
     Filter Check Tr                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                     STATIC SKU
-    Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/span/div[1]   CREATE
-    Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/span/div[1]   ACTIVE
-    Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/div/div/div/span/div[1]   CUSTOMER
+    Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/div/div[1]    CREATE
+    Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/div/div[1]    ACTIVE
+    Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/div/div/div/div/div[1]    CUSTOMER
 
 *** Keywords ***
 Preparation
@@ -73,7 +74,7 @@ Field Comparing
 Field Selector Check Tr
     [Arguments]                     ${fieldAdr}             ${fieldType}
     Click Element                   css:.button-right-margin
-    ${result} =                     Fetch From Left         ${fieldAdr}    2]/div/div/div/span/div[1]
+    ${result} =                     Fetch From Left         ${fieldAdr}    2]/div/div/div/div/div[1]
     ${newString}=                   Strip String            ${result}1]/div
     ${fieldName}                    Get Text                ${newString}
     Go Down                         ${fieldAdr}             ${fieldType}
