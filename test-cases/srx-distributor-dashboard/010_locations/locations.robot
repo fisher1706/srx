@@ -177,7 +177,7 @@ Locations Filtration
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[11]/div[2]/input                    1138
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[13]/div[2]/input                    20
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[14]/div[2]/input                    100
-    Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[12]/div[2]/div/div/div/span/div[1]  RFID
+    Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[12]/div[2]/div/div/div/div/div[1]   RFID
 
 *** Keywords ***
 Preparation
