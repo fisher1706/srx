@@ -51,13 +51,11 @@ Goto Usage History
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/usage-history"]
     Sleep                           5 second
-    Is Usage History
 
 Goto Transactions
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/transactions"]
     Sleep                           5 second
-    Is Transactions
 
 Goto Transaction Log
     Login In Distributor Portal
@@ -68,7 +66,6 @@ Goto Locations
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/locations"]
     Sleep                           5 second
-    Is Locations
 
 Goto Customer Management
     Login In Distributor Portal
@@ -79,37 +76,41 @@ Goto User Managemant
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/users"]
     Sleep                           5 second
-    Is User Management
 
 Goto Fees
     Login In Admin Portal
     Click Link                      xpath://*[@href="/fees"]
     Sleep                           5 second
-    Is Fees Managemant
 
 Goto Catalog
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/catalog"]
     Sleep                           5 second
-    Is Catalog
+
+Goto Pricing
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/pricing"]
+    Sleep                           5 second
+
+Goto Reports
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/reports"]
+    Sleep                           5 second
 
 Goto Customer Types
     Login In Admin Portal
     Click Link                      xpath://*[@href="/customer-types"]
     Sleep                           5 second
-    Is Customer Types
 
 Goto Warehouses
     Login In Admin Portal
     Click Link                      xpath://*[@href="/warehouses"]
     Sleep                           5 second
-    Is Customer Types
 
 Goto Market Types
     Login In Admin Portal
     Click Link                      xpath://*[@href="/market-types"]
     Sleep                           5 second
-    Is Market Types
 
 Goto Admin Users
     Login In Admin Portal
