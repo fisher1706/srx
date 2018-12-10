@@ -228,7 +228,7 @@ If Quoted
     Sleep                           3 second
 
 If Other
-    ${disabled}                     Get Element Attribute       xpath:xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button
+    ${disabled}                     Get Element Attribute       xpath:xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[8]/button        disabled
     ${current status}               Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
     Log To Console                  Exceptional situation!\nStatus: ${current status}\nButton disabled: ${disabled}
     Fail                            Fail
