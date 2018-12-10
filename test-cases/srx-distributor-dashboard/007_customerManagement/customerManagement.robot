@@ -115,6 +115,7 @@ Customer Filtration
     Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/div/div[1]      Not specified
 
 Custromer's Inner Filtration
+    [Tags]                          Filter
     ${num}                          Get Required Customer's num       Static Customer
     Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${num}]/td[1]
     Sleep                           3 seconds
@@ -162,8 +163,8 @@ Field Selector Check
 Go Down Selector
     [Arguments]                     ${fieldAdr}                 ${field type}
     Click Element                   ${fieldAdr}
-    ${result} =                     Fetch From Left             ${fieldAdr}    /div[1]
-    ${newString}=                   Strip String                ${result}[1]/div[2]
+    ${result} =                     Fetch From Left             ${fieldAdr}    div/div[1]
+    ${newString}=                   Strip String                ${result}div[1]/div[2]
     Press Key                       ${newString}                \ue015
     Press Key                       ${newString}                \ue007              
     ${text buffer sub}              Get Text                    ${fieldAdr}
