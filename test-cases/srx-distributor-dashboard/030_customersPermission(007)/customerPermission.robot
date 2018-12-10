@@ -104,14 +104,6 @@ Delete Customer
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
-Sorting Customers
-    [Tags]                          Sorting
-    Sorting Column                  1
-    Sorting Column                  2
-    Sorting Column                  3
-    Sorting Column                  4
-    Sorting Column                  5
-
 *** Keywords ***
 Preparation
     Goto Security Groups
