@@ -91,8 +91,8 @@ Field Selector Check Tr
 Go Down
     [Arguments]                     ${fieldAdr}             ${field type}
     Click Element                   ${fieldAdr}
-    ${result} =                     Fetch From Left         ${fieldAdr}    /div[1]
-    ${newString}=                   Strip String            ${result}[1]/div[2]
+    ${result} =                     Fetch From Left         ${fieldAdr}    div/div[1]
+    ${newString}=                   Strip String            ${result}div[1]/div[2]
     Press Key                       ${newString}            \ue015
     Press Key                       ${newString}            \ue007              
     ${text buffer sub}              Get Text                 ${fieldAdr}
