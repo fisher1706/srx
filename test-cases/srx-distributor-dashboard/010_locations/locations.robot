@@ -164,6 +164,8 @@ Sorting
     Sorting Column                  16
 
 Locations Filtration
+    [Tags]                          Filter
+    Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[15]/div[2]/input                    G030PM036107NGQ5
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                     161
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input                     loc1n
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input                     loc1v
@@ -222,7 +224,7 @@ Field Comparing
 Field Selector Check
     [Arguments]                     ${fieldAdr}             ${fieldType}
     Click Element                   css:.button-right-margin
-    ${result} =                     Fetch From Left         ${fieldAdr}    2]/div/div/div/span/div[1]
+    ${result} =                     Fetch From Left         ${fieldAdr}    2]/div/div/div/div/div[1]
     ${newString}=                   Strip String            ${result}1]/div
     ${fieldName}                    Get Text                ${newString}
     Go Down                         ${fieldAdr}             ${fieldType}
@@ -239,8 +241,8 @@ Field Selector Check
 Go Down
     [Arguments]                     ${fieldAdr}             ${field type}
     Click Element                   ${fieldAdr}
-    ${result} =                     Fetch From Left         ${fieldAdr}    /div[1]
-    ${newString}=                   Strip String            ${result}[1]/div[2]
+    ${result} =                     Fetch From Left         ${fieldAdr}    div/div[1]
+    ${newString}=                   Strip String            ${result}div[1]/div[2]
     Press Key                       ${newString}            \ue015
     Press Key                       ${newString}            \ue007              
     ${text buffer sub}              Get Text                ${fieldAdr}
