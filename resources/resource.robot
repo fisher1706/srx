@@ -435,12 +435,12 @@ Number Of Rows
     Set Global Variable             ${number of row}
 
 Number Of Rows G
-    ${number of row g}              Get Element Count           xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row g}              Get Element Count           xpath:(${table xpath})[2]/tbody/tr
     Set Global Variable             ${number of row g}
 
 Number Of Static Row G
     : FOR   ${counter}              IN RANGE    1   ${number of row g}+1
-    \   ${text buffer1 g}           Get Text    xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/div
+    \   ${text buffer1 g}           Get Text    xpath:(${table xpath})[2]/tbody/tr[${counter}]/td[1]/div
     \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
     Set Global Variable             ${static row g}     ${counter}
 
