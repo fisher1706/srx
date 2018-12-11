@@ -72,10 +72,10 @@ Checking New Data
     Click Element                   css:#pageDropDown
     Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
     Sleep                           2 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[1]/a          ${dynamic name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[3]/div        ${dynamic full adress}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[4]/div        Singular Billing
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[5]/div        ${dynamic email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[1]/a          ${dynamic name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[3]/div        ${dynamic full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[4]/div        Singular Billing
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[5]/div        ${dynamic email}
 
 Remove Distributor
     [Tags]                          RemoveDistributor
@@ -126,10 +126,10 @@ Edit Distributor
 
 Checking Edit Data
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[1]/a       ${edit name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[3]/div     ${edit full adress}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[4]/div     Bill By Warehouse
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[5]/div     ${edit email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[1]/a       ${edit name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[3]/div     ${edit full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[4]/div     Bill By Warehouse
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[5]/div     ${edit email}
 
 Return Static Data
     [Tags]                          ReturnStaticData
@@ -150,35 +150,35 @@ Return Static Data
 
 Checking Returned Static Data
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[1]/a       ${static name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[3]/div     ${static full adress}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[4]/div     Singular Billing
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[5]/div     ${static email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[1]/a       ${static name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[3]/div     ${static full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[4]/div     Singular Billing
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[5]/div     ${static email}
 
 Sorting Distributors By Name
     [Tags]                          Sorting
     Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/a
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/a
     Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/a
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/a
     Should Be Equal	                ${text buffer1}     ${text buffer2}
     Click Element                   css:th.sort-column:nth-child(1)
 
 Sorting Distributors By Number
     [Tags]                          Sorting
     Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[2]/div
     Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
     Click Element                   css:th.sort-column:nth-child(2)
 
 Sorting Distributors By Email
     [Tags]                          Sorting
     Click Element                   css:th.sort-column:nth-child(5)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[5]/div
     Click Element	                css:th.sort-column:nth-child(5)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[5]/div
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
     Click Element                   css:th.sort-column:nth-child(5)
     
@@ -250,25 +250,21 @@ Preparation
     Number Of Delete Row
     ${dynamic row}=                 Evaluate                        ${number of row}+1
     Set Global Variable             ${dynamic row}
-    Set Global Variable             ${edit button}                  xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[7]/div/div[1]/button
-    Set Global Variable             ${remove button}                xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${dynamic row}]/td[7]/div/div[2]/button
-    Set Global Variable             ${delete row button}            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${delete row}]/td[7]/div/div[2]/button
-
-Number Of Rows
-    ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
+    Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${static row}]/td[7]/div/div[1]/button
+    Set Global Variable             ${remove button}                xpath:${table xpath}/tbody/tr[${dynamic row}]/td[7]/div/div[2]/button
+    Set Global Variable             ${delete row button}            xpath:${table xpath}/tbody/tr[${delete row}]/td[7]/div/div[2]/button
 
 Number Of Static Row
     : FOR   ${counter}              IN RANGE        1   ${number of row}+1
-    \   ${text buffer1}             Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/a
+    \   ${text buffer1}             Get Text        xpath:${table xpath}/tbody/tr[${counter}]/td[1]/a
     \   Exit For Loop If            "${static name}"=="${text buffer1}"
     Set Global Variable             ${static row}   ${counter}
-    ${static number}                Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row}]/td[2]/div
+    ${static number}                Get Text        xpath:${table xpath}/tbody/tr[${static row}]/td[2]/div
     Set Global Variable             ${static number}
 
 Number Of Delete Row
     : FOR   ${counter}              IN RANGE        1   ${number of row}+1
-    \   ${text buffer1}             Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/a
+    \   ${text buffer1}             Get Text        xpath:${table xpath}/tbody/tr[${counter}]/td[1]/a
     \   Exit For Loop If            "del distr"=="${text buffer1}"
     Set Global Variable             ${delete row}   ${counter}
 
@@ -276,7 +272,7 @@ Apply Filter
     Sleep                           1 second
     Click Element                   ${filter apply}
     Sleep                           3 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/a       ${static name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/a       ${static name}
     Click Element                   ${filter clear}
 
 Is Add Distributor

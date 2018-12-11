@@ -61,11 +61,11 @@ Valid Create New Product
 Checking New Product
     [Tags]                          Catalog
     Sleep                           3 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${random string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div      ${round by}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     10
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[20]/button
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div           ${random string}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div           ${user last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div           ${round by}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div          10
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${random string}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${dynamic code}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${user last name}
@@ -125,11 +125,11 @@ Edit Product
 Checking Edit Product
     [Tags]                          Catalog
     Sleep                           3 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div      ${edit round by}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     20
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[20]/button
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div      ${edit round by}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div     20
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${edit random string}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${edit code}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${edit last name}
@@ -158,7 +158,7 @@ Preparation
     Sleep                           5 second
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  4       1
@@ -186,24 +186,10 @@ Preparation
     Set Global Variable             ${random string}
     Set Global Variable             ${edit random string}
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit product button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[21]/div/div/button
-
-Number Of Rows G
-    ${number of row g}              Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row g}
-
-Number Of Static Row G
-    : FOR   ${counter}              IN RANGE    1   ${number of row g}+1
-    \   ${text buffer1 g}           Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/div
-    \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
-    Set Global Variable             ${static row g}     ${counter}
+    Set Global Variable             ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div/div/button
 
 Is Add Product
     Element Text Should Be          css:.modal-title            Add product
 
 Is Edit Product
     Element Text Should Be          css:.modal-title            Edit product
-
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}

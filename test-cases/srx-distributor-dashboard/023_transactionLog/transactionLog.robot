@@ -30,24 +30,20 @@ Transactions Log Filtration
 Preparation
     Goto Transaction Log
 
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
-
 Sorting Transaction Log Column
     [Arguments]                     ${column}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
     Number Of Rows
-    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
 
 Filter Check Tr
     [Arguments]                     ${inputField}            ${inputText}
@@ -58,17 +54,17 @@ Filter Check Tr
     ${fieldName}                    Get Text                 ${newString}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           2 seconds
-    ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}                       Get Element Count        xpath:${header xpath}/thead/tr/th
     ${rowNum}=                      Evaluate                 ${rowNum}+1
      :FOR   ${var}                  IN RANGE            1    ${rowNum}
-    \       ${textInfo}             Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       ${textInfo}             Get Text                 xpath:${header xpath}/thead/tr/th[${var}]
     \       Run Keyword If         "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${inputText}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds
 
 Field Comparing
     [Arguments]                     ${rowNum}               ${expectedValue}
-    ${rowValue}                     Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
+    ${rowValue}                     Get Text                xpath:${table xpath}/tbody/tr/td[${rowNum}]
     Should Be Equal As Strings      ${rowValue}             ${expectedValue}
 
 Field Selector Check Tr
@@ -80,10 +76,10 @@ Field Selector Check Tr
     Go Down                         ${fieldAdr}             ${fieldType}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 seconds
-    ${rowNum}                       Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}                       Get Element Count       xpath:${header xpath}/thead/tr/th
     ${rowNum}=                      Evaluate                ${rowNum}+1
      :FOR   ${var}                  IN RANGE            1   ${rowNum}
-    \       ${textInfo}             Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       ${textInfo}             Get Text                xpath:${header xpath}/thead/tr/th[${var}]
     \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${fieldType}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds

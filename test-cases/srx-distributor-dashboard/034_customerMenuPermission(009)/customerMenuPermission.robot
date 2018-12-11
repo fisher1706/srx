@@ -51,9 +51,9 @@ Valid Create New Shipto
 
 Checking New Shipto
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[1]/div      ${dynamic name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[2]/div      ${dynamic full adress}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[3]/div      ${test number}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[1]/div      ${dynamic name}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[2]/div      ${dynamic full adress}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[3]/div      ${test number}
 
 Edit Shipto
     Click Element                   ${edit shipto button}
@@ -81,8 +81,8 @@ Edit Shipto
 
 Checking Edit Shipto
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[1]/div      ${edit name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[2]/div      ${edit full adress}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[1]/div      ${edit name}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[2]/div      ${edit full adress}
 
 Invalid Create New User
     [Tags]                          User
@@ -125,11 +125,11 @@ Valid Create New User
 
 Checking New User
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[2]/div     ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[3]/div     ${user first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[4]/div     ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[5]/div     Customer User
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[6]/div     ${edit name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[2]/div     ${dynamic email}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[3]/div     ${user first name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[4]/div     ${user last name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[5]/div     Customer User
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[6]/div     ${edit name}
 
 Edit User
     Click Element                   ${edit user button}
@@ -152,11 +152,11 @@ Edit User
 
 Checking Edit User
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[2]/div     ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[3]/div     ${edit first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[4]/div     ${edit last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[5]/div     Customer User
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[6]/div     2048
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[2]/div     ${dynamic email}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[3]/div     ${edit first name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[4]/div     ${edit last name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[5]/div     Customer User
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[6]/div     2048
 
 Delete User
     Click Element                   ${delete user button}
@@ -192,7 +192,7 @@ Preparation
     Goto Security Groups
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  5       1
@@ -210,41 +210,23 @@ Preparation
     Click Link                      xpath://*[@href="/customers"]
     Number Of Rows C
     Number Of Static Row C
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
     Goto Customer Shipto
     Sleep                           4 second
     Is Customer Shipto
     Number Of Rows Shiptos
     ${number of new row s}=         Evaluate                        ${number of row s}+1
     Set Global Variable             ${number of new row s}
-    Set Global Variable             ${edit shipto button}           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[4]/div/div[1]/button
-    Set Global Variable             ${delete shipto button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row s}]/td[4]/div/div[2]/button
+    Set Global Variable             ${edit shipto button}           xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[4]/div/div[1]/button
+    Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[4]/div/div[2]/button
     Goto Customer Users
     Sleep                           4 second
     Is Customer Users
     Number Of Rows Users
     ${number of new row u}=         Evaluate                        ${number of row u}+1
     Set Global Variable             ${number of new row u}
-    Set Global Variable             ${edit user button}             xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[7]/div/div[1]/button
-    Set Global Variable             ${delete user button}           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[7]/div/div[2]/button
-
-Number Of Rows Shiptos
-    ${number of row s}              Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row s}                    
-
-Number Of Rows Users
-    ${number of row u}              Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row u}
-
-Number Of Rows G
-    ${number of row g}              Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row g}
-
-Number Of Static Row G
-    : FOR   ${counter}              IN RANGE    1   ${number of row g}+1
-    \   ${text buffer1 g}           Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter}]/td[1]/div
-    \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
-    Set Global Variable             ${static row g}     ${counter}
+    Set Global Variable             ${edit user button}             xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[7]/div/div[1]/button
+    Set Global Variable             ${delete user button}           xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[7]/div/div[2]/button
 
 Is Add Shipto
     Sleep                           1 second

@@ -35,14 +35,14 @@ Valid Create New Customer
 
 Checking New Customer
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/a        ${delete customer name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${delete customer number}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      Z_Warehouse(9999)
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div      ${selecting type}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div      ${selecting market}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a        ${delete customer name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${delete customer number}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      Z_Warehouse(9999)
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div      ${selecting type}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div      ${selecting market}
 
 Create Shiptos 1
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a
     Goto Customer Shipto
     Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${dynamic name}
@@ -59,13 +59,13 @@ Create Shiptos 1
     Sleep                           2 second
     Is Customer Shipto
     Number Of Rows Shiptos
-    Set Global Variable             ${delete shipto button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row s}]/td[4]/div/div[2]/button
+    Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[4]/div/div[2]/button
 
 Checking New Shipto 1
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row s}]/td[1]/div      ${dynamic name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row s}]/td[2]/div      ${dynamic full adress}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row s}]/td[3]/div      ${test number}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[1]/div      ${dynamic name}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[2]/div      ${dynamic full adress}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[3]/div      ${test number}
 
 Valid Create New User 1
     Goto Customer Users
@@ -87,11 +87,11 @@ Valid Create New User 1
 
 Checking New User 1
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[2]/div     ${delete customer user1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[3]/div     ${user first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[4]/div     ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[5]/div     Customer User
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[6]/div     ${dynamic name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[2]/div     ${delete customer user1}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[3]/div     ${user first name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[4]/div     ${user last name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[5]/div     Customer User
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[6]/div     ${dynamic name}
 
 Delete Shipto 1
     Goto Customer Shipto
@@ -121,9 +121,9 @@ Create Shiptos 2
 
 Checking New Shipto 2
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row s}]/td[1]/div      ${dynamic name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row s}]/td[2]/div      ${dynamic full adress}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row s}]/td[3]/div      ${test number}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[1]/div      ${dynamic name}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[2]/div      ${dynamic full adress}
+    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[3]/div      ${test number}
 
 Valid Create New User 2
     Goto Customer Users
@@ -149,11 +149,11 @@ Valid Create New User 2
 
 Checking New User 2
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[2]/div     ${delete customer user2}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[3]/div     ${user first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[4]/div     ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[5]/div     Customer User
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[6]/div     ${dynamic name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[2]/div     ${delete customer user2}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[3]/div     ${user first name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[4]/div     ${user last name}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[5]/div     Customer User
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[6]/div     ${dynamic name}
 
 Delete Customer
     [Tags]                          DeleteCustomer
@@ -189,25 +189,13 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${delete customer button}   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
+    Set Global Variable             ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
 
 Is Add Customer
     Element Text Should Be          css:.modal-title            Add customer
 
 Is Delete Customer
     Element Text Should Be          css:.modal-title            Removal Confirmation
-
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
-
-Number Of Rows Shiptos
-    ${number of row s}              Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row s}
-
-Number Of Rows Users
-    ${number of row u}              Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row u}
 
 Go Down Check
     Click Element                   css:.Select-control

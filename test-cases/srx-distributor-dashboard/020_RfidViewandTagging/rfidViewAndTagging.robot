@@ -55,7 +55,7 @@ Creating new location for RFID tests
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           2 seconds
-    ${numbers}                      Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr                                   
+    ${numbers}                      Get Element Count      xpath:${table xpath}/tbody/tr                                   
     Set Global Variable             ${numbers}
 
 Check Selector Input at RFID page
@@ -105,7 +105,7 @@ Prepare to sorting
     Sleep                           1 second
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[2]/div/div[1]/span/ul/li[4]/a
     Sleep                           4 seconds
-    ${Sortnumbers}                  Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${Sortnumbers}                  Get Element Count       xpath:${table xpath}/tbody/tr
     Sleep                           2 seconds                                    
     Set Global Variable             ${Sortnumbers}
 
@@ -126,16 +126,16 @@ Sorting
 
 Post Request 
     [Tags]                          Post Request
-    ${RFIDnumberOne}                Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
-    ${RFIDnumberTwo}                Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[1]
+    ${RFIDnumberOne}                Get Text                 xpath:${table xpath}/tbody/tr[1]/td[1]
+    ${RFIDnumberTwo}                Get Text                 xpath:${table xpath}/tbody/tr[2]/td[1]
     Post Requests                   ${RFIDnumberOne}
     Post Requests                   ${RFIDnumberTwo}
 
 Check Filtres
     [Tags]                          Filter check
     Sleep                           3 seconds
-    ${RFIDname}                     Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]
-    ${creationDate}                 Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]
+    ${RFIDname}                     Get Text                 xpath:${table xpath}/tbody/tr[1]/td[1]
+    ${creationDate}                 Get Text                 xpath:${table xpath}/tbody/tr[1]/td[3]
     Field Selector Check Tr         xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div/div/div/div/div[1]                        AVAILABLE
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               ${email}                   4
     Filter Check Date               xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/input   ${creationDate}            3          FROM
@@ -148,7 +148,7 @@ Check OHI at this location
     ${ohiCount}=                    Evaluate                 ${ohiCount}-10
     Click Link                      xpath://*[@href="/locations"]
     Sleep                           3 seconds
-    ${ohiLocPageValue}              Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[17]
+    ${ohiLocPageValue}              Get Text                 xpath:${table xpath}/tbody/tr[${numbers}]/td[17]
     Should Be Equal                 "${ohiLocPageValue}"     "${ohiCount}"
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           3 seconds
@@ -156,24 +156,24 @@ Check OHI at this location
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
     Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[4]/div[4]          OHI:${ohiCount}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]
+    Click Element                   xpath:${header xpath}/thead/tr/th[2]
     Sleep                           2 seconds
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${rfidCount}]/td[2]                    ISSUED
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${rfidCount}]/td[2]                    ISSUED
 
 Change type to button and back
     Click Link                      xpath://*[@href="/locations"]
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[1]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[1]
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[3]
-    Press Key                       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]/div/div/div/div[1]/div[1]/div[2]         \ue004
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[3]
+    Press Key                       xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[1]/div[1]/div[2]         \ue004
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
     Sleep                           2 seconds
 
@@ -183,13 +183,13 @@ Check at RFID View and Tagging page issued RFIDs
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
     Sleep                           2 seconds
-    ${issuedRFIDSnow}               Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]
+    ${issuedRFIDSnow}               Get Element Count      xpath:${table xpath}/tbody/tr/td[1]
     Should Be Equal                 ${IssuedRFIDS}         ${IssuedRFIDSnow}
 
 Delete new location
     Click Link                      xpath://*[@href="/locations"]
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[1]/input
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[1]/input
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/button
     Sleep                           1 second
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
@@ -200,11 +200,11 @@ Delete new location
 Open Transaction page
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[6]/a
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Sleep                           4 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Sleep                           4 seconds
-    ${lastTransaction}              Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
+    ${lastTransaction}              Get Text                xpath:${table xpath}/tbody/tr[1]/td[5]/div
     Should Be Equal As Strings      ${lastTransaction}      10
 
 *** Keywords ***
@@ -223,12 +223,12 @@ Different locations creating
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           2 seconds
-    ${numbers}                      Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr                                   
+    ${numbers}                      Get Element Count      xpath:${table xpath}/tbody/tr                                   
     Set Global Variable             ${numbers}
     Sleep                           2 seconds
 
 Delete new location
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[1]/input
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[1]/input
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/button
     Sleep                           1 second
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
@@ -237,10 +237,10 @@ Delete new location
     Set Global Variable             ${numbers}
 
 OHI Check not RFID
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[17]           -
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${numbers}]/td[17]           -
 
 OHI Check RFID
-    Element Text Should Not Be      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[17]           -
+    Element Text Should Not Be      xpath:${table xpath}/tbody/tr[${numbers}]/td[17]           -
 
 Creating second the same location
     [Arguments]                     ${locationType}
@@ -263,11 +263,11 @@ Make sorting
     [Arguments]                     ${field}                 ${rownum}
     Click Element                   ${field}
     Sleep                           3 seconds
-    ${firstField}                   Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${rownum}]
+    ${firstField}                   Get Text                 xpath:${table xpath}/tbody/tr[1]/td[${rownum}]
     Sleep                           2 seconds
     Click Element                   ${field}
     Sleep                           2 seconds
-    ${lastField}                    Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${Sortnumbers}]/td[${rownum}]
+    ${lastField}                    Get Text                 xpath:${table xpath}/tbody/tr[${Sortnumbers}]/td[${rownum}]
     Should Be Equal                 ${firstField}            ${lastField}
     Sleep                           1 second
     Click Element                   ${field}
@@ -289,7 +289,7 @@ Filter Check
     Input Text                      ${inputField}            ${inputText}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           3 seconds
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${checkingField}]            ${inputText}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[${checkingField}]            ${inputText}
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button[2]
     Sleep                           3 seconds
 
@@ -302,10 +302,10 @@ Field Selector Check Tr
     Go Down                         ${fieldAdr}             ${fieldType}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 seconds
-    ${rowNum}                       Get Element Count       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}                       Get Element Count       xpath:${header xpath}/thead/tr/th
     ${rowNum}=                      Evaluate                ${rowNum}+1
      :FOR   ${var}                  IN RANGE            1   ${rowNum}
-    \       ${textInfo}             Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \       ${textInfo}             Get Text                xpath:${header xpath}/thead/tr/th[${var}]
     \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing   ${var}        ${fieldType}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds
@@ -321,15 +321,15 @@ Go Down
 
 Field Comparing
     [Arguments]                     ${rowNum}               ${expectedValue}
-    ${rowValue}                     Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
+    ${rowValue}                     Get Text                xpath:${table xpath}/tbody/tr/td[${rowNum}]
     Should Be Equal As Strings      ${rowValue}             ${expectedValue}
 
 Change SKU in location
     [Arguments]                     ${locationSKUname}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]
-    Input Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]/div/div/input      ${locationSKUname}
-    Press Key                       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]/div/div/input      \ue004
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[11]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[11]
+    Input Text                      xpath:${table xpath}/tbody/tr[${numbers}]/td[11]/div/div/input      ${locationSKUname}
+    Press Key                       xpath:${table xpath}/tbody/tr[${numbers}]/td[11]/div/div/input      \ue004
     Sleep                           2 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
     Sleep                           3 seconds
@@ -345,7 +345,7 @@ Filter Check Date
     Sleep                           2 seconds
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           3 seconds
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${checkingField}]            ${inputText}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[${checkingField}]            ${inputText}
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button[2]
     Sleep                           3 seconds
 

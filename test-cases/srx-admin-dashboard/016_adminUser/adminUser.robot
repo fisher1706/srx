@@ -21,22 +21,22 @@ Valid Add Admin User
 Checking New User
     [Tags]                          ContentSuperUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div       ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div       ${admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div       ${admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div       ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div       ${admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${admin last}
 
 Checking User On Distributor Portal
     [Tags]                          ContentSuperUser
     Goto Users Sub
     ${const number distributor}     Evaluate                ${number of row u}-1
     Set Global Variable             ${const number distributor}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[1]/div                ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[2]/div                ${admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[3]/div                ${admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[1]/div                ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[2]/div                ${admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[3]/div                ${admin last}
 
 Edit From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[6]/div/div[1]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[1]/button
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
     Click Element                   css:.modal-dialog-ok-button
@@ -44,9 +44,9 @@ Edit From Distributor Portal
 Checking Edit User From Distributor Portal
     [Tags]                          ContentSuperUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[1]/div            ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[2]/div            ${edit admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[3]/div            ${edit admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[1]/div            ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[2]/div            ${edit admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[3]/div            ${edit admin last}
     Finish Suite
     Sleep                           5 second
 
@@ -55,9 +55,9 @@ Checking Edit User On Admin Portal
     Preparation
     Click Element                   css:#distributor-details-tab-2
     Is Admin Users Tab
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/div       ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div       ${edit admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div       ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div       ${edit admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
 
 Edit From Admin Portal
     [Tags]                          ContentSuperUser
@@ -71,20 +71,20 @@ Edit From Admin Portal
 Checking Edit User From Admin Portal
     [Tags]                          ContentSuperUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/div       ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div       ${admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div       ${admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div       ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div       ${admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${admin last}
 
 Checking Edit User On Distributor Portal
     [Tags]                          ContentSuperUser
     Goto Users Sub
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[1]/div            ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[2]/div            ${admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[3]/div            ${admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[1]/div            ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[2]/div            ${admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[3]/div            ${admin last}
 
 Delete User From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
@@ -116,7 +116,7 @@ Delete User From Admin Portal
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
     Number Of Rows
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[4]/div/div[2]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
@@ -156,14 +156,14 @@ Create Admin On Distributor Portal
 Checking Admin On Distributor Portal
     [Tags]                          AddSuperUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[1]/div            ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[2]/div            ${admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[3]/div            ${admin last}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[5]/div            Super User (Admin)
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row u}]/td[1]/div            ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row u}]/td[2]/div            ${admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row u}]/td[3]/div            ${admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row u}]/td[5]/div            Super User (Admin)
 
 Edit Admin From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row u}]/td[6]/div/div[1]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row u}]/td[6]/div/div[1]/button
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
     Click Element                   css:.modal-dialog-ok-button
@@ -178,14 +178,14 @@ Checking Admin On Admin Portal
     Set Global Variable             ${const number admin 2}
     Click Element                   css:#distributor-details-tab-2
     Is Admin Users Tab
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/div       ${admin email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div       ${edit admin first}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div       ${admin email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div       ${edit admin first}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
 
 Delete Admin
     [Tags]                          AddSuperUser
     Number Of Rows
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[4]/div/div[2]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${edit admin first}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${edit admin last}
@@ -213,8 +213,8 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit user button}     xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[4]/div/div[1]/button
-    Set Global Variable             ${delete user button}   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[4]/div/div[2]/button
+    Set Global Variable             ${edit user button}     xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[1]/button
+    Set Global Variable             ${delete user button}   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
     ${SUB HOST}                     Return Sub Link
     Set Global Variable             ${SUB HOST}
     ${SUB EMAIL}                    Return Sub Email
@@ -241,25 +241,21 @@ Goto Admin Users Sub
     Sleep                           2 second
     Number Of Rows Sub
     Number Of Static Row Sub
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row sub}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row sub}]/td[1]/a
 
 Number Of Rows U
-    ${number of row u}              Get Element Count   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row u}              Get Element Count   xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row u}
 
 Number Of Rows Sub
-    ${number of row sub}            Get Element Count   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row sub}            Get Element Count   xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row sub}
 
 Number Of Static Row Sub
     : FOR   ${counter sub}          IN RANGE    1   ${number of row sub}+1
-    \   ${text buffer1 sub}         Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter sub}]/td[1]/a
+    \   ${text buffer1 sub}         Get Text    xpath:${table xpath}/tbody/tr[${counter sub}]/td[1]/a
     \   Exit For Loop If            "Srx-group-test-distributor"=="${text buffer1 sub}"
     Set Global Variable             ${static row sub}     ${counter sub}
-
-Number Of Rows
-    ${number of row}                Get Element Count       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}              
 
 Is Delete User
     Element Text Should Be          css:.modal-title                                    Removal Confirmation

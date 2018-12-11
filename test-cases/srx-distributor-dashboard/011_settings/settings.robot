@@ -163,10 +163,10 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]/div[1]
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[11]/div/button
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[12]/div/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[12]/div/div/button
+    Click Element                   xpath:${table xpath}/thead/tr/th[1]/div[1]
+    Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
+    Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
+    Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Input Text                      id:reorderQuantity_id           40
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
@@ -191,7 +191,7 @@ Transaction Status Updates Logic
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           10 second
-    ${rows}                         Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td
+    ${rows}                         Get Element Count               xpath:${table xpath}/tbody/tr[1]/td
     Should Be Equal                 "${rows}"                       "10"
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
     ${error}                        Post Request                    httpbin    /items/71/split/30       headers=${headers}
@@ -213,10 +213,10 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]/div[1]
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[11]/div/button
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[12]/div/div/button
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[12]/div/div/button
+    Click Element                   xpath:${table xpath}/thead/tr/th[1]/div[1]
+    Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
+    Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
+    Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Input Text                      id:reorderQuantity_id           40
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
@@ -242,7 +242,7 @@ Distributor Contact Info
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
     Goto Customer Contact Info
     Sleep                           4 second
@@ -288,7 +288,7 @@ Distributor Contact Info
     Sleep                           4 second
     Click Link                      xpath://*[@href="/customers"]
     Sleep                           4 second
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
     Goto Customer Contact Info
     Sleep                           4 second
@@ -341,7 +341,7 @@ Cost Saving
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
     Goto Customer Cost Saving
     Sleep                           4 second
@@ -396,7 +396,7 @@ Cost Saving
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
     Goto Customer Cost Saving
     Sleep                           4 second

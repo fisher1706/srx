@@ -73,9 +73,9 @@ Valid Add Admin User
 
 Checking New User
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div       ${user email}	
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div       ${user first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div       ${user last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div       ${user email}	
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div       ${user first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${user last name}
 
 Edit User
     [Tags]                          EditUser
@@ -99,9 +99,9 @@ Edit User
 Checking Edit Data
     [Tags]                          EditUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div       ${user email}	
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div       ${edit first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div       ${edit last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div       ${user email}	
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div       ${edit first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${edit last name}
 
 Delete User
     [Tags]                          DeleteUser
@@ -129,9 +129,9 @@ Sorting Users By Email
     Click Element                   css:#distributor-details-tab-2
     Is Admin Users Tab
     Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/div
     Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/div
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
     Click Element                   css:th.sort-column:nth-child(1)
 
@@ -140,9 +140,9 @@ Sorting Users By First Name
     Click Element                   css:#distributor-details-tab-2
     Is Admin Users Tab
     Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[2]/div
     Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div
     Click Element                   css:th.sort-column:nth-child(2)
 
 Sorting Users By Last Name
@@ -150,9 +150,9 @@ Sorting Users By Last Name
     Click Element                   css:#distributor-details-tab-2
     Is Admin Users Tab
     Click Element                   css:th.sort-column:nth-child(3)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[3]/div
     Click Element                   css:th.sort-column:nth-child(3)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
     Click Element                   css:th.sort-column:nth-child(3)
     
@@ -220,18 +220,13 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit user button}     xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div/div[1]/button
-    Set Global Variable             ${delete user button}   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div/div[2]/button
-    
-
-Number Of Rows
-    ${number of row}                Get Element Count       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}              
+    Set Global Variable             ${edit user button}     xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div[1]/button
+    Set Global Variable             ${delete user button}   xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div[2]/button
 
 Apply Filter
     Click Element                   ${apply filter}
     Sleep                           3 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[1]/div     ${filter email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr/td[1]/div     ${filter email}
     Click Element                   css:button.button-right-margin:nth-child(2)
 
 Is Filtering User

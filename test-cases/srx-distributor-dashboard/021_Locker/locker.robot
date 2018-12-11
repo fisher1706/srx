@@ -26,23 +26,23 @@ Create Locker
     Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div/div[2]           \ue007
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           2 seconds
-    ${numbers}                      Get Element Count      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr                                   
+    ${numbers}                      Get Element Count      xpath:${table xpath}/tbody/tr                                   
     Set Global Variable             ${numbers}
     Check Locker values             0                      ${dynamic sku}1
 
 Change to another type
     [Tags]                          Checking modal window when changing 
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[1]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[1]
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           3 seconds
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[4]
-    Press Key                       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]/div/div/div/div[1]/div[1]/div[2]         \ue004
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[4]
+    Press Key                       xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[1]/div[1]/div[2]         \ue004
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
     Sleep                           5 seconds
     Check Locker values             0                       ${dynamic sku}1
@@ -99,7 +99,7 @@ When OHI Zero Locker Request
 
 Delete new location
     [Tags]                          Location deleting
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[1]/input
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[1]/input
     Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/button
     Sleep                           1 second
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
@@ -112,17 +112,17 @@ Delete new location
 Check Locker values
     [Tags]                          Checking of creation or changes
     [Arguments]                     ${expectedOHI}            ${expectedSKU}
-    ${currentOHI}                   Get Text                  xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[17]
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]           ${expectedSKU}
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[13]           LOCKER
+    ${currentOHI}                   Get Text                  xpath:${table xpath}/tbody/tr[${numbers}]/td[17]
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${numbers}]/td[11]           ${expectedSKU}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${numbers}]/td[13]           LOCKER
     Should Be Equal As Strings      ${expectedOHI}            ${currentOHI}
 
 Change SKU in location
     [Arguments]                     ${locationSKUname}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]
-    Input Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]/div/div/input      ${locationSKUname}
-    Press Key                       xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${numbers}]/td[11]/div/div/input      \ue004
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[11]
+    Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[11]
+    Input Text                      xpath:${table xpath}/tbody/tr[${numbers}]/td[11]/div/div/input      ${locationSKUname}
+    Press Key                       xpath:${table xpath}/tbody/tr[${numbers}]/td[11]/div/div/input      \ue004
     Sleep                           3 seconds
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           2 seconds
@@ -152,11 +152,11 @@ Open Transaction page
     [Arguments]                     ${expectedTransaction}
     Click Link                      xpath://*[@href="/transactions"]
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Sleep                           4 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Sleep                           4 seconds
-    ${lastTransaction}              Get Text                xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]/div
+    ${lastTransaction}              Get Text                xpath:${table xpath}/tbody/tr[1]/td[5]/div
     Should Be Equal As Strings      ${lastTransaction}      ${expectedTransaction}
     Click Link                      xpath://*[@href="/locations"]
 

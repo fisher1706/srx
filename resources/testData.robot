@@ -100,3 +100,10 @@ ${APIKEY}                       m4DAfPuRurdzlsVrlen2
 ${security group}               auto-security-group
 ${edit security group}          auto-edit-security-group
 ${replenishment email}          replenishment@ukr.net
+${table xpath}                  //table[contains(@class, 'table table-striped table-bordered table-hover table-condensed')]
+${header xpath}                 //table[contains(@class, 'table table-hover table-bordered table-condensed')]
+${shiptos pane}                 //div[contains(@id, 'customer-details-pane-shiptos')]
+${users pane}                   //div[contains(@id, 'customer-details-pane-users')]
+${button pane}                  //div[contains(@id, 'uncontrolled-tab-example-pane-2')]
+${monthly pane}                 //div[contains(@id, 'uncontrolled-tab-example-pane-3')]
+${select control}               //div[contains(@class, 'Select-control')]

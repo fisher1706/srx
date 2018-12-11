@@ -24,15 +24,15 @@ Check Document Status In Documents
     Sleep                           5 second
     Number Of Rows
     :FOR    ${colomn}               IN RANGE        1       ${number of row}+1
-    \   ${text buffer}              Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[2]/div
+    \   ${text buffer}              Get Text    xpath:${table xpath}/tbody/tr[${colomn}]/td[2]/div
     \   Run Keyword If              "${text buffer}"=="${status}"   Exit For Loop
     \   Set Global Variable         ${colomn}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[5]/div/span    ${status}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${colomn}]/td[5]/div/span    ${status}
 
 Change Document Status
     Run Keyword If                  "${status}"=="APPROVED"     Approved    ELSE IF     "${status}"=="REJECTED"     Rejected
     Sleep                           10 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${colomn}]/td[5]/div/span    ${restatus}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${colomn}]/td[5]/div/span    ${restatus}
     Finish Suite
     Sleep                           5 second
 
@@ -92,7 +92,3 @@ Goto Documents Sub
     Sleep                           7 second
     Click Link                      xpath://*[@href="/documents"]
     Sleep                           3 second
-
-Number Of Rows
-    ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}

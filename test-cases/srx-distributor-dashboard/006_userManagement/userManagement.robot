@@ -54,12 +54,11 @@ Valid Create New User
 Checking New User
     [Tags]                          ValidCreateNewUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${user first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[4]/div      A_Warehouse
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div      User
-
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${user first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${user last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div      A_Warehouse
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div      User
 
 Edit User
     [Tags]                          EditUser
@@ -84,10 +83,10 @@ Edit User
 Checking Edit User
     [Tags]                          EditUser
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div      ${edit first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[5]/div      User
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${edit first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div      User
 
 Delete User
     [Tags]                          DeleteUser
@@ -110,41 +109,42 @@ Delete User
 
 Sorting Users By Email
     [Tags]                          Sorting                     UserSorting
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
-    ${text buffer1}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
-    ${text buffer2}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[1]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
+    ${text buffer1}                 Get Text                    xpath:${table xpath}/tbody/tr[1]/td[1]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
+    ${text buffer2}                 Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div
     Should Be Equal                 ${text buffer1}             ${text buffer2}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
 
 Sorting Users By First Name
     [Tags]                          Sorting                     UserSorting
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]
-    ${text buffer1}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]
-    ${text buffer2}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[2]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[2]
+    ${text buffer1}                 Get Text                    xpath:${table xpath}/tbody/tr[1]/td[2]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[2]
+    ${text buffer2}                 Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div
     Should Be Equal                 ${text buffer1}             ${text buffer2}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]
+    Click Element                   xpath:${header xpath}/thead/tr/th[2]
 
 Sorting Users By Last Name
     [Tags]                          Sorting                     UserSorting
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[3]
-    ${text buffer1}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[3]
-    ${text buffer2}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[3]
+    ${text buffer1}                 Get Text                    xpath:${table xpath}/tbody/tr[1]/td[3]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[3]
+    ${text buffer2}                 Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div
     Should Be Equal                 ${text buffer1}             ${text buffer2}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[3]
+    Click Element                   xpath:${header xpath}/thead/tr/th[3]
     
 Sorting By Role
     [Tags]                          Sorting                     UserSorting
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
-    ${text buffer1}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[3]/div
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
-    ${text buffer2}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[5]
+    ${text buffer1}                 Get Text                    xpath:${table xpath}/tbody/tr[1]/td[5]/div
+    Click Element                   xpath:${header xpath}/thead/tr/th[5]
+    ${text buffer2}                 Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div
     Should Be Equal                 ${text buffer1}             ${text buffer2}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[5]
+    Click Element                   xpath:${header xpath}/thead/tr/th[5]
 
 User filtration
+    [Tags]                          Filter
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input    srx-group+dev-distributor@agilevision.io
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input    admin first
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input    Last AZ
@@ -155,8 +155,8 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit user button}         xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div/div[1]/button
-    Set Global Variable             ${delete user button}       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
+    Set Global Variable             ${edit user button}         xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[1]/button
+    Set Global Variable             ${delete user button}       xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
 
 Is Add New User
     Element Text Should Be          css:.modal-title            Add user
@@ -167,6 +167,3 @@ Is Edit User
 Is Delete User
     Element Text Should Be          css:.modal-title            Removal Confirmation
 
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}

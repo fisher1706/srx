@@ -30,7 +30,7 @@ Valid Create New Customer Type
 
 Checking New Customer Type In Table
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[2]/div              ${test type}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div              ${test type}
 
 Checking New Customer Type On Distributor Portal
     [Tags]                          CheckingOnDistributorPortal
@@ -40,13 +40,13 @@ Checking New Customer Type On Distributor Portal
     Sleep                           1 second
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[4]/div      ${test type}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row c}]/td[4]/div      ${test type}
     Click Element                   ${edit customer button sub}
     Go Up
     Sleep                           1 second
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[4]/div      Not specified
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row c}]/td[4]/div      Not specified
     Finish Suite
 
 Edit Customer Type
@@ -85,18 +85,18 @@ Delete Customer Type
 Sorting Customer Types By Id
     [Tags]                          Sorting
     Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/div
     Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}-1]/td[1]/div
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}-1]/td[1]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
     Click Element                   css:th.sort-column:nth-child(1)
 
 Sorting Customer Types By Type
     [Tags]                          Sorting
     Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer1}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
+    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[2]/div
     Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer2}                 Get Text            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}-1]/td[2]/div
+    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}-1]/td[2]/div
     Should Be Equal                 ${text buffer1}     ${text buffer2}
     Click Element                   css:th.sort-column:nth-child(2)
 
@@ -114,7 +114,7 @@ Goto Customer Menu Sub
     Is Customer Management
     Number Of Rows Sub
     Number Of Static Row Sub
-    Set Global Variable             ${edit customer button sub}     xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[6]/div/div[1]/button
+    Set Global Variable             ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${static row c}]/td[6]/div/div[1]/button
 
 Preparation
     Goto Customer Types
@@ -123,13 +123,12 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit button}                  xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div/div[1]/button
-    Set Global Variable             ${delete button}                xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[3]/div/div[2]/button
+    Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[1]/button
+    Set Global Variable             ${delete button}                xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[2]/button
     ${SUB HOST}                     Return Sub Link
     Set Global Variable             ${SUB HOST}
     ${SUB EMAIL}                    Return Sub Email
     Set Global Variable             ${SUB EMAIL}
-
 
 Is Add Customer Type
     Element Text Should Be          css:.modal-title                Add customer type
@@ -140,17 +139,13 @@ Is Edit Customer Type
 Is Delete Customer Type
     Element Text Should Be          css:.modal-title                Removal Confirmation
 
-Number Of Rows
-    ${number of row}                Get Element Count               xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
-
 Number Of Rows Sub
-    ${number of row sub}            Get Element Count               xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row sub}            Get Element Count               xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row sub}
 
 Number Of Static Row Sub
     : FOR   ${counter c sub}        IN RANGE    1   ${number of row sub}+1
-    \   ${text buffer1 c sub}       Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter c sub}]/td[1]/a
+    \   ${text buffer1 c sub}       Get Text    xpath:${table xpath}/tbody/tr[${counter c sub}]/td[1]/a
     \   Exit For Loop If            "Customer Z"=="${text buffer1 c sub}"
     Set Global Variable             ${static row c}     ${counter c sub}
 

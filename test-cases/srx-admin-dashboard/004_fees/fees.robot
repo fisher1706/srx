@@ -12,26 +12,8 @@ ${monthly fee}                      19
 ${edit monthly fee}                 27
 ${number of buttons}                100000-150000
 ${monthly fee per button}           3
-${srx row number}
-${button row number}
-${shiptos cell}                     xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${srx row number}]/td[1]/div
-${fee cell}                         xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${srx row number}]/td[2]/div
-${remove fee button}                xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${srx row number}]/td[3]/div/div/button
-${number of buttons cell}           xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${button row number}]/td[1]/div
-${monthly fee cell}                 xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${button row number}]/td[2]/div
-${remove monthly fee button}        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${button row number}]/td[3]/div/div/button
-
 
 *** Test Cases ***
-Fees Menu Checking
-    [Tags]                          FeesMenuChecking
-    Click Element                   css:#uncontrolled-tab-example-tab-2
-    Is Button Monthly Fee
-    Click Element                   css:#uncontrolled-tab-example-tab-1
-    Is Base Fees
-    Click Element                   css:#uncontrolled-tab-example-tab-3
-    Is SRXCloud
-
 Invalid Add New Shipto Fee
     [Tags]                          InvalidAddNewSRXCloudFee                SRX
     Click Element                   css:#uncontrolled-tab-example-tab-3
@@ -161,19 +143,19 @@ Preparation
     ${button row number}=           Evaluate                                ${button row}+1
     Set Global Variable             ${srx row number}
     Set Global Variable             ${button row number}
-    Set Global Variable             ${shiptos cell}                         xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${srx row number}]/td[1]/div
-    Set Global Variable             ${fee cell}                             xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${srx row number}]/td[2]/div
-    Set Global Variable             ${remove fee button}                    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${srx row number}]/td[3]/div/div/button
-    Set Global Variable             ${number of buttons cell}               xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${button row number}]/td[1]/div
-    Set Global Variable             ${monthly fee cell}                     xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${button row number}]/td[2]/div
-    Set Global Variable             ${remove monthly fee button}            xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${button row number}]/td[3]/div/div/button
+    Set Global Variable             ${shiptos cell}                         xpath:${monthly pane}${table xpath}/tbody/tr[${srx row number}]/td[1]/div
+    Set Global Variable             ${fee cell}                             xpath:${monthly pane}${table xpath}/tbody/tr[${srx row number}]/td[2]/div
+    Set Global Variable             ${remove fee button}                    xpath:${monthly pane}${table xpath}/tbody/tr[${srx row number}]/td[3]/div/div/button
+    Set Global Variable             ${number of buttons cell}               xpath:${button pane}${table xpath}/tbody/tr[${button row number}]/td[1]/div
+    Set Global Variable             ${monthly fee cell}                     xpath:${button pane}${table xpath}/tbody/tr[${button row number}]/td[2]/div
+    Set Global Variable             ${remove monthly fee button}            xpath:${button pane}${table xpath}/tbody/tr[${button row number}]/td[3]/div/div/button
 
 Number Of Rows SRX
-    ${srx row}                      Get Element Count                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${srx row}                      Get Element Count                       xpath:${monthly pane}${table xpath}/tbody/tr
     Set Global Variable             ${srx row}
 
 Number Of Rows Button
-    ${button row}                   Get Element Count                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${button row}                   Get Element Count                       xpath:${button pane}${table xpath}/tbody/tr
     Set Global Variable             ${button row}
 
 Is Delete Button Fee
@@ -199,7 +181,3 @@ Is SRXCloud
 Is Button Monthly Fee
     Sleep                           1 second
     Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div/div[2]/div/button     Add new button fee
-
-Is Base Fees
-    Sleep                           1 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[2]/div[1]      Price

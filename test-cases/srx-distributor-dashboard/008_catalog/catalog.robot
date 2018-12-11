@@ -65,11 +65,11 @@ Valid Create New Product
 Checking New Product
     [Tags]                          Catalog
     Sleep                           3 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${random string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div      ${round by}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     10
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[20]/button
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div           ${random string}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div           ${user last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div           ${round by}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div          10
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${random string}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${dynamic code}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${user last name}
@@ -129,11 +129,11 @@ Edit Product
 Checking Edit Product
     [Tags]                          Catalog
     Sleep                           3 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[6]/div      ${edit round by}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[17]/div     20
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[20]/button
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div      ${edit round by}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div     20
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${edit random string}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${edit code}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${edit last name}
@@ -163,19 +163,14 @@ Sorting Catalog
     Sorting Catalog Column          6
     Sorting Catalog Column          17
 
-# Upload Template
-#    [Tags]                          ChromeOnly
-#    Choose File                     id:file-upload          /home/provorov/Downloads/product.csv
-#    ${text buffer}                  Get Text                css:.import-page-alert > strong:nth-child(2)
-#    Run Keyword If                  "${text buffer}"=="Successfully imported!"     Successfull Upload     ELSE IF     "${text buffer}"=="Operation failed!"     Fail Upload
-
 Catalog Filtration
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               NYSFUCWSLUUUMJUUOZ
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               edit level 1
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input               edit level 2
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input               edit level 3
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input               Edit City
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/input               edit string
+    [Tags]                          Filter
+    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               NYSFUCWSLUUUMJUUOZ
+    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               edit level 1
+    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input               edit level 2
+    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input               edit level 3
+    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input               Edit City
+    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/input               edit string
 
 *** Keywords ***
 Preparation
@@ -197,7 +192,7 @@ Preparation
     Set Global Variable             ${random string}
     Set Global Variable             ${edit random string}
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit product button}      xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of new row}]/td[21]/div/div/button
+    Set Global Variable             ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div/div/button
 
 Is Add Product
     Element Text Should Be          css:.modal-title            Add product
@@ -205,21 +200,39 @@ Is Add Product
 Is Edit Product
     Element Text Should Be          css:.modal-title            Edit product
 
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
-
 Sorting Catalog Column
     [Arguments]                     ${column}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
     Number Of Rows
-    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+
+Filter Catalog
+    [Arguments]                     ${inputField}            ${inputText}
+    Click Element                   css:.button-right-margin
+    Input Text                      ${inputField}            ${inputText}
+    ${result} =                     Fetch From Left          ${inputField}    2]/input
+    ${newString}=                   Strip String             ${result}1]/div
+    ${fieldName}                    Get Text                 ${newString}
+    Click Element                   css:button.btn:nth-child(2)
+    Sleep                           2 seconds
+    ${rowNum}                       Get Element Count        xpath:${header xpath}/thead/tr/th
+    ${rowNum}=                      Evaluate                 ${rowNum}+1
+     :FOR    ${var}                 IN RANGE             1   ${rowNum}
+    \        ${textInfo}            Get Text                 xpath:${header xpath}/thead/tr/th[${var}]
+    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing First Fields Catalog   ${var}        ${inputText}
+    Click Element                   css:button.button-right-margin:nth-child(2)
+    Sleep                           2 seconds
+
+Field Comparing First Fields Catalog
+    [Arguments]                     ${rowNum}       ${expectedValue}
+    ${rowValue}        Get Text     xpath:${table xpath}/tbody/tr/td[${rowNum}]
+    Should Be Equal As Strings      ${rowValue}     ${expectedValue}

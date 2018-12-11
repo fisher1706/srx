@@ -13,8 +13,8 @@ Checking New Item
     Input Text                      xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       ${order number}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div         ${order number}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[9]/div         Delivered
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div         ${order number}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]/div         Delivered
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           3 second
 
@@ -37,11 +37,11 @@ Usage History Filtration
 *** Keywords ***
 Preparation
     Goto Transactions
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[8]/div[1]
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[8]/div[1]
-    ${order number}                 Get Text            xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[1]/div
+    Click Element                   xpath:${table xpath}/thead/tr/th[8]/div[1]
+    Click Element                   xpath:${table xpath}/thead/tr/th[8]/div[1]
+    ${order number}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/div
     Set Global Variable             ${order number}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[12]/div/div/button
+    Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Go Down                         DELIVERED
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           3 second
@@ -52,10 +52,6 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
 
 Go Down
     [Arguments]                     ${field type}
@@ -68,14 +64,14 @@ Go Down
 
 Sorting Usage History
     [Arguments]                     ${column}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]

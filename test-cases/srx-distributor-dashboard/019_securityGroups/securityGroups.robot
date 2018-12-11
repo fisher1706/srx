@@ -41,11 +41,11 @@ Create User With New Security Group
 Checking New User
     [Tags]                          Test
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[1]/div      ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[2]/div      ${user first name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[4]/div      A_Warehouse
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[5]/div      ${security group}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[1]/div      ${dynamic email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[2]/div      ${user first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[3]/div      ${user last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[4]/div      A_Warehouse
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[5]/div      ${security group}
 
 Try To Delete Security Group
     Click Link                      xpath://*[@href="/security-groups"]
@@ -65,7 +65,7 @@ Try To Delete Security Group
 
 Delete User
     [Tags]                          Test
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]          ${dynamic email}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${user first name}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          ${user last name}
@@ -148,12 +148,8 @@ Is Edit Security Group
 Is Delete Security Group
     Element Text Should Be          css:.modal-title            Removal Confirmation
 
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
-    Set Global Variable             ${number of row}
-
 Number Of Rows U
-    ${number of row u}              Get Element Count           xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row u}              Get Element Count           xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row u}
 
 Go Down
