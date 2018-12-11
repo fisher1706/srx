@@ -58,11 +58,11 @@ Valid Create New Warehouse
 Checking New Warehouse
     [Tags]                          ValidCreateNewWarehouse
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a	${user first name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div	${warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div	${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div	${correct wrong email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div	${correct wrong email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a     ${user first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div   ${warehouse number}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div   ${dynamic full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div   ${correct wrong email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div   ${correct wrong email}
 
 Edit Warehouse
     [Tags]                          EditWarehouse
