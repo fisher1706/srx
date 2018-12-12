@@ -149,7 +149,6 @@ Preparation
     Set Global Variable             ${SUB HOST}
     ${SUB EMAIL}                    Return CSub Email
     Set Global Variable             ${SUB EMAIL}
-    Set Global Variable             ${edit first transaction}       xpath:${table xpath}/tbody/tr[1]/td[11]/div/div/button
 
 Goto Customer Portal Sub
     Finish Suite
@@ -182,23 +181,6 @@ Goto Notification Emails
     Click Element                   id:settings-tab-enterprise-workflow
     Sleep                           1 second
     Click Element                   id:enterprise-workflow-tab-notification-emails
-    Sleep                           3 second
-
-Go Down
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:${select control}/div[1]/div[1]/span
-    Sleep                           1 second
-    Run Keyword If                  "${text buffer sub}"!="ACTIVE"        Go Down
-
-Create Replenishment List Keyword
-    Click Link                      xpath://*[@href="/transactions"]
-    Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Sleep                           5 second
-    Click Element                   ${edit first transaction}
-    Go Down
-    Click Element                   css:.modal-dialog-ok-button
     Sleep                           3 second
 
 Checking Fields
