@@ -12,7 +12,7 @@ Suite Teardown                      Close All Browsers
 *** Test Cases ***
 Create Locker
     [Tags]                          Locker creating
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
+    Click Element                   css:button.btn-primary
     Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}1
     Input Text                      id=orderingConfig-currentInventoryControls-min_id       ${minValue}
     Input Text                      id=orderingConfig-currentInventoryControls-max_id       ${maxValue}
@@ -37,13 +37,13 @@ Change to another type
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[1]
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Click Element                   xpath:${button lg}
     Sleep                           3 seconds
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[4]
     Press Key                       xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[1]/div[1]/div[2]         \ue004
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Click Element                   xpath:${button lg}
     Sleep                           5 seconds
     Check Locker values             0                       ${dynamic sku}1
 
@@ -96,11 +96,10 @@ When OHI Zero Locker Request
     Check Locker values             0                        ${dynamic sku}1
     Open Transaction page           225
 
-
 Delete new location
     [Tags]                          Location deleting
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[1]/input
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/button
+    Click Element                   xpath:${button danger}
     Sleep                           1 second
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           2 seconds
@@ -108,7 +107,6 @@ Delete new location
     Set Global Variable             ${numbers}
 
 *** Keywords ***
-
 Check Locker values
     [Tags]                          Checking of creation or changes
     [Arguments]                     ${expectedOHI}            ${expectedSKU}
@@ -126,7 +124,7 @@ Change SKU in location
     Sleep                           3 seconds
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           2 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Click Element                   xpath:${button lg}
     Sleep                           3 seconds
 
 Locker Request
