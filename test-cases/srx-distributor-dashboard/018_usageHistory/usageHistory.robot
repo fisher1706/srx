@@ -37,8 +37,8 @@ Usage History Filtration
 *** Keywords ***
 Preparation
     Goto Transactions
-    Click Element                   xpath:${table xpath}/thead/tr/th[8]/div[1]
-    Click Element                   xpath:${table xpath}/thead/tr/th[8]/div[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
     ${order number}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/div
     Set Global Variable             ${order number}
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
@@ -55,10 +55,10 @@ Preparation
 
 Go Down
     [Arguments]                     ${field type}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007              
-    ${text buffer sub}              Get Text                 xpath:${select control}/div[1]/div[1]
+    Click Element                   xpath:${modal dialog}${select control}
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue007              
+    ${text buffer sub}              Get Text                 xpath:${modal dialog}${select control}/div[1]/div[1]
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${field type}
 

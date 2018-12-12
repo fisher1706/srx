@@ -17,19 +17,19 @@ Valid Create New Customer
     Is Add Customer
     Input Text                      id:name_id                  ${delete customer name}
     Input Text                      id:number_id                ${delete customer number}
-    Click Element                   css:div.item-form-field:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue007
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
-    ${selecting type}               Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
+    ${selecting type}               Get Text                    xpath:(${select control})[2]/div[1]/div[1]/span
     Set Global Variable             ${selecting type}
-    Click Element                   css:div.item-form-field:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]        \ue007
-    ${selecting market}             Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:(${select control})[3]
+    Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue007
+    ${selecting market}             Get Text                    xpath:(${select control})[3]/div[1]/div[1]/span
     Click Element                   css:.modal-dialog-ok-button
     Set Global Variable             ${selecting market}
 
@@ -49,10 +49,10 @@ Create Shiptos 1
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
     Click Element                   css:.modal-dialog-ok-button
@@ -76,9 +76,9 @@ Valid Create New User 1
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]    \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]    \ue004
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of row s}]/label/input
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
@@ -108,10 +108,10 @@ Create Shiptos 2
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
     Click Element                   css:.modal-dialog-ok-button
@@ -134,9 +134,9 @@ Valid Create New User 2
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]    \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]    \ue004
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of row s}]/label/input
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
@@ -179,7 +179,7 @@ Delete Customer
 Checking On Transactions
     [Tags]                          Check
     Click Link                      xpath://*[@href="/transactions"]
-    ${start shipto}                 Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div/div/div/div[1]/div[1]/span
+    ${start shipto}                 Get Text                    xpath:${select control}/div[1]/div[1]/span
     Set Global Variable             ${start shipto}
     Go Down Check
 
@@ -198,9 +198,9 @@ Is Delete Customer
     Element Text Should Be          css:.modal-title            Removal Confirmation
 
 Go Down Check
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div/div/div/div[1]/div[2]      \ue015
-    Press Key                       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div/div/div/div[1]/div[2]      \ue007
-    ${current shipto}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]      \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]      \ue007
+    ${current shipto}               Get Text                    xpath:${select control}/div[1]/div[1]/span
     Run Keyword If                  "${current shipto}"=="${delete customer name} - ${dynamic name}"        Fail    Fail
     Run Keyword If                  "${current shipto}"!="${start shipto}"      Go Down Check

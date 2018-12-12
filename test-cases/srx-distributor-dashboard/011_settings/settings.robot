@@ -24,8 +24,8 @@ Integrations
     Input Text                      id:description_id                           ${keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[3]/div          ${keyword}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[5]/div/div/button
+    Element Text Should Be          xpath:${keys pane}${table xpath}/tbody/tr[2]/td[3]/div          ${keyword}
+    Click Element                   xpath:${keys pane}${table xpath}/tbody/tr[2]/td[5]/div/div/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]           ${keyword}
     Click Element                   css:button.btn-danger:nth-child(2)
     Sleep                           5 second
@@ -89,9 +89,9 @@ Order Close Logic
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:#enterprise-workflow-pane-order-close > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
@@ -102,16 +102,16 @@ Order Close Logic
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:#enterprise-workflow-pane-order-close > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
@@ -163,7 +163,7 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Click Element                   xpath:${table xpath}/thead/tr/th[1]/div[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]/div[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
@@ -213,7 +213,7 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Click Element                   xpath:${table xpath}/thead/tr/th[1]/div[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]/div[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
@@ -258,7 +258,7 @@ Distributor Contact Info
     Click Element                   css:.item-form-fields > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:.item-form-fields > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:.item-form-fields > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
-    Click Element                   css:#customer-settings-pane-contact-info > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   xpath:${customer contact info}${control button}
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
@@ -304,7 +304,7 @@ Distributor Contact Info
     Click Element                   css:.item-form-fields > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:.item-form-fields > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:.item-form-fields > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
-    Click Element                   css:#customer-settings-pane-contact-info > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   xpath:${customer contact info}${control button}
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
@@ -360,7 +360,7 @@ Cost Saving
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
-    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   xpath:${customer cost saving}${control button}
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
@@ -415,7 +415,7 @@ Cost Saving
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
-    Click Element                   css:#customer-settings-pane-cost-savings > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
+    Click Element                   xpath:${customer cost saving}${control button}
     Sleep                           5 second
     Reload Page
     Sleep                           2 second
