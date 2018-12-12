@@ -30,7 +30,7 @@ Goto Customer Menu
     Goto Customer Management
     Number Of Rows C
     Number Of Static Row C
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row c}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
 
 Goto Security Groups
     Login In Distributor Portal
@@ -51,13 +51,11 @@ Goto Usage History
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/usage-history"]
     Sleep                           5 second
-    Is Usage History
 
 Goto Transactions
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/transactions"]
     Sleep                           5 second
-    Is Transactions
 
 Goto Transaction Log
     Login In Distributor Portal
@@ -68,7 +66,6 @@ Goto Locations
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/locations"]
     Sleep                           5 second
-    Is Locations
 
 Goto Customer Management
     Login In Distributor Portal
@@ -79,37 +76,41 @@ Goto User Managemant
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/users"]
     Sleep                           5 second
-    Is User Management
 
 Goto Fees
     Login In Admin Portal
     Click Link                      xpath://*[@href="/fees"]
     Sleep                           5 second
-    Is Fees Managemant
 
 Goto Catalog
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/catalog"]
     Sleep                           5 second
-    Is Catalog
+
+Goto Pricing
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/pricing"]
+    Sleep                           5 second
+
+Goto Reports
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/reports"]
+    Sleep                           5 second
 
 Goto Customer Types
     Login In Admin Portal
     Click Link                      xpath://*[@href="/customer-types"]
     Sleep                           5 second
-    Is Customer Types
 
 Goto Warehouses
     Login In Admin Portal
     Click Link                      xpath://*[@href="/warehouses"]
     Sleep                           5 second
-    Is Customer Types
 
 Goto Market Types
     Login In Admin Portal
     Click Link                      xpath://*[@href="/market-types"]
     Sleep                           5 second
-    Is Market Types
 
 Goto Admin Users
     Login In Admin Portal
@@ -119,7 +120,7 @@ Goto Admin Users
     Sleep                           2 second
     Number Of Rows E
     Number Of Static Row E
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row e}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row e}]/td[1]/a
 
 Goto Customer Info
     Click Element                   id:customer-details-tab-general-info
@@ -243,33 +244,33 @@ Is Catalog
 
 Sorting Column
     [Arguments]                     ${column}
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer1up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
-    ${text buffer1down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
-    ${text buffer2up}               Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[${column}]
-    ${text buffer2down}             Get Text                    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
 
 Number Of Rows C
-    ${number of row c}              Get Element Count   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row c}              Get Element Count   xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row c}
 
 Number Of Static Row C
     : FOR   ${counter c}            IN RANGE    1   ${number of row c}+1
-    \   ${text buffer1 c}           Get Text    xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter c}]/td[1]/a
+    \   ${text buffer1 c}           Get Text    xpath:${table xpath}/tbody/tr[${counter c}]/td[1]/a
     \   Exit For Loop If            "Static Customer"=="${text buffer1 c}"
     Set Global Variable             ${static row c}     ${counter c}
 
 Number Of Rows E
-    ${number of row e}              Get Element Count   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row e}              Get Element Count   xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row e}
 
 Number Of Static Row E
     : FOR   ${counter e}            IN RANGE    1   ${number of row e}+1
-    \   ${text buffer1 e}           Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter e}]/td[1]/a
+    \   ${text buffer1 e}           Get Text    xpath:${table xpath}/tbody/tr[${counter e}]/td[1]/a
     \   Exit For Loop If            "${static name}"=="${text buffer1 e}"
     Set Global Variable             ${static row e}     ${counter e}
 
@@ -337,17 +338,17 @@ Filter Check First Fields
     ${fieldName}                    Get Text                 ${newString}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           2 seconds
-    ${rowNum}                       Get Element Count        xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th
+    ${rowNum}                       Get Element Count        xpath:${header xpath}/thead/tr/th
     ${rowNum}=                      Evaluate                 ${rowNum}+1
      :FOR    ${var}                 IN RANGE             1   ${rowNum}
-    \        ${textInfo}            Get Text                 xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/th[${var}]
+    \        ${textInfo}            Get Text                 xpath:${header xpath}/thead/tr/th[${var}]
     \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing First Fields   ${var}        ${inputText}
     Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           2 seconds
 
 Field Comparing First Fields
     [Arguments]                     ${rowNum}       ${expectedValue}
-    ${rowValue}        Get Text     xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr/td[${rowNum}]
+    ${rowValue}        Get Text     xpath:${table xpath}/tbody/tr/td[${rowNum}]
     Should Be Equal As Strings      ${rowValue}     ${expectedValue}
 
 Set Permission
@@ -428,3 +429,25 @@ Checking Sections
     Set Global Variable             ${check}            false
     Element Should Be Visible       ${section}
     Set Global Variable             ${check}            true
+
+Number Of Rows
+    ${number of row}                Get Element Count           xpath:${table xpath}/tbody/tr
+    Set Global Variable             ${number of row}
+
+Number Of Rows G
+    ${number of row g}              Get Element Count           xpath:(${table xpath})[2]/tbody/tr
+    Set Global Variable             ${number of row g}
+
+Number Of Static Row G
+    : FOR   ${counter}              IN RANGE    1   ${number of row g}+1
+    \   ${text buffer1 g}           Get Text    xpath:(${table xpath})[2]/tbody/tr[${counter}]/td[1]/div
+    \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
+    Set Global Variable             ${static row g}     ${counter}
+
+Number Of Rows Shiptos
+    ${number of row s}              Get Element Count               xpath:${shiptos pane}${table xpath}/tbody/tr
+    Set Global Variable             ${number of row s}
+
+Number Of Rows Users
+    ${number of row u}              Get Element Count               xpath:${users pane}${table xpath}/tbody/tr
+    Set Global Variable             ${number of row u}

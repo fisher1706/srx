@@ -100,3 +100,17 @@ ${APIKEY}                       m4DAfPuRurdzlsVrlen2
 ${security group}               auto-security-group
 ${edit security group}          auto-edit-security-group
 ${replenishment email}          replenishment@ukr.net
+${table xpath}                  //table[contains(@class, 'table table-striped table-bordered table-hover table-condensed')]
+${header xpath}                 //table[contains(@class, 'table table-hover table-bordered table-condensed')]
+${shiptos pane}                 //div[contains(@id, 'customer-details-pane-shiptos')]
+${users pane}                   //div[contains(@id, 'customer-details-pane-users')]
+${base fee pane}                //div[contains(@id, 'uncontrolled-tab-example-pane-1')]
+${button pane}                  //div[contains(@id, 'uncontrolled-tab-example-pane-2')]
+${monthly pane}                 //div[contains(@id, 'uncontrolled-tab-example-pane-3')]
+${select control}               //div[contains(@class, 'Select-control')]
+${documents pane}               //div[contains(@id, 'pricing-billing-pane-documents')]
+${keys pane}                    //div[contains(@id, 'erp-integration-pane-api-keys')]
+${taxes pane}                   //div[contains(@id, 'pricing-billing-pane-taxes')]
+${radio button}                 //label[contains(@class, 'select-options')]
+${customer repl rule}           //div[contains(@id, 'customer-settings-pane-replenishment-rules')]
+${customer order close logic}   //div[contains(@id, 'customer-settings-pane-order-close-logic')]
