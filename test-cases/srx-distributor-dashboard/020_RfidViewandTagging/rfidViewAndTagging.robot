@@ -206,7 +206,6 @@ Open Transaction page
     Should Be Equal As Strings      ${lastTransaction}      10
 
 *** Keywords ***
-
 Different locations creating
     [Arguments]                     ${locationType}
     Click Element                   css:button.btn-primary
@@ -348,7 +347,6 @@ Filter Check Date
     Sleep                           3 seconds
 
 *** Variables ****
-
 ${rfidCount}                        0
 ${ohiCount}                         0
 ${IssuedRFIDS}                      0
