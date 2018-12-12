@@ -107,17 +107,17 @@ Number Of Static Row Sub
     Set Global Variable             ${static row c}     ${counter c sub}
 
 Go Down
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue007
+    ${text buffer sub}              Get Text                                    xpath:(${select control})[2]/div[1]/div[1]/span
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="${market del type}"        Go Down
 
 Go Up
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue007
+    ${text buffer sub}              Get Text                                    xpath:(${select control})[2]/div[1]/div[1]/span
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="Not specified"       Go Down

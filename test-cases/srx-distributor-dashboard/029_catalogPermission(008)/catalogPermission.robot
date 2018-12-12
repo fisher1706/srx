@@ -158,7 +158,7 @@ Preparation
     Sleep                           5 second
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  4       1

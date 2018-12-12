@@ -33,19 +33,19 @@ Valid Create New Customer
     Is Add Customer
     Input Text                      id:name_id                  ${user first name}
     Input Text                      id:number_id                ${warehouse number}
-    Click Element                   css:div.item-form-field:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue007
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
-    ${selecting type}               Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
+    ${selecting type}               Get Text                    xpath:(${select control})[2]/div[1]/div[1]/span
     Set Global Variable             ${selecting type}
-    Click Element                   css:div.item-form-field:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]        \ue007
-    ${selecting market}             Get Text                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:(${select control})[3]
+    Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue007
+    ${selecting market}             Get Text                    xpath:(${select control})[3]/div[1]/div[1]/span
     Click Element                   css:.modal-dialog-ok-button
     Set Global Variable             ${selecting market}
 
@@ -68,12 +68,12 @@ Edit Customer
     Click Element                   ${edit customer button}
     Input Text                      id:name_id                  ${edit first name}
     Input Text                      id:number_id                ${edit warehouse number}
-    Click Element                   css:div.item-form-field:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[3]/div/div/div/div[1]/div[2]        \ue007
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue013
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue013
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     Click Element                   css:.modal-dialog-ok-button
     
 Checking Edit Customer
@@ -104,7 +104,7 @@ Preparation
     Goto Security Groups
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  5       1

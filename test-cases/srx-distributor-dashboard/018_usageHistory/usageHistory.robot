@@ -55,10 +55,10 @@ Preparation
 
 Go Down
     [Arguments]                     ${field type}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue007              
-    ${text buffer sub}              Get Text                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[1]
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007              
+    ${text buffer sub}              Get Text                 xpath:${select control}/div[1]/div[1]
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${field type}
 

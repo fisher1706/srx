@@ -157,10 +157,10 @@ Number Of Rows
     Set Global Variable             ${number of row}
 
 Go Down
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
+    ${text buffer sub}              Get Text                                    xpath:${select control}/div[1]/div[1]/span
     Sleep                           1 second
     Run Keyword If                  "${security group}"!="${text buffer sub}"   Go Down
 

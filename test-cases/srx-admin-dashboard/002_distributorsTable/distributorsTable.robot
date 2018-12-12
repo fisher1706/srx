@@ -26,17 +26,17 @@ Invalid Add Distributor
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:address.line1_id             \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue004
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue004
+    Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue004
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:address.city_id              \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:invoiceEmail_id              \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
-    Click Element                   css:div.item-form-field:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue004
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue004
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue004
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:address.zipCode_id           \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(8) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
@@ -55,15 +55,15 @@ Valid Add Distributor
     Input Text                      id:name_id                                                                                          ${dynamic name}
     Input Text                      id:address.line1_id                                                                                 ${dynamic adress1}
     Input Text                      id:address.line2_id                                                                                 ${dynamic adress2}
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
     Input Text                      id:address.city_id                                                                                  ${dynamic city}
     Input Text                      id:invoiceEmail_id                                                                                  ${dynamic email}
-    Click Element                   css:div.item-form-field:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id                                                                               ${dynamic code}
     Click Element                   css:.modal-dialog-ok-button
 
@@ -113,14 +113,14 @@ Edit Distributor
     Input Text                      id:name_id                                                                                          ${edit name}
     Input Text                      id:address.line1_id                                                                                 ${edit adress1}
     Input Text                      id:address.line2_id                                                                                 ${edit adress2}
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
     Input Text                      id:address.city_id                                                                                  ${edit city}
     Input Text                      id:invoiceEmail_id                                                                                  ${edit email}
-    Click Element                   css:div.item-form-field:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue013
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id                                                                               ${edit code}
     Click Element                   css:.modal-dialog-ok-button
 
@@ -137,14 +137,14 @@ Return Static Data
     Input Text                      id:name_id                                                                                          ${static name}
     Input Text                      id:address.line1_id                                                                                 ${static adress1}
     Input Text                      id:address.line2_id                                                                                 ${static adress2}
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue013
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
     Input Text                      id:address.city_id                                                                                  ${static city}
     Input Text                      id:invoiceEmail_id                                                                                  ${static email}
-    Click Element                   css:div.item-form-field:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[7]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${select control})[2]
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id                                                                               ${static code}
     Click Element                   css:.modal-dialog-ok-button
 

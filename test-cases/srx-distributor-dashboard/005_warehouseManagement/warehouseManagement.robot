@@ -22,7 +22,7 @@ Invalid Create New Warehouse
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.city_id      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]                \ue004
+    Press Key                       xpath:${select control}/div[1]/div[2]                \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:contactEmail_id      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -42,10 +42,10 @@ Valid Create New Warehouse
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:number_id            ${warehouse number}
     Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue007
     Input Text                      id:contactEmail_id      ${incorrect email}
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:invoiceEmail_id      ${incorrect email}
@@ -81,9 +81,9 @@ Edit Warehouse
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:number_id            ${edit warehouse number}
     Input Text                      id:address.city_id      ${edit city}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue013
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id   ${edit code}
     Input Text                      id:contactEmail_id      ${edit email}
     Input Text                      id:invoiceEmail_id      ${edit email}

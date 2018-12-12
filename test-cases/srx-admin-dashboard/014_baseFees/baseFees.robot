@@ -7,28 +7,28 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Change Base Fees
-    ${temp text1}                   Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div
-    ${temp text2}                   Get Text        xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${edit year fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${edit month fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    ${temp text1}                   Get Text        xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div
+    ${temp text2}                   Get Text        xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        ${edit year fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        ${edit month fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        \ue007
     Reload Page
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  ${temp text1}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  ${temp text2}
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${edit year fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${edit month fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div                  ${temp text1}
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div                  ${temp text2}
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        ${edit year fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        ${edit month fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        \ue007
     Click Element                   css:#uncontrolled-tab-example-pane-1 > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
     Reload Page
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  $${edit year fee}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  $${edit month fee}
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div                  $${edit year fee}
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div                  $${edit month fee}
 
 Checking Base Fees
     Goto Settings Sub
@@ -39,26 +39,26 @@ Checking Base Fees
 
 Return Base Fees
     Preparation
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${year fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${month fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        ${year fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        ${month fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        \ue007
     Reload Page
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  $${edit year fee}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  $${edit month fee}
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        ${year fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div/input        \ue007
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]
-    Input Text                      xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        ${month fee}
-    Press Key                       xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div/input        \ue007
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div                  $${edit year fee}
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div                  $${edit month fee}
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        ${year fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        \ue007
+    Click Element                   xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]
+    Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        ${month fee}
+    Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div/div/input        \ue007
     Click Element                   css:#uncontrolled-tab-example-pane-1 > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
     Reload Page
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div                  $${year fee}
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div                  $${month fee}
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div                  $${year fee}
+    Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[2]/td[2]/div                  $${month fee}
 
 Checking Returned Base Fees
     Goto Settings Sub

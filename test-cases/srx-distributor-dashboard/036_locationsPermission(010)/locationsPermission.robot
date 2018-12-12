@@ -17,7 +17,7 @@ Invalid Create New Location
     Click Element                   css:button.btn-primary
     Press Key                       id:orderingConfig-product-partSku_id                                                                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue004
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:orderingConfig-currentInventoryControls-min_id                                                       \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -35,9 +35,9 @@ Valid Create New Location
     Click Element                   css:button.btn-primary
     Is Add Location
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
-    Click Element                   css:div.item-form-field:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       43
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       59
     Input Text                      id:attributeName1_id                                                                                    ${level 1}
@@ -66,7 +66,7 @@ Valid Create New Location
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
     Is Locations
-    
+
 Checking New Location
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${level 1}
@@ -151,7 +151,7 @@ Preparation
     Goto Security Groups
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  7       1

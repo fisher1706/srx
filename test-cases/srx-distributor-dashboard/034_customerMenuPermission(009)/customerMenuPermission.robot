@@ -22,7 +22,7 @@ Invalid Create New Shipto
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.city_id                                                                                      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue004
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.zipCode_id                                                                                   \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -39,10 +39,10 @@ Valid Create New Shipto
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   css:div.item-form-field:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
     Click Element                   css:.modal-dialog-ok-button
@@ -70,9 +70,9 @@ Edit Shipto
     Input Text                      id:address.line1_id     ${edit adress1}
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:address.city_id      ${edit city}
-    Click Element                   css:div.item-form-field:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div/div/div[1]/div[2]            \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue013
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${edit code}
     Clear Element Text              id:poNumber_id
     Click Element                   css:.modal-dialog-ok-button
@@ -101,7 +101,7 @@ Invalid Create New User
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:lastName_id                                                                                      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]    \ue004
+    Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
@@ -115,9 +115,9 @@ Valid Create New User
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
-    Click Element                   css:div.item-form-field:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]    \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]    \ue004
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of new row s}]/label/input
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
@@ -192,7 +192,7 @@ Preparation
     Goto Security Groups
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  5       1

@@ -120,7 +120,7 @@ Goto Admin Users
     Sleep                           2 second
     Number Of Rows E
     Number Of Static Row E
-    Click Element                   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row e}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${static row e}]/td[1]/a
 
 Goto Customer Info
     Click Element                   id:customer-details-tab-general-info
@@ -265,12 +265,12 @@ Number Of Static Row C
     Set Global Variable             ${static row c}     ${counter c}
 
 Number Of Rows E
-    ${number of row e}              Get Element Count   xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr
+    ${number of row e}              Get Element Count   xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row e}
 
 Number Of Static Row E
     : FOR   ${counter e}            IN RANGE    1   ${number of row e}+1
-    \   ${text buffer1 e}           Get Text    xpath:/html/body/div/div/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${counter e}]/td[1]/a
+    \   ${text buffer1 e}           Get Text    xpath:${table xpath}/tbody/tr[${counter e}]/td[1]/a
     \   Exit For Loop If            "${static name}"=="${text buffer1 e}"
     Set Global Variable             ${static row e}     ${counter e}
 

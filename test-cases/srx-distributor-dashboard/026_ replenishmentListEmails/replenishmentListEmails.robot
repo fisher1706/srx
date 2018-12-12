@@ -185,10 +185,10 @@ Goto Notification Emails
     Sleep                           3 second
 
 Go Down
-    Click Element                   css:div.item-form-field:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/form/div/div[2]/div/div/div/div[1]/div[1]/span
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
+    ${text buffer sub}              Get Text                                    xpath:${select control}/div[1]/div[1]/span
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="ACTIVE"        Go Down
 

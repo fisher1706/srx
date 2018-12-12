@@ -24,7 +24,7 @@ Invalid Create New User
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:lastName_id              \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue004
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)         \ue004
     Element Should Be Visible       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
@@ -44,9 +44,9 @@ Valid Create New User
     Click Element                   css:.modal-dialog-ok-button
     Element Should Be Enabled       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue007
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           2 second
     Is User Management
@@ -112,7 +112,7 @@ Preparation
     Goto Security Groups
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  2       1

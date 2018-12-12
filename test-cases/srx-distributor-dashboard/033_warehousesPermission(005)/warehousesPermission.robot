@@ -22,7 +22,7 @@ Invalid Create New Warehouse
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.city_id      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]                \ue004
+    Press Key                       xpath:${select control}/div[1]/div[2]                \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:contactEmail_id      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -42,10 +42,10 @@ Valid Create New Warehouse
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:number_id            ${warehouse number}
     Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue007
     Input Text                      id:contactEmail_id      ${incorrect email}
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:invoiceEmail_id      ${incorrect email}
@@ -58,11 +58,11 @@ Valid Create New Warehouse
 Checking New Warehouse
     [Tags]                          ValidCreateNewWarehouse
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a	${user first name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div	${warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div	${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div	${correct wrong email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div	${correct wrong email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a     ${user first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div   ${warehouse number}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div   ${dynamic full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div   ${correct wrong email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div   ${correct wrong email}
 
 Edit Warehouse
     [Tags]                          EditWarehouse
@@ -81,9 +81,9 @@ Edit Warehouse
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:number_id            ${edit warehouse number}
     Input Text                      id:address.city_id      ${edit city}
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue013
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[6]/div/div/div/div[1]/div[2]        \ue007
+    Click Element                   xpath:${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue013
+    Press Key                       xpath:${select control}/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id   ${edit code}
     Input Text                      id:contactEmail_id      ${edit email}
     Input Text                      id:invoiceEmail_id      ${edit email}
@@ -123,7 +123,7 @@ Preparation
     Goto Security Groups
     Number Of Rows G
     Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:/html/body/div/div/div[2]/div[2]/div/div[3]/div[3]/div/div/div/div/div[1]/div[2]/table/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  13       1
