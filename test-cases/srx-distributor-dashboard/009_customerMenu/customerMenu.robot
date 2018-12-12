@@ -192,10 +192,10 @@ Checking Customer Settings Replenishment Rules
     Click Element                   id:customer-details-tab-settings
     Sleep                           1 second
     Click Element                   id:customer-settings-tab-replenishment-rules
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[1]/input
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[2]/input
-    Element Should Be Enabled       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[3]/input
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[3]/input
+    Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[1]/input
+    Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[2]/input
+    Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[3]/input
+    Click Element                   xpath:(${customer repl rule}${radio button})[3]/input
     Click Element                   css:#customer-settings-pane-replenishment-rules > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
     Reload Page
@@ -203,13 +203,13 @@ Checking Customer Settings Replenishment Rules
     Sleep                           1 second
     Click Element                   id:customer-settings-tab-replenishment-rules
     Sleep                           3 second
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[3]/input     checked
+    ${checked}                      Get Element Attribute       xpath:(${customer repl rule}${radio button})[3]/input     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[1]/input     checked
+    ${checked}                      Get Element Attribute       xpath:(${customer repl rule}${radio button})[1]/input     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[2]/input     checked
+    ${checked}                      Get Element Attribute       xpath:(${customer repl rule}${radio button})[2]/input     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[2]/input
+    Click Element                   xpath:(${customer repl rule}${radio button})[2]/input
     Click Element                   css:#customer-settings-pane-replenishment-rules > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
     Reload Page
@@ -217,11 +217,11 @@ Checking Customer Settings Replenishment Rules
     Sleep                           1 second
     Click Element                   id:customer-settings-tab-replenishment-rules
     Sleep                           3 second
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[2]/input     checked
+    ${checked}                      Get Element Attribute       xpath:(${customer repl rule}${radio button})[2]/input     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[1]/input     checked
+    ${checked}                      Get Element Attribute       xpath:(${customer repl rule}${radio button})[1]/input     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[4]/div/div[2]/div/div[1]/div/div/div/label[3]/input     checked
+    ${checked}                      Get Element Attribute       xpath:(${customer repl rule}${radio button})[3]/input     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
 
 Checking Customer Settings Order Close Logic
@@ -238,9 +238,9 @@ Checking Customer Settings Order Close Logic
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[5]/div/div[2]/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[5]/div/div[2]/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:#customer-settings-pane-order-close-logic > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
@@ -251,16 +251,16 @@ Checking Customer Settings Order Close Logic
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[5]/div/div[2]/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[5]/div/div[2]/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:#customer-settings-pane-order-close-logic > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
     Sleep                           5 second
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[5]/div/div[2]/div/div[1]/div/div/div/div/div[3]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    ${aria}                         Get Element Attribute       xpath:/html/body/div/div/div/div/div/div[2]/div/div[2]/div/div[4]/div/div/div/div[5]/div/div[2]/div/div[1]/div/div/div/div/div[5]/div/div/div/div[2]     aria-disabled
+    ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
