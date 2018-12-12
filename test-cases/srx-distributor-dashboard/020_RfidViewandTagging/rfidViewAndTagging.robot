@@ -10,12 +10,12 @@ Suite Setup                         Goto Locations
 Suite Teardown                      Close All Browsers
 
 *** Test Cases ***
-
 Prepare to testing ohi
     [Tags]                          Preparation
+    Sleep                           5 second
     Click Element                   id=pageDropDown
     Sleep                           1 second
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/span/ul/li[4]/a
+    Click Element                   css:li.dropdown-item:nth-child(4)
     Sleep                           3 seconds
 
 Check Changes From Button to Standart and back
@@ -41,7 +41,7 @@ Creating new location for RFID tests
     [Tags]                          New location Creating
     Click Link                      xpath://*[@href="/locations"]
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
+    Click Element                   css:button.btn-primary
     Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}2
     Input Text                      id=orderingConfig-currentInventoryControls-min_id       ${minValue}
     Input Text                      id=orderingConfig-currentInventoryControls-max_id       ${maxValue}
@@ -60,14 +60,14 @@ Creating new location for RFID tests
 Check Selector Input at RFID page
     [Tags]                          New location Creating
     Click Link                      xpath://*[@href="/rfid-view"]
-    Input Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div/div[2]/input         SomeFloodHere
-    ${text rfid sku}                Get Text               xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div
+    Input Text                      xpath:(${select control})[2]/div/div[2]/input         SomeFloodHere
+    ${text rfid sku}                Get Text               xpath:${select menu outer}/div/div
     Should Be Equal As Strings      ${text rfid sku}       No results found
     Reload Page
-    Input Text                      xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div/div[2]/input         ${dynamic sku}2
-    ${text rfid sku}                Get Text               xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div
+    Input Text                      xpath:(${select control})[2]/div/div[2]/input         ${dynamic sku}2
+    ${text rfid sku}                Get Text               xpath:${select menu outer}/div/div
     Should Be Equal As Strings      ${text rfid sku}       ${dynamic sku}2
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div
+    Click Element                   xpath:${select menu outer}/div/div
 
 Adding RFID with false Transaction
     [Tags]                          False Transaction
@@ -80,8 +80,8 @@ Adding RFID with false Transaction
 
 Adding three Rfid View and tagging
     [Tags]                          Adding two Rfids
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
+    Click Element                   xpath:(${select control})[2]
+    Click Element                   xpath:${select menu outer}/div/div[2]
     :FOR       ${var}      IN RANGE            1   4
     \    Click Element              css:.rfid-create-button
     \    ${buffer}=                 Generate Random String      18      [LETTERS]
@@ -91,7 +91,7 @@ Adding three Rfid View and tagging
     \    Click Element              xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     \    ${ohiCount}=               Evaluate                    ${ohiCount}+5
     \    Sleep                      2 seconds
-    \    Element Text Should Be     xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[4]/div[4]          OHI:${ohiCount}
+    \    Element Text Should Be     xpath:${rfid locations container}/div[4]/div[4]          OHI:${ohiCount}
     \    ${rfidCount}               Evaluate                ${rfidCount}+1
     Set Global Variable             ${ohiCount}
     Set Global Variable             ${rfidCount}
@@ -102,7 +102,7 @@ Prepare to sorting
     Sleep                           3 seconds
     Click Element                   id=pageDropDown
     Sleep                           1 second
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[2]/div/div[1]/span/ul/li[4]/a
+    Click Element                   css:li.dropdown-item:nth-child(4)
     Sleep                           4 seconds
     ${Sortnumbers}                  Get Element Count       xpath:${table xpath}/tbody/tr
     Sleep                           2 seconds                                    
@@ -110,11 +110,10 @@ Prepare to sorting
 
 Check values from Location page
     [Tags]                          Checking values from Location page
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[2]/div[4]        Min:${minValue}
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[3]/div[4]        Max:${maxValue}
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[2]/div[1]        Location Name 1:${locationName}
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[3]/div[1]        Location Value 1:${locationValue}
-
+    Element Text Should Be          xpath:${rfid locations container}/div[2]/div[4]        Min:${minValue}
+    Element Text Should Be          xpath:${rfid locations container}/div[3]/div[4]        Max:${maxValue}
+    Element Text Should Be          xpath:${rfid locations container}/div[2]/div[1]        Location Name 1:${locationName}
+    Element Text Should Be          xpath:${rfid locations container}/div[3]/div[1]        Location Value 1:${locationValue}
 
 Sorting
     [Tags]                          Rfid New and Tagging page Sorting
@@ -141,7 +140,6 @@ Check Filtres
     Filter Check Date               xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/input   ${creationDate}            3          TO
     Filter Check                    xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input               ${RfidAssociatedData}      5
 
-
 Check OHI at this location
     [Tags]                          Check OHI at all pages
     ${ohiCount}=                    Evaluate                 ${ohiCount}-10
@@ -152,9 +150,9 @@ Check OHI at this location
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           3 seconds
     Click Link                      xpath://*[@href="/rfid-view"]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
-    Element Text Should Be          xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[3]/div[4]/div[4]          OHI:${ohiCount}
+    Click Element                   xpath:(${select control})[2]
+    Click Element                   xpath:${select menu outer}/div/div[2]
+    Element Text Should Be          xpath:${rfid locations container}/div[4]/div[4]          OHI:${ohiCount}
     Click Element                   xpath:${header xpath}/thead/tr/th[2]
     Sleep                           2 seconds
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${rfidCount}]/td[2]                    ISSUED
@@ -167,20 +165,20 @@ Change type to button and back
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[1]
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/div/button[2]
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Click Element                   xpath:${button lg}
     Sleep                           3 seconds
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[2]/div/div[3]
     Press Key                       xpath:${table xpath}/tbody/tr[${numbers}]/td[13]/div/div/div/div[1]/div[1]/div[2]         \ue004
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Click Element                   xpath:${button lg}
     Sleep                           2 seconds
 
 Check at RFID View and Tagging page issued RFIDs
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           3 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div/div[1]
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div/div[2]
+    Click Element                   xpath:(${select control})[2]
+    Click Element                   xpath:${select menu outer}/div/div[2]
     Sleep                           2 seconds
     ${issuedRFIDSnow}               Get Element Count      xpath:${table xpath}/tbody/tr/td[1]
     Should Be Equal                 ${IssuedRFIDS}         ${IssuedRFIDSnow}
@@ -189,7 +187,7 @@ Delete new location
     Click Link                      xpath://*[@href="/locations"]
     Sleep                           3 seconds
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[1]/input
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/button
+    Click Element                   xpath:${button danger}
     Sleep                           1 second
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           2 seconds
@@ -197,7 +195,8 @@ Delete new location
     Set Global Variable             ${numbers}
 
 Open Transaction page
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[1]/div/ul/li[6]/a
+    [Tags]                          Test
+    Click Element                   xpath://*[@href="/transactions"]
     Sleep                           3 seconds
     Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Sleep                           4 seconds
@@ -210,7 +209,7 @@ Open Transaction page
 
 Different locations creating
     [Arguments]                     ${locationType}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
+    Click Element                   css:button.btn-primary
     Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}2
     Input Text                      id=orderingConfig-currentInventoryControls-min_id       ${minValue}
     Input Text                      id=orderingConfig-currentInventoryControls-max_id       ${maxValue}
@@ -228,7 +227,7 @@ Different locations creating
 
 Delete new location
     Click Element                   xpath:${table xpath}/tbody/tr[${numbers}]/td[1]/input
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/div[1]/button
+    Click Element                   xpath:${button danger}
     Sleep                           1 second
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           2 seconds
@@ -243,7 +242,7 @@ OHI Check RFID
 
 Creating second the same location
     [Arguments]                     ${locationType}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[2]/button
+    Click Element                   css:button.btn-primary
     Input Text                      id=orderingConfig-product-partSku_id                    ${dynamic sku}2
     Input Text                      id=orderingConfig-currentInventoryControls-min_id       ${minValue}
     Input Text                      id=orderingConfig-currentInventoryControls-max_id       ${maxValue}
@@ -284,12 +283,12 @@ Post Requests
 
 Filter Check
     [Arguments]                     ${inputField}            ${inputText}     ${checkingField}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button
+    Click Element                   css:button.button-right-margin:nth-child(1)
     Input Text                      ${inputField}            ${inputText}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           3 seconds
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[${checkingField}]            ${inputText}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button[2]
+    Click Element                  css:button.button-right-margin:nth-child(2)
     Sleep                           3 seconds
 
 Field Selector Check Tr
@@ -311,10 +310,10 @@ Field Selector Check Tr
 
 Go Down
     [Arguments]                     ${fieldAdr}             ${field type}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div/div/div
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div/div/div/div[1]/div[2]            \ue015
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div/div/div/div[1]/div[2]            \ue007              
-    ${text buffer sub}              Get Text                 xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div/div/div/div[1]/div[1]
+    Click Element                   xpath:${modal dialog}${select control}
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue007              
+    ${text buffer sub}              Get Text                 xpath:${modal dialog}${select control}/div[1]/div[1]
     Sleep                           1 second
     Run Keyword If                  "${text buffer sub}"!="${field type}"        Go Down    ${fieldAdr}    ${field type}
 
@@ -330,7 +329,7 @@ Change SKU in location
     Input Text                      xpath:${table xpath}/tbody/tr[${numbers}]/td[11]/div/div/input      ${locationSKUname}
     Press Key                       xpath:${table xpath}/tbody/tr[${numbers}]/td[11]/div/div/input      \ue004
     Sleep                           2 seconds
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/div/div/button
+    Click Element                   xpath:${button lg}
     Sleep                           3 seconds
 
 Filter Check Date
@@ -339,13 +338,13 @@ Filter Check Date
     ${leftPart} =                   Fetch From Left          ${resultFrom}     2018
     ${rightPart} =                  Fetch From Right         ${resultFrom}     2018
     ${resultTo} =                   Strip String             ${leftPart}2020${rightPart}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button
+    Click Element                   css:button.button-right-margin:nth-child(1)
     Run Keyword If                  "${fromTO}" == "TO"      Input Text        ${inputField}            ${resultTo}     ELSE        Input Text        ${inputField}            ${resultFrom}
     Sleep                           2 seconds
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           3 seconds
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[${checkingField}]            ${inputText}
-    Click Element                   xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[2]/div[1]/div/button[2]
+    Click Element                  css:button.button-right-margin:nth-child(2)
     Sleep                           3 seconds
 
 *** Variables ****
@@ -353,3 +352,5 @@ Filter Check Date
 ${rfidCount}                        0
 ${ohiCount}                         0
 ${IssuedRFIDS}                      0
+${select menu outer}                //div[contains(@class, 'Select-menu-outer')]
+${rfid locations container}         //div[contains(@class, 'rfid-location-details-container')]

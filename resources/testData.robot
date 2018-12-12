@@ -93,7 +93,7 @@ ${locationName}                 testLocName1
 ${locationValue}                testLocValue1
 ${minValue}                     20
 ${maxValue}                     30
-${rfid sorting rows}            xpath://*[@id="root"]/div/div/div/div/div[2]/div/div[4]/div/div/div[3]/div/div/div/div/div[1]/div[1]/table/thead/tr/
+${rfid sorting rows}            xpath:${header xpath}/thead/tr/
 @{RfidVandTsortingFields}       ${rfid sorting rows}th[1]   ${rfid sorting rows}th[2]   ${rfid sorting rows}th[3]   ${rfid sorting rows}th[4]   ${rfid sorting rows}th[5]
 ${RfidAssociatedData}           TestDATA
 ${APIKEY}                       m4DAfPuRurdzlsVrlen2
@@ -111,6 +111,13 @@ ${select control}               //div[contains(@class, 'Select-control')]
 ${documents pane}               //div[contains(@id, 'pricing-billing-pane-documents')]
 ${keys pane}                    //div[contains(@id, 'erp-integration-pane-api-keys')]
 ${taxes pane}                   //div[contains(@id, 'pricing-billing-pane-taxes')]
+${order close logic}            //div[contains(@id, 'enterprise-workflow-pane-order-close')]
 ${radio button}                 //label[contains(@class, 'select-options')]
 ${customer repl rule}           //div[contains(@id, 'customer-settings-pane-replenishment-rules')]
 ${customer order close logic}   //div[contains(@id, 'customer-settings-pane-order-close-logic')]
+${customer contact info}        //div[contains(@id, 'customer-settings-pane-contact-info')]
+${customer cost saving}         //div[contains(@id, 'customer-settings-pane-cost-savings')]
+${modal dialog}                 //div[contains(@class, 'modal-dialog')]
+${control button}               //button[contains(@class, 'control-button')]
+${button lg}                    //button[contains(@class, 'btn-lg')]
+${button danger}                //button[contains(@class, 'btn-danger')]

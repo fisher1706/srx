@@ -17,7 +17,9 @@ Invalid Create New Location
     Click Element                   css:button.btn-primary
     Press Key                       id:orderingConfig-product-partSku_id                                                                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue004
+    Click Element                   xpath:${modal dialog}${select control}
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue004
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:orderingConfig-currentInventoryControls-min_id                                                       \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -35,9 +37,9 @@ Valid Create New Location
     Click Element                   css:button.btn-primary
     Is Add Location
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
+    Click Element                   xpath:${modal dialog}${select control}
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue007
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       43
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       59
     Input Text                      id:attributeName1_id                                                                                    ${level 1}
