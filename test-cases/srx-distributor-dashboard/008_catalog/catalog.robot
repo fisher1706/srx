@@ -43,7 +43,6 @@ Valid Create New Product
     Input Text                      id:shortDescription_id          ${user last name}
     Input Text                      id:weight_id                    10
     Input Text                      id:roundBuy_id                  ${round by}
-    Input Text                      id:unitOfMeasure_id             ${warehouse number}
     Input Text                      id:manufacturerPartNumber_id    ${dynamic code}
     Input Text                      id:longDescription_id           ${dynamic adress1}
     Input Text                      id:manufacturer_id              ${dynamic adress2}
@@ -87,7 +86,7 @@ Checking New Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${test number}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${keyword}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        10
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[19]/div[2]        ${keyword}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${keyword}
     Click Element                   css:.close
     Sleep                           3 second
 
@@ -107,7 +106,6 @@ Edit Product
     Input Text                      id:shortDescription_id              ${edit last name}
     Input Text                      id:weight_id                        20
     Input Text                      id:roundBuy_id                      ${edit round by}
-    Input Text                      id:unitOfMeasure_id                 ${edit warehouse number}
     Input Text                      id:manufacturerPartNumber_id        ${edit code}
     Input Text                      id:longDescription_id               ${edit adress1}
     Input Text                      id:manufacturer_id                  ${edit adress2}
@@ -151,7 +149,7 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${edit test number}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${edit keyword}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        20
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[19]/div[2]        ${edit keyword}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${edit keyword}
     Set Global Variable             ${number of row}        ${number of new row}
     Click Element                   css:.close
     Sleep                           3 second
