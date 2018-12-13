@@ -35,9 +35,7 @@ Checking Pricing
 
 *** Keywords ***
 Preparation
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/pricing"]
-    #Goto Pricing
+    Goto Pricing
 
 Go Down
     Click Element                   xpath:(${select control})[1]
