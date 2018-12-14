@@ -10,12 +10,17 @@ ${first po number}                  4550
 ${second po number}                 2393
 
 *** Test Cases ***
-Set Email In Settings
+Start Check Email
+    [Tags]                          IMAP
     Open Mailbox                    host=imap.ukr.net               user=replenishment@ukr.net              password=srx-group      port=993
     Run Keyword And Ignore Error    Mailbox Open
+
+Set Email In Settings
+    [Tags]                          
     Goto Customers Notification Emails
-    Input Text                      id:replenishmentListEmails_id           ${static email}
-    Input Text                      id:activeReplenishmentListEmails_id     ${static email}
+    Input Text                      id:replenishmentListEmails_id               ${static email}
+    Input Text                      id:activeReplenishmentListEmails_id         ${static email}
+    Input Text                      id:discrepancyReplenishmentListEmails_id    ${static email}
     Element Should Be Enabled       css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Click Element                   css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           3 second
@@ -28,9 +33,9 @@ Set Email In Settings
     Clear Element Text              id:replenishmentListEmails_id
     Press Key                       id:replenishmentListEmails_id           \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Input Text                      id:replenishmentListEmails_id           ${replenishment email}
-    Clear Element Text              id:activeReplenishmentListEmails_id
-    Clear Element Text              id:discrepancyReplenishmentListEmails_id
+    Input Text                      id:replenishmentListEmails_id               ${replenishment email}
+    Input Text                      id:activeReplenishmentListEmails_id         ${replenishment email}
+    Input Text                      id:discrepancyReplenishmentListEmails_id    ${replenishment email}
     Click Element                   css:#enterprise-workflow-pane-notification-emails > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Reload Page
@@ -64,8 +69,9 @@ Set Email In Warehouse
     Click Link                      xpath://*[@href="/settings"]
     Goto Notification Emails
     Sleep                           3 second
-    Input Text                      id:replenishmentListEmails_id           ${static email}
-    Input Text                      id:activeReplenishmentListEmails_id     ${static email}
+    Input Text                      id:replenishmentListEmails_id               ${static email}
+    Input Text                      id:activeReplenishmentListEmails_id         ${static email}
+    Input Text                      id:discrepancyReplenishmentListEmails_id    ${static email}
     Click Element                   css:#enterprise-workflow-pane-notification-emails > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
     Click Link                      xpath://*[@href="/warehouses"]
@@ -74,10 +80,10 @@ Set Email In Warehouse
     Clear Element Text              id:replenishmentListEmails_id
     Press Key                       id:replenishmentListEmails_id           \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Clear Element Text              id:replenishmentListEmails_id
-    Input Text                      id:replenishmentListEmails_id           ${replenishment email}
-    Clear Element Text              id:activeReplenishmentListEmails_id
-    Clear Element Text              id:discrepancyReplenishmentListEmails_id
+    Checking Default Fields
+    Input Text                      id:replenishmentListEmails_id               ${replenishment email}
+    Input Text                      id:activeReplenishmentListEmails_id         ${replenishment email}
+    Input Text                      id:discrepancyReplenishmentListEmails_id    ${replenishment email}
     Element Should Be Enabled       css:.control-button
     Click Element                   css:.control-button
     Sleep                           5 second
@@ -103,8 +109,9 @@ Set Email In Customer
     Click Link                      xpath://*[@href="/warehouses"]
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[1]/a
     Click Element                   id:warehouse-details-tab-notification-emails
-    Input Text                      id:replenishmentListEmails_id           ${static email}
-    Input Text                      id:activeReplenishmentListEmails_id     ${static email}
+    Input Text                      id:replenishmentListEmails_id               ${static email}
+    Input Text                      id:activeReplenishmentListEmails_id         ${static email}
+    Input Text                      id:discrepancyReplenishmentListEmails_id    ${static email}
     Element Should Be Enabled       css:.control-button
     Click Element                   css:.control-button
     Sleep                           5 second
@@ -114,9 +121,10 @@ Set Email In Customer
     Clear Element Text              id:replenishmentListEmails_id
     Press Key                       id:replenishmentListEmails_id           \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Input Text                      id:replenishmentListEmails_id           ${replenishment email}
-    Clear Element Text              id:activeReplenishmentListEmails_id
-    Clear Element Text              id:discrepancyReplenishmentListEmails_id
+    Checking Default Fields
+    Input Text                      id:replenishmentListEmails_id               ${replenishment email}
+    Input Text                      id:activeReplenishmentListEmails_id         ${replenishment email}
+    Input Text                      id:discrepancyReplenishmentListEmails_id    ${replenishment email}
     Element Should Be Enabled       css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Click Element                   css:#customer-settings-pane-notification-emails > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           5 second
@@ -184,8 +192,20 @@ Goto Notification Emails
     Sleep                           3 second
 
 Checking Fields
-    ${first field}                  Get Element Attribute       id:replenishmentListEmails_id           value
+    ${first field}                  Get Element Attribute       id:replenishmentListEmails_id               value
     Should Be Equal As Strings      ${first field}              ${replenishment email}
+    ${first field}                  Get Element Attribute       id:activeReplenishmentListEmails_id         value
+    Should Be Equal As Strings      ${first field}              ${replenishment email}
+    ${first field}                  Get Element Attribute       id:discrepancyReplenishmentListEmails_id    value
+    Should Be Equal As Strings      ${first field}              ${replenishment email}
+
+Checking Default Fields
+    ${first field}                  Get Element Attribute       id:replenishmentListEmails_default_id               value
+    Should Be Equal As Strings      ${first field}              ${static email}
+    ${first field}                  Get Element Attribute       id:activeReplenishmentListEmails_default_id         value
+    Should Be Equal As Strings      ${first field}              ${static email}
+    ${first field}                  Get Element Attribute       id:discrepancyReplenishmentListEmails_default_id    value
+    Should Be Equal As Strings      ${first field}              ${static email}
 
 Checking Fail Email
     Set Global Variable             ${latest}                       string

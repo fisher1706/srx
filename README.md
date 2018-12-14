@@ -5,7 +5,7 @@ This project contains automation tests using Robot Framework for the SRX platfor
 ## Project Structure
 
 * **resources** --  using in the tests including resources;
-* **test-cases/srx-[portalName]-dashboard/[NNN_testName]/[testName].txt** -- source code of automation test, where NNN in the folder name means test execution order.
+* **test-cases/srx-[portalName]-dashboard/[NNN_testName]/[testName].robot** -- source code of automation test, where NNN in the folder name means test execution order.
 
 #### Using resources
 
@@ -16,18 +16,18 @@ This project contains automation tests using Robot Framework for the SRX platfor
 
 To run tests you need to execute command:
 ```
-pybot -v email:<your_email> -v password:<your_password> -v HOST:<project_url> [testFolder]
+robot -v email:<your_email> -v password:<your_password> -v HOST:<project_url> [testFolder]
 ```
 Also, you can use a test file instead of a folder:
 ```
-pybot -v email:<your_email> -v password:<your_password> -v HOST:<project_url> [testName].txt
+robot -v email:<your_email> -v password:<your_password> -v HOST:<project_url> [testName].robot
 ```
-To run tests without using browser you need to execute command ***-v browser:xvfb***.
+To run tests by headless browser you need to execute command ***-v browser:xvfb***.
 
 Examples of use:
 ```
-user@user-PC:~/../../srx-robot/test-cases/srx-admin-dashboard/001_login$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb login.txt
+user@user-PC:~/../../srx-robot/test-cases/srx-admin-dashboard/001_login$ robot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb login.robot
 ```
 ```
-user@user-PC:~/../../srx-robot$ pybot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
+user@user-PC:~/../../srx-robot$ robot -v email:example@example.com -v password:qwerty -v HOST:admin-staging.storeroomlogix.com -v browser:xvfb test-cases/srx-admin-dashboard
 ```
