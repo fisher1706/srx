@@ -148,7 +148,7 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${edit keyword}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        20
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${edit keyword}
-    Set Global Variable             ${number of row}        ${number of new row}
+    Set Suite Variable              ${number of row}        ${number of new row}
     Click Element                   css:.close
     Sleep                           3 second
 
@@ -178,17 +178,18 @@ Preparation
     Sleep                           5 second
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
     Sleep                           3 second
-    Number Of Rows
+    ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
-    Run Keyword If                  ${number of new row}==11    Set Global Variable     ${number of new row}    1
+    Run Keyword If                  ${number of new row}==11    Set Suite Variable      ${number of new row}    1
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${random string}=               Convert To Uppercase        ${buffer}
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${edit random string}=          Convert To Uppercase        ${buffer}
-    Set Global Variable             ${random string}
-    Set Global Variable             ${edit random string}
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div/div/button
+    Set Suite Variable              ${random string}
+    Set Suite Variable              ${edit random string}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div/div/button
 
 Is Add Product
     Element Text Should Be          css:.modal-title            Add product
@@ -201,7 +202,7 @@ Sorting Catalog Column
     Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
     ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    Number Of Rows
+    ${number of row}                Get Rows Count              ${table xpath}
     ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
     Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
     ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
