@@ -458,3 +458,26 @@ Number Of Rows Shiptos
 Number Of Rows Users
     ${number of row u}              Get Element Count               xpath:${users pane}${table xpath}/tbody/tr
     Set Global Variable             ${number of row u}
+
+Go Down Selector
+    [Arguments]                     ${select}       ${item}
+    Click Element                   xpath:${select}
+    Press Key                       xpath:${select}/div[1]/div[2]           \ue015
+    Sleep                           1 second
+    Press Key                       xpath:${select}/div[1]/div[2]           \ue007
+    ${text buffer sub}              Get Text                                xpath:${select}/div[1]/div[1]/span
+    Sleep                           2 second
+    Run Keyword If                  "${text buffer sub}"!="${item}"         Go Down Selector    ${select}       ${item}
+
+Get Rows Count
+    [Arguments]                     ${table}
+    ${number}                       Get Element Count           xpath:${table}/tbody/tr
+    Return From Keyword             ${number}
+
+Get Row By Text
+    [Arguments]                     ${table}    ${column}   ${text}
+    ${number}                       Get Element Count           xpath:${table}/tbody/tr
+    : FOR   ${index}    IN RANGE    1   ${number}+1
+    \   ${text buffer}              Get Text    xpath:${table xpath}/tbody/tr[${index}]/td[${column}]
+    \   Exit For Loop If            "${text}"=="${text buffer}"
+    Return From Keyword             ${index}
