@@ -7,16 +7,16 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Invalid Create New Security Group
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button primary}
     Is Create Security Group
     Press Key                       id:name_id                 \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Is Security Groups
     Sleep                           1 second
 
 Valid Create New Security Group
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button primary}
     Is Create Security Group
     Input Text                      id:name_id                  ${security group}
     Click Element                   css:.modal-dialog-ok-button
@@ -28,30 +28,32 @@ Checking New Security Group
 Create User With New Security Group
     [Tags]                          Test
     Click Link                      xpath://*[@href="/users"]
-    Click Element                   css:.btn-primary
+    Click Element                   id:users-tab-users
+    Click Element                   xpath:${users pane users}${button primary}
     Input Text                      id:email_id                 ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Go Down
+    Go Down Selector                ${select control}           ${security group}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
-    Number Of Rows U
+    ${number of row u}              Get Rows Count                  ${users pane users}${table xpath}
+    Set Suite Variable              ${number of row u}
 
 Checking New User
     [Tags]                          Test
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[1]/div      ${dynamic email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[2]/div      ${user first name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[4]/div      A_Warehouse
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row u}]/td[5]/div      ${security group}
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div      ${dynamic email}
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[2]/div      ${user first name}
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[3]/div      ${user last name}
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div      A_Warehouse
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[5]/div      ${security group}
 
 Try To Delete Security Group
     Click Link                      xpath://*[@href="/security-groups"]
     Click Element                   ${delete group button}
     Is Delete Security Group
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Security Groups
     Click Element                   ${delete group button}
@@ -62,10 +64,11 @@ Try To Delete Security Group
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
     Click Link                      xpath://*[@href="/users"]
+    Click Element                   id:users-tab-users
 
 Delete User
     [Tags]                          Test
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
+    Click Element                   xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]          ${dynamic email}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${user first name}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          ${user last name}
@@ -78,7 +81,7 @@ Delete User
 Edit Security Group
     Click Element                   ${edit group button}
     Is Edit Security Group
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Is Security Groups
     Click Element                   ${edit group button}
     Is Edit Security Group
@@ -127,17 +130,18 @@ Filter Security Groups
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
     Element Text Should Be          xpath:(${table xpath})[2]/tbody/tr/td[1]     Static Group
-    Number Of Rows
+    ${number of row}                Get Rows Count              (${table xpath})[2]
     Should Be Equal                 "${number of row}"      "1"
 
 *** Keywords ***
 Preparation
     Goto Security Groups
-    Number Of Rows
+    ${number of row}                Get Rows Count              (${table xpath})[2]
     ${number of new row}=           Evaluate                    ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit group button}        xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
-    Set Global Variable             ${delete group button}      xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${edit group button}        xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${delete group button}      xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
 
 Is Create Security Group
     Element Text Should Be          css:.modal-title            Create new custom security group
@@ -147,22 +151,6 @@ Is Edit Security Group
 
 Is Delete Security Group
     Element Text Should Be          css:.modal-title            Removal Confirmation
-
-Number Of Rows U
-    ${number of row u}              Get Element Count           xpath:${table xpath}/tbody/tr
-    Set Global Variable             ${number of row u}
-
-Number Of Rows
-    ${number of row}                Get Element Count           xpath:(${table xpath})[2]/tbody/tr
-    Set Global Variable             ${number of row}
-
-Go Down
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:${select control}/div[1]/div[1]/span
-    Sleep                           1 second
-    Run Keyword If                  "${security group}"!="${text buffer sub}"   Go Down
 
 Set Permission
     [Arguments]                     ${row}      ${column}
