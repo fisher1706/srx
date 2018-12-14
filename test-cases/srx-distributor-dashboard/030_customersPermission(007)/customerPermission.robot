@@ -102,9 +102,8 @@ Delete Customer
 *** Keywords ***
 Preparation
     Goto Security Groups
-    Number Of Rows G
-    Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  5       1
