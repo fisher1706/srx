@@ -21,8 +21,6 @@ Invalid Create New Product
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:roundBuy_id              \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:unitOfMeasure_id         \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:roundBuy_id              \ue007
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:weight_id                \ue004
@@ -39,7 +37,6 @@ Valid Create New Product
     Input Text                      id:shortDescription_id          ${user last name}
     Input Text                      id:weight_id                    10
     Input Text                      id:roundBuy_id                  ${round by}
-    Input Text                      id:unitOfMeasure_id             ${warehouse number}
     Input Text                      id:manufacturerPartNumber_id    ${dynamic code}
     Input Text                      id:longDescription_id           ${dynamic adress1}
     Input Text                      id:manufacturer_id              ${dynamic adress2}
@@ -65,7 +62,7 @@ Checking New Product
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div           ${user last name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div           ${round by}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div          10
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${random string}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${dynamic code}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${user last name}
@@ -83,7 +80,7 @@ Checking New Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${test number}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${keyword}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        10
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[19]/div[2]        ${keyword}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${keyword}
     Click Element                   css:.close
     Sleep                           3 second
 
@@ -103,7 +100,6 @@ Edit Product
     Input Text                      id:shortDescription_id              ${edit last name}
     Input Text                      id:weight_id                        20
     Input Text                      id:roundBuy_id                      ${edit round by}
-    Input Text                      id:unitOfMeasure_id                 ${edit warehouse number}
     Input Text                      id:manufacturerPartNumber_id        ${edit code}
     Input Text                      id:longDescription_id               ${edit adress1}
     Input Text                      id:manufacturer_id                  ${edit adress2}
@@ -129,7 +125,7 @@ Checking Edit Product
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div      ${edit round by}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div     20
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${edit random string}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${edit code}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${edit last name}
@@ -147,8 +143,8 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${edit test number}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${edit keyword}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        20
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[19]/div[2]        ${edit keyword}
-    Set Global Variable             ${number of row}        ${number of new row}
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${edit keyword}
+    Set Suite Variable              ${number of row}        ${number of new row}
     Click Element                   css:.close
     Sleep                           3 second
 
@@ -156,9 +152,8 @@ Checking Edit Product
 Preparation
     Goto Security Groups
     Sleep                           5 second
-    Number Of Rows G
-    Number Of Static Row G
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${static row g}]/td[2]/div/div[1]/button
+    ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  4       1
@@ -176,17 +171,18 @@ Preparation
     Click Link                      xpath://*[@href="/catalog"]
     Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
     Sleep                           3 second
-    Number Of Rows
+    ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
-    Run Keyword If                  ${number of new row}==11    Set Global Variable     ${number of new row}    1
+    Run Keyword If                  ${number of new row}==11    Set Suite Variable      ${number of new row}    1
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${random string}=               Convert To Uppercase        ${buffer}
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${edit random string}=          Convert To Uppercase        ${buffer}
-    Set Global Variable             ${random string}
-    Set Global Variable             ${edit random string}
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div/div/button
+    Set Suite Variable              ${random string}
+    Set Suite Variable              ${edit random string}
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div/div/button
 
 Is Add Product
     Element Text Should Be          css:.modal-title            Add product

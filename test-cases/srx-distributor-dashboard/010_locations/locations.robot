@@ -59,7 +59,8 @@ Valid Create New Location
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       30
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       40
+    Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       0
+    Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       10
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic name}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           3 second
@@ -82,8 +83,8 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      1138
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      40
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      10
 
 Edit Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]
@@ -101,6 +102,8 @@ Edit Location
     Click Element                   css:.btn-lg
     Sleep                           5 second
     Reload Page
+    Sleep                           3 second
+    Go Down Selector                ${select control}           Static Customer - 2048
 
 Checking Edit Location
     Sleep                           5 second
@@ -115,8 +118,8 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${edit sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      1138
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      40
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      10
 
 Delete Location
     [Tags]                          DeleteLocation
@@ -143,8 +146,7 @@ Delete Location
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[9]          ${sub 4}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[10]         ${edit sku}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[11]         1138
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[13]         30
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[14]         40
+    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[14]         10
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -186,10 +188,13 @@ Locations Filtration
 *** Keywords ***
 Preparation
     Goto Locations
-    Number Of Rows
+    Go Down Selector                ${select control}           Static Customer - 2048
+    Sleep                           1 second
+    ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${check location}           xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${check location}           xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
 
 Is Add Location
     Element Text Should Be          css:.modal-title            Add location
