@@ -311,6 +311,10 @@ Return CSub Email
     Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        srx-group+staging-distributor@agilevision.io
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-customer@agilevision.io
 
+Return Permissions Email
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-permissions@agilevision.io
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-permissions@agilevision.io
+
 Run Xvfb Sub
     Start Virtual Display           1920                            1080
     Open Browser                    https://${SUB HOST}/sign-in

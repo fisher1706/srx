@@ -19,7 +19,7 @@ Invalid Login
     Incorrect Submit Login
     Enter Correct Wrong Email
     Correct Submit Login
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[5]/div[1]/strong      Failed to sign in!
+    Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[5]/div[1]/strong      Failed to sign in:
 
 Valid Login
     [Tags]                          ValidLogin

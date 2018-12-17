@@ -108,8 +108,8 @@ Customer Filtration
     [Tags]                          Filter
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input                       Customer A
     Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input                       1138
-    Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/div/div/div/div/div[1]      Not specified
-    Field Selector Check            xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div/div/div[1]      Not specified
+    Field Selector Check            xpath:(${modal dialog}${select control})[1]                                             Not specified
+    Field Selector Check            xpath:(${modal dialog}${select control})[2]                                             Not specified
 
 *** Keywords ***
 Preparation
@@ -133,10 +133,9 @@ Is Delete Customer
 Field Selector Check
     [Arguments]                     ${fieldAdr}                 ${fieldType}
     Click Element                   css:.button-right-margin
-    ${result} =                     Fetch From Left             ${fieldAdr}    2]/div/div/div/div/div[1]
-    ${newString}=                   Strip String                ${result}1]/div
-    ${fieldName}                    Get Text                    ${newString}
-    Go Down Selector                ${fieldAdr}                 ${fieldType}
+    ${fieldName}                    Get Text                    ${fieldAdr}/../../../../div[1]/div
+    ${substring}                    Get Substring               ${fieldAdr}         6
+    Go Down Selector                ${substring}                ${fieldType}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 seconds
     ${rowNum}                       Get Element Count           xpath:${header xpath}/thead/tr/th
