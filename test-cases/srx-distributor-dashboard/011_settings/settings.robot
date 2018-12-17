@@ -30,6 +30,23 @@ Integrations
     Click Element                   css:button.btn-danger:nth-child(2)
     Sleep                           5 second
 
+Transaction Submission
+    [Tags]                          TransactionSubmission
+    Goto Transaction Submission
+    Click Element                   xpath:${transaction submission pane}${control button}
+    Sleep                           1 second
+    ${checked1}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[1]/label/input    checked
+    ${checked3}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[3]/label/input    checked
+    Element Should Be Disabled      xpath:(${transaction submission pane}${checkbox})[2]/label/input
+    Click Element                   xpath:(${transaction submission pane}${checkbox})[1]/label/input
+    Click Element                   xpath:(${transaction submission pane}${checkbox})[3]/label/input
+    Click Element                   xpath:${transaction submission pane}${control button}
+    Sleep                           1 second
+    ${rechecked1}                   Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[1]/label/input    checked
+    ${rechecked3}                   Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[3]/label/input    checked
+    Should Not Be Equal             "${checked1}"       "${rechecked1}"
+    Should Not Be Equal             "${checked3}"       "${rechecked3}"
+
 Pricing Information
     [Tags]                          PricingInformation
     Goto Pricing Information
@@ -493,4 +510,10 @@ Goto Transaction Status Updates Logic
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second
     Click Element                   id:erp-integration-tab-transaction-status
+    Sleep                           3 second
+
+Goto Transaction Submission
+    Click Element                   id:settings-tab-erp-integration
+    Sleep                           1 second
+    Click Element                   id:erp-integration-tab-rl-submit-integration
     Sleep                           3 second

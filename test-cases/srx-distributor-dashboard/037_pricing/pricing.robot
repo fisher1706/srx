@@ -41,10 +41,13 @@ Checking Pricing Report
     Run Keyword If                  "${restatus}"=="first"      First Pricing Report       ELSE IF     "${restatus}"=="second"      Second Pricing Report     ELSE    Fail    Unexpected Behaviour
 
 Checking Static Pricing Report
+    [Tags]                          Report
     Goto Pricing Report
     Click Element                   xpath:${button info}
-    Go Down Selector                (${modal dialog}${select control})[1]     Report
-    Go Down Selector                (${modal dialog}${select control})[2]     Report
+    Go Down Selector                (${modal dialog}${select control})[1]           Report
+    Go Down Selector                (${modal dialog}${select control})[2]           Report
+    Input Text                      xpath:(${modal dialog}${form control})[1]       12/12/2021, 12:00 A
+    Input Text                      xpath:(${modal dialog}${form control})[2]       12/12/2022, 12:00 A
     Click Element                   xpath:${modal dialog}${button info}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $30.00
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      30
@@ -52,6 +55,21 @@ Checking Static Pricing Report
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]/div      $40.00
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[3]/div      40
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]/div      Fri, Nov 11, 2022
+    Click Element                   xpath:${button info}
+    Input Text                      xpath:(${modal dialog}${form control})[1]       12/13/2021, 12:00 A
+    Click Element                   xpath:${modal dialog}${button info}
+    Sleep                           2 second
+    ${count}                        Get Rows Count                                  ${table xpath}
+    Should Be Equal As Integers     ${count}        1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $40.00
+    Click Element                   xpath:${button info}
+    Input Text                      xpath:(${modal dialog}${form control})[1]       12/12/2021, 12:00 A
+    Input Text                      xpath:(${modal dialog}${form control})[2]       12/13/2021, 12:00 A
+    Click Element                   xpath:${modal dialog}${button info}
+    Sleep                           2 second
+    ${count}                        Get Rows Count                                  ${table xpath}
+    Should Be Equal As Integers     ${count}        1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $30.00
 
 *** Keywords ***
 Preparation
