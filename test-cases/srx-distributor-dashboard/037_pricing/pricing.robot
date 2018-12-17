@@ -21,7 +21,7 @@ ${date 2 2}                         Sat, Nov 11, 2023
 
 *** Test Case ***
 Pricing Import
-    Go Down
+    Go Down Selector                (${select control})[1]      Static Customer
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     ${status}                       Get Text        xpath:${table xpath}/tbody/tr[1]/td[3]/div
     Run Keyword If                  "${status}"=="${uom 1 1}"   If First Pricing    ELSE IF     "${status}"=="${uom 2 1}"   If Second Pricing   ELSE    Fail    Pricing data is incorrect
@@ -31,30 +31,41 @@ Pricing Import
     Sleep                           10 second
 
 Checking Pricing
-    Run Keyword If                  "${restatus}"=="first"      First Pricing       ELSE IF     "${restatus}"=="second"      Second Pricing     ELSE    Unexpected Behaviour
+    Run Keyword If                  "${restatus}"=="first"      First Pricing       ELSE IF     "${restatus}"=="second"      Second Pricing     ELSE    Fail    Unexpected Behaviour
+
+Checking Pricing Report
+    Goto Pricing Report
+    Click Element                   xpath:${button info}
+    Go Down Selector                (${modal dialog}${select control})[1]     Static Customer
+    Click Element                   xpath:${modal dialog}${button info}
+    Run Keyword If                  "${restatus}"=="first"      First Pricing Report       ELSE IF     "${restatus}"=="second"      Second Pricing Report     ELSE    Fail    Unexpected Behaviour
+
+Checking Static Pricing Report
+    Goto Pricing Report
+    Click Element                   xpath:${button info}
+    Go Down Selector                (${modal dialog}${select control})[1]     Report
+    Go Down Selector                (${modal dialog}${select control})[2]     Report
+    Click Element                   xpath:${modal dialog}${button info}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $30.00
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      Sun, Dec 12, 2021
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]/div      $40.00
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[3]/div      40
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]/div      Fri, Nov 11, 2022
 
 *** Keywords ***
 Preparation
     Goto Pricing
 
-Go Down
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]            \ue015
-    Sleep                           1 second
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:(${select control})[1]/div[1]/div[1]/span
-    Sleep                           3 second
-    Run Keyword If                  "${text buffer sub}"!="Static Customer"        Go Down
-
 If First Pricing
     First Pricing
     Choose File                     id:file-upload                  ${CURDIR}/../../../resources/pricing2.csv
-    Set Global Variable             ${restatus}     second
+    Set Suite Variable              ${restatus}     second
 
 If Second Pricing
     Second Pricing
     Choose File                     id:file-upload                  ${CURDIR}/../../../resources/pricing1.csv
-    Set Global Variable             ${restatus}     first
+    Set Suite Variable              ${restatus}     first
 
 First Pricing
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      ${price 1 1}
@@ -71,5 +82,27 @@ Second Pricing
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]/div      ${price 2 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[3]/div      ${uom 2 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]/div      ${date 2 2}
+
+First Pricing Report
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[2]/div      ${price 1 1}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[3]/div      ${uom 1 1}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[4]/div      ${date 1 1}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[2]/div      ${price 1 2}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[3]/div      ${uom 1 2}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[4]/div      ${date 1 2}
+
+Second Pricing Report
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[2]/div      ${price 2 1}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[3]/div      ${uom 2 1}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[4]/div      ${date 2 1}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[2]/div      ${price 2 2}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[3]/div      ${uom 2 2}
+    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[4]/div      ${date 2 2}
+
+Goto Pricing Report
+    Click Link                      xpath://*[@href="/reports"]
+    Sleep                           2 second
+    Click Element                   id:reports-tab-pricing-report
+    Sleep                           1 second
 
 
