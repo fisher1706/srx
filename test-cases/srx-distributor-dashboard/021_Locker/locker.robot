@@ -129,9 +129,11 @@ Change SKU in location
 
 Locker Request
     [Arguments]                     ${OHIcounting}           ${stateType}
-    Create Session                  httpbin                  https://${APIKEY}:${APIKEY}@api-dev.storeroomlogix.com/api/webhook/events/locker        verify=true
+    ${request url}                  Get Request URL
+    ${kiosk id}                     Get Kiosk Id
+    Create Session                  httpbin                  ${request url}        verify=true
     &{headers}=                     Create Dictionary        Content-Type=application/json
-    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${dynamic sku}1", "kioskId": 59, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": ${OHIcounting}, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "${stateType}", "weightOfProduct": 0 }    headers=${headers}
+    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${dynamic sku}1", "kioskId": ${kiosk id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": ${OHIcounting}, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "${stateType}", "weightOfProduct": 0 }    headers=${headers}
     Should Be Equal As Strings      ${resp.status_code}      200
     Reload Page
     Sleep                           2 seconds
@@ -139,9 +141,11 @@ Locker Request
 
 Locker Request Not Multiply
     [Arguments]                     ${OHIcounting}           ${stateType}
-    Create Session                  httpbin                  https://${APIKEY}:${APIKEY}@api-dev.storeroomlogix.com/api/webhook/events/locker        verify=true
+    ${request url}                  Get Request URL
+    ${kiosk id}                     Get Kiosk Id
+    Create Session                  httpbin                  ${request url}        verify=true
     &{headers}=                     Create Dictionary        Content-Type=application/json
-    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${dynamic sku}1", "kioskId": 59, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": ${OHIcounting}, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "${stateType}", "weightOfProduct": 0 }    headers=${headers}
+    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${dynamic sku}1", "kioskId": ${kiosk id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": ${OHIcounting}, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "${stateType}", "weightOfProduct": 0 }    headers=${headers}
     Should Be Equal As Strings      ${resp.status_code}      200
     Reload Page
     Sleep                           2 seconds
@@ -167,6 +171,15 @@ Decreasing OHI
     [Arguments]                     ${decr val}
     ${OHI val}=                     Evaluate        ${OHI val}-${decr val}
     Set Global Variable             ${OHI val}
+
+Get Request URL
+    ${api key}                      Get Api Key
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 https://${api key}:${api key}@api-dev.storeroomlogix.com/api/webhook/events/locker
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             https://${api key}:${api key}@api-staging.storeroomlogix.com/api/webhook/events/locker
+
+Get Kiosk Id
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 59
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             31
 
 *** Variables ***
 ${OHI val}                          0

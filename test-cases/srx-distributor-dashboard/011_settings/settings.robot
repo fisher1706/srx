@@ -163,7 +163,9 @@ Transaction Status Updates Logic Tab
 
 Transaction Status Updates Logic
     [Tags]                          TransactionStatusUpdatesLogic
-    Create Session                  httpbin                         https://api-dev.storeroomlogix.com/api/distributor          verify=true
+    ${request url}                  Get Request URL
+    ${api key}                      Get Api Key
+    Create Session                  httpbin                          ${request url}          verify=true
     Goto Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
@@ -187,8 +189,8 @@ Transaction Status Updates Logic
     Input Text                      id:reorderQuantity_id           40
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
-    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
-    ${error}                        Post Request                    httpbin    /items/71/split/30       headers=${headers}
+    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${api key}
+    ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [400]>
     Click Link                      xpath://*[@href="/settings"]
     Goto Transaction Status Updates Logic
@@ -210,8 +212,8 @@ Transaction Status Updates Logic
     Sleep                           10 second
     ${rows}                         Get Element Count               xpath:${table xpath}/tbody/tr[1]/td
     Should Be Equal                 "${rows}"                       "10"
-    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
-    ${error}                        Post Request                    httpbin    /items/71/split/30       headers=${headers}
+    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${api key}
+    ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
     Click Link                      xpath://*[@href="/settings"]
     Goto Transaction Status Updates Logic
@@ -237,8 +239,8 @@ Transaction Status Updates Logic
     Input Text                      id:reorderQuantity_id           40
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
-    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=m4DAfPuRurdzlsVrlen2
-    ${error}                        Post Request                    httpbin    /items/71/split/30       headers=${headers}
+    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${api key}
+    ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
 
 Distributor Contact Info
@@ -517,3 +519,7 @@ Goto Transaction Submission
     Sleep                           1 second
     Click Element                   id:erp-integration-tab-rl-submit-integration
     Sleep                           3 second
+
+Get Request URL
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 https://api-dev.storeroomlogix.com/api/distributor/items/71/split/30
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             https://api-staging.storeroomlogix.com/api/distributor/items/37/split/30

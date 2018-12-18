@@ -30,7 +30,7 @@ Check Changes From Button to Standart and back
     Delete new location
 
 Create two locations with the same sku and type
-    [Tags]                          Creating the same two locations
+    [Tags]                          Creating the same two locations     Test
     :FOR    ${var}      IN RANGE            1   5
     \    Different locations creating       ${var}
     \    Creating second the same location  ${var}
@@ -272,7 +272,8 @@ Make sorting
 
 Post Requests
     [Arguments]                     ${rfidNum}
-    Create Session                  httpbin                  https://${apiKey}:${apiKey}@api-dev.storeroomlogix.com/api/webhook/events/rfid        verify=true
+    ${request url}                  Get Request URL
+    Create Session                  httpbin                  ${request url}        verify=true
     &{headers}=                     Create Dictionary        Content-Type=application/json
     ${resp}=                        Post Request             httpbin    /issued        data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${rfidNum}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp.status_code}      200
@@ -343,8 +344,13 @@ Filter Check Date
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[3]/button[2]
     Sleep                           3 seconds
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[${checkingField}]            ${inputText}
-    Click Element                  css:button.button-right-margin:nth-child(2)
+    Click Element                   css:button.button-right-margin:nth-child(2)
     Sleep                           3 seconds
+
+Get Request URL
+    ${api key}                      Get Api Key
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 https://${api key}:${api key}@api-dev.storeroomlogix.com/api/webhook/events/rfid
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             https://${api key}:${api key}@api-staging.storeroomlogix.com/api/webhook/events/rfid
 
 *** Variables ****
 ${rfidCount}                        0
@@ -352,3 +358,4 @@ ${ohiCount}                         0
 ${IssuedRFIDS}                      0
 ${select menu outer}                //div[contains(@class, 'Select-menu-outer')]
 ${rfid locations container}         //div[contains(@class, 'rfid-location-details-container')]
+

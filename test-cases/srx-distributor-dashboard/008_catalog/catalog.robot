@@ -57,7 +57,7 @@ Valid Create New Product
     Input Text                      id:image_id                     ${keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           3 second
-    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)
 
 Checking New Product
     [Tags]                          Catalog
@@ -120,7 +120,7 @@ Edit Product
     Input Text                      id:image_id                         ${edit keyword}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           3 second
-    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)
 
 Checking Edit Product
     [Tags]                          Catalog
@@ -176,7 +176,8 @@ Preparation
     Correct Submit Login
     Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
     Sleep                           5 second
-    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Is Present                      css:li.page-item:nth-child(7) > a:nth-child(1)
+    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)      ELSE    Open Full List
     Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
@@ -233,3 +234,10 @@ Field Comparing First Fields Catalog
     [Arguments]                     ${rowNum}       ${expectedValue}
     ${rowValue}        Get Text     xpath:${table xpath}/tbody/tr/td[${rowNum}]
     Should Be Equal As Strings      ${rowValue}     ${expectedValue}
+
+Open Full List
+    Sleep                           1 second
+    Click Element                   id:pageDropDown
+    Sleep                           1 second
+    Click Element                   css:li.dropdown-item:nth-child(4)
+    Sleep                           1 second
