@@ -250,9 +250,9 @@ Preparation
     Number Of Delete Row
     ${dynamic row}=                 Evaluate                        ${number of row}+1
     Set Global Variable             ${dynamic row}
-    Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${static row}]/td[7]/div/div[2]/button
-    Set Global Variable             ${remove button}                xpath:${table xpath}/tbody/tr[${dynamic row}]/td[7]/div/div[3]/button
-    Set Global Variable             ${delete row button}            xpath:${table xpath}/tbody/tr[${delete row}]/td[7]/div/div[3]/button
+    Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${static row}]/td[7]/div/div[1]/button
+    Set Global Variable             ${remove button}                xpath:${table xpath}/tbody/tr[${dynamic row}]/td[7]/div/div[2]/button
+    Set Global Variable             ${delete row button}            xpath:${table xpath}/tbody/tr[${delete row}]/td[7]/div/div[2]/button
 
 Number Of Static Row
     : FOR   ${counter}              IN RANGE        1   ${number of row}+1

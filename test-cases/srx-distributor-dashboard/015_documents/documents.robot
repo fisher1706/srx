@@ -24,9 +24,9 @@ Check Document Status In Documents
     Sleep                           5 second
     Number Of Rows
     :FOR    ${colomn}               IN RANGE        1       ${number of row}+1
-    \   ${text buffer}              Get Text    xpath:${table xpath}/tbody/tr[${colomn}]/td[2]/div
-    \   Run Keyword If              "${text buffer}"=="${status}"   Exit For Loop
     \   Set Global Variable         ${colomn}
+    \   ${text buffer}              Get Text    xpath:${table xpath}/tbody/tr[${colomn}]/td[1]/div
+    \   Run Keyword If              "${text buffer}"=="Srx-group-test-distributor"   Exit For Loop
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${colomn}]/td[5]/div/span    ${status}
 
 Change Document Status

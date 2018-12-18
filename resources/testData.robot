@@ -100,13 +100,17 @@ ${APIKEY}                       m4DAfPuRurdzlsVrlen2
 ${security group}               auto-security-group
 ${edit security group}          auto-edit-security-group
 ${replenishment email}          replenishment@ukr.net
+${simple table}                 //table[contains(@class, 'table')]
 ${table xpath}                  //table[contains(@class, 'table table-striped table-bordered table-hover table-condensed')]
 ${header xpath}                 //table[contains(@class, 'table table-hover table-bordered table-condensed')]
 ${shiptos pane}                 //div[contains(@id, 'customer-details-pane-shiptos')]
 ${users pane}                   //div[contains(@id, 'customer-details-pane-users')]
-${base fee pane}                //div[contains(@id, 'uncontrolled-tab-example-pane-1')]
-${button pane}                  //div[contains(@id, 'uncontrolled-tab-example-pane-2')]
-${monthly pane}                 //div[contains(@id, 'uncontrolled-tab-example-pane-3')]
+${base fee pane}                //div[contains(@id, 'fees-pane-base-fees')]
+${button monthly pane}          //div[contains(@id, 'fees-pane-button-monthly-fee')]
+${shipto monthly pane}          //div[contains(@id, 'fees-pane-shipto-monthly-fee')]
+${label monthly pane}           //div[contains(@id, 'fees-pane-label-monthly-fee')]
+${rfid monthly pane}            //div[contains(@id, 'fees-pane-rfid-monthly-fee')]
+${deeplens monthly pane}        //div[contains(@id, 'fees-pane-deeplens-monthly-fee')]
 ${select control}               //div[contains(@class, 'Select-control')]
 ${documents pane}               //div[contains(@id, 'pricing-billing-pane-documents')]
 ${keys pane}                    //div[contains(@id, 'erp-integration-pane-api-keys')]

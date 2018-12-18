@@ -112,7 +112,8 @@ Preparation
     Finish Suite
     Sleep                           3 second
     Start Suite
-    Input Text                      id:email        srx-group+dev-permissions@agilevision.io
+    ${permissions email}            Return Permissions Email
+    Input Text                      id:email        ${permissions email}
     Enter Password
     Correct Submit Login
     Click Link                      xpath://*[@href="/customers"]

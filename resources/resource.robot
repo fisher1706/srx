@@ -315,6 +315,10 @@ Return Permissions Email
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-permissions@agilevision.io
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-permissions@agilevision.io
 
+Get Api Key
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         m4DAfPuRurdzlsVrlen2
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     Ub6lJbV0UZDINvctedHm
+
 Run Xvfb Sub
     Start Virtual Display           1920                            1080
     Open Browser                    https://${SUB HOST}/sign-in
@@ -440,6 +444,10 @@ Checking Sections
     Set Global Variable             ${check}            false
     Element Should Be Visible       ${section}
     Set Global Variable             ${check}            true
+
+Is Present
+    [Arguments]                     ${section}
+    Run Keyword And Ignore Error    Checking Sections   ${section}
 
 Number Of Rows
     ${number of row}                Get Element Count           xpath:${table xpath}/tbody/tr
