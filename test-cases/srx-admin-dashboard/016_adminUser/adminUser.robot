@@ -9,8 +9,9 @@ Resource                            ../../../resources/testData.robot
 Valid Add Admin User
     [Tags]                          ContentSuperUser                ValidAddAdminUser
     Set Suite Variable              ${const number admin}           ${number of row}
-    Click Element                   css:#distributor-details-tab-2
-    Click Element                   css:.text-right > button:nth-child(1)
+    Click Element                   id:distributor-details-tab-2
+    Sleep                           2 second
+    Click Element                   xpath:${distributors admin pane}${button primary}
     Is Add User
     Input Text                      id:email_id                     ${admin email}
     Input Text                      id:firstName_id                 ${admin first}
@@ -35,7 +36,7 @@ Checking User On Distributor Portal
 
 Edit From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[1]/button
+    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div/div[1]/button
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
     Click Element                   css:.modal-dialog-ok-button
@@ -52,14 +53,16 @@ Checking Edit User From Distributor Portal
 Checking Edit User On Admin Portal
     [Tags]                          ContentSuperUser
     Preparation
-    Click Element                   css:#distributor-details-tab-2
+    Click Element                   id:distributor-details-tab-2
+    Sleep                           2 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div       ${admin email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div       ${edit admin first}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
 
 Edit From Admin Portal
     [Tags]                          ContentSuperUser
-    Click Element                   css:#distributor-details-tab-2
+    Click Element                   id:distributor-details-tab-2
+    Sleep                           2 second
     Click Element                   ${edit user button}
     Input Text                      id:firstName_id         ${admin first}
     Input Text                      id:lastName_id          ${admin last}
@@ -81,7 +84,7 @@ Checking Edit User On Distributor Portal
 
 Delete User From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
+    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div/div[2]/button
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
@@ -98,13 +101,14 @@ Checking Users Number On Distributor Portal After Delete From Distributor Portal
 Checking Users Number On Admin Portal After Delete From Distributor Portal
     [Tags]                          ContentSuperUser
     Preparation
-    Click Element                   css:#distributor-details-tab-2
+    Click Element                   id:distributor-details-tab-2
     ${number of row}                Get Rows Count          ${table xpath}
     Run Keyword If                  ${number of row}==${const number admin}     Log To Console      Pass    ELSE    Fail    Fail
 
 Delete User From Admin Portal
     [Tags]                          ContentSuperUser
-    Click Element                   css:.text-right > button:nth-child(1)
+    Sleep                           2 second
+    Click Element                   xpath:${distributors admin pane}${button primary}
     Is Add User
     Input Text                      id:email_id             ${admin email}
     Input Text                      id:firstName_id         ${admin first}
@@ -121,7 +125,7 @@ Delete User From Admin Portal
 
 Checking Users Number On Admin Portal After Delete From Admin Portal
     [Tags]                          ContentSuperUser
-    Click Element                   css:#distributor-details-tab-2
+    Click Element                   id:distributor-details-tab-2
     ${number of row}                Get Rows Count          ${table xpath}
     Run Keyword If                  ${number of row}==${const number admin}     Log To Console      Pass    ELSE    Fail    Fail
 
@@ -136,14 +140,13 @@ Checking Users Number On Distributor Portal After Delete From Admin Portal
 Create Admin On Distributor Portal
     [Tags]                          AddSuperUser
     Goto Users Sub
-    Click Element                   css:.btn-primary
+    Sleep                           2 second
+    Click Element                   xpath:${users pane super users}${button primary}
     Input Text                      id:email_id                         ${admin email}
     Input Text                      id:firstName_id                     ${admin first}
     Input Text                      id:lastName_id                      ${admin last}
-    Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   css:.Select-control
-    Press Key                       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div/div/div[1]/div[2]        \ue007
     Click Element                   css:.modal-dialog-ok-button
+    Sleep                           3 second
     Set Suite Variable              ${const number distributor 2}       ${number of row u}
     ${number of new row u}          Evaluate                            ${number of row u}+1
     Set Suite Variable              ${number of new row u}
@@ -154,11 +157,10 @@ Checking Admin On Distributor Portal
     Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]/td[1]/div            ${admin email}
     Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]/td[2]/div            ${admin first}
     Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]/td[3]/div            ${admin last}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]/td[5]/div            Super User (Admin)
 
 Edit Admin From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row u}]/td[6]/div/div[1]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row u}]/td[4]/div/div[1]/button
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
     Click Element                   css:.modal-dialog-ok-button
@@ -171,7 +173,8 @@ Checking Admin On Admin Portal
     Preparation
     ${const number admin 2}         Evaluate                            ${number of row}-1
     Set Suite Variable              ${const number admin 2}
-    Click Element                   css:#distributor-details-tab-2
+    Click Element                   id:distributor-details-tab-2
+    Sleep                           2 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div       ${admin email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div       ${edit admin first}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
@@ -188,7 +191,7 @@ Delete Admin
 
 Checking Admins Number On Admin Portal After Delete From Admin Portal
     [Tags]                          AddSuperUser
-    Click Element                   css:#distributor-details-tab-2
+    Click Element                   id:distributor-details-tab-2
     ${number of row}                Get Rows Count          ${table xpath}
     Run Keyword If                  ${number of row}==${const number admin 2}     Log To Console      Pass    ELSE    Fail    Fail
 
@@ -236,7 +239,7 @@ Goto Admin Users Sub
     Click Element                   css:#pageDropDown
     Click Element                   css:li.dropdown-item:nth-child(4)
     Sleep                           2 second
-    ${static distributor}           Get Row By Text         ${table xpath}      1       srx-group-test-distributor
+    ${static distributor}           Get Row By Text         ${table xpath}      1       Srx-group-test-distributor
     Click Element                   xpath:${table xpath}/tbody/tr[${static distributor}]/td[1]/a
 
 Is Delete User
