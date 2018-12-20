@@ -41,8 +41,7 @@ Checking Pricing Report
     Run Keyword If                  "${restatus}"=="first"      First Pricing Report       ELSE IF     "${restatus}"=="second"      Second Pricing Report     ELSE    Fail    Unexpected Behaviour
 
 Checking Static Pricing Report
-    [Tags]                          Report
-    Goto Pricing Report
+    Sleep                           2 second
     Click Element                   xpath:${button info}
     Go Down Selector                (${modal dialog}${select control})[1]           Report
     Go Down Selector                (${modal dialog}${select control})[2]           Report

@@ -24,9 +24,7 @@ Invalid Create New Product
     Press Key                       id:shortDescription_id      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:roundBuy_id              \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:roundBuy_id              \ue007
-    Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:weight_id                \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   css:.modal-dialog-cancel-button
