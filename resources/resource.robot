@@ -499,3 +499,17 @@ Get Row By Text
     \   ${text buffer}              Get Text    xpath:${table xpath}/tbody/tr[${index}]/td[${column}]
     \   Exit For Loop If            "${text}"=="${text buffer}"
     Return From Keyword             ${index}
+
+Choose From Select Box
+    [Arguments]                     ${select}       ${item}
+    Click Element                   xpath:${select}
+    ${count}                        Get Element Count       xpath:${select}/..${select menu outer}/div/div
+    : FOR   ${index}    IN RANGE    1       ${count}+2
+    \   Press Key                   xpath:${select}/div[1]/div[2]           \ue015
+    \   ${text buffer sub}          Get Text                                xpath:${select}/..${select menu outer}${select is focused}
+    \   Run Keyword If              "${text buffer sub}"=="${item}"         Select Element      ${select}
+
+Select Element
+    [Arguments]                     ${select}
+    Press Key                       xpath:${select}/div[1]/div[2]           \ue007
+    Exit For Loop
