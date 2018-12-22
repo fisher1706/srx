@@ -43,6 +43,7 @@ Checking New Customer
 
 Create Shiptos 1
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a
+    Sleep                           2 second
     Goto Customer Shipto
     Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${dynamic name}
@@ -59,7 +60,7 @@ Create Shiptos 1
     Sleep                           2 second
     Is Customer Shipto
     Number Of Rows Shiptos
-    Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[4]/div/div[2]/button
+    Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]${button danger}
 
 Checking New Shipto 1
     Sleep                           5 second
@@ -189,7 +190,7 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
+    Set Global Variable             ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
 
 Is Add Customer
     Element Text Should Be          css:.modal-title            Add customer
