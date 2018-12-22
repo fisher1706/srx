@@ -180,7 +180,6 @@ Delete User
 Delete Shipto
     Goto Customer Shipto
     Sleep                           4 second
-    Is Customer Shipto
     Click Element                   ${delete shipto button}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]      ${edit name}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]      ${edit full adress}
@@ -210,22 +209,21 @@ Preparation
     Click Link                      xpath://*[@href="/customers"]
     ${static customer}              Get Row By Text     ${table xpath}      1       Static Customer
     Click Element                   xpath:${table xpath}/tbody/tr[${static customer}]/td[1]/a
+    Sleep                           2 second
     Goto Customer Shipto
-    Sleep                           4 second
-    Is Customer Shipto
+    Sleep                           2 second
     Number Of Rows Shiptos
     ${number of new row s}=         Evaluate                        ${number of row s}+1
     Set Global Variable             ${number of new row s}
-    Set Global Variable             ${edit shipto button}           xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[4]/div/div[1]/button
-    Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[4]/div/div[2]/button
+    Set Global Variable             ${edit shipto button}           xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]${button success}
+    Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]${button danger}
     Goto Customer Users
     Sleep                           4 second
-    Is Customer Users
     Number Of Rows Users
     ${number of new row u}=         Evaluate                        ${number of row u}+1
     Set Global Variable             ${number of new row u}
-    Set Global Variable             ${edit user button}             xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[7]/div/div[1]/button
-    Set Global Variable             ${delete user button}           xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[7]/div/div[2]/button
+    Set Global Variable             ${edit user button}             xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]${button success}
+    Set Global Variable             ${delete user button}           xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]${button danger}
 
 Is Add Shipto
     Sleep                           1 second

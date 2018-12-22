@@ -82,6 +82,11 @@ Goto Fees
     Click Link                      xpath://*[@href="/fees"]
     Sleep                           5 second
 
+Goto Hardware
+    Login In Admin Portal
+    Click Link                      xpath://*[@href="/hardware"]
+    Sleep                           5 second
+
 Goto Catalog
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/catalog"]

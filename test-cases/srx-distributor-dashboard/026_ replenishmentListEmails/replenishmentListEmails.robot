@@ -26,6 +26,7 @@ Set Email In Settings
     Sleep                           3 second
     Click Element                   id:customer-details-tab-shiptos
     ${buffer po number}             Get Text        xpath:${shiptos pane}${table xpath}/tbody/tr[1]/td[3]/div
+    Run Keyword If                  "${buffer po number}"!="${first po number}" and "${buffer po number}"!="${second po number}"    Edit PO Number
     Run Keyword If                  ${buffer po number}==${first po number}     First PO    ELSE IF     ${buffer po number}==${second po number}    Second PO       ELSE    Fail    Exceptional situation! Incorrect PO Number!
     Click Link                      xpath://*[@href="/settings"]
     Goto Notification Emails
@@ -243,4 +244,12 @@ Goto Customers Notification Emails
     Click Element                   id:customer-details-tab-settings
     Sleep                           1 second
     Click Element                   id:customer-settings-tab-notification-emails
+
+Edit PO Number
+    Click Element                   xpath:${shiptos pane}${table xpath}/tbody/tr[1]${button success}
+    Input Text                      id:poNumber_id          ${first po number}
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           2 second
+    ${buffer po number}             Get Text        xpath:${shiptos pane}${table xpath}/tbody/tr[1]/td[3]/div
+    Set Suite Variable              ${buffer po number}
 
