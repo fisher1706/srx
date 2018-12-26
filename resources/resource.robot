@@ -266,6 +266,18 @@ Sorting Column
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
     Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
 
+Sort Column
+    [Arguments]                     ${column}       ${count}
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${count}]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${count}]/td[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+
 Number Of Rows C
     ${number of row c}              Get Element Count   xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row c}
