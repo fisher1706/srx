@@ -92,8 +92,9 @@ Delete Serial Number
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]       ${serial number}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]       RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]       Srx-group-test-distributor
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]       10/10/2022, 11:00 PM
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]       Srx-group-test-distributor
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]       2048
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]       10/10/2022, 11:00 PM
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
@@ -107,6 +108,7 @@ Sorting Serial Numbers
     ${count}                        Get Rows Count      ${table xpath}
     Sort Column                     1       ${count}
     Sort Column                     2       ${count}
+    Sort Column                     3       ${count}
     Sort Column                     4       ${count}
     Sort Column                     6       ${count}
     Sort Column                     7       ${count}
