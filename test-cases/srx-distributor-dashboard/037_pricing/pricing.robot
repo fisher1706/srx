@@ -41,7 +41,7 @@ Checking Pricing Report
     Run Keyword If                  "${restatus}"=="first"      First Pricing Report       ELSE IF     "${restatus}"=="second"      Second Pricing Report     ELSE    Fail    Unexpected Behaviour
 
 Checking Static Pricing Report
-    Sleep                           2 second
+    Sleep                           3 second
     Click Element                   xpath:${button info}
     Go Down Selector                (${modal dialog}${select control})[1]           Report
     Go Down Selector                (${modal dialog}${select control})[2]           Report
@@ -54,6 +54,7 @@ Checking Static Pricing Report
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]/div      $40.00
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[3]/div      40
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]/div      Fri, Nov 11, 2022
+    Sleep                           3 second
     Click Element                   xpath:${button info}
     Input Text                      xpath:(${modal dialog}${form control})[1]       12/13/2021, 12:00 A
     Click Element                   xpath:${modal dialog}${button info}
