@@ -142,8 +142,8 @@ Preparation
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div/div[1]/button
-    Set Global Variable             ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div/div[2]/button
+    Set Global Variable             ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Global Variable             ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
 
 Is Add Warehouse
     Element Text Should Be          css:.modal-title                Add warehouse
