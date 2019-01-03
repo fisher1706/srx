@@ -71,6 +71,42 @@ Checking Static Pricing Report
     Should Be Equal As Integers     ${count}        1
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $30.00
 
+Sorting Pricing
+    [Tags]                          Sorting
+    Click Link                      xpath://*[@href="/pricing"]
+    Sleep                           1 second
+    Go Down Selector                (${select control})[1]      Customer A
+    ${count}                        Get Rows Count      ${table xpath}
+    Sort Column                     1                   ${count}
+    Sort Column                     2                   ${count}
+    Sort Column                     3                   ${count}
+    Sort Column                     4                   ${count}
+
+Filtering Pricing
+    [Tags]                          Filter
+    Click Element                   xpath:${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[1]       AD
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/div      AD
+    Click Element                   xpath:${button default}
+    Sleep                           2 second
+    Click Element                   xpath:${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[4]       M
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      M
+    Click Element                   xpath:${button default}
+    Sleep                           2 second
+    Click Element                   xpath:${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[2]       10
+    Input Text                      xpath:(${modal dialog}${form control})[3]       20
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $11.21
+    Click Element                   xpath:${button default}
+    Sleep                           2 second
+
 *** Keywords ***
 Preparation
     Goto Pricing

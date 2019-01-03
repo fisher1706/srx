@@ -237,7 +237,7 @@ If Other
     Fail                            Fail
 
 Mailbox Open
-    ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
+    ${latest}=                      Wait For Email                  sender=replenish@storeroomlogix.com         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     Delete All Emails
 
 Goto Customers Notification Emails
