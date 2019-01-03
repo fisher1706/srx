@@ -309,7 +309,7 @@ Return Sub Link
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         admin-dev.storeroomlogix.com
     Return From Keyword If          "${HOST}"=="admin-staging.storeroomlogix.com"           distributor-staging.storeroomlogix.com
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     admin-staging.storeroomlogix.com
-    
+
 Return Sub Email
     Return From Keyword If          "${HOST}"=="admin-dev.storeroomlogix.com"               srx-group+dev-distributor@agilevision.io
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev@agilevision.io
@@ -321,7 +321,7 @@ Return CSub Link
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         customer-dev.storeroomlogix.com
     Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        distributor-staging.storeroomlogix.com
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     customer-staging.storeroomlogix.com
-    
+
 Return CSub Email
     Return From Keyword If          "${HOST}"=="customer-dev.storeroomlogix.com"            srx-group+dev-distributor@agilevision.io
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-customer@agilevision.io
@@ -331,6 +331,8 @@ Return CSub Email
 Return Permissions Email
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-permissions@agilevision.io
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-permissions@agilevision.io
+    Return From Keyword If          "${HOST}"=="admin-dev.storeroomlogix.com"               srx-group+dev-permissions@agilevision.io
+    Return From Keyword If          "${HOST}"=="admin-staging.storeroomlogix.com"           srx-group+staging-permissions@agilevision.io
 
 Get Api Key
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         m4DAfPuRurdzlsVrlen2

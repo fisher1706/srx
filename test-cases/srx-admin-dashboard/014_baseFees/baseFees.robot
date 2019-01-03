@@ -72,6 +72,3 @@ Goto Settings Sub
     Sleep                           1 second
     Click Element                   id:pricing-billing-tab-pricing-calc
     Sleep                           3 second
-
-
-
