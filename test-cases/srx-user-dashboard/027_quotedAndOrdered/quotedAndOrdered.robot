@@ -32,17 +32,17 @@ Sorting List
 Filter List
     [Tags]                          Filter
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
-    Click Element                   css:.button-right-margin
-    Input Text                      css:div.row-spaced:nth-child(1) > div:nth-child(2) > input:nth-child(1)     STATIC SKU
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)     10
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue013
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
-    Click Element                   css:button.btn:nth-child(2)
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/div     STATIC SKU
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div     10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div     QUOTED
+    Click Element                   xpath:${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[1]       TEST_DSN
+    Input Text                      xpath:(${modal dialog}${form control})[2]       4
+    Input Text                      xpath:(${modal dialog}${form control})[3]       G030PM036107NGQ5
+    Choose From Select Box          ${select control}       DELIVERED
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/div      TEST_DSN
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      4
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      G030PM036107NGQ5
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div      DELIVERED
 
 *** Keywords ***
 Preparation
