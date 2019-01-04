@@ -527,3 +527,9 @@ Select Element
     [Arguments]                     ${select}
     Press Key                       xpath:${select}/div[1]/div[2]           \ue007
     Exit For Loop
+
+Open Full Table
+    Click Element                   id:pageDropDown
+    Sleep                           1 second
+    Click Element                   xpath:(${dropdown menu item})[4]
+    Sleep                           1 second

@@ -45,15 +45,15 @@ Testing Fees Tab
     ${rows count}                   Get Rows Count      ${pane}${table xpath}
     ${new rows count}               Evaluate    ${rows count}+1
     Click Element                   xpath:${pane}${button primary}
-    Input Text                      xpath:(${modal dialog}${form control})[1]       10000-15000
-    Input Text                      xpath:(${modal dialog}${form control})[2]       20000
+    Input Text                      xpath:(${modal dialog}${form control})[1]       100000-150000
+    Input Text                      xpath:(${modal dialog}${form control})[2]       200000
     Click Element                   xpath:${modal dialog}${button modal dialog ok}
     Sleep                           1 second
-    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[1]       10000-15000
-    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[2]       $20000
+    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[1]       100000-150000
+    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[2]       $200000
     Click Element                   xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[3]/div/div/button
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]                  10000-15000
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]                  $20000
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]                  100000-150000
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]                  $200000
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           3 second
     ${new rows count}               Get Rows Count      ${pane}${table xpath}
