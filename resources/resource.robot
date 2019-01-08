@@ -37,6 +37,11 @@ Goto Security Groups
     Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
 
+Goto RFID
+    Login In Distributor Portal
+    Click Link                      xpath://*[@href="/rfid-view"]
+    Sleep                           5 second
+
 Goto Camera View
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/camera-view"]
@@ -337,6 +342,11 @@ Return Permissions Email
 Get Api Key
     Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         m4DAfPuRurdzlsVrlen2
     Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     Ub6lJbV0UZDINvctedHm
+
+Get RFID SN
+    Get Api Key
+    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         RFID230820106808
+    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     
 
 Run Xvfb Sub
     Start Virtual Display           1920                            1080
