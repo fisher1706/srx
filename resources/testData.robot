@@ -150,3 +150,4 @@ ${alert warning}                //div[contains(@class, 'alert-warning')]
 ${dropdown menu item}           //a[contains(@role, 'menuitem')]
 ${inactive account}             //div[contains(@class, 'inactive-account')]
 ${sidebar item}                 //li[contains(@class, 'sidebar-item')]
+${last page}                    //li[contains(@title, 'last page')]/a

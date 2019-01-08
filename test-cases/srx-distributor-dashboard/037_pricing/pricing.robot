@@ -99,11 +99,11 @@ Filtering Pricing
     Click Element                   xpath:${button default}
     Sleep                           2 second
     Click Element                   xpath:${button right margin}
-    Input Text                      xpath:(${modal dialog}${form control})[2]       10
-    Input Text                      xpath:(${modal dialog}${form control})[3]       20
+    Input Text                      xpath:(${modal dialog}${form control})[2]       11
+    Input Text                      xpath:(${modal dialog}${form control})[3]       11.20
     Click Element                   xpath:${modal dialog}${button primary}
     Sleep                           2 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $11.21
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $11.10
     Click Element                   xpath:${button default}
     Sleep                           2 second
 
