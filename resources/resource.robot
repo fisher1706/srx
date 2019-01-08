@@ -283,6 +283,21 @@ Sort Column
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
     Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
 
+Sort Column With Last Page
+    [Arguments]                     ${column}
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
+    Click Element                   xpath:${last page}
+    ${count}                        Get Rows Count              ${table xpath}
+    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${count}]/td[${column}]
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
+    Click Element                   xpath:${last page}
+    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${count}]/td[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
+
 Number Of Rows C
     ${number of row c}              Get Element Count   xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row c}
@@ -543,3 +558,27 @@ Open Full Table
     Sleep                           1 second
     Click Element                   xpath:(${dropdown menu item})[4]
     Sleep                           1 second
+
+Filter Field
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[${dialog index}]         ${value}
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    ${count}                        Get Rows Count      ${table xpath}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
+    Click Element                   xpath:${button default}
+    Sleep                           3 second
+
+Filter Select Box
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${button right margin}
+    Choose From Select Box          (${modal dialog}${select control})[${dialog index}]             ${value}
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    ${count}                        Get Rows Count      ${table xpath}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
+    Click Element                   xpath:${button default}
+    Sleep                           3 second
