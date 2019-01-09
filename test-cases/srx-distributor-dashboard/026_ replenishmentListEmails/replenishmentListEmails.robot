@@ -210,12 +210,12 @@ Checking Default Fields
 
 Checking Fail Email
     Set Global Variable             ${latest}                       string
-    ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
+    ${latest}=                      Wait For Email                  sender=replenish@storeroomlogix.com         timeout=11         status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     Delete All Emails
     Set Global Variable             ${latest}
 
 Checking Email
-    ${latest}=                      Wait For Email                  sender=srx-group@agilevision.io         timeout=120        status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
+    ${latest}=                      Wait For Email                  sender=replenish@storeroomlogix.com         timeout=120        status=UNSEEN    subject=Replenishment List Submitted by Static Customer (1138)
     ${body}=                        Get Email Body                  ${latest}
     Delete All Emails
     Sleep                           5 second

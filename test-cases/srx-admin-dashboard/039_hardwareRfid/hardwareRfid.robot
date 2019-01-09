@@ -78,10 +78,7 @@ Request RFID
 Checking RFID Status
     Reload Page
     Sleep                           7 second
-    Click Element                   id:pageDropDown
-    Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4)
-    Sleep                           1 second
+    Open Full Table
     ${my rfid}                      Get Row By Text  ${table xpath}     1       ${buffer}
     Element text Should Be          xpath:${table xpath}/tbody/tr[${my rfid}]/td[2]     ISSUED
     Finish Suite
@@ -100,11 +97,6 @@ Delete Serial Number
 
 Sorting Serial Numbers
     [Tags]                          Sorting
-    Sleep                           1 second
-    Click Element                   id:pageDropDown
-    Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4)
-    Sleep                           1 second
     ${count}                        Get Rows Count      ${table xpath}
     Sort Column                     1       ${count}
     Sort Column                     2       ${count}
@@ -137,10 +129,7 @@ Filter Serial Numbers
 Preparation
     Goto Hardware
     Sleep                           1 second
-    Click Element                   id:pageDropDown
-    Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4)
-    Sleep                           1 second
+    Open Full Table
     ${number of row}                Get Rows Count                  ${table xpath}
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Suite Variable              ${number of new row}

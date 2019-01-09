@@ -85,10 +85,7 @@ Delete Serial Number
 Preparation
     Goto Hardware
     Sleep                           1 second
-    Click Element                   id:pageDropDown
-    Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4)
-    Sleep                           1 second
+    Open Full Table
     ${number of row}                Get Rows Count                  ${table xpath}
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Suite Variable              ${number of new row}
