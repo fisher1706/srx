@@ -8,11 +8,14 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Sort RFID
     [Tags]                          Sorting
-    Sort Column                     1                   ${number of row}
-    Sort Column                     2                   ${number of row}
-    Sort Column                     3                   ${number of row}
-    Sort Column                     4                   ${number of row}
-    Sort Column                     5                   ${number of row}
+    Sort Column With Last Page      1
+    Sort Column With Last Page      2
+    Sort Column With Last Page      3
+    Sort Column With Last Page      4
+    Sort Column With Last Page      5
+    Sleep                           3 second
+    Open Full Table
+    Sleep                           4 second
 
 Filter RFID User
     [Tags]                          Filter
@@ -66,6 +69,3 @@ Preparation
     Input Text                      xpath:(${select control})[2]/div/div/input       STATIC SKU
     Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
     Sleep                           3 second
-    Open Full Table
-    ${number of row}                Get Rows Count              ${table xpath}
-    Set Suite Variable              ${number of row}
