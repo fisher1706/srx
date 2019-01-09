@@ -20,6 +20,7 @@ Sorting Transactions
     Sort Column With Last Page      9
     Sleep                           3 second
     Open Full Table
+    Sleep                           4 second
 
 Filter Transaction Log Part Number
     [Tags]                          Filter
@@ -46,7 +47,7 @@ Filter RFID Date
     Click Element                   xpath:${button right margin}
     Input Text                      xpath:(${modal dialog}${form control})[3]       11/1/2018, 9:03 A
     Input Text                      xpath:(${modal dialog}${form control})[4]       11/1/2018, 9:05 A
-    Sleep                           5 second
+    Sleep                           2 second
     Click Element                   xpath:${modal dialog}${button primary}
     Sleep                           2 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]/div      11/1/2018, 9:04 AM

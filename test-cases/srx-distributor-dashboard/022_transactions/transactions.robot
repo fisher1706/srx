@@ -20,7 +20,7 @@ Sorting Transactions
     Sort Column With Last Page      10
     Sleep                           3 second
     Open Full Table
-
+    Sleep                           4 second
 
 Filter Transactions Part Number
     [Tags]                          Filter
@@ -43,7 +43,8 @@ Filter Transactions DSN
     Filter Field                    5   7   G030PM036107NGQ5
 
 Filter Transactions Submitted By
-    [Tags]                          Filter
+    [Tags]                          Filter      FilterSubmittedBy
+    Sleep                           4 second
     Filter Select Box               1   10  CUSTOMER
 
 *** Keywords ***

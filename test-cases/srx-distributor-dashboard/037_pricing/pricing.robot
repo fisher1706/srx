@@ -107,6 +107,18 @@ Filtering Pricing
     Click Element                   xpath:${button default}
     Sleep                           2 second
 
+Filter Pricing Date
+    [Tags]                          Filter      FilterDate
+    Click Element                   xpath:${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[5]       11/10/2019, 9:03 A
+    Input Text                      xpath:(${modal dialog}${form control})[6]       11/12/2019, 9:05 A
+    Sleep                           2 second
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      Mon, Nov 11, 2019
+    Click Element                   xpath:${button default}
+    Sleep                           2 second
+
 *** Keywords ***
 Preparation
     Goto Pricing
