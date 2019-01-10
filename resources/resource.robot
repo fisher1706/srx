@@ -37,7 +37,7 @@ Goto Security Groups
     Sleep                           5 second
 
 Goto RFID
-    Login In Distributor Portal
+    Start Distributor
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
 
@@ -171,7 +171,6 @@ Login In Admin Portal
     Enter Correct Email
     Enter Password
     Correct Submit Login
-    Is Distributors Page
 
 Enter Correct Email
     Input Text                      id:email        ${email}
