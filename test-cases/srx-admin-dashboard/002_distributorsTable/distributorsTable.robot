@@ -20,8 +20,7 @@ ${text buffer2}
 *** Test Cases ***
 Invalid Add Distributor
     [Tags]                          InvalidAddDistributor
-    Click Element                   css:.btn-primary
-    Is Add Distributor
+    Click Element                   xpath:${button primary}
     Press Key                       id:name_id                      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:address.line1_id             \ue004
@@ -40,18 +39,15 @@ Invalid Add Distributor
     Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:address.zipCode_id           \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(8) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
-    Click Element                   css:.close
-    Is Distributors Page
+    Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button primary}
     Click Element                   css:.modal-dialog-cancel-button
-    Is Distributors Page
     Sleep                           2 second
 
 Valid Add Distributor
     [Tags]                          ValidAddDistributor
-    Click Element                   css:.btn-primary
-    Is Add Distributor
+    Click Element                   xpath:${button primary}
     Input Text                      id:name_id                                                                                          ${dynamic name}
     Input Text                      id:address.line1_id                                                                                 ${dynamic adress1}
     Input Text                      id:address.line2_id                                                                                 ${dynamic adress2}
@@ -65,12 +61,11 @@ Valid Add Distributor
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id                                                                               ${dynamic code}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking New Data
     Sleep                           5 second
-    Click Element                   css:#pageDropDown
-    Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
+    Open Full Table
     Sleep                           2 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[1]/a          ${dynamic name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[3]/div        ${dynamic full adress}
@@ -80,35 +75,27 @@ Checking New Data
 Remove Distributor
     [Tags]                          RemoveDistributor
     Click Element                   ${remove button}
-    Is Delete Distributor
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Distributors Page
     Click Element                   ${remove button}
-    Is Delete Distributor
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
-    Is Distributors Page
     Click Element                   ${remove button}
     Table Cell Should Contain       css:table.table:nth-child(2)    2       1       ${dynamic name}	
     Table Cell Should Contain       css:table.table:nth-child(2)    2       3       ${dynamic full adress}
     Table Cell Should Contain       css:table.table:nth-child(2)    2       4       Singular Billing
     Table Cell Should Contain       css:table.table:nth-child(2)    2       5       ${dynamic email}
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           2 second
+    Sleep                           4 second
 
 Edit Distributor
     [Tags]                          EditDistributor
     Click Element                   ${edit button}
-    Is Edit Distributor
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
-    Is Distributors Page
     Click Element                   ${edit button}
-    Is Edit Distributor
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Distributors Page
     Click Element                   ${edit button}
     Input Text                      id:name_id                                                                                          ${edit name}
     Input Text                      id:address.line1_id                                                                                 ${edit adress1}
@@ -122,7 +109,7 @@ Edit Distributor
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue013
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id                                                                               ${edit code}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit Data
     Sleep                           5 second
@@ -146,7 +133,7 @@ Return Static Data
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:address.zipCode_id                                                                               ${static code}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking Returned Static Data
     Sleep                           5 second
@@ -185,14 +172,11 @@ Sorting Distributors By Email
 Name Filter
     [Tags]                          NameFilter          Filter
     Click Element                   ${filter button}
-    Is Filter Dialog
     Click Element                   css:.close
     Sleep                           2 second
-    Is Distributors Page
     Click Element                   ${filter button}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           2 second
-    Is Distributors Page
     Click Element                   ${filter button}
     Input Text                      css:div.row-spaced:nth-child(1) > div:nth-child(2) > input:nth-child(1)     ${static name}
     Apply Filter
@@ -240,10 +224,10 @@ Name And Number And Email Filter
 
 *** Keywords ***
 Preparation
-    Login In Admin Portal
+    Start Admin
     Sleep                           5 second
-    Click Element                   id:pageDropDown
-    Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
+    Click Link                      xpath://*[@href="/distributors"]
+    Open Full Table
     Sleep                           2 second
     Number Of Rows
     Number Of Static Row
@@ -274,16 +258,3 @@ Apply Filter
     Sleep                           3 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/a       ${static name}
     Click Element                   ${filter clear}
-
-Is Add Distributor
-    Element Text Should Be          css:.modal-title    Add distributor
-
-Is Delete Distributor
-    Element Text Should Be          css:.modal-title    Removal Confirmation
-
-Is Edit Distributor
-    Element Text Should Be          css:.modal-title    Edit distributor
-
-Is Filter Dialog
-    Element Text Should Be          css:.modal-title    Filtering options
-    

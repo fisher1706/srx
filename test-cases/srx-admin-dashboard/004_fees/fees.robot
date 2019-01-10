@@ -36,7 +36,9 @@ Deeplens Monthly Fees
 
 *** Keywords ***
 Preparation
-    Goto Fees
+    Start Admin
+    Sleep                           5 second
+    Click Link                      xpath://*[@href="/fees"]
 
 Testing Fees Tab
     [Arguments]                     ${tab}      ${pane}

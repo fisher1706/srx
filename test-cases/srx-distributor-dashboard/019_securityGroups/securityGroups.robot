@@ -52,7 +52,7 @@ Checking New User
 Try To Delete Security Group
     Click Link                      xpath://*[@href="/security-groups"]
     Click Element                   ${delete group button}
-    Is Delete Security Group
+    Sleep                           1 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Security Groups
@@ -148,9 +148,6 @@ Is Create Security Group
 
 Is Edit Security Group
     Element Text Should Be          css:.modal-title            Edit custom security group
-
-Is Delete Security Group
-    Element Text Should Be          css:.modal-title            Removal Confirmation
 
 Set Permission
     [Arguments]                     ${row}      ${column}

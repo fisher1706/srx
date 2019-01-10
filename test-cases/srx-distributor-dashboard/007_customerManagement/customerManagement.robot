@@ -82,7 +82,7 @@ Checking Edit Customer
 
 Delete Customer
     Click Element                   ${delete customer button}
-    Is Delete Customer
+    Sleep                           1 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
     Click Element                   ${delete customer button}
@@ -125,9 +125,6 @@ Is Add Customer
 
 Is Edit Customer
     Element Text Should Be          css:.modal-title            Edit customer
-
-Is Delete Customer
-    Element Text Should Be          css:.modal-title            Removal Confirmation
 
 Field Selector Check
     [Arguments]                     ${fieldAdr}                 ${fieldType}

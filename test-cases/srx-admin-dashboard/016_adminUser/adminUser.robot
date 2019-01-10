@@ -12,7 +12,6 @@ Valid Add Admin User
     Click Element                   id:distributor-details-tab-2
     Sleep                           2 second
     Click Element                   xpath:${distributors admin pane}${button primary}
-    Is Add User
     Input Text                      id:email_id                     ${admin email}
     Input Text                      id:firstName_id                 ${admin first}
     Input Text                      id:lastName_id                  ${admin last}
@@ -89,7 +88,7 @@ Delete User From Distributor Portal
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           2 second
+    Sleep                           4 second
 
 Checking Users Number On Distributor Portal After Delete From Distributor Portal
     [Tags]                          ContentSuperUser
@@ -109,7 +108,6 @@ Delete User From Admin Portal
     [Tags]                          ContentSuperUser
     Sleep                           2 second
     Click Element                   xpath:${distributors admin pane}${button primary}
-    Is Add User
     Input Text                      id:email_id             ${admin email}
     Input Text                      id:firstName_id         ${admin first}
     Input Text                      id:lastName_id          ${admin last}
@@ -121,7 +119,7 @@ Delete User From Admin Portal
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           2 second
+    Sleep                           5 second
 
 Checking Users Number On Admin Portal After Delete From Admin Portal
     [Tags]                          ContentSuperUser
@@ -241,12 +239,3 @@ Goto Admin Users Sub
     Sleep                           2 second
     ${static distributor}           Get Row By Text         ${table xpath}      1       Srx-group-test-distributor
     Click Element                   xpath:${table xpath}/tbody/tr[${static distributor}]/td[1]/a
-
-Is Delete User
-    Element Text Should Be          css:.modal-title                                    Removal Confirmation
-
-Is Edit User
-    Element Text Should Be          css:.modal-title                                    Edit user
-
-Is Add User
-    Element Text Should Be          css:.modal-title                                    Add user

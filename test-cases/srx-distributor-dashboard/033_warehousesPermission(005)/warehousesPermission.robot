@@ -101,7 +101,7 @@ Checking Edit Warehouse
 Delete Warehouse
     [Tags]                          DeleteWarehouse
     Click Element                   ${delete warehouse button}
-    Is Delete Warehouse
+    Sleep                           1 second
     Click Element                   css:.close
     Sleep                           2 second
     Is Warehouse Management
@@ -154,6 +154,3 @@ Is Add Warehouse
 
 Is Edit Warehouse
     Element Text Should Be          css:.modal-title                Edit warehouse
-
-Is Delete Warehouse
-    Element Text Should Be          css:.modal-title                Removal Confirmation

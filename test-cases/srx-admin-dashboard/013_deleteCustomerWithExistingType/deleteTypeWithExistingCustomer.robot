@@ -9,11 +9,9 @@ Resource                            ../../../resources/testData.robot
 Valid Create New Customer Type
     Set Global Variable             ${right size}                   ${number of row}
     Click Element                   css:.btn-primary
-    Is Add Customer Type
     Input Text                      id:name_id                      ${test del type}
     Click Element                   css:.modal-dialog-ok-button
-    Sleep                           1 second
-    Is Customer Types
+    Sleep                           5 second
 
 Checking New Customer Type On Distributor Portal Not Delete
     [Tags]                          CheckingOnDistributorPortal
@@ -68,7 +66,6 @@ Goto Customer Menu Sub
     Correct Submit Login
     Click Link                      xpath://*[@href="/customers"]
     Sleep                           5 second
-    Is Customer Management
     Number Of Rows Sub
     Number Of Static Row Sub
     Set Global Variable             ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${static row c}]/td[6]/div/div[1]/button
@@ -76,7 +73,6 @@ Goto Customer Menu Sub
 Preparation
     Goto Customer Types
     Sleep                           1 second
-    Is Customer Types
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
@@ -86,15 +82,6 @@ Preparation
     Set Global Variable             ${SUB HOST}
     ${SUB EMAIL}                    Return Sub Email
     Set Global Variable             ${SUB EMAIL}
-
-Is Add Customer Type
-    Element Text Should Be          css:.modal-title                Add customer type
-
-Is Edit Customer Type
-    Element Text Should Be          css:.modal-title                Edit customer type
-
-Is Delete Customer Type
-    Element Text Should Be          css:.modal-title                Removal Confirmation
 
 Number Of Rows Sub
     ${number of row sub}            Get Element Count               xpath:${table xpath}/tbody/tr

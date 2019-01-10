@@ -160,7 +160,7 @@ Checking Edit User
 
 Delete User
     Click Element                   ${delete user button}
-    Is Delete
+    Sleep                           1 second
     Click Element                   css:.close
     Sleep                           2 second
     Is Customer Users
@@ -240,7 +240,3 @@ Is Add User
 Is Edit User
     Sleep                           1 second
     Element Text Should Be          css:.modal-title                Edit customer user
-
-Is Delete
-    Sleep                           1 second
-    Element Text Should Be          css:.modal-title                Removal Confirmation

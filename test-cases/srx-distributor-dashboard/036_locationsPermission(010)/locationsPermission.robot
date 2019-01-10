@@ -125,7 +125,7 @@ Delete Location
     [Tags]                          DeleteLocation
     Click Element                   ${check location}
     Click Element                   css:.btn-danger
-    Is Delete Location
+    Sleep                           1 second
     Click Element                   css:.close
     Is Locations
     Sleep                           2 second
@@ -179,6 +179,3 @@ Preparation
 
 Is Add Location
     Element Text Should Be          css:.modal-title            Add location
-
-Is Delete Location
-    Element Text Should Be          css:.modal-title            Removal Confirmation
