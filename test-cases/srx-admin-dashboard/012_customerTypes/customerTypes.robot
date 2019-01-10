@@ -9,24 +9,19 @@ Resource                            ../../../resources/testData.robot
 Invalid Create New Customer Type
     [Tags]                          InvalidCreateNewCustomer
     Click Element                   css:.btn-primary
-    Is Add Customer Type
     Click Element                   css:.close
     Sleep                           2 second
-    Is Customer Types
     Click Element                   css:.btn-primary
     Press Key                       id:name_id                      \ue004
     Element Should Be Enabled       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
-    Is Customer Types
 
 Valid Create New Customer Type
     Click Element                   css:.btn-primary
-    Is Add Customer Type
     Input Text                      id:name_id                      ${test type}
     Click Element                   css:.modal-dialog-ok-button
-    Sleep                           1 second
-    Is Customer Types
+    Sleep                           5 second
 
 Checking New Customer Type In Table
     Sleep                           5 second
@@ -53,30 +48,23 @@ Edit Customer Type
     Sleep                           5 second
     Preparation
     Click Element                   ${edit button}
-    Is Edit Customer Type
     Click Element                   css:.close
     Sleep                           2 second
-    Is Customer Types
     Click Element                   ${edit button}
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
-    Is Customer Types
     Click Element                   ${edit button}
     Input Text                      id:name_id                      ${edit test type}
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           1 second
-    Is Customer Types
 
 Delete Customer Type
     Click Element                   ${delete button}
-    Is Delete Customer Type
     Click Element                   css:.close
     Sleep                           2 second
-    Is Customer Types
     Click Element                   ${delete button}
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
-    Is Customer Types
     Click Element                   ${delete button}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${edit test type}
     Click Element                   css:button.btn:nth-child(2)
@@ -103,41 +91,24 @@ Sorting Customer Types By Type
 *** Keywords ***
 Goto Customer Menu Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
+    Start Distributor
+    Sleep                           5 second
     Click Link                      xpath://*[@href="/customers"]
     Sleep                           5 second
-    Is Customer Management
     Number Of Rows Sub
     Number Of Static Row Sub
     Set Global Variable             ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${static row c}]/td[6]/div/div[1]/button
 
 Preparation
-    Goto Customer Types
+    Start Admin
+    Sleep                           5 second
+    Click Link                      xpath://*[@href="/customer-types"]
     Sleep                           1 second
-    Is Customer Types
     Number Of Rows
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
     Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[1]/button
     Set Global Variable             ${delete button}                xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[2]/button
-    ${SUB HOST}                     Return Sub Link
-    Set Global Variable             ${SUB HOST}
-    ${SUB EMAIL}                    Return Sub Email
-    Set Global Variable             ${SUB EMAIL}
-
-Is Add Customer Type
-    Element Text Should Be          css:.modal-title                Add customer type
-
-Is Edit Customer Type
-    Element Text Should Be          css:.modal-title                Edit customer type
-
-Is Delete Customer Type
-    Element Text Should Be          css:.modal-title                Removal Confirmation
 
 Number Of Rows Sub
     ${number of row sub}            Get Element Count               xpath:${table xpath}/tbody/tr

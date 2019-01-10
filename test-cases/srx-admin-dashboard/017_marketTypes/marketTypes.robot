@@ -70,7 +70,7 @@ Edit Market Type
 
 Delete Market Type
     Click Element                   ${delete button}
-    Is Delete Market Type
+    Sleep                           1 second
     Click Element                   css:.close
     Sleep                           2 second
     Is Market Types
@@ -136,9 +136,6 @@ Is Add Market Type
 
 Is Edit Market Type
     Element Text Should Be          css:.modal-title                Edit market type
-
-Is Delete Market Type
-    Element Text Should Be          css:.modal-title                Removal Confirmation
 
 Number Of Rows Sub
     ${number of row sub}            Get Element Count               xpath:${table xpath}/tbody/tr

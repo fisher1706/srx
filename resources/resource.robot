@@ -2,7 +2,6 @@
 Library                             XvfbRobot
 
 *** Variables ***
-${LOGIN URL}                        https://${HOST}/sign-in
 ${browser}                          ff
 ${X}                                1920
 ${Y}                                1080
@@ -38,7 +37,7 @@ Goto Security Groups
     Sleep                           5 second
 
 Goto RFID
-    Login In Distributor Portal
+    Start Distributor
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
 
@@ -130,10 +129,10 @@ Goto Market Types
     Sleep                           5 second
 
 Goto Admin Users
-    Login In Admin Portal
-    Sleep                           7 second
-    Click Element                   css:#pageDropDown
-    Click Element                   css:li.dropdown-item:nth-child(4) > a:nth-child(1)
+    Start Admin
+    Sleep                           5 second
+    Click Link                      xpath://*[@href="/distributors"]
+    Open Full Table
     Sleep                           2 second
     Number Of Rows E
     Number Of Static Row E
@@ -172,7 +171,6 @@ Login In Admin Portal
     Enter Correct Email
     Enter Password
     Correct Submit Login
-    Is Distributors Page
 
 Enter Correct Email
     Input Text                      id:email        ${email}
@@ -187,6 +185,7 @@ Sign Out
     Click Link                      xpath://*[@href="/sign-out"]
 
 Start Suite
+    Set Suite Variable              ${LOGIN URL}    https://${HOST}/sign-in
     Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb    ELSE IF     "${browser}"=="chrome"      Run Chrome  ELSE    Run Ff
     Set Selenium Implicit Wait      20 second
     Set Selenium Timeout            10 second
@@ -198,8 +197,47 @@ Run Xvfb
 
 Run Chrome
     Open Browser                    ${LOGIN URL}            chrome
+
 Run Ff
     Open Browser                    ${LOGIN URL}            ff
+
+Start Admin
+    Start Suite Adv                 https://${host_adm}/sign-in
+    Input Text                      id:email                ${email_adm}
+    Input Text                      id:password             ${password_adm}
+    Click Element                   xpath:${button success}
+
+Start Distributor
+    Start Suite Adv                 https://${host_dist}/sign-in
+    Input Text                      id:email                ${email_dist}
+    Input Text                      id:password             ${password_dist}
+    Click Element                   xpath:${button success}
+
+Start Customer
+    Start Suite Adv                 https://${host_cust}/sign-in
+    Input Text                      id:email                ${email_cust}
+    Input Text                      id:password             ${password_cust}
+    Click Element                   xpath:${button success}
+
+Start Suite Adv
+    [Arguments]                     ${portal}
+    Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb Adv    ${portal}   ELSE IF     "${browser}"=="chrome"      Run Chrome Adv      ${portal}   ELSE    Run Ff Adv      ${portal}
+    Set Selenium Implicit Wait      20 second
+    Set Selenium Timeout            10 second
+
+Run Xvfb Adv
+    [Arguments]                     ${portal}
+    Start Virtual Display           ${X}                    ${Y}
+    Open Browser                    ${portal}
+    Set Window Size                 ${X}                    ${Y}
+
+Run Chrome Adv
+    [Arguments]                     ${portal}
+    Open Browser                    ${portal}               chrome
+
+Run Ff Adv
+    [Arguments]                     ${portal}
+    Open Browser                    ${portal}               ff
 
 Finish Suite
     Close All Browsers

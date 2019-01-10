@@ -160,7 +160,7 @@ Delete Customer
     [Tags]                          DeleteCustomer
     Click Link                      xpath://*[@href="/customers"]
     Click Element                   ${delete customer button}
-    Is Delete Customer
+    Sleep                           1 second
     Click Element                   css:.close
     Sleep                           2 second
     Is Customer Management
@@ -194,9 +194,6 @@ Preparation
 
 Is Add Customer
     Element Text Should Be          css:.modal-title            Add customer
-
-Is Delete Customer
-    Element Text Should Be          css:.modal-title            Removal Confirmation
 
 Go Down Check
     Click Element                   xpath:${select control}

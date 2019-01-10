@@ -68,6 +68,7 @@ Checking RFID Status
     Sleep                           1 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]          ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]          ISSUED
+    Element Should Be Disabled      xpath:${table xpath}/tbody/tr[1]${button danger}
 
 Check Transactions
     Click Link                      xpath://*[@href="/transactions"]

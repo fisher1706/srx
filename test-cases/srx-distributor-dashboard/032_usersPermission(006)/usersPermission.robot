@@ -86,7 +86,7 @@ Checking Edit User
 Delete User
     [Tags]                          DeleteUser
     Click Element                   ${delete user button}
-    Is Delete User
+    Sleep                           1 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
     Click Element                   ${delete user button}
@@ -133,6 +133,3 @@ Is Add New User
 
 Is Edit User
     Element Text Should Be          css:.modal-title            Edit user
-
-Is Delete User
-    Element Text Should Be          css:.modal-title            Removal Confirmation

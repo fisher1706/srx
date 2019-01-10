@@ -93,9 +93,6 @@ Is Add Market Type
 Is Edit Market Type
     Element Text Should Be          css:.modal-title                Edit market type
 
-Is Delete Market Type
-    Element Text Should Be          css:.modal-title                Removal Confirmation
-
 Number Of Rows Sub
     ${number of row sub}            Get Element Count               xpath:${table xpath}/tbody/tr
     Set Global Variable             ${number of row sub}
