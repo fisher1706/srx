@@ -210,20 +210,11 @@ Preparation
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${edit user button}     xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[1]/button
     Set Suite Variable              ${delete user button}   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
-    ${SUB HOST}                     Return Sub Link
-    Set Suite Variable              ${SUB HOST}
-    ${SUB EMAIL}                    Return Sub Email
-    Set Suite Variable              ${SUB EMAIL}
-    
+
 Goto Users Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
-    Sleep                           7 second
+    Start Distributor
+    Sleep                           5 second
     Click Link                      xpath://*[@href="/users"]
     Sleep                           1 second
     Click Element                   id:users-tab-super-users
@@ -232,10 +223,11 @@ Goto Users Sub
     Set Suite Variable              ${number of row u}
 
 Goto Admin Users Sub
-    Login In Admin Portal
-    Sleep                           7 second
-    Click Element                   css:#pageDropDown
-    Click Element                   css:li.dropdown-item:nth-child(4)
-    Sleep                           2 second
+    Start Admin
+    Sleep                           5 second
+    Click Link                      xpath://*[@href="/distributors"]
+    Sleep                           3 second
+    Open Full Table
+    Sleep                           4 second
     ${static distributor}           Get Row By Text         ${table xpath}      1       Srx-group-test-distributor
     Click Element                   xpath:${table xpath}/tbody/tr[${static distributor}]/td[1]/a
