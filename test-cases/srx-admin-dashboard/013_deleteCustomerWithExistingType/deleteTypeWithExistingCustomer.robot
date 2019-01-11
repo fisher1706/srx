@@ -7,21 +7,21 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Valid Create New Customer Type
-    Set Global Variable             ${right size}                   ${number of row}
-    Click Element                   css:.btn-primary
+    Set Suite Variable              ${right size}                   ${number of row}
+    Click Element                   xpath:${button primary}
     Input Text                      id:name_id                      ${test del type}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
 
 Checking New Customer Type On Distributor Portal Not Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
     Click Element                   ${edit customer button sub}
-    Go Down
+    Choose From Select Box          (${select control})[1]      ${test del type}
     Sleep                           1 second
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row c}]/td[4]/div      ${test del type}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[4]/div      ${test del type}
     Finish Suite
 
 Delete Customer Type Not Delete
@@ -38,11 +38,11 @@ Checking New Customer Type On Distributor Portal Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
     Click Element                   ${edit customer button sub}
-    Go Up
+    Choose From Select Box          (${select control})[1]      Not specified
     Sleep                           1 second
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row c}]/td[4]/div      Not specified
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[4]/div      Not specified
     Finish Suite
 
 Delete Customer Type Delete
@@ -58,53 +58,22 @@ Delete Customer Type Delete
 *** Keywords ***
 Goto Customer Menu Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
+    Start Distributor
+    Sleep                           5 second
     Click Link                      xpath://*[@href="/customers"]
     Sleep                           5 second
-    Number Of Rows Sub
-    Number Of Static Row Sub
-    Set Global Variable             ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${static row c}]/td[6]/div/div[1]/button
+    ${my customer}                  Get Row By Text     ${table xpath}      1   Customer Z
+    Set Suite Variable              ${my customer}
+    Set Suite Variable              ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${my customer}]/td[6]/div/div[1]/button
 
 Preparation
-    Goto Customer Types
+    Start Admin
+    Sleep                           5 second
+    Click Link                      xpath://*[@href="/customer-types"]
     Sleep                           1 second
-    Number Of Rows
-    ${number of new row}=           Evaluate                        ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[1]/button
-    Set Global Variable             ${delete button}                xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[2]/button
-    ${SUB HOST}                     Return Sub Link
-    Set Global Variable             ${SUB HOST}
-    ${SUB EMAIL}                    Return Sub Email
-    Set Global Variable             ${SUB EMAIL}
-
-Number Of Rows Sub
-    ${number of row sub}            Get Element Count               xpath:${table xpath}/tbody/tr
-    Set Global Variable             ${number of row sub}
-
-Number Of Static Row Sub
-    : FOR   ${counter c sub}        IN RANGE    1   ${number of row sub}+1
-    \   ${text buffer1 c sub}       Get Text    xpath:${table xpath}/tbody/tr[${counter c sub}]/td[1]/a
-    \   Exit For Loop If            "Customer Z"=="${text buffer1 c sub}"
-    Set Global Variable             ${static row c}     ${counter c sub}
-
-Go Down
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]            \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:(${select control})[1]/div[1]/div[1]/span
-    Sleep                           1 second
-    Run Keyword If                  "${text buffer sub}"!="${test del type}"        Go Down
-
-Go Up
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]            \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:(${select control})[1]/div[1]/div[1]/span
-    Sleep                           1 second
-    Run Keyword If                  "${text buffer sub}"!="Not specified"       Go Down
+    ${number of row}                Get Rows Count          ${table xpath}
+    ${number of new row}=           Evaluate                ${number of row}+1
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${edit button}          xpath:${table xpath}/tbody/tr[${number of row}]${button success}
+    Set Suite Variable              ${delete button}        xpath:${table xpath}/tbody/tr[${number of row}]${button danger}
