@@ -8,12 +8,11 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Invalid Create New Warehouse
-    Click Element                   css:.btn-primary
-    Is Add Warehouse
-    Click Element                   css:.close
+    Click Element                   xpath:${button primary}
+    Sleep                           1 second
+    Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Warehouse Management
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button primary}
     Press Key                       id:name_id              \ue004
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:address.line1_id     \ue004
@@ -30,13 +29,12 @@ Invalid Create New Warehouse
     Element Should Be Visible       css:div.item-form-field:nth-child(8) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:invoiceEmail_id      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(9) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Warehouse Management
 
 Valid Create New Warehouse
     [Tags]                          ValidCreateNewWarehouse
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button primary}
     Input Text                      id:name_id              ${user first name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
@@ -53,7 +51,7 @@ Valid Create New Warehouse
     Element Should Be Visible       css:div.item-form-field:nth-child(9) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Input Text                      id:contactEmail_id      ${correct wrong email}
     Input Text                      id:invoiceEmail_id      ${correct wrong email}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking New Warehouse
     [Tags]                          ValidCreateNewWarehouse
@@ -67,14 +65,12 @@ Checking New Warehouse
 Edit Warehouse
     [Tags]                          EditWarehouse
     Click Element                   ${edit warehouse button}
-    Is Edit Warehouse
-    Click Element                   css:.close
+    Sleep                           1 second
+    Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Warehouse Management
     Click Element                   ${edit warehouse button}
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Warehouse Management
     Click Element                   ${edit warehouse button}
     Input Text                      id:name_id              ${user last name}
     Input Text                      id:address.line1_id     ${edit adress1}
@@ -87,7 +83,7 @@ Edit Warehouse
     Input Text                      id:address.zipCode_id   ${edit code}
     Input Text                      id:contactEmail_id      ${edit email}
     Input Text                      id:invoiceEmail_id      ${edit email}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit Warehouse
     [Tags]                          EditWarehouse
@@ -102,19 +98,17 @@ Delete Warehouse
     [Tags]                          DeleteWarehouse
     Click Element                   ${delete warehouse button}
     Sleep                           1 second
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Warehouse Management
     Click Element                   ${delete warehouse button}
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
-    Is Warehouse Management
     Click Element                   ${delete warehouse button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]      ${user last name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]      ${edit warehouse number}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]      ${edit full adress}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]      ${edit email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[6]      ${edit email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${user last name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]      ${edit warehouse number}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      ${edit full adress}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      ${edit email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      ${edit email}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
@@ -126,27 +120,23 @@ Sorting Warehouses
     Sorting Column                  5
     Sorting Column                  6
 
-Warehouse filtration
+Warehouse Filtration
     [Tags]                          Filter
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       Z_Warehouse
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input       9999
-    Filter Check First Fields       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input       warehouseZ@example.com
+    Filter Field                    1   1   Z_Warehouse
+    Filter Field                    2   3   9999
+    Filter Field                    3   5   warehouseZ@example.com
 
 *** Keywords ***
 Preparation
-    Login In Distributor Portal
+    Start Distributor
+    Sleep                           2 second
     Click Link                      xpath://*[@href="/warehouses"]
     Sleep                           5 second
     Reload Page
     Sleep                           5 second
-    Number Of Rows
+    ${number of row}                Get Rows Count                  ${table xpath}
     ${number of new row}=           Evaluate                        ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
-    Set Global Variable             ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
-
-Is Add Warehouse
-    Element Text Should Be          css:.modal-title                Add warehouse
-
-Is Edit Warehouse
-    Element Text Should Be          css:.modal-title                Edit warehouse
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
