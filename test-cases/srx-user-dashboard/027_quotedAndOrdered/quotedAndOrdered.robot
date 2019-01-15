@@ -15,19 +15,19 @@ Checking Quoted And Ordered List
     Click Element                   xpath:${header xpath}/thead/tr/th[5]
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[8]/button
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[1]/a
-    Click Element                   css:.control-button
+    Click Element                   xpath:${control button}
     Sleep                           5 second
 
 Sorting List
     [Tags]                          Sorting
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
     Click Element                   xpath:${header xpath}/thead/tr/th[5]
-    Sorting List                    1
-    Sorting List                    2
-    Sorting List                    3
-    Sorting List                    4
-    Sorting List                    5
-    Sorting List                    6
+    Sort Column With Last Page      1
+    Sort Column With Last Page      2
+    Sort Column With Last Page      3
+    Sort Column With Last Page      4
+    Sort Column With Last Page      5
+    Sort Column With Last Page      6
 
 Filter List
     [Tags]                          Filter
@@ -46,25 +46,8 @@ Filter List
 
 *** Keywords ***
 Preparation
-    Login In Customer Portal
+    Start Customer
+    Sleep                           2 second
     Click Element                   xpath:/html/body/div/div/div/div/div/div/button[1]
     Click Element                   css:.select-shipto-button
     Is Customer Portal
-
-Sorting List
-    [Arguments]                     ${column}
-    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
-    Sleep                           1 second
-    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
-    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    Number Of Rows
-    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
-    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
-    Sleep                           1 second
-    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
-    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
-    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
-    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
-    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
-    Sleep                           1 second

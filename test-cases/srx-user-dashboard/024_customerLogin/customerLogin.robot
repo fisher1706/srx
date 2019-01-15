@@ -15,4 +15,5 @@ Reload Customer Page
 
 *** Keywords ***
 Preparation
-    Login In Customer Portal
+    Start Customer
+    Sleep                           2 second

@@ -28,9 +28,9 @@ Delete Customer Type Not Delete
     Sleep                           5 second
     Preparation
     Click Element                   ${delete button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${test del type}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]         ${test del type}
     Click Element                   css:button.btn:nth-child(2)
-    Element Text Should Be          css:.external-page-alert > strong:nth-child(2)                                  Operation failed!
+    Element Text Should Be          css:.external-page-alert > strong:nth-child(2)              Operation failed!
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           5 second
 
@@ -49,7 +49,7 @@ Delete Customer Type Delete
     Sleep                           5 second
     Preparation
     Click Element                   ${delete button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${test del type}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${test del type}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
     ${current size}                 Get Element Count                   xpath:${table xpath}/tbody/tr
@@ -64,7 +64,7 @@ Goto Customer Menu Sub
     Sleep                           5 second
     ${my customer}                  Get Row By Text     ${table xpath}      1   Customer Z
     Set Suite Variable              ${my customer}
-    Set Suite Variable              ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${my customer}]/td[6]/div/div[1]/button
+    Set Suite Variable              ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${my customer}]${button success}
 
 Preparation
     Start Admin
