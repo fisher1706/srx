@@ -8,24 +8,22 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Invalid Create New Market Type
     [Tags]                          InvalidCreateNewCustomer
-    Click Element                   css:.btn-primary
-    Is Add Market Type
-    Click Element                   css:.close
+    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Market Types
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button primary}
     Press Key                       id:name_id                      \ue004
     Element Should Be Enabled       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
     Is Market Types
 
 Valid Create New Market Type
     [Tags]                          ValidCreateNewCustomer
-    Click Element                   css:.btn-primary
-    Is Add Market Type
+    Click Element                   xpath:${button primary}
     Input Text                      id:name_id                      ${market type}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second
     Is Market Types
 
@@ -37,41 +35,41 @@ Checking New Market Type On Distributor Portal
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
     Click Element                   ${edit customer button sub}
-    Go Down
+    Choose From Select Box          (${select control})[2]      ${market type}
     Sleep                           1 second
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row c}]/td[5]/div      ${market type}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[5]/div      ${market type}
     Click Element                   ${edit customer button sub}
-    Go Up
+    Choose From Select Box          (${select control})[2]      Not specified
     Sleep                           1 second
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row c}]/td[5]/div      Not specified
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[5]/div      Not specified
     Finish Suite
 
 Edit Market Type
     Sleep                           5 second
     Preparation
     Click Element                   ${edit button}
-    Is Edit Market Type
-    Click Element                   css:.close
+    Sleep                           2 second
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Market Types
     Click Element                   ${edit button}
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
     Is Market Types
     Click Element                   ${edit button}
     Input Text                      id:name_id                      ${edit market type}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second
     Is Market Types
 
 Delete Market Type
     Click Element                   ${delete button}
     Sleep                           1 second
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Market Types
     Click Element                   ${delete button}
@@ -79,7 +77,7 @@ Delete Market Type
     Sleep                           2 second
     Is Market Types
     Click Element                   ${delete button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${edit market type}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit market type}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -104,61 +102,22 @@ Sorting Market Types By Type
 *** Keywords ***
 Goto Customer Menu Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
+    Start Distributor
+    Sleep                           4 second
     Click Link                      xpath://*[@href="/customers"]
     Sleep                           5 second
-    Is Customer Management
-    Number Of Rows Sub
-    Number Of Static Row Sub
-    Set Global Variable             ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${static row c}]/td[6]/div/div[1]/button
+    ${my customer}                  Get Row By Text     ${table xpath}      1   Customer Z
+    Set Suite Variable              ${my customer}
+    Set Suite Variable              ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${my customer}]${button success}
 
 Preparation
-    Goto Market Types
+    Start Admin
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/market-types"]
     Sleep                           1 second
-    Is Market Types
-    Number Of Rows
+    ${number of row}                Get Rows Count                  ${table xpath}
     ${number of new row}=           Evaluate                        ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[1]/button
-    Set Global Variable             ${delete button}                xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div/div[2]/button
-    ${SUB HOST}                     Return Sub Link
-    Set Global Variable             ${SUB HOST}
-    ${SUB EMAIL}                    Return Sub Email
-    Set Global Variable             ${SUB EMAIL}
-
-Is Add Market Type
-    Element Text Should Be          css:.modal-title                Add market type
-
-Is Edit Market Type
-    Element Text Should Be          css:.modal-title                Edit market type
-
-Number Of Rows Sub
-    ${number of row sub}            Get Element Count               xpath:${table xpath}/tbody/tr
-    Set Global Variable             ${number of row sub}
-
-Number Of Static Row Sub
-    : FOR   ${counter c sub}        IN RANGE    1   ${number of row sub}+1
-    \   ${text buffer1 c sub}       Get Text    xpath:${table xpath}/tbody/tr[${counter c sub}]/td[1]/a
-    \   Exit For Loop If            "Customer Z"=="${text buffer1 c sub}"
-    Set Global Variable             ${static row c}     ${counter c sub}
-
-Go Down
-    Click Element                   xpath:(${select control})[2]
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue015
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:(${select control})[2]/div[1]/div[1]/span
-    Sleep                           1 second
-    Run Keyword If                  "${text buffer sub}"!="${market type}"        Go Down
-
-Go Up
-    Click Element                   xpath:(${select control})[2]
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue015
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]            \ue007
-    ${text buffer sub}              Get Text                                    xpath:(${select control})[2]/div[1]/div[1]/span
-    Sleep                           1 second
-    Run Keyword If                  "${text buffer sub}"!="Not specified"       Go Up
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${edit button}                  xpath:${table xpath}/tbody/tr[${number of row}]${button success}
+    Set Suite Variable              ${delete button}                xpath:${table xpath}/tbody/tr[${number of row}]${button danger}

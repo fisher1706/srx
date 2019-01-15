@@ -20,13 +20,13 @@ Checking RFID
     Click Element                   xpath:${last page}
     Sleep                           3 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   AVAILABLE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   ASSIGNED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
 
 Unassign RFID
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${epc}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     AVAILABLE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ASSIGNED
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${email_dist}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
@@ -97,9 +97,9 @@ Preparation
     Goto RFID
     Input Text                      xpath:(${select control})[2]/div/div/input       STATIC SKU
     Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
-    Sleep                           3 second
+    Sleep                           5 second
     Click Element                   xpath:${last page}
-    Sleep                           3 second
+    Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Run Keyword If                  ${number of new row}==11    Set Suite Variable    ${number of new row}    1     ELSE    Set Suite Variable      ${number of new row}

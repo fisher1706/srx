@@ -58,10 +58,10 @@ Import RFID
 
 Checking RFID
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]          ${epc1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]          AVAILABLE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]          ASSIGNED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]          SYSTEM
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[1]          ${epc2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]          AVAILABLE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]          ASSIGNED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]          SYSTEM
     ${number of row}                Get Rows Count                                  ${table xpath}
     Should Be Equal As Integers     ${number of row}                                2
@@ -85,7 +85,10 @@ Delete Location
 
 *** Keywords ***
 Preparation
-    Goto Locations
+    Start Distributor
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/locations"]
+    Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}

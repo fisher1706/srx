@@ -164,7 +164,7 @@ Edit Admin From Distributor Portal
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
     Finish Suite
-    Sleep                           3 second
+    Sleep                           5 second
 
 Checking Admin On Admin Portal
     [Tags]                          AddSuperUser
@@ -213,6 +213,7 @@ Preparation
 
 Goto Users Sub
     Finish Suite
+    Sleep                           5 second
     Start Distributor
     Sleep                           5 second
     Click Link                      xpath://*[@href="/users"]

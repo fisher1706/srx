@@ -243,7 +243,7 @@ Finish Suite
     Close All Browsers
 
 Is Customer Portal
-    Element Text Should Be          xpath:/html/body/div/div/div/div[1]/div/div/div/div[2]/p[2]     ${email}
+    Element Text Should Be          xpath:/html/body/div/div/div/div[1]/div/div/div/div[2]/p[2]     ${email_cust}
 
 Is Customer Portal Sub
     Element Text Should Be          xpath:/html/body/div/div/div/div[1]/div/div/div/div[2]/p[2]     ${SUB EMAIL}

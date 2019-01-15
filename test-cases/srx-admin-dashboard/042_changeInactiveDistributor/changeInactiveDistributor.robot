@@ -68,7 +68,9 @@ Remove Distributor
 
 *** Keywords ***
 Preparation
-    Login In Admin Portal
+    Start Admin
+    Sleep                           5 second
+    Click Link                      xpath://*[@href="/distributors"]
     Sleep                           5 second
     Open Full Table
     Sleep                           2 second
