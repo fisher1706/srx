@@ -54,7 +54,7 @@ Create RFID
 
 Request RFID
     [Tags]                          RFID
-    ${request url rfid}             Get Request URL
+    ${request url rfid}             Get RFID URL
     Create Session                  httpbin                 ${request url rfid}     verify=true
     &{headers}=                     Create Dictionary       Content-Type=application/json
     ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${epc}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
@@ -153,13 +153,11 @@ Delete Location
 
 *** Keywords ***
 Preparation
-    Goto Locations
+    Start Distributor
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/locations"]
+    Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
-
-Get Request URL
-    ${serial number}                Get RFID SN
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 https://${serial number}:${serial number}@api-dev.storeroomlogix.com/api/webhook/events/rfid
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             https://${serial number}:${serial number}@api-staging.storeroomlogix.com/api/webhook/events/rfid

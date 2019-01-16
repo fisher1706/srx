@@ -47,11 +47,10 @@ Checking Taxes After Change
 
 *** Keywords ***
 Preparation
-    Goto Settings
-    ${SUB HOST}                     Return Sub Link
-    Set Global Variable             ${SUB HOST}
-    ${SUB EMAIL}                    Return Sub Email
-    Set Global Variable             ${SUB EMAIL}
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/settings"]
+    Sleep                           3 second
 
 Goto Documents
     Click Element                   id:settings-tab-pricing-billing
@@ -83,12 +82,7 @@ Rejected
 
 Goto Documents Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
-    Sleep                           7 second
+    Start Admin
+    Sleep                           5 second
     Click Link                      xpath://*[@href="/documents"]
     Sleep                           3 second

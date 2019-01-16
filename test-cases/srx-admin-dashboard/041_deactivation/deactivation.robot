@@ -58,7 +58,8 @@ Login To Active Distributor By Admin
 
 *** Keywords ***
 Preparation
-    Login In Admin Portal
+    Start Admin
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/distributors"]
     Sleep                           5 second
     ${SUB HOST}                     Return Sub Link
@@ -68,7 +69,8 @@ Preparation
 Finish Keyword
     Finish Suite
     Sleep                           3 second
-    Login In Admin Portal
+    Start Admin
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/distributors"]
     Sleep                           5 second
     Open Full Table
@@ -81,12 +83,7 @@ Finish Keyword
 
 Login On Distributor Portal Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
+    Start Distributor
     Sleep                           5 second
 
 Deactivate

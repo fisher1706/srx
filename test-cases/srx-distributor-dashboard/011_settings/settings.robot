@@ -52,6 +52,7 @@ Transaction Submission
     Click Element                   xpath:(${transaction submission pane}${checkbox})[2]/label/input
     Element Should Be Disabled      xpath:(${transaction submission pane}${checkbox})[1]/label/input
     Click Element                   xpath:${transaction submission pane}${control button}
+    Sleep                           5 second
     Reload Page
     Sleep                           3 second
     Goto Transaction Submission
@@ -180,7 +181,6 @@ Transaction Status Updates Logic Tab
 Transaction Status Updates Logic
     [Tags]                          TransactionStatusUpdatesLogic
     ${request url}                  Get Request URL
-    ${api key}                      Get Api Key
     Create Session                  httpbin                          ${request url}          verify=true
     Goto Transaction Status Updates Logic
     Sleep                           3 second
@@ -205,7 +205,7 @@ Transaction Status Updates Logic
     Input Text                      id:reorderQuantity_id           40
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
-    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${api key}
+    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [400]>
     Click Link                      xpath://*[@href="/settings"]
@@ -228,7 +228,7 @@ Transaction Status Updates Logic
     Sleep                           10 second
     ${rows}                         Get Element Count               xpath:${table xpath}/tbody/tr[1]/td
     Should Be Equal                 "${rows}"                       "10"
-    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${api key}
+    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
     Click Link                      xpath://*[@href="/settings"]
@@ -255,7 +255,7 @@ Transaction Status Updates Logic
     Input Text                      id:reorderQuantity_id           40
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           4 second
-    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${api key}
+    &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
 
@@ -471,7 +471,10 @@ Cost Saving
 
 *** Keywords ***
 Preparation
-    Goto Settings
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/settings"]
+    Sleep                           3 second
 
 Click For Check
     Click Element                   css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
@@ -537,5 +540,5 @@ Goto Transaction Submission
     Sleep                           3 second
 
 Get Request URL
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 https://api-dev.storeroomlogix.com/api/distributor/items/71/split/30
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             https://api-staging.storeroomlogix.com/api/distributor/items/37/split/30
+    Return From Keyword If          "${environment}"=="dev"                 https://api-dev.storeroomlogix.com/api/distributor/items/71/split/30
+    Return From Keyword If          "${environment}"=="staging"             https://api-staging.storeroomlogix.com/api/distributor/items/37/split/30

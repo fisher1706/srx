@@ -118,5 +118,5 @@ Preparation
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${edit customer button}     xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[1]/button
-    Set Suite Variable              ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
+    Set Suite Variable              ${edit customer button}     xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}

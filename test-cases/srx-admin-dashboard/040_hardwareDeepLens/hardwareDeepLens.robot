@@ -89,27 +89,20 @@ Delete Serial Number
 
 *** Keywords ***
 Preparation
-    Goto Hardware
-    Sleep                           1 second
+    Start Admin
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/hardware"]
+    Sleep                           5 second
     Open Full Table
     ${number of row}                Get Rows Count                  ${table xpath}
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${number of row}
-    ${SUB HOST}                     Return Sub Link
-    Set Global Variable             ${SUB HOST}
-    ${SUB EMAIL}                    Return Sub Email
-    Set Global Variable             ${SUB EMAIL}
 
 Goto Settings Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
-    Sleep                           7 second
+    Start Distributor
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/settings"]
     Sleep                           1 second
     Click Element                   id:settings-tab-erp-integration
@@ -118,7 +111,3 @@ Goto Settings Sub
     Sleep                           1 second
     ${my serial number}             Get Row By Text     ${claiming hardware pane}${table xpath}       1       ${serial number}
     Set Suite Variable              ${my serial number}
-
-Get Request URL
-    Return From Keyword If          "${SUB HOST}"=="distributor-dev.storeroomlogix.com"                 https://${serial number}:${serial number}@api-dev.storeroomlogix.com/api/webhook/events/rfid
-    Return From Keyword If          "${SUB HOST}"=="distributor-staging.storeroomlogix.com"             https://${serial number}:${serial number}@api-staging.storeroomlogix.com/api/webhook/events/rfid

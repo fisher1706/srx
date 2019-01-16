@@ -18,7 +18,7 @@ Sorting Transactions
     Sort Column With Last Page      8
     Sort Column With Last Page      9
     Sort Column With Last Page      10
-    Sleep                           3 second
+    Sleep                           7 second
     Open Full Table
     Sleep                           4 second
 
@@ -49,6 +49,9 @@ Filter Transactions Submitted By
 
 *** Keywords ***
 Preparation
-    Goto Transactions
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/transactions"]
+    Sleep                           5 second
     Click Element                   xpath:${checkbox type}
     Sleep                           3 second

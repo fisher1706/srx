@@ -117,7 +117,7 @@ Set Email In Customer
     Click Element                   css:.control-button
     Sleep                           5 second
     Click Link                      xpath://*[@href="/customers"]
-    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
+    Click Element                   xpath:${table xpath}/tbody/tr[${my customer}]/td[1]/a
     Goto Customers Notification Emails
     Clear Element Text              id:replenishmentListEmails_id
     Press Key                       id:replenishmentListEmails_id           \ue004
@@ -153,24 +153,22 @@ Checking From Customer
 
 *** Keywords ***
 Preparation
-    Goto Customer Menu
-    ${SUB HOST}                     Return CSub Link
-    Set Global Variable             ${SUB HOST}
-    ${SUB EMAIL}                    Return CSub Email
-    Set Global Variable             ${SUB EMAIL}
+    Start Distributor
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/customers"]
+    Sleep                           5 second
+    ${my customer}                  Get Row By Text     ${table xpath}      1   Static Customer
+    Set Suite Variable              ${my customer}
+    Click Element                   xpath:${table xpath}/tbody/tr[${my customer}]/td[1]/a
+    Sleep                           1 second
 
 Goto Customer Portal Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
-    Is Select A Shipto
+    Sleep                           3 second
+    Start Customer
+    Sleep                           2 second
     Click Element                   xpath:/html/body/div/div/div/div/div/div/button[1]
     Click Element                   css:.select-shipto-button
-    Is Customer Portal Sub
 
 First PO
     Set Global Variable             ${current po number}    ${first po number}

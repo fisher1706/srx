@@ -13,8 +13,7 @@ ${delete customer number}           777
 *** Test Cases ***
 Valid Create New Customer
     [Tags]                          ValidCreateNewCustomer
-    Click Element                   css:.btn-primary
-    Is Add Customer
+    Click Element                   xpath:${button primary}
     Input Text                      id:name_id                  ${delete customer name}
     Input Text                      id:number_id                ${delete customer number}
     Click Element                   xpath:(${select control})[1]
@@ -30,7 +29,7 @@ Valid Create New Customer
     Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue015
     Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue007
     ${selecting market}             Get Text                    xpath:(${select control})[3]/div[1]/div[1]/span
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Set Global Variable             ${selecting market}
 
 Checking New Customer
@@ -56,7 +55,7 @@ Create Shiptos 1
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Shipto
     Number Of Rows Shiptos
@@ -81,7 +80,7 @@ Valid Create New User 1
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of row s}]/label/input
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Users
     Number Of Rows Users
@@ -97,8 +96,8 @@ Checking New User 1
 Delete Shipto 1
     Goto Customer Shipto
     Click Element                   ${delete shipto button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]      ${dynamic name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]      ${dynamic full adress}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${dynamic name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${dynamic full adress}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 second
 
@@ -115,7 +114,7 @@ Create Shiptos 2
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Shipto
     Number Of Rows Shiptos
@@ -139,11 +138,11 @@ Valid Create New User 2
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of row s}]/label/input
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second
     Page Should Contain             The user ${delete customer user1} already present.
     Input Text                      id:email_id                 ${delete customer user2}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Users
     Number Of Rows Users
@@ -159,21 +158,13 @@ Checking New User 2
 Delete Customer
     [Tags]                          DeleteCustomer
     Click Link                      xpath://*[@href="/customers"]
+    Sleep                           3 second
     Click Element                   ${delete customer button}
-    Sleep                           1 second
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Customer Management
-    Click Element                   ${delete customer button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Is Customer Management
-    Click Element                   ${delete customer button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]          ${delete customer name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${delete customer number}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          Z_Warehouse(9999)
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]          ${selecting type}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]          ${selecting market}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${delete customer name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${delete customer number}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          Z_Warehouse(9999)
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${selecting type}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${selecting market}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
@@ -186,11 +177,14 @@ Checking On Transactions
 
 *** Keywords ***
 Preparation
-    Goto Customer Management
-    Number Of Rows
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/customers"]
+    ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
 
 Is Add Customer
     Element Text Should Be          css:.modal-title            Add customer

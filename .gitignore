@@ -3,4 +3,5 @@
 *.log
 *.png
 *.csv#
+resources/environment.robot
 resources/importRfid.csv

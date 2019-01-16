@@ -9,12 +9,7 @@ Resource                            ../../../resources/testData.robot
 *** Test Case ***
 Invalid Create New Product
     [Tags]                          Catalog
-    Click Element                   css:.btn-primary
-    Is Add Product
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Catalog
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button primary}
     Press Key                       id:partSku_id               \ue004
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:shortDescription_id      \ue004
@@ -23,14 +18,12 @@ Invalid Create New Product
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:weight_id                \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Catalog
 
 Valid Create New Product
     [Tags]                          Catalog
-    Click Element                   css:.btn-primary
-    Is Add Product
+    Click Element                   xpath:${button primary}
     Input Text                      id:partSku_id                   ${random string}
     Input Text                      id:shortDescription_id          ${user last name}
     Input Text                      id:weight_id                    10
@@ -49,9 +42,9 @@ Valid Create New Product
     Input Text                      id:alternative_id               ${test number}
     Input Text                      id:keyword_id                   ${keyword}
     Input Text                      id:image_id                     ${keyword}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}
 
 Checking New Product
     [Tags]                          Catalog
@@ -79,20 +72,11 @@ Checking New Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${keyword}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        10
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${keyword}
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           3 second
 
 Edit Product
     [Tags]                          Catalog
-    Click Element                   ${edit product button}
-    Is Edit Product
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Catalog
-    Click Element                   ${edit product button}
-    Click Element                   css:.modal-dialog-cancel-button
-    Sleep                           2 second
-    Is Catalog
     Click Element                   ${edit product button}
     Input Text                      id:partSku_id                       ${edit random string}
     Input Text                      id:shortDescription_id              ${edit last name}
@@ -112,9 +96,9 @@ Edit Product
     Input Text                      id:alternative_id                   ${edit test number}
     Input Text                      id:keyword_id                       ${edit keyword}
     Input Text                      id:image_id                         ${edit keyword}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}
 
 Checking Edit Product
     [Tags]                          Catalog
@@ -143,34 +127,32 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        20
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${edit keyword}
     Set Suite Variable              ${number of row}        ${number of new row}
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           3 second
 
 *** Keywords ***
 Preparation
-    Goto Security Groups
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  4       1
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
     Clear All Settings Permissions
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Is Security Groups
     Finish Suite
     Sleep                           3 second
-    Start Suite
-    ${permissions email}            Return Permissions Email
-    Input Text                      id:email        ${permissions email}
-    Enter Password
-    Correct Submit Login
-    Click Link                      xpath://*[@href="/catalog"]
-    Is Present                      css:li.page-item:nth-child(7) > a:nth-child(1)
-    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)      ELSE    Open Full List
+    Start Permission
     Sleep                           3 second
+    Click Link                      xpath://*[@href="/catalog"]
+    Is Present                      xpath:${last page}
+    Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}      ELSE    Open Full Table
+    Sleep                           4 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Run Keyword If                  ${number of new row}==11    Set Suite Variable      ${number of new row}    1
@@ -182,17 +164,4 @@ Preparation
     Set Suite Variable              ${edit random string}
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div/div/button
-
-Is Add Product
-    Element Text Should Be          css:.modal-title            Add product
-
-Is Edit Product
-    Element Text Should Be          css:.modal-title            Edit product
-
-Open Full List
-    Sleep                           1 second
-    Click Element                   id:pageDropDown
-    Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4)
-    Sleep                           1 second
+    Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button success}

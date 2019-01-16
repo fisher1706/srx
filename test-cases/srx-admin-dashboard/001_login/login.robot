@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup                         Start Suite
+Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
@@ -15,7 +15,7 @@ Invalid Login
     Enter Incorrect Email
     Click Element                   id:password
     Element Should Be Visible       css:.svg-inline--fa
-    Enter Password
+    Input Text                      id:password     ${password_adm}
     Incorrect Submit Login
     Enter Correct Wrong Email
     Correct Submit Login
@@ -23,11 +23,12 @@ Invalid Login
 
 Valid Login
     [Tags]                          ValidLogin
-    Enter Correct Email
-    Enter Password
+    Input Text                      id:email        ${email_adm}
+    Input Text                      id:password     ${password_adm}
     Correct Submit Login
     Spinner
-    Is Distributors Page
+    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[1]/div/div/h1   Distributor Management
+    Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)                     ${email_adm}
     Sign Out
     Is Login Page
 
@@ -40,7 +41,7 @@ Forget Password
     Enter Correct Wrong Email
     Submit Reset
     Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[5]/div[1]/p[1]/strong     Failed to reset the password!
-    Enter Correct Email
+    Input Text                      id:email        ${email_adm}
     Click Element                   ${forget or go back}
     Is Login Page
 
@@ -74,4 +75,6 @@ Incorrect Submit Login
 Submit Reset
     Click Element                   ${element forgot button}
 
+Preparation
+    Start Suite Adv                 https://${host_adm}/sign-in
 
