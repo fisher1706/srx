@@ -121,7 +121,17 @@ Filter Pricing Date
 
 *** Keywords ***
 Preparation
-    Goto Pricing
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/settings"]
+    Click Element                   id:settings-tab-erp-integration
+    Sleep                           1 second
+    Click Element                   id:erp-integration-tab-pricing-integration
+    Sleep                           3 second
+    Click Element                   xpath:(${pricing integrations}${radio button})[2]
+    Click Element                   xpath:${pricing integrations}${control button}
+    Click Link                      xpath://*[@href="/pricing"]
+    Sleep                           5 second
 
 If First Pricing
     First Pricing

@@ -219,6 +219,12 @@ Start Customer
     Input Text                      id:password             ${password_cust}
     Click Element                   xpath:${button success}
 
+Start Permission
+    Start Suite Adv                 https://${host_dist}/sign-in
+    Input Text                      id:email                ${email_perm}
+    Input Text                      id:password             ${password_perm}
+    Click Element                   xpath:${button success}
+
 Start Suite Adv
     [Arguments]                     ${portal}
     Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb Adv    ${portal}   ELSE IF     "${browser}"=="chrome"      Run Chrome Adv      ${portal}   ELSE    Run Ff Adv      ${portal}
@@ -620,3 +626,6 @@ Filter Select Box
     \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
     Click Element                   xpath:${button default}
     Sleep                           3 second
+
+Get RFID URL
+    Return From Keyword             https://${RFID_SN}:${RFID_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/rfid

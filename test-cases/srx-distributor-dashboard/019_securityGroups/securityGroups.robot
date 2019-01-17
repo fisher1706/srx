@@ -19,7 +19,7 @@ Valid Create New Security Group
     Click Element                   xpath:${button primary}
     Is Create Security Group
     Input Text                      id:name_id                  ${security group}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking New Security Group
     Sleep                           5 second
@@ -35,7 +35,7 @@ Create User With New Security Group
     Input Text                      id:lastName_id              ${user last name}
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Go Down Selector                ${select control}           ${security group}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           4 second
     ${number of row u}              Get Rows Count                  ${users pane users}${table xpath}
     Set Suite Variable              ${number of row u}
@@ -57,7 +57,7 @@ Try To Delete Security Group
     Sleep                           2 second
     Is Security Groups
     Click Element                   ${delete group button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td     ${security group}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td     ${security group}
     Click Element                   css:button.btn:nth-child(2)
     Element Should Be Visible       css:.external-page-alert > br:nth-child(3)
     Page Should Contain             Can't delete SecurityGroup with inner relationships.
@@ -69,11 +69,11 @@ Try To Delete Security Group
 Delete User
     [Tags]                          Test
     Click Element                   xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]          ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${user first name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          ${user last name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]          A_Warehouse
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]          ${security group}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${dynamic email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${user first name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${user last name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          A_Warehouse
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${security group}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
     Click Link                      xpath://*[@href="/security-groups"]
@@ -90,7 +90,7 @@ Edit Security Group
     Set Permission                  3           1
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
     Set Settings Permission         2           1
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     
 Checking Edit Security Group
     Sleep                           5 second
@@ -107,7 +107,7 @@ Checking Edit Security Group
 
 Delete Security Group
     Click Element                   ${delete group button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td     ${edit security group}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td     ${edit security group}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           7 second
 
@@ -135,7 +135,10 @@ Filter Security Groups
 
 *** Keywords ***
 Preparation
-    Goto Security Groups
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/security-groups"]
+    Sleep                           5 second
     ${number of row}                Get Rows Count              (${table xpath})[2]
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}

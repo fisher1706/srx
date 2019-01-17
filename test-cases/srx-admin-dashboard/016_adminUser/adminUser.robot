@@ -84,9 +84,9 @@ Checking Edit User On Distributor Portal
 Delete User From Distributor Portal
     [Tags]                          ContentSuperUser
     Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div/div[2]/button
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${admin first}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${admin last}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           4 second
 
@@ -115,9 +115,9 @@ Delete User From Admin Portal
     Sleep                           5 second
     ${number of row}                Get Rows Count          ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${admin first}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${admin last}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${admin first}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${admin last}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -181,9 +181,9 @@ Delete Admin
     [Tags]                          AddSuperUser
     ${number of row}                Get Rows Count          ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]            ${admin email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]            ${edit admin first}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]            ${edit admin last}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${edit admin first}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${edit admin last}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           2 second
 

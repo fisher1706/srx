@@ -13,10 +13,6 @@ ${number of row}
 *** Test Cases ***
 Invalid Create New User
     Click Element                   xpath:${users pane users}${button primary}
-    Is Add New User
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   xpath:${users pane users}${button primary}
     Press Key                       id:email_id                 \ue004
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:firstName_id             \ue004
@@ -27,23 +23,22 @@ Invalid Create New User
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)         \ue004
     Element Should Be Visible       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
 
 Valid Create New User
     [Tags]                          ValidCreateNewUser
     Click Element                   xpath:${users pane users}${button primary}
-    Is Add New User
     Input Text                      id:email_id                 ${incorrect email}
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Input Text                      id:email_id                 ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Element Should Be Enabled       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Go Down Selector                ${modal dialog}${select control}    User
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     
 
@@ -59,19 +54,12 @@ Checking New User
 Edit User
     [Tags]                          EditUser
     Click Element                   ${edit user button}
-    Is Edit User
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   ${edit user button}
-    Click Element                   css:.modal-dialog-cancel-button
-    Sleep                           2 second
-    Click Element                   ${edit user button}
     Input Text                      id:firstName_id             ${edit first name}
     Input Text                      id:lastName_id              ${edit last name}
     Go Down Selector                ${modal dialog}${select control}    Static Group
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     
 
@@ -86,23 +74,19 @@ Checking Edit User
 Delete User
     [Tags]                          DeleteUser
     Click Element                   ${delete user button}
-    Sleep                           1 second
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   ${delete user button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Click Element                   ${delete user button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]          ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${edit first name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          ${edit last name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]          Static Group
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${dynamic email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit first name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${edit last name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          Static Group
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
 *** Keywords ***
 Preparation
-    Goto Security Groups
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/security-groups"]
+    Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
     Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
@@ -110,16 +94,12 @@ Preparation
     Set Permission                  2       1
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
     Clear All Settings Permissions
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Is Security Groups
     Finish Suite
     Sleep                           3 second
-    Start Suite
-    ${permissions email}            Return Permissions Email
-    Input Text                      id:email        ${permissions email}
-    Enter Password
-    Correct Submit Login
+    Start Permission
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/users"]
     ${number of row}                Get Rows Count              ${table xpath}
     Set Global Variable             ${number of row}
@@ -127,9 +107,3 @@ Preparation
     Set Global Variable             ${number of new row}
     Set Global Variable             ${edit user button}         xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[1]/button
     Set Global Variable             ${delete user button}       xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
-
-Is Add New User
-    Element Text Should Be          css:.modal-title            Add user
-
-Is Edit User
-    Element Text Should Be          css:.modal-title            Edit user

@@ -10,12 +10,12 @@ Invalid Create New Shipto
     Goto Customer Shipto
     Sleep                           4 second
     Is Customer Shipto
-    Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
+    Click Element                   xpath:${shiptos pane}${button primary}
     Is Add Shipto
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Customer Shipto
-    Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
+    Click Element                   xpath:${shiptos pane}${button primary}
     Press Key                       css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.line1_id                                                                                     \ue004
@@ -26,7 +26,7 @@ Invalid Create New Shipto
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.zipCode_id                                                                                   \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
     Is Customer Shipto
 
@@ -34,7 +34,7 @@ Valid Create New Shipto
     Goto Customer Shipto
     Sleep                           4 second
     Is Customer Shipto
-    Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
+    Click Element                   xpath:${shiptos pane}${button primary}
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${dynamic name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
@@ -45,7 +45,7 @@ Valid Create New Shipto
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Shipto
 
@@ -58,11 +58,11 @@ Checking New Shipto
 Edit Shipto
     Click Element                   ${edit shipto button}
     Is Edit Shipto
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Customer Shipto
     Click Element                   ${edit shipto button}
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
     Is Customer Shipto
     Click Element                   ${edit shipto button}
@@ -75,7 +75,7 @@ Edit Shipto
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${edit code}
     Clear Element Text              id:poNumber_id
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Shipto
 
@@ -89,12 +89,12 @@ Invalid Create New User
     Goto Customer Users
     Sleep                           4 second
     Is Customer Users
-    Click Element                   css:#customer-details-pane-users > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
+    Click Element                   xpath:${users pane}${button primary}
     Is Add User
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Customer Users
-    Click Element                   css:#customer-details-pane-users > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
+    Click Element                   xpath:${users pane}${button primary}
     Press Key                       css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:firstName_id                                                                                     \ue004
@@ -103,7 +103,7 @@ Invalid Create New User
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
     Is Customer Users
 
@@ -111,7 +111,7 @@ Valid Create New User
     Goto Customer Users
     Sleep                           4 second
     Is Customer Users
-    Click Element                   css:#customer-details-pane-users > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
+    Click Element                   xpath:${users pane}${button primary}
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
@@ -119,7 +119,7 @@ Valid Create New User
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of new row s}]/label/input
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Users
 
@@ -134,11 +134,11 @@ Checking New User
 Edit User
     Click Element                   ${edit user button}
     Is Edit User
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Customer Users
     Click Element                   ${edit user button}
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
     Is Customer Users
     Click Element                   ${edit user button}
@@ -146,7 +146,7 @@ Edit User
     Input Text                      id:lastName_id              ${edit last name}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[1]/label/input
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[${number of new row s}]/label/input
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Customer Users
 
@@ -161,7 +161,7 @@ Checking Edit User
 Delete User
     Click Element                   ${delete user button}
     Sleep                           1 second
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Is Customer Users
     Click Element                   ${delete user button}
@@ -169,11 +169,11 @@ Delete User
     Sleep                           2 second
     Is Customer Users
     Click Element                   ${delete user button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]      ${dynamic email}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]      ${edit first name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]      ${edit last name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]      Customer User
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[6]      2048
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${dynamic email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]      ${edit first name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      ${edit last name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      Customer User
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      2048
     Click Element                   css:button.btn-danger:nth-child(2)
     Sleep                           10 second
 
@@ -182,8 +182,8 @@ Delete Shipto
     Sleep                           4 second
     Is Customer Shipto
     Click Element                   ${delete shipto button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]      ${edit name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]      ${edit full adress}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${edit name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${edit full adress}
     Click Element                   css:button.btn-danger:nth-child(2)
     Sleep                           5 second
 
@@ -196,7 +196,7 @@ Checking Customer Settings Replenishment Rules
     Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[2]/input
     Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[3]/input
     Click Element                   xpath:(${customer repl rule}${radio button})[3]/input
-    Click Element                   css:#customer-settings-pane-replenishment-rules > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${customer repl rule}${button primary}
     Sleep                           5 second
     Reload Page
     Click Element                   id:customer-details-tab-settings
@@ -210,7 +210,7 @@ Checking Customer Settings Replenishment Rules
     ${checked}                      Get Element Attribute       xpath:(${customer repl rule}${radio button})[2]/input     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   xpath:(${customer repl rule}${radio button})[2]/input
-    Click Element                   css:#customer-settings-pane-replenishment-rules > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${customer repl rule}${button primary}
     Sleep                           5 second
     Reload Page
     Click Element                   id:customer-details-tab-settings
@@ -230,7 +230,7 @@ Checking Customer Settings Order Close Logic
     Sleep                           1 second
     Click Element                   id:customer-settings-tab-order-close-logic
     Click Element                   css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   css:#customer-settings-pane-order-close-logic > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${customer order close logic}${button primary}
     Sleep                           5 second
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
@@ -243,7 +243,7 @@ Checking Customer Settings Order Close Logic
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   css:#customer-settings-pane-order-close-logic > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${customer order close logic}${button primary}
     Sleep                           5 second
     ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
@@ -256,7 +256,7 @@ Checking Customer Settings Order Close Logic
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     Click Element                   css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   css:#customer-settings-pane-order-close-logic > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${customer order close logic}${button primary}
     Sleep                           5 second
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
@@ -271,7 +271,13 @@ Checking Customer Settings Order Close Logic
 
 *** Keywords ***
 Preparation
-    Goto Customer Menu
+    Start Distributor
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/customers"]
+    Sleep                           5 second
+    ${my customer}                  Get Row By Text     ${table xpath}      1   Static Customer
+    Set Suite Variable              ${my customer}
+    Click Element                   xpath:${table xpath}/tbody/tr[${my customer}]/td[1]/a
     Sleep                           1 second
     Goto Customer Shipto
     Sleep                           4 second
@@ -282,7 +288,6 @@ Preparation
     Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]${button danger}
     Goto Customer Users
     Sleep                           4 second
-    Is Customer Users
     Number Of Rows Users
     ${number of new row u}=         Evaluate                        ${number of row u}+1
     Set Global Variable             ${number of new row u}

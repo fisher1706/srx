@@ -14,21 +14,16 @@ ${number of row}
 Invalid Create New Customer
     [Tags]                          InvalidCreateNewCustomer
     Click Element                   xpath:${button primary}
-    Is Add Customer
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   xpath:${button primary}
     Press Key                       id:name_id                                      \ue004
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
 
 Valid Create New Customer
     [Tags]                          ValidCreateNewCustomer
     Click Element                   xpath:${button primary}
-    Is Add Customer
     Input Text                      id:name_id                  ${user first name}
     Input Text                      id:number_id                ${warehouse number}
     Click Element                   xpath:(${select control})[1]
@@ -44,7 +39,7 @@ Valid Create New Customer
     Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue015
     Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue007
     ${selecting market}             Get Text                    xpath:(${select control})[3]/div[1]/div[1]/span
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Set Suite Variable              ${selecting market}
 
 Checking New Customer
@@ -57,13 +52,6 @@ Checking New Customer
 Edit Customer
     [Tags]                          EditCustomer
     Click Element                   ${edit customer button}
-    Is Edit Customer
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   ${edit customer button}
-    Click Element                   css:.modal-dialog-cancel-button
-    Sleep                           2 second
-    Click Element                   ${edit customer button}
     Input Text                      id:name_id                  ${edit first name}
     Clear Element Text              id:number_id
     Click Element                   xpath:(${select control})[1]
@@ -72,7 +60,7 @@ Edit Customer
     Click Element                   xpath:(${select control})[2]
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue013
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     
 Checking Edit Customer
     Sleep                           5 second
@@ -82,49 +70,35 @@ Checking Edit Customer
 
 Delete Customer
     Click Element                   ${delete customer button}
-    Sleep                           1 second
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   ${delete customer button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Click Element                   ${delete customer button}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[1]          ${edit first name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]          Not specified
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]          Not specified
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${edit first name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          Not specified
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          Not specified
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
 *** Keywords ***
 Preparation
-    Goto Security Groups
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/security-groups"]
+    Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  5       1
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
     Clear All Settings Permissions
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Is Security Groups
     Finish Suite
     Sleep                           3 second
-    Start Suite
-    ${permissions email}            Return Permissions Email
-    Input Text                      id:email        ${permissions email}
-    Enter Password
-    Correct Submit Login
+    Start Permission
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/customers"]
     ${number of row}                Get Rows Count              ${table xpath}
     Set Global Variable             ${number of row}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit customer button}     xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[1]/button
-    Set Global Variable             ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
-
-Is Add Customer
-    Element Text Should Be          css:.modal-title            Add customer
-
-Is Edit Customer
-    Element Text Should Be          css:.modal-title            Edit customer
+    Set Global Variable             ${edit customer button}     xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Global Variable             ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}

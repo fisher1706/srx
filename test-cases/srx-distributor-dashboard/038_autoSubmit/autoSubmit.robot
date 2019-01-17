@@ -23,7 +23,7 @@ Valid Create New Location
     Input Text                      id:attributeName3_id                                    ${level 3}
     Input Text                      id:attributeValue3_id                                   ${sub 3}
     Go Down Selector                (${modal dialog}${select control})[2]                   ON
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
 
 Checking New Location
@@ -114,18 +114,12 @@ Delete Locations
 
 *** Keywords ***
 Preparation
-    Goto Locations
+    Start Distributor
+    Sleep                           3 second
+    Click Link                      xpath://*[@href="/locations"]
+    Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${check location}           xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
-
-Get Request URL
-    ${api key}                      Get Api Key
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 https://${api key}:${api key}@api-dev.storeroomlogix.com/api/webhook/events/locker
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             https://${api key}:${api key}@api-staging.storeroomlogix.com/api/webhook/events/locker
-
-Get Kiosk Id
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"                 59
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"             31

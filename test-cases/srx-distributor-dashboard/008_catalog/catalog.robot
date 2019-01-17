@@ -13,12 +13,11 @@ ${number of row}
 *** Test Cases ***
 Invalid Create New Product
     [Tags]                          Catalog
-    Click Element                   css:.btn-primary
-    Is Add Product
-    Click Element                   css:.close
+    Click Element                   xpath:${button primary}
     Sleep                           2 second
-    Is Catalog
-    Click Element                   css:.btn-primary
+    Click Element                   xpath:${button close}
+    Sleep                           2 second
+    Click Element                   xpath:${button primary}
     Press Key                       id:partSku_id               \ue004
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:shortDescription_id      \ue004
@@ -27,14 +26,12 @@ Invalid Create New Product
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:weight_id                \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Catalog
 
 Valid Create New Product
     [Tags]                          Catalog
-    Click Element                   css:.btn-primary
-    Is Add Product
+    Click Element                   xpath:${button primary}
     Input Text                      id:partSku_id                   ${random string}
     Input Text                      id:shortDescription_id          ${user last name}
     Input Text                      id:weight_id                    10
@@ -53,9 +50,9 @@ Valid Create New Product
     Input Text                      id:alternative_id               ${test number}
     Input Text                      id:keyword_id                   ${keyword}
     Input Text                      id:image_id                     ${keyword}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Click Element                   xpath:${last page}
 
 Checking New Product
     [Tags]                          Catalog
@@ -83,20 +80,18 @@ Checking New Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${keyword}
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        10
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${keyword}
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           3 second
 
 Edit Product
     [Tags]                          Catalog
     Click Element                   ${edit product button}
-    Is Edit Product
-    Click Element                   css:.close
     Sleep                           2 second
-    Is Catalog
+    Click Element                   xpath:${button close}
+    Sleep                           2 second
     Click Element                   ${edit product button}
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Catalog
     Click Element                   ${edit product button}
     Input Text                      id:partSku_id                       ${edit random string}
     Input Text                      id:shortDescription_id              ${edit last name}
@@ -116,9 +111,9 @@ Edit Product
     Input Text                      id:alternative_id                   ${edit test number}
     Input Text                      id:keyword_id                       ${edit keyword}
     Input Text                      id:image_id                         ${edit keyword}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)
+    Click Element                   xpath:${last page}
 
 Checking Edit Product
     [Tags]                          Catalog
@@ -147,35 +142,27 @@ Checking Edit Product
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        20
     Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${edit keyword}
     Set Suite Variable              ${number of row}        ${number of new row}
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           3 second
 
 Sorting Catalog
     [Tags]                          Sorting                 ProductSorting      Catalog
-    Sorting Catalog Column          1
-    Sorting Catalog Column          3
-    Sorting Catalog Column          6
-    Sorting Catalog Column          17
+    Sort Column With Last Page      1
+    Sort Column With Last Page      3
+    Sort Column With Last Page      6
+    Sort Column With Last Page      17
 
 Catalog Filtration
     [Tags]                          Filter
-    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input               NYSFUCWSLUUUMJUUOZ
-    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/input               edit level 1
-    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[3]/div[2]/input               edit level 2
-    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[4]/div[2]/input               edit level 3
-    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[5]/div[2]/input               Edit City
-    Filter Catalog                  xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[6]/div[2]/input               edit string
+    Filter Field                    1   1   NYSFUCWSLUUUMJUUOZ
 
 *** Keywords ***
 Preparation
-    Start Suite
-    Enter Correct Email
-    Enter Password
-    Correct Submit Login
-    Click Element                   css:li.sidebar-item:nth-child(4) > a:nth-child(1)
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/catalog"]
     Sleep                           5 second
-    Is Present                      css:li.page-item:nth-child(7) > a:nth-child(1)
-    Run Keyword If                  "${check}"=="true"      Click Element   css:li.page-item:nth-child(7) > a:nth-child(1)      ELSE    Open Full List
+    Click Element                   xpath:${last page}
     Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
@@ -189,53 +176,3 @@ Preparation
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div/div/button
-
-Is Add Product
-    Element Text Should Be          css:.modal-title            Add product
-
-Is Edit Product
-    Element Text Should Be          css:.modal-title            Edit product
-
-Sorting Catalog Column
-    [Arguments]                     ${column}
-    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
-    ${text buffer1up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
-    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${text buffer1down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
-    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
-    ${text buffer2up}               Get Text                    xpath:${table xpath}/tbody/tr[1]/td[${column}]
-    Click Element                   css:li.page-item:nth-child(7) > a:nth-child(1)
-    ${text buffer2down}             Get Text                    xpath:${table xpath}/tbody/tr[${number of row}]/td[${column}]
-    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
-    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
-    Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
-
-Filter Catalog
-    [Arguments]                     ${inputField}            ${inputText}
-    Click Element                   css:.button-right-margin
-    Input Text                      ${inputField}            ${inputText}
-    ${result} =                     Fetch From Left          ${inputField}    2]/input
-    ${newString}=                   Strip String             ${result}1]/div
-    ${fieldName}                    Get Text                 ${newString}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           2 seconds
-    ${rowNum}                       Get Element Count        xpath:${header xpath}/thead/tr/th
-    ${rowNum}=                      Evaluate                 ${rowNum}+1
-     :FOR    ${var}                 IN RANGE             1   ${rowNum}
-    \        ${textInfo}            Get Text                 xpath:${header xpath}/thead/tr/th[${var}]
-    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing First Fields Catalog   ${var}        ${inputText}
-    Click Element                   css:button.button-right-margin:nth-child(2)
-    Sleep                           2 seconds
-
-Field Comparing First Fields Catalog
-    [Arguments]                     ${rowNum}       ${expectedValue}
-    ${rowValue}        Get Text     xpath:${table xpath}/tbody/tr/td[${rowNum}]
-    Should Be Equal As Strings      ${rowValue}     ${expectedValue}
-
-Open Full List
-    Sleep                           1 second
-    Click Element                   id:pageDropDown
-    Sleep                           1 second
-    Click Element                   css:li.dropdown-item:nth-child(4)
-    Sleep                           1 second

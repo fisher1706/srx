@@ -18,7 +18,7 @@ Sorting Transactions
     Sort Column With Last Page      7
     Sort Column With Last Page      8
     Sort Column With Last Page      9
-    Sleep                           3 second
+    Sleep                           7 second
     Open Full Table
     Sleep                           4 second
 
@@ -56,4 +56,7 @@ Filter RFID Date
 
 *** Keywords ***
 Preparation
-    Goto Transaction Log
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/transaction-log"]
+    Sleep                           5 second

@@ -26,8 +26,6 @@ Deactivate
 Login To Deactivate Distributor By User
 #    Sign Out
 #    Sleep                           2 second
-    ${SUB EMAIL}                    Return Permissions Email
-    Set Suite Variable              ${SUB EMAIL}
     Login On Distributor Portal Sub
 #    Enter Correct Email Sub
 #    Enter Password
@@ -50,25 +48,23 @@ Activate
     Sleep                           5 second
 
 Login To Active Distributor By Admin
-    ${SUB EMAIL}                    Return Sub Email
-    Set Suite Variable              ${SUB EMAIL}
     Login On Distributor Portal Sub
     ${items}                        Get Element Count       ${sidebar item}
     Run Keyword If                  ${items}<10     Fail    User is not active      Else    No Operation
 
 *** Keywords ***
 Preparation
-    Login In Admin Portal
+    Start Admin
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/distributors"]
     Sleep                           5 second
-    ${SUB HOST}                     Return Sub Link
-    Set Global Variable             ${SUB HOST}
     Open Full Table
 
 Finish Keyword
     Finish Suite
     Sleep                           3 second
-    Login In Admin Portal
+    Start Admin
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/distributors"]
     Sleep                           5 second
     Open Full Table
@@ -81,12 +77,7 @@ Finish Keyword
 
 Login On Distributor Portal Sub
     Finish Suite
-    Run Keyword If                  "${browser}"=="xvfb"            Run Xvfb Sub    ELSE IF     "${browser}"=="chrome"      Run Chrome Sub      ELSE    Run Ff Sub
-    Set Selenium Implicit Wait                                      20 second
-    Set Selenium Timeout                                            10 second
-    Enter Correct Email Sub
-    Enter Password
-    Correct Submit Login
+    Start Distributor
     Sleep                           5 second
 
 Deactivate

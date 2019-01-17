@@ -9,12 +9,7 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Invalid Create New Location
     [Tags]                          InvalidCreateNewLocation
-    Click Element                   css:button.btn-primary
-    Is Add Location
-    Click Element                   css:.close
-    Sleep                           2 second
-    Is Locations
-    Click Element                   css:button.btn-primary
+    Click Element                   xpath:${button primary}
     Press Key                       id:orderingConfig-product-partSku_id                                                                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Click Element                   xpath:${modal dialog}${select control}
@@ -29,13 +24,11 @@ Invalid Create New Location
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:attributeValue1_id                                                                                   \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Locations
 
 Valid Create New Location
-    Click Element                   css:button.btn-primary
-    Is Add Location
+    Click Element                   xpath:${button primary}
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
     Click Element                   xpath:${modal dialog}${select control}
     Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
@@ -50,7 +43,7 @@ Valid Create New Location
     Input Text                      id:attributeValue3_id                                                                                   ${sub 3}
     Input Text                      id:attributeName4_id                                                                                    ${level 4}
     Input Text                      id:attributeValue4_id                                                                                   ${sub 4}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Element Text Should Be          css:.external-page-alert > strong:nth-child(2)                                                          Operation failed!
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       30
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       20
@@ -62,13 +55,12 @@ Valid Create New Location
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       0
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       10
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic name}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
     Sleep                           2 second
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
-    Is Locations
 
 Checking New Location
     Sleep                           5 second
@@ -103,7 +95,6 @@ Edit Location
     Sleep                           5 second
     Reload Page
     Sleep                           3 second
-    Go Down Selector                ${select control}           Static Customer - 2048
 
 Checking Edit Location
     Sleep                           5 second
@@ -124,35 +115,27 @@ Checking Edit Location
 Delete Location
     [Tags]                          DeleteLocation
     Click Element                   ${check location}
-    Click Element                   css:.btn-danger
-    Sleep                           1 second
-    Click Element                   css:.close
-    Is Locations
-    Sleep                           2 second
-    Click Element                   ${check location}
-    Click Element                   css:.btn-danger
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Is Locations
-    Sleep                           2 second
-    Click Element                   ${check location}
-    Click Element                   css:.btn-danger
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[2]          ${edit level 1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]          ${edit sub 1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[4]          ${level 2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]          ${sub 2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[6]          ${level 3}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[7]          ${sub 3}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[8]          ${level 4}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[9]          ${sub 4}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[10]         ${edit sku}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[11]         1138
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[14]         10
+    Click Element                   xpath:${button danger}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${edit sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${level 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${sub 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${level 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${sub 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${edit sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         1138
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         10
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
 *** Keywords ***
 Preparation
-    Goto Security Groups
+    Start Distributor
+    Sleep                           2 second
+    Click Link                      xpath://*[@href="/security-groups"]
+    Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
     Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
     Click Element                   ${edit group button}
@@ -160,22 +143,14 @@ Preparation
     Set Permission                  7       1
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
     Clear All Settings Permissions
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Is Security Groups
     Finish Suite
     Sleep                           3 second
-    Start Suite
-    ${permissions email}            Return Permissions Email
-    Input Text                      id:email        ${permissions email}
-    Enter Password
-    Correct Submit Login
+    Start Permission
+    Sleep                           3 second
     Click Link                      xpath://*[@href="/locations"]
-    Goto Locations
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${check location}           xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
-
-Is Add Location
-    Element Text Should Be          css:.modal-title            Add location
