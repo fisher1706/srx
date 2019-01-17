@@ -62,8 +62,6 @@ Preparation
     Sleep                           3 second
     Click Link                      xpath://*[@href="/distributors"]
     Sleep                           5 second
-    ${SUB HOST}                     Return Sub Link
-    Set Global Variable             ${SUB HOST}
     Open Full Table
 
 Finish Keyword
