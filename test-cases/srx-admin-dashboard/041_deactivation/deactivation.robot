@@ -26,8 +26,6 @@ Deactivate
 Login To Deactivate Distributor By User
 #    Sign Out
 #    Sleep                           2 second
-    ${SUB EMAIL}                    Return Permissions Email
-    Set Suite Variable              ${SUB EMAIL}
     Login On Distributor Portal Sub
 #    Enter Correct Email Sub
 #    Enter Password
@@ -50,8 +48,6 @@ Activate
     Sleep                           5 second
 
 Login To Active Distributor By Admin
-    ${SUB EMAIL}                    Return Sub Email
-    Set Suite Variable              ${SUB EMAIL}
     Login On Distributor Portal Sub
     ${items}                        Get Element Count       ${sidebar item}
     Run Keyword If                  ${items}<10     Fail    User is not active      Else    No Operation
