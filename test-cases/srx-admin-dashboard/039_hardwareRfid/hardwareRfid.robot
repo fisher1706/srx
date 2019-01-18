@@ -71,6 +71,7 @@ Create RFID
     Click Element                   xpath:${modal dialog}${button primary}
     Sleep                           3 second
     Click Element                   xpath:${last page}
+    Sleep                           5 second
     ${my rfid}                      Get Row By Text  ${table xpath}     1       ${buffer}
     Element text Should Be          xpath:${table xpath}/tbody/tr[${my rfid}]/td[2]     ASSIGNED
     Finish Suite

@@ -18,7 +18,7 @@ Create RFID
 
 Checking RFID
     Click Element                   xpath:${last page}
-    Sleep                           3 second
+    Sleep                           7 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   ASSIGNED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
@@ -31,7 +31,7 @@ Unassign RFID
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
     Click Element                   xpath:${last page}
-    Sleep                           3 second
+    Sleep                           7 second
     ${number of new row}            Get Rows Count              ${table xpath}
     Should Be Equal As Integers     ${number of new row}        ${number of row}
 
@@ -99,7 +99,7 @@ Preparation
     Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
     Sleep                           5 second
     Click Element                   xpath:${last page}
-    Sleep                           5 second
+    Sleep                           7 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Run Keyword If                  ${number of new row}==11    Set Suite Variable    ${number of new row}    1     ELSE    Set Suite Variable      ${number of new row}
