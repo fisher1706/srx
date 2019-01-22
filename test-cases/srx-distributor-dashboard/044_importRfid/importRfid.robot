@@ -48,9 +48,12 @@ Import RFID
     Set Suite Variable              ${epc1}
     Set Suite Variable              ${epc2}
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID${\n}${epc1}${\n}${epc2}
-    Execute Javascript              document.getElementById("file-upload").style.display='block'
+    Sleep                           5 second
+    Click Element                   xpath:${import rfid button}
+    Sleep                           2 second
+    Execute Javascript              document.getElementById("1").style.display='block'
     Sleep                           1 second
-    Choose File                     id:file-upload                  ${CURDIR}/../../../resources/importRfid.csv
+    Choose File                     id:1                  ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}            Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
@@ -76,7 +79,7 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    RFID
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    30
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           3 second
