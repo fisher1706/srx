@@ -53,9 +53,18 @@ Change Serial Number On Distributor Portal
     Click Element                   xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]${button success}
     Input Text                      id:deviceName_id                    MyDeviceDeepLens
     Choose From Select Box          (${modal dialog}${select control})[1]   Static Customer - 2048
-    Choose From Select Box          (${modal dialog}${select control})[2]   First AZ Last AZ
-    Choose From Select Box          (${modal dialog}${select control})[3]   srx group
+    Sleep                           5 second
+    Click Element                   xpath:(${modal dialog}${select control})[2]
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue007
+    ${dist user}                    Get Text    xpath:(${modal dialog}${select control})[2]/div/div/span
+    Click Element                   xpath:(${modal dialog}${select control})[3]
+    Press Key                       xpath:(${modal dialog}${select control})[3]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${modal dialog}${select control})[3]/div[1]/div[2]        \ue007
+    ${cust user}                    Get Text    xpath:(${modal dialog}${select control})[3]/div/div/span
     Click Element                   xpath:${button modal dialog ok}
+    Set Suite Variable              ${dist user}
+    Set Suite Variable              ${cust user}
     Sleep                           5 second
 
 Checking Serial Number On Distributor Portal After Change
@@ -63,8 +72,12 @@ Checking Serial Number On Distributor Portal After Change
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[2]       DEEPLENS
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[3]       MyDeviceDeepLens
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[5]       Static Customer - 2048
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[7]       First AZ Last AZ\n(az_user@example.com)
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[9]       srx group\n(srx-group+dev-customer@agilevision.io)
+    ${buffer}                       Get Text    xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[7]
+    ${name}     ${email}            Split String    ${buffer}   \n
+    Should Be Equal As Strings      ${dist user}    ${name}
+    ${buffer}                       Get Text    xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[9]
+    ${name}     ${email}            Split String    ${buffer}   \n
+    Should Be Equal As Strings      ${cust user}    ${name}
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[10]      10/10/2022, 11:00 PM
     Finish Suite
     Sleep                           5 second
@@ -79,8 +92,12 @@ Delete Serial Number
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]       MyDeviceDeepLens
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]       Srx-group-test-distributor
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]       Static Customer - 2048
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]       First AZ Last AZ\n(az_user@example.com)
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]       srx group\n(srx-group+dev-customer@agilevision.io)
+    ${buffer}                       Get Text    xpath:${modal dialog}${simple table}/tbody/tr/td[7]
+    ${name}     ${email}            Split String    ${buffer}   \n
+    Should Be Equal As Strings      ${dist user}    ${name}
+    ${buffer}                       Get Text    xpath:${modal dialog}${simple table}/tbody/tr/td[8]
+    ${name}     ${email}            Split String    ${buffer}   \n
+    Should Be Equal As Strings      ${cust user}    ${name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]       10/10/2022, 11:00 PM
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second

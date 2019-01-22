@@ -4,6 +4,7 @@ Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
 Library                             String
 Library                             Collections
+Library                             OperatingSystem
 Library                             RequestsLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
@@ -43,14 +44,23 @@ Create RFID
     Sleep                           3 second
     Input Text                      xpath:(${select control})[2]/div/div/input       ${change sku 1}
     Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
-    Sleep                           1 second
-    Click Element                   xpath:${button primary}
-    ${buffer}=                      Generate Random String      18      [LETTERS]
+    Sleep                           2 second
+    ${buffer}                       Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
     Set Suite Variable              ${epc}
-    Input Text                      id:labelId_id               ${epc}
-    Click Element                   xpath:${modal dialog}${button primary}
+    Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU${\n}${epc},${change sku 1}
+    Sleep                           5 second
+    Click Element                   xpath:${import rfid button}
     Sleep                           2 second
+    Execute Javascript              document.getElementById("2").style.display='block'
+    Sleep                           1 second
+    Choose File                     id:2                  ${CURDIR}/../../../resources/importRfid.csv
+    Sleep                           5 second
+    Element Text Should Be          xpath:${modal title}            Validation status: valid
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           10 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]     ${epc}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]     AVAILABLE
 
 Request RFID
     [Tags]                          RFID
@@ -65,7 +75,7 @@ Checking RFID Status
     Sleep                           5 second
     Input Text                      xpath:(${select control})[2]/div/div/input      ${change sku 1}
     Press Key                       xpath:(${select control})[2]/div/div/input      \ue007
-    Sleep                           1 second
+    Sleep                           3 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]          ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]          ISSUED
     Element Should Be Disabled      xpath:${table xpath}/tbody/tr[1]${button danger}

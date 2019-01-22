@@ -598,7 +598,8 @@ Select Element
     Exit For Loop
 
 Open Full Table
-    Click Element                   id:pageDropDown
+    Sleep                           1 second
+    Execute Javascript              for(var i = 0 ; i<document.getElementsByClassName("dropdown-menu").length; i++){ if((document.getElementsByClassName("dropdown-menu"))[i].attributes["aria-labelledby"]){ (document.getElementsByClassName("dropdown-menu"))[i].setAttribute("class","dropdown-menu open show") }}
     Sleep                           1 second
     Click Element                   xpath:(${dropdown menu item})[4]
     Sleep                           1 second

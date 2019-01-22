@@ -8,7 +8,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Create RFID
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${add rfid button}
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
     Set Suite Variable              ${epc}
