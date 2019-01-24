@@ -81,7 +81,7 @@ Create RFID
     ${buffer}                       Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
     Set Suite Variable              ${epc}
-    Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU${\n}${epc},STATIC SKU
+    Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},STATIC SKU,
     Sleep                           5 second
     Click Element                   xpath:${import rfid button}
     Sleep                           2 second

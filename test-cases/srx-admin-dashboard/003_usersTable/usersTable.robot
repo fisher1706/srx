@@ -28,12 +28,12 @@ Invalid Add Admin User
     [Tags]                          InvalidAddAdminUser
     Click Element                   css:#distributor-details-tab-2
     Sleep                           2 second
-    Click Element                   css:.text-right > button:nth-child(1)
+    Click Element                   xpath:${distributors admin pane}${button primary}
     Input Text                      id:email_id             ${incorrect email}
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Click Element                   css:.close
     Sleep                           2 second
-    Click Element                   css:.text-right > button:nth-child(1)
+    Click Element                   xpath:${distributors admin pane}${button primary}
     Press Key                       id:email_id             \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
     Press Key                       id:firstName_id         \ue004
@@ -46,15 +46,15 @@ Invalid Add Admin User
 Valid Add Admin User
     [Tags]                          ValidAddAdminUser
     Click Element                   css:#distributor-details-tab-2
-    Click Element                   css:.text-right > button:nth-child(1)
+    Click Element                   xpath:${distributors admin pane}${button primary}
     Input Text                      id:email_id             dprovorov+srx@agilevision.io
     Input Text                      id:firstName_id         ${user first name}
     Input Text                      id:lastName_id          ${user last name}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Element Should Be Visible       css:.external-page-alert > button:nth-child(1)
     Sleep                           1 second
     Input Text                      id:email_id             ${user email}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking New User
     Sleep                           5 second
@@ -66,15 +66,9 @@ Edit User
     [Tags]                          EditUser
     Click Element                   css:#distributor-details-tab-2
     Click Element                   ${edit user button}
-    Click Element                   css:.close
-    Sleep                           2 second
-    Click Element                   ${edit user button}
-    Click Element                   css:.modal-dialog-ok-button
-    Sleep                           2 second
-    Click Element                   ${edit user button}
     Input Text                      id:firstName_id         ${edit first name}
     Input Text                      id:lastName_id          ${edit last name}
-    Click Element                   css:.modal-dialog-ok-button 
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit Data
     [Tags]                          EditUser

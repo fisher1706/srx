@@ -9,8 +9,8 @@ Resource                            ../../../resources/testData.robot
 Invalid Create New Shipto
     Goto Customer Shipto
     Sleep                           4 second
-    Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
-    Press Key                       css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    \ue004
+    Click Element                   xpath:${shiptos pane}${button primary}
+    Press Key                       id:name_id                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:address.line1_id                                                                                     \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -26,8 +26,8 @@ Invalid Create New Shipto
 Valid Create New Shipto
     Goto Customer Shipto
     Sleep                           4 second
-    Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
-    Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${dynamic name}
+    Click Element                   xpath:${shiptos pane}${button primary}
+    Input Text                      id:name_id                    ${dynamic name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:address.city_id      ${dynamic city}
@@ -48,7 +48,7 @@ Checking New Shipto
 
 Edit Shipto
     Click Element                   ${edit shipto button}
-    Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${edit name}
+    Input Text                      id:name_id                    ${edit name}
     Input Text                      id:address.line1_id     ${edit adress1}
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:address.city_id      ${edit city}
@@ -69,8 +69,8 @@ Invalid Create New User
     [Tags]                          User
     Goto Customer Users
     Sleep                           4 second
-    Click Element                   css:#customer-details-pane-users > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
-    Press Key                       css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                \ue004
+    Click Element                   xpath:${users pane}${button primary}
+    Press Key                       id:email_id                \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:firstName_id                                                                                     \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -84,8 +84,8 @@ Invalid Create New User
 Valid Create New User
     Goto Customer Users
     Sleep                           4 second
-    Click Element                   css:#customer-details-pane-users > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
-    Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                ${dynamic email}
+    Click Element                   xpath:${users pane}${button primary}
+    Input Text                      id:email_id                ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
     Click Element                   xpath:${select control}

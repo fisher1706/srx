@@ -10,24 +10,24 @@ Resource                            ../../../resources/testData.robot
 Integrations
     [Tags]                          Integrations
     Goto Integrations
-    Click Element                   css:#erp-integration-pane-api-keys > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${keys pane}${button primary}
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
-    Click Element                   css:#erp-integration-pane-api-keys > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${keys pane}${button primary}
     Input Text                      css:.rdt > input:nth-child(1)               10/18/2018, 12:00 A
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   css:.close
     Sleep                           2 second
-    Click Element                   css:#erp-integration-pane-api-keys > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${keys pane}${button primary}
     Clear Element Text              css:.rdt > input:nth-child(1)
     Input Text                      css:.rdt > input:nth-child(1)               7/18/2020, 12:00 A
     Input Text                      id:description_id                           ${keyword}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${keys pane}${table xpath}/tbody/tr[2]/td[3]/div          ${keyword}
-    Click Element                   xpath:${keys pane}${table xpath}/tbody/tr[2]/td[5]/div/div/button
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/table/tbody/tr/td[3]           ${keyword}
-    Click Element                   css:button.btn-danger:nth-child(2)
+    Element Text Should Be          xpath:${keys pane}${table xpath}/tbody/tr[2]/td[3]      ${keyword}
+    Click Element                   xpath:${keys pane}${table xpath}/tbody/tr[2]${button danger}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${keyword}
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
 Transaction Submission
@@ -203,7 +203,7 @@ Transaction Status Updates Logic
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Input Text                      id:reorderQuantity_id           40
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           4 second
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
@@ -253,7 +253,7 @@ Transaction Status Updates Logic
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Input Text                      id:reorderQuantity_id           40
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           4 second
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
