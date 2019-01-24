@@ -635,5 +635,8 @@ Get RFID URL
 Get Manifest URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/manifest
 
+Get Putaway URL
+    Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/putaway
+
 Get Shipto ID
     Return From Keyword If          "${environment}"=="dev"     59
