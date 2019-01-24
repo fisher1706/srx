@@ -155,7 +155,7 @@ Order Close Logic
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
 
 Transaction Status Updates Logic Tab
-    [Tags]                          TransactionStatusUpdatesLogicTab
+    [Tags]                          TransactionStatusTab
     Goto Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
@@ -179,7 +179,7 @@ Transaction Status Updates Logic Tab
     Run Keyword If                  "${checked2}"!="${rechecked2}"      Log To Console      Pass    ELSE    Fail    Fail
 
 Transaction Status Updates Logic
-    [Tags]                          TransactionStatusUpdatesLogic
+    [Tags]                          TransactionStatus
     ${request url}                  Get Request URL
     Create Session                  httpbin                          ${request url}          verify=true
     Goto Transaction Status Updates Logic

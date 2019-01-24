@@ -25,26 +25,30 @@ Sorting Transactions
 Filter Transactions Part Number
     [Tags]                          Filter
     Filter Field                    1   2   CHANGE SKU 2
+    Sleep                           3 sleep
 
 Filter Transactions Description
     [Tags]                          Filter
     Filter Field                    2   3   CHANGE SKU 2
+    Sleep                           3 sleep
 
 Filter Transactions Quantity
     [Tags]                          Filter
     Filter Field                    3   5   225
+    Sleep                           3 sleep
 
 Filter Transactions PO Number
     [Tags]                          Filter
     Filter Field                    4   6   0000
+    Sleep                           3 sleep
 
 Filter Transactions DSN
     [Tags]                          Filter
     Filter Field                    5   7   G030PM036107NGQ5
+    Sleep                           3 sleep
 
 Filter Transactions Submitted By
     [Tags]                          Filter      FilterSubmittedBy
-    Sleep                           4 second
     Filter Select Box               1   10  CUSTOMER
 
 *** Keywords ***
