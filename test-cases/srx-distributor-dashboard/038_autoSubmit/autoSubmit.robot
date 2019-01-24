@@ -35,7 +35,6 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 3}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 3}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${auto submit sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      1138
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      LOCKER
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
@@ -105,7 +104,6 @@ Delete Locations
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      ${level 3}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]      ${sub 3}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]     ${auto submit sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]     1138
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]     LOCKER
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]     30
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]     60
