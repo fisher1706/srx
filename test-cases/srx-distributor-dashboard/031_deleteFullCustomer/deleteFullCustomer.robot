@@ -44,8 +44,8 @@ Create Shiptos 1
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a
     Sleep                           2 second
     Goto Customer Shipto
-    Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
-    Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${dynamic name}
+    Click Element                   xpath:${shiptos pane}${button primary}
+    Input Text                      id:name_id              ${dynamic name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:address.city_id      ${dynamic city}
@@ -72,8 +72,8 @@ Valid Create New User 1
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${buffer2}                      Convert To Lowercase        ${buffer}
     Set Global Variable             ${delete customer user1}    ${buffer2}@example.com
-    Click Element                   css:#customer-details-pane-users > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
-    Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                ${delete customer user1}
+    Click Element                   xpath:${users pane}${button primary}
+    Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
     Click Element                   xpath:${select control}
@@ -103,8 +103,8 @@ Delete Shipto 1
 
 Create Shiptos 2
     Goto Customer Shipto
-    Click Element                   css:#customer-details-pane-shiptos > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
-    Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${dynamic name}
+    Click Element                   xpath:${shiptos pane}${button primary}
+    Input Text                      id:name_id                    ${dynamic name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:address.city_id      ${dynamic city}
@@ -130,7 +130,7 @@ Valid Create New User 2
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${buffer2}                      Convert To Lowercase        ${buffer}
     Set Global Variable             ${delete customer user2}    ${buffer2}@example.com
-    Click Element                   css:#customer-details-pane-users > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)
+    Click Element                   xpath:${users pane}${button primary}
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}

@@ -631,3 +631,9 @@ Filter Select Box
 
 Get RFID URL
     Return From Keyword             https://${RFID_SN}:${RFID_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/rfid
+
+Get Manifest URL
+    Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/manifest
+
+Get Shipto ID
+    Return From Keyword If          "${environment}"=="dev"     59

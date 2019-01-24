@@ -33,7 +33,6 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      1138
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
@@ -48,7 +47,7 @@ Create RFID
     ${buffer}                       Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
     Set Suite Variable              ${epc}
-    Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU${\n}${epc},${change sku 1}
+    Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},${change sku 1},
     Sleep                           5 second
     Click Element                   xpath:${import rfid button}
     Sleep                           2 second
@@ -120,7 +119,6 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${change sku 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      1138
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
@@ -132,7 +130,7 @@ Check Transactions After Change SKU
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         SHIPPED
 
 Check Transaction Log After Change SKU
     Click Link                      xpath://*[@href="/transaction-log"]
