@@ -9,22 +9,26 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Invalid Create New Warehouse
     Click Element                   xpath:${button primary}
-    Press Key                       id:name_id              \ue004
-    Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Sleep                           1 second
+    Click Element                   xpath:${button close}
+    Sleep                           2 second
+    Click Element                   xpath:${button primary}
     Press Key                       id:address.line1_id     \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[1]/*
+    Press Key                       id:name_id              \ue004
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[2]/*
     Press Key                       id:number_id            \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[4]/*
     Press Key                       id:address.city_id      \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       xpath:${select control}/div[1]/div[2]                \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:contactEmail_id      \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[5]/*
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]   \ue004
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[7]/*
     Press Key                       id:address.zipCode_id   \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(8) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[8]/*
+    Press Key                       id:contactEmail_id      \ue004
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[9]/*
     Press Key                       id:invoiceEmail_id      \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(9) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[10]/*
     Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
 
@@ -36,15 +40,15 @@ Valid Create New Warehouse
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:number_id            ${warehouse number}
     Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]        \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]        \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]        \ue007
+    Click Element                   xpath:(${modal dialog}${select control})[2]
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:contactEmail_id      ${incorrect email}
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:invoiceEmail_id      ${incorrect email}
-    Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Element Should Be Visible       css:div.item-form-field:nth-child(9) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[10]/*
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[9]/*
     Input Text                      id:contactEmail_id      ${correct wrong email}
     Input Text                      id:invoiceEmail_id      ${correct wrong email}
     Click Element                   xpath:${button modal dialog ok}
@@ -52,23 +56,32 @@ Valid Create New Warehouse
 Checking New Warehouse
     [Tags]                          ValidCreateNewWarehouse
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a     ${user first name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div   ${warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div   ${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div   ${correct wrong email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div   ${correct wrong email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${user first name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${warehouse number}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   America/New_York (-05:00)
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${dynamic full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ${correct wrong email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ${correct wrong email}
 
 Edit Warehouse
     [Tags]                          EditWarehouse
+    Click Element                   ${edit warehouse button}
+    Sleep                           1 second
+    Click Element                   xpath:${button close}
+    Sleep                           2 second
+    Click Element                   ${edit warehouse button}
+    Click Element                   xpath:${button modal dialog cancel}
+    Sleep                           2 second
     Click Element                   ${edit warehouse button}
     Input Text                      id:name_id              ${user last name}
     Input Text                      id:address.line1_id     ${edit adress1}
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:number_id            ${edit warehouse number}
     Input Text                      id:address.city_id      ${edit city}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]        \ue013
-    Press Key                       xpath:${select control}/div[1]/div[2]        \ue007
+    Choose From Select Box          (${modal dialog}${select control})[1]                           Etc/UTC (+00:00)
+    Click Element                   xpath:(${modal dialog}${select control})[2]
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue013
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue007
     Input Text                      id:address.zipCode_id   ${edit code}
     Input Text                      id:contactEmail_id      ${edit email}
     Input Text                      id:invoiceEmail_id      ${edit email}
@@ -77,21 +90,23 @@ Edit Warehouse
 Checking Edit Warehouse
     [Tags]                          EditWarehouse
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a        ${user last name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div      ${edit full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div      ${edit email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div      ${edit email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${user last name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${edit warehouse number}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   Etc/UTC (+00:00)
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${edit full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ${edit email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ${edit email}
 
 Delete Warehouse
     [Tags]                          DeleteWarehouse
     Click Element                   ${delete warehouse button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${user last name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]      ${edit warehouse number}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      ${edit full adress}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      ${edit email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      Etc/UTC (+00:00)
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      ${edit full adress}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      ${edit email}
-    Click Element                   css:button.btn:nth-child(2)
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]      ${edit email}
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           10 second
 
 *** Keywords ***
@@ -101,7 +116,7 @@ Preparation
     Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  16       1
@@ -121,5 +136,5 @@ Preparation
     Set Global Variable             ${number of row}
     ${number of new row}=           Evaluate                        ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div/div[1]/button
-    Set Global Variable             ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div/div[2]/button
+    Set Global Variable             ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Global Variable             ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}

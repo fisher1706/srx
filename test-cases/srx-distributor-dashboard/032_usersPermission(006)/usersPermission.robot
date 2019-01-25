@@ -88,7 +88,7 @@ Preparation
     Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  2       1
@@ -105,5 +105,5 @@ Preparation
     Set Global Variable             ${number of row}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit user button}         xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[1]/button
-    Set Global Variable             ${delete user button}       xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div/div[2]/button
+    Set Global Variable             ${edit user button}         xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Global Variable             ${delete user button}       xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}

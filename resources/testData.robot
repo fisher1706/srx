@@ -122,6 +122,7 @@ ${transaction submission pane}  //div[contains(@id, 'erp-integration-pane-rl-sub
 ${order close logic}            //div[contains(@id, 'enterprise-workflow-pane-order-close')]
 ${pricing integrations}         //div[contains(@id, 'erp-integration-pane-pricing-integration')]
 ${radio button}                 //label[contains(@class, 'select-options')]
+${radio button type}            //input[contains(@type, 'radio')]
 ${customer repl rule}           //div[contains(@id, 'customer-settings-pane-replenishment-rules')]
 ${customer order close logic}   //div[contains(@id, 'customer-settings-pane-order-close-logic')]
 ${customer contact info}        //div[contains(@id, 'customer-settings-pane-contact-info')]
@@ -155,3 +156,4 @@ ${sidebar item}                 //li[contains(@class, 'sidebar-item')]
 ${last page}                    //li[contains(@title, 'last page')]/a
 ${add rfid button}              //button[contains(text(), "Add RFID")]
 ${import rfid button}           //button[contains(text(), "Import")]
+${help block}                   //span[contains(@class, 'help-block')]
