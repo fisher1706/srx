@@ -134,7 +134,7 @@ Preparation
     Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]/td[2]/div/div[1]/button
+    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  8       1

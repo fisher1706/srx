@@ -29,7 +29,6 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${location name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location value}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${import rfid sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      1138
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60

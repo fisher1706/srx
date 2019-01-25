@@ -192,6 +192,7 @@ Checking Customer Settings Replenishment Rules
     Click Element                   id:customer-details-tab-settings
     Sleep                           1 second
     Click Element                   id:customer-settings-tab-replenishment-rules
+    Sleep                           3 second
     Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[1]/input
     Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[2]/input
     Element Should Be Enabled       xpath:(${customer repl rule}${radio button})[3]/input
@@ -225,48 +226,49 @@ Checking Customer Settings Replenishment Rules
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
 
 Checking Customer Settings Order Close Logic
-    [Tags]                          CustomerSettings
+    [Tags]                          CustomerSettings    OrderCloseLogic
     Click Element                   id:customer-details-tab-settings
     Sleep                           1 second
     Click Element                   id:customer-settings-tab-order-close-logic
-    Click Element                   css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)
+    Sleep                           3 second
+    Click Element                   xpath:(${customer order close logic}${radio button type})[1]
     Click Element                   xpath:${customer order close logic}${button primary}
     Sleep                           5 second
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[3]     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[2]     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[1]     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)
+    Click Element                   (${customer order close logic}${radio button type})[2]
     Click Element                   xpath:${customer order close logic}${button primary}
     Sleep                           5 second
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[3]     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[2]     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[1]     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
-    Click Element                   css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)
+    Click Element                   (${customer order close logic}${radio button type})[3]
     Click Element                   xpath:${customer order close logic}${button primary}
     Sleep                           5 second
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[1]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="true"           Log To Console      Pass    ELSE    Fail    Fail
     ${aria}                         Get Element Attribute       xpath:(${customer order close logic}${select control})[2]/div/div[2]     aria-disabled
     Run Keyword If                  "${aria}"=="false"          Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(4) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[3]     checked
     Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[2]     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
-    ${checked}                      Get Element Attribute       css:div.radio:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
+    ${checked}                      Get Element Attribute       (${customer order close logic}${radio button type})[1]     checked
     Run Keyword If                  "${checked}"=="None"        Log To Console      Pass    ELSE    Fail    Fail
 
 *** Keywords ***

@@ -23,7 +23,7 @@ Checking New Serial Number
     Set Suite Variable              ${serial number}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]       RFID
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       Static Test
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]       12/12/2021, 12:00 AM
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]      12/12/2021, 12:00 AM
 
 Edit Serial Number
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
