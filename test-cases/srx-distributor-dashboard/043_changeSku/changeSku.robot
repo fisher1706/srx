@@ -140,6 +140,14 @@ Check Transaction Log After Change SKU
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[6]         SHIPPED
 
+Deliver Transaction
+    Click Link                      xpath://*[@href="/transactions"]
+    Sleep                           1 second
+    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
+    Choose From Select Box          ${modal dialog}${select control}       DELIVERED
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           5 second
+
 Delete Location
     Click Link                      xpath://*[@href="/locations"]
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input

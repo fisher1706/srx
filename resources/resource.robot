@@ -640,3 +640,27 @@ Get Putaway URL
 
 Get Shipto ID
     Return From Keyword If          "${environment}"=="dev"     59
+    #Return From Keyword If          "${environment}"=="prod"     59
+
+Check Last AL
+    [Arguments]                     ${column}
+    ${content}                      Get Text    xpath:(${react table raw}${react table column})[${column}]
+    Return From Keyword             ${content}
+
+Last AL Element Should Be
+    [Arguments]                     ${column}       ${text}
+    ${content}                      Check Last AL   ${column}
+    Should Be Equal As Strings      ${content}      ${text}
+
+Expand Last AL
+    Click Element                   xpath:(${react table raw}${react table column})[1]
+
+Check Last Expanded AL
+    [Arguments]                     ${column}
+    ${content}                      Get Text    xpath:(${expanded react table}${react table column})[${column}]
+    Return From Keyword             ${content}
+
+Expanded AL Element Should Be
+    [Arguments]                     ${column}                   ${text}
+    ${content}                      Check Last Expanded AL      ${column}
+    Should Be Equal As Strings      ${content}                  ${text}

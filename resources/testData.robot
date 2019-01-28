@@ -157,3 +157,7 @@ ${last page}                    //li[contains(@title, 'last page')]/a
 ${add rfid button}              //button[contains(text(), "Add RFID")]
 ${import rfid button}           //button[contains(text(), "Import")]
 ${help block}                   //span[contains(@class, 'help-block')]
+${react table}                  //div[contains(@class, 'rt-table')]
+${react table raw}              //div[contains(@class, 'rt-tr-group')]
+${react table column}           //div[contains(@class, 'rt-td')]
+${expanded react table}         //div[contains(@class, 'Table__expandedContainer')]
