@@ -27,6 +27,20 @@ Checking Assigned RFID
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   ASSIGNED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
 
+Checking Assigned RFID In Activity Log
+    Click Link                      xpath://*[@href="/activity-log"]
+    Sleep                           4 second
+    Last AL Element Should Be       2   RFID
+    Last AL Element Should Be       3   RFID_TAG_ASSIGN
+    Last AL Element Should Be       5   USER
+    Last AL Element Should Be       6   ${email_dist}
+    Last AL Element Should Be       8   SUCCESS
+    Expand Last AL
+    Sleep                           1 second
+    Expanded AL Element Should Be   2   ${epc}
+    Expanded AL Element Should Be   6   ASSIGNED
+    Expanded AL Element Should Be   9   STATIC SKU
+
 Get Manifest
     ${manifest url}                 Get Manifest URL
     Set Suite Variable              ${manifest url}
@@ -52,13 +66,27 @@ Submit Manifest
     Sleep                           5 second
 
 Checking Manifest RFID
-    Reload Page
+    Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
     Click Element                   xpath:${last page}
     Sleep                           7 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   MANIFEST
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+
+Checking Manifest RFID In Activity Log
+    Click Link                      xpath://*[@href="/activity-log"]
+    Sleep                           4 second
+    Last AL Element Should Be       2   RFID
+    Last AL Element Should Be       3   RFID_TAG_MANIFEST
+    Last AL Element Should Be       5   USER
+    Last AL Element Should Be       6   ${email_dist}
+    Last AL Element Should Be       8   SUCCESS
+    Expand Last AL
+    Sleep                           1 second
+    Expanded AL Element Should Be   2   ${epc}
+    Expanded AL Element Should Be   6   MANIFEST
+    Expanded AL Element Should Be   9   STATIC SKU
 
 Webhook To Checkin
     ${request url rfid}             Get RFID URL
@@ -68,13 +96,27 @@ Webhook To Checkin
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking Checkin RFID
-    Reload Page
+    Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
     Click Element                   xpath:${last page}
     Sleep                           7 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   CHECK_IN
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+
+Checking Checkin RFID In Activity Log
+    Click Link                      xpath://*[@href="/activity-log"]
+    Sleep                           4 second
+    Last AL Element Should Be       2   RFID
+    Last AL Element Should Be       3   RFID_TAG_READ
+    Last AL Element Should Be       5   HARDWARE
+    Last AL Element Should Be       6   ${RFID_SN}
+    Last AL Element Should Be       8   SUCCESS
+    Expand Last AL
+    Sleep                           1 second
+    Expanded AL Element Should Be   2   ${epc}
+    Expanded AL Element Should Be   7   CHECK_IN
+    Expanded AL Element Should Be   10  STATIC SKU
 
 Get RFID ID
     ${putaway url}                  Get Putaway URL
@@ -92,13 +134,27 @@ Put Away
     ${resp}=                        Post Request            httpbin     /       headers=${headers}
 
 Checking Available RFID
-    Reload Page
+    Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
     Click Element                   xpath:${last page}
     Sleep                           7 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   AVAILABLE
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+
+Checking Available RFID In Activity Log
+    Click Link                      xpath://*[@href="/activity-log"]
+    Sleep                           4 second
+    Last AL Element Should Be       2   RFID
+    Last AL Element Should Be       3   RFID_TAG_PUTAWAY
+    Last AL Element Should Be       5   USER
+    Last AL Element Should Be       6   ${email_dist}
+    Last AL Element Should Be       8   SUCCESS
+    Expand Last AL
+    Sleep                           1 second
+    Expanded AL Element Should Be   2   ${epc}
+    Expanded AL Element Should Be   6   AVAILABLE
+    Expanded AL Element Should Be   9   STATIC SKU
 
 Webhook To Issued
     ${request url rfid}             Get RFID URL
@@ -108,13 +164,27 @@ Webhook To Issued
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking Issued RFID
-    Reload Page
+    Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
     Click Element                   xpath:${last page}
     Sleep                           7 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   ISSUED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+
+Checking Issued RFID In Activity Log
+    Click Link                      xpath://*[@href="/activity-log"]
+    Sleep                           4 second
+    Last AL Element Should Be       2   RFID
+    Last AL Element Should Be       3   RFID_TAG_READ
+    Last AL Element Should Be       5   HARDWARE
+    Last AL Element Should Be       6   ${RFID_SN}
+    Last AL Element Should Be       8   SUCCESS
+    Expand Last AL
+    Sleep                           1 second
+    Expanded AL Element Should Be   2   ${epc}
+    Expanded AL Element Should Be   7   ISSUED
+    Expanded AL Element Should Be   11  STATIC SKU
 
 *** Keywords ***
 Preparation
