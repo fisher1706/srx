@@ -19,6 +19,8 @@ Create RFID
 Checking RFID
     Click Element                   xpath:${last page}
     Sleep                           7 second
+    ${number of new row}            Get Rows Count              ${table xpath}
+    Set Suite Variable              ${number of new row}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   ASSIGNED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
@@ -32,7 +34,9 @@ Unassign RFID
     Sleep                           5 second
     Click Element                   xpath:${last page}
     Sleep                           7 second
-    ${number of new row}            Get Rows Count              ${table xpath}
+    ${number of row}                Get Rows Count              ${table xpath}
+    ${number of new row}            Evaluate                    ${number of new row}-1
+    Run Keyword If                  ${number of new row}==0     Set Suite Variable    ${number of new row}    10     ELSE    Set Suite Variable     ${number of new row}
     Should Be Equal As Integers     ${number of new row}        ${number of row}
 
 Sort RFID
@@ -43,8 +47,6 @@ Sort RFID
     Sort Column With Last Page      4
     Sort Column With Last Page      5
     Sleep                           3 second
-    Open Full Table
-    Sleep                           4 second
 
 Filter RFID User
     [Tags]                          Filter
@@ -98,9 +100,3 @@ Preparation
     Input Text                      xpath:(${select control})[2]/div/div/input       STATIC SKU
     Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
     Sleep                           5 second
-    Click Element                   xpath:${last page}
-    Sleep                           7 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${number of new row}=           Evaluate                    ${number of row}+1
-    Run Keyword If                  ${number of new row}==11    Set Suite Variable    ${number of new row}    1     ELSE    Set Suite Variable      ${number of new row}
-    Set Suite Variable              ${number of row}
