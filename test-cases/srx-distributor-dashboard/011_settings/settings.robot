@@ -73,7 +73,7 @@ Pricing Information
     Element Should Be Enabled       css:label.select-options:nth-child(2) > input:nth-child(1)
     Element Should Be Disabled      css:label.select-options:nth-child(3) > input:nth-child(1)
     Element Should Be Disabled      css:label.select-options:nth-child(4) > input:nth-child(1)
-    Click Element                   css:#erp-integration-pane-pricing-integration > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)
+    Click Element                   xpath:${pricing integrations}${button primary}
     Sleep                           5 second
     Element Should Be Enabled       css:label.select-options:nth-child(1) > input:nth-child(1)
     Click Element                   css:label.select-options:nth-child(1) > input:nth-child(1)

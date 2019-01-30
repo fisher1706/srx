@@ -73,11 +73,11 @@ Approved In Taxes
     Element Text Should Be          xpath:${taxes pane}${table xpath}/tbody/tr/td[2]/div     Yes
 
 Approved
-    Click Element                   xpath:${table xpath}/tbody/tr[${colomn}]/td[6]/div/div[2]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${colomn}]${button danger}
     Set Global Variable             ${restatus}                 REJECTED
 
 Rejected
-    Click Element                   xpath:${table xpath}/tbody/tr[${colomn}]/td[6]/div/div[1]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${colomn}]${button success}
     Set Global Variable             ${restatus}                 APPROVED
 
 Goto Documents Sub

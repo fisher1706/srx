@@ -29,7 +29,7 @@ Delete Customer Type Not Delete
     Preparation
     Click Element                   ${delete button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]         ${test del type}
-    Click Element                   css:button.btn:nth-child(2)
+    Click Element                   xpath:${button danger}
     Element Text Should Be          css:.external-page-alert > strong:nth-child(2)              Operation failed!
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           5 second
@@ -50,7 +50,7 @@ Delete Customer Type Delete
     Preparation
     Click Element                   ${delete button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${test del type}
-    Click Element                   css:button.btn:nth-child(2)
+    Click Element                   xpath:${button danger}
     Sleep                           5 second
     ${current size}                 Get Element Count                   xpath:${table xpath}/tbody/tr
     Run Keyword If                  ${current size}==${right size}      Pass Execution      Pass    ELSE        Fail    Fail
