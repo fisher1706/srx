@@ -44,7 +44,7 @@ Preparation
     Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
     ${order number}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/div
     Set Suite Variable              ${order number}
-    Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
+    Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]${button success}
     Choose From Select Box          ${modal dialog}${select control}    DELIVERED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
