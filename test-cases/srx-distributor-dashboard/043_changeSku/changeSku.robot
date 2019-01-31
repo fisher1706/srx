@@ -90,18 +90,6 @@ Check Transactions
     Choose From Select Box          ${modal dialog}${select control}       SHIPPED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Reload Page
-    Sleep                           3 second
-
-Check Transaction Log
-    Click Link                      xpath://*[@href="/transaction-log"]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[6]         SHIPPED
-    Reload Page
-    Sleep                           3 second
 
 Change Location SKU
     Click Link                      xpath://*[@href="/locations"]
@@ -132,17 +120,7 @@ Check Transactions After Change SKU
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         SHIPPED
 
-Check Transaction Log After Change SKU
-    Click Link                      xpath://*[@href="/transaction-log"]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[6]         SHIPPED
-
 Deliver Transaction
-    Click Link                      xpath://*[@href="/transactions"]
-    Sleep                           1 second
     Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
     Choose From Select Box          ${modal dialog}${select control}       DELIVERED
     Click Element                   xpath:${button modal dialog ok}
