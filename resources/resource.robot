@@ -61,11 +61,6 @@ Goto Transactions
     Click Link                      xpath://*[@href="/transactions"]
     Sleep                           5 second
 
-Goto Transaction Log
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/transaction-log"]
-    Sleep                           5 second
-
 Goto Locations
     Login In Distributor Portal
     Click Link                      xpath://*[@href="/locations"]
