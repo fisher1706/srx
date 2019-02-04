@@ -12,13 +12,21 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Valid Create New Serial Number
     Click Element                   xpath:${button primary}
+    Log To Console                  Sleep 1
+    Sleep                           15 second
     Choose From Select Box          (${modal dialog}${select control})[1]       RFID Reader
+    Log To Console                  Sleep 2
+    Sleep                           15 second
     Choose From Select Box          (${modal dialog}${select control})[2]       Static Test
+    Log To Console                  Sleep 3
+    Sleep                           15 second
     Input Text                      xpath:${modal dialog}${form control}        12/12/2021, 12:00 A
-    Click Element                   xpath:${button modal dialog ok}
+    Log To Console                  Sleep 4
+    Sleep                           15 second
+    Click Element                   xpath:${modal dialog}${button modal dialog ok}
 
 Checking New Serial Number
-    Sleep                           5 second
+    Sleep                           15 second
     ${serial number}                Get Text        xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]
     Set Suite Variable              ${serial number}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]       RFID
@@ -164,7 +172,7 @@ Filter Serial Numbers
 *** Keywords ***
 Preparation
     Start Admin
-    Sleep                           3 second
+    Sleep                           5 second
     Click Link                      xpath://*[@href="/hardware"]
     Sleep                           7 second
     Open Full Table

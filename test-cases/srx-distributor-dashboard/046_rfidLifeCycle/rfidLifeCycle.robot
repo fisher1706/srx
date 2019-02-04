@@ -21,11 +21,10 @@ Create RFID
     Sleep                           5 second
 
 Checking Assigned RFID
-    Click Element                   xpath:${last page}
-    Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   ASSIGNED
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+    Sleep                           2 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Assigned RFID In Activity Log
     Click Link                      xpath://*[@href="/activity-log"]
@@ -68,11 +67,11 @@ Submit Manifest
 Checking Manifest RFID
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
-    Click Element                   xpath:${last page}
-    Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   MANIFEST
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      MANIFEST
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Manifest RFID In Activity Log
     Click Link                      xpath://*[@href="/activity-log"]
@@ -98,11 +97,11 @@ Webhook To Checkin
 Checking Checkin RFID
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
-    Click Element                   xpath:${last page}
-    Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   CHECK_IN
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      CHECK_IN
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Checkin RFID In Activity Log
     Click Link                      xpath://*[@href="/activity-log"]
@@ -136,11 +135,11 @@ Put Away
 Checking Available RFID
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
-    Click Element                   xpath:${last page}
-    Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   AVAILABLE
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Available RFID In Activity Log
     Click Link                      xpath://*[@href="/activity-log"]
@@ -166,11 +165,11 @@ Webhook To Issued
 Checking Issued RFID
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
-    Click Element                   xpath:${last page}
-    Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]   ISSUED
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   ${email_dist}
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      ISSUED
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Issued RFID In Activity Log
     Click Link                      xpath://*[@href="/activity-log"]
@@ -190,15 +189,11 @@ Checking Issued RFID In Activity Log
 Preparation
     Goto RFID
     Sleep                           5 second
-    ${id token}                     Execute Javascript              return (window.localStorage.toSource().match(/idToken':\"(.*?)"/))[1]
+    ${id token}                     Execute Javascript              return (document.cookie.match(/idToken=(.*?);/))[1]
     Set Suite Variable              ${id token}
     Sleep                           5 second
-    Input Text                      xpath:(${select control})[2]/div/div/input       STATIC SKU
-    Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
+    Log To Console                  Start
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
-    Click Element                   xpath:${last page}
-    Sleep                           7 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${number of new row}=           Evaluate                    ${number of row}+1
-    Run Keyword If                  ${number of new row}==11    Set Suite Variable    ${number of new row}    1     ELSE    Set Suite Variable      ${number of new row}
-    Set Suite Variable              ${number of row}
+
+

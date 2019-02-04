@@ -659,3 +659,11 @@ Expanded AL Element Should Be
     [Arguments]                     ${column}                   ${text}
     ${content}                      Check Last Expanded AL      ${column}
     Should Be Equal As Strings      ${content}                  ${text}
+
+Select Location At Rfid Menu
+    [Arguments]                     ${shipto}       ${sku}
+    Input Text                      xpath:(${srx select})[1]/div/div/div/div[2]/div/input       ${shipto}
+    Press Key                       xpath:(${srx select})[1]/div/div/div/div/div/input          \ue007
+    Sleep                           1 second
+    Input Text                      xpath:(${srx select})[2]/div/div/div/div[2]/div/input       ${sku}
+    Press Key                       xpath:(${srx select})[2]/div/div/div/div/div/input          \ue007
