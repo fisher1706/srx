@@ -78,7 +78,7 @@ Edit Warehouse
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:number_id            ${edit warehouse number}
     Input Text                      id:address.city_id      ${edit city}
-    Choose From Select Box          (${modal dialog}${select control})[1]                           Etc/UTC (+00:00)
+    Choose From Select Box          (${modal dialog}${select control})[1]                           US/Hawaii (-10:00)
     Click Element                   xpath:(${modal dialog}${select control})[2]
     Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue013
     Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue007
@@ -92,7 +92,7 @@ Checking Edit Warehouse
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${user last name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${edit warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   Etc/UTC (+00:00)
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   US/Hawaii (-10:00)
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${edit full adress}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ${edit email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ${edit email}
@@ -102,7 +102,7 @@ Delete Warehouse
     Click Element                   ${delete warehouse button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${user last name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]      ${edit warehouse number}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      Etc/UTC (+00:00)
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      US/Hawaii (-10:00)
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      ${edit full adress}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      ${edit email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]      ${edit email}

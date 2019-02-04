@@ -29,7 +29,7 @@ Delete Market Type Not Delete
     Preparation
     Click Element                   ${delete button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]         ${market del type}
-    Click Element                   xpath:{modal dialog}${button danger}
+    Click Element                   xpath:${modal dialog}${button danger}
     Element Text Should Be          css:.external-page-alert > strong:nth-child(2)              Operation failed!
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           5 second
