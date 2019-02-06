@@ -9,40 +9,26 @@ Resource                            ../../../resources/testData.robot
 ${filter clear}                     css:button.button-right-margin:nth-child(2)
 ${filter apply}                     css:button.btn:nth-child(2)
 ${filter button}                    css:.filtering-options > button:nth-child(1)
-${dynamic row}
-${static row}
-${number of row}
-${edit button}
-${remove button}
-${text buffer1}
-${text buffer2}
 
 *** Test Cases ***
 Invalid Add Distributor
     [Tags]                          InvalidAddDistributor
     Click Element                   xpath:${button primary}
     Press Key                       id:name_id                      \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Element Should Be Visible       xpath:(${help block})[1]/*
     Press Key                       id:address.line1_id             \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue004
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Element Should Be Visible       xpath:(${help block})[2]/*
     Press Key                       id:address.city_id              \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Element Should Be Visible       xpath:(${help block})[4]/*
+    Press Key                       xpath:(${modal dialog}${select control})[1]/div[1]/div[2]   \ue004
+    Element Should Be Visible       xpath:(${help block})[5]/*
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]   \ue004
+    Element Should Be Visible       xpath:(${help block})[6]/*
     Press Key                       id:invoiceEmail_id              \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
-    Click Element                   xpath:(${select control})[2]
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue004
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(7) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Element Should Be Visible       xpath:(${help block})[7]/*
     Press Key                       id:address.zipCode_id           \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(8) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Element Should Be Visible       xpath:(${help block})[8]/*
     Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   xpath:${button primary}
-    Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
 
 Valid Add Distributor
@@ -67,35 +53,15 @@ Checking New Data
     Sleep                           5 second
     Open Full Table
     Sleep                           2 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[1]/a          ${dynamic name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[3]/div        ${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[4]/div        Singular Billing
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${dynamic row}]/td[5]/div        ${dynamic email}
-
-Remove Distributor
-    [Tags]                          RemoveDistributor
-    Click Element                   ${remove button}
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   ${remove button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Click Element                   ${remove button}
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       1       ${dynamic name}	
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       3       ${dynamic full adress}
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       4       Singular Billing
-    Table Cell Should Contain       css:table.table:nth-child(2)    2       5       ${dynamic email}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           4 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${dynamic name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${dynamic full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Singular Billing
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${dynamic email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ACTIVE
 
 Edit Distributor
     [Tags]                          EditDistributor
-    Click Element                   ${edit button}
-    Click Element                   css:.modal-dialog-cancel-button
-    Sleep                           2 second
-    Click Element                   ${edit button}
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
     Click Element                   ${edit button}
     Input Text                      id:name_id                                                                                          ${edit name}
     Input Text                      id:address.line1_id                                                                                 ${edit adress1}
@@ -113,34 +79,24 @@ Edit Distributor
 
 Checking Edit Data
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[1]/a       ${edit name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[3]/div     ${edit full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[4]/div     Bill By Warehouse
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[5]/div     ${edit email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${edit name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${edit full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Bill By Warehouse
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${edit email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ACTIVE
 
-Return Static Data
-    [Tags]                          ReturnStaticData
-    Click Element                   ${edit button}
-    Input Text                      id:name_id                                                                                          ${static name}
-    Input Text                      id:address.line1_id                                                                                 ${static adress1}
-    Input Text                      id:address.line2_id                                                                                 ${static adress2}
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue013
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
-    Input Text                      id:address.city_id                                                                                  ${static city}
-    Input Text                      id:invoiceEmail_id                                                                                  ${static email}
-    Click Element                   xpath:(${select control})[2]
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
-    Input Text                      id:address.zipCode_id                                                                               ${static code}
-    Click Element                   xpath:${button modal dialog ok}
-
-Checking Returned Static Data
-    Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[1]/a       ${static name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[3]/div     ${static full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[4]/div     Singular Billing
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${static row}]/td[5]/div     ${static email}
+Delete Distributor
+    [Tags]                          RemoveDistributor
+    Click Element                   ${delete button}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${edit name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${edit full adress}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Bill By Warehouse
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${edit email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ON
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ACTIVE
+    Click Element                   xpath:${modal dialog}${button danger}
+    Sleep                           4 second
 
 Sorting Distributors By Name
     [Tags]                          Sorting
@@ -193,35 +149,6 @@ Email Filter
     Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)     ${static email}
     Apply Filter
 
-Name And Number Filter
-    [Tags]                          NameAndNumberFilter             Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(1) > div:nth-child(2) > input:nth-child(1)     Test
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)     ${static number}
-    Apply Filter
-
-Name And Email Filter
-    [Tags]                          NameAndEmailFilter              Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(1) > div:nth-child(2) > input:nth-child(1)     Test
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)     ${static email}
-    Apply Filter
-
-Number And Email Filter
-    [Tags]                          NumberAndEmailFilter            Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)     ${static number}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)     ${static email}
-    Apply Filter
-
-Name And Number And Email Filter
-    [Tags]                          NameAndNumberAndEmailFilter     Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(1) > div:nth-child(2) > input:nth-child(1)     Test
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)     ${static number}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)     ${static email}
-    Apply Filter
-
 *** Keywords ***
 Preparation
     Start Admin
@@ -229,28 +156,12 @@ Preparation
     Click Link                      xpath://*[@href="/distributors"]
     Open Full Table
     Sleep                           2 second
-    Number Of Rows
-    Number Of Static Row
-    Number Of Delete Row
-    ${dynamic row}=                 Evaluate                        ${number of row}+1
-    Set Global Variable             ${dynamic row}
-    Set Global Variable             ${edit button}                  xpath:${table xpath}/tbody/tr[${static row}]${button success}
-    Set Global Variable             ${remove button}                xpath:${table xpath}/tbody/tr[${dynamic row}]${button danger}
-    Set Global Variable             ${delete row button}            xpath:${table xpath}/tbody/tr[${delete row}]${button danger}
-
-Number Of Static Row
-    : FOR   ${counter}              IN RANGE        1   ${number of row}+1
-    \   ${text buffer1}             Get Text        xpath:${table xpath}/tbody/tr[${counter}]/td[1]/a
-    \   Exit For Loop If            "${static name}"=="${text buffer1}"
-    Set Global Variable             ${static row}   ${counter}
-    ${static number}                Get Text        xpath:${table xpath}/tbody/tr[${static row}]/td[2]/div
-    Set Global Variable             ${static number}
-
-Number Of Delete Row
-    : FOR   ${counter}              IN RANGE        1   ${number of row}+1
-    \   ${text buffer1}             Get Text        xpath:${table xpath}/tbody/tr[${counter}]/td[1]/a
-    \   Exit For Loop If            "del distr"=="${text buffer1}"
-    Set Global Variable             ${delete row}   ${counter}
+    ${number of row}                Get Rows Count      ${table xpath}
+    ${number of new row}            Evaluate            ${number of row}+1
+    Set Suite Variable              ${number of row}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${edit button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${delete button}    xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
 
 Apply Filter
     Sleep                           1 second

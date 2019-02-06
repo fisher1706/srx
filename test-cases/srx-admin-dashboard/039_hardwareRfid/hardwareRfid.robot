@@ -92,11 +92,13 @@ Create RFID
     Element Text Should Be          xpath:${modal title}            Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           10 second
-    Click Element                   xpath:${last page}
+
+Checking Available RFID
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
-    ${my rfid}                      Get Row By Text  ${table xpath}     1       ${buffer}
-    Set Suite Variable              ${my rfid}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my rfid}]/td[2]     AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Request RFID
     [Tags]                          RFID
@@ -106,14 +108,14 @@ Request RFID
     ${resp}=                        Post Request             httpbin    /issued        data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${epc}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                  <Response [200]>
 
-Checking RFID Status
+Checking Available RFID
     Reload Page
     Sleep                           7 second
-    Click Element                   xpath:${last page}
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my rfid}]/td[2]     ISSUED
-    Finish Suite
-    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Delete Serial Number
     Preparation

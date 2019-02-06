@@ -9,28 +9,11 @@ Resource                            ../../../resources/testData.robot
 Deactivate
     ${my row}                       Get Row By Text                 ${table xpath}      1       Srx-group-test-distributor
     Set Suite Variable              ${my row}
-    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[6]
+    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[7]
     Run Keyword If                  "${status}"=="ACTIVE"   Deactivate      ELSE IF     "${status}"=="INACTIVE"     No Operation    ELSE    Fail      Unexpected distributor status
 
-#Login To Deactivate Distributor By Admin
-#    ${SUB EMAIL}                    Return Sub Email
-#    Set Suite Variable              ${SUB EMAIL}
-#    Login On Distributor Portal Sub
-#    Element Text Should Be          ${inactive account}     INACTIVE ACCOUNT
-#    ${items}                        Get Element Count       ${sidebar item}
-#    Should Be Equal As Integers     ${items}                3
-#    Click Link                      xpath://*[@href="/settings"]
-#    Click Element                   id:settings-tab-pricing-billing
-#    Click Element                   id:pricing-billing-tab-billing-settings
-
 Login To Deactivate Distributor By User
-#    Sign Out
-#    Sleep                           2 second
     Login On Distributor Portal Sub
-#    Enter Correct Email Sub
-#    Enter Password
-#    Correct Submit Login
-#    Sleep                           5 second
     Element Text Should Be          ${inactive account}     INACTIVE ACCOUNT
     ${items}                        Get Element Count       ${sidebar item}
     Should Be Equal As Integers     ${items}                1
@@ -40,10 +23,10 @@ Login To Deactivate Distributor By User
 Activate
     Preparation
     ${my row}                       Get Row By Text     ${table xpath}    1       Srx-group-test-distributor
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my row}]/td[6]      INACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my row}]/td[7]      INACTIVE
     Click Element                   xpath:${table xpath}/tbody/tr[${my row}]${button primary}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     Srx-group-test-distributor
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     INACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     INACTIVE
     Click Element                   xpath:${modal dialog}${button primary}
     Sleep                           5 second
 
@@ -70,7 +53,7 @@ Finish Keyword
     Open Full Table
     ${my row}                       Get Row By Text                 ${table xpath}      1       Srx-group-test-distributor
     Set Suite Variable              ${my row}
-    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[6]
+    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[7]
     Run Keyword If                  "${status}"=="INACTIVE"   Activate      ELSE IF     "${status}"=="ACTIVE"     No Operation    ELSE    Fail      Unexpected distributor status
     Finish Suite
     Sleep                           2 second
@@ -83,7 +66,7 @@ Login On Distributor Portal Sub
 Deactivate
     Click Element                   xpath:${table xpath}/tbody/tr[${my row}]${button info}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     Srx-group-test-distributor
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ACTIVE
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 

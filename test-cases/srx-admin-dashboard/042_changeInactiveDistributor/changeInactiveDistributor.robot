@@ -21,17 +21,18 @@ Valid Add Distributor
 
 Checking New Data
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${dynamic name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Singular Billing
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${dynamic email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${dynamic name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${dynamic full adress}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   Singular Billing
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${dynamic email}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ACTIVE
 
 Edit Distributor
     [Tags]                          EditDistributor
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]${button info}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${dynamic name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ACTIVE
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
@@ -51,7 +52,8 @@ Checking Edit Data
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${edit full adress}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   Bill By Warehouse
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${edit email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   INACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   INACTIVE
 
 Remove Distributor
     [Tags]                          RemoveDistributor
@@ -60,7 +62,8 @@ Remove Distributor
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${edit full adress}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Bill By Warehouse
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${edit email}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     INACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ON
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     INACTIVE
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           3 second
     ${number of new row}            Get Rows Count          ${table xpath}
