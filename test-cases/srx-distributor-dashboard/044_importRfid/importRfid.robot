@@ -36,10 +36,9 @@ Checking New Location
 
 Import RFID
     Click Link                      xpath://*[@href="/rfid-view"]
-    Sleep                           3 second
-    Input Text                      xpath:(${select control})[2]/div/div/input       ${import rfid sku}
-    Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
-    Sleep                           1 second
+    Sleep                           5 second
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
     ${buffer1}                      Generate Random String      18      [LETTERS]
     ${epc1}                         Convert To Uppercase        ${buffer1}
     ${buffer2}                      Generate Random String      18      [LETTERS]
@@ -59,12 +58,9 @@ Import RFID
     Sleep                           10 second
 
 Checking RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]          ${epc1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]          ASSIGNED
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]          SYSTEM
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[1]          ${epc2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]          ASSIGNED
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]          SYSTEM
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
     ${number of row}                Get Rows Count                                  ${table xpath}
     Should Be Equal As Integers     ${number of row}                                2
 
