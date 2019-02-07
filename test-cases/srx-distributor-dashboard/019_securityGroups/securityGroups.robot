@@ -143,8 +143,8 @@ Preparation
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${edit group button}        xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[2]/div/div[1]/button
-    Set Suite Variable              ${delete group button}      xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[2]/div/div[2]/button
+    Set Suite Variable              ${edit group button}        xpath:(${table xpath})[2]/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${delete group button}      xpath:(${table xpath})[2]/tbody/tr[${number of new row}]${button danger}
 
 Is Create Security Group
     Element Text Should Be          css:.modal-title            Create new custom security group

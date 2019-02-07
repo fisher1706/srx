@@ -9,7 +9,7 @@ Resource                            ../../../resources/testData.robot
 Check Document Status In Settings
     Goto Documents
     ${status}                       Get Text        xpath:${documents pane}${table xpath}/tbody/tr/td[4]/div/span
-    Set Global Variable             ${status}
+    Set Suite Variable              ${status}
 
 Checking Taxes Before Change
     Goto Taxes
@@ -24,7 +24,7 @@ Check Document Status In Documents
     Sleep                           5 second
     Number Of Rows
     :FOR    ${colomn}               IN RANGE        1       ${number of row}+1
-    \   Set Global Variable         ${colomn}
+    \   Set Suite Variable          ${colomn}
     \   ${text buffer}              Get Text    xpath:${table xpath}/tbody/tr[${colomn}]/td[1]/div
     \   Run Keyword If              "${text buffer}"=="Srx-group-test-distributor"   Exit For Loop
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${colomn}]/td[5]/div/span    ${status}
@@ -74,11 +74,11 @@ Approved In Taxes
 
 Approved
     Click Element                   xpath:${table xpath}/tbody/tr[${colomn}]${button danger}
-    Set Global Variable             ${restatus}                 REJECTED
+    Set Suite Variable              ${restatus}                 REJECTED
 
 Rejected
     Click Element                   xpath:${table xpath}/tbody/tr[${colomn}]${button success}
-    Set Global Variable             ${restatus}                 APPROVED
+    Set Suite Variable              ${restatus}                 APPROVED
 
 Goto Documents Sub
     Finish Suite

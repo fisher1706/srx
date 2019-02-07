@@ -97,8 +97,8 @@ Preparation
     Sleep                           3 second
     Click Link                      xpath://*[@href="/customers"]
     ${number of row}                Get Rows Count              ${table xpath}
-    Set Global Variable             ${number of row}
+    Set Suite Variable              ${number of row}
     ${number of new row}=           Evaluate                    ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit customer button}     xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
-    Set Global Variable             ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${edit customer button}     xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}

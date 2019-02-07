@@ -5,11 +5,6 @@ Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Variables ***
-${filter clear}                     css:button.button-right-margin:nth-child(2)
-${filter apply}                     css:button.btn:nth-child(2)
-${filter button}                    css:.filtering-options > button:nth-child(1)
-
 *** Test Cases ***
 Invalid Add Distributor
     [Tags]                          InvalidAddDistributor
@@ -98,63 +93,26 @@ Delete Distributor
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           4 second
 
-Sorting Distributors By Name
+Sorting Warehouses
     [Tags]                          Sorting
-    Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/a
-    Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/a
-    Should Be Equal	                ${text buffer1}     ${text buffer2}
-    Click Element                   css:th.sort-column:nth-child(1)
+    Sort Column                     1   ${number of row}
+    Sort Column                     2   ${number of row}
+    Sort Column                     4   ${number of row}
+    Sort Column                     5   ${number of row}
+    Sort Column                     6   ${number of row}
+    Sort Column                     7   ${number of row}
 
-Sorting Distributors By Number
-    [Tags]                          Sorting
-    Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[2]/div
-    Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div
-    Should Be Equal                 ${text buffer1}     ${text buffer2}
-    Click Element                   css:th.sort-column:nth-child(2)
-
-Sorting Distributors By Email
-    [Tags]                          Sorting
-    Click Element                   css:th.sort-column:nth-child(5)
-    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[5]/div
-    Click Element	                css:th.sort-column:nth-child(5)
-    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div
-    Should Be Equal                 ${text buffer1}     ${text buffer2}
-    Click Element                   css:th.sort-column:nth-child(5)
-    
-Name Filter
-    [Tags]                          NameFilter          Filter
-    Click Element                   ${filter button}
-    Click Element                   css:.close
-    Sleep                           2 second
-    Click Element                   ${filter button}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           2 second
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(1) > div:nth-child(2) > input:nth-child(1)     ${static name}
-    Apply Filter
-
-Number Filter
-    [Tags]                          NumberFilter                    Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)     ${static number}
-    Apply Filter
-
-Email Filter
-    [Tags]                          EmailFilter                     Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)     ${static email}
-    Apply Filter
+User filtration
+    [Tags]                          Filter
+    Filter Field                    1   1   ${static name}
+    Filter Field                    2   2   32
+    Filter Field                    3   5   srx-group@agilevision.io
 
 *** Keywords ***
 Preparation
     Start Admin
     Sleep                           5 second
     Click Link                      xpath://*[@href="/distributors"]
-    Open Full Table
     Sleep                           2 second
     ${number of row}                Get Rows Count      ${table xpath}
     ${number of new row}            Evaluate            ${number of row}+1
@@ -162,10 +120,3 @@ Preparation
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${edit button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
     Set Suite Variable              ${delete button}    xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
-
-Apply Filter
-    Sleep                           1 second
-    Click Element                   ${filter apply}
-    Sleep                           3 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/a       ${static name}
-    Click Element                   ${filter clear}

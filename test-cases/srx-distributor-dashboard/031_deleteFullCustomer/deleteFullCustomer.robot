@@ -24,13 +24,13 @@ Valid Create New Customer
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
     ${selecting type}               Get Text                    xpath:(${select control})[2]/div[1]/div[1]/span
-    Set Global Variable             ${selecting type}
+    Set Suite Variable              ${selecting type}
     Click Element                   xpath:(${select control})[3]
     Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue015
     Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue007
     ${selecting market}             Get Text                    xpath:(${select control})[3]/div[1]/div[1]/span
     Click Element                   xpath:${button modal dialog ok}
-    Set Global Variable             ${selecting market}
+    Set Suite Variable              ${selecting market}
 
 Checking New Customer
     Sleep                           5 second
@@ -59,7 +59,7 @@ Create Shiptos 1
     Sleep                           2 second
     Is Customer Shipto
     Number Of Rows Shiptos
-    Set Global Variable             ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]${button danger}
+    Set Suite Variable              ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]${button danger}
 
 Checking New Shipto 1
     Sleep                           5 second
@@ -71,7 +71,7 @@ Valid Create New User 1
     Goto Customer Users
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${buffer2}                      Convert To Lowercase        ${buffer}
-    Set Global Variable             ${delete customer user1}    ${buffer2}@example.com
+    Set Suite Variable              ${delete customer user1}    ${buffer2}@example.com
     Click Element                   xpath:${users pane}${button primary}
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
@@ -129,7 +129,7 @@ Valid Create New User 2
     Goto Customer Users
     ${buffer}=                      Generate Random String      18      [LETTERS]
     ${buffer2}                      Convert To Lowercase        ${buffer}
-    Set Global Variable             ${delete customer user2}    ${buffer2}@example.com
+    Set Suite Variable              ${delete customer user2}    ${buffer2}@example.com
     Click Element                   xpath:${users pane}${button primary}
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
@@ -172,7 +172,7 @@ Checking On Transactions
     [Tags]                          Check
     Click Link                      xpath://*[@href="/transactions"]
     ${start shipto}                 Get Text                    xpath:${select control}/div[1]/div[1]/span
-    Set Global Variable             ${start shipto}
+    Set Suite Variable              ${start shipto}
     Go Down Check
 
 *** Keywords ***

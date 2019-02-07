@@ -339,23 +339,23 @@ Sort Column With Last Page
 
 Number Of Rows C
     ${number of row c}              Get Element Count   xpath:${table xpath}/tbody/tr
-    Set Global Variable             ${number of row c}
+    Set Suite Variable              ${number of row c}
 
 Number Of Static Row C
     : FOR   ${counter c}            IN RANGE    1   ${number of row c}+1
     \   ${text buffer1 c}           Get Text    xpath:${table xpath}/tbody/tr[${counter c}]/td[1]/a
     \   Exit For Loop If            "Static Customer"=="${text buffer1 c}"
-    Set Global Variable             ${static row c}     ${counter c}
+    Set Suite Variable              ${static row c}     ${counter c}
 
 Number Of Rows E
     ${number of row e}              Get Element Count   xpath:${table xpath}/tbody/tr
-    Set Global Variable             ${number of row e}
+    Set Suite Variable              ${number of row e}
 
 Number Of Static Row E
     : FOR   ${counter e}            IN RANGE    1   ${number of row e}+1
     \   ${text buffer1 e}           Get Text    xpath:${table xpath}/tbody/tr[${counter e}]/td[1]/a
     \   Exit For Loop If            "${static name}"=="${text buffer1 e}"
-    Set Global Variable             ${static row e}     ${counter e}
+    Set Suite Variable              ${static row e}     ${counter e}
 
 Successfull Upload
     Pass Execution                  Successfully imported!
@@ -526,9 +526,9 @@ Section Is Not Present
 
 Checking Sections
     [Arguments]                     ${section}
-    Set Global Variable             ${check}            false
+    Set Suite Variable              ${check}            false
     Element Should Be Visible       ${section}
-    Set Global Variable             ${check}            true
+    Set Suite Variable              ${check}            true
 
 Is Present
     [Arguments]                     ${section}
@@ -536,25 +536,25 @@ Is Present
 
 Number Of Rows
     ${number of row}                Get Element Count           xpath:${table xpath}/tbody/tr
-    Set Global Variable             ${number of row}
+    Set Suite Variable              ${number of row}
 
 Number Of Rows G
     ${number of row g}              Get Element Count           xpath:(${table xpath})[2]/tbody/tr
-    Set Global Variable             ${number of row g}
+    Set Suite Variable              ${number of row g}
 
 Number Of Static Row G
     : FOR   ${counter}              IN RANGE    1   ${number of row g}+1
     \   ${text buffer1 g}           Get Text    xpath:(${table xpath})[2]/tbody/tr[${counter}]/td[1]/div
     \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
-    Set Global Variable             ${static row g}     ${counter}
+    Set Suite Variable              ${static row g}     ${counter}
 
 Number Of Rows Shiptos
     ${number of row s}              Get Element Count               xpath:${shiptos pane}${table xpath}/tbody/tr
-    Set Global Variable             ${number of row s}
+    Set Suite Variable              ${number of row s}
 
 Number Of Rows Users
     ${number of row u}              Get Element Count               xpath:${users pane}${table xpath}/tbody/tr
-    Set Global Variable             ${number of row u}
+    Set Suite Variable              ${number of row u}
 
 Go Down Selector
     [Arguments]                     ${select}       ${item}

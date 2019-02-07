@@ -20,7 +20,7 @@ Change Base Fees
     Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        ${edit year fee}
     Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        \ue007
     Click Element                   xpath:${base fee pane}${button lg}
-    Sleep                           5 second
+    Sleep                           20 second
     Reload Page
     Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div                  $${edit year fee}
 
@@ -41,7 +41,7 @@ Return Base Fees
     Input Text                      xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        ${year fee}
     Press Key                       xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div/div/input        \ue007
     Click Element                   xpath:${base fee pane}${button lg}
-    Sleep                           5 second
+    Sleep                           20 second
     Reload Page
     Element Text Should Be          xpath:${base fee pane}${table xpath}/tbody/tr[1]/td[2]/div                  $${year fee}
 
@@ -54,7 +54,7 @@ Preparation
     Start Admin
     Sleep                           5 second
     Click Link                      xpath://*[@href="/fees"]
-    Sleep                           1 second
+    Sleep                           4 second
 
 
 Goto Settings Sub

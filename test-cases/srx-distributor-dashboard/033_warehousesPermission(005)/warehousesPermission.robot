@@ -133,8 +133,8 @@ Preparation
     Reload Page
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
-    Set Global Variable             ${number of row}
+    Set Suite Variable              ${number of row}
     ${number of new row}=           Evaluate                        ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
-    Set Global Variable             ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
