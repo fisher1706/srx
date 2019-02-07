@@ -93,7 +93,7 @@ Delete Distributor
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           4 second
 
-Sorting Warehouses
+Sorting Distributors
     [Tags]                          Sorting
     Sort Column                     1   ${number of row}
     Sort Column                     2   ${number of row}
@@ -102,7 +102,7 @@ Sorting Warehouses
     Sort Column                     6   ${number of row}
     Sort Column                     7   ${number of row}
 
-User filtration
+Distributor Filtration
     [Tags]                          Filter
     Filter Field                    1   1   ${static name}
     Filter Field                    2   2   32
