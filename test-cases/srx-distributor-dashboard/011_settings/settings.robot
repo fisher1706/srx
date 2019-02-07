@@ -16,7 +16,7 @@ Integrations
     Click Element                   xpath:${keys pane}${button primary}
     Input Text                      css:.rdt > input:nth-child(1)               10/18/2018, 12:00 A
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   css:.close
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Click Element                   xpath:${keys pane}${button primary}
     Clear Element Text              css:.rdt > input:nth-child(1)
@@ -482,8 +482,8 @@ Click For Check
     Sleep                           3 second
     ${checked1}                     Get Element Attribute       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)     checked
     ${checked2}                     Get Element Attribute       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)     checked
-    Set Global Variable             ${checked1}
-    Set Global Variable             ${checked2}
+    Set Suite Variable              ${checked1}
+    Set Suite Variable              ${checked2}
 
 Goto Documents
     Click Element                   id:settings-tab-pricing-billing

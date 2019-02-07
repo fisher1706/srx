@@ -5,14 +5,6 @@ Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Variables ***
-${number of new row}
-${number of row}
-${filter button}                    css:.filtering-options > button:nth-child(1)
-${apply filter}                     css:button.btn:nth-child(2)
-${text buffer1}
-${text buffer2}
-
 *** Test Cases ***
 Admin Users Menu Checking
     [Tags]                          AdminUsersMenuChecking
@@ -30,17 +22,17 @@ Invalid Add Admin User
     Sleep                           2 second
     Click Element                   xpath:${distributors admin pane}${button primary}
     Input Text                      id:email_id             ${incorrect email}
-    Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
-    Click Element                   css:.close
+    Element Should Be Visible       xpath:(${help block})[1]/*
+    Click Element                   xpath:${button close}
     Sleep                           2 second
     Click Element                   xpath:${distributors admin pane}${button primary}
     Press Key                       id:email_id             \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Element Should Be Visible       xpath:(${help block})[1]/*
     Press Key                       id:firstName_id         \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
+    Element Should Be Visible       xpath:(${help block})[2]/*
     Press Key                       id:lastName_id          \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1)
-    Click Element                   css:.modal-dialog-cancel-button
+    Element Should Be Visible       xpath:(${help block})[3]/*
+    Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
 
 Valid Add Admin User
@@ -79,114 +71,30 @@ Checking Edit Data
 
 Delete User
     [Tags]                          DeleteUser
-    Click Element                   css:#distributor-details-tab-2
     Click Element                   ${delete user button}
-    Click Element                   css:.close
-    Sleep                           2 second
-    Click Element                   ${delete user button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Click Element                   ${delete user button}
-    Table Cell Should Contain       css:table.table:nth-child(2)        2       1       ${user email}	
-    Table Cell Should Contain       css:table.table:nth-child(2)        2       2       ${edit first name}
-    Table Cell Should Contain       css:table.table:nth-child(2)        2       3       ${edit last name}
-    Click Element                   css:button.btn:nth-child(2)
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${user email}	
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${edit first name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${edit last name}
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
-Sorting Users By Email
-    [Tags]                          Sorting             UsersSorting
-    Click Element                   css:#distributor-details-tab-2
-    Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/div
-    Click Element                   css:th.sort-column:nth-child(1)
-    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div
-    Should Be Equal                 ${text buffer1}     ${text buffer2}
-    Click Element                   css:th.sort-column:nth-child(1)
+Sorting Warehouses
+    [Tags]                          Sorting
+    Sort Column                     1   ${number of row}
+    Sort Column                     2   ${number of row}
+    Sort Column                     3   ${number of row}
 
-Sorting Users By First Name
-    [Tags]                          Sorting             UsersSorting
-    Click Element                   css:#distributor-details-tab-2
-    Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[2]/div
-    Click Element                   css:th.sort-column:nth-child(2)
-    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div
-    Click Element                   css:th.sort-column:nth-child(2)
-
-Sorting Users By Last Name
-    [Tags]                          Sorting             UsersSorting
-    Click Element                   css:#distributor-details-tab-2
-    Click Element                   css:th.sort-column:nth-child(3)
-    ${text buffer1}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[3]/div
-    Click Element                   css:th.sort-column:nth-child(3)
-    ${text buffer2}                 Get Text            xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div
-    Should Be Equal                 ${text buffer1}     ${text buffer2}
-    Click Element                   css:th.sort-column:nth-child(3)
-    
-Email Filter
+User filtration
     [Tags]                          Filter
-    Click Element                   css:#distributor-details-tab-2
-    Click Element                   ${filter button}
-    Click Element                   css:.close
-    Sleep                           2 second
-    Click Element                   ${filter button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
-    Apply Filter
-
-First Name Filter
-    [Tags]                          Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${filter first}
-    Apply Filter
-
-Second Name Filter
-    [Tags]                          Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${filter last}
-    Apply Filter
-
-Email And First Name Filter
-    [Tags]                          Filter
-    Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)	                        ${filter first}
-    Apply Filter
-
-First Name And Second Name Filter
-    [Tags]                          Filter
-    Click Element                   ${filter button}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${filter last}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${filter first}
-    Apply Filter
-
-Email And Second Name Filter
-    [Tags]                          Filter
-    Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)                         ${filter last}
-    Apply Filter
-
-Email And First Name And Second Name Filter
-    [Tags]                          Filter
-    Click Element                   ${filter button}
-    Input Text                      css:.filtering-options-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)    ${filter email}
-    Input Text                      css:div.row-spaced:nth-child(2) > div:nth-child(2) > input:nth-child(1)                         ${filter first}
-    Input Text                      css:div.row-spaced:nth-child(3) > div:nth-child(2) > input:nth-child(1)	                        ${filter last}
-    Apply Filter
+    Filter Field                    1   1   ${filter email}
+    Filter Field                    2   2   ${filter first}
+    Filter Field                    3   3   ${filter last}
 
 *** Keywords ***
 Preparation
     Goto Admin Users
     Number Of Rows
     ${number of new row}=           Evaluate                ${number of row}+1
-    Set Global Variable             ${number of new row}
-    Set Global Variable             ${edit user button}     xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div[1]/button
-    Set Global Variable             ${delete user button}   xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div[2]/button
-
-Apply Filter
-    Click Element                   ${apply filter}
-    Sleep                           3 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr/td[1]/div     ${filter email}
-    Click Element                   css:button.button-right-margin:nth-child(2)
+    Set Suite Variable              ${number of new row}
+    Set Suite Variable              ${edit user button}     xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${delete user button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}

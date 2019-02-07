@@ -175,4 +175,4 @@ Preparation
     Set Suite Variable              ${edit random string}
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${number of row}
-    Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div/div/button
+    Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button success}

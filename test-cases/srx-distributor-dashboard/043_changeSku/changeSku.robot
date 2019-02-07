@@ -40,10 +40,9 @@ Checking New Location
 
 Create RFID
     Click Link                      xpath://*[@href="/rfid-view"]
-    Sleep                           3 second
-    Input Text                      xpath:(${select control})[2]/div/div/input       ${change sku 1}
-    Press Key                       xpath:(${select control})[2]/div/div/input       \ue007
-    Sleep                           2 second
+    Sleep                           5 second
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
     ${buffer}                       Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
     Set Suite Variable              ${epc}
@@ -58,8 +57,9 @@ Create RFID
     Element Text Should Be          xpath:${modal title}            Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           10 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]     ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]     AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Request RFID
     [Tags]                          RFID
@@ -72,11 +72,11 @@ Request RFID
 Checking RFID Status
     Reload Page
     Sleep                           5 second
-    Input Text                      xpath:(${select control})[2]/div/div/input      ${change sku 1}
-    Press Key                       xpath:(${select control})[2]/div/div/input      \ue007
-    Sleep                           3 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]          ${epc}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]          ISSUED
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      ISSUED
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
     Element Should Be Disabled      xpath:${table xpath}/tbody/tr[1]${button danger}
 
 Check Transactions
