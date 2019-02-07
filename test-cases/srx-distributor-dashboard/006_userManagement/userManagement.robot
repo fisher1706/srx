@@ -99,14 +99,14 @@ Delete User
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 
-Sorting Warehouses
+Sorting Users
     [Tags]                          Sorting
     Sort Column                     1   ${number of row}
     Sort Column                     2   ${number of row}
     Sort Column                     3   ${number of row}
     Sort Column                     5   ${number of row}
 
-User filtration
+User Filtration
     [Tags]                          Filter
     Filter Field                    1   1   az_user@example.com
     Filter Field                    2   2   First Z

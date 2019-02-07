@@ -9,12 +9,6 @@ Resource                            ../../../resources/testData.robot
 Invalid Create New Shipto
     Goto Customer Shipto
     Sleep                           4 second
-    Is Customer Shipto
-    Click Element                   xpath:${shiptos pane}${button primary}
-    Is Add Shipto
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Is Customer Shipto
     Click Element                   xpath:${shiptos pane}${button primary}
     Press Key                       css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -27,13 +21,9 @@ Invalid Create New Shipto
     Press Key                       id:address.zipCode_id                                                                                   \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(6) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
-    Is Customer Shipto
+    Sleep                           5 second
 
 Valid Create New Shipto
-    Goto Customer Shipto
-    Sleep                           4 second
-    Is Customer Shipto
     Click Element                   xpath:${shiptos pane}${button primary}
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${dynamic name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
@@ -46,8 +36,6 @@ Valid Create New Shipto
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           2 second
-    Is Customer Shipto
 
 Checking New Shipto
     Sleep                           5 second
@@ -56,15 +44,6 @@ Checking New Shipto
     Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of new row s}]/td[3]/div      ${test number}
 
 Edit Shipto
-    Click Element                   ${edit shipto button}
-    Is Edit Shipto
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Is Customer Shipto
-    Click Element                   ${edit shipto button}
-    Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
-    Is Customer Shipto
     Click Element                   ${edit shipto button}
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                    ${edit name}
     Input Text                      id:address.line1_id     ${edit adress1}
@@ -77,7 +56,6 @@ Edit Shipto
     Clear Element Text              id:poNumber_id
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
-    Is Customer Shipto
 
 Checking Edit Shipto
     Sleep                           5 second
@@ -87,13 +65,6 @@ Checking Edit Shipto
 Invalid Create New User
     [Tags]                          User
     Goto Customer Users
-    Sleep                           4 second
-    Is Customer Users
-    Click Element                   xpath:${users pane}${button primary}
-    Is Add User
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Is Customer Users
     Click Element                   xpath:${users pane}${button primary}
     Press Key                       css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
@@ -104,13 +75,9 @@ Invalid Create New User
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
-    Is Customer Users
+    Sleep                           5 second
 
 Valid Create New User
-    Goto Customer Users
-    Sleep                           4 second
-    Is Customer Users
     Click Element                   xpath:${users pane}${button primary}
     Input Text                      css:.item-form-modal-body > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)                ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
@@ -120,8 +87,6 @@ Valid Create New User
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of new row s}]/label/input
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           2 second
-    Is Customer Users
 
 Checking New User
     Sleep                           5 second
@@ -133,22 +98,11 @@ Checking New User
 
 Edit User
     Click Element                   ${edit user button}
-    Is Edit User
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Is Customer Users
-    Click Element                   ${edit user button}
-    Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
-    Is Customer Users
-    Click Element                   ${edit user button}
     Input Text                      id:firstName_id             ${edit first name}
     Input Text                      id:lastName_id              ${edit last name}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[1]/label/input
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[${number of new row s}]/label/input
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           2 second
-    Is Customer Users
 
 Checking Edit User
     Sleep                           5 second
@@ -160,32 +114,45 @@ Checking Edit User
 
 Delete User
     Click Element                   ${delete user button}
-    Sleep                           1 second
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Is Customer Users
-    Click Element                   ${delete user button}
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
-    Is Customer Users
-    Click Element                   ${delete user button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${dynamic email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]      ${edit first name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      ${edit last name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      Customer User
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      2048
-    Click Element                   css:button.btn-danger:nth-child(2)
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           10 second
+
+Sorting Customer Users
+    [Tags]                          Sorting
+    Sort Customer Users             2   ${number of row u}
+    Sort Customer Users             3   ${number of row u}
+    Sort Customer Users             4   ${number of row u}
+    Sort Customer Users             5   ${number of row u}
+
+Customer Users Filtration
+    [Tags]                          Filter
+    Filter Customer Users           1   2   srx-group+dev-customer@agilevision.io
+    Filter Customer Users           2   3   srx
+    Filter Customer Users           3   4   group
 
 Delete Shipto
     Goto Customer Shipto
     Sleep                           4 second
-    Is Customer Shipto
     Click Element                   ${delete shipto button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${edit name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${edit full adress}
-    Click Element                   css:button.btn-danger:nth-child(2)
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
+
+Sorting Shiptos
+    [Tags]                          Sorting
+    Sort Shiptos                    1   ${number of row s}
+    Sort Shiptos                    3   ${number of row s}
+
+Shiptos Filtration
+    [Tags]                          Filter
+    Filter Shiptos                  1   1   4096
+    Filter Shiptos                  2   3   9000
 
 Checking Customer Settings Replenishment Rules
     [Tags]                          CustomerSettings
@@ -296,18 +263,50 @@ Preparation
     Set Suite Variable              ${edit user button}             xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]${button success}
     Set Suite Variable              ${delete user button}           xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]${button danger}
 
-Is Add Shipto
-    Sleep                           1 second
-    Element Text Should Be          css:.modal-title                Add shipto
+Filter Customer Users
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${users pane}${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[${dialog index}]         ${value}
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    ${count}                        Get Rows Count      ${users pane}${table xpath}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   Element Text Should Be      xpath:${users pane}${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
+    Click Element                   xpath:${users pane}${button default}
+    Sleep                           3 second
 
-Is Edit Shipto
-    Sleep                           1 second
-    Element Text Should Be          css:.modal-title                Edit shipto
+Sort Customer Users
+    [Arguments]                     ${column}       ${count}
+    Click Element                   xpath:${users pane}${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${users pane}${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:${users pane}${table xpath}/tbody/tr[${count}]/td[${column}]
+    Click Element                   xpath:${users pane}${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${users pane}${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:${users pane}${table xpath}/tbody/tr[${count}]/td[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+    Click Element                   xpath:${users pane}${header xpath}/thead/tr/th[${column}]
 
-Is Add User
-    Sleep                           1 second
-    Element Text Should Be          css:.modal-title                Add customer user
+Filter Shiptos
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${shiptos pane}${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[${dialog index}]         ${value}
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    ${count}                        Get Rows Count      ${shiptos pane}${table xpath}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   Element Text Should Be      xpath:${shiptos pane}${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
+    Click Element                   xpath:${shiptos pane}${button default}
+    Sleep                           3 second
 
-Is Edit User
-    Sleep                           1 second
-    Element Text Should Be          css:.modal-title                Edit customer user
+Sort Shiptos
+    [Arguments]                     ${column}       ${count}
+    Click Element                   xpath:${shiptos pane}${header xpath}/thead/tr/th[${column}]
+    ${text buffer1up}               Get Text                    xpath:${shiptos pane}${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer1down}             Get Text                    xpath:${shiptos pane}${table xpath}/tbody/tr[${count}]/td[${column}]
+    Click Element                   xpath:${shiptos pane}${header xpath}/thead/tr/th[${column}]
+    ${text buffer2up}               Get Text                    xpath:${shiptos pane}${table xpath}/tbody/tr[1]/td[${column}]
+    ${text buffer2down}             Get Text                    xpath:${shiptos pane}${table xpath}/tbody/tr[${count}]/td[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+    Click Element                   xpath:${shiptos pane}${header xpath}/thead/tr/th[${column}]

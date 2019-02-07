@@ -78,13 +78,13 @@ Delete User
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
-Sorting Warehouses
+Sorting Users
     [Tags]                          Sorting
     Sort Column                     1   ${number of row}
     Sort Column                     2   ${number of row}
     Sort Column                     3   ${number of row}
 
-User filtration
+User Filtration
     [Tags]                          Filter
     Filter Field                    1   1   ${filter email}
     Filter Field                    2   2   ${filter first}

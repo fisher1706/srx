@@ -35,7 +35,7 @@ Checking User On Distributor Portal
 
 Edit From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div/div[1]/button
+    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]${button success}
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
     Click Element                   css:.modal-dialog-ok-button
@@ -83,7 +83,7 @@ Checking Edit User On Distributor Portal
 
 Delete User From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div/div[2]/button
+    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${admin last}
@@ -114,7 +114,7 @@ Delete User From Admin Portal
     Click Element                   css:.modal-dialog-ok-button
     Sleep                           5 second
     ${number of row}                Get Rows Count          ${table xpath}
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${admin last}
@@ -158,7 +158,7 @@ Checking Admin On Distributor Portal
 
 Edit Admin From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row u}]/td[4]/div/div[1]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row u}]${button success}
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
     Click Element                   css:.modal-dialog-ok-button
@@ -180,7 +180,7 @@ Checking Admin On Admin Portal
 Delete Admin
     [Tags]                          AddSuperUser
     ${number of row}                Get Rows Count          ${table xpath}
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div/div[2]/button
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${edit admin first}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${edit admin last}

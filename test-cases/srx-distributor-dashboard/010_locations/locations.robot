@@ -157,7 +157,7 @@ Locations Filtration
     Filter Field                    8       9       loc4n
     Filter Field                    9       10      loc4v
     Filter Field                    10      11      STATIC SKU
-    #Filter Field                    11      12      1138
+    Filter Field                    11      12      2
     Filter Field                    12      14      20
     Filter Field                    13      15      100
     Filter Select Box               1       13      RFID
