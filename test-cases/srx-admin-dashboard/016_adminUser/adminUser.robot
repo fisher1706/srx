@@ -15,7 +15,7 @@ Valid Add Admin User
     Input Text                      id:email_id                     ${admin email}
     Input Text                      id:firstName_id                 ${admin first}
     Input Text                      id:lastName_id                  ${admin last}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking New User
     [Tags]                          ContentSuperUser
@@ -38,7 +38,7 @@ Edit From Distributor Portal
     Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]${button success}
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit User From Distributor Portal
     [Tags]                          ContentSuperUser
@@ -65,7 +65,7 @@ Edit From Admin Portal
     Click Element                   ${edit user button}
     Input Text                      id:firstName_id         ${admin first}
     Input Text                      id:lastName_id          ${admin last}
-    Click Element                   css:.modal-dialog-ok-button 
+    Click Element                   xpath:${button modal dialog ok} 
 
 Checking Edit User From Admin Portal
     [Tags]                          ContentSuperUser
@@ -87,7 +87,7 @@ Delete User From Distributor Portal
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${admin last}
-    Click Element                   css:button.btn:nth-child(2)
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           4 second
 
 Checking Users Number On Distributor Portal After Delete From Distributor Portal
@@ -111,14 +111,14 @@ Delete User From Admin Portal
     Input Text                      id:email_id             ${admin email}
     Input Text                      id:firstName_id         ${admin first}
     Input Text                      id:lastName_id          ${admin last}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
     ${number of row}                Get Rows Count          ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${admin first}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${admin last}
-    Click Element                   css:button.btn:nth-child(2)
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
 Checking Users Number On Admin Portal After Delete From Admin Portal
@@ -143,7 +143,7 @@ Create Admin On Distributor Portal
     Input Text                      id:email_id                         ${admin email}
     Input Text                      id:firstName_id                     ${admin first}
     Input Text                      id:lastName_id                      ${admin last}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
     Set Suite Variable              ${const number distributor 2}       ${number of row u}
     ${number of new row u}          Evaluate                            ${number of row u}+1
@@ -158,10 +158,10 @@ Checking Admin On Distributor Portal
 
 Edit Admin From Distributor Portal
     [Tags]                          ContentSuperUser
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row u}]${button success}
+    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]${button success}
     Input Text                      id:firstName_id             ${edit admin first}
     Input Text                      id:lastName_id              ${edit admin last}
-    Click Element                   css:.modal-dialog-ok-button
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
     Finish Suite
     Sleep                           5 second
@@ -184,7 +184,7 @@ Delete Admin
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${edit admin first}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${edit admin last}
-    Click Element                   css:button.btn:nth-child(2)
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           2 second
 
 Checking Admins Number On Admin Portal After Delete From Admin Portal

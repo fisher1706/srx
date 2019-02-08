@@ -36,6 +36,11 @@ Goto Security Groups
     Click Link                      xpath://*[@href="/security-groups"]
     Sleep                           5 second
 
+Goto Activity Log
+    Start Distributor
+    Click Link                      xpath://*[@href="/activity-log"]
+    Sleep                           5 second
+
 Goto RFID
     Start Distributor
     Click Link                      xpath://*[@href="/rfid-view"]
@@ -667,3 +672,50 @@ Select Location At Rfid Menu
     Sleep                           1 second
     Input Text                      xpath:(${srx select})[2]/div/div/div/div[2]/div/input       ${sku}
     Press Key                       xpath:(${srx select})[2]/div/div/div/div/div/input          \ue007
+
+Sorting React With Last Page
+    [Arguments]                     ${column}
+    Click Element                   xpath:(${react header})[${column}+1]
+    Sleep                           2 second
+    ${text buffer1up}               Get Text                    xpath:(${react table column})[${column}]
+    React Last
+    Sleep                           2 second
+    ${number of row}                Get Element Count           xpath:${react table raw}
+    ${text buffer1down}             Get Text                    xpath:((${react table raw})[${number of row}]${react table column})[${column}]
+    Click Element                   xpath:(${react header})[${column}+1]
+    Sleep                           2 second
+    ${text buffer2down}             Get Text                    xpath:((${react table raw})[${number of row}]${react table column})[${column}]
+    Click Element                   xpath:(${page link})[2]
+    Sleep                           2 second
+    ${text buffer2up}               Get Text                    xpath:(${react table column})[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+
+Filter React Field
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${button right margin}
+    Input Text                      xpath:(${modal dialog}${form control})[${dialog index}]         ${value}
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    ${count}                        Get Element Count       xpath:${react table raw}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
+    Click Element                   xpath:${button default}
+    Sleep                           3 second
+
+Filter React Select Box
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${button right margin}
+    Choose From Select Box          (${modal dialog}${select control})[${dialog index}]             ${value}
+    Click Element                   xpath:${modal dialog}${button primary}
+    Sleep                           2 second
+    ${count}                        Get Element Count       xpath:${react table raw}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
+    Click Element                   xpath:${button default}
+    Sleep                           3 second
+
+React Last
+    ${count}                        Get Element Count       xpath:${page link}
+    ${count}                        Evaluate    ${count}-1
+    Click Element                   xpath:(${page link})[${count}]
