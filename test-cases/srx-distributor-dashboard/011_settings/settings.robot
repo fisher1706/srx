@@ -24,8 +24,9 @@ Integrations
     Input Text                      id:description_id                           ${keyword}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${keys pane}${table xpath}/tbody/tr[2]/td[3]      ${keyword}
-    Click Element                   xpath:${keys pane}${table xpath}/tbody/tr[2]${button danger}
+    ${number of rows}               Get Rows Count      ${keys pane}${table xpath}
+    Element Text Should Be          xpath:${keys pane}${table xpath}/tbody/tr[${number of rows}]/td[3]      ${keyword}
+    Click Element                   xpath:${keys pane}${table xpath}/tbody/tr[${number of rows}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${keyword}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
@@ -198,7 +199,7 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Click Element                   xpath:${header xpath}/thead/tr/th[1]/div[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
@@ -248,7 +249,7 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Click Element                   xpath:${header xpath}/thead/tr/th[1]/div[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
