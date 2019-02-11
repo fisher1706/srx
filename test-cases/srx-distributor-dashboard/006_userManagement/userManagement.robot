@@ -18,13 +18,13 @@ Invalid Create New User
     Sleep                           2 second
     Click Element                   xpath:${users pane users}${button primary}
     Press Key                       id:email_id                 \ue004
-    Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Enabled       xpath:(${modal dialog}${help block})[1]/*
     Press Key                       id:firstName_id             \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[2]/*
     Press Key                       id:lastName_id              \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[3]/*
     Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]        \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[4]/*
     Press Key                       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)         \ue004
     Element Should Be Visible       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
@@ -34,7 +34,7 @@ Valid Create New User
     [Tags]                          ValidCreateNewUser
     Click Element                   xpath:${users pane users}${button primary}
     Input Text                      id:email_id                 ${incorrect email}
-    Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Enabled       xpath:(${modal dialog}${help block})[1]/*
     Input Text                      id:email_id                 ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}

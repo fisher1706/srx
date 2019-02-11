@@ -29,19 +29,19 @@ Invalid Add Distributor
 Valid Add Distributor
     [Tags]                          ValidAddDistributor
     Click Element                   xpath:${button primary}
-    Input Text                      id:name_id                                                                                          ${dynamic name}
-    Input Text                      id:address.line1_id                                                                                 ${dynamic adress1}
-    Input Text                      id:address.line2_id                                                                                 ${dynamic adress2}
+    Input Text                      id:name_id                                      ${dynamic name}
+    Input Text                      id:address.line1_id                             ${dynamic adress1}
+    Input Text                      id:address.line2_id                             ${dynamic adress2}
     Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
-    Input Text                      id:address.city_id                                                                                  ${dynamic city}
-    Input Text                      id:invoiceEmail_id                                                                                  ${dynamic email}
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue007
+    Input Text                      id:address.city_id                              ${dynamic city}
+    Input Text                      id:invoiceEmail_id                              ${dynamic email}
     Click Element                   xpath:(${select control})[2]
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
-    Input Text                      id:address.zipCode_id                                                                               ${dynamic code}
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue015
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue007
+    Input Text                      id:address.zipCode_id                           ${dynamic code}
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Data
@@ -58,18 +58,18 @@ Checking New Data
 Edit Distributor
     [Tags]                          EditDistributor
     Click Element                   ${edit button}
-    Input Text                      id:name_id                                                                                          ${edit name}
-    Input Text                      id:address.line1_id                                                                                 ${edit adress1}
-    Input Text                      id:address.line2_id                                                                                 ${edit adress2}
+    Input Text                      id:name_id                                      ${edit name}
+    Input Text                      id:address.line1_id                             ${edit adress1}
+    Input Text                      id:address.line2_id                             ${edit adress2}
     Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
-    Input Text                      id:address.city_id                                                                                  ${edit city}
-    Input Text                      id:invoiceEmail_id                                                                                  ${edit email}
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue007
+    Input Text                      id:address.city_id                              ${edit city}
+    Input Text                      id:invoiceEmail_id                              ${edit email}
     Click Element                   xpath:(${select control})[2]
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue013
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
-    Input Text                      id:address.zipCode_id                                                                               ${edit code}
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue013
+    Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue007
+    Input Text                      id:address.zipCode_id                           ${edit code}
     Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit Data
