@@ -93,9 +93,6 @@ ${locationName}                 testLocName1
 ${locationValue}                testLocValue1
 ${minValue}                     20
 ${maxValue}                     30
-${rfid sorting rows}            xpath:${header xpath}/thead/tr/
-@{RfidVandTsortingFields}       ${rfid sorting rows}th[1]   ${rfid sorting rows}th[2]   ${rfid sorting rows}th[3]   ${rfid sorting rows}th[4]   ${rfid sorting rows}th[5]
-${RfidAssociatedData}           TestDATA
 ${APIKEY}                       m4DAfPuRurdzlsVrlen2
 ${security group}               auto-security-group
 ${edit security group}          auto-edit-security-group

@@ -208,19 +208,19 @@ Start Admin
     Click Element                   xpath:${button success}
 
 Start Distributor
-    Start Suite Adv                 https://${host_dist}/sign-in
+    Start Suite Adv                 https://${host_auth}
     Input Text                      id:email                ${email_dist}
     Input Text                      id:password             ${password_dist}
     Click Element                   xpath:${button success}
 
 Start Customer
-    Start Suite Adv                 https://${host_cust}/sign-in
+    Start Suite Adv                 https://${host_auth}
     Input Text                      id:email                ${email_cust}
     Input Text                      id:password             ${password_cust}
     Click Element                   xpath:${button success}
 
 Start Permission
-    Start Suite Adv                 https://${host_dist}/sign-in
+    Start Suite Adv                 https://${host_auth}
     Input Text                      id:email                ${email_perm}
     Input Text                      id:password             ${password_perm}
     Click Element                   xpath:${button success}
@@ -469,9 +469,8 @@ Clear Permission
     Run Keyword If                  ${row}==4       Clear Only Read             ${row}
     Run Keyword If                  ${row}==7       Clear Only Read             ${row}
     Run Keyword If                  ${row}==11      Clear Only Read             ${row}
-    Run Keyword If                  ${row}==14      Clear Only Read             ${row}
-    Run Keyword If                  ${row}==17      Clear Only Read             ${row}
-    Run Keyword If                  ${row}!=4 and ${row}!=7 and ${row}!=11 and ${row}!=14 and ${row}!=17    Clear Standart      ${row}
+    Run Keyword If                  ${row}==16      Clear Only Read             ${row}
+    Run Keyword If                  ${row}!=4 and ${row}!=7 and ${row}!=11 and ${row}!=16   Clear Standart      ${row}
 
 Clear Settings Permission
     [Arguments]                     ${row}
@@ -481,7 +480,7 @@ Clear Settings Permission
 
 Clear All Permissions
     Set Suite Variable              ${index}        1
-    :FOR  ${index}  IN RANGE  1     19
+    :FOR  ${index}  IN RANGE  1     18
     \   Clear Permission            ${index}
 
 Clear All Settings Permissions

@@ -19,11 +19,11 @@ Invalid Create New Product
     Sleep                           2 second
     Click Element                   xpath:${button primary}
     Press Key                       id:partSku_id               \ue004
-    Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Enabled       xpath:(${modal dialog}${help block})[1]/*
     Press Key                       id:shortDescription_id      \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[2]/*
     Press Key                       id:roundBuy_id              \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[4]/*
     Press Key                       id:weight_id                \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
