@@ -78,16 +78,18 @@ Checking Serial Number On Distributor Portal After Change
 
 Create RFID
     Click Link                      xpath://*[@href="/rfid-view"]
+    Sleep                           5 second
     ${buffer}                       Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
     Set Suite Variable              ${epc}
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},STATIC SKU,
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
     Click Element                   xpath:${import rfid button}
     Sleep                           2 second
-    Execute Javascript              document.getElementById("2").style.display='block'
+    Execute Javascript              document.getElementById("upload-rfid-available").style.display='block'
     Sleep                           1 second
-    Choose File                     id:2                  ${CURDIR}/../../../resources/importRfid.csv
+    Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}            Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
@@ -98,7 +100,7 @@ Checking Available RFID
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
-    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
 Request RFID
     [Tags]                          RFID
@@ -108,14 +110,12 @@ Request RFID
     ${resp}=                        Post Request             httpbin    /issued        data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${epc}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                  <Response [200]>
 
-Checking Available RFID
-    Reload Page
-    Sleep                           7 second
+Checking Issued RFID
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
-    Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
-    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
+    Element Text Should Be          xpath:(${react table column})[2]      ISSUED
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
 Delete Serial Number
     Preparation

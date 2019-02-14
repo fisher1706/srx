@@ -21,7 +21,8 @@ Create RFID
     Sleep                           5 second
 
 Checking Assigned RFID
-    Sleep                           2 second
+    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
@@ -113,9 +114,9 @@ Checking Checkin RFID In Activity Log
     Last AL Element Should Be       8   SUCCESS
     Expand Last AL
     Sleep                           1 second
-    Expanded AL Element Should Be   2   ${epc}
-    Expanded AL Element Should Be   7   CHECK_IN
-    Expanded AL Element Should Be   10  STATIC SKU
+    Expanded AL Element Should Be   4   ${epc}
+    Expanded AL Element Should Be   8   CHECK_IN
+    Expanded AL Element Should Be   11  STATIC SKU
 
 Get RFID ID
     ${putaway url}                  Get Putaway URL
@@ -181,9 +182,9 @@ Checking Issued RFID In Activity Log
     Last AL Element Should Be       8   SUCCESS
     Expand Last AL
     Sleep                           1 second
-    Expanded AL Element Should Be   2   ${epc}
-    Expanded AL Element Should Be   7   ISSUED
-    Expanded AL Element Should Be   11  STATIC SKU
+    Expanded AL Element Should Be   4   ${epc}
+    Expanded AL Element Should Be   8   ISSUED
+    Expanded AL Element Should Be   12  STATIC SKU
 
 *** Keywords ***
 Preparation
@@ -192,7 +193,6 @@ Preparation
     ${id token}                     Execute Javascript              return (document.cookie.match(/idToken=(.*?);/))[1]
     Set Suite Variable              ${id token}
     Sleep                           5 second
-    Log To Console                  Start
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
 
