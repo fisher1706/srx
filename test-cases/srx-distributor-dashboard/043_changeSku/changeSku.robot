@@ -41,7 +41,7 @@ Checking New Location
 Create RFID
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    Static Customer - 2048      ${change sku 1}
     Sleep                           5 second
     ${buffer}                       Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
@@ -50,16 +50,18 @@ Create RFID
     Sleep                           5 second
     Click Element                   xpath:${import rfid button}
     Sleep                           2 second
-    Execute Javascript              document.getElementById("2").style.display='block'
+    Execute Javascript              document.getElementById("upload-rfid-available").style.display='block'
     Sleep                           1 second
-    Choose File                     id:2                  ${CURDIR}/../../../resources/importRfid.csv
+    Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}            Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
+    Sleep                           5 second
+    Select Location At Rfid Menu    Static Customer - 2048          ${change sku 1}
     Sleep                           10 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
-    Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
-    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
+    Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
 Request RFID
     [Tags]                          RFID
@@ -70,24 +72,21 @@ Request RFID
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking RFID Status
-    Reload Page
-    Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    Static Customer - 2048      ${change sku 1}
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      ISSUED
-    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
-    Element Should Be Disabled      xpath:${table xpath}/tbody/tr[1]${button danger}
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
 Check Transactions
     Click Link                      xpath://*[@href="/transactions"]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]      ${change sku 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]      ACTIVE
     Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
-    Choose From Select Box          ${modal dialog}${select control}       SHIPPED
+    Choose From Select Box          ${modal dialog}${select control}            SHIPPED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
 
@@ -114,8 +113,6 @@ Checking Edit Location
 
 Check Transactions After Change SKU
     Click Link                      xpath://*[@href="/transactions"]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         SHIPPED
@@ -141,7 +138,7 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
-    Sleep                           3 second
+    Sleep                           5 second
     ${number of new row}            Get Rows Count          ${table xpath}
     Should Be Equal As Integers     ${number of new row}    ${number of row}
 

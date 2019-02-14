@@ -37,7 +37,7 @@ Checking New Location
 Import RFID
     Click Link                      xpath://*[@href="/rfid-view"]
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    Static Customer - 2048      ${import rfid sku}
     Sleep                           5 second
     ${buffer1}                      Generate Random String      18      [LETTERS]
     ${epc1}                         Convert To Uppercase        ${buffer1}
@@ -49,20 +49,25 @@ Import RFID
     Sleep                           5 second
     Click Element                   xpath:${import rfid button}
     Sleep                           2 second
-    Execute Javascript              document.getElementById("1").style.display='block'
+    Execute Javascript              document.getElementById("upload-rfid-csv").style.display='block'
     Sleep                           1 second
-    Choose File                     id:1                  ${CURDIR}/../../../resources/importRfid.csv
+    Choose File                     id:upload-rfid-csv              ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}            Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           10 second
 
 Checking RFID
-    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Select Location At Rfid Menu    Static Customer - 2048      ${import rfid sku}
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc2}
     Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
-    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
-    ${number of row}                Get Rows Count                                  ${table xpath}
-    Should Be Equal As Integers     ${number of row}                                2
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[1]     ${epc1}
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]     ASSIGNED
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]     SYSTEM
+    ${number of row}                Get Element Count   xpath:${react table raw}
+    Should Be Equal As Integers     ${number of row}    2
 
 Delete Location
     Click Link                      xpath://*[@href="/locations"]
@@ -77,7 +82,7 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
-    Sleep                           3 second
+    Sleep                           5 second
     ${number of new row}            Get Rows Count          ${table xpath}
     Should Be Equal As Integers     ${number of new row}    ${number of row}
 
