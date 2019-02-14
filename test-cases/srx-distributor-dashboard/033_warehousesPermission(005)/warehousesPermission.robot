@@ -119,7 +119,7 @@ Preparation
     Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
     Click Element                   ${edit group button}
     Clear All Permissions
-    Set Permission                  16       1
+    Set Permission                  15       1
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
     Clear All Settings Permissions
     Click Element                   xpath:${button modal dialog ok}

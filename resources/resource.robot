@@ -38,7 +38,7 @@ Goto Security Groups
 
 Goto Activity Log
     Start Distributor
-    Click Link                      xpath://*[@href="/activity-log"]
+    Click Link                      xpath://*[@href="/activity-feed"]
     Sleep                           5 second
 
 Goto RFID
