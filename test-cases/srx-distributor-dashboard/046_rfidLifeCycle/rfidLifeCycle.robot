@@ -27,7 +27,7 @@ Checking Assigned RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Assigned RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-log"]
+    Click Link                      xpath://*[@href="/activity-feed"]
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_ASSIGN
@@ -74,7 +74,7 @@ Checking Manifest RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Manifest RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-log"]
+    Click Link                      xpath://*[@href="/activity-feed"]
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_MANIFEST
@@ -104,7 +104,7 @@ Checking Checkin RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Checkin RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-log"]
+    Click Link                      xpath://*[@href="/activity-feed"]
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_READ
@@ -142,7 +142,7 @@ Checking Available RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Available RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-log"]
+    Click Link                      xpath://*[@href="/activity-feed"]
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_PUTAWAY
@@ -172,7 +172,7 @@ Checking Issued RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Issued RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-log"]
+    Click Link                      xpath://*[@href="/activity-feed"]
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_READ
