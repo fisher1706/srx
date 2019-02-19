@@ -170,7 +170,7 @@ Delete Customer
 
 Checking On Transactions
     [Tags]                          Check
-    Click Link                      xpath://*[@href="/transactions"]
+    Click Link                      xpath://*[@href="/order-status"]
     ${start shipto}                 Get Text                    xpath:${select control}/div[1]/div[1]/span
     Set Suite Variable              ${start shipto}
     Go Down Check

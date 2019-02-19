@@ -79,7 +79,7 @@ Checking RFID Status
     Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
 Check Transactions
-    Click Link                      xpath://*[@href="/transactions"]
+    Click Link                      xpath://*[@href="/order-status"]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
@@ -112,7 +112,7 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
 
 Check Transactions After Change SKU
-    Click Link                      xpath://*[@href="/transactions"]
+    Click Link                      xpath://*[@href="/order-status"]
     Sleep                           1 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         SHIPPED
