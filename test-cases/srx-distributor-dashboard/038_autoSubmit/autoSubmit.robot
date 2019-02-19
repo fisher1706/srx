@@ -76,7 +76,7 @@ Configure Shipto Not Ordering
     Clear Element Text              id:poNumber_id
     Element Should Be Visible       xpath:${modal dialog}${alert warning}
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           2 second
+    Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${my shipto}]${button default}
     Element Should Be Visible       xpath:${modal dialog}${alert warning}
     Click Element                   xpath:${button modal dialog ok}

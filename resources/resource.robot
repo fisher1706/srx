@@ -63,7 +63,7 @@ Goto Usage History
 
 Goto Transactions
     Login In Distributor Portal
-    Click Link                      xpath://*[@href="/transactions"]
+    Click Link                      xpath://*[@href="/order-status"]
     Sleep                           5 second
 
 Goto Locations

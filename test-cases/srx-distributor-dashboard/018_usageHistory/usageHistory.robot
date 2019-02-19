@@ -38,7 +38,7 @@ Usage History Filtration
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/transactions"]
+    Click Link                      xpath://*[@href="/order-status"]
     Sleep                           5 second
     Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
