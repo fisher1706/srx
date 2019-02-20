@@ -7,11 +7,10 @@ ${email_perm}                   srx-group+dev-permissions@agilevision.io
 ${password_adm}                 srx-group
 ${password_dist}                srx-group
 ${password_cust}                srx-group
-${password_cust}                srx-group
+${password_perm}                srx-group
 
 ${host_adm}                     admin-dev.storeroomlogix.com
-${host_dist}                    distributor-dev.storeroomlogix.com
-${host_cust}                    customer-dev.storeroomlogix.com
+${host_auth}                    auth-dev.storeroomlogix.com
 
 ${environment}                  dev
 ${API_key}                      m4DAfPuRurdzlsVrlen2

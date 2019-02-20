@@ -3,7 +3,6 @@ Library                             XvfbRobot
 Resource                            ${set}
 
 *** Variables ***
-${browser}                          ff
 ${X}                                1920
 ${Y}                                1080
 ${correct wrong email}              example@example.com
