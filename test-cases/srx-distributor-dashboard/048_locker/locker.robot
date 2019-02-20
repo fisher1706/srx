@@ -88,6 +88,17 @@ Checking Issued In Activity Log
     Expanded AL Element Should Be   10  ISSUED
     Expanded AL Element Should Be   17  ${locker sku}
 
+
+Checking Transaction In Activity Log
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[2]             Transaction
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[4]             Locker
+    Click Element                   xpath:((${react table raw})[3]${react table column})[1]
+    Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[2]        170
+    Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[3]        LOCKER
+    Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[7]        ACTIVE
+    Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[11]       LOCKER_SKU
+
+
 Delete Location
     Click Link                      xpath://*[@href="/locations"]
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
