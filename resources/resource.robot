@@ -1,5 +1,6 @@
 *** Settings ***
 Library                             XvfbRobot
+Resource                            ${set}
 
 *** Variables ***
 ${browser}                          ff
@@ -639,6 +640,9 @@ Filter Select Box
 
 Get RFID URL
     Return From Keyword             https://${RFID_SN}:${RFID_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/rfid
+
+Get Locker URL
+    Return From Keyword             https://${API_key}:${API_key}@api-${environment}.storeroomlogix.com/api/webhook/events/locker
 
 Get Manifest URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/manifest
