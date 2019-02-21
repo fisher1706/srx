@@ -117,6 +117,7 @@ ${claiming hardware pane}       //div[contains(@id, 'erp-integration-pane-claimi
 ${taxes pane}                   //div[contains(@id, 'pricing-billing-pane-taxes')]
 ${transaction submission pane}  //div[contains(@id, 'erp-integration-pane-rl-submit-integration')]
 ${order close logic}            //div[contains(@id, 'enterprise-workflow-pane-order-close')]
+${customer settings notify}     //div[contains(@id, 'settings-pane-notification-settings')]
 ${pricing integrations}         //div[contains(@id, 'erp-integration-pane-pricing-integration')]
 ${radio button}                 //label[contains(@class, 'select-options')]
 ${radio button type}            //input[contains(@type, 'radio')]
