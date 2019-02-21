@@ -1,14 +1,14 @@
 *** Settings ***
-Suite Setup                         Preparation
-Suite Teardown                      Finish Suite
-Library                             SeleniumLibrary
-Resource                            ../../../resources/resource.robot
-Resource                            ../../../resources/testData.robot
+Suite Setup                             Preparation
+Suite Teardown                          Finish Suite
+Library                                 SeleniumLibrary
+Resource                                ../../../resources/resource.robot
+Resource                                ../../../resources/testData.robot
 
 *** Variable ***
 *** Test Cases ***
 Notification Settings
-    [Tags]                          Notification Settings
+    [Tags]                              Notification Settings
     Goto Notification Settings
     UnSelect all Checkboxes
     Click Element                       xpath:(${customer settings notify}${checkbox type})[1]
@@ -82,15 +82,15 @@ Notification Settings
 *** Keywords ***
 Preparation
     Start Customer
-    Sleep                           2 second
-    Click Element                   xpath:/html/body/div/div/div/div/div/div/button[1]
-    Click Element                   css:.select-shipto-button
+    Sleep                               2 second
+    Click Element                       xpath:/html/body/div/div/div/div/div/div/button[1]
+    Click Element                       css:.select-shipto-button
     Is Customer Portal
-    Click Link                      xpath://*[@href="/settings/59"]
-    Sleep                           3 second
+    Click Element                       xpath:(${sidebar item})[3]
+    Sleep                               3 second
 
 Goto Notification Settings
-    Click Element                   id:settings-tab-notification-settings
+    Click Element                       id:settings-tab-notification-settings
 
 UnSelect all Checkboxes
     Unselect Checkbox                   xpath:(${customer settings notify}${checkbox type})[1]
