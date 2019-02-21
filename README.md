@@ -14,24 +14,30 @@ This project contains automation tests using Robot Framework for the SRX platfor
 
 ## Test execution
 
-To run tests by headless browser you need to execute command **-v browser:xvfb**.
-
 Examples of use:
 ```
 robot -v set:pipeline.robot test-cases
 ```
-**email_adm**, **email_dist**, **email_cust** -- emails for *admin*, *distributor* and *customer* portals.
 
-**password_adm**, **password_dist**, **password_cust** -- passwords for *admin*, *distributor* and *customer* portals.
+**-v set:[fileName].robot** -- using for select file with environment variables
 
-**host_adm**, **host_dist**, **host_cust** -- URLs for *admin*, *distributor* and *customer* portals.
+Content of file with environment variables:
 
-**RFID_SN** -- RFID Serial Number for tests.
+**${email_adm}** -- email for *admin* portal
+**${email_dist}** -- email for *distributor* portal
+**${email cust}** -- email for *customer* portal
+**${email_perm}** -- email for *distributor* portal by account for permission tests
 
-**environment** -- can be *dev*, *staging* or *prod*.
+**${password_adm** -- password for *admin* portal
+**${password_dist}** -- password for *distributor* portal
+**${password_cust}** -- password for *customer* portal
+**${password_perm}** -- password for *distributor* portal by account for permission tests
 
-**API_key** -- API Key for tests.
+**${host_adm}** -- URL for *admin* portal
+**${host_auth}** -- URL for *auth* portal
 
-**email_perm** -- email for test permissions account.
-
-**password_perm** -- password for test permissions account.
+**${environment}** -- can be *dev*, *staging* or *prod*
+**${API_key}** -- API Key for tests
+**${RFID_SN}** -- RFID Serial Number for tests
+**${browser}** -- can be *ff* (for FireFox), *chrome* (for Google Chrome) or *xvfb* for (headless FireFox)
+**${locker_kiosk_id}** -- ID of ShipTo for Locker webhook
