@@ -476,20 +476,19 @@ Set Settings Permission
 Clear Permission
     [Arguments]                     ${row}
     Run Keyword If                  ${row}==4       Clear Only Read             ${row}
-    Run Keyword If                  ${row}==7       Clear Only Read             ${row}
-    Run Keyword If                  ${row}==11      Clear Only Read             ${row}
-    Run Keyword If                  ${row}==16      Clear Only Read             ${row}
-    Run Keyword If                  ${row}!=4 and ${row}!=7 and ${row}!=11 and ${row}!=16   Clear Standart      ${row}
+    Run Keyword If                  ${row}==10      Clear Only Read             ${row}
+    Run Keyword If                  ${row}==15      Clear Only Read             ${row}
+    Run Keyword If                  ${row}!=4 and ${row}!=10 and ${row}!=15      Clear Standart      ${row}
 
 Clear Settings Permission
     [Arguments]                     ${row}
+    Run Keyword If                  ${row}==14    Clear Settings Only Read      ${row}
     Run Keyword If                  ${row}==15    Clear Settings Only Read      ${row}
-    Run Keyword If                  ${row}==16    Clear Settings Only Read      ${row}
-    Run Keyword If                  ${row}!=15 and ${row}!=16                   Clear Settings Standart     ${row}
+    Run Keyword If                  ${row}!=15 and ${row}!=14                   Clear Settings Standart     ${row}
 
 Clear All Permissions
     Set Suite Variable              ${index}        1
-    :FOR  ${index}  IN RANGE  1     18
+    :FOR  ${index}  IN RANGE  1     17
     \   Clear Permission            ${index}
 
 Clear All Settings Permissions
