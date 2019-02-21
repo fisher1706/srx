@@ -18,7 +18,7 @@ To run tests by headless browser you need to execute command **-v browser:xvfb**
 
 Examples of use:
 ```
-robot -v password_adm:srx-group -v email_adm:srx-group+dev@agilevision.io -v host_adm:admin-dev.storeroomlogix.com -v email_dist:srx-group+dev-distributor@agilevision.io -v password_dist:srx-group -v host_dist:distributor-dev.storeroomlogix.com -v email_cust:srx-group+dev-customer@agilevision.io -v password_cust:srx-group -v host_cust:customer-dev.storeroomlogix.com -v RFID_SN:RFID230820106808 -v environment:dev -v API_key:m4DAfPuRurdzlsVrlen2 -v email_perm:srx-group+dev-permissions@agilevision.io -v password_perm:srx-group -v browser:xvfb
+robot -v set:pipeline.robot test-cases
 ```
 **email_adm**, **email_dist**, **email_cust** -- emails for *admin*, *distributor* and *customer* portals.
 
