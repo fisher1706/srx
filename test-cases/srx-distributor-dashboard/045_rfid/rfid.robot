@@ -43,14 +43,14 @@ Sorting RFIDs
     Sorting React With Last Page    4
     Sorting React With Last Page    5
 
-Filter Activity Log
+Filter RFID
     [Tags]                          Filter
     Filter React Field              1   1   X1
     Filter React Field              2   4   SYSTEM
     Filter React Field              3   5   rfid1
     Filter React Select Box         1   2   ISSUED
 
-Filter Activity Log Date
+Filter RFID Date
     [Tags]                          Filter      FilterDate
     Click Element                   xpath:${button right margin}
     Input Text                      xpath:(${modal dialog}${form control})[4]       2/4/2019, 2:21 P
