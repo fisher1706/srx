@@ -163,4 +163,4 @@ ${expanded react table}         //div[contains(@class, 'Table__expandedContainer
 ${srx select}                   //div[contains(@class, 'srx-select')]
 ${page item}                    //li[contains(@class, 'page-item')]
 ${page link}                    //a[contains(@class, 'page-link')]
-${to portal}                    //a[contains(@class, 'defaultButton')]
+${to portal}                    //a[contains(@id, 'redirectButton')]

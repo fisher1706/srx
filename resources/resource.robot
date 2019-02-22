@@ -212,7 +212,7 @@ Start Distributor
     Input Text                      id:email                ${email_dist}
     Input Text                      id:password             ${password_dist}
     Click Element                   xpath:${button success}
-    Sleep                           2 second
+    Sleep                           4 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -221,7 +221,7 @@ Start Customer
     Input Text                      id:email                ${email_cust}
     Input Text                      id:password             ${password_cust}
     Click Element                   xpath:${button success}
-    Sleep                           2 second
+    Sleep                           4 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -230,7 +230,7 @@ Start Permission
     Input Text                      id:email                ${email_perm}
     Input Text                      id:password             ${password_perm}
     Click Element                   xpath:${button success}
-    Sleep                           2 second
+    Sleep                           4 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
