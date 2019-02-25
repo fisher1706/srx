@@ -581,7 +581,10 @@ Go Down Selector
 Get Rows Count
     [Arguments]                     ${table}
     ${number}                       Get Element Count           xpath:${table}/tbody/tr
-    Return From Keyword             ${number}
+    Return From Keyword If          ${number}!=1                ${number}
+    ${columns}                      Get Element Count           xpath:${table}/tbody/tr/td
+    Return From Keyword If          ${columns}>1                1
+    Return From Keyword If          ${columns}<=1               0
 
 Get Row By Text
     [Arguments]                     ${table}    ${column}   ${text}
@@ -647,10 +650,6 @@ Get Manifest URL
 
 Get Putaway URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/putaway
-
-Get Shipto ID
-    Return From Keyword If          "${environment}"=="dev"     59
-    #Return From Keyword If          "${environment}"=="prod"     59
 
 Check Last AL
     [Arguments]                     ${column}
