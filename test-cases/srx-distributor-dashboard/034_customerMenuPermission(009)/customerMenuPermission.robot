@@ -158,7 +158,7 @@ Preparation
     Sleep                           3 second
     Start Permission
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     ${static customer}              Get Row By Text     ${table xpath}      1       Static Customer
     Click Element                   xpath:${table xpath}/tbody/tr[${static customer}]/td[1]/a
     Sleep                           2 second

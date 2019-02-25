@@ -113,7 +113,7 @@ Customer Filtration
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}

@@ -149,7 +149,7 @@ Preparation
     Sleep                           3 second
     Start Permission
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/catalog"]
+    Goto Sidebar Catalog
     Is Present                      xpath:${last page}
     Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}      ELSE    Open Full Table
     Sleep                           4 second

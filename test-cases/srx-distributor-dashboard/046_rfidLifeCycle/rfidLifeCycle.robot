@@ -173,7 +173,7 @@ Checking Issued RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Issued RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar RFID
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_READ
@@ -188,7 +188,8 @@ Checking Issued RFID In Activity Log
 
 *** Keywords ***
 Preparation
-    Goto RFID
+    Start Distributor
+    Goto Sidebar RFID
     Sleep                           5 second
     ${id token}                     Execute Javascript              return (document.cookie.match(/idToken=(.*?);/))[1]
     Set Suite Variable              ${id token}

@@ -197,7 +197,7 @@ Transaction Status Updates Logic
     Goto Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/order-status"]
+    Click Element                   id:sidebar-transactions
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           3 second
     Click Element                   xpath:${header xpath}/thead/tr/th[1]
@@ -225,7 +225,7 @@ Transaction Status Updates Logic
     Goto Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           10 second
     ${rows}                         Get Element Count               xpath:${table xpath}/tbody/tr[1]/td
@@ -248,7 +248,7 @@ Transaction Status Updates Logic
     Goto Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
@@ -275,7 +275,7 @@ Distributor Contact Info
     Input Text                      id:emergencyPhone_id    ${test number}
     Click Element                   css:#enterprise-profile-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
@@ -323,7 +323,7 @@ Distributor Contact Info
     Input Text                      id:emergencyPhone_id    ${edit test number}
     Click Element                   css:#enterprise-profile-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
@@ -374,7 +374,7 @@ Cost Saving
     Input Text                      id:deliveryCost_id          ${test number 5}
     Click Element                   css:#enterprise-profile-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
@@ -429,7 +429,7 @@ Cost Saving
     Input Text                      id:deliveryCost_id          ${edit test number 5}
     Click Element                   css:#enterprise-profile-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
@@ -475,7 +475,7 @@ Cost Saving
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
 
 Click For Check

@@ -116,7 +116,7 @@ User Filtration
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/users"]
+    Goto Sidebar Users
     Click Element                   id:users-tab-users
     ${number of row}                Get Rows Count              ${users pane users}${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

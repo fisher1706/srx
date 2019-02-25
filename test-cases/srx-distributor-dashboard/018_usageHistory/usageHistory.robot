@@ -38,7 +38,7 @@ Usage History Filtration
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     Sleep                           5 second
     Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
@@ -48,7 +48,7 @@ Preparation
     Choose From Select Box          ${modal dialog}${select control}    DELIVERED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/usage-history"]
+    Goto Sidebar Usage History
     Section Is Present              css:div.btn
     Sleep                           1 second
     Click Element                   xpath:${last page}

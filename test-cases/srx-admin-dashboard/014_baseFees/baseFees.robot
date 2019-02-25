@@ -61,7 +61,7 @@ Goto Settings Sub
     Finish Suite
     Start Distributor
     Sleep                           5 second
-    Click Link                      xpath://*[@href="/settings"]
+    Click Link                      id:sidebar--settings
     Sleep                           2 second
     Click Element                   id:settings-tab-pricing-billing
     Sleep                           1 second

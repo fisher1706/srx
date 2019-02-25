@@ -51,7 +51,7 @@ Select Pricing
     Sleep                           2 Second
 
 Configure Submit Settings
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     ${my customer}                  Get Row By Text     ${table xpath}      1   Static Customer
     Click Element                   xpath:${table xpath}/tbody/tr[${my customer}]/td[1]/a
     Click Element                   id:customer-details-tab-settings
@@ -66,7 +66,7 @@ Configure Submit Settings
     Sleep                           1 second
 
 Configure Shipto Not Ordering
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     ${my customer}                  Get Row By Text     ${table xpath}      1   Static Customer
     Click Element                   xpath:${table xpath}/tbody/tr[${my customer}]/td[1]/a
     Click Element                   id:customer-details-tab-shiptos

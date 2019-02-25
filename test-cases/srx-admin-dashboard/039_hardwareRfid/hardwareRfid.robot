@@ -179,7 +179,7 @@ Goto Settings Sub
     Finish Suite
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/settings"]
+    Click Element                   id:sidebar--settings
     Sleep                           1 second
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second

@@ -216,7 +216,7 @@ Goto Users Sub
     Sleep                           5 second
     Start Distributor
     Sleep                           5 second
-    Click Link                      xpath://*[@href="/users"]
+    Goto Sidebar Users
     Sleep                           1 second
     Click Element                   id:users-tab-super-users
     Sleep                           2 second

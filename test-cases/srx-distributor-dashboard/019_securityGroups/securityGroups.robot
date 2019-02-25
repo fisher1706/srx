@@ -27,7 +27,7 @@ Checking New Security Group
 
 Create User With New Security Group
     [Tags]                          Test
-    Click Link                      xpath://*[@href="/users"]
+    Goto Sidebar Users
     Click Element                   id:users-tab-users
     Click Element                   xpath:${users pane users}${button primary}
     Input Text                      id:email_id                 ${dynamic email}
@@ -63,7 +63,7 @@ Try To Delete Security Group
     Page Should Contain             Can't delete SecurityGroup with inner relationships.
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/users"]
+    Goto Sidebar Users
     Click Element                   id:users-tab-users
 
 Delete User

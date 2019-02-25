@@ -160,7 +160,7 @@ Catalog Filtration
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/catalog"]
+    Goto Sidebar Catalog
     Sleep                           5 second
     Click Element                   xpath:${last page}
     Sleep                           3 second

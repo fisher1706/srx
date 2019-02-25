@@ -95,7 +95,7 @@ Preparation
     Sleep                           3 second
     Start Permission
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     ${number of row}                Get Rows Count              ${table xpath}
     Set Suite Variable              ${number of row}
     ${number of new row}=           Evaluate                    ${number of row}+1

@@ -104,7 +104,7 @@ Goto Customer Menu Sub
     Finish Suite
     Start Distributor
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           5 second
     ${my customer}                  Get Row By Text     ${table xpath}      1   Customer Z
     Set Suite Variable              ${my customer}

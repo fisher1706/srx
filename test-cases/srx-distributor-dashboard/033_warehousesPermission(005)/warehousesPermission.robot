@@ -128,7 +128,7 @@ Preparation
     Sleep                           3 second
     Start Permission
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/warehouses"]
+    Goto Sidebar Warehouses
     Sleep                           5 second
     Reload Page
     Sleep                           5 second

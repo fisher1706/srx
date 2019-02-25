@@ -53,7 +53,6 @@ Filter Transactions Submitted By
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/order-status"]
-    Sleep                           5 second
+    Goto Sidebar Order Status
     Click Element                   xpath:${checkbox type}
     Sleep                           3 second
