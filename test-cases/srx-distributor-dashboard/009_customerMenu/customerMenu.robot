@@ -242,7 +242,7 @@ Checking Customer Settings Order Close Logic
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           5 second
     ${my customer}                  Get Row By Text     ${table xpath}      1   Static Customer
     Set Suite Variable              ${my customer}

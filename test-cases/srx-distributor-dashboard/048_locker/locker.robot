@@ -49,7 +49,7 @@ Checking OHI Available
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      170
 
 Checking Available In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar Activity Feed
     Sleep                           4 second
     Last AL Element Should Be       2   Locker
     Last AL Element Should Be       3   LOCKER_SUBMIT
@@ -70,12 +70,12 @@ Request Locker Issued
     ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${locker sku}", "kioskId": ${shipto_id}    , "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 170, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"${locker user}" }    headers=${headers}
 
 Checking OHI Issued
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Sleep                           4 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
 
 Checking Issued In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar Activity Feed
     Sleep                           4 second
     Last AL Element Should Be       2   Locker
     Last AL Element Should Be       3   LOCKER_SUBMIT
@@ -100,7 +100,7 @@ Checking Transaction In Activity Log
 
 
 Delete Location
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${location name}
@@ -119,7 +119,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

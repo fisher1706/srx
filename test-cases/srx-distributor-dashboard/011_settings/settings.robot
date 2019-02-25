@@ -196,7 +196,7 @@ Transaction Status Updates Logic
     Goto Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/order-status"]
+    Click Element                   id:sidebar-transactions
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           3 second
     Click Element                   xpath:${header xpath}/thead/tr/th[1]
@@ -209,7 +209,7 @@ Transaction Status Updates Logic
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [400]>
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Goto Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
@@ -224,7 +224,7 @@ Transaction Status Updates Logic
     Goto Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           10 second
     ${rows}                         Get Element Count               xpath:${table xpath}/tbody/tr[1]/td
@@ -232,7 +232,7 @@ Transaction Status Updates Logic
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Goto Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
@@ -247,7 +247,7 @@ Transaction Status Updates Logic
     Goto Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
@@ -274,7 +274,7 @@ Distributor Contact Info
     Input Text                      id:emergencyPhone_id    ${test number}
     Click Element                   css:#enterprise-profile-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
@@ -308,7 +308,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${dynamic email}"  Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${test number}"    Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
     Goto Distributor Contact Info
     Sleep                           1 second
@@ -322,7 +322,7 @@ Distributor Contact Info
     Input Text                      id:emergencyPhone_id    ${edit test number}
     Click Element                   css:#enterprise-profile-pane-contact-info > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
     Sleep                           4 second
@@ -354,7 +354,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${edit email}"         Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${edit test number}"   Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
 
 Cost Saving
@@ -373,7 +373,7 @@ Cost Saving
     Input Text                      id:deliveryCost_id          ${test number 5}
     Click Element                   css:#enterprise-profile-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
@@ -412,7 +412,7 @@ Cost Saving
     Run Keyword If                  "${value}"=="${test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
     Goto Cost Saving
     Sleep                           1 second
@@ -428,7 +428,7 @@ Cost Saving
     Input Text                      id:deliveryCost_id          ${edit test number 5}
     Click Element                   css:#enterprise-profile-pane-cost-savings > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)
     Sleep                           4 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           4 second
     Number Of Rows C
     Number Of Static Row C
@@ -467,14 +467,14 @@ Cost Saving
     Run Keyword If                  "${value}"=="${edit test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${edit test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
 
 *** Keywords ***
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
 
 Click For Check

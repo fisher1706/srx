@@ -80,7 +80,7 @@ Delete Customer
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/security-groups"]
+    Goto Sidebar Security Groups
     Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
     Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
@@ -95,7 +95,7 @@ Preparation
     Sleep                           3 second
     Start Permission
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     ${number of row}                Get Rows Count              ${table xpath}
     Set Suite Variable              ${number of row}
     ${number of new row}=           Evaluate                    ${number of row}+1

@@ -127,7 +127,7 @@ Warehouse Filtration
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/warehouses"]
+    Goto Sidebar Warehouses
     Sleep                           5 second
     Reload Page
     Sleep                           5 second

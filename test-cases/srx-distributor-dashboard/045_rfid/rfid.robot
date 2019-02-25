@@ -64,7 +64,8 @@ Filter RFID Date
 
 *** Keywords ***
 Preparation
-    Goto RFID
+    Start Distributor
+    Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second

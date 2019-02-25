@@ -157,7 +157,7 @@ Checking New User 2
 
 Delete Customer
     [Tags]                          DeleteCustomer
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     Sleep                           3 second
     Click Element                   ${delete customer button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${delete customer name}
@@ -170,7 +170,7 @@ Delete Customer
 
 Checking On Transactions
     [Tags]                          Check
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     ${start shipto}                 Get Text                    xpath:${select control}/div[1]/div[1]/span
     Set Suite Variable              ${start shipto}
     Go Down Check
@@ -179,7 +179,7 @@ Checking On Transactions
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/customers"]
+    Goto Sidebar Customers
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}

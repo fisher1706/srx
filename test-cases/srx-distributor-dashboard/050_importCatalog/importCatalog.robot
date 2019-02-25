@@ -39,7 +39,7 @@ Import Catalog
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/catalog"]
+    Goto Sidebar Catalog
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     Set Suite Variable              ${number of row}

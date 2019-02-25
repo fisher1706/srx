@@ -77,7 +77,7 @@ Checking Serial Number On Distributor Portal After Change
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[10]      10/10/2022, 11:00 PM
 
 Create RFID
-    Click Link                      xpath://*[@href="/rfid-view"]
+    Goto Sidebar RFID
     Sleep                           5 second
     ${buffer}                       Generate Random String      18      [LETTERS]
     ${epc}                          Convert To Uppercase        ${buffer}
@@ -179,7 +179,7 @@ Goto Settings Sub
     Finish Suite
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           1 second
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second

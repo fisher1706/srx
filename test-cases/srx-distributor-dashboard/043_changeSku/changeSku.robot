@@ -39,7 +39,7 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
 
 Create RFID
-    Click Link                      xpath://*[@href="/rfid-view"]
+    Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      ${change sku 1}
     Sleep                           5 second
@@ -79,7 +79,7 @@ Checking RFID Status
     Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
 Check Transactions
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
@@ -91,7 +91,7 @@ Check Transactions
     Sleep                           5 second
 
 Change Location SKU
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]
     Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            ${change sku 2}
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
@@ -112,7 +112,7 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
 
 Check Transactions After Change SKU
-    Click Link                      xpath://*[@href="/order-status"]
+    Goto Sidebar Order Status
     Sleep                           1 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         SHIPPED
@@ -124,7 +124,7 @@ Deliver Transaction
     Sleep                           5 second
 
 Delete Location
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${level 1}
@@ -146,7 +146,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

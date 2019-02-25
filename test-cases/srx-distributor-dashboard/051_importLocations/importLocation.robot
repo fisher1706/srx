@@ -59,7 +59,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

@@ -49,7 +49,7 @@ Checking Taxes After Change
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
 
 Goto Documents

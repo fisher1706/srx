@@ -15,7 +15,7 @@ Login In Distributor Portal
     Enter Correct Email
     Enter Password
     Correct Submit Login
-    Section Is Present              xpath://*[@href="/sign-out"]
+    Section Is Present              id:sidebar-sign_out
     Sleep                           5 second
 
 Login In Customer Portal
@@ -151,6 +151,61 @@ Goto Customer Contact Info
 
 Goto Customer Shipto
     Click Element                   id:customer-details-tab-shiptos
+
+Goto Sidebar Users  
+    Click Element                   id:sidebar-users
+    Sleep                           5 second
+
+Goto Sidebar Warehouses
+    Click Element                   id:sidebar-warehouses
+    Sleep                           5 second
+
+Goto Sidebar Customers
+    Click Element                   id:sidebar-customers
+    Sleep                           5 second
+
+Goto Sidebar Catalog
+    Click Element                   id:sidebar-catalog
+    Sleep                           5 second
+
+Goto Sidebar Usage History
+    Click Element                   id:sidebar-usage_history
+    Sleep                           5 second
+
+Goto Sidebar Pricing
+    Click Element                   id:sidebar-pricing
+    Sleep                           5 second
+
+Goto Sidebar Order Status
+    Click Element                   id:sidebar-transactions
+    Sleep                           5 second
+
+Goto Sidebar Activity Feed
+    Click Element                   id:sidebar-activity_feed
+    Sleep                           5 second
+
+Goto Sidebar Reports
+    Click Element                   id:sidebar-reports
+    Sleep                           5 second
+
+Goto Sidebar RFID
+    Click Element                   id:sidebar-rfid
+    Sleep                           5 second
+
+Goto Sidebar Locations
+    Click Element                   id:sidebar-locations
+    Sleep                           5 second
+
+Goto Sidebar Security Groups
+    Click Element                   id:sidebar--user_groups
+    Sleep                           5 second
+
+Goto Sidebar Settings
+    Click Element                   id:sidebar--settings
+    Sleep                           5 second
+
+Sign Out New
+    Click Element                   id:sidebar-sign_out
 
 Is Customer Shipto
     Element Should Be Visible       id:customer-details-pane-shiptos

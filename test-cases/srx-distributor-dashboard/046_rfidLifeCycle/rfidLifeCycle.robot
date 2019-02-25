@@ -28,7 +28,7 @@ Checking Assigned RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Assigned RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar Activity Feed
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_ASSIGN
@@ -65,7 +65,7 @@ Submit Manifest
     Sleep                           5 second
 
 Checking Manifest RFID
-    Click Link                      xpath://*[@href="/rfid-view"]
+    Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
@@ -74,7 +74,7 @@ Checking Manifest RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Manifest RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar Activity Feed
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_MANIFEST
@@ -95,7 +95,7 @@ Webhook To Checkin
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking Checkin RFID
-    Click Link                      xpath://*[@href="/rfid-view"]
+    Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
@@ -104,7 +104,7 @@ Checking Checkin RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Checkin RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar Activity Feed
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_READ
@@ -133,7 +133,7 @@ Put Away
     ${resp}=                        Post Request            httpbin     /       headers=${headers}
 
 Checking Available RFID
-    Click Link                      xpath://*[@href="/rfid-view"]
+    Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
@@ -142,7 +142,7 @@ Checking Available RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Available RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar Activity Feed
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_PUTAWAY
@@ -163,7 +163,7 @@ Webhook To Issued
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking Issued RFID
-    Click Link                      xpath://*[@href="/rfid-view"]
+    Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
@@ -172,7 +172,7 @@ Checking Issued RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Issued RFID In Activity Log
-    Click Link                      xpath://*[@href="/activity-feed"]
+    Goto Sidebar RFID
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_READ
@@ -187,7 +187,8 @@ Checking Issued RFID In Activity Log
 
 *** Keywords ***
 Preparation
-    Goto RFID
+    Start Distributor
+    Goto Sidebar RFID
     Sleep                           5 second
     ${id token}                     Execute Javascript              return (document.cookie.match(/idToken=(.*?);/))[1]
     Set Suite Variable              ${id token}

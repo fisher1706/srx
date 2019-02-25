@@ -38,7 +38,8 @@ Filter Activity Log Date
 
 *** Keywords ***
 Preparation
-    Goto Activity Log
+    Start Distributor
+    Goto Sidebar Activity Feed
     Sleep                           5 second
 
 Filter Action

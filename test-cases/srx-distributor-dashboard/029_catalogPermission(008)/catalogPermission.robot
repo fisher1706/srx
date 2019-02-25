@@ -134,7 +134,7 @@ Checking Edit Product
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/security-groups"]
+    Goto Sidebar Security Groups
     Sleep                           5 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
     Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
@@ -149,7 +149,7 @@ Preparation
     Sleep                           3 second
     Start Permission
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/catalog"]
+    Goto Sidebar Catalog
     Is Present                      xpath:${last page}
     Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}      ELSE    Open Full Table
     Sleep                           4 second

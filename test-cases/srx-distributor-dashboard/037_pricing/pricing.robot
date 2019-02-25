@@ -42,7 +42,7 @@ Checking Pricing Report
 
 Checking Static Pricing Report
     [Tags]                          Report
-    Click Link                      xpath://*[@href="/reports"]
+    Goto Sidebar Reports
     Sleep                           3 second
     Click Element                   xpath:${button info}
     Go Down Selector                (${modal dialog}${select control})[1]           Static Customer
@@ -57,7 +57,7 @@ Checking Static Pricing Report
 
 Sorting Pricing
     [Tags]                          Sorting
-    Click Link                      xpath://*[@href="/pricing"]
+    Goto Sidebar Pricing
     Sleep                           1 second
     Go Down Selector                (${select control})[1]      Customer A
     ${count}                        Get Rows Count      ${table xpath}
@@ -107,14 +107,14 @@ Filter Pricing Date
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second
     Click Element                   id:erp-integration-tab-pricing-integration
     Sleep                           3 second
     Click Element                   xpath:(${pricing integrations}${radio button})[2]
     Click Element                   xpath:${pricing integrations}${control button}
-    Click Link                      xpath://*[@href="/pricing"]
+    Goto Sidebar Pricing
     Sleep                           5 second
 
 If First Pricing
@@ -160,7 +160,7 @@ Second Pricing Report
     Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[4]/div      ${date 2 2}
 
 Goto Pricing Report
-    Click Link                      xpath://*[@href="/reports"]
+    Goto Sidebar Reports
     Sleep                           2 second
     Click Element                   id:reports-tab-pricing-report
     Sleep                           1 second
