@@ -38,7 +38,6 @@ Transaction Submission
     Sleep                           1 second
     ${checked1}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[1]/label/input    checked
     ${checked2}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[2]/label/input    checked
-    ${checked3}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[3]/label/input    checked
     Run Keyword If                  "${checked3}"=="None"       Click Element       xpath:(${transaction submission pane}${checkbox})[3]/label/input
     Run Keyword If                  "${checked2}"=="true"       Click Element       xpath:(${transaction submission pane}${checkbox})[2]/label/input
     Run Keyword If                  "${checked1}"=="None"       Click Element       xpath:(${transaction submission pane}${checkbox})[1]/label/input

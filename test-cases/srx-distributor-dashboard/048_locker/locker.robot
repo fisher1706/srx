@@ -41,7 +41,7 @@ Request Locker Available
     ${request url locker}           Get Locker URL
     Create Session                  httpbin                  ${request url locker}        verify=true
     &{headers}=                     Create Dictionary        Content-Type=application/json
-    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${locker sku}", "kioskId": ${locker_kiosk_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 170, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Available", "weightOfProduct": 0, "user":"${locker user}" }    headers=${headers}
+    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${locker sku}", "kioskId": ${shipto_id}    , "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 170, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Available", "weightOfProduct": 0, "user":"${locker user}" }    headers=${headers}
 
 Checking OHI Available
     Reload Page
@@ -67,7 +67,7 @@ Request Locker Issued
     ${request url locker}           Get Locker URL
     Create Session                  httpbin                  ${request url locker}        verify=true
     &{headers}=                     Create Dictionary        Content-Type=application/json
-    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${locker sku}", "kioskId": ${locker_kiosk_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 170, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"${locker user}" }    headers=${headers}
+    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${locker sku}", "kioskId": ${shipto_id}    , "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 170, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"${locker user}" }    headers=${headers}
 
 Checking OHI Issued
     Click Link                      xpath://*[@href="/locations"]
