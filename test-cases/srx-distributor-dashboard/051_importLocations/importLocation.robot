@@ -15,7 +15,6 @@ Import locations
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importLocations.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    #Sleep                           10 second
     Click Element                   xpath:${button modal dialog ok}
     Reload Page
     Sleep                           5 second
@@ -41,8 +40,8 @@ Delete Location
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     Cabinet1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     Cabinet_value1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Shelf1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     Shelf_value1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Shelf11
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     Shelf_value11
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     Location1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     Location_value1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    CDF
