@@ -51,4 +51,4 @@ Content of file with environment variables:
 
 **${browser}** -- can be *ff* (for FireFox), *chrome* (for Google Chrome) or *xvfb* for (headless FireFox)
 
-**${locker_kiosk_id}** -- ID of ShipTo for Locker webhook
+**${shipto_id}** -- ShipTo ID

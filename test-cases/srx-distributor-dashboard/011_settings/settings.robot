@@ -38,7 +38,6 @@ Transaction Submission
     Sleep                           1 second
     ${checked1}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[1]/label/input    checked
     ${checked2}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[2]/label/input    checked
-    ${checked3}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[3]/label/input    checked
     Run Keyword If                  "${checked3}"=="None"       Click Element       xpath:(${transaction submission pane}${checkbox})[3]/label/input
     Run Keyword If                  "${checked2}"=="true"       Click Element       xpath:(${transaction submission pane}${checkbox})[2]/label/input
     Run Keyword If                  "${checked1}"=="None"       Click Element       xpath:(${transaction submission pane}${checkbox})[1]/label/input
@@ -210,7 +209,7 @@ Transaction Status Updates Logic
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [400]>
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Goto Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
@@ -233,7 +232,7 @@ Transaction Status Updates Logic
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Goto Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
@@ -309,7 +308,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${dynamic email}"  Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${test number}"    Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
     Goto Distributor Contact Info
     Sleep                           1 second
@@ -355,7 +354,7 @@ Distributor Contact Info
     Run Keyword If                  "${value}"=="${edit email}"         Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:emergencyPhone_id
     Run Keyword If                  "${value}"=="${edit test number}"   Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
 
 Cost Saving
@@ -413,7 +412,7 @@ Cost Saving
     Run Keyword If                  "${value}"=="${test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
     Goto Cost Saving
     Sleep                           1 second
@@ -468,7 +467,7 @@ Cost Saving
     Run Keyword If                  "${value}"=="${edit test number 4}"      Log To Console      Pass    ELSE    Fail    Fail
     ${value}                        Get Value               id:deliveryCost_id
     Run Keyword If                  "${value}"=="${edit test number 5}"      Log To Console      Pass    ELSE    Fail    Fail
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Sleep                           3 second
 
 *** Keywords ***

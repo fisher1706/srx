@@ -15,7 +15,8 @@ Login In Distributor Portal
     Enter Correct Email
     Enter Password
     Correct Submit Login
-    Section Is Present              xpath://*[@href="/sign-out"]
+    Section Is Present              id:sidebar-sign_out
+    #Section Is Present              xpath://*[@href="/sign-out"]
     Sleep                           5 second
 
 Login In Customer Portal
@@ -204,7 +205,8 @@ Goto Sidebar Settings
     Click Element                   id:sidebar--settings
     Sleep                           5 second
 
-
+Sign Out New
+    Click Element                   id:sidebar-sign_out
 
 Is Customer Shipto
     Element Should Be Visible       id:customer-details-pane-shiptos
@@ -236,7 +238,7 @@ Correct Submit Login
     Click Element                   ${element login button}
 
 Sign Out
-    Click Element                   id:sidebar-sign_out
+    Click Link                      xpath://*[@href="/sign-out"]
 
 Start Suite
     Set Suite Variable              ${LOGIN URL}    https://${HOST}/sign-in
@@ -635,7 +637,10 @@ Go Down Selector
 Get Rows Count
     [Arguments]                     ${table}
     ${number}                       Get Element Count           xpath:${table}/tbody/tr
-    Return From Keyword             ${number}
+    Return From Keyword If          ${number}!=1                ${number}
+    ${columns}                      Get Element Count           xpath:${table}/tbody/tr/td
+    Return From Keyword If          ${columns}>1                1
+    Return From Keyword If          ${columns}<=1               0
 
 Get Row By Text
     [Arguments]                     ${table}    ${column}   ${text}
@@ -701,10 +706,6 @@ Get Manifest URL
 
 Get Putaway URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/putaway
-
-Get Shipto ID
-    Return From Keyword If          "${environment}"=="dev"     59
-    #Return From Keyword If          "${environment}"=="prod"     59
 
 Check Last AL
     [Arguments]                     ${column}

@@ -41,7 +41,7 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      ON
 
 Select Pricing
-    Click Link                      xpath://*[@href="/settings"]
+    Goto Sidebar Settings
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second
     Click Element                   id:erp-integration-tab-pricing-integration
@@ -94,7 +94,7 @@ Configure Shipto As Order
     Sleep                           1 second
 
 Delete Locations
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${level 1}
@@ -114,7 +114,7 @@ Delete Locations
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

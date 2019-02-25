@@ -28,7 +28,7 @@ Import Catalog
     Sleep                           10 second
 
 Сhecking Import
-    click Element                   xpath:${footer}/div/div[2]/ul/li[7]/a
+    click Element                   xpath:${last page}
     ${number of row}                Get Rows Count                                                  ${table xpath}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]           ${catalog sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]           ${catalog sku}

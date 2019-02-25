@@ -16,4 +16,4 @@ ${environment}                  dev
 ${API_key}                      m4DAfPuRurdzlsVrlen2
 ${RFID_SN}                      RFID230820106808  
 ${browser}                      ff
-${locker_kiosk_id}              59
+${shipto_id}                    59

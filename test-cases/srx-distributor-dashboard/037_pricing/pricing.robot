@@ -42,7 +42,7 @@ Checking Pricing Report
 
 Checking Static Pricing Report
     [Tags]                          Report
-    Click Link                      xpath://*[@href="/reports"]
+    Goto Sidebar Reports
     Sleep                           3 second
     Click Element                   xpath:${button info}
     Go Down Selector                (${modal dialog}${select control})[1]           Static Customer
@@ -153,7 +153,7 @@ Second Pricing Report
     Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[4]/div      ${date 2 2}
 
 Goto Pricing Report
-    Click Link                      xpath://*[@href="/reports"]
+    Goto Sidebar Reports
     Sleep                           2 second
     Click Element                   id:reports-tab-pricing-report
     Sleep                           1 second

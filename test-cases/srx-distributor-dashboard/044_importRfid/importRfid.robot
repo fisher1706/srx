@@ -35,7 +35,7 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
 
 Import RFID
-    Click Link                      xpath://*[@href="/rfid-view"]
+    Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      ${import rfid sku}
     Sleep                           5 second
@@ -70,7 +70,7 @@ Checking RFID
     Should Be Equal As Integers     ${number of row}    2
 
 Delete Location
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${location name}
@@ -90,7 +90,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Click Link                      xpath://*[@href="/locations"]
+    Goto Sidebar Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

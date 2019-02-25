@@ -50,7 +50,7 @@ Checking New User
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[5]/div      ${security group}
 
 Try To Delete Security Group
-    Click Link                      xpath://*[@href="/security-groups"]
+    Goto Sidebar Security Groups
     Click Element                   ${delete group button}
     Sleep                           1 second
     Click Element                   xpath:${button close}
@@ -76,7 +76,7 @@ Delete User
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${security group}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
-    Click Link                      xpath://*[@href="/security-groups"]
+    Goto Sidebar Security Groups
 
 Edit Security Group
     Click Element                   ${edit group button}
@@ -137,7 +137,7 @@ Filter Security Groups
 Preparation
     Start Distributor
     Sleep                           2 second
-    Click Link                      xpath://*[@href="/security-groups"]
+    Goto Sidebar Security Groups
     Sleep                           5 second
     ${number of row}                Get Rows Count              (${table xpath})[2]
     ${number of new row}=           Evaluate                    ${number of row}+1
