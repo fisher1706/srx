@@ -107,6 +107,13 @@ Filter Pricing Date
 Preparation
     Start Distributor
     Sleep                           2 second
+    Goto Sidebar Settings
+    Click Element                   id:settings-tab-erp-integration
+    Sleep                           1 second
+    Click Element                   id:erp-integration-tab-pricing-integration
+    Sleep                           3 second
+    Click Element                   xpath:(${pricing integrations}${radio button})[2]
+    Click Element                   xpath:${pricing integrations}${control button}
     Goto Sidebar Pricing
     Sleep                           5 second
 

@@ -16,7 +16,6 @@ Login In Distributor Portal
     Enter Password
     Correct Submit Login
     Section Is Present              id:sidebar-sign_out
-    #Section Is Present              xpath://*[@href="/sign-out"]
     Sleep                           5 second
 
 Login In Customer Portal
