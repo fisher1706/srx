@@ -5,23 +5,11 @@ Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Variable ***
-${index}                            1
-
 *** Test Cases ***
-Checking Quoted And Ordered List
-    Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
-    Click Element                   xpath:${header xpath}/thead/tr/th[5]
-    Click Element                   xpath:${header xpath}/thead/tr/th[5]
-    Click Element                   xpath:${table xpath}/tbody/tr[1]/td[8]/button
-    Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[1]/a
-    Click Element                   xpath:${control button}
-    Sleep                           5 second
-
 Sorting List
     [Tags]                          Sorting
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
-    Click Element                   xpath:${header xpath}/thead/tr/th[5]
+    Open Minimum Table
     Sort Column With Last Page      1
     Sort Column With Last Page      2
     Sort Column With Last Page      3
