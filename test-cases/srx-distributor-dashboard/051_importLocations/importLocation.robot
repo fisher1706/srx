@@ -40,8 +40,8 @@ Delete Location
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     Cabinet1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     Cabinet_value1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Shelf11
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     Shelf_value11
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Shelf1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     Shelf_value1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     Location1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     Location_value1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    CDF

@@ -56,7 +56,6 @@ Preparation
     Click Link                      xpath://*[@href="/fees"]
     Sleep                           4 second
 
-
 Goto Settings Sub
     Finish Suite
     Start Distributor
