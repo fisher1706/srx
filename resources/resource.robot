@@ -25,10 +25,6 @@ Login In Customer Portal
     Correct Submit Login
     Is Select A Shipto
 
-Goto Settings Customer Portal
-    Click Link                      xpath://*[@href="/settings/59"]
-    Sleep                           5 second
-
 Goto Customer Menu
     Goto Customer Management
     Number Of Rows C

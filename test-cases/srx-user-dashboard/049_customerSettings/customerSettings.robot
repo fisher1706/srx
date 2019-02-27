@@ -86,7 +86,7 @@ Preparation
     Click Element                       xpath:(${list group}${shipto})[1]
     Click Element                       css:.select-shipto-button
     Is Customer Portal
-    Goto Settings Customer Portal
+    Click Element                       xpath:(${sidebar item})[3]
     Sleep                               3 second
 
 Goto Notification Settings
