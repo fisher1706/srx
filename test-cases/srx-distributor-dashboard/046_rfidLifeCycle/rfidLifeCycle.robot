@@ -172,7 +172,7 @@ Checking Issued RFID
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
 Checking Issued RFID In Activity Log
-    Goto Sidebar RFID
+    Goto Sidebar Activity Feed
     Sleep                           4 second
     Last AL Element Should Be       2   RFID
     Last AL Element Should Be       3   RFID_TAG_READ

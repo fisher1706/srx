@@ -83,7 +83,7 @@ Notification Settings
 Preparation
     Start Customer
     Sleep                               2 second
-    Click Element                       xpath:/html/body/div/div/div/div/div/div/button[1]
+    Click Element                       xpath:(${list group}${shipto})[1]
     Click Element                       css:.select-shipto-button
     Is Customer Portal
     Click Element                       xpath:(${sidebar item})[3]
