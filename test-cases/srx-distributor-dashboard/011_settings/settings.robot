@@ -36,33 +36,20 @@ Transaction Submission
     Goto Transaction Submission
     Click Element                   xpath:${transaction submission pane}${control button}
     Sleep                           1 second
-    ${checked1}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[1]/label/input    checked
-    ${checked2}                     Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[2]/label/input    checked
-    Run Keyword If                  "${checked3}"=="None"       Click Element       xpath:(${transaction submission pane}${checkbox})[3]/label/input
-    Run Keyword If                  "${checked2}"=="true"       Click Element       xpath:(${transaction submission pane}${checkbox})[2]/label/input
-    Run Keyword If                  "${checked1}"=="None"       Click Element       xpath:(${transaction submission pane}${checkbox})[1]/label/input
+    Select Radio Button             transactionSubmissionSetting        API
     Click Element                   xpath:${transaction submission pane}${control button}
     Sleep                           1 second
-    Click Element                   xpath:(${transaction submission pane}${checkbox})[3]/label/input
-    Click Element                   xpath:(${transaction submission pane}${checkbox})[1]/label/input
-    Element Should Be Disabled      xpath:${transaction submission pane}${control button}
-    Click Element                   xpath:(${transaction submission pane}${checkbox})[1]/label/input
-    Element Should Be Disabled      xpath:(${transaction submission pane}${checkbox})[2]/label/input
-    Click Element                   xpath:(${transaction submission pane}${checkbox})[1]/label/input
-    Click Element                   xpath:(${transaction submission pane}${checkbox})[2]/label/input
-    Element Should Be Disabled      xpath:(${transaction submission pane}${checkbox})[1]/label/input
-    Click Element                   xpath:${transaction submission pane}${control button}
-    Sleep                           5 second
     Reload Page
     Sleep                           3 second
     Goto Transaction Submission
-    ${rechecked1}                   Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[1]/label/input    checked
-    ${rechecked2}                   Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[2]/label/input    checked
-    ${rechecked3}                   Get Element Attribute       xpath:(${transaction submission pane}${checkbox})[3]/label/input    checked
-    Should Be Equal As Strings      ${rechecked1}               None
-    Should Be Equal As Strings      ${rechecked2}               true
-    Should Be Equal As Strings      ${rechecked3}               None
-
+    Radio Button Should Be Set To   transactionSubmissionSetting        API
+    Select Radio Button             transactionSubmissionSetting        EDI
+    Click Element                   xpath:${transaction submission pane}${control button}
+    Sleep                           1 second
+    Reload Page
+    Sleep                           3 second
+    Goto Transaction Submission
+    Radio Button Should Be Set To   transactionSubmissionSetting        EDI
 
 Pricing Information
     [Tags]                          PricingInformation
