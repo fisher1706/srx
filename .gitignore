@@ -7,3 +7,5 @@ resources/environment.robot
 resources/importRfid.csv
 resources/importCatalog.csv
 resources/importLocations.csv
+resources/piplineV.robot
+resources/updateCatalog.csv
