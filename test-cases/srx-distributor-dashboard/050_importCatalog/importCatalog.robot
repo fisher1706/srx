@@ -35,6 +35,26 @@ Import Catalog
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]           10
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]          ${EMPTY}
 
+Update Catalog
+    Sleep                           5 second
+    Create File                     ${CURDIR}/../../../resources/updateCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r${\n}${catalog sku},,,${catalog sku},,,,,,,,,,20,,,,25
+    Sleep                           2 second
+    Execute Javascript              document.getElementById("file-upload").style.display='block'
+    Sleep                           1 second
+    Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/updateCatalog.csv
+    Sleep                           5 second
+    Element Text Should Be          xpath:${modal title}                                Validation status: valid
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           10 second
+
+Сhecking Update Catalog
+    click Element                   xpath:${last page}
+    ${number of row}                Get Rows Count                                                  ${table xpath}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]           ${catalog sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]           ${catalog sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]           20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]          25
+
 *** Keywords ***
 Preparation
     Start Distributor

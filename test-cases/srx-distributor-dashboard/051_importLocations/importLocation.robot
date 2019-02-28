@@ -35,6 +35,17 @@ Checking locations
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]          20
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]          30
 
+Update Location
+    Create File                     ${CURDIR}/../../../resources/updateLocations.csv    a,b,c,d,e,f,g,h,i,j,k,l${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1
+    Execute Javascript              document.getElementById("file-upload").style.display='block'
+    Sleep                           1 second
+    Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importLocations.csv
+    Sleep                           5 second
+    Element Text Should Be          xpath:${modal title}                                Validation status: valid
+    Click Element                   xpath:${button modal dialog ok}
+    Reload Page
+    Sleep                           5 second
+
 Delete Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
