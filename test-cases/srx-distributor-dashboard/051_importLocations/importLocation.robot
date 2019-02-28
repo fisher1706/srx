@@ -7,6 +7,7 @@ Library                             Collections
 Library                             OperatingSystem
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
+
 ***Test Cases***
 Import locations
     Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,h,i,j,k,l${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1
