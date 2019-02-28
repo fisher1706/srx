@@ -51,9 +51,10 @@ Check Transactions
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]      STATIC SKU
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]      ACTIVE
-    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
+    ${my transaction}               Get Row By Text     ${table xpath}      2   STATIC SKU
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      STATIC SKU
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ACTIVE
+    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}            SHIPPED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second

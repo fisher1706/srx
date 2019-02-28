@@ -83,9 +83,11 @@ Check Transactions
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]      ACTIVE
-    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
+    ${my transaction}               Get Row By Text     ${table xpath}      2   ${change sku 1}
+    Set Suite Variable              ${my transaction}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${change sku 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ACTIVE
+    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}            SHIPPED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
@@ -114,11 +116,13 @@ Checking Edit Location
 Check Transactions After Change SKU
     Goto Sidebar Order Status
     Sleep                           1 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]         ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]         SHIPPED
+    ${my transaction}               Get Row By Text     ${table xpath}      2   ${change sku 1}
+    Set Suite Variable              ${my transaction}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${change sku 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      SHIPPED
 
 Deliver Transaction
-    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
+    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}       DELIVERED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
