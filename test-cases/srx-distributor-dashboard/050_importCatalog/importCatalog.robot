@@ -8,9 +8,6 @@ Library                             OperatingSystem
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Variable ***
-${footer}                           //div[contains(@class, 'react-bs-table-pagination')]
-
 *** Test Cases ***
 Import Catalog
     Sleep                           5 second
