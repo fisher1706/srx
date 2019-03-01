@@ -143,8 +143,6 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
-    ${number of new row}            Get Rows Count          ${table xpath}
-    Should Be Equal As Integers     ${number of new row}    ${number of row}
 
 *** Keywords ***
 Preparation
