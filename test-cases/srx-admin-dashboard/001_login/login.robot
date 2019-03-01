@@ -15,11 +15,11 @@ Invalid Login
     Enter Incorrect Email
     Click Element                   id:password
     Element Should Be Visible       css:.svg-inline--fa
-    Input Text                      id:password     ${password_adm}
+    Input Text                      id:password             ${password_adm}
     Incorrect Submit Login
     Enter Correct Wrong Email
     Correct Submit Login
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[5]/div[1]/strong      Failed to sign in:
+    Element Text Should Be          ${alert warning}        Failed to sign in: Incorrect email address or password.
 
 Valid Login
     [Tags]                          ValidLogin
@@ -40,8 +40,8 @@ Forget Password
     Element Should Be Disabled      ${element forgot button}
     Enter Correct Wrong Email
     Submit Reset
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[5]/div[1]/p[1]/strong     Failed to reset the password!
-    Input Text                      id:email        ${email_adm}
+    Element Text Should Be          xpath:${alert warning}/p           Failed to reset the password!
+    Input Text                      id:email                                ${email_adm}
     Click Element                   ${forget or go back}
     Is Login Page
 
