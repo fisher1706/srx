@@ -34,9 +34,10 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${change sku 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      -
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
 
 Create RFID
     Goto Sidebar RFID
@@ -109,9 +110,10 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${change sku 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      -
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
 
 Check Transactions After Change SKU
     Goto Sidebar Order Status
@@ -137,10 +139,11 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${sub 2}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    ${change sku 2}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    -
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 

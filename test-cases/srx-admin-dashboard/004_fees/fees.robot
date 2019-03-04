@@ -18,10 +18,6 @@ Button Monthly Fees
     [Tags]                          Button
     Testing Fees Tab                fees-tab-button-monthly-fee     ${button monthly pane}
 
-Shipto Monthly Fees
-    [Tags]                          Shipto
-    Testing Fees Tab                fees-tab-shipto-monthly-fee     ${shipto monthly pane}
-
 Label Monthly Fees
     [Tags]                          Label
     Testing Fees Tab                fees-tab-label-monthly-fee      ${label monthly pane}

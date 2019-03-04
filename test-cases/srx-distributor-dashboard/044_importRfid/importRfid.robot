@@ -30,9 +30,9 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location value}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${import rfid sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
 
 Import RFID
     Goto Sidebar RFID
@@ -77,14 +77,12 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location value}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    ${import rfid sku}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
-    ${number of new row}            Get Rows Count          ${table xpath}
-    Should Be Equal As Integers     ${number of new row}    ${number of row}
 
 *** Keywords ***
 Preparation
