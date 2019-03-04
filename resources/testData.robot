@@ -104,7 +104,6 @@ ${shiptos pane}                 //div[contains(@id, 'customer-details-pane-shipt
 ${users pane}                   //div[contains(@id, 'customer-details-pane-users')]
 ${base fee pane}                //div[contains(@id, 'fees-pane-base-fees')]
 ${button monthly pane}          //div[contains(@id, 'fees-pane-button-monthly-fee')]
-${shipto monthly pane}          //div[contains(@id, 'fees-pane-shipto-monthly-fee')]
 ${label monthly pane}           //div[contains(@id, 'fees-pane-label-monthly-fee')]
 ${rfid monthly pane}            //div[contains(@id, 'fees-pane-rfid-monthly-fee')]
 ${deeplens monthly pane}        //div[contains(@id, 'fees-pane-deeplens-monthly-fee')]

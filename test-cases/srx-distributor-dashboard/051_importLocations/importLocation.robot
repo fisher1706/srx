@@ -10,7 +10,7 @@ Resource                            ../../../resources/testData.robot
 
 ***Test Cases***
 Import locations
-    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,h,i,j,k,l${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1
+    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,j,h,k,l,m,o,p${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1,0
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importLocations.csv
@@ -33,8 +33,9 @@ Checking locations
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]          CDF
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]          customer_sku_1
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]          BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]          20
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]          30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]          0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]          20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]          30
 
 Delete Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
@@ -48,9 +49,10 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    CDF
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    customer_sku_1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    BUTTON
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF 
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF 
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 

@@ -76,7 +76,8 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      BUTTON
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
 
 Edit Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]
@@ -108,7 +109,8 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${edit sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      BUTTON
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
 
 Delete Location
     [Tags]                          DeleteLocation
@@ -123,7 +125,9 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${edit sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]         0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         10
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -143,6 +147,7 @@ Sorting
     Sorting Column                  14
     Sorting Column                  15
     Sorting Column                  16
+    Sorting Column                  17
 
 Locations Filtration
     [Tags]                          Filter
