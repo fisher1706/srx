@@ -14,7 +14,7 @@ Resource                            ../../../resources/testData.robot
 ${pricing sku}                      PRICING_SKU
 ${pricing customer}                 Static Customer
 ${pricing shipto}                   2048
-${request url locker}               https://${API_key}:${API_key}@api-dev.storeroomlogix.com/api/webhook/events/locker
+
 *** Test Cases ***
 Import Pricing
     Goto Sidebar Pricing
@@ -44,6 +44,7 @@ Valid Create New Location
 
 Request Locker
     [Tags]          Locker
+    ${request url locker}           Get Locker URL
     Create Session                  httpbin                  ${request url locker}        verify=true
     &{headers}=                     Create Dictionary        Content-Type=application/json
     ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 210, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
@@ -80,13 +81,14 @@ Update Pricing
 
 Request Locker New
     [Tags]          Locker
+    ${request url locker}           Get Locker URL
     Create Session                  httpbin                  ${request url locker}        verify=true
     &{headers}=                     Create Dictionary        Content-Type=application/json
     ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 100, "quantityRequested": 10, "timestamp": "2019-03-04T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
     Log To Console          ${resp}
 
 Check Transactions New
-    sleep                           5 second
+    Sleep                           5 second
     Goto Sidebar Order Status
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
