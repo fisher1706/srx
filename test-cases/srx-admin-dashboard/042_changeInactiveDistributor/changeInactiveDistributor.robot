@@ -12,10 +12,10 @@ Valid Add Distributor
     Input Text                      id:name_id                      ${dynamic name}
     Input Text                      id:address.line1_id             ${dynamic adress1}
     Input Text                      id:address.line2_id             ${dynamic adress2}
-    Go Down Selector                (${select control})[1]          Singular Billing
     Input Text                      id:address.city_id              ${dynamic city}
+    Choose From Select Box          (${select control})[1]          Alabama
+    Go Down Selector                (${select control})[2]          Singular Billing
     Input Text                      id:invoiceEmail_id              ${dynamic email}
-    Choose From Select Box          (${select control})[2]          Alaska
     Input Text                      id:address.zipCode_id           ${dynamic code}
     Click Element                   xpath:${button modal dialog ok}
 
@@ -26,23 +26,24 @@ Checking New Data
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   Singular Billing
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${dynamic email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]   ACTIVE
 
 Edit Distributor
     [Tags]                          EditDistributor
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]${button info}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${dynamic name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]     ACTIVE
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
     Input Text                      id:name_id                                              ${edit name}
     Input Text                      id:address.line1_id                                     ${edit adress1}
     Input Text                      id:address.line2_id                                     ${edit adress2}
-    Go Down Selector                (${select control})[1]                                  Bill By Warehouse
+    Go Down Selector                (${select control})[2]                                  Bill By Warehouse
     Input Text                      id:address.city_id                                      ${edit city}
     Input Text                      id:invoiceEmail_id                                      ${edit email}
-    Choose From Select Box          (${select control})[2]                                  Alabama
+    Choose From Select Box          (${select control})[1]                                  American Samoa
     Input Text                      id:address.zipCode_id                                   ${edit code}
     Click Element                   xpath:${button modal dialog ok}
 
@@ -53,7 +54,8 @@ Checking Edit Data
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   Bill By Warehouse
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${edit email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   INACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]   INACTIVE
 
 Remove Distributor
     [Tags]                          RemoveDistributor
@@ -63,7 +65,8 @@ Remove Distributor
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Bill By Warehouse
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${edit email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ON
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     INACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ON
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]     INACTIVE
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           3 second
     ${number of new row}            Get Rows Count          ${table xpath}
