@@ -2,7 +2,7 @@
 ${dynamic name}                 Dynamic Test
 ${dynamic adress1}              Test Street 1
 ${dynamic adress2}              Test Street 2
-${dynamic full adress}          Test Street 1 Test Street 2 Test City AK 14033
+${dynamic full adress}          Test Street 1 Test Street 2 Test City AL 14033
 ${dynamic city}                 Test City
 ${dynamic email}                dynamic.test@example.com
 ${dynamic code}                 14033
@@ -17,7 +17,7 @@ ${static code}                  14033
 ${edit name}                    Edit Test Name
 ${edit adress1}                 Edit Adress 1
 ${edit adress2}                 Edit Adress 2
-${edit full adress}             Edit Adress 1 Edit Adress 2 Edit City AL 89000
+${edit full adress}             Edit Adress 1 Edit Adress 2 Edit City AS 89000
 ${edit city}                    Edit City
 ${edit email}                   edit.test@example.com
 ${edit code}                    89000

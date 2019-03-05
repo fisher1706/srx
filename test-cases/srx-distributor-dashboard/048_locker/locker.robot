@@ -32,9 +32,10 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location value}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${locker sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
 
 Request Locker Available
     [Tags]                          Locker
@@ -46,7 +47,7 @@ Request Locker Available
 Checking OHI Available
     Reload Page
     Sleep                           4 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      170
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      170
 
 Checking Available In Activity Log
     Goto Sidebar Activity Feed
@@ -72,7 +73,7 @@ Request Locker Issued
 Checking OHI Issued
     Goto Sidebar Locations
     Sleep                           4 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      0
 
 Checking Issued In Activity Log
     Goto Sidebar Activity Feed
@@ -107,9 +108,10 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location value}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    ${locker sku}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    LOCKER
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           7 second
     ${number of new row}            Get Rows Count          ${table xpath}
