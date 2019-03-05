@@ -28,16 +28,16 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]      ${change sku 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]      OFF
 
 Create RFID
     Goto Sidebar RFID
@@ -104,16 +104,16 @@ Change Location SKU
 
 Checking Edit Location
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${change sku 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]      ${change sku 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]      OFF
 
 Check Transactions After Change SKU
     Goto Sidebar Order Status
