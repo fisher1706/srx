@@ -183,9 +183,12 @@ Transaction Status Updates Logic
     Goto Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
-    Click Element                   id:sidebar-transactions
-    Click Element                   css:.checkbox-inline > input:nth-child(1)
+    Goto Sidebar Order Status
     Sleep                           3 second
+    Open Minimum Table
+    Sleep                           3 second
+    Click Element                   css:.checkbox-inline > input:nth-child(1)
+    Sleep                           6 second
     Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button
@@ -212,8 +215,11 @@ Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Goto Sidebar Order Status
+    Sleep                           3 second
+    Open Minimum Table
+    Sleep                           3 second
     Click Element                   css:.checkbox-inline > input:nth-child(1)
-    Sleep                           10 second
+    Sleep                           6 second
     ${rows}                         Get Element Count               xpath:${table xpath}/tbody/tr[1]/td
     Should Be Equal                 "${rows}"                       "10"
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
@@ -235,7 +241,11 @@ Transaction Status Updates Logic
     Click Element                   css:.row-spaced > div:nth-child(1) > button:nth-child(1)
     Sleep                           3 second
     Goto Sidebar Order Status
+    Sleep                           3 second
+    Open Minimum Table
+    Sleep                           3 second
     Click Element                   css:.checkbox-inline > input:nth-child(1)
+    Sleep                           6 second
     Click Element                   xpath:${header xpath}/thead/tr/th[1]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[11]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/div/button

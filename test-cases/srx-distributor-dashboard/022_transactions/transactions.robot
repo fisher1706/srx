@@ -55,5 +55,7 @@ Preparation
     Sleep                           2 second
     Goto Sidebar Order Status
     Sleep                           3 second
+    Open Minimum Table
+    Sleep                           3 second
     Click Element                   xpath:${checkbox type}
     Sleep                           3 second
