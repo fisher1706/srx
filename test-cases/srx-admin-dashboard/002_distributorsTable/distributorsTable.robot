@@ -9,14 +9,16 @@ Resource                            ../../../resources/testData.robot
 Invalid Add Distributor
     [Tags]                          InvalidAddDistributor
     Click Element                   xpath:${button primary}
-    Press Key                       id:name_id                      \ue004
-    Element Should Be Visible       xpath:(${help block})[1]/*
     Press Key                       id:address.line1_id             \ue004
+    Element Should Be Visible       xpath:(${help block})[1]/*
+    Press Key                       id:name_id                      \ue004
     Element Should Be Visible       xpath:(${help block})[2]/*
     Press Key                       id:address.city_id              \ue004
     Element Should Be Visible       xpath:(${help block})[4]/*
     Press Key                       xpath:(${modal dialog}${select control})[1]/div[1]/div[2]   \ue004
+    Press Key                       xpath:(${modal dialog}${select control})[1]/div[1]/div[2]   \ue004
     Element Should Be Visible       xpath:(${help block})[5]/*
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]   \ue004
     Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]   \ue004
     Element Should Be Visible       xpath:(${help block})[6]/*
     Press Key                       id:invoiceEmail_id              \ue004
@@ -50,10 +52,11 @@ Checking New Data
     Sleep                           2 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${dynamic name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Singular Billing
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Bill By Warehouse
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${dynamic email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]       ACTIVE
 
 Edit Distributor
     [Tags]                          EditDistributor
@@ -62,6 +65,7 @@ Edit Distributor
     Input Text                      id:address.line1_id                             ${edit adress1}
     Input Text                      id:address.line2_id                             ${edit adress2}
     Click Element                   xpath:(${select control})[1]
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
     Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
     Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue007
     Input Text                      id:address.city_id                              ${edit city}
@@ -76,20 +80,22 @@ Checking Edit Data
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${edit name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${edit full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Bill By Warehouse
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Singular Billing
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${edit email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]       ACTIVE
 
 Delete Distributor
     [Tags]                          RemoveDistributor
     Click Element                   ${delete button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${edit name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${edit full adress}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Bill By Warehouse
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Singular Billing
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${edit email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ON
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ON
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]     ACTIVE
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           4 second
 
@@ -101,6 +107,7 @@ Sorting Distributors
     Sort Column                     5   ${number of row}
     Sort Column                     6   ${number of row}
     Sort Column                     7   ${number of row}
+    Sort Column                     8   ${number of row}
 
 Distributor Filtration
     [Tags]                          Filter

@@ -36,9 +36,10 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 3}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${auto submit sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      ON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      ON
 
 Select Pricing
     Goto Sidebar Settings
@@ -105,9 +106,10 @@ Delete Locations
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]      ${sub 3}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]     ${auto submit sku}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]     LOCKER
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]     30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]     60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]     ON
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]     0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]     30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]     60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]     ON
     Click Element                   xpath:${modal dialog}${button danger}
 
 *** Keywords ***
