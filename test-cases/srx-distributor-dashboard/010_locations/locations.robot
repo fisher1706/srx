@@ -55,12 +55,13 @@ Valid Create New Location
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       0
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       10
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic name}
+    Sleep                           5 second
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           3 second
+    Sleep                           5 second
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
-    Sleep                           2 second
+    Sleep                           5 second
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           2 second
+    Sleep                           5 second
     Is Locations
 
 Checking New Location
@@ -146,6 +147,7 @@ Delete Location
 
 Sorting
     [Tags]                          Sorting
+    Sleep                           5 second
     Sorting Column                  2
     Sorting Column                  3
     Sorting Column                  4
