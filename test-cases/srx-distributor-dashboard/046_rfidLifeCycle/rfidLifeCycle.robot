@@ -42,6 +42,7 @@ Checking Assigned RFID In Activity Log
     Expanded AL Element Should Be   9   STATIC SKU
 
 Get Manifest
+
     ${manifest url}                 Get Manifest URL
     Set Suite Variable              ${manifest url}
     ${manifest}                     Generate Random String      18      [LETTERS]

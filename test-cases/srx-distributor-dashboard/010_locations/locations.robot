@@ -55,12 +55,13 @@ Valid Create New Location
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       0
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       10
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic name}
+    Sleep                           5 second
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           3 second
+    Sleep                           5 second
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
-    Sleep                           2 second
+    Sleep                           5 second
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           2 second
+    Sleep                           5 second
     Is Locations
 
 Checking New Location
@@ -92,6 +93,18 @@ Edit Location
     Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            ${edit sku}
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
     Sleep                           1 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            100
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
+    Sleep                           1 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div/div/input            20
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div/div/input            \ue007
+    Sleep                           1 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div/div/input            10
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div/div/input            \ue007
+    Sleep                           1 second
     Click Element                   xpath:${button lg}
     Sleep                           5 second
     Reload Page
@@ -108,9 +121,10 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div      ${sub 4}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${edit sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      100
+    Sleep                           5 second
 
 Delete Location
     [Tags]                          DeleteLocation
@@ -125,14 +139,15 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${edit sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]         0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         100
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
 Sorting
     [Tags]                          Sorting
+    Sleep                           5 second
     Sorting Column                  2
     Sorting Column                  3
     Sorting Column                  4
@@ -148,6 +163,7 @@ Sorting
     Sorting Column                  15
     Sorting Column                  16
     Sorting Column                  17
+    Sorting Column                  18
 
 Locations Filtration
     [Tags]                          Filter
