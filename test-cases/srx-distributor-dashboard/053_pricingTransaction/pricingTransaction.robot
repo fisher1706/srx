@@ -45,10 +45,10 @@ Valid Create New Location
 Request Locker
     [Tags]          Locker
     ${request url locker}           Get Locker URL
-    Create Session                  httpbin                  ${request url locker}        verify=true
-    &{headers}=                     Create Dictionary        Content-Type=application/json
-    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 210, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
-    Log To Console          ${resp}
+    Create Session                  httpbin                 ${request url locker}        verify=true
+    &{headers}=                     Create Dictionary       Content-Type=application/json
+    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 210, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
+    Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Check Transactions
     Sleep                           5 second
@@ -82,10 +82,10 @@ Update Pricing
 Request Locker New
     [Tags]          Locker
     ${request url locker}           Get Locker URL
-    Create Session                  httpbin                  ${request url locker}        verify=true
-    &{headers}=                     Create Dictionary        Content-Type=application/json
-    ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 100, "quantityRequested": 10, "timestamp": "2019-03-04T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
-    Log To Console          ${resp}
+    Create Session                  httpbin                 ${request url locker}        verify=true
+    &{headers}=                     Create Dictionary       Content-Type=application/json
+    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 100, "quantityRequested": 10, "timestamp": "2019-03-04T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
+    Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Check Transactions New
     Sleep                           5 second
@@ -124,8 +124,8 @@ Preparation
     Goto Sidebar Settings
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second
-    Click Element                   erp-integration-tab-pricing-integration
-    Select Radio Button             pricingInfoSettings             SRX
+    Click Element                   id:erp-integration-tab-pricing-integration
+    Select Radio Button             pricingInfoSettings         SRX
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
