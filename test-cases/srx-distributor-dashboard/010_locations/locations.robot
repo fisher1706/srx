@@ -151,7 +151,7 @@ Sorting
 
 Locations Filtration
     [Tags]                          Filter
-    Filter Field                    14      16      G030PM036107NGQ5
+    Filter Field                    15      17      G030PM036107NGQ5
     Filter Field                    1       2       161
     Filter Field                    2       3       loc1n
     Filter Field                    3       4       loc1v
@@ -162,9 +162,10 @@ Locations Filtration
     Filter Field                    8       9       loc4n
     Filter Field                    9       10      loc4v
     Filter Field                    10      11      STATIC SKU
-    Filter Field                    11      12      2
-    Filter Field                    12      14      20
-    Filter Field                    13      15      100
+    Filter Field                    11      12      test
+    Filter Field                    12      14      0
+    Filter Field                    13      15      20
+    Filter Field                    14      16      100
     Filter Select Box               1       13      RFID
 
 *** Keywords ***
