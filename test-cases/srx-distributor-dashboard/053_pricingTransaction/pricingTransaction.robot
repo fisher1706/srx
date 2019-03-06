@@ -51,7 +51,7 @@ Request Locker
     Log To Console          ${resp}
 
 Check Transactions
-    sleep                           5 second
+    Sleep                           5 second
     Goto Sidebar Order Status
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]

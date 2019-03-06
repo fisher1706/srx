@@ -42,7 +42,6 @@ Valid Create New Warehouse
     Input Text                      id:address.city_id      ${dynamic city}
     Click Element                   xpath:(${modal dialog}${select control})[2]
     Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
     Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue007
     Input Text                      id:contactEmail_id      ${incorrect email}
     Input Text                      id:address.zipCode_id   ${dynamic code}
@@ -80,7 +79,8 @@ Edit Warehouse
     Input Text                      id:address.city_id      ${edit city}
     Choose From Select Box          (${modal dialog}${select control})[1]                           US/Hawaii (-10:00)
     Click Element                   xpath:(${modal dialog}${select control})[2]
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue013
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue015
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue015
     Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue007
     Input Text                      id:address.zipCode_id   ${edit code}
     Input Text                      id:contactEmail_id      ${edit email}

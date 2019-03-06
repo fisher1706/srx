@@ -51,7 +51,6 @@ Create Shiptos 1
     Input Text                      id:address.city_id      ${dynamic city}
     Click Element                   xpath:${select control}
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
@@ -109,7 +108,6 @@ Create Shiptos 2
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:address.city_id      ${dynamic city}
     Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
