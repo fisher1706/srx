@@ -33,7 +33,6 @@ Valid Create New Shipto
     Input Text                      id:address.city_id      ${dynamic city}
     Click Element                   xpath:${select control}
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:poNumber_id          ${test number}
@@ -53,7 +52,8 @@ Edit Shipto
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:address.city_id      ${edit city}
     Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue013
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
     Input Text                      id:address.zipCode_id   ${edit code}
     Clear Element Text              id:poNumber_id
