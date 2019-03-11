@@ -16,12 +16,12 @@ Valid Create New Customer Type
 Checking New Customer Type On Distributor Portal Not Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
-    Click Element                   ${edit customer button sub}
+    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
     Choose From Select Box          (${select control})[1]      ${test del type}
     Sleep                           1 second
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[4]/div      ${test del type}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      ${test del type}
     Finish Suite
 
 Delete Customer Type Not Delete
@@ -37,12 +37,12 @@ Delete Customer Type Not Delete
 Checking New Customer Type On Distributor Portal Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
-    Click Element                   ${edit customer button sub}
+    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
     Choose From Select Box          (${select control})[1]      Not specified
     Sleep                           1 second
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[4]/div      Not specified
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      Not specified
     Finish Suite
 
 Delete Customer Type Delete
@@ -62,9 +62,6 @@ Goto Customer Menu Sub
     Sleep                           5 second
     Goto Sidebar Customers
     Sleep                           5 second
-    ${my customer}                  Get Row By Text     ${table xpath}      1   Customer Z
-    Set Suite Variable              ${my customer}
-    Set Suite Variable              ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${my customer}]${button success}
 
 Preparation
     Start Admin

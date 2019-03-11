@@ -4,7 +4,7 @@ ${dynamic adress1}              Test Street 1
 ${dynamic adress2}              Test Street 2
 ${dynamic full adress}          Test Street 1 Test Street 2 Test City AL 14033
 ${dynamic city}                 Test City
-${dynamic email}                dynamic.test@example.com
+${dynamic email}                dynamic1.test@example.com
 ${dynamic code}                 14033
 ${static name}                  Static Test
 ${static adress1}               Baker Street 221b
