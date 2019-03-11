@@ -108,6 +108,7 @@ ${label monthly pane}           //div[contains(@id, 'fees-pane-label-monthly-fee
 ${rfid monthly pane}            //div[contains(@id, 'fees-pane-rfid-monthly-fee')]
 ${deeplens monthly pane}        //div[contains(@id, 'fees-pane-deeplens-monthly-fee')]
 ${select control}               //div[contains(@class, 'Select-control')]
+${select value}                 //div[contains(@class, 'Select-value')]
 ${select menu outer}            //div[contains(@class, 'Select-menu-outer')]
 ${select is focused}            //div[contains(@class, 'Select-option is-focused')]
 ${documents pane}               //div[contains(@id, 'pricing-billing-pane-documents')]

@@ -41,6 +41,8 @@ Valid Create New User
     Click Element                   xpath:${button modal dialog ok}
     Element Should Be Enabled       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
+    ${warehouse}                    Get Text                    xpath:(${modal dialog}${checkbox})[1]/*
+    Set Suite Variable              ${warehouse}
     Go Down Selector                ${modal dialog}${select control}    User
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
@@ -52,7 +54,7 @@ Checking New User
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${user first name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[4]/div      A_Warehouse
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[4]/div      ${warehouse}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[5]/div      User
 
 Edit User
@@ -67,7 +69,11 @@ Edit User
     Click Element                   ${edit user button}
     Input Text                      id:firstName_id             ${edit first name}
     Input Text                      id:lastName_id              ${edit last name}
-    Go Down Selector                ${modal dialog}${select control}    Static Group
+    Click Element                   xpath:${modal dialog}${select control}
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
+    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
+    ${role}                         Get Text                    ${select value}
+    Set Suite Variable              ${role}
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   xpath:${button modal dialog ok}
@@ -80,7 +86,7 @@ Checking Edit User
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${edit first name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[5]/div      Static Group
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[5]/div      ${role}
 
 Delete User
     [Tags]                          DeleteUser
@@ -95,7 +101,7 @@ Delete User
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${dynamic email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit first name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${edit last name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          Static Group
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${role}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           10 second
 

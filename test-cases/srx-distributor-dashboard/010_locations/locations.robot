@@ -163,7 +163,6 @@ Sorting
     Sorting Column                  15
     Sorting Column                  16
     Sorting Column                  17
-    Sorting Column                  18
 
 Locations Filtration
     [Tags]                          Filter
