@@ -43,6 +43,8 @@ Valid Add Distributor
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue015
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue015
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue007
+    ${billing type}                 Get Text                                        (${select value})[2]
+    Set Suite Variable              ${billing type}
     Input Text                      id:address.zipCode_id                           ${dynamic code}
     Click Element                   xpath:${button modal dialog ok}
 
@@ -52,7 +54,7 @@ Checking New Data
     Sleep                           2 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${dynamic name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Bill By Warehouse
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       ${billing type}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${dynamic email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ON
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ON
@@ -73,6 +75,8 @@ Edit Distributor
     Click Element                   xpath:(${select control})[2]
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue013
     Press Key                       xpath:(${select control})[2]/div[1]/div[2]      \ue007
+    ${new billing type}             Get Text                                        xpath:(${select value})[2]
+    Set Suite Variable              ${new billing type}
     Input Text                      id:address.zipCode_id                           ${edit code}
     Click Element                   xpath:${button modal dialog ok}
 
@@ -80,7 +84,7 @@ Checking Edit Data
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${edit name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${edit full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       Singular Billing
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       ${new billing type}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${edit email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ON
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]       ON
@@ -91,7 +95,7 @@ Delete Distributor
     Click Element                   ${delete button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${edit name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${edit full adress}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Singular Billing
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${new billing type}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${edit email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ON
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ON

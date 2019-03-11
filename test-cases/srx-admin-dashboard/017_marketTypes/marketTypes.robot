@@ -34,18 +34,18 @@ Checking New Market Type In Table
 Checking New Market Type On Distributor Portal
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
-    Click Element                   ${edit customer button sub}
+    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
     Choose From Select Box          (${select control})[2]      ${market type}
     Sleep                           1 second
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[5]/div      ${market type}
-    Click Element                   ${edit customer button sub}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div      ${market type}
+    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
     Choose From Select Box          (${select control})[2]      Not specified
     Sleep                           1 second
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer}]/td[5]/div      Not specified
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div      Not specified
     Finish Suite
 
 Edit Market Type
@@ -79,7 +79,7 @@ Delete Market Type
     Click Element                   ${delete button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit market type}
     Click Element                   css:button.btn:nth-child(2)
-    Sleep                           5 second
+    Sleep                           7 second
 
 Sorting Market Types By Id
     [Tags]                          Sorting
@@ -106,9 +106,6 @@ Goto Customer Menu Sub
     Sleep                           4 second
     Goto Sidebar Customers
     Sleep                           5 second
-    ${my customer}                  Get Row By Text     ${table xpath}      1   Customer Z
-    Set Suite Variable              ${my customer}
-    Set Suite Variable              ${edit customer button sub}     xpath:${table xpath}/tbody/tr[${my customer}]${button success}
 
 Preparation
     Start Admin

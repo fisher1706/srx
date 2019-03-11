@@ -57,7 +57,7 @@ Checking New Warehouse
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${user first name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   America/New_York (-05:00)
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   America/New_York (-04:00)
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${dynamic full adress}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ${correct wrong email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ${correct wrong email}
