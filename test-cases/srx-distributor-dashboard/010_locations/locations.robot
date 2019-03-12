@@ -163,7 +163,6 @@ Sorting
     Sorting Column                  15
     Sorting Column                  16
     Sorting Column                  17
-    Sorting Column                  18
 
 Locations Filtration
     [Tags]                          Filter
@@ -178,7 +177,7 @@ Locations Filtration
     Filter Field                    8       9       loc4n
     Filter Field                    9       10      loc4v
     Filter Field                    10      11      STATIC SKU
-    Filter Field                    11      12      test
+    Filter Field                    11      12      test1
     Filter Field                    12      14      0
     Filter Field                    13      15      20
     Filter Field                    14      16      100
