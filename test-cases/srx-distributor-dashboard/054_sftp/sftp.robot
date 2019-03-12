@@ -1,18 +1,38 @@
 *** Settings ***
-#Suite Setup                         Preparation
-#Suite Teardown                      Finish Suite
+Suite Teardown                      Close SFTP Connection
 Library                             Selenium2Library
 Library                             String
-Library                             RequestsLibrary
+Library                             OperatingSystem
 Library                             String
 Library                             Collections
-Library                             ../../../resources/resource.py
+Library                             ../../../resources/py/sftp.py
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
-Connect
-    ${sftp}                         sftpConnect     d8528553432042578267dev     /home/provorov/workspace/my-key
-    Log To Console                  ${sftp}
-    ${file}                         sftpPutFile     ${sftp}     /home/provorov/workspace/2_test.txt     /srx-data-bucket-dev/distributors/d8528553432042578267dev/usage-history/import/2_test.txt
-    Log To Console                  ${file}
+Create File To Upload
+    ${buffer}=                      Generate Random String      20      [LETTERS]
+    ${filename}                     Convert To Uppercase        ${buffer}
+    Set Suite Variable              ${filename}
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv     a,b,c${\n}1,2,3
+
+Connect To SFTP
+    ${sftp}                         sftpConnect     ${sftp_distributor_user}    /home/provorov/workspace/my-key
+    Set Suite Variable              ${sftp}
+
+Put File By SFTP
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${filename}.csv      /srx-data-bucket-dev/distributors/${sftp_distributor_user}/usage-history/import/${filename}.csv
+    Sleep                           5 second
+
+Get File From SFTP
+    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-dev/distributors/${sftp_distributor_user}/usage-history/imported/${filename}.csv-report    ${CURDIR}/../../../resources/generated/${filename}.csv-report
+
+Remove Files
+    File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${filename}.csv
+    File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${filename}.csv-report
+    Remove Files                    ${CURDIR}/../../../resources/generated/${filename}.csv      ${CURDIR}/../../../resources/generated/${filename}.csv-report
+    Remove Directory                ${CURDIR}/../../../resources/generated                      recursive=True
+
+*** Keywords ***
+Close SFTP Connection
+    sftpClose                       ${sftp}
