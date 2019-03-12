@@ -17,7 +17,7 @@ Create File To Upload
     Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv     a,b,c${\n}1,2,3
 
 Connect To SFTP
-    ${sftp}                         sftpConnect     ${sftp_distributor_user}    /home/provorov/workspace/my-key
+    ${sftp}                         sftpConnect     ${sftp_distributor_user}    ${CURDIR}/../../../resources/my-key
     Set Suite Variable              ${sftp}
 
 Put File By SFTP
