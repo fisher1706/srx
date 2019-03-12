@@ -11,8 +11,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Create Available RFID
-    ${buffer}                       Generate Random String      18      [LETTERS]
-    ${epc}                          Convert To Uppercase        ${buffer}
+    ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},STATIC SKU,
     Sleep                           5 second
@@ -65,8 +64,7 @@ Create Assigned RFID
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
     Sleep                           5 second
     Click Element                   xpath:${add rfid button}
-    ${buffer}=                      Generate Random String      18      [LETTERS]
-    ${epc}                          Convert To Uppercase        ${buffer}
+    ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
     Input Text                      id:labelId_id               ${epc}
     Click Element                   xpath:${modal dialog}${button primary}
@@ -75,7 +73,7 @@ Create Assigned RFID
 Get Manifest
     ${manifest url}                 Get Manifest URL
     Set Suite Variable              ${manifest url}
-    ${manifest}                     Generate Random String      18      [LETTERS]
+    ${manifest}                     Generate Random Name U
     Create Session                  httpbin                 ${manifest url}     verify=true
     &{headers}=                     Create Dictionary       accept=application/json     Authorization=${id token}
     ${resp}=                        Post Request            httpbin     /     data={"${manifest}"}    headers=${headers}

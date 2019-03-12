@@ -11,8 +11,7 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Import Catalog
     Sleep                           5 second
-    ${buffer1}                      Generate Random String                              18          [LETTERS]
-    ${catalog sku}                  Convert To Uppercase                                ${buffer1}
+    ${catalog sku}                  Generate Random Name U
     Set Suite Variable              ${catalog sku}
     Create File                     ${CURDIR}/../../../resources/importCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r${\n}${catalog sku},,,${catalog sku},,,,,,,,,,10,,,,
     Sleep                           2 second

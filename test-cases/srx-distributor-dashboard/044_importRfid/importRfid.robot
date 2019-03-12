@@ -39,10 +39,8 @@ Import RFID
     Sleep                           5 second
     Select Location At Rfid Menu    Static Customer - 2048      ${import rfid sku}
     Sleep                           5 second
-    ${buffer1}                      Generate Random String      18      [LETTERS]
-    ${epc1}                         Convert To Uppercase        ${buffer1}
-    ${buffer2}                      Generate Random String      18      [LETTERS]
-    ${epc2}                         Convert To Uppercase        ${buffer2}
+    ${epc1}                         Generate Random Name U
+    ${epc2}                         Generate Random Name U
     Set Suite Variable              ${epc1}
     Set Suite Variable              ${epc2}
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID${\n}${epc1}${\n}${epc2}

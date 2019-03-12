@@ -2,6 +2,7 @@
 Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
+Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -18,6 +19,8 @@ Invalid Create New Security Group
 Valid Create New Security Group
     Click Element                   xpath:${button primary}
     Is Create Security Group
+    ${security group}               Generate Random Name L
+    Set Suite Variable              ${security group}
     Input Text                      id:name_id                  ${security group}
     Click Element                   xpath:${button modal dialog ok}
 

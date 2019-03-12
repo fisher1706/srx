@@ -790,3 +790,15 @@ React Last
     ${count}                        Get Element Count       xpath:${page link}
     ${count}                        Evaluate    ${count}-1
     Click Element                   xpath:(${page link})[${count}]
+
+Generate Random Name U
+    ${buffer1}                      Generate Random String                              18          [LETTERS]
+    ${random name u}                Convert To Uppercase                                ${buffer1}
+    Set Suite Variable              ${random name u}
+    Return From Keyword             ${random name u}
+
+Generate Random Name L
+    ${buffer1}                      Generate Random String                              18          [LETTERS]
+    ${random name l}                Convert To Lowercase                                ${buffer1}
+    Set Suite Variable              ${random name l}
+    Return From Keyword             ${random name l}
