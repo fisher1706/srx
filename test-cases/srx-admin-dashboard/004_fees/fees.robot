@@ -6,12 +6,10 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Variables ***
-${customer shiptos}                 100000-150000
-${edit customer shiptos}            150001-200000
-${monthly fee}                      19
-${edit monthly fee}                 27
-${number of buttons}                100000-150000
-${monthly fee per button}           3
+${amount}                           100000-150000
+${value}                            200000
+${edit amount}                      150001-200000
+${edit value}                       300000
 
 *** Test Cases ***
 Button Monthly Fees
@@ -43,17 +41,29 @@ Testing Fees Tab
     ${rows count}                   Get Rows Count      ${pane}${table xpath}
     ${new rows count}               Evaluate    ${rows count}+1
     Click Element                   xpath:${pane}${button primary}
-    Input Text                      xpath:(${modal dialog}${form control})[1]       100000-150000
-    Input Text                      xpath:(${modal dialog}${form control})[2]       200000
+    Input Text                      xpath:(${modal dialog}${form control})[1]       ${amount}
+    Input Text                      xpath:(${modal dialog}${form control})[2]       ${value}
     Click Element                   xpath:${modal dialog}${button modal dialog ok}
     Sleep                           1 second
-    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[1]       100000-150000
-    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[2]       $200000
-    Click Element                   xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[3]/div/div/button
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]                  100000-150000
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]                  $200000
+    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[1]       ${amount}
+    Element Text Should Be          xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[2]       $${value}
+    Click Element                   xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[1]
+    Input Text                      xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[1]//input    ${edit amount}
+    Press Key                       xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[1]//input    \ue007
+    Click Element                   xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[2]
+    Input Text                      xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[2]//input    ${edit value}
+    Press Key                       xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[2]//input    \ue007
+    Click Element                   xpath:${pane}${button lg}
+    Sleep                           5 second
+    Reload Page
+    Sleep                           5 second
+    Click Element                   id:${tab}
+    Click Element                   xpath:${pane}${table xpath}/tbody/tr[${new rows count}]/td[3]${button danger}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]                  ${edit amount}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]                  $${edit value}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
+
     ${new rows count}               Get Rows Count                  ${pane}${table xpath}
     Should Be Equal As Integers     ${rows count}                   ${new rows count}
 
