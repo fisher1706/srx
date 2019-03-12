@@ -23,6 +23,7 @@ pipelines:
             - tar -xvzf geckodriver-v0.24.0-linux32.tar.gz
             - chmod +x geckodriver
             - mv geckodriver /usr/local/bin/
+            - export PYTHONWARNINGS="ignore"
             - robot -v set:pipeline.robot test-cases
           artifacts:
             - test-results/**

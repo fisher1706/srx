@@ -9,3 +9,7 @@ resources/importCatalog.csv
 resources/importLocations.csv
 resources/piplineV.robot
 resources/updateCatalog.csv
+resources/__pycache__
+resources/py/__pycache__
+resources/generated
+test
