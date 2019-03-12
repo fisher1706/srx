@@ -79,8 +79,7 @@ Checking Serial Number On Distributor Portal After Change
 Create RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    ${buffer}                       Generate Random String      18      [LETTERS]
-    ${epc}                          Convert To Uppercase        ${buffer}
+    ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},STATIC SKU,
     Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU

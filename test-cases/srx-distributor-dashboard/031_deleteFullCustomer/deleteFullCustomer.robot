@@ -68,9 +68,8 @@ Checking New Shipto 1
 
 Valid Create New User 1
     Goto Customer Users
-    ${buffer}=                      Generate Random String      18      [LETTERS]
-    ${buffer2}                      Convert To Lowercase        ${buffer}
-    Set Suite Variable              ${delete customer user1}    ${buffer2}@example.com
+    ${buffer}                       Generate Random Name L
+    Set Suite Variable              ${delete customer user1}    ${buffer}@example.com
     Click Element                   xpath:${users pane}${button primary}
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
@@ -125,9 +124,8 @@ Checking New Shipto 2
 
 Valid Create New User 2
     Goto Customer Users
-    ${buffer}=                      Generate Random String      18      [LETTERS]
-    ${buffer2}                      Convert To Lowercase        ${buffer}
-    Set Suite Variable              ${delete customer user2}    ${buffer2}@example.com
+    ${buffer}                       Generate Random Name L
+    Set Suite Variable              ${delete customer user2}    ${buffer}@example.com
     Click Element                   xpath:${users pane}${button primary}
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}

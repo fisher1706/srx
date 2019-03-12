@@ -156,10 +156,8 @@ Preparation
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Run Keyword If                  ${number of new row}==11    Set Suite Variable      ${number of new row}    1
-    ${buffer}=                      Generate Random String      18      [LETTERS]
-    ${random string}=               Convert To Uppercase        ${buffer}
-    ${buffer}=                      Generate Random String      18      [LETTERS]
-    ${edit random string}=          Convert To Uppercase        ${buffer}
+    ${random string}                Generate Random Name U
+    ${edit random string}           Generate Random Name U
     Set Suite Variable              ${random string}
     Set Suite Variable              ${edit random string}
     Set Suite Variable              ${number of row}

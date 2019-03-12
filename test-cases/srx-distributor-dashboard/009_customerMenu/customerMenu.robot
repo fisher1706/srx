@@ -85,6 +85,9 @@ Valid Create New User
     Click Element                   xpath:${select control}
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
     Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
+    ${role}                         Get Text                                 ${select value}
+    Set Suite Variable              ${role}
+    Log To Console                  ${role}
     Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of new row s}]/label/input
     Click Element                   xpath:${button modal dialog ok}
 
@@ -93,15 +96,17 @@ Checking New User
     Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[2]/div     ${dynamic email}
     Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[3]/div     ${user first name}
     Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[4]/div     ${user last name}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[5]/div     Customer User
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[5]/div     ${role}
     Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[6]/div     ${edit name}
 
 Edit User
     Click Element                   ${edit user button}
     Input Text                      id:firstName_id             ${edit first name}
     Input Text                      id:lastName_id              ${edit last name}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[1]/label/input
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[4]/div/div[${number of new row s}]/label/input
+    Click Element                   (${checkbox})[1]/label/input
+    ${shipto}                       Get Text                    (${checkbox})[1]
+    Set Suite Variable              ${shipto}
+    Click Element                   (${checkbox})[${number of new row s}]/label/input
     Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit User
@@ -109,16 +114,16 @@ Checking Edit User
     Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[2]/div     ${dynamic email}
     Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[3]/div     ${edit first name}
     Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[4]/div     ${edit last name}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[5]/div     Customer User
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[6]/div     2048
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[5]/div     ${role}
+    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of new row u}]/td[6]/div     ${shipto}
 
 Delete User
     Click Element                   ${delete user button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${dynamic email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]      ${edit first name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      ${edit last name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      Customer User
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      2048
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      ${role}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      ${shipto}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           10 second
 
