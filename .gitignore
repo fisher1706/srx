@@ -12,4 +12,6 @@ resources/updateCatalog.csv
 resources/__pycache__
 resources/py/__pycache__
 resources/generated
+resources/staging.robot
+resources/prod.robot
 test

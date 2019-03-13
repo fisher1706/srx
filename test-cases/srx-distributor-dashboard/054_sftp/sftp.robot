@@ -11,8 +11,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Create File To Upload
-    ${buffer}=                      Generate Random String      20      [LETTERS]
-    ${filename}                     Convert To Uppercase        ${buffer}
+    ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
     Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv     a,b,c${\n}1,2,3
 
@@ -21,11 +20,11 @@ Connect To SFTP
     Set Suite Variable              ${sftp}
 
 Put File By SFTP
-    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${filename}.csv      /srx-data-bucket-dev/distributors/${sftp_distributor_user}/usage-history/import/${filename}.csv
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/usage-history/import/${filename}.csv
     Sleep                           5 second
 
 Get File From SFTP
-    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-dev/distributors/${sftp_distributor_user}/usage-history/imported/${filename}.csv-report    ${CURDIR}/../../../resources/generated/${filename}.csv-report
+    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/usage-history/imported/${filename}.csv-report    ${CURDIR}/../../../resources/generated/${filename}.csv-report
 
 Remove Files
     File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${filename}.csv
