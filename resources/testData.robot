@@ -94,7 +94,6 @@ ${locationValue}                testLocValue1
 ${minValue}                     20
 ${maxValue}                     30
 ${APIKEY}                       m4DAfPuRurdzlsVrlen2
-#${security group}               auto-security-group
 ${edit security group}          auto-edit-security-group
 ${replenishment email}          replenishment@ukr.net
 ${simple table}                 //table[contains(@class, 'table')]
