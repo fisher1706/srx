@@ -9,7 +9,7 @@ Resource                            ../../../resources/testData.robot
 Deactivate
     ${my row}                       Get Row By Text                 ${table xpath}      1       Srx-group-test-distributor
     Set Suite Variable              ${my row}
-    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[7]
+    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[8]
     Run Keyword If                  "${status}"=="ACTIVE"   Deactivate      ELSE IF     "${status}"=="INACTIVE"     No Operation    ELSE    Fail      Unexpected distributor status
 
 Login To Deactivate Distributor By User
@@ -26,7 +26,7 @@ Activate
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my row}]/td[7]      INACTIVE
     Click Element                   xpath:${table xpath}/tbody/tr[${my row}]${button primary}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     Srx-group-test-distributor
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     INACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]     INACTIVE
     Click Element                   xpath:${modal dialog}${button primary}
     Sleep                           5 second
 
@@ -53,7 +53,7 @@ Finish Keyword
     Open Full Table
     ${my row}                       Get Row By Text                 ${table xpath}      1       Srx-group-test-distributor
     Set Suite Variable              ${my row}
-    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[7]
+    ${status}                       Get Text    xpath:${table xpath}/tbody/tr[${my row}]/td[8]
     Run Keyword If                  "${status}"=="INACTIVE"   Activate      ELSE IF     "${status}"=="ACTIVE"     No Operation    ELSE    Fail      Unexpected distributor status
     Finish Suite
     Sleep                           2 second
@@ -66,7 +66,7 @@ Login On Distributor Portal Sub
 Deactivate
     Click Element                   xpath:${table xpath}/tbody/tr[${my row}]${button info}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     Srx-group-test-distributor
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ACTIVE
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]     ACTIVE
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
