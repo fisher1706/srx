@@ -17,4 +17,6 @@ ${API_key}                      m4DAfPuRurdzlsVrlen2
 ${RFID_SN}                      RFID230820106808  
 ${browser}                      xvfb
 ${shipto_id}                    59
+${shipto_name}                  2048
 ${sftp_distributor_user}        d8528553432042578267dev
+${sftp_customer_user}           c6407003752451483373dev
