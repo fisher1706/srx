@@ -28,6 +28,7 @@ Invalid Create New Location
     Sleep                           2 second
 
 Valid Create New Location
+    [Tags]                          ValidCreateNewLocation
     Click Element                   xpath:${button primary}
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
     Click Element                   xpath:${modal dialog}${select control}
@@ -80,7 +81,18 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
 
+Checking New Location Activity Log
+    [Tags]                          CheckingNewLocationActivityLog
+    Goto Sidebar Activity Feed
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]             Location
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]             LOCATION_CREATE
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]             USER
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]             ${email_dist}
+    Element TExt Should Be          xpath:((${react table raw})[1]${react table column})[8]             SUCCESS
+
 Edit Location
+    [Tags]                          EditLocation
+    Goto Sidebar Locations
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]
     Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div/div/input             ${edit level 1}
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div/div/input             \ue007
@@ -126,8 +138,18 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      100
     Sleep                           5 second
 
+Checking Edit Location Activity
+    [Tags]                          CheckingEditLocationActivityLog
+    Goto Sidebar Activity Feed
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]             Location
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]             LOCATION_UPDATE
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]             USER
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]             ${email_dist}
+    Element TExt Should Be          xpath:((${react table raw})[1]${react table column})[8]             SUCCESS
+
 Delete Location
     [Tags]                          DeleteLocation
+    Goto Sidebar Locations
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit level 1}
@@ -145,8 +167,18 @@ Delete Location
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
+Checking Delete Location Activity Log
+    [Tags]                          CheckingDeleteLocationsActivityLog
+    Goto Sidebar Activity Feed
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]             Location
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]             LOCATION_DELETE
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]             USER
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]             ${email_dist}
+    Element TExt Should Be          xpath:((${react table raw})[1]${react table column})[8]             SUCCESS
+
 Sorting
     [Tags]                          Sorting
+    Goto Sidebar Locations
     Sleep                           5 second
     Sorting Column                  2
     Sorting Column                  3

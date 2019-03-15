@@ -86,18 +86,18 @@ Checking Original Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
     Goto Sidebar Activity Feed
     Sleep                           2 second
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]                      Locker
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]                      LOCKER_SUBMIT
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]                      Locker
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]                      LOCKER_SUBMIT
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]                      Locker
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]                      HARDWARE
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]                      example@example.com
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]                      SUCCESS
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]                      Transaction
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]                      CREATE
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]                      Locker
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[5]                      HARDWARE
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[6]                      example@example.com
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[8]                      SUCCESS
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[2]                      Transaction
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[3]                      CREATE
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[4]                      Locker
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[5]                      HARDWARE
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[6]                      example@example.com
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[8]                      SUCCESS
 
 ExternalApi Update
     [Tags]                          ExternalApiUpdate
@@ -124,11 +124,11 @@ Checking Update Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
     Sleep                           2 second
     Goto Sidebar Activity Feed
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]                      Transaction
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]                      UPDATE
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[5]                      USER
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[6]                      ${API_key}
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[8]                      SUCCESS
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]                      Transaction
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]                      UPDATE
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]                      USER
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]                      ${API_key}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]                      SUCCESS
 
 ExternalApi Split
     [Tags]                          ExternalApiSplit
@@ -159,16 +159,16 @@ Checking Split Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
     Sleep                           2 second
     Goto Sidebar Activity Feed
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]                      Transaction
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]                      CREATE_BY_SPLIT
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]                      USER
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]                      ${API_key}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]                      SUCCESS
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]                      Transaction
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]                      CREATE_BY_SPLIT
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]                      SPLIT
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[5]                      USER
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[6]                      ${API_key}
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[8]                      SUCCESS
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[2]                      Transaction
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[3]                      SPLIT
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[5]                      USER
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[6]                      ${API_key}
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[8]                      SUCCESS
 
 Delete Location
     Goto Sidebar Locations

@@ -39,6 +39,7 @@ Checking Pricing Report
     Go Down Selector                (${modal dialog}${select control})[1]     Static Customer
     Click Element                   xpath:${modal dialog}${button info}
     Run Keyword If                  "${restatus}"=="first"      First Pricing Report       ELSE IF     "${restatus}"=="second"      Second Pricing Report     ELSE    Fail    Unexpected Behaviour
+    Sleep                           3 second
 
 Checking Static Pricing Report
     [Tags]                          Report
