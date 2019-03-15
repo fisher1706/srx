@@ -17,3 +17,12 @@ def sftpClose(sftp):
 def sftpGetFile(sftp,remotepath,localpath):
     file = sftp.get(remotepath,localpath)
     return file
+
+def sftpListFolder(sftp,path):
+    list = sftp.listdir(path)
+    return list
+
+def sftpCompareLists(first_list,second_list):
+    result = list(set(first_list) - set(second_list))
+    return result
+
