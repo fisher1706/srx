@@ -23,6 +23,5 @@ def sftpListFolder(sftp,path):
     return list
 
 def sftpCompareLists(first_list,second_list):
-    result = list(set(first_list) - set(second_list))
+    result = list(set(second_list) - set(first_list))
     return result
-
