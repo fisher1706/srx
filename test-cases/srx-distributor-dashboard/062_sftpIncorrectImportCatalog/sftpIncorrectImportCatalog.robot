@@ -169,7 +169,8 @@ Remove Files To Validate Empty
 
 Checking Activity Log To Validate Empty
     [Tags]                          Empty
-    Goto Sidebar Activity Feed
+    Reload Page
+    Sleep                           3 second
     Element Text Should Be          xpath:(${react table raw}${react table column})[2]          Import
     Element Text Should Be          xpath:(${react table raw}${react table column})[3]          VALIDATED
     Element Text Should Be          xpath:(${react table raw}${react table column})[5]          USER
