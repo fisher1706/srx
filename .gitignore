@@ -16,4 +16,7 @@ resources/staging.robot
 resources/prod.robot
 manual
 test
+<<<<<<< HEAD
 resources/py/sftp.pyc
+=======
+>>>>>>> b4b222d98550e8484790e3586ed4cff972355189
