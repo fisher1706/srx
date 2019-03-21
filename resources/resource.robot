@@ -821,3 +821,8 @@ Select First
     Press Key                       xpath:${item}       \ue007
     ${text}                         Get Selected Text   ${item}
     Return From Keyword             ${text}
+
+Dialog Should Be About
+    [Arguments]                     ${text}
+    ${buffer}                       Get Text    xpath:${close dialog}/../..//b
+    Run Keyword If                  "${buffer}"!="${text}"      Fail    Incorrect value in confirmation dialog: ${buffer}

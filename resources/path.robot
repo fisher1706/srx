@@ -1,4 +1,5 @@
 *** Variable ***
 ${button submit}                //button[contains(@type, 'submit')]
 ${dropdown menu}                //input[contains(@aria-autocomplete, 'list')]
-${page header}                  //div[contains(@class, 'page-header')]
+${close dialog}                 //button[contains(@aria-label, 'Close')]
+${delete customer}              //button[contains(@title, 'Delete Customer')]
