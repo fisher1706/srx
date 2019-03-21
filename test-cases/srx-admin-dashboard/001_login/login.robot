@@ -4,6 +4,8 @@ Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
+***Variables***
+${page header}                      xpath://div[contains(@class, 'page-header')]
 
 *** Test Cases ***
 Invalid Login
@@ -49,7 +51,7 @@ Forget Password
     Element Should Be Disabled      ${button submit}
     Enter Correct Wrong Email
     Click Element                   ${button submit}
-    Element Text Should Be          xpath://div/span                                `Please check if the entered email address is correct and try again.
+    Element Text Should Be          xpath://div/span                                Please check if the entered email address is correct and try again.
     Click Link                      xpath://*[@href="/sign-in"]
     Is Login Page
 
