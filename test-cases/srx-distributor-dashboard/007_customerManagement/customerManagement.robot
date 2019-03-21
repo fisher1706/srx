@@ -17,18 +17,21 @@ Create New Customer
     Set Suite Variable              ${customer type}
     ${market type}                  Select First    (${dropdown menu})[2]
     Set Suite Variable              ${market type}
-    ${buffer}                       Select First    (${dropdown menu})[3]
-    ${warehouse}                    Get Lines Matching Regexp   ${current warehouse}    ^\((.{0,})\)
-    Set Suite Variable              ${warehouse}
+    ${warehouse}                    Select First    (${dropdown menu})[3]
     Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Checking New Customer
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]      ${user first name}
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]      ${EMPTY}
-    ${current warehouse}            Get Text    xpath:((${react table raw})[${number of new row}]${react table column})[3]
-    ${necessary warehouse}          Get Lines Matching Regexp   ${current warehouse}    ${warehouse}\((.{0,})\)
-    Should Be Equal As Strings      ${current warehouse}        ${necessary warehouse}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]      ${customer type}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]      ${market type}
+
+Delete Customer
+    Click Element                   xpath:(${react table raw})[${number of new row}]${delete customer}
+    Dialog Should Be About          ${user first name}
+    Click Element                   xpath:${button submit}
+    Sleep                           5 second
 
 *** Keywords ***
 Preparation
