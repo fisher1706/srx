@@ -16,3 +16,4 @@ resources/staging.robot
 resources/prod.robot
 manual
 test
+resources/py/sftp.pyc
