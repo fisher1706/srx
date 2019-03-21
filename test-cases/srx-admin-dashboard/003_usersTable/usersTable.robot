@@ -5,6 +5,9 @@ Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
+***Variables***
+${error_msg}                        //div[contains(@class, 'has-error')]
+
 *** Test Cases ***
 Admin Users Menu Checking
     [Tags]                          AdminUsersMenuChecking
@@ -22,16 +25,17 @@ Invalid Add Admin User
     Sleep                           2 second
     Click Element                   xpath:${distributors admin pane}${button primary}
     Input Text                      id:email_id             ${incorrect email}
-    Element Should Be Visible       xpath:(${help block})[1]/*
+    Sleep                           1 second
+    Element Should Be Visible       xpath:(${error_msg}${help block})[1]/*
     Click Element                   xpath:${button close}
     Sleep                           2 second
     Click Element                   xpath:${distributors admin pane}${button primary}
     Press Key                       id:email_id             \ue004
-    Element Should Be Visible       xpath:(${help block})[1]/*
+    Element Should Be Visible       xpath:(${error_msg}${help block})[1]/*
     Press Key                       id:firstName_id         \ue004
-    Element Should Be Visible       xpath:(${help block})[2]/*
+    Element Should Be Visible       xpath:(${error_msg}${help block})[2]/*
     Press Key                       id:lastName_id          \ue004
-    Element Should Be Visible       xpath:(${help block})[3]/*
+    Element Should Be Visible       xpath:(${error_msg}${help block})[3]/*
     Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
 

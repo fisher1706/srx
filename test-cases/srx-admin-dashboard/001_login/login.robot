@@ -4,64 +4,60 @@ Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
-
-*** Variables ***
-${element forgot button}            css:.btn
-${forget or go back}                xpath:/html/body/div/div/div/div/div/form/div[5]/a
+***Variables***
+${page header}                      xpath://div[contains(@class, 'page-header')]
 
 *** Test Cases ***
 Invalid Login
     [Tags]                          InvalidLogin
-    Enter Incorrect Email
+    Click Element                   id:email
     Click Element                   id:password
-    Element Should Be Visible       css:.svg-inline--fa
-    Input Text                      id:password             ${password_adm}
-    Incorrect Submit Login
+    Element Should Be Disabled      ${button submit}
+    Enter Incorrect Email
+    Element Should Be Visible       id:email-helper-text
+    Enter Incorrect Password
+    Sleep                           1 second
+    Element Should Be Disabled      ${button submit}
     Enter Correct Wrong Email
-    Correct Submit Login
-    Element Text Should Be          ${alert warning}        Failed to sign in: Incorrect email address or password.
+    Sleep                           1 second
+    Element Should Be Enabled       ${button submit}
+    Click Element                   ${button submit}
+    Element Text Should Be          xpath://div/span        Incorrect email address or password.
+    Enter Correct Email
+    Click Element                   ${button submit}
+    Element Text Should Be          xpath://div/span        Incorrect email address or password.
+    Clear Element Text              id:password
+    Element Should Be Visible       id:password-helper-text
+    Sleep                           1 second
+    Element Should Be Disabled      ${button submit}
 
 Valid Login
     [Tags]                          ValidLogin
-    Input Text                      id:email        ${email_adm}
-    Input Text                      id:password     ${password_adm}
-    Correct Submit Login
-    Spinner
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[1]/div/div/h1   Distributor Management
-    Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)                     ${email_adm}
+    Clear Element Text              id:email
+    Clear Element Text              id:password
+    Enter Correct Email
+    Enter Correct Password
+    Click Element                   ${button submit}
+    Element Text Should Be          ${page header}                                  Distributor Management
+    Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)         ${email_adm}
     Sign Out
     Is Login Page
 
 Forget Password
     [Tags]                          ForgetPassword
-    Click Element                   ${forget or go back}
+    Click Link                      xpath://*[@href="/forgot-password"]
     Is Forgot Password Page
     Enter Incorrect Email
-    Element Should Be Disabled      ${element forgot button}
+    Element Should Be Disabled      ${button submit}
     Enter Correct Wrong Email
-    Submit Reset
-    Element Text Should Be          xpath:${alert warning}/p           Failed to reset the password!
-    Input Text                      id:email                                ${email_adm}
-    Click Element                   ${forget or go back}
+    Click Element                   ${button submit}
+    Element Text Should Be          xpath://div/span                                Please check if the entered email address is correct and try again.
+    Click Link                      xpath://*[@href="/sign-in"]
     Is Login Page
 
 *** Keywords ***
 Is Forgot Password Page
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[5]/a      Go back
-
-Spinner
-    ${spinner Y}=                   Get Vertical Position       css:.spinner-container
-    ${width}    ${height}=          Get Element Size            css:.spinner-container
-    Log	        ${spinner Y}
-    Log         ${height}
-    ${button Y}=                    Get Vertical Position       css:.external-page-button-toolbar
-    ${result}=                      Evaluate                    ${button Y}-${spinner Y}
-    ${spinner Y}=                   Evaluate                    ${result}-${height}
-    Log         ${button Y}
-    Log         ${result}
-    Log         ${spinner Y}
-    Run Keyword If                  ${spinner Y}<1      Fail    Spinner error down
-    Run Keyword If                  ${spinner Y}>15     Fail    Spinner error up
+    Element Text Should Be          xpath:/html/body/div/main/div/div/form/div[2]/a      Go back
 
 Enter Correct Wrong Email
     Input Text                      id:email            ${correct wrong email}
@@ -69,11 +65,14 @@ Enter Correct Wrong Email
 Enter Incorrect Email
     Input Text                      id:email            ${incorrect email}
 
-Incorrect Submit Login
-    Element Should Be Disabled      ${element login button}
+Enter Correct Email
+    Input Text                      id:email            ${email_adm}
 
-Submit Reset
-    Click Element                   ${element forgot button}
+Enter Correct Password
+    Input Text                      id:password         ${password_adm}
+
+Enter Incorrect Password
+    Input Text                      id:password            ${incorrect password}
 
 Preparation
     Start Suite Adv                 https://${host_adm}/sign-in

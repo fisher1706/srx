@@ -8,6 +8,7 @@ ${X}                                1920
 ${Y}                                1080
 ${correct wrong email}              example@example.com
 ${incorrect email}                  example.agilevision.io
+${incorrect password}               sxr-group1
 
 *** Keywords ***
 Login In Distributor Portal
@@ -331,7 +332,7 @@ Is Market Types
     Element Text Should Be          css:.market-types-management-header > h1:nth-child(1)       Market Types Management
 
 Is Login Page
-    Element Text Should Be          xpath:/html/body/div/div/div/div/div/form/div[4]/label      Password
+    Element Should Be Enabled      xpath://label[contains(@for, 'password')]
 
 Is Customer Management
     Element Text Should Be          css:.customer-management-header > h1:nth-child(1)           Customer Management
