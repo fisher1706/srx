@@ -1,5 +1,6 @@
 *** Settings ***
 Library                             XvfbRobot
+Resource                            path.robot
 Resource                            ${set}
 
 *** Variables ***
@@ -7,7 +8,6 @@ ${X}                                1920
 ${Y}                                1080
 ${correct wrong email}              example@example.com
 ${incorrect email}                  example.agilevision.io
-${element login button}             css:.btn
 
 *** Keywords ***
 Login In Distributor Portal
@@ -260,13 +260,13 @@ Start Admin
     Start Suite Adv                 https://${host_adm}/sign-in
     Input Text                      id:email                ${email_adm}
     Input Text                      id:password             ${password_adm}
-    Click Element                   xpath:${button success}
+    Click Element                   xpath:${button submit}
 
 Start Distributor
     Start Suite Adv                 https://${host_auth}
     Input Text                      id:email                ${email_dist}
     Input Text                      id:password             ${password_dist}
-    Click Element                   xpath:${button success}
+    Click Element                   xpath:${button submit}
     Sleep                           4 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
@@ -275,7 +275,7 @@ Start Customer
     Start Suite Adv                 https://${host_auth}
     Input Text                      id:email                ${email_cust}
     Input Text                      id:password             ${password_cust}
-    Click Element                   xpath:${button success}
+    Click Element                   xpath:${button submit}
     Sleep                           4 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
@@ -284,7 +284,7 @@ Start Permission
     Start Suite Adv                 https://${host_auth}
     Input Text                      id:email                ${email_perm}
     Input Text                      id:password             ${password_perm}
-    Click Element                   xpath:${button success}
+    Click Element                   xpath:${button submit}
     Sleep                           4 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
