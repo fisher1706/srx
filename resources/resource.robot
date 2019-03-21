@@ -792,13 +792,36 @@ React Last
     Click Element                   xpath:(${page link})[${count}]
 
 Generate Random Name U
-    ${buffer1}                      Generate Random String                              18          [LETTERS]
+    [Arguments]                     ${number}=18
+    ${buffer1}                      Generate Random String                              ${number}       [LETTERS]
     ${random name u}                Convert To Uppercase                                ${buffer1}
     Set Suite Variable              ${random name u}
     Return From Keyword             ${random name u}
 
 Generate Random Name L
-    ${buffer1}                      Generate Random String                              18          [LETTERS]
+    [Arguments]                     ${number}=18
+    ${buffer1}                      Generate Random String                              ${number}       [LETTERS]
     ${random name l}                Convert To Lowercase                                ${buffer1}
     Set Suite Variable              ${random name l}
     Return From Keyword             ${random name l}
+
+Input By Name
+    [Arguments]                     ${name}     ${text}
+    Input Text                      xpath://input[contains(@name, '${name}')]           ${text}
+
+Get Selected Text
+    [Arguments]                     ${item}
+    ${text}                         Get Text    xpath:${item}/../../../div[1]
+    Return From Keyword             ${text}
+
+Select First
+    [Arguments]                     ${item}
+    Press Key                       xpath:${item}       \ue015
+    Press Key                       xpath:${item}       \ue007
+    ${text}                         Get Selected Text   ${item}
+    Return From Keyword             ${text}
+
+Dialog Should Be About
+    [Arguments]                     ${text}
+    ${buffer}                       Get Text    xpath:${close dialog}/../..//b
+    Run Keyword If                  "${buffer}"!="${text}"      Fail    Incorrect value in confirmation dialog: ${buffer}
