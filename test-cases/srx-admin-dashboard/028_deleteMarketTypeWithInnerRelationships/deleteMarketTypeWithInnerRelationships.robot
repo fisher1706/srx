@@ -16,7 +16,7 @@ Valid Create New Market Type
 Checking New Market Type On Distributor Portal Not Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
-    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
+    Click Element                   xpath:(${react table}${react table raw})[1]
     Choose From Select Box          (${select control})[2]      ${market del type}
     Sleep                           1 second
     Click Element                   xpath:${button modal dialog ok}

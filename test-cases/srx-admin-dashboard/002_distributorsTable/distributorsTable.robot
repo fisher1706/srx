@@ -36,6 +36,7 @@ Valid Add Distributor
     Input Text                      id:address.line2_id                             ${dynamic adress2}
     Click Element                   xpath:(${select control})[1]
     Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
+    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
     Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue007
     Input Text                      id:address.city_id                              ${dynamic city}
     Input Text                      id:invoiceEmail_id                              ${dynamic email}
