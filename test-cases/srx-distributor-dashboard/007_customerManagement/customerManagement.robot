@@ -27,9 +27,28 @@ Checking New Customer
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]      ${customer type}
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]      ${market type}
 
+Edit Customer
+    Click Element                   xpath:(${react table raw})[${number of new row}]
+    Input By Name                   name            ${user last name}
+    Input By Name                   number          ${warehouse number}
+    ${edit customer type}           Select First    (${dropdown menu})[1]
+    Set Suite Variable              ${edit customer type}
+    ${edit market type}             Select First    (${dropdown menu})[2]
+    Set Suite Variable              ${edit market type}
+    Input By Name                   notes           Note
+    Click Element                   xpath:${button submit}
+    Sleep                           3 second
+
+Checking Customer
+    Goto Sidebar Customers
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]      ${user last name}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]      ${warehouse number}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]      ${edit customer type}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]      ${edit market type}
+
 Delete Customer
     Click Element                   xpath:(${react table raw})[${number of new row}]${delete customer}
-    Dialog Should Be About          ${user first name}
+    Dialog Should Be About          ${user last name}
     Click Element                   xpath:${button submit}
     Sleep                           5 second
 
