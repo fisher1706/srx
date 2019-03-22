@@ -16,12 +16,11 @@ Valid Create New Market Type
 Checking New Market Type On Distributor Portal Not Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
-    Click Element                   xpath:(${react table}${react table raw})[1]
-    Choose From Select Box          (${select control})[2]      ${market del type}
-    Sleep                           1 second
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div      ${market del type}
+    Click Element                   xpath:(${react table raw})[1]
+    Select From Dropdown            (${dropdown menu})[2]       ${market del type}
+    Click Element                   xpath:${button submit}
+    Goto Sidebar Customers
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${market del type}
     Finish Suite
 
 Delete Market Type Not Delete
@@ -37,12 +36,11 @@ Delete Market Type Not Delete
 Checking New Market Type On Distributor Portal Delete
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
-    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
-    Choose From Select Box          (${select control})[2]      Not specified
-    Sleep                           1 second
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div      Not specified
+    Click Element                   xpath:(${react table raw})[1]
+    Select From Dropdown            (${dropdown menu})[2]       Not specified
+    Click Element                   xpath:${button submit}
+    Goto Sidebar Customers
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     Not specified
     Finish Suite
 
 Delete Market Type Delete
