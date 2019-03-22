@@ -840,3 +840,11 @@ Select Dropdown Element
     [Arguments]                     ${index}    ${item}
     Click Element                   xpath:${item}/../../../../../div[2]/div[1]/div[${index}]
     Exit For Loop
+
+Get React Row By Text
+    [Arguments]                     ${column}   ${text}
+    ${number}                       Get Element Count       xpath:${react table raw}
+    : FOR   ${index}    IN RANGE    1   ${number}+1
+    \   ${text buffer}              Get Text    xpath:((${react table raw})[${index}]${react table column})[${column}]
+    \   Exit For Loop If            "${text}"=="${text buffer}"
+    Return From Keyword             ${index}
