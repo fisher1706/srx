@@ -818,6 +818,7 @@ Get Selected Text
 Select First
     [Arguments]                     ${item}
     Press Key                       xpath:${item}       \ue015
+    Press Key                       xpath:${item}       \ue015
     Press Key                       xpath:${item}       \ue007
     ${text}                         Get Selected Text   ${item}
     Return From Keyword             ${text}
@@ -826,3 +827,16 @@ Dialog Should Be About
     [Arguments]                     ${text}
     ${buffer}                       Get Text    xpath:${close dialog}/../..//b
     Run Keyword If                  "${buffer}"!="${text}"      Fail    Incorrect value in confirmation dialog: ${buffer}
+
+Select From Dropdown
+    [Arguments]                     ${item}     ${text}
+    Press Key                       xpath:${item}       \ue015
+    ${count}                        Get Element Count       xpath:${item}/../../../../../div[2]/div[1]/div
+    : FOR   ${index}    IN RANGE    1       ${count}+2
+    \   ${buffer}                   Get Text        xpath:${item}/../../../../../div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${buffer}"=="${text}"         Select Dropdown Element      ${index}    ${item}
+
+Select Dropdown Element
+    [Arguments]                     ${index}    ${item}
+    Click Element                   xpath:${item}/../../../../../div[2]/div[1]/div[${index}]
+    Exit For Loop

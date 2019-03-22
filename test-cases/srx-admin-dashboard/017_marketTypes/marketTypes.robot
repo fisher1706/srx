@@ -34,18 +34,17 @@ Checking New Market Type In Table
 Checking New Market Type On Distributor Portal
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
-    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
-    Choose From Select Box          (${select control})[2]      ${market type}
-    Sleep                           1 second
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div      ${market type}
-    Click Element                   xpath:${table xpath}/tbody/tr[1]${button success}
-    Choose From Select Box          (${select control})[2]      Not specified
-    Sleep                           1 second
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[5]/div      Not specified
+    ${current type}                 Get Text    xpath:((${react table raw})[1]${react table column})[5]
+    Click Element                   xpath:(${react table raw})[1]
+    Select From Dropdown            (${dropdown menu})[2]       ${market type}
+    Click Element                   xpath:${button submit}
+    Goto Sidebar Customers
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${market type}
+    Click Element                   xpath:(${react table raw})[1]
+    Select From Dropdown            (${dropdown menu})[2]       ${current type}
+    Click Element                   xpath:${button submit}
+    Goto Sidebar Customers
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${current type}
     Finish Suite
 
 Edit Market Type
