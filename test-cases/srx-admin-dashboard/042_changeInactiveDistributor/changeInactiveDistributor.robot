@@ -13,7 +13,7 @@ Valid Add Distributor
     Input Text                      id:address.line1_id             ${dynamic adress1}
     Input Text                      id:address.line2_id             ${dynamic adress2}
     Input Text                      id:address.city_id              ${dynamic city}
-    Choose From Select Box          (${select control})[1]          Alabama
+    Choose From Select Box          (${select control})[1]          Alaska
     Go Down Selector                (${select control})[2]          Singular Billing
     Input Text                      id:invoiceEmail_id              ${dynamic email}
     Input Text                      id:address.zipCode_id           ${dynamic code}
@@ -43,7 +43,7 @@ Edit Distributor
     Go Down Selector                (${select control})[2]                                  Bill By Warehouse
     Input Text                      id:address.city_id                                      ${edit city}
     Input Text                      id:invoiceEmail_id                                      ${edit email}
-    Choose From Select Box          (${select control})[1]                                  American Samoa
+    Choose From Select Box          (${select control})[1]                                  Arizona
     Input Text                      id:address.zipCode_id                                   ${edit code}
     Click Element                   xpath:${button modal dialog ok}
 
