@@ -12,17 +12,29 @@ ${edit amount}                      150001-200000
 ${edit value}                       300000
 
 *** Test Cases ***
-Button Monthly Fees
-    [Tags]                          Button
-    Testing Fees Tab                fees-tab-button-monthly-fee     ${button monthly pane}
+Base Fees
+    [Tags]                          Base
+    Click Element                   id:fees-tab-base-fees
+    Click Element                   xpath:${table xpath}/tbody/tr/td[2]
+    Input Text                      xpath:${table xpath}/tbody/tr/td[2]/div/div/*               5000
+    Press Key                       xpath:${table xpath}/tbody/tr/td[2]/div/div/*               \ue004
+    Press Key                       ${button success}                                           \ue007
+    Sleep                           5 second
+    Click Element                   ${button success}
+    Reload Page
+    Sleep                           3 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr/td[2]                         $5000
+    Click Element                   xpath:${table xpath}/tbody/tr/td[2]
+    Input Text                      xpath:${table xpath}/tbody/tr/td[2]/div/div/*               4320
+    Press Key                       xpath:${table xpath}/tbody/tr/td[2]/div/div/*               \ue004
+    Press Key                       ${button success}                                           \ue007
+    Sleep                           5 second
+    Click Element                   ${button success}
+    Sleep                           5 second
 
-Label Monthly Fees
-    [Tags]                          Label
-    Testing Fees Tab                fees-tab-label-monthly-fee      ${label monthly pane}
-
-Rfid Monthly Fees
-    [Tags]                          Rfid
-    Testing Fees Tab                fees-tab-rfid-monthly-fee       ${rfid monthly pane}
+Triggers Monthly Fees
+    [Tags]                          Triggers
+    Testing Fees Tab                fees-tab-triggers-monthly-fee       ${triggers monthly pane}
 
 Deeplens Monthly Fees
     [Tags]                          Deeplens

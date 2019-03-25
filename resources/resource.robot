@@ -757,7 +757,7 @@ Sorting React With Last Page
     Click Element                   xpath:(${react header})[${column}+1]
     Sleep                           2 second
     ${text buffer2down}             Get Text                    xpath:((${react table raw})[${number of row}]${react table column})[${column}]
-    Click Element                   xpath:(${page link})[2]
+    Click Element                   xpath:${pagination bottom}/div/div/button[2]
     Sleep                           2 second
     ${text buffer2up}               Get Text                    xpath:(${react table column})[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
@@ -788,9 +788,9 @@ Filter React Select Box
     Sleep                           3 second
 
 React Last
-    ${count}                        Get Element Count       xpath:${page link}
+    ${count}                        Get Element Count       xpath:${pagination bottom}/div/div/*
     ${count}                        Evaluate    ${count}-1
-    Click Element                   xpath:(${page link})[${count}]
+    Click Element                   xpath:${pagination bottom}/div/div/button[${count}]
 
 Generate Random Name U
     [Arguments]                     ${number}=18
