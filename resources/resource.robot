@@ -244,7 +244,7 @@ Start Suite
     Set Suite Variable              ${LOGIN URL}    https://${HOST}/sign-in
     Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb    ELSE IF     "${browser}"=="chrome"      Run Chrome  ELSE    Run Ff
     Set Selenium Implicit Wait      20 second
-    Set Selenium Timeout            10 second
+    Set Selenium Timeout            20 second
 
 Run Xvfb
     Start Virtual Display           ${X}                    ${Y}
@@ -294,7 +294,7 @@ Start Suite Adv
     [Arguments]                     ${portal}
     Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb Adv    ${portal}   ELSE IF     "${browser}"=="chrome"      Run Chrome Adv      ${portal}   ELSE    Run Ff Adv      ${portal}
     Set Selenium Implicit Wait      20 second
-    Set Selenium Timeout            10 second
+    Set Selenium Timeout            20 second
 
 Run Xvfb Adv
     [Arguments]                     ${portal}
@@ -848,3 +848,46 @@ Get React Row By Text
     \   ${text buffer}              Get Text    xpath:((${react table raw})[${index}]${react table column})[${column}]
     \   Exit For Loop If            "${text}"=="${text buffer}"
     Return From Keyword             ${index}
+
+Filter Add
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${button filter}
+    Click Element                   xpath:(${menu}${menu item})[${dialog index}]
+    Input Text                      xpath:${text field}                     ${value}
+    Sleep                           3 second
+    ${count}                        Get Element Count       xpath:${react table raw}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
+    Click Element                   xpath:${filter label}/../..//button
+    Sleep                           3 second
+
+Filter Add For Select Box
+    [Arguments]                     ${dialog index}     ${table index}      ${value}
+    Click Element                   xpath:${button filter}
+    Click Element                   xpath:(${menu}${menu item})[${dialog index}]
+    Sleep                           2 second
+    Click Element                   id:select-Customer-filter-input-type-id
+    ${count}                        Get Element Count       xpath:${listbox}/*
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${buffer}                   Get Text                xpath:${listbox}/li[${index}]
+    \   Run Keyword If              "${buffer}"=="${value}"         Click Element           xpath:${listbox}/li[${index}]
+    Sleep                           3 second
+    ${count2}                        Get Element Count       xpath:${react table raw}
+    : FOR   ${index}    IN RANGE    1       ${count2}+1
+    \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
+    Click Element                   xpath:${filter label}/../..//button
+    Sleep                           3 second
+
+Sort React
+    [Arguments]                     ${column}
+    Click Element                   xpath:(${react header})[${column}+1]
+    Sleep                           2 second
+    ${text buffer1up}               Get Text                    xpath:(${react table column})[${column}]
+    ${number of row}                Get Element Count           xpath:${react table raw}
+    ${text buffer1down}             Get Text                    xpath:((${react table raw})[${number of row}]${react table column})[${column}]
+    Click Element                   xpath:(${react header})[${column}+1]
+    Sleep                           2 second
+    ${text buffer2down}             Get Text                    xpath:((${react table raw})[${number of row}]${react table column})[${column}]
+    ${text buffer2up}               Get Text                    xpath:(${react table column})[${column}]
+    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
+    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed

@@ -37,7 +37,9 @@ Valid Login
     Clear Element Text              id:password
     Enter Correct Email
     Enter Correct Password
+    Sleep                           3 second
     Click Element                   ${button submit}
+    Sleep                           3 second
     Element Text Should Be          ${page header}                                  Distributor Management
     Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)         ${email_adm}
     Sign Out
@@ -48,9 +50,12 @@ Forget Password
     Click Link                      xpath://*[@href="/forgot-password"]
     Is Forgot Password Page
     Enter Incorrect Email
+    Sleep                           3 second
     Element Should Be Disabled      ${button submit}
     Enter Correct Wrong Email
+    Sleep                           2 second
     Click Element                   ${button submit}
+    Sleep                           2 second
     Element Text Should Be          xpath://div/span                                Please check if the entered email address is correct and try again.
     Click Link                      xpath://*[@href="/sign-in"]
     Is Login Page

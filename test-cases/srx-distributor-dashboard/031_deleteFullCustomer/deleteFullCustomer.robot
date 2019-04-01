@@ -13,7 +13,7 @@ ${delete customer number}           777
 *** Test Cases ***
 Valid Create New Customer
     [Tags]                          ValidCreateNewCustomer
-    Click Element                   xpath:${button primary}
+    Click Element                   id:item-action-create
     Input Text                      id:name_id                  ${delete customer name}
     Input Text                      id:number_id                ${delete customer number}
     Click Element                   xpath:(${select control})[1]
@@ -44,7 +44,7 @@ Create Shiptos 1
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a
     Sleep                           2 second
     Goto Customer Shipto
-    Click Element                   xpath:${shiptos pane}${button primary}
+    Click Element                   id:item-action-create
     Input Text                      id:name_id              ${dynamic name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
@@ -70,7 +70,7 @@ Valid Create New User 1
     Goto Customer Users
     ${buffer}                       Generate Random Name L
     Set Suite Variable              ${delete customer user1}    ${buffer}@example.com
-    Click Element                   xpath:${users pane}${button primary}
+    Click Element                   id:item-action-create
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
@@ -101,7 +101,7 @@ Delete Shipto 1
 
 Create Shiptos 2
     Goto Customer Shipto
-    Click Element                   xpath:${shiptos pane}${button primary}
+    Click Element                   id:item-action-create
     Input Text                      id:name_id                    ${dynamic name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}
@@ -126,7 +126,7 @@ Valid Create New User 2
     Goto Customer Users
     ${buffer}                       Generate Random Name L
     Set Suite Variable              ${delete customer user2}    ${buffer}@example.com
-    Click Element                   xpath:${users pane}${button primary}
+    Click Element                   id:item-action-create
     Input Text                      id:email_id                 ${delete customer user1}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
