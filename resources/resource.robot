@@ -193,10 +193,6 @@ Goto Sidebar RFID
     Click Element                   id:sidebar-rfid
     Sleep                           5 second
 
-Goto Sidebar Locations
-    Click Element                   id:sidebar-locations
-    Sleep                           5 second
-
 Goto Sidebar Security Groups
     Click Element                   id:sidebar--user_groups
     Sleep                           5 second
@@ -706,7 +702,7 @@ Get RFID URL
     Return From Keyword             https://${RFID_SN}:${RFID_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/rfid
 
 Get Locker URL
-    Return From Keyword             https://${API_key}:${API_key}@api-${environment}.storeroomlogix.com/api/webhook/events/locker
+    Return From Keyword             https://${LOCKER_SN}:${LOCKER_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/locker
 
 Get Manifest URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/manifest
@@ -891,3 +887,7 @@ Sort React
     ${text buffer2up}               Get Text                    xpath:(${react table column})[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+
+Click Button By Title
+    [Arguments]                     ${title}
+    Click Element                   xpath://button[contains(@title, '${title}')]
