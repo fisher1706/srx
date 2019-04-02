@@ -854,7 +854,7 @@ Filter Add
     Click Element                   xpath:${button filter}
     Click Element                   xpath:(${menu}${menu item})[${dialog index}]
     Input Text                      xpath:${text field}                     ${value}
-    Sleep                           3 second
+    Sleep                           5 second
     ${count}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
