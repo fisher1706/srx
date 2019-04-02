@@ -193,10 +193,6 @@ Goto Sidebar RFID
     Click Element                   id:sidebar-rfid
     Sleep                           5 second
 
-Goto Sidebar Locations
-    Click Element                   id:sidebar-locations
-    Sleep                           5 second
-
 Goto Sidebar Security Groups
     Click Element                   id:sidebar--user_groups
     Sleep                           5 second
@@ -706,7 +702,7 @@ Get RFID URL
     Return From Keyword             https://${RFID_SN}:${RFID_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/rfid
 
 Get Locker URL
-    Return From Keyword             https://${API_key}:${API_key}@api-${environment}.storeroomlogix.com/api/webhook/events/locker
+    Return From Keyword             https://${LOCKER_SN}:${LOCKER_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/locker
 
 Get Manifest URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/distributor-portal/distributor/manifest
@@ -861,7 +857,6 @@ Filter Add
     ${count}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
-    #Click Element                   xpath:${filter label}/../..//button
     Click Element                   xpath:${filter type}/button
     Sleep                           3 second
 
@@ -874,13 +869,18 @@ Filter Add For Select Box
     ${count}                        Get Element Count       xpath:${listbox}/*
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   ${buffer}                   Get Text                xpath:${listbox}/li[${index}]
-    \   Run Keyword If              "${buffer}"=="${value}"         Click Element           xpath:${listbox}/li[${index}]
+    \   Run Keyword If              "${buffer}"=="${value}"     Select Filter Element   ${index}
     Sleep                           3 second
     ${count2}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count2}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
     Click Element                   xpath:${filter type}/button
     Sleep                           3 second
+
+Select Filter Element
+    [Arguments]                     ${index}
+    Click Element                   xpath:${listbox}/li[${index}]
+    Exit For Loop
 
 Sort React
     [Arguments]                     ${column}

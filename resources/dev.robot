@@ -13,9 +13,11 @@ ${host_adm}                     admin-dev.storeroomlogix.com
 ${host_auth}                    auth-dev.storeroomlogix.com
 
 ${environment}                  dev
+${browser}                      ff
+
 ${API_key}                      m4DAfPuRurdzlsVrlen2
 ${RFID_SN}                      RFID230820106808  
-${browser}                      ff
+${LOCKER_SN}                    LOCKER892981155681
 ${sftp_distributor_user}        d8528553432042578267dev
 ${sftp_customer_user}           c6407003752451483373dev
 
