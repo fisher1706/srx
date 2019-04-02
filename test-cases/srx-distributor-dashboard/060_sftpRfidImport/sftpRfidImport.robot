@@ -18,7 +18,7 @@ Connect To SFTP
 Create Product File
     ${product filename}             Generate Random Name U
     Set Suite Variable              ${product filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,
+    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,
 
 Put Product File By SFTP
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${product filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/import/${product filename}.csv
@@ -31,7 +31,7 @@ Check First List Of Folder
 Create Location File
     ${location filename}            Generate Random Name U
     Set Suite Variable              ${location filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p${\n}${product filename},${product filename},,,,,,,${product filename},20,30,RFID,,0
+    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q${\n}${product filename},${product filename},,,,,,,${product filename},20,30,RFID,,0,
 
 Put Location File By SFTP
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${location filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/import/${location filename}.csv
@@ -199,19 +199,20 @@ Checking Activity Log RFID Available To Import
     Element Text Should Be          xpath:((${react table raw})[4]${react table column})[8]     SUCCESS
 
 Delete Location
-    Goto Sidebar Locations
-    Sleep                           2 second
-    ${my location}                  Get Row By Text             ${table xpath}      11      ${product filename}
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
+    ${my location}                  Get Row By Text             ${table xpath}      12      ${product filename}
     Click Element                   xpath:${table xpath}/tbody/tr[${my location}]/td[1]
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${product filename}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${product filename}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${product filename}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
