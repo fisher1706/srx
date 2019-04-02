@@ -24,18 +24,20 @@ Valid Create New Location
     Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
     Input Text                      id:attributeName1_id                                    ${location name}
     Input Text                      id:attributeValue1_id                                   ${location value}
+    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Location
     Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${location name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location value}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${locker sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${location value}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${locker sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      LOCKER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
 
 Request Locker Available
     [Tags]                          Locker
@@ -47,7 +49,7 @@ Request Locker Available
 Checking OHI Available
     Reload Page
     Sleep                           4 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      170
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      170
 
 Checking Available In Activity Log
     Goto Sidebar Activity Feed
@@ -71,9 +73,9 @@ Request Locker Issued
     ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${locker sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 170, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"${locker user}" }    headers=${headers}
 
 Checking OHI Issued
-    Goto Sidebar Locations
-    Sleep                           4 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      0
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      0
 
 Checking Issued In Activity Log
     Goto Sidebar Activity Feed
@@ -89,7 +91,6 @@ Checking Issued In Activity Log
     Expanded AL Element Should Be   10  ISSUED
     Expanded AL Element Should Be   17  ${locker sku}
 
-
 Checking Transaction In Activity Log
     Element Text Should Be          xpath:((${react table raw})[3]${react table column})[2]             Transaction
     Element Text Should Be          xpath:((${react table raw})[3]${react table column})[4]             Locker
@@ -99,19 +100,19 @@ Checking Transaction In Activity Log
     Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[7]        ACTIVE
     Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[11]       LOCKER_SKU
 
-
 Delete Location
-    Goto Sidebar Locations
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${location name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location value}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    ${locker sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    LOCKER
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${location value}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${locker sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    LOCKER
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           7 second
     ${number of new row}            Get Rows Count          ${table xpath}
@@ -121,8 +122,8 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Goto Sidebar Locations
-    Sleep                           3 second
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
