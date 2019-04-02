@@ -6,6 +6,9 @@ Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
+***Variables***
+${for edit}                         xpath://td[contains(@class, 'FOR-EDIT')]
+
 *** Test Cases ***
 Invalid Create New Location
     [Tags]                          InvalidCreateNewLocation
@@ -44,6 +47,9 @@ Valid Create New Location
     Input Text                      id:attributeValue3_id                                                                                   ${sub 3}
     Input Text                      id:attributeName4_id                                                                                    ${level 4}
     Input Text                      id:attributeValue4_id                                                                                   ${sub 4}
+    Click Element                   xpath:(${modal dialog}${select control})[2]
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]            \ue015
+    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]            \ue007
     Click Element                   xpath:${button modal dialog ok}
     Element Text Should Be          css:.external-page-alert > strong:nth-child(2)                                                          Operation failed!
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       30
@@ -63,23 +69,23 @@ Valid Create New Location
     Sleep                           5 second
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Is Locations
 
 Checking New Location
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       DISTRIBUTOR
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div       ${level 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${sub 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      BUTTON
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      10
 
 Checking New Location Activity Log
     [Tags]                          CheckingNewLocationActivityLog
@@ -92,50 +98,52 @@ Checking New Location Activity Log
 
 Edit Location
     [Tags]                          EditLocation
-    Goto Sidebar Locations
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div/div/input             ${edit level 1}
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div/div/input             \ue007
-    Sleep                           1 second
+    Goto Locations Temp
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div/input             ${edit sub 1}
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div/input             ${edit level 1}
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div/input             \ue007
     Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            ${edit sku}
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div/div/input             ${edit sub 1}
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div/div/input             \ue007
+    Sleep                           1 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div/div/input            ${edit sku}
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div/div/input            \ue007
+    Sleep                           1 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div/div/input            100
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div/div/input            \ue007
     Sleep                           1 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            100
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            20
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
     Sleep                           1 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div/div/input            20
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div/div/input            10
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div/div/input            \ue007
-    Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div/div/input            10
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div/div/input            \ue007
     Sleep                           1 second
     Click Element                   xpath:${button lg}
     Sleep                           5 second
     Reload Page
 
 Checking Edit Location
+    [Tags]                          CheckingEdit
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${edit level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${edit sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${edit sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      20
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      100
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       DISTRIBUTOR
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${edit level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${edit sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div       ${level 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${sub 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${edit sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      BUTTON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      100
     Sleep                           5 second
 
 Checking Edit Location Activity
@@ -149,21 +157,22 @@ Checking Edit Location Activity
 
 Delete Location
     [Tags]                          DeleteLocation
-    Goto Sidebar Locations
+    Goto Locations Temp
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${edit sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${level 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${sub 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${edit sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]         10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         100
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          DISTRIBUTOR
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${edit level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${edit sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${level 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${sub 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${level 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${sub 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${level 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]          ${sub 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${edit sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         100
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -178,8 +187,9 @@ Checking Delete Location Activity Log
 
 Sorting
     [Tags]                          Sorting
-    Goto Sidebar Locations
+    Goto Locations Temp
     Sleep                           5 second
+
     Sorting Column                  2
     Sorting Column                  3
     Sorting Column                  4
@@ -190,36 +200,38 @@ Sorting
     Sorting Column                  9
     Sorting Column                  10
     Sorting Column                  11
-    Sorting Column                  13
+    Sorting Column                  12
     Sorting Column                  14
     Sorting Column                  15
     Sorting Column                  16
     Sorting Column                  17
+    Sorting Column                  18
 
 Locations Filtration
     [Tags]                          Filter
-    Filter Field                    15      17      G030PM036107NGQ5
+    Filter Field                    15      18      G030PM036107NGQ5
     Filter Field                    1       2       161
-    Filter Field                    2       3       loc1n
-    Filter Field                    3       4       loc1v
-    Filter Field                    4       5       loc2n
-    Filter Field                    5       6       loc2v
-    Filter Field                    6       7       loc3n
-    Filter Field                    7       8       loc3v
-    Filter Field                    8       9       loc4n
-    Filter Field                    9       10      loc4v
-    Filter Field                    10      11      STATIC SKU
-    Filter Field                    11      12      test1
-    Filter Field                    12      14      0
-    Filter Field                    13      15      20
-    Filter Field                    14      16      100
-    Filter Select Box               1       13      RFID
+    Filter Field                    2       4       loc1n
+    Filter Field                    3       5       loc1v
+    Filter Field                    4       6       loc2n
+    Filter Field                    5       7       loc2v
+    Filter Field                    6       8       loc3n
+    Filter Field                    7       9       loc3v
+    Filter Field                    8       10       loc4n
+    Filter Field                    9       11      loc4v
+    Filter Field                    10      12      STATIC SKU
+    Filter Field                    11      13      test1
+    Filter Field                    12      15      0
+    Filter Field                    13      16      20
+    Filter Field                    14      17      100
+    Filter Select Box               1       14      RFID
+    Filter Select Box               2       3       CUSTOMER
 
 *** Keywords ***
 Preparation
     Start Distributor
     Sleep                           2 second
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations Temp
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

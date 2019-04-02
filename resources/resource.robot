@@ -903,3 +903,10 @@ Get React Rows Count
     ${columns}                      Get Element Count           xpath:${react table}${react table raw}${react table column}
     Return From Keyword If          ${columns}>1                1
     Return From Keyword If          ${columns}<=1               0
+<<<<<<< HEAD
+
+Goto Locations Temp
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           2 second
+=======
+>>>>>>> d860c4656457cbea59975e5bac6e926fa1489b0a

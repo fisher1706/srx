@@ -149,7 +149,7 @@ Preparation
     Sleep                           3 second
     Start Permission
     Sleep                           3 second
-    Goto Sidebar Locations
+    Goto Locations Temp
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of new row}

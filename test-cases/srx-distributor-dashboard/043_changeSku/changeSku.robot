@@ -93,7 +93,7 @@ Check Transactions
     Sleep                           5 second
 
 Change Location SKU
-    Goto Sidebar Locations
+    Goto Locations Temp
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]
     Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            ${change sku 2}
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
@@ -129,7 +129,7 @@ Deliver Transaction
     Sleep                           5 second
 
 Delete Location
-    Goto Sidebar Locations
+    Goto Locations Temp
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${level 1}
@@ -150,7 +150,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Goto Sidebar Locations
+    Goto Locations Temp
     Sleep                           3 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
