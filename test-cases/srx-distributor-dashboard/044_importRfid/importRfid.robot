@@ -22,17 +22,20 @@ Valid Create New Location
     Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
     Input Text                      id:attributeName1_id                                    ${location name}
     Input Text                      id:attributeValue1_id                                   ${location value}
+    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Location
-    Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${location name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location value}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${import rfid sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      OFF
+    Sleep                           7 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${location value}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${import rfid sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
 
 Import RFID
     Goto Sidebar RFID
@@ -68,25 +71,28 @@ Checking RFID
     Should Be Equal As Integers     ${number of row}    2
 
 Delete Location
-    Goto Sidebar Locations
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${location name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location value}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    ${import rfid sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${location value}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${import rfid sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
-    Sleep                           5 second
+    Sleep                           7 second
+    ${number of new row}            Get Rows Count          ${table xpath}
+    Should Be Equal As Integers     ${number of new row}    ${number of row}
 
 *** Keywords ***
 Preparation
     Start Distributor
     Sleep                           3 second
-    Goto Sidebar Locations
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

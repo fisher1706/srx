@@ -52,13 +52,6 @@ Delete Customer
     Click Element                   xpath:${button submit}
     Sleep                           5 second
 
-Filter Customer
-    [Tags]                          FilterCustomer
-    Filter Add                      1       1       Customer A
-    Filter Add                      2       2       number
-    Filter Add For Select Box       3       4       Test type
-    Filter Add For Select Box       4       4       Not specified
-
 Sorting Customer
     [Tags]                          Sorting
     Sort React                      1
@@ -66,6 +59,13 @@ Sorting Customer
     Sort React                      3
     Sort React                      4
     Sort React                      5
+
+Filter Customer
+    [Tags]                          FilterCustomer
+    Filter Add                      1       1       Customer A
+    Filter Add                      2       2       number
+    Filter Add For Select Box       3       4       Test type
+    Filter Add For Select Box       4       4       Not specified
 
 *** Keywords ***
 Preparation
