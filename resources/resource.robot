@@ -788,9 +788,9 @@ Filter React Select Box
     Sleep                           3 second
 
 React Last
-    ${count}                        Get Element Count       xpath:${pagination bottom}/div/div/*
+    ${count}                        Get Element Count       xpath:${pagination bottom}/div/div[2]/*
     ${count}                        Evaluate    ${count}-1
-    Click Element                   xpath:${pagination bottom}/div/div/button[${count}]
+    Click Element                   xpath:${pagination bottom}/div/div[2]/button[${count}]
 
 Generate Random Name U
     [Arguments]                     ${number}=18
@@ -891,3 +891,11 @@ Sort React
     ${text buffer2up}               Get Text                    xpath:(${react table column})[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
+
+Get React Rows Count
+    [Arguments]                     ${table}
+    ${number}                       Get Element Count           xpath:${react table}${react table raw}
+    Return From Keyword If          ${number}!=1                ${number}
+    ${columns}                      Get Element Count           xpath:${react table}${react table raw}${react table column}
+    Return From Keyword If          ${columns}>1                1
+    Return From Keyword If          ${columns}<=1               0
