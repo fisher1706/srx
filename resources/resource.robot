@@ -792,6 +792,9 @@ React Last
     ${count}                        Evaluate    ${count}-1
     Click Element                   xpath:${pagination bottom}/div/div[2]/button[${count}]
 
+React First
+    Click Element                   xpath:${pagination bottom}/div/div[2]/button[2]
+
 Generate Random Name U
     [Arguments]                     ${number}=18
     ${buffer1}                      Generate Random String                              ${number}       [LETTERS]
@@ -858,7 +861,8 @@ Filter Add
     ${count}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
-    Click Element                   xpath:${filter label}/../..//button
+    #Click Element                   xpath:${filter label}/../..//button
+    Click Element                   xpath:${filter type}/button
     Sleep                           3 second
 
 Filter Add For Select Box
@@ -866,7 +870,7 @@ Filter Add For Select Box
     Click Element                   xpath:${button filter}
     Click Element                   xpath:(${menu}${menu item})[${dialog index}]
     Sleep                           2 second
-    Click Element                   id:select-Customer-filter-input-type-id
+    Click Element                   xpath:${filter type}/div/div
     ${count}                        Get Element Count       xpath:${listbox}/*
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   ${buffer}                   Get Text                xpath:${listbox}/li[${index}]
@@ -875,7 +879,7 @@ Filter Add For Select Box
     ${count2}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count2}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
-    Click Element                   xpath:${filter label}/../..//button
+    Click Element                   xpath:${filter type}/button
     Sleep                           3 second
 
 Sort React

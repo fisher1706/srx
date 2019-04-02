@@ -219,7 +219,7 @@ Locations Filtration
 Preparation
     Start Distributor
     Sleep                           2 second
-    Goto Sidebar Locations
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

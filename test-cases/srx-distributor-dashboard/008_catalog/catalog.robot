@@ -98,15 +98,15 @@ Checking New Product
     Sleep                           3 second
 
 Edit Product
-    [Tags]                          Catalog
-    Click Element                   xpath:${edit product button}
+    [Tags]                          CatalogEdit
+    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[10]
     Sleep                           2 second
     Click Element                   xpath:${close dialog}
     Sleep                           2 second
-    Click Element                   ${edit product button}
-    Click Element                   xpath:${submit button}/..//button[1]
+    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[10]
+    Click Element                   xpath:${button submit}/..//button[1]
     Sleep                           2 second
-    Click Element                   ${edit product button}
+    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[10]
     Input Text                      xpath://input[contains(@name, 'partSku')]                   ${edit random string}
     Input Text                      xpath://input[contains(@name, 'shortDescription')]          ${edit last name}
     Input Text                      xpath://input[contains(@name, 'weight')]                    20
@@ -166,22 +166,23 @@ Checking Edit Product
     Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${edit keyword}
     Click Element                   xpath:${close dialog}
     Set Suite Variable              ${number of row}        ${number of new row}
-    Click Element                   xpath:xpath:${close dialog}
     Sleep                           3 second
 
 Sorting Catalog
-    [Tags]                          Sorting                 ProductSorting      Catalog
-    Sort React                      1
-    Sort React                      2
-    Sort React                      3
-    Sort React                      4
-    Sort React                      5
-    Sort React                      6
-    Sort React                      7
+    [Tags]                                              Sorting                 ProductSorting      Catalog
+    React First
+    Sleep                                               2 second
+    Sorting React With Last Page                        1
+    Sorting React With Last Page                        2
+    Sorting React With Last Page                        3
+    Sorting React With Last Page                        4
+    Sorting React With Last Page                        5
+    Sorting React With Last Page                        6
+    Sorting React With Last Page                        7
 
 Catalog Filtration
     [Tags]                          Filter
-    Filter Field                    1   1   NYSFUCWSLUUUMJUUOZ
+    Filter Add                      1   1   NYSFUCWSLUUUMJUUOZ
 
 *** Keywords ***
 Preparation
@@ -200,4 +201,4 @@ Preparation
     Set Suite Variable              ${edit random string}
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${number of row}
-    Set Suite Variable              ${edit product button}      xpath:((${react table raw})[${number of new row}]${react table column})[10]
+    #Set Suite Variable              ${edit product button}      xpath:(${react table raw}[${number of new row}]${react table column})[10]

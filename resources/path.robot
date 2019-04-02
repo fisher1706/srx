@@ -13,3 +13,4 @@ ${button}                       //button[contains(@type, 'button')]
 ${listbox}                      //ul[contains(@role, 'listbox')]
 ${alert dialog}                 //div[contains(@role, 'alertdialog')]
 ${create button}                id:item-action-create
+${filter type}                  //div[contains(@data-type, 'filter')]
