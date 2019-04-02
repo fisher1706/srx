@@ -14,7 +14,7 @@ Resource                            ../../../resources/testData.robot
 Create File To Upload To Validate
     ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r${\n}${filename},,,${filename},,,,,,,,,,10,,,,
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,
 
 Connect To SFTP
     ${sftp}                         sftpConnect     ${sftp_distributor_user}    ${CURDIR}/../../../resources/my-key
@@ -54,7 +54,7 @@ Checking Activity Log To Validate
 Create File To Upload To Import
     ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r${\n}${filename},,,${filename},,,,,,,,,,10,,,,
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,
 
 Put File By SFTP To Import
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/import/${filename}.csv
@@ -89,13 +89,12 @@ Checking Activity Log To Import
 
 Checking Catalog
     Goto Sidebar Catalog
-    Click Element                   xpath:${button right margin}
-    Input Text                      xpath:(${form control})[1]                      ${filename}
-    Click Element                   xpath:${modal dialog}${button primary}
-    Sleep                           3 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/div      ${filename}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      ${filename}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[6]/div      10
+    Click Element                   xpath:${button filter}
+    Click Element                   xpath:(${menu}${menu item})[1]
+    Input Text                      xpath:${text field}                     ${filename}
+    Sleep                           7 second
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${filename}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${filename}
 
 *** Keywords ***
 Close SFTP Connection And Browser
