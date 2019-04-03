@@ -8,161 +8,132 @@ Resource                            ../../../resources/testData.robot
 
 *** Variable ***
 ${delete customer name}             Delete Customer
-${delete customer number}           777
 
 *** Test Cases ***
-Valid Create New Customer
-    [Tags]                          ValidCreateNewCustomer
+Create Customer
     Click Element                   id:item-action-create
-    Input Text                      id:name_id                  ${delete customer name}
-    Input Text                      id:number_id                ${delete customer number}
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]        \ue007
-    Click Element                   xpath:(${select control})[2]
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[2]/div[1]/div[2]        \ue007
-    ${selecting type}               Get Text                    xpath:(${select control})[2]/div[1]/div[1]/span
-    Set Suite Variable              ${selecting type}
-    Click Element                   xpath:(${select control})[3]
-    Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${select control})[3]/div[1]/div[2]        \ue007
-    ${selecting market}             Get Text                    xpath:(${select control})[3]/div[1]/div[1]/span
-    Click Element                   xpath:${button modal dialog ok}
-    Set Suite Variable              ${selecting market}
-
-Checking New Customer
+    Input By Name                   name            ${delete customer name}
+    ${customer type}                Select First    (${dropdown menu})[1]
+    Set Suite Variable              ${customer type}
+    ${market type}                  Select First    (${dropdown menu})[2]
+    Set Suite Variable              ${market type}
+    ${warehouse}                    Select First    (${dropdown menu})[3]
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a        ${delete customer name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${delete customer number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      Z_Warehouse(9999)
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div      ${selecting type}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div      ${selecting market}
+    ${my customer}                  Get React Row By Text   1   ${delete customer name}
+    Set Suite Variable              ${my customer}
 
-Create Shiptos 1
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/a
+Checking Customer
+    Element Text Should Be          xpath:((${react table raw})[${my customer}]${react table column})[1]      ${delete customer name}
+    Element Text Should Be          xpath:((${react table raw})[${my customer}]${react table column})[2]      ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[${my customer}]${react table column})[4]      ${customer type}
+    Element Text Should Be          xpath:((${react table raw})[${my customer}]${react table column})[5]      ${market type}
+
+Create Shipto 1
+    Click Element                   xpath:(${react table raw})[${my customer}]
+    Sleep                           1 second
+    Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
-    Goto Customer Shipto
     Click Element                   id:item-action-create
-    Input Text                      id:name_id              ${dynamic name}
-    Input Text                      id:address.line1_id     ${dynamic adress1}
-    Input Text                      id:address.line2_id     ${dynamic adress2}
-    Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
-    Input Text                      id:address.zipCode_id   ${dynamic code}
-    Input Text                      id:poNumber_id          ${test number}
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           2 second
-    Is Customer Shipto
-    Number Of Rows Shiptos
-    Set Suite Variable              ${delete shipto button}         xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]${button danger}
-
-Checking New Shipto 1
+    Input By Name                   name                    ${dynamic name}
+    Input By Name                   address.line1           ${dynamic adress1}
+    Input By Name                   address.line2           ${dynamic adress2}
+    Input By Name                   address.city            ${dynamic city}
+    Input By Name                   address.zipCode         ${dynamic code}
+    Select From Dropdown            (${dropdown menu})[1]   Alaska
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
-    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[1]/div      ${dynamic name}
-    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[2]/div      ${dynamic full adress}
-    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[3]/div      ${test number}
 
-Valid Create New User 1
-    Goto Customer Users
+Checking Shipto 1
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${dynamic full adress}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${EMPTY}
+
+Create Customer User 1
     ${buffer}                       Generate Random Name L
     Set Suite Variable              ${delete customer user1}    ${buffer}@example.com
-    Click Element                   id:item-action-create
-    Input Text                      id:email_id                 ${delete customer user1}
-    Input Text                      id:firstName_id             ${user first name}
-    Input Text                      id:lastName_id              ${user last name}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of row s}]/label/input
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${tab element})[3]
     Sleep                           2 second
-    Is Customer Users
-    Number Of Rows Users
-
-Checking New User 1
+    Click Element                   id:item-action-create
+    Input By Name                   email                   ${delete customer user1}
+    Select From Dropdown            (${dropdown menu})[1]   Customer User
+    Input By Name                   firstName               ${user first name}
+    Input By Name                   lastName                ${user last name}
+    ${number of checkboxes}         Get Element Count       xpath:${checkbox type}
+    Click Element                   xpath:(${checkbox type})[${number of checkboxes}]
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[2]/div     ${delete customer user1}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[3]/div     ${user first name}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[4]/div     ${user last name}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[5]/div     Customer User
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[6]/div     ${dynamic name}
+
+Checking Customer User 1
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${delete customer user1}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${user first name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${user last name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]      Customer User
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]      ${dynamic name}
 
 Delete Shipto 1
-    Goto Customer Shipto
-    Click Element                   ${delete shipto button}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${dynamic name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]      ${dynamic full adress}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           3 second
-
-Create Shiptos 2
-    Goto Customer Shipto
-    Click Element                   id:item-action-create
-    Input Text                      id:name_id                    ${dynamic name}
-    Input Text                      id:address.line1_id     ${dynamic adress1}
-    Input Text                      id:address.line2_id     ${dynamic adress2}
-    Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
-    Input Text                      id:address.zipCode_id   ${dynamic code}
-    Input Text                      id:poNumber_id          ${test number}
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
-    Is Customer Shipto
-    Number Of Rows Shiptos
-
-Checking New Shipto 2
+    Click Element                   xpath:(${react table raw})[1]${delete shipto}
+    Dialog Should Be About          ${dynamic name}
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
-    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[1]/div      ${dynamic name}
-    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[2]/div      ${dynamic full adress}
-    Element Text Should Be          xpath:${shiptos pane}${table xpath}/tbody/tr[${number of row s}]/td[3]/div      ${test number}
 
-Valid Create New User 2
-    Goto Customer Users
+Create Shipto 2
+    Click Element                   xpath:(${tab element})[2]
+    Sleep                           2 second
+    Click Element                   id:item-action-create
+    Input By Name                   name                    ${dynamic name}
+    Input By Name                   address.line1           ${dynamic adress1}
+    Input By Name                   address.line2           ${dynamic adress2}
+    Input By Name                   address.city            ${dynamic city}
+    Input By Name                   address.zipCode         ${dynamic code}
+    Select From Dropdown            (${dropdown menu})[1]   Alaska
+    Click Element                   xpath:${button submit}
+    Sleep                           5 second
+    ${number of shiptos}            Get Element Count       xpath:${react table raw}
+    Should Be Equal As Integers     ${number of shiptos}    1
+
+Checking Shipto 2
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${dynamic full adress}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${EMPTY}
+
+Create Customer User 2
     ${buffer}                       Generate Random Name L
     Set Suite Variable              ${delete customer user2}    ${buffer}@example.com
-    Click Element                   id:item-action-create
-    Input Text                      id:email_id                 ${delete customer user1}
-    Input Text                      id:firstName_id             ${user first name}
-    Input Text                      id:lastName_id              ${user last name}
-    Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]    \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]    \ue004
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div/div[5]/div/div[${number of row s}]/label/input
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           1 second
-    Page Should Contain             The user ${delete customer user1} already present.
-    Input Text                      id:email_id                 ${delete customer user2}
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${tab element})[3]
     Sleep                           2 second
-    Is Customer Users
-    Number Of Rows Users
-
-Checking New User 2
+    Click Element                   id:item-action-create
+    Input By Name                   email                   ${delete customer user1}
+    Select From Dropdown            (${dropdown menu})[1]   Customer User
+    Input By Name                   firstName               ${user first name}
+    Input By Name                   lastName                ${user last name}
+    ${number of checkboxes}         Get Element Count       xpath:${checkbox type}
+    Click Element                   xpath:(${checkbox type})[${number of checkboxes}]
+    Click Element                   xpath:${button submit}
+    Sleep                           2 second
+    Input By Name                   email                   ${delete customer user2}
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[2]/div     ${delete customer user2}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[3]/div     ${user first name}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[4]/div     ${user last name}
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[5]/div     Customer User
-    Element Text Should Be          xpath:${users pane}${table xpath}/tbody/tr[${number of row u}]/td[6]/div     ${dynamic name}
+
+Checking Customer User 2
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${delete customer user2}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${user first name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${user last name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]      Customer User
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]      ${dynamic name}
 
 Delete Customer
-    [Tags]                          DeleteCustomer
     Goto Sidebar Customers
     Sleep                           3 second
-    Click Element                   ${delete customer button}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${delete customer name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${delete customer number}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          Z_Warehouse(9999)
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${selecting type}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${selecting market}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           10 second
+    Click Element                   xpath:(${react table raw})[${my customer}]${delete customer}
+    Dialog Should Be About          ${delete customer name}
+    Click Element                   xpath:${button submit}
+    Sleep                           5 second
+    ${number of customers}          Get Element Count       xpath:${react table raw}
+    ${start number of customers}    Evaluate    ${my customer}-1
+    Should Be Equal As Integers     ${number of customers}      ${start number of customers}
 
 Checking On Transactions
     [Tags]                          Check
@@ -176,14 +147,6 @@ Preparation
     Start Distributor
     Sleep                           2 second
     Goto Sidebar Customers
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${number of new row}=           Evaluate                    ${number of row}+1
-    Set Suite Variable              ${number of row}
-    Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${delete customer button}   xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
-
-Is Add Customer
-    Element Text Should Be          css:.modal-title            Add customer
 
 Go Down Check
     Click Element                   xpath:${select control}
