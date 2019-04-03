@@ -29,7 +29,7 @@ Import Pricing
     Sleep                           10 second
 
 Valid Create New Location
-    Goto Sidebar Locations
+    Goto Locations
     Click Element                   xpath:${button primary}
     Input Text                      id:orderingConfig-product-partSku_id                    ${pricing sku}
     Go Down Selector                (${modal dialog}${select control})[1]                   LOCKER

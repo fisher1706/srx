@@ -10,7 +10,7 @@ Resource                            ../../../resources/testData.robot
 
 ***Test Cases***
 Import locations
-    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,j,h,k,l,m,o,p${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1,0
+    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,s${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1,0,CUSTOMER
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importLocations.csv
@@ -22,37 +22,39 @@ Import locations
 
 Checking locations
     ${number of row}                Get Rows Count                                                  ${table xpath}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]           Cabinet1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[4]           Cabinet_value1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[5]           Shelf1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]           Shelf_value1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]           Location1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]           Location_value1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]           ${EMPTY}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]          ${EMPTY}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]          CDF
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]          customer_sku_1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]          BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]          0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]          20
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]          30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]           CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[4]           Cabinet1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[5]           Cabinet_value1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]           Shelf1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]           Shelf_value1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]           Location1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]           Location_value1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]           ${EMPTY}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]          ${EMPTY}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]          CDF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]          customer_sku_1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]          BUTTON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]          0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]          20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]          30
 
 Delete Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     Cabinet1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     Cabinet_value1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Shelf1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     Shelf_value1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     Location1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     Location_value1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    CDF
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    customer_sku_1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    BUTTON
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF 
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     CUSTOMER
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     Cabinet1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     Cabinet_value1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     Shelf1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     Shelf_value1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     Location1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]     Location_value1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    CDF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    customer_sku_1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    BUTTON
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF 
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
@@ -60,7 +62,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Goto Sidebar Locations
+    Goto Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
