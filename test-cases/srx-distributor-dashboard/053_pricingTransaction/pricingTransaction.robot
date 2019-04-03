@@ -39,6 +39,7 @@ Valid Create New Location
     Input Text                      id:attributeValue1_id                                   bla1
     Input Text                      id:attributeName2_id                                    bla2
     Input Text                      id:attributeValue2_id                                   bla3
+    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
     sleep                           10 second
 
@@ -102,17 +103,18 @@ Check Transactions New
 
 Delete Location
     [Tags]                          DeleteLocation
-    Goto Sidebar Locations
+    Goto Locations
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          bla
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          bla1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          bla2
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          bla3
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${pricing sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          DISTRIBUTOR
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          bla
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          bla1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          bla2
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          bla3
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${pricing sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         60
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
