@@ -102,7 +102,7 @@ Checking Activity Log To Import
     Element Text Should Be          xpath:((${react table raw})[4]${react table column})[8]     SUCCESS
 
 Delete Location
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations
     Sleep                           5 second
     ${my location}                  Get Row By Text             ${table xpath}      12      ${product filename}
     Click Element                   xpath:${table xpath}/tbody/tr[${my location}]/td[1]

@@ -32,56 +32,6 @@ Goto Customer Menu
     Number Of Static Row C
     Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
 
-Goto Security Groups
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/security-groups"]
-    Sleep                           5 second
-
-Goto Activity Log
-    Start Distributor
-    Click Link                      xpath://*[@href="/activity-feed"]
-    Sleep                           5 second
-
-Goto RFID
-    Start Distributor
-    Click Link                      xpath://*[@href="/rfid-view"]
-    Sleep                           5 second
-
-Goto Camera View
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/camera-view"]
-    Sleep                           5 second
-
-Goto Settings
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/settings"]
-    Sleep                           3 second
-
-Goto Usage History
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/usage-history"]
-    Sleep                           5 second
-
-Goto Transactions
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/order-status"]
-    Sleep                           5 second
-
-Goto Locations
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/locations"]
-    Sleep                           5 second
-
-Goto Customer Management
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/customers"]
-    Sleep                           5 second
-
-Goto User Managemant
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/users"]
-    Sleep                           5 second
-
 Goto Fees
     Login In Admin Portal
     Click Link                      xpath://*[@href="/fees"]
@@ -90,11 +40,6 @@ Goto Fees
 Goto Hardware
     Login In Admin Portal
     Click Link                      xpath://*[@href="/hardware"]
-    Sleep                           5 second
-
-Goto Catalog
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/catalog"]
     Sleep                           5 second
 
 Goto Pricing
@@ -109,19 +54,9 @@ Goto Pricing
     Click Link                      xpath://*[@href="/pricing"]
     Sleep                           5 second
 
-Goto Reports
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/reports"]
-    Sleep                           5 second
-
 Goto Customer Types
     Login In Admin Portal
     Click Link                      xpath://*[@href="/customer-types"]
-    Sleep                           5 second
-
-Goto Warehouses
-    Login In Admin Portal
-    Click Link                      xpath://*[@href="/warehouses"]
     Sleep                           5 second
 
 Goto Market Types
@@ -904,6 +839,6 @@ Get React Rows Count
     Return From Keyword If          ${columns}>1                1
     Return From Keyword If          ${columns}<=1               0
 
-Goto Locations Temp
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+Goto Locations
+    Goto Locations
     Sleep                           2 second

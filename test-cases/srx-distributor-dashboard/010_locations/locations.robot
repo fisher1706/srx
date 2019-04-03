@@ -98,7 +98,7 @@ Checking New Location Activity Log
 
 Edit Location
     [Tags]                          EditLocation
-    Goto Locations Temp
+    Goto Locations
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]
     Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div/input             ${edit level 1}
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div/input             \ue007
@@ -157,7 +157,7 @@ Checking Edit Location Activity
 
 Delete Location
     [Tags]                          DeleteLocation
-    Goto Locations Temp
+    Goto Locations
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          DISTRIBUTOR
@@ -187,7 +187,7 @@ Checking Delete Location Activity Log
 
 Sorting
     [Tags]                          Sorting
-    Goto Locations Temp
+    Goto Locations
     Sleep                           5 second
     Sorting Column                  2
     Sorting Column                  3
@@ -230,7 +230,7 @@ Locations Filtration
 Preparation
     Start Distributor
     Sleep                           2 second
-    Goto Locations Temp
+    Goto Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1

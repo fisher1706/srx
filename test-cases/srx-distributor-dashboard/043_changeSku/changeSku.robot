@@ -95,7 +95,7 @@ Check Transactions
     Sleep                           5 second
 
 Change Location SKU
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]
     Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div/div/input            ${change sku 2}
@@ -133,7 +133,7 @@ Deliver Transaction
     Sleep                           5 second
 
 Delete Location
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
@@ -154,7 +154,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
