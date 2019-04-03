@@ -9,7 +9,8 @@ Resource                            ../../../resources/testData.robot
 *** Variables ***
 ${number of new row}
 ${number of row}
-${edit button}                      //button[contains(@title, 'Edit Product')]
+${edit product}                     //button[contains(@title, 'Edit Product')]
+${view product}                     //button[contains(@title, 'View Details')]
 ${dist sku}                         AD
 
 *** Test Cases ***
@@ -72,7 +73,7 @@ Checking New Product
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              15
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              22
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              30
-    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[9]
+    Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
     Sleep                           3 second
     Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${random string}
     Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${user last name}
@@ -99,14 +100,14 @@ Checking New Product
 
 Edit Product
     [Tags]                          CatalogEdit
-    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[10]
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
     Sleep                           2 second
     Click Element                   xpath:${close dialog}
     Sleep                           2 second
-    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[10]
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
     Click Element                   xpath:${button submit}/..//button[1]
     Sleep                           2 second
-    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[10]
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
     Input Text                      xpath://input[contains(@name, 'partSku')]                   ${edit random string}
     Input Text                      xpath://input[contains(@name, 'shortDescription')]          ${edit last name}
     Input Text                      xpath://input[contains(@name, 'weight')]                    20
@@ -130,8 +131,6 @@ Edit Product
     Click Element                   xpath:${button submit}
     Sleep                           3 second
 
-    #Click Element                   xpath:${last page}
-
 Checking Edit Product
     [Tags]                          Catalog
     Sleep                           3 second
@@ -142,7 +141,7 @@ Checking Edit Product
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              20
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              27
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              32
-    Click Element                   xpath:((${react table raw})[${number of new row}]${react table column})[9]
+    Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
     Sleep                           3 second
     Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${edit random string}
     Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${edit last name}
@@ -194,11 +193,10 @@ Preparation
     Sleep                           3 second
     ${number of row}                Get React Rows Count                ${react table}
     ${number of new row}=           Evaluate                            ${number of row}+1
-    Run Keyword If                  ${number of new row}==11            Set Suite Variable      ${number of new row}    1
+    Run Keyword If                  ${number of new row}==51            Set Suite Variable      ${number of new row}    1
     ${random string}                Generate Random Name U
     ${edit random string}           Generate Random Name U
     Set Suite Variable              ${random string}
     Set Suite Variable              ${edit random string}
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${number of row}
-    #Set Suite Variable              ${edit product button}      xpath:(${react table raw}[${number of new row}]${react table column})[10]

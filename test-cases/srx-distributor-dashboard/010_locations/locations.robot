@@ -189,7 +189,6 @@ Sorting
     [Tags]                          Sorting
     Goto Locations Temp
     Sleep                           5 second
-
     Sorting Column                  2
     Sorting Column                  3
     Sorting Column                  4
