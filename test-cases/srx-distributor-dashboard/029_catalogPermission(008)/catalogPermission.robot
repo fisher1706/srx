@@ -6,128 +6,141 @@ Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Test Case ***
-Invalid Create New Product
-    [Tags]                          Catalog
-    Click Element                   xpath:${button primary}
-    Press Key                       id:partSku_id               \ue004
-    Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:shortDescription_id      \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:roundBuy_id              \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:weight_id                \ue004
-    Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
+*** Variables ***
+${number of new row}
+${number of row}
+${edit product}                     //button[contains(@title, 'Edit Product')]
+${view product}                     //button[contains(@title, 'View Details')]
+${dist sku}                         AD
 
+*** Test Cases ***
 Valid Create New Product
-    [Tags]                          Catalog
-    Click Element                   xpath:${button primary}
-    Input Text                      id:partSku_id                   ${random string}
-    Input Text                      id:shortDescription_id          ${user last name}
-    Input Text                      id:weight_id                    10
-    Input Text                      id:roundBuy_id                  ${round by}
-    Input Text                      id:manufacturerPartNumber_id    ${dynamic code}
-    Input Text                      id:longDescription_id           ${dynamic adress1}
-    Input Text                      id:manufacturer_id              ${dynamic adress2}
-    Input Text                      id:productLvl1_id               ${level 1}
-    Input Text                      id:productLvl2_id               ${level 2}
-    Input Text                      id:productLvl3_id               ${level 3}
-    Input Text                      id:attribute1_id                ${sub 1}
-    Input Text                      id:attribute2_id                ${sub 2}
-    Input Text                      id:attribute3_id                ${sub 3}
-    Input Text                      id:gtin_id                      ${dynamic city}
-    Input Text                      id:upc_id                       ${test string}
-    Input Text                      id:alternative_id               ${test number}
-    Input Text                      id:keyword_id                   ${keyword}
-    Input Text                      id:image_id                     ${keyword}
-    Click Element                   xpath:${button modal dialog ok}
+    [Tags]                          CatalogValid
+    Click Element                   ${create button}
+    Input Text                      xpath://input[contains(@name, 'partSku')]                   ${random string}
+    Input Text                      xpath://input[contains(@name, 'shortDescription')]          ${user last name}
+    Input Text                      xpath://input[contains(@name, 'weight')]                    10
+    Input Text                      xpath://input[contains(@name, 'roundBuy')]                  ${round by}
+    Input Text                      xpath://input[contains(@name, 'height')]                    15
+    Input Text                      xpath://input[contains(@name, 'width')]                     22
+    Input Text                      xpath://input[contains(@name, 'length')]                    30
+    Input Text                      xpath://input[contains(@name, 'manufacturerPartNumber')]    ${dynamic code}
+    Input Text                      xpath://input[contains(@name, 'longDescription')]           ${dynamic adress1}
+    Input Text                      xpath://input[contains(@name, 'productLvl1')]               ${level 1}
+    Input Text                      xpath://input[contains(@name, 'productLvl2')]               ${level 2}
+    Input Text                      xpath://input[contains(@name, 'productLvl3')]               ${level 3}
+    Input Text                      xpath://input[contains(@name, 'attribute1')]                ${sub 1}
+    Input Text                      xpath://input[contains(@name, 'attribute2')]                ${sub 2}
+    Input Text                      xpath://input[contains(@name, 'attribute3')]                ${sub 3}
+    Input Text                      xpath://input[contains(@name, 'gtin')]                      ${dynamic city}
+    Input Text                      xpath://input[contains(@name, 'upc')]                       ${test string}
+    Input Text                      xpath://input[contains(@name, 'alternative')]               ${test number}
+    Input Text                      xpath://input[contains(@name, 'keyword')]                   ${keyword}
+    Input Text                      xpath://input[contains(@name, 'image')]                     ${keyword}
+    Click Element                   xpath:${button submit}
     Sleep                           3 second
-    Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}
 
 Checking New Product
-    [Tags]                          Catalog
+    [Tags]                          CatalogChecking
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${random string}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]              ${user last name}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              ${round by}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              10
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              15
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              22
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              30
+    Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
     Sleep                           3 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div           ${random string}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div           ${user last name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div           ${round by}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div          10
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/button
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${random string}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${dynamic code}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${user last name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[4]/div[2]         ${dynamic adress1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[5]/div[2]         ${dynamic adress2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[6]/div[2]         ${round by}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[7]/div[2]         ${level 1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[8]/div[2]         ${level 2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[9]/div[2]         ${level 3}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[10]/div[2]        ${sub 1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[11]/div[2]        ${sub 2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[12]/div[2]        ${sub 3}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[13]/div[2]        ${dynamic city}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[14]/div[2]        ${test string}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${test number}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${keyword}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        10
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${keyword}
-    Click Element                   xpath:${button close}
+    Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${random string}
+    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${user last name}
+    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         ${dynamic adress1}
+    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         10
+    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         15
+    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         22
+    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         30
+    Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         ${round by}
+    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${dynamic code}
+    Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                        ${level 1}
+    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${level 2}
+    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${level 3}
+    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${sub 1}
+    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${sub 2}
+    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${sub 3}
+    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${dynamic city}
+    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${test string}
+    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${test number}
+    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${keyword}
+    Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${keyword}
+    Click Element                   xpath:${close dialog}
     Sleep                           3 second
 
 Edit Product
-    [Tags]                          Catalog
-    Click Element                   ${edit product button}
-    Input Text                      id:partSku_id                       ${edit random string}
-    Input Text                      id:shortDescription_id              ${edit last name}
-    Input Text                      id:weight_id                        20
-    Input Text                      id:roundBuy_id                      ${edit round by}
-    Input Text                      id:manufacturerPartNumber_id        ${edit code}
-    Input Text                      id:longDescription_id               ${edit adress1}
-    Input Text                      id:manufacturer_id                  ${edit adress2}
-    Input Text                      id:productLvl1_id                   ${edit level 1}
-    Input Text                      id:productLvl2_id                   ${edit level 2}
-    Input Text                      id:productLvl3_id                   ${edit level 3}
-    Input Text                      id:attribute1_id                    ${edit sub 1}
-    Input Text                      id:attribute2_id                    ${edit sub 2}
-    Input Text                      id:attribute3_id                    ${edit sub 3}
-    Input Text                      id:gtin_id                          ${edit city}
-    Input Text                      id:upc_id                           ${edit string}
-    Input Text                      id:alternative_id                   ${edit test number}
-    Input Text                      id:keyword_id                       ${edit keyword}
-    Input Text                      id:image_id                         ${edit keyword}
-    Click Element                   xpath:${button modal dialog ok}
+    [Tags]                          CatalogEdit
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
+    Sleep                           2 second
+    Click Element                   xpath:${close dialog}
+    Sleep                           2 second
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
+    Click Element                   xpath:${button submit}/..//button[1]
+    Sleep                           2 second
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
+    Input Text                      xpath://input[contains(@name, 'partSku')]                   ${edit random string}
+    Input Text                      xpath://input[contains(@name, 'shortDescription')]          ${edit last name}
+    Input Text                      xpath://input[contains(@name, 'weight')]                    20
+    Input Text                      xpath://input[contains(@name, 'roundBuy')]                  ${edit round by}
+    Input Text                      xpath://input[contains(@name, 'height')]                    20
+    Input Text                      xpath://input[contains(@name, 'width')]                     27
+    Input Text                      xpath://input[contains(@name, 'length')]                    32
+    Input Text                      xpath://input[contains(@name, 'manufacturerPartNumber')]    ${edit code}
+    Input Text                      xpath://input[contains(@name, 'longDescription')]           ${edit adress1}
+    Input Text                      xpath://input[contains(@name, 'productLvl1')]               ${edit level 1}
+    Input Text                      xpath://input[contains(@name, 'productLvl2')]               ${edit level 2}
+    Input Text                      xpath://input[contains(@name, 'productLvl3')]               ${edit level 3}
+    Input Text                      xpath://input[contains(@name, 'attribute1')]                ${edit sub 1}
+    Input Text                      xpath://input[contains(@name, 'attribute2')]                ${edit sub 2}
+    Input Text                      xpath://input[contains(@name, 'attribute3')]                ${edit sub 3}
+    Input Text                      xpath://input[contains(@name, 'gtin')]                      ${edit city}
+    Input Text                      xpath://input[contains(@name, 'upc')]                       ${edit string}
+    Input Text                      xpath://input[contains(@name, 'alternative')]               ${edit test number}
+    Input Text                      xpath://input[contains(@name, 'keyword')]                   ${edit keyword}
+    Input Text                      xpath://input[contains(@name, 'image')]                     ${edit keyword}
+    Click Element                   xpath:${button submit}
     Sleep                           3 second
-    Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}
 
 Checking Edit Product
     [Tags]                          Catalog
     Sleep                           3 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${edit random string}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div      ${edit round by}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div     20
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/button
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]         ${edit random string}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]         ${edit code}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[3]/div[2]         ${edit last name}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[4]/div[2]         ${edit adress1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[5]/div[2]         ${edit adress2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[6]/div[2]         ${edit round by}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[7]/div[2]         ${edit level 1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[8]/div[2]         ${edit level 2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[9]/div[2]         ${edit level 3}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[10]/div[2]        ${edit sub 1}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[11]/div[2]        ${edit sub 2}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[12]/div[2]        ${edit sub 3}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[13]/div[2]        ${edit city}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[14]/div[2]        ${edit string}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[15]/div[2]        ${edit test number}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[16]/div[2]        ${edit keyword}
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[17]/div[2]        20
-    Element Text Should Be          xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div[18]/div[2]        ${edit keyword}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${edit random string}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]              ${edit last name}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              ${edit round by}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              20
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              20
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              27
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              32
+    Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
+    Sleep                           3 second
+    Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${edit random string}
+    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${edit last name}
+    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         ${edit adress1}
+    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         20
+    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         20
+    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         27
+    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         32
+    Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         ${edit round by}
+    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${edit code}
+    Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                        ${edit level 1}
+    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${edit level 2}
+    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${edit level 3}
+    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${edit sub 1}
+    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${edit sub 2}
+    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${edit sub 3}
+    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${edit city}
+    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${edit string}
+    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${edit test number}
+    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${edit keyword}
+    Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${edit keyword}
+    Click Element                   xpath:${close dialog}
     Set Suite Variable              ${number of row}        ${number of new row}
-    Click Element                   xpath:${button close}
     Sleep                           3 second
 
 *** Keywords ***
@@ -148,18 +161,17 @@ Preparation
     Finish Suite
     Sleep                           3 second
     Start Permission
-    Sleep                           3 second
+    Sleep                           2 second
     Goto Sidebar Catalog
-    Is Present                      xpath:${last page}
-    Run Keyword If                  "${check}"=="true"      Click Element   xpath:${last page}      ELSE    Open Full Table
-    Sleep                           4 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${number of new row}=           Evaluate                    ${number of row}+1
-    Run Keyword If                  ${number of new row}==11    Set Suite Variable      ${number of new row}    1
+    Sleep                           5 second
+    React Last
+    Sleep                           3 second
+    ${number of row}                Get React Rows Count                ${react table}
+    ${number of new row}=           Evaluate                            ${number of row}+1
+    Run Keyword If                  ${number of new row}==51            Set Suite Variable      ${number of new row}    1
     ${random string}                Generate Random Name U
     ${edit random string}           Generate Random Name U
     Set Suite Variable              ${random string}
     Set Suite Variable              ${edit random string}
-    Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${edit product button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
+    Set Suite Variable              ${number of row}
