@@ -840,5 +840,5 @@ Get React Rows Count
     Return From Keyword If          ${columns}<=1               0
 
 Goto Locations
-    Goto Locations
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
     Sleep                           2 second
