@@ -24,20 +24,22 @@ Valid Create New Location
     Input Text                      id:attributeValue1_id                                   ${sub 1}
     Input Text                      id:attributeName2_id                                    ${level 2}
     Input Text                      id:attributeValue2_id                                   ${sub 2}
+    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Location
-    Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]      OFF
+    Sleep                           7 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${change sku 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
 
 Create RFID
     Goto Sidebar RFID
@@ -93,26 +95,28 @@ Check Transactions
     Sleep                           5 second
 
 Change Location SKU
-    Goto Locations Temp
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            ${change sku 2}
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div/div/input            \ue007
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div/div/input            ${change sku 2}
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div/div/input            \ue007
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
     Click Element                   xpath:${button lg}
 
 Checking Edit Location
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]      ${change sku 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${change sku 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
 
 Check Transactions After Change SKU
     Goto Sidebar Order Status
@@ -129,20 +133,20 @@ Deliver Transaction
     Sleep                           5 second
 
 Delete Location
-    Goto Locations Temp
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${level 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${sub 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]    ${change sku 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${level 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ${sub 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${change sku 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
@@ -150,8 +154,8 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Goto Locations Temp
-    Sleep                           3 second
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
