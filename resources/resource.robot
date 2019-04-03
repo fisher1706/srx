@@ -11,27 +11,6 @@ ${incorrect email}                  example.agilevision.io
 ${incorrect password}               sxr-group1
 
 *** Keywords ***
-Login In Distributor Portal
-    Start Suite
-    Enter Correct Email
-    Enter Password
-    Correct Submit Login
-    Section Is Present              id:sidebar-sign_out
-    Sleep                           5 second
-
-Login In Customer Portal
-    Start Suite
-    Enter Correct Email
-    Enter Password
-    Correct Submit Login
-    Is Select A Shipto
-
-Goto Customer Menu
-    Goto Customer Management
-    Number Of Rows C
-    Number Of Static Row C
-    Click Element                   xpath:${table xpath}/tbody/tr[${static row c}]/td[1]/a
-
 Goto Fees
     Login In Admin Portal
     Click Link                      xpath://*[@href="/fees"]
@@ -40,18 +19,6 @@ Goto Fees
 Goto Hardware
     Login In Admin Portal
     Click Link                      xpath://*[@href="/hardware"]
-    Sleep                           5 second
-
-Goto Pricing
-    Login In Distributor Portal
-    Click Link                      xpath://*[@href="/settings"]
-    Click Element                   id:settings-tab-erp-integration
-    Sleep                           1 second
-    Click Element                   id:erp-integration-tab-pricing-integration
-    Sleep                           3 second
-    Click Element                   xpath:(${pricing integrations}${radio button})[2]
-    Click Element                   xpath:${pricing integrations}${control button}
-    Click Link                      xpath://*[@href="/pricing"]
     Sleep                           5 second
 
 Goto Customer Types
@@ -73,20 +40,6 @@ Goto Admin Users
     Number Of Rows E
     Number Of Static Row E
     Click Element                   xpath:${table xpath}/tbody/tr[${static row e}]/td[1]/a
-
-Goto Customer Info
-    Click Element                   id:customer-details-tab-general-info
-
-Is Customer Info
-    Element Should Be Visible       id:customer-details-pane-general-info
-
-Goto Customer Contact Info
-    Click Element                   id:customer-details-tab-settings
-    Sleep                           1 second
-    Click Element                   id:customer-settings-tab-contact-info
-
-Goto Customer Shipto
-    Click Element                   id:customer-details-tab-shiptos
 
 Goto Sidebar Users  
     Click Element                   id:sidebar-users
@@ -139,26 +92,6 @@ Goto Sidebar Settings
 Sign Out New
     Click Element                   id:sidebar-sign_out
 
-Is Customer Shipto
-    Element Should Be Visible       id:customer-details-pane-shiptos
-
-Goto Customer Users
-    Click Element                   id:customer-details-tab-users
-
-Is Customer Users
-    Element Should Be Visible       id:customer-details-pane-users
-
-Goto Customer Cost Saving
-    Click Element                   id:customer-details-tab-settings
-    Sleep                           1 second
-    Click Element                   id:customer-settings-tab-cost-savings
-
-Login In Admin Portal
-    Start Suite
-    Enter Correct Email
-    Enter Password
-    Correct Submit Login
-
 Enter Correct Email
     Input Text                      id:email        ${email}
 
@@ -170,23 +103,6 @@ Correct Submit Login
 
 Sign Out
     Click Link                      xpath://*[@href="/sign-out"]
-
-Start Suite
-    Set Suite Variable              ${LOGIN URL}    https://${HOST}/sign-in
-    Run Keyword If                  "${browser}"=="xvfb"    Run Xvfb    ELSE IF     "${browser}"=="chrome"      Run Chrome  ELSE    Run Ff
-    Set Selenium Implicit Wait      20 second
-    Set Selenium Timeout            20 second
-
-Run Xvfb
-    Start Virtual Display           ${X}                    ${Y}
-    Open Browser                    ${LOGIN URL}
-    Set Window Size                 ${X}                    ${Y}
-
-Run Chrome
-    Open Browser                    ${LOGIN URL}            chrome
-
-Run Ff
-    Open Browser                    ${LOGIN URL}            ff
 
 Start Admin
     Start Suite Adv                 https://${host_adm}/sign-in
@@ -247,58 +163,6 @@ Finish Suite
 Is Customer Portal
     Element Text Should Be          xpath:/html/body/div/div/div/div[1]/div/div/div/div[2]/p[2]     ${email_cust}
 
-Is Customer Portal Sub
-    Element Text Should Be          xpath:/html/body/div/div/div/div[1]/div/div/div/div[2]/p[2]     ${SUB EMAIL}
-
-Is Select A Shipto
-    Element Text Should Be          css:.ship-to-select-label                                   Select a ship-to record
-
-Is Security Groups
-    Element Text Should Be          css:.page-header > h1:nth-child(1)                          Security Groups
-
-Is Customer Types
-    Element Text Should Be          css:.customer-types-management-header > h1:nth-child(1)     Customer Types Management
-
-Is Market Types
-    Element Text Should Be          css:.market-types-management-header > h1:nth-child(1)       Market Types Management
-
-Is Login Page
-    Element Should Be Enabled      xpath://label[contains(@for, 'password')]
-
-Is Customer Management
-    Element Text Should Be          css:.customer-management-header > h1:nth-child(1)           Customer Management
-
-Is Distributors Page
-    Element Text Should Be          xpath:/html/body/div/div/div/div[2]/div/div[1]/div/div/h1   Distributor Management
-    Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)                     ${email}
-
-Is Distributor Info
-    Element Text Should Be          css:.back-link                                              Back to Distributors List
-
-Is Fees Managemant
-    Element Text Should Be          css:.distributor-management-header > h1:nth-child(1)        Fees Management
-
-Is Usage History
-    Element Text Should Be          css:.page-header > h1:nth-child(1)                          Usage History
-
-Is Transactions
-    Element Text Should Be          css:.customer-management-header > h1:nth-child(1)           Transactions
-
-Is Setting General Settings
-    Element Text Should Be          css:#settings-pane-1 > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(1) > strong:nth-child(1)      Distributor logo:
-
-Is Locations
-    Element Text Should Be          css:.locations-management-header > h1:nth-child(1)          Locations
-
-Is User Management
-    Element Text Should Be          css:.user-management-header > h1:nth-child(1)               User Management
-
-Is Warehouse Management
-    Element Text Should Be          css:.warehouse-management-header > h1:nth-child(1)          Warehouse Management
-
-Is Catalog
-    Element Text Should Be          css:.customer-management-header > h1:nth-child(1)           Catalog
-
 Sorting Column
     [Arguments]                     ${column}
     Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
@@ -338,16 +202,6 @@ Sort Column With Last Page
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
     Click Element                   xpath:${header xpath}/thead/tr/th[${column}]
 
-Number Of Rows C
-    ${number of row c}              Get Element Count   xpath:${table xpath}/tbody/tr
-    Set Suite Variable              ${number of row c}
-
-Number Of Static Row C
-    : FOR   ${counter c}            IN RANGE    1   ${number of row c}+1
-    \   ${text buffer1 c}           Get Text    xpath:${table xpath}/tbody/tr[${counter c}]/td[1]/a
-    \   Exit For Loop If            "Static Customer"=="${text buffer1 c}"
-    Set Suite Variable              ${static row c}     ${counter c}
-
 Number Of Rows E
     ${number of row e}              Get Element Count   xpath:${table xpath}/tbody/tr
     Set Suite Variable              ${number of row e}
@@ -363,67 +217,6 @@ Successfull Upload
 
 Fail Upload
     Fail                            Operation failed!
-
-Return Sub Link
-    Return From Keyword If          "${HOST}"=="admin-dev.storeroomlogix.com"               distributor-dev.storeroomlogix.com
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         admin-dev.storeroomlogix.com
-    Return From Keyword If          "${HOST}"=="admin-staging.storeroomlogix.com"           distributor-staging.storeroomlogix.com
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     admin-staging.storeroomlogix.com
-
-Return Sub Email
-    Return From Keyword If          "${HOST}"=="admin-dev.storeroomlogix.com"               srx-group+dev-distributor@agilevision.io
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev@agilevision.io
-    Return From Keyword If          "${HOST}"=="admin-staging.storeroomlogix.com"           srx-group+staging-distributor@agilevision.io
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging@agilevision.io
-
-Return CSub Link
-    Return From Keyword If          "${HOST}"=="customer-dev.storeroomlogix.com"            distributor-dev.storeroomlogix.com
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         customer-dev.storeroomlogix.com
-    Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        distributor-staging.storeroomlogix.com
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     customer-staging.storeroomlogix.com
-
-Return CSub Email
-    Return From Keyword If          "${HOST}"=="customer-dev.storeroomlogix.com"            srx-group+dev-distributor@agilevision.io
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-customer@agilevision.io
-    Return From Keyword If          "${HOST}"=="customer-staging.storeroomlogix.com"        srx-group+staging-distributor@agilevision.io
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-customer@agilevision.io
-
-Return Permissions Email
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         srx-group+dev-permissions@agilevision.io
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     srx-group+staging-permissions@agilevision.io
-    Return From Keyword If          "${HOST}"=="admin-dev.storeroomlogix.com"               srx-group+dev-permissions@agilevision.io
-    Return From Keyword If          "${HOST}"=="admin-staging.storeroomlogix.com"           srx-group+staging-permissions@agilevision.io
-
-Get Api Key
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         m4DAfPuRurdzlsVrlen2
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     Ub6lJbV0UZDINvctedHm
-
-Get RFID SN
-    Get Api Key
-    Return From Keyword If          "${HOST}"=="distributor-dev.storeroomlogix.com"         RFID230820106808
-    Return From Keyword If          "${HOST}"=="distributor-staging.storeroomlogix.com"     
-
-Run Xvfb Sub
-    Start Virtual Display           1920                            1080
-    Open Browser                    https://${SUB HOST}/sign-in
-    Set Window Size                 1920                            1080
-
-Run Chrome Sub
-    Open Browser                    https://${SUB HOST}/sign-in     chrome
-    
-Run Ff Sub
-    Open Browser                    https://${SUB HOST}/sign-in     ff
-
-Run Xvfb Out
-    Start Virtual Display           1920                            1080
-    Open Browser                    ${OUT HOST}
-    Set Window Size                 1920                            1080
-
-Run Chrome Out
-    Open Browser                    ${OUT HOST}                     chrome
-    
-Run Ff Out
-    Open Browser                    ${OUT HOST}                     ff
 
 Enter Correct Email Sub
     Input Text                      id:email                        ${SUB EMAIL}
@@ -546,14 +339,6 @@ Number Of Static Row G
     \   ${text buffer1 g}           Get Text    xpath:(${table xpath})[2]/tbody/tr[${counter}]/td[1]/div
     \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
     Set Suite Variable              ${static row g}     ${counter}
-
-Number Of Rows Shiptos
-    ${number of row s}              Get Element Count               xpath:${shiptos pane}${table xpath}/tbody/tr
-    Set Suite Variable              ${number of row s}
-
-Number Of Rows Users
-    ${number of row u}              Get Element Count               xpath:${users pane}${table xpath}/tbody/tr
-    Set Suite Variable              ${number of row u}
 
 Go Down Selector
     [Arguments]                     ${select}       ${item}
