@@ -73,7 +73,7 @@ Request Locker Issued
     ${resp}=                        Post Request             httpbin    /        data={ "currentWeight": 0, "distributorSku": "${locker sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 170, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"${locker user}" }    headers=${headers}
 
 Checking OHI Issued
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      0
 
@@ -101,7 +101,7 @@ Checking Transaction In Activity Log
     Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[11]       LOCKER_SKU
 
 Delete Location
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
@@ -122,7 +122,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Goto Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
