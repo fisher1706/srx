@@ -18,7 +18,7 @@ ${pricing shipto}                   2048
 *** Test Cases ***
 Create Location
     [Tags]                          CreateLocation
-    Goto Sidebar Locations
+    Goto Locations
     Sleep                           2 second
     Click Element                   xpath:${button primary}
     Input Text                      id:orderingConfig-product-partSku_id                            ${dynamic sku}
@@ -38,6 +38,7 @@ Create Location
     Input Text                      id:attributeValue3_id                                           ${sub 3}
     Input Text                      id:attributeName4_id                                            ${level 4}
     Input Text                      id:attributeValue4_id                                           ${sub 4}
+    Go Down Selector                (${modal dialog}${select control})[2]                           CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     Is Locations
@@ -46,18 +47,19 @@ Checking Location
     [Tags]                          CheckingLocation
     Sleep                           2 second
     ${number of row}                Get Rows Count              ${table xpath}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]/div       ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]/div      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]/div      1000
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]/div       ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]/div       ${level 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]/div      ${sub 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]/div      ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]/div      LOCKER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]/div      1000
 
 Request Locker
     [Tags]                          Locker
@@ -171,21 +173,22 @@ Checking Split Transaction Activity Log
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[8]                      SUCCESS
 
 Delete Location
-    Goto Sidebar Locations
+    Goto Locations
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${level 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${sub 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${dynamic sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         1000
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          CUSTOMER
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${level 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${sub 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${level 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${sub 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${level 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${sub 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${dynamic sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         1000
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 second
 
