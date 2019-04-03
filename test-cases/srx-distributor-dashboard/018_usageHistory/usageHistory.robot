@@ -3,56 +3,134 @@ Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
 Library                             String
+Library                             Collections
+Library                             OperatingSystem
+Library                             RequestsLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
+*** Variable ***
+${usage history sku}                USAGE HISTORY
+
 *** Test Cases ***
-Checking New Item
-    [Tags]                          Check new Record
-    Click Element                   css:.button-right-margin
-    Input Text                      xpath:/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/input       ${order number}
-    Click Element                   css:button.btn:nth-child(2)
+Valid Create New Location
+    Click Element                   xpath:${button primary}
+    Input Text                      id:orderingConfig-product-partSku_id                    ${usage history sku}
+    Go Down Selector                (${modal dialog}${select control})[1]                   RFID
+    Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
+    Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
+    Input Text                      id:attributeName1_id                                    ${level 1}
+    Input Text                      id:attributeValue1_id                                   ${sub 1}
+    Input Text                      id:attributeName2_id                                    ${level 3}
+    Input Text                      id:attributeValue2_id                                   ${sub 3}
+    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
+    Click Element                   xpath:${button modal dialog ok}
+
+Checking New Location
+    Sleep                           7 second
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${usage history sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
+
+Create RFID
+    Goto Sidebar RFID
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div         ${order number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[9]/div         Delivered
-    Click Element                   css:button.button-right-margin:nth-child(2)
-    Sleep                           3 second
+    Select Location At Rfid Menu    Static Customer - 2048      ${usage history sku}
+    Sleep                           5 second
+    ${epc}                          Generate Random Name U
+    Set Suite Variable              ${epc}
+    Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},${usage history sku},
+    Sleep                           5 second
+    Click Element                   xpath:${import rfid button}
+    Sleep                           2 second
+    Execute Javascript              document.getElementById("upload-rfid-available").style.display='block'
+    Sleep                           1 second
+    Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
+    Sleep                           5 second
+    Element Text Should Be          xpath:${modal title}            Validation status: valid
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           5 second
+    Select Location At Rfid Menu    Static Customer - 2048          ${usage history sku}
+    Sleep                           10 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
-Sorting Usage History
-    [Tags]                          Sorting
-    Sort Column With Last Page      2
-    Sort Column With Last Page      5
-    Sort Column With Last Page      6
-    Sort Column With Last Page      7
-    Sort Column With Last Page      8
-    Sort Column With Last Page      9
+Request RFID
+    [Tags]                          RFID
+    ${request url rfid}             Get RFID URL
+    Create Session                  httpbin                 ${request url rfid}     verify=true
+    &{headers}=                     Create Dictionary       Content-Type=application/json
+    ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${epc}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
+    Should Be Equal As Strings      ${resp}                 <Response [200]>
 
-Usage History Filtration
-    [Tags]                          Filtration
-    Filter Field                    1   2   qwerty
-    Filter Field                    2   5   1000
-    Filter Field                    3   6   AD
-    Filter Field                    4   7   225
+Checking RFID Status
+    Select Location At Rfid Menu    Static Customer - 2048      ${usage history sku}
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      ISSUED
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
+
+Check Transactions
+    Goto Sidebar Order Status
+    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Sleep                           1 second
+    ${my transaction}               Get Row By Text     ${table xpath}      2   ${usage history sku}
+    Set Suite Variable              ${my transaction}
+    ${order number}                 Get Text    xpath:${table xpath}/tbody/tr[${my transaction}]/td[1]
+    Set Suite Variable              ${order number}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${usage history sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ACTIVE
+    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
+    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           5 second
+
+Checking Usage History
+    Goto Usage History
+    Click Element                   xpath:${button filter}
+    Click Element                   xpath:(${menu}${menu item})[1]
+    Input Text                      xpath:${text field}     ${order number}
+    Sleep                           7 second
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${order number}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${shipto_name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${usage history sku}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]     Delivered
+
+Delete Location
+    Goto Locations
+    Sleep                           5 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
+    Click Element                   xpath:${button danger}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${level 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ${sub 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${usage history sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
+    Click Element                   xpath:${modal dialog}${button danger}
+    Sleep                           5 second
 
 *** Keywords ***
 Preparation
     Start Distributor
     Sleep                           3 second
-    Goto Sidebar Order Status
+    Goto Locations
     Sleep                           5 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]/div[1]
-    ${order number}                 Get Text            xpath:${table xpath}/tbody/tr[1]/td[1]/div
-    Set Suite Variable              ${order number}
-    Click Element                   xpath:${table xpath}/tbody/tr[1]/td[12]${button success}
-    Choose From Select Box          ${modal dialog}${select control}    DELIVERED
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           3 second
-    Goto Sidebar Usage History
-    Section Is Present              css:div.btn
-    Sleep                           1 second
-    Click Element                   xpath:${last page}
     ${number of row}                Get Rows Count              ${table xpath}
     ${number of new row}=           Evaluate                    ${number of row}+1
-    Set Suite Variable              ${number of new row}
     Set Suite Variable              ${number of row}
+    Set Suite Variable              ${number of new row}
