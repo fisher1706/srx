@@ -842,3 +842,7 @@ Get React Rows Count
 Goto Locations
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
     Sleep                           2 second
+
+Goto Usage History
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#usage-history
+    Sleep                           2 second
