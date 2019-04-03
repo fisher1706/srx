@@ -71,13 +71,11 @@ Checking New Customer User
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[2]      ${user first name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[3]      ${user last name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[4]      Customer User
-    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[5]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[5]      ${edit name}
 
 Edit Customer User
-    Click Element                   xpath:(${react table raw})[${my customer user}]
+    Click Element                   xpath:(${react table raw})[${my customer user}]${edit user}
     Sleep                           2 second
-    Click Element                   id:item-action-create
-    Input By Name                   email                   ${edit email}
     Select From Dropdown            (${dropdown menu})[1]   Customer Super User
     Input By Name                   firstName               ${edit first name}
     Input By Name                   lastName                ${edit last name}
@@ -89,7 +87,7 @@ Checking Edit User
     Click Element                   xpath:(${react table raw})[${my customer}]
     Click Element                   xpath:(${tab element})[3]
     Sleep                           2 second
-    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${edit email}
+    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${dynamic email}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[2]      ${edit first name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[3]      ${edit last name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[4]      Customer Super User
@@ -97,7 +95,7 @@ Checking Edit User
 Delete Customer User
     Click Element                   xpath:(${react table raw})[${my customer user}]${delete user}
     Dialog Should Be About          ${edit first name} ${edit last name}
-    Click Element                   xpath:${button submit}
+    Click Element                   xpath:(${dialog}${button})[3]
     Sleep                           5 second
 
 Delete Shipto
