@@ -41,7 +41,6 @@ Create Location
     Go Down Selector                (${modal dialog}${select control})[2]                           CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
-    Is Locations
 
 Checking Location
     [Tags]                          CheckingLocation
