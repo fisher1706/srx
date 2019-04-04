@@ -107,14 +107,14 @@ Delete Location
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          DISTRIBUTOR
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          bla
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          bla1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          bla2
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          bla3
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${pricing sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          DISTRIBUTOR
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          bla
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          bla1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          bla2
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          bla3
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]         ${pricing sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         60
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 

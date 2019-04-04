@@ -72,20 +72,20 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       DISTRIBUTOR
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div       ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       DISTRIBUTOR
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div       ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div       ${level 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${sub 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      BUTTON
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      10
 
 Checking New Location Activity Log
     [Tags]                          CheckingNewLocationActivityLog
@@ -130,20 +130,20 @@ Edit Location
 Checking Edit Location
     [Tags]                          CheckingEdit
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       DISTRIBUTOR
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${edit level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${edit sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div       ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${edit sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      20
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      100
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       DISTRIBUTOR
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${edit level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${edit sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div       ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div       ${level 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${sub 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${edit sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      BUTTON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      100
     Sleep                           5 second
 
 Checking Edit Location Activity
@@ -160,19 +160,19 @@ Delete Location
     Goto Locations
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          DISTRIBUTOR
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${edit level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${edit sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${level 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${sub 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${level 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]          ${sub 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${edit sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]         10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         100
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          DISTRIBUTOR
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${edit level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${edit sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${level 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${sub 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]          ${level 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]          ${sub 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]         ${edit sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         100
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
