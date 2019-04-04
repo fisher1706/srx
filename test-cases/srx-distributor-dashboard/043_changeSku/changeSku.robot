@@ -87,8 +87,8 @@ Check Transactions
     Sleep                           1 second
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${change sku 1}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${change sku 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
     Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}            SHIPPED
     Click Element                   xpath:${button modal dialog ok}

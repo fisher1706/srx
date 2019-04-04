@@ -79,9 +79,9 @@ Checking Original Transaction Order Status
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${dynamic sku}
     ${transaction_id}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[1]
     Set Suite Variable              ${transaction_id}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ACTIVE
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]      ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      30
 
 Checking Original Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
