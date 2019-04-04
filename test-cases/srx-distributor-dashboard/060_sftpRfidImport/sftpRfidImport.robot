@@ -18,7 +18,7 @@ Connect To SFTP
 Create Product File
     ${product filename}             Generate Random Name U
     Set Suite Variable              ${product filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,
+    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,,
 
 Put Product File By SFTP
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${product filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/import/${product filename}.csv
@@ -204,15 +204,15 @@ Delete Location
     ${my location}                  Get Row By Text             ${table xpath}      12      ${product filename}
     Click Element                   xpath:${table xpath}/tbody/tr[${my location}]/td[1]
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${product filename}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${product filename}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${product filename}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
