@@ -16,7 +16,7 @@ Import Catalog
     Sleep                           3 second
     ${catalog sku}                  Generate Random Name U
     Set Suite Variable              ${catalog sku}
-    Create File                     ${CURDIR}/../../../resources/importCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u${\n}${catalog sku},,,${catalog sku},,,,,,,,,,10,,,,1.2,1.3,1.4,1.5,
+    Create File                     ${CURDIR}/../../../resources/importCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${catalog sku},,,${catalog sku},,,,,,,,,,10,,,,1.2,1.3,1.4,1.5,active
     Sleep                           2 second
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
@@ -40,7 +40,7 @@ Import Catalog
 
 Update Catalog
     Sleep                           5 second
-    Create File                     ${CURDIR}/../../../resources/updateCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u${\n}${catalog sku},,,${catalog sku},,,,,,,,,,20,,,,25,2,3.5,6.7,
+    Create File                     ${CURDIR}/../../../resources/updateCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${catalog sku},,,${catalog sku},,,,,,,,,,20,,,,25,2,3.5,6.7,active
     Sleep                           2 second
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
