@@ -11,13 +11,11 @@ Invalid Create New Market Type
     Click Element                   xpath:${button primary}
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Market Types
     Click Element                   xpath:${button primary}
     Press Key                       id:name_id                      \ue004
     Element Should Be Enabled       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Market Types
 
 Valid Create New Market Type
     [Tags]                          ValidCreateNewCustomer
@@ -25,7 +23,6 @@ Valid Create New Market Type
     Input Text                      id:name_id                      ${market type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second
-    Is Market Types
 
 Checking New Market Type In Table
     Sleep                           5 second
@@ -54,27 +51,22 @@ Edit Market Type
     Sleep                           2 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Market Types
     Click Element                   ${edit button}
     Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
-    Is Market Types
     Click Element                   ${edit button}
     Input Text                      id:name_id                      ${edit market type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second
-    Is Market Types
 
 Delete Market Type
     Click Element                   ${delete button}
     Sleep                           1 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Market Types
     Click Element                   ${delete button}
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
-    Is Market Types
     Click Element                   ${delete button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit market type}
     Click Element                   css:button.btn:nth-child(2)
