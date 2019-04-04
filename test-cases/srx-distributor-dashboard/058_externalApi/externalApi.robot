@@ -80,7 +80,7 @@ Checking Original Transaction Order Status
     ${transaction_id}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[1]
     Set Suite Variable              ${transaction_id}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]      ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      30
 
 Checking Original Transaction Activity Log
@@ -117,9 +117,9 @@ Checking Update Transaction Order Status
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ORDERED
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      70
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ORDERED
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      70
 
 Checking Update Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
@@ -149,12 +149,12 @@ Checking Split Transaction Order Status
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${dynamic sku}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ORDERED
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[2]    ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[5]    60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[9]    ORDERED
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ORDERED
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[3]    ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[6]    60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[10]    ORDERED
 
 Checking Split Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
