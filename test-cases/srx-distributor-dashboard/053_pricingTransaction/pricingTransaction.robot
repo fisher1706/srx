@@ -60,9 +60,9 @@ Check Transactions
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${pricing sku}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${pricing sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ACTIVE
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[4]      $10.00
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${pricing sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $10.00
     Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}            SHIPPED
     Click Element                   xpath:${button modal dialog ok}
@@ -97,8 +97,8 @@ Check Transactions New
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${pricing sku}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${pricing sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[4]      $50.00
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${pricing sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $50.00
     Sleep                           5 second
 
 Delete Location
