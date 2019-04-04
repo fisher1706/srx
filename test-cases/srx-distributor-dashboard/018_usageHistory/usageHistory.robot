@@ -88,8 +88,8 @@ Check Transactions
     Set Suite Variable              ${my transaction}
     ${order number}                 Get Text    xpath:${table xpath}/tbody/tr[${my transaction}]/td[1]
     Set Suite Variable              ${order number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]      ${usage history sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[9]      ACTIVE
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${usage history sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
     Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}            DELIVERED
     Click Element                   xpath:${button modal dialog ok}
