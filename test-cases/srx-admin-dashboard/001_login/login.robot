@@ -43,7 +43,6 @@ Valid Login
     Element Text Should Be          ${page header}                                  Distributor Management
     Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)         ${email_adm}
     Sign Out
-    Is Login Page
 
 Forget Password
     [Tags]                          ForgetPassword
@@ -58,7 +57,6 @@ Forget Password
     Sleep                           2 second
     Element Text Should Be          xpath://div/span                                Please check if the entered email address is correct and try again.
     Click Link                      xpath://*[@href="/sign-in"]
-    Is Login Page
 
 *** Keywords ***
 Is Forgot Password Page
