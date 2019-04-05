@@ -10,7 +10,7 @@ Resource                            ../../../resources/testData.robot
 
 ***Test Cases***
 Import locations
-    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,s${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1,0,CUSTOMER
+    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,h,i,j,k,l,m,o,p,q,r${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,CDF,20,30,Button,customer_sku_1,0,CUSTOMER,Off
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importLocations.csv
