@@ -40,7 +40,7 @@ Checking New Location
 Import RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      ${import rfid sku}
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      ${import rfid sku}
     Sleep                           5 second
     ${epc1}                         Generate Random Name U
     ${epc2}                         Generate Random Name U
@@ -59,7 +59,7 @@ Import RFID
     Sleep                           10 second
 
 Checking RFID
-    Select Location At Rfid Menu    Static Customer - 2048      ${import rfid sku}
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      ${import rfid sku}
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc2}
     Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED

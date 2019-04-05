@@ -115,7 +115,7 @@ Start Distributor
     Input Text                      id:email                ${email_dist}
     Input Text                      id:password             ${password_dist}
     Click Element                   xpath:${button submit}
-    Sleep                           4 second
+    Sleep                           5 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -368,6 +368,8 @@ Get Row By Text
 
 Choose From Select Box
     [Arguments]                     ${select}       ${item}
+    ${current}                      Get Text        xpath:${select}/div/div/span
+    Return From Keyword If          "${current}"=="${item}"
     Click Element                   xpath:${select}
     ${count}                        Get Element Count       xpath:${select}/..${select menu outer}/div/div
     : FOR   ${index}    IN RANGE    1       ${count}+2

@@ -29,7 +29,7 @@ Unassign RFID
     Sleep                           5 second
     Reload Page
     Sleep                           7 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     ${previous epc}                 Get Text    xpath:(${react table column})[1]
     Should Not Be Equal As Strings  ${epc}      ${previous epc}
@@ -47,5 +47,5 @@ Preparation
     Start Distributor
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second

@@ -28,22 +28,22 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${usage history sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[14]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${usage history sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div      OFF
 
 Create RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      ${usage history sku}
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      ${usage history sku}
     Sleep                           5 second
     ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
@@ -58,7 +58,7 @@ Create RFID
     Element Text Should Be          xpath:${modal title}            Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048          ${usage history sku}
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}          ${usage history sku}
     Sleep                           10 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
@@ -73,20 +73,24 @@ Request RFID
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking RFID Status
-    Select Location At Rfid Menu    Static Customer - 2048      ${usage history sku}
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      ${usage history sku}
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      ISSUED
     Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
 Check Transactions
+    [Tags]                          Transactions
     Goto Sidebar Order Status
+    Sleep                           3 second
+    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Sleep                           2 second
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
-    ${my transaction}               Get Row By Text     ${table xpath}      2   ${usage history sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${usage history sku}
     Set Suite Variable              ${my transaction}
-    ${order number}                 Get Text    xpath:${table xpath}/tbody/tr[${my transaction}]/td[1]
+    ${order number}                 Get Text    xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]
     Set Suite Variable              ${order number}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${usage history sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
@@ -111,16 +115,16 @@ Delete Location
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${usage history sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ${level 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ${sub 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${usage history sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 

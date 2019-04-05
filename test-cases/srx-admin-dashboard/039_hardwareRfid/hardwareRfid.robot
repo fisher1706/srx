@@ -48,7 +48,7 @@ Checking Serial Number On Distributor Portal
 Change Serial Number On Distributor Portal
     Click Element                   xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]${button success}
     Input Text                      id:deviceName_id                    MyDeviceRFID
-    Choose From Select Box          (${modal dialog}${select control})[1]   Static Customer - 2048
+    Choose From Select Box          (${modal dialog}${select control})[1]   ${customer_name} - ${shipto_name}
     Sleep                           5 second
     Click Element                   xpath:(${modal dialog}${select control})[2]
     Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
@@ -67,7 +67,7 @@ Checking Serial Number On Distributor Portal After Change
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[1]       ${serial number}
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[2]       RFID
     Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[3]       MyDeviceRFID
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[5]       Static Customer - 2048
+    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[5]       ${customer_name} - ${shipto_name}
     ${buffer}                       Get Text    xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[7]
     ${name}     ${email}            Split String    ${buffer}   \n
     Should Be Equal As Strings      ${dist user}    ${name}
@@ -82,7 +82,7 @@ Create RFID
     ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},STATIC SKU,
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Click Element                   xpath:${import rfid button}
     Sleep                           2 second
@@ -95,7 +95,7 @@ Create RFID
     Sleep                           10 second
 
 Checking Available RFID
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
@@ -110,7 +110,7 @@ Request RFID
     Should Be Equal As Strings      ${resp}                  <Response [200]>
 
 Checking Issued RFID
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      ISSUED
@@ -122,7 +122,7 @@ Delete Serial Number
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]       ${serial number}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]       RFID
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]       Srx-group-test-distributor
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]       Static Customer - 2048
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]       ${customer_name} - ${shipto_name}
     ${buffer}                       Get Text    xpath:${modal dialog}${simple table}/tbody/tr/td[7]
     ${name}     ${email}            Split String    ${buffer}   \n
     Should Be Equal As Strings      ${dist user}    ${name}
