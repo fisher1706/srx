@@ -54,8 +54,8 @@ Request Locker
 Check Transactions
     Sleep                           5 second
     Goto Sidebar Order Status
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${pricing sku}
@@ -91,8 +91,8 @@ Request Locker New
 Check Transactions New
     Sleep                           5 second
     Goto Sidebar Order Status
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${pricing sku}

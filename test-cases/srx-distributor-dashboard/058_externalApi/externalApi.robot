@@ -72,11 +72,11 @@ Checking Original Transaction Order Status
     [Tags]                          CheckingOriginalTransaction
     Sleep                           2 second
     Goto Sidebar Order Status
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      2   ${dynamic sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
     ${transaction_id}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]
     Set Suite Variable              ${transaction_id}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
@@ -112,11 +112,11 @@ Checking Update Transaction Order Status
     [Tags]                          CheckingUpdateTransaction
     Goto Sidebar Order Status
     Sleep                           5 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      2   ${dynamic sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ORDERED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      70
@@ -143,18 +143,18 @@ Checking Split Transaction Order Status
     [Tags]                          CheckingUpdateTransactionOrderStatus
     Goto Sidebar Order Status
     Sleep                           5 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      2   ${dynamic sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
     Set Suite Variable              ${my transaction}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ORDERED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      10
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[3]    ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[6]    60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[10]    ORDERED
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[10]   ORDERED
 
 Checking Split Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
@@ -196,10 +196,10 @@ Close Transaction
     Goto Sidebar Order Status
     Sleep                           2 second
     ${number of row}                Get Rows Count              ${table xpath}
-    :FOR    ${var}                  IN RANGE                                1   ${number of row}
-    \       ${my transaction}       Get Row By Text     ${table xpath}      2   ${dynamic sku}
-    \       ${buffer}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]
-    \       Run Keyword If          "${buffer}" == "${dynamic sku}"           Make Delivered          ${my transaction}
+    :FOR    ${var}                  IN RANGE                                1   ${number of row}+1
+    \       ${my transaction}       Get Row By Text     ${table xpath}      3   ${dynamic sku}
+    \       ${buffer}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]
+    \       Run Keyword If          "${buffer}" == "${dynamic sku}"         Make Delivered          ${my transaction}
     \       ${number of row}        Get Rows Count                          ${table xpath}
     \       Sleep                   2 seconds
 
@@ -211,31 +211,14 @@ Preparation
     Set Suite Variable              ${number of row}
 
 Get Split Request URL
-    Return From Keyword If          "${environment}"=="dev"                 https://api-dev.storeroomlogix.com/api/distributor/items/${transaction_id}/split/10
-    Return From Keyword If          "${environment}"=="staging"             https://api-staging.storeroomlogix.com/api/distributor/items/${transaction_id}/split/10
+    Return From Keyword             https://api-${environment}.storeroomlogix.com/api/distributor/items/${transaction_id}/split/10
 
 Get Update Request URL
-    Return From Keyword If          "${environment}"=="dev"                 https://api-dev.storeroomlogix.com/api/distributor/items/update
-    Return From Keyword If          "${environment}"=="staging"             https://api-staging.storeroomlogix.com/api/distributor/items/update
+    Return From Keyword             https://api-${environment}.storeroomlogix.com/api/distributor/items/update
 
 Make Delivered
     [Arguments]                     ${row}
-    Click Element                   xpath:${table xpath}/tbody/tr[${row}]/td[12]
-    ${buf}                          Get Text                     xpath:${modal dialog}${select control}
-    Run Keyword If                  "${buf}" == "ORDERED"        Ordered To Delivered        ELSE IF         "${buf}" == "ACTIVE"       Active To Delivered      ELSE        Log To Console      Unexpected Status
-    Sleep                           1 second
-    Click Element                   ${button modal dialog ok}
-
-Ordered To Delivered
-    Click Element                   xpath:${modal dialog}${select control}
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue007
-
-Active To Delivered
-    Click Element                   xpath:${modal dialog}${select control}
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue007
+    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
+    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           5 second
