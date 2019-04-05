@@ -20,7 +20,7 @@ Create RFID
     Sleep                           5 second
 
 Checking Assigned RFID
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
@@ -66,7 +66,7 @@ Submit Manifest
 Checking Manifest RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      MANIFEST
@@ -96,7 +96,7 @@ Webhook To Checkin
 Checking Checkin RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      CHECK_IN
@@ -134,7 +134,7 @@ Put Away
 Checking Available RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
@@ -164,7 +164,7 @@ Webhook To Issued
 Checking Issued RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      ISSUED
@@ -192,7 +192,7 @@ Preparation
     ${id token}                     Execute Javascript              return (document.cookie.match(/idToken=(.*?);/))[1]
     Set Suite Variable              ${id token}
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
 
 

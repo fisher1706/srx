@@ -24,7 +24,7 @@ Create Available RFID
     Element Text Should Be          xpath:${modal title}                Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048              STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}              STATIC SKU
     Sleep                           10 second
     Element Text Should Be          xpath:(${react table column})[1]    ${epc}
     Element Text Should Be          xpath:(${react table column})[2]    AVAILABLE
@@ -39,7 +39,7 @@ Request RFID
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking RFID Status
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      ISSUED
@@ -47,6 +47,9 @@ Checking RFID Status
 
 Check Transactions
     Goto Sidebar Order Status
+    Sleep                           2 second
+    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Sleep                           2 second
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Click Element                   xpath:${header xpath}/thead/tr/th[8]
     Sleep                           1 second
@@ -61,7 +64,7 @@ Check Transactions
 Create Assigned RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Click Element                   xpath:${add rfid button}
     ${epc}                          Generate Random Name U
@@ -118,7 +121,7 @@ Put Away
 Checking Available RFID
     Goto Sidebar RFID
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
     Element Text Should Be          xpath:(${react table column})[1]      ${epc}
     Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
@@ -153,5 +156,5 @@ Preparation
     ${id token}                     Execute Javascript          return (document.cookie.match(/idToken=(.*?);/))[1]
     Set Suite Variable              ${id token}
     Sleep                           5 second
-    Select Location At Rfid Menu    Static Customer - 2048      STATIC SKU
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second

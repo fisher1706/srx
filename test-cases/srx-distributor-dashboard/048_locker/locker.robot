@@ -49,7 +49,7 @@ Request Locker Available
 Checking OHI Available
     Reload Page
     Sleep                           4 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      170
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      170
 
 Checking Available In Activity Log
     Goto Sidebar Activity Feed
@@ -75,7 +75,7 @@ Request Locker Issued
 Checking OHI Issued
     Goto Locations
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      0
 
 Checking Issued In Activity Log
     Goto Sidebar Activity Feed
@@ -112,7 +112,7 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[120]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           7 second
     ${number of new row}            Get Rows Count          ${table xpath}
