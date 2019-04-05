@@ -85,8 +85,8 @@ Check Transactions
     Sleep                           2 second
     Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
     Sleep                           2 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${my transaction}               Get Row By Text     ${table xpath}      3   ${change sku 1}
     Set Suite Variable              ${my transaction}

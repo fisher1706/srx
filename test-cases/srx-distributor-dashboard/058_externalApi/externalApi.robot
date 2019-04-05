@@ -72,8 +72,8 @@ Checking Original Transaction Order Status
     [Tags]                          CheckingOriginalTransaction
     Sleep                           2 second
     Goto Sidebar Order Status
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
@@ -112,8 +112,8 @@ Checking Update Transaction Order Status
     [Tags]                          CheckingUpdateTransaction
     Goto Sidebar Order Status
     Sleep                           5 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
@@ -143,8 +143,8 @@ Checking Split Transaction Order Status
     [Tags]                          CheckingUpdateTransactionOrderStatus
     Goto Sidebar Order Status
     Sleep                           5 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
-    Click Element                   xpath:${header xpath}/thead/tr/th[8]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
+    Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
