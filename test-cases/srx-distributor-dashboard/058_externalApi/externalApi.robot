@@ -46,19 +46,19 @@ Checking Location
     [Tags]                          CheckingLocation
     Sleep                           2 second
     ${number of row}                Get Rows Count              ${table xpath}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]/div       ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]/div      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]/div      1000
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div       ${level 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]/div       ${sub 1}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]/div       ${level 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]/div       ${sub 2}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]/div       ${level 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]/div      ${sub 3}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]/div      ${level 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]/div      ${sub 4}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]/div      ${dynamic sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]/div      LOCKER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[18]/div      1000
 
 Request Locker
     [Tags]                          Locker
@@ -77,7 +77,7 @@ Checking Original Transaction Order Status
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
     ${my transaction}               Get Row By Text     ${table xpath}      2   ${dynamic sku}
-    ${transaction_id}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[1]
+    ${transaction_id}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]
     Set Suite Variable              ${transaction_id}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
@@ -105,7 +105,7 @@ ExternalApi Update
     ${request url update}           Get Update Request URL
     Create Session                  httpbin                 ${request url update}        verify=true
     &{headers}=                     Create Dictionary       Content-Type=application/json                       ApiKey=${API_key}
-    ${resp}=                        Post Request            httpbin    /        data=[{"id": ${transaction_id}, "quantity": 70, "status": "ORDERED","productPartSku": "${dynamic sku}"}]     headers=${headers}
+    ${resp}=                        Post Request            httpbin    /        data=[{"createdAt": "", "id": ${transaction_id}, "productPartSku": "${dynamic sku}", "quantity": 70, "status": "ORDERED", "updatedAt": "", "updatedBy": ""}]     headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking Update Transaction Order Status
@@ -176,18 +176,18 @@ Delete Location
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          CUSTOMER
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${level 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${sub 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${level 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${sub 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${dynamic sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]         10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         1000
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          CUSTOMER
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${level 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${sub 1}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${level 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${sub 2}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 3}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]          ${level 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${sub 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]         ${dynamic sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         1000
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 second
 
