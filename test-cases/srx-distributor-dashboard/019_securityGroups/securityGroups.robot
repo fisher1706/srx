@@ -13,7 +13,6 @@ Invalid Create New Security Group
     Press Key                       id:name_id                 \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   xpath:${button close}
-    Is Security Groups
     Sleep                           1 second
 
 Valid Create New Security Group
@@ -58,7 +57,6 @@ Try To Delete Security Group
     Sleep                           1 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Is Security Groups
     Click Element                   ${delete group button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td     ${security group}
     Click Element                   css:button.btn:nth-child(2)
@@ -85,7 +83,6 @@ Edit Security Group
     Click Element                   ${edit group button}
     Is Edit Security Group
     Click Element                   xpath:${button close}
-    Is Security Groups
     Click Element                   ${edit group button}
     Is Edit Security Group
     Input Text                      id:name_id                  ${edit security group}

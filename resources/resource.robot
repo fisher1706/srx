@@ -631,3 +631,11 @@ Goto Locations
 Goto Usage History
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#usage-history
     Sleep                           2 second
+
+Configure Checkbox
+    [Arguments]                     ${Status_Locator}    ${Checkbox_Locator}    ${Excel_Value}
+    ${Is_Checkbox_Selected}=        Run Keyword And Return Status    Checkbox Should Be Selected    ${Status_Locator}
+    ${Actual_Chkbx_Value}=           Run Keyword If    '${Is_Checkbox_Selected}'== 'True'    Set Variable    Yes
+    ...    ELSE IF    '${Is_Checkbox_Selected}'== 'False'    Set Variable    No
+    Log    ${Actual_Chkbx_Value}
+    Run Keyword If    '${Excel_Value}'!='${Actual_Chkbx_Value}'    Click Element    ${Checkbox_Locator}
