@@ -16,7 +16,7 @@ Connect To SFTP To Validate
     Set Suite Variable              ${sftp}
 
 Create Usage History File To Validate
-    ${UH filename}            Generate Random Name U
+    ${UH filename}                  Generate Random Name U
     Set Suite Variable              ${UH filename}
     Create File                     ${CURDIR}/../../../resources/generated/${UH filename}.csv      a,b,c,d,e${\n}${UH filename},${shipto_name},USAGE HISTORY,50,2018/12/30 10:15:30
 
