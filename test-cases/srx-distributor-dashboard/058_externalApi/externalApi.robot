@@ -79,6 +79,7 @@ Checking Original Transaction Order Status
     ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
     ${transaction_id}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]
     Set Suite Variable              ${transaction_id}
+    Log To Console                  ${transaction_id}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      30
@@ -107,6 +108,7 @@ ExternalApi Update
     &{headers}=                     Create Dictionary       Content-Type=application/json                       ApiKey=${API_key}
     ${resp}=                        Post Request            httpbin    /        data=[{"createdAt": "", "id": ${transaction_id}, "productPartSku": "${dynamic sku}", "quantity": 70, "status": "ORDERED", "updatedAt": "", "updatedBy": ""}]     headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
+    Log To Console                  ${transaction_id}
 
 Checking Update Transaction Order Status
     [Tags]                          CheckingUpdateTransaction

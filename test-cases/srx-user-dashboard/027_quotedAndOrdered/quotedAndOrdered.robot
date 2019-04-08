@@ -9,7 +9,7 @@ Resource                            ../../../resources/testData.robot
 Sorting List
     [Tags]                          Sorting
     Click Element                   xpath:/html/body/div/div/div/div[1]/div/ul/li[2]/a
-    Open Minimum Table
+    #Open Minimum Table
     Sort Column With Last Page      1
     Sort Column With Last Page      2
     Sort Column With Last Page      3
