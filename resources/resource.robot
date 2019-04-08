@@ -255,10 +255,10 @@ Set Settings Permission
 
 Clear Permission
     [Arguments]                     ${row}
-    Run Keyword If                  ${row}==5       Clear Only Read             ${row}
-    Run Keyword If                  ${row}==11      Clear Only Read             ${row}
-    Run Keyword If                  ${row}==16      Clear Only Read             ${row}
-    Run Keyword If                  ${row}!=5 and ${row}!=11 and ${row}!=16     Clear Standart      ${row}
+    Run Keyword If                  ${row}==6       Clear Only Read             ${row}
+    Run Keyword If                  ${row}==12      Clear Only Read             ${row}
+    Run Keyword If                  ${row}==17      Clear Only Read             ${row}
+    Run Keyword If                  ${row}!=6 and ${row}!=12 and ${row}!=17     Clear Standart      ${row}
 
 Clear Settings Permission
     [Arguments]                     ${row}
