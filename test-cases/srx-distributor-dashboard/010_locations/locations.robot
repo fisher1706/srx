@@ -217,8 +217,8 @@ Locations Filtration
     Filter Field                    4       7       loc2n
     Filter Field                    5       8       loc2v
     Filter Field                    6       9       loc3n
-    Filter Field                    7       10       loc3v
-    Filter Field                    8       11       loc4n
+    Filter Field                    7       10      loc3v
+    Filter Field                    8       11      loc4n
     Filter Field                    9       12      loc4v
     Filter Field                    10      13      STATIC SKU
     Filter Field                    11      14      test1

@@ -255,10 +255,10 @@ Set Settings Permission
 
 Clear Permission
     [Arguments]                     ${row}
-    Run Keyword If                  ${row}==5       Clear Only Read             ${row}
-    Run Keyword If                  ${row}==11      Clear Only Read             ${row}
-    Run Keyword If                  ${row}==16      Clear Only Read             ${row}
-    Run Keyword If                  ${row}!=5 and ${row}!=11 and ${row}!=16     Clear Standart      ${row}
+    Run Keyword If                  ${row}==6       Clear Only Read             ${row}
+    Run Keyword If                  ${row}==12      Clear Only Read             ${row}
+    Run Keyword If                  ${row}==17      Clear Only Read             ${row}
+    Run Keyword If                  ${row}!=6 and ${row}!=12 and ${row}!=17     Clear Standart      ${row}
 
 Clear Settings Permission
     [Arguments]                     ${row}
@@ -368,7 +368,7 @@ Get Row By Text
 
 Choose From Select Box
     [Arguments]                     ${select}       ${item}
-    ${current}                      Get Text        xpath:${select}/div/div/span
+    ${current}                      Get Text        xpath:${select}/div/div
     Return From Keyword If          "${current}"=="${item}"
     Click Element                   xpath:${select}
     ${count}                        Get Element Count       xpath:${select}/..${select menu outer}/div/div
