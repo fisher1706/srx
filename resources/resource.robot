@@ -368,7 +368,7 @@ Get Row By Text
 
 Choose From Select Box
     [Arguments]                     ${select}       ${item}
-    ${current}                      Get Text        xpath:${select}/div/div/span
+    ${current}                      Get Text        xpath:${select}/div/div
     Return From Keyword If          "${current}"=="${item}"
     Click Element                   xpath:${select}
     ${count}                        Get Element Count       xpath:${select}/..${select menu outer}/div/div
