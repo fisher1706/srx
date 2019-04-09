@@ -152,9 +152,6 @@ Checking Split Transaction Order Status
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ORDERED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[3]    ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[6]    60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}+1]/td[10]   ORDERED
 
 Checking Split Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
@@ -196,19 +193,20 @@ Close Transaction
     Goto Sidebar Order Status
     Sleep                           2 second
     ${number of row}                Get Rows Count              ${table xpath}
-    :FOR    ${var}                  IN RANGE                                1   ${number of row}+1
-    \       ${my transaction}       Get Row By Text     ${table xpath}      3   ${dynamic sku}
-    \       ${buffer}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]
-    \       Run Keyword If          "${buffer}" == "${dynamic sku}"         Make Delivered          ${my transaction}
-    \       ${number of row}        Get Rows Count                          ${table xpath}
-    \       Sleep                   2 seconds
+    :FOR    ${var}                  IN RANGE    1   ${number of row}+1
+    \   Click Element               xpath:${table xpath}/tbody/tr[1]${button success}
+    \   Choose From Select Box      ${modal dialog}${select control}            DELIVERED
+    \   Click Element               xpath:${button modal dialog ok}
+    \   Sleep                       5 second
 
 ***Keywords***
 Preparation
     Start Distributor
-    Sleep                           2 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    Set Suite Variable              ${number of row}
+    Goto Sidebar Settings
+    Goto Transaction Status Updates Logic
+    Select Checkbox                 xpath:(${order staus pane}${checkbox type})[2]
+    Click Element                   xpath:${order staus pane}${button primary}
+    Sleep                           3 second
 
 Get Split Request URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/api/distributor/items/${transaction_id}/split/10
@@ -222,3 +220,9 @@ Make Delivered
     Choose From Select Box          ${modal dialog}${select control}            DELIVERED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
+
+Goto Transaction Status Updates Logic
+    Click Element                   id:settings-tab-erp-integration
+    Sleep                           1 second
+    Click Element                   id:erp-integration-tab-transaction-status
+    Sleep                           3 second

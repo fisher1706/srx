@@ -38,7 +38,11 @@ Valid Create New Product
     Input Text                      xpath://input[contains(@name, 'keyword')]                   ${keyword}
     Input Text                      xpath://input[contains(@name, 'image')]                     ${keyword}
     Click Element                   xpath:${button submit}
+    Sleep                           5 second
+    React Last
     Sleep                           3 second
+    ${number of new row}            Get React Rows Count                ${react table raw}
+    Set Suite Variable              ${number of new row}
 
 Checking New Product
     [Tags]                          CatalogChecking
@@ -53,11 +57,11 @@ Checking New Product
     Sleep                           3 second
     Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${random string}
     Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${user last name}
-    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         ${dynamic adress1}
-    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         10
-    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         15
-    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         22
-    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         30
+    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         10
+    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         15
+    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         22
+    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         30
+    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         ${dynamic adress1}
     Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         ${round by}
     Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${dynamic code}
     Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                        ${level 1}
@@ -121,11 +125,11 @@ Checking Edit Product
     Sleep                           3 second
     Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${edit random string}
     Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${edit last name}
-    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         ${edit adress1}
+    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         20
     Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         20
-    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         20
-    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         27
-    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         32
+    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         27
+    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         32
+    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         ${edit adress1}
     Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         ${edit round by}
     Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${edit code}
     Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                        ${edit level 1}
@@ -164,11 +168,6 @@ Preparation
     Sleep                           2 second
     Goto Sidebar Catalog
     Sleep                           5 second
-    React Last
-    Sleep                           3 second
-    ${number of row}                Get React Rows Count                ${react table}
-    ${number of new row}=           Evaluate                            ${number of row}+1
-    Run Keyword If                  ${number of new row}==51            Set Suite Variable      ${number of new row}    1
     ${random string}                Generate Random Name U
     ${edit random string}           Generate Random Name U
     Set Suite Variable              ${random string}

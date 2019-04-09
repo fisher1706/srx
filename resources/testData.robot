@@ -119,6 +119,7 @@ ${transaction submission pane}  //div[contains(@id, 'erp-integration-pane-rl-sub
 ${order close logic}            //div[contains(@id, 'enterprise-workflow-pane-order-close')]
 ${customer settings notify}     //div[contains(@id, 'settings-pane-notification-settings')]
 ${pricing integrations}         //div[contains(@id, 'erp-integration-pane-pricing-integration')]
+${order staus pane}             //div[contains(@id, 'erp-integration-pane-transaction-status')]
 ${radio button}                 //label[contains(@class, 'select-options')]
 ${radio button type}            //input[contains(@type, 'radio')]
 ${customer repl rule}           //div[contains(@id, 'customer-settings-pane-replenishment-rules')]

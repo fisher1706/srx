@@ -127,7 +127,7 @@ Checking Edit
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[2]              323
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              324
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[4]              325
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              stock
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              non-stock
 
 *** Keywords ***
 Preparation
