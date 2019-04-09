@@ -214,13 +214,6 @@ Get Split Request URL
 Get Update Request URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/api/distributor/items/update
 
-Make Delivered
-    [Arguments]                     ${row}
-    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           5 second
-
 Goto Transaction Status Updates Logic
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second
