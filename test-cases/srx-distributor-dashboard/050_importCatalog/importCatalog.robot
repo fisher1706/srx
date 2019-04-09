@@ -31,12 +31,12 @@ Import Catalog
     Sleep                           2 second
     ${number of row}                Get React Rows Count                                                                ${react table}
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[2]              ${catalog sku}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              10
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[4]              1.2
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              1.4
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[6]              1.3
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[7]              1.5
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              ${catalog sku}
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[4]              10
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              1.2
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[6]              1.4
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[7]              1.3
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[8]              1.5
 
 Update Catalog
     Sleep                           5 second
@@ -55,12 +55,12 @@ Update Catalog
     ${number of row}                Get React Rows Count                                                                ${react table}
     Is Full table                   ${number of row}
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[2]              ${catalog sku}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              20
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[4]              25
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              3.5
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[6]              2
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[7]              6.7
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              ${catalog sku}
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[4]              20
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              25
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[6]              3.5
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[7]              2
+    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[8]              6.7
 
 Import Inventory Data
     Sleep                           2 second

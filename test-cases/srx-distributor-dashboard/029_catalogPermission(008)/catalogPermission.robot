@@ -47,46 +47,40 @@ Valid Create New Product
 Checking New Product
     [Tags]                          CatalogChecking
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${random string}
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]              ${user last name}
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              ${round by}
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              10
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              15
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              22
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              30
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              ${user last name}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              ${round by}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              10
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              15
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              22
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[8]              30
     Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
     Sleep                           3 second
     Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${random string}
-    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${user last name}
-    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         10
-    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         15
-    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         22
-    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         30
-    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         ${dynamic adress1}
-    Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         ${round by}
-    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${dynamic code}
-    Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                        ${level 1}
-    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${level 2}
-    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${level 3}
-    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${sub 1}
-    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${sub 2}
-    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${sub 3}
-    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${dynamic city}
-    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${test string}
-    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${test number}
-    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${keyword}
+    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ACTIVE
+    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         ${dynamic adress1}
+    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         ${user last name}
+    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         10
+    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         15
+    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         22
+    Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         30
+    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${round by}
+    Element Text Should Be          xpath://table/tbody/tr[10]/td[2]                                                        ${dynamic code}
+    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${level 1}
+    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${level 2}
+    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${level 3}
+    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${sub 1}
+    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${sub 2}
+    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${sub 3}
+    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${dynamic city}
+    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${test string}
+    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${test number}
     Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${keyword}
+    Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${keyword}
     Click Element                   xpath:${close dialog}
-    Sleep                           3 second
+    Sleep                           5 second
 
 Edit Product
     [Tags]                          CatalogEdit
-    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
-    Sleep                           2 second
-    Click Element                   xpath:${close dialog}
-    Sleep                           2 second
-    Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
-    Click Element                   xpath:${button submit}/..//button[1]
-    Sleep                           2 second
     Click Element                   xpath:(${react table raw})[${number of new row}]${edit product}
     Input Text                      xpath://input[contains(@name, 'partSku')]                   ${edit random string}
     Input Text                      xpath://input[contains(@name, 'shortDescription')]          ${edit last name}
@@ -108,6 +102,7 @@ Edit Product
     Input Text                      xpath://input[contains(@name, 'alternative')]               ${edit test number}
     Input Text                      xpath://input[contains(@name, 'keyword')]                   ${edit keyword}
     Input Text                      xpath://input[contains(@name, 'image')]                     ${edit keyword}
+    Select From Dropdown            (${dropdown menu})[1]                                       OBSOLETE
     Click Element                   xpath:${button submit}
     Sleep                           3 second
 
@@ -115,37 +110,37 @@ Checking Edit Product
     [Tags]                          Catalog
     Sleep                           3 second
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${edit random string}
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]              ${edit last name}
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              ${edit round by}
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              20
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              ${edit last name}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              ${edit round by}
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              20
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              27
-    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              32
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]              20
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]              27
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[8]              32
     Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
     Sleep                           3 second
     Element Text Should Be          xpath://table/tbody/tr[1]/td[2]                                                         ${edit random string}
-    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ${edit last name}
-    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         20
-    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         20
-    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         27
-    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         32
-    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         ${edit adress1}
-    Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         ${edit round by}
-    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${edit code}
-    Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                        ${edit level 1}
-    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${edit level 2}
-    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${edit level 3}
-    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${edit sub 1}
-    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${edit sub 2}
-    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${edit sub 3}
-    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${edit city}
-    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${edit string}
-    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${edit test number}
-    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${edit keyword}
+    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         OBSOLETE
+    Element Text Should Be          xpath://table/tbody/tr[3]/td[2]                                                         ${edit adress1}
+    Element Text Should Be          xpath://table/tbody/tr[4]/td[2]                                                         ${edit last name}
+    Element Text Should Be          xpath://table/tbody/tr[5]/td[2]                                                         20
+    Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         20
+    Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         27
+    Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         32
+    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${edit round by}
+    Element Text Should Be          xpath://table/tbody/tr[10]/td[2]                                                        ${edit code}
+    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${edit level 1}
+    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${edit level 2}
+    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${edit level 3}
+    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${edit sub 1}
+    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${edit sub 2}
+    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${edit sub 3}
+    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${edit city}
+    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${edit string}
+    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${edit test number}
     Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${edit keyword}
+    Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${edit keyword}
     Click Element                   xpath:${close dialog}
-    Set Suite Variable              ${number of row}        ${number of new row}
-    Sleep                           3 second
+    Sleep                           1 second
 
 *** Keywords ***
 Preparation
