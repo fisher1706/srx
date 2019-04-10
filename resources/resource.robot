@@ -447,7 +447,7 @@ Expand Last AL
 
 Check Last Expanded AL
     [Arguments]                     ${column}
-    ${content}                      Get Text    xpath:(${expanded react table}${react table column})[${column}]
+    ${content}                      Get Text    xpath:((${react table raw})[2]${react table column})[${column}]
     Return From Keyword             ${content}
 
 Expanded AL Element Should Be
