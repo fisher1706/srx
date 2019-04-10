@@ -142,12 +142,12 @@ Checking Available RFID In Activity Log
     Expanded AL Element Should Be   9   STATIC SKU
 
 Checking Transaction In Activity Log
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[2]             Transaction
-    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[3]             UPDATE
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[2]     Transaction
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[3]     UPDATE
     Click Element                   xpath:((${react table raw})[3]${react table column})[1]
-    Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[3]        RFID
-    Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[7]        DELIVERED
-    Element Text Should Be          xpath:((${expanded react table})[2]${react table column})[11]       STATIC SKU
+    Element Text Should Be          xpath:((${react table raw})[4]${react table column})[3]     RFID
+    Element Text Should Be          xpath:((${react table raw})[4]${react table column})[7]     DELIVERED
+    Element Text Should Be          xpath:((${react table raw})[4]${react table column})[11]    STATIC SKU
 
 *** Keywords ***
 Preparation
