@@ -12,6 +12,7 @@ resources/updateCatalog.csv
 resources/importUsageHistory.csv
 resources/importInventory.csv
 resources/updateInventory.csv
+resources/importLifecycleStatus.csv
 resources/__pycache__
 resources/py/__pycache__
 resources/generated

@@ -633,3 +633,7 @@ Goto Locations
 Goto Usage History
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#usage-history
     Sleep                           2 second
+
+Is Full Table
+    [Arguments]                     ${number of row}
+    Run Keyword If                  ${number of row} >= 50        React Last
