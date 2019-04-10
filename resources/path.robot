@@ -18,5 +18,4 @@ ${alert dialog}                 //div[contains(@role, 'alertdialog')]
 ${create button}                id:item-action-create
 ${filter type}                  //div[contains(@data-type, 'filter')]
 ${dialog}                       //div[contains(@role, 'dialog')]
-${tab}                          //button[contains(@role, 'tab')]
 ${edit}                         //button[contains(@title, 'edit')]

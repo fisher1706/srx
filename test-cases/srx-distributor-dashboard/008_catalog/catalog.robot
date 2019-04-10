@@ -101,7 +101,7 @@ Checking New Product
     Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${keyword}
     Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${keyword}
     Click Element                   xpath:${close dialog}
-    Sleep                           5 second
+    Sleep                           3 second
 
 Edit Product
     [Tags]                          CatalogEdit
@@ -164,7 +164,7 @@ Checking Edit Product
     Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${edit keyword}
     Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${edit keyword}
     Click Element                   xpath:${close dialog}
-    Sleep                           1 second
+    Sleep                           3 second
 
 Sorting Catalog
     [Tags]                                              Sorting                 ProductSorting      Catalog
