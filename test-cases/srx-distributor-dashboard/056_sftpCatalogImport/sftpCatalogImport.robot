@@ -94,7 +94,7 @@ Checking Catalog
     Input Text                      xpath:${text field}                     ${filename}
     Sleep                           7 second
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${filename}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${filename}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${filename}
 
 *** Keywords ***
 Close SFTP Connection And Browser
