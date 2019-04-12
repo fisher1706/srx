@@ -57,8 +57,8 @@ Checking Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]/div      ${sub 4}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]/div      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[18]/div      1000
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[18]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[19]/div      1000
 
 Request Locker
     [Tags]                          Locker
@@ -180,11 +180,11 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${sub 2}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 3}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]          ${level 4}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${level 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${sub 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]         ${dynamic sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         1000
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]         1000
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 second
 

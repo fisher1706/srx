@@ -31,11 +31,11 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${location name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${location value}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${import rfid sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[22]/div      OFF
 
 Import RFID
     Goto Sidebar RFID
@@ -71,6 +71,7 @@ Checking RFID
     Should Be Equal As Integers     ${number of row}    2
 
 Delete Location
+    [Tags]                          DeleteLocation
     Goto Locations
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
@@ -78,11 +79,11 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${location name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${location value}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${import rfid sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[21]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           7 second
     ${number of new row}            Get Rows Count          ${table xpath}
