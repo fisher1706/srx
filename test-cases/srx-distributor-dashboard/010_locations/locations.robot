@@ -82,10 +82,10 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div       ${level 4}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${sub 4}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      BUTTON
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      10
 
 Checking New Location Activity Log
     [Tags]                          CheckingNewLocationActivityLog
@@ -111,17 +111,17 @@ Edit Location
     Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div/div/input            ${edit sku}
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div/div/input            \ue007
     Sleep                           1 second
+    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div/div/input            100
+    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div/div/input            \ue007
+    Sleep                           1 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div/div/input            100
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div/div/input            20
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div/div/input            \ue007
     Sleep                           1 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div/div/input            20
+    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div/div/input            10
     Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div/div/input            \ue007
-    Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            10
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
     Sleep                           1 second
     Click Element                   xpath:${button lg}
     Sleep                           5 second
@@ -140,10 +140,10 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${level 4}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${sub 4}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${edit sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      20
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      100
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      BUTTON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      10
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      100
     Sleep                           5 second
 
 Checking Edit Location Activity
@@ -171,9 +171,9 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]        ${level 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]        ${sub 4}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]        ${edit sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]        10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]        20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]        100
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]        10
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]        20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]        100
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -202,11 +202,11 @@ Sorting
     Sorting Column                  11
     Sorting Column                  12
     Sorting Column                  13
-    Sorting Column                  15
     Sorting Column                  16
     Sorting Column                  17
     Sorting Column                  18
     Sorting Column                  19
+    Sorting Column                  20
 
 Locations Filtration
     [Tags]                          Filter
@@ -221,12 +221,12 @@ Locations Filtration
     Filter Field                    8       11      loc4n
     Filter Field                    9       12      loc4v
     Filter Field                    10      13      STATIC SKU
-    Filter Field                    11      14      test1
-    Filter Field                    12      16      0
-    Filter Field                    13      17      20
-    Filter Field                    14      18      100
+    Filter Field                    12      15      test1
+    Filter Field                    13      17      0
+    Filter Field                    14      18      20
+    Filter Field                    15      19      100
     Filter Select Box               1       3       MOVING
-    Filter Select Box               3       15      RFID
+    Filter Select Box               3       16      RFID
     Filter Select Box               2       4       CUSTOMER
 
 *** Keywords ***

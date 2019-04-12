@@ -35,11 +35,11 @@ Checking New Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[22]/div      OFF
 
 Create RFID
     Goto Sidebar RFID
@@ -116,11 +116,11 @@ Checking Edit Location
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 2}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${change sku 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      RFID
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[22]/div      OFF
 
 Check Transactions After Change SKU
     Goto Sidebar Order Status
@@ -148,11 +148,11 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ${level 2}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ${sub 2}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${change sku 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[21]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 

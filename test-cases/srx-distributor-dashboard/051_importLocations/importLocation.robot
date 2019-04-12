@@ -29,15 +29,15 @@ Checking locations
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]           Shelf1
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]           Shelf_value1
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]           Location1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]           Location_value1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]           ${EMPTY}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]          Location_value1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]          ${EMPTY}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]          ${EMPTY}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]          CDF
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[14]          customer_sku_1
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]          BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]          0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]          20
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[18]          30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]          customer_sku_1
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[16]          BUTTON
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[17]          0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[18]          20
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[19]          30
 
 Delete Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
@@ -51,12 +51,12 @@ Delete Location
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]     Location1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]     Location_value1
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    CDF
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[13]    customer_sku_1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    BUTTON
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    OFF 
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    customer_sku_1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    BUTTON
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[22]    OFF 
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
