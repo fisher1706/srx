@@ -204,15 +204,14 @@ Delete Location
     ${my location}                  Get Row By Text             ${table xpath}      12      ${product filename}
     Click Element                   xpath:${table xpath}/tbody/tr[${my location}]/td[1]
     Click Element                   xpath:${button danger}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${product filename}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[21]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${product filename}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    RFID
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 

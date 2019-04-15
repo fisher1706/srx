@@ -58,7 +58,7 @@ Check Transactions
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      2   ${pricing sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${pricing sku}
     Set Suite Variable              ${my transaction}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${pricing sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
@@ -95,7 +95,7 @@ Check Transactions New
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      2   ${pricing sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${pricing sku}
     Set Suite Variable              ${my transaction}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${pricing sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $50.00
@@ -107,14 +107,14 @@ Delete Location
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          DISTRIBUTOR
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          bla
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          bla1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          bla2
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          bla3
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]         ${pricing sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]         60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          CUSTOMER
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          bla
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          bla1
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          bla2
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          bla3
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${pricing sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         20
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         60
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -128,8 +128,4 @@ Preparation
     Sleep                           1 second
     Click Element                   id:erp-integration-tab-pricing-integration
     Select Radio Button             pricingInfoSettings         SRX
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${number of new row}=           Evaluate                    ${number of row}+1
-    Set Suite Variable              ${number of row}
-    Set Suite Variable              ${number of new row}
     Sleep                           5 second

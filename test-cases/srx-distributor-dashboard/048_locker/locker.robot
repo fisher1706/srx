@@ -29,15 +29,15 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${location name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${location value}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${locker sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[22]/div      OFF
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location name}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${location value}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${locker sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      LOCKER
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      30
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      60
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
 
 Request Locker Available
     [Tags]                          Locker
@@ -49,7 +49,7 @@ Request Locker Available
 Checking OHI Available
     Reload Page
     Sleep                           4 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div      170
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      170
 
 Checking Available In Activity Log
     Goto Sidebar Activity Feed
@@ -75,7 +75,7 @@ Request Locker Issued
 Checking OHI Issued
     Goto Locations
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[21]/div      0
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      0
 
 Checking Issued In Activity Log
     Goto Sidebar Activity Feed
@@ -105,14 +105,14 @@ Delete Location
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${location name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${location value}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${locker sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    LOCKER
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[21]    OFF
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location name}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${location value}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${locker sku}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    LOCKER
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    60
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           7 second
     ${number of new row}            Get Rows Count          ${table xpath}
