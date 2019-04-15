@@ -19,3 +19,4 @@ ${create button}                id:item-action-create
 ${filter type}                  //div[contains(@data-type, 'filter')]
 ${dialog}                       //div[contains(@role, 'dialog')]
 ${edit}                         //button[contains(@title, 'edit')]
+${expanded not}                 //div[contains(@aria-expanded, 'false')]
