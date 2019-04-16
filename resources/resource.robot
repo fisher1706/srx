@@ -637,3 +637,13 @@ Goto Usage History
 Is Full Table
     [Arguments]                     ${number of row}
     Run Keyword If                  ${number of row} >= 50        React Last
+
+Simple Table Comparing
+    [Arguments]                     ${head}     ${body}     ${raw}      ${table}=${table xpath}     ${header}=${header xpath}
+    ${count}                        Get Element Count       xpath:${header}/thead/tr/th
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${buffer}       Get Text    xpath:${header}/thead/tr/th[${index}]
+    \   Set Suite Variable          ${column}   ${index}
+    \   Exit For Loop If            "${buffer}"=="${head}"
+    \   Run Keyword If              ${index}==${count}      Fail    There is no such header
+    Element Text Should Be          xpath:${table}/tbody/tr[${raw}]/td[${column}]     ${body}
