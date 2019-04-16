@@ -75,14 +75,16 @@ Import Inventory Data
 
 Сhecking Import Inventory
     Sleep                           2 second
-    ${number of row}                Get React Rows Count                                                                ${react table}
+    ${number of row}                Get React Rows Count                                                                    ${react table}
+    Log To Console                  ${number of row}
     Is Full Table                   ${number of row}
     Sleep                           5 second
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[2]              123
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              124
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[4]              125
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              stock
+    ${number of new row}            Get React Rows Count                                                                    ${react table}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${catalog sku}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]              123
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              124
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              125
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              stock
 
 Update Inventory
     Sleep                           5 second
@@ -98,13 +100,14 @@ Update Inventory
 
 Сhecking Update Inventory
     Sleep                           2 second
-    ${number of row}                Get React Rows Count                                                                ${react table}
+    ${number of row}                Get React Rows Count                                                                    ${react table}
     Is Full Table                   ${number of row}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[2]              223
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              224
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[4]              225
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[5]              non-stock
+    ${number of new row}            Get React Rows Count                                                                    ${react table}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${catalog sku}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[2]              223
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]              224
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]              225
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]              non-stock
 
 Edit Inventory
     [Tags]                          Edit
@@ -121,6 +124,7 @@ Checking Edit
     Sleep                           2 second
     ${number of row}                Get React Rows Count                                                                ${react table}
     Is Full Table                   ${number of row}
+    ${number of row}                Get React Rows Count                                                                ${react table}
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[2]              323
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              324
