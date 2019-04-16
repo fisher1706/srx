@@ -72,7 +72,8 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       DISTRIBUTOR
+    Simple Table Comparing          Owned by    DISTRIBUTOR     ${number of new row}
+    Simple Table Comparing          Surplus     OFF             ${number of new row}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
@@ -161,7 +162,7 @@ Delete Location
     Goto Locations
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]         DISTRIBUTOR
+    Simple Table Comparing          Owned by    DISTRIBUTOR     1    ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]         ${edit level 1}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]         ${edit sub 1}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]         ${level 2}
