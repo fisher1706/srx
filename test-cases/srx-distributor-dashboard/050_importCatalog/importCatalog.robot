@@ -60,7 +60,7 @@ Update Catalog
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[8]              6.7
 
 Import Inventory Data
-    Sleep                           2 second
+    Sleep                           4 second
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
     Create File                     ${CURDIR}/../../../resources/importInventory.csv      a,b,c,d,e${\n}${catalog sku},123,124,125,stock
@@ -77,6 +77,7 @@ Import Inventory Data
     Sleep                           2 second
     ${number of row}                Get React Rows Count                                                                ${react table}
     Is Full Table                   ${number of row}
+    Sleep                           5 second
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[2]              123
     Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[3]              124
