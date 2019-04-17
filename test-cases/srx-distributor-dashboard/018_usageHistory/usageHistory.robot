@@ -132,6 +132,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
+    Set Order Status Settings
     Goto Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}

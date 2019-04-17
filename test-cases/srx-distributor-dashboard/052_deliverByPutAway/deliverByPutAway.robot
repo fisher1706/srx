@@ -152,6 +152,7 @@ Checking Transaction In Activity Log
 *** Keywords ***
 Preparation
     Start Distributor
+    Set Order Status Settings
     Goto Sidebar RFID
     ${id token}                     Execute Javascript          return (document.cookie.match(/idToken=(.*?);/))[1]
     Set Suite Variable              ${id token}

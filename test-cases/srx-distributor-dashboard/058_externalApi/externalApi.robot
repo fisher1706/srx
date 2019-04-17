@@ -202,11 +202,7 @@ Close Transaction
 ***Keywords***
 Preparation
     Start Distributor
-    Goto Sidebar Settings
-    Goto Transaction Status Updates Logic
-    Select Checkbox                 xpath:(${order staus pane}${checkbox type})[2]
-    Click Element                   xpath:${order staus pane}${button primary}
-    Sleep                           3 second
+    Set Order Status Settings
 
 Get Split Request URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/api/distributor/items/${transaction_id}/split/10
