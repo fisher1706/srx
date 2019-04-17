@@ -109,6 +109,25 @@ Checking Usage History
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${shipto_name}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${usage history sku}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]     Delivered
+    Click Element                   xpath:${filter type}/button
+    Sleep                           3 second
+
+Sorting Usage History
+    [Tags]                          Sorting
+    Sorting React With Last Page    1
+    #Sorting React With Last Page    2
+    Sorting React With Last Page    3
+    Sorting React With Last Page    4
+    Sorting React With Last Page    5
+    Sorting React With Last Page    6
+
+Filter Activity Log
+    [Tags]                          Filter
+    Goto Usage History
+    Filter Add                      1   1   98719701
+    Filter Add                      2   2   14096
+    Filter Add                      3   3   PAND F1X4LG6
+    Filter Add                      4   4   1950
 
 Delete Location
     Goto Locations
