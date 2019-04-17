@@ -113,8 +113,8 @@ Preparation
     Sleep                           1 second
     Click Element                   id:erp-integration-tab-pricing-integration
     Sleep                           3 second
-    Click Element                   xpath:(${pricing integrations}${radio button})[2]
-    Click Element                   xpath:${pricing integrations}${control button}
+    Click Element                   xpath:(${pricing integrations pane}${radio button})[2]
+    Click Element                   xpath:${pricing integrations pane}${control button}
     Goto Sidebar Pricing
     Sleep                           5 second
 
