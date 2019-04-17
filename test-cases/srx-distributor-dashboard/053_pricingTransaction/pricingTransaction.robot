@@ -129,3 +129,4 @@ Preparation
     Click Element                   id:erp-integration-tab-pricing-integration
     Select Radio Button             pricingInfoSettings         SRX
     Sleep                           5 second
+    Set Order Status Settings

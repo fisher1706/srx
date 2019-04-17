@@ -166,6 +166,7 @@ Transaction Status Updates Logic Tab
     Run Keyword If                  "${checked2}"=="${rechecked1}"      Log To Console      Pass    ELSE    Fail    Fail
     Run Keyword If                  "${checked1}"!="${rechecked1}"      Log To Console      Pass    ELSE    Fail    Fail
     Run Keyword If                  "${checked2}"!="${rechecked2}"      Log To Console      Pass    ELSE    Fail    Fail
+    Set Order Status Settings
 
 Transaction Status Updates Logic
     [Tags]                          TransactionStatus
@@ -222,8 +223,6 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           6 second
-    #${rows}                         Get Element Count               xpath:${table xpath}/tbody/tr[1]/td
-    #Should Be Equal                 "${rows}"                       "10"
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
@@ -258,6 +257,7 @@ Transaction Status Updates Logic
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
     ${error}                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${error}                        <Response [200]>
+    Set Order Status Settings
 
 Distributor Contact Info
     [Tags]                          DistributorContactInfo

@@ -647,3 +647,20 @@ Simple Table Comparing
     \   Exit For Loop If            "${buffer}"=="${head}"
     \   Run Keyword If              ${index}==${count}      Fail    There is no such header
     Element Text Should Be          xpath:${table}/tbody/tr[${raw}]/td[${column}]     ${body}
+
+Set Order Status Settings
+    Go To                           https://distributor-${environment}.storeroomlogix.com/settings
+    Sleep                           2 second
+    Click Element                   id:settings-tab-erp-integration
+    Sleep                           2 second
+    Click Element                   id:erp-integration-tab-transaction-status
+    Sleep                           2 second
+    Click Element                   xpath:${order staus pane}${button primary}
+    Sleep                           4 second
+    ${check1}                       Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)       checked
+    ${check2}                       Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)       checked
+    Log To Console                  ${check1}
+    Log To Console                  ${check2}
+    Run Keyword If                  "${check1}"=="None"             Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
+    Run Keyword If                  "${check2}"=="None"             Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
+    Sleep                           2 second
