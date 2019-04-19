@@ -72,21 +72,21 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           5 second
-    Simple Table Comparing          Owned by    DISTRIBUTOR     ${number of new row}
-    Simple Table Comparing          Surplus     OFF             ${number of new row}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div      ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      10
+    Simple Table Comparing          Owned by            DISTRIBUTOR         ${number of new row}
+    Simple Table Comparing          Location 1 Name     ${level 1}          ${number of new row}
+    Simple Table Comparing          Location 1 Value    ${sub 1}            ${number of new row}
+    Simple Table Comparing          Location 2 Name     ${level 2}          ${number of new row}
+    Simple Table Comparing          Location 2 Value    ${sub 2}            ${number of new row}
+    Simple Table Comparing          Location 3 Name     ${level 3}          ${number of new row}
+    Simple Table Comparing          Location 3 Value    ${sub 3}            ${number of new row}
+    Simple Table Comparing          Location 4 Name     ${level 4}          ${number of new row}
+    Simple Table Comparing          Location 4 Value    ${sub 4}            ${number of new row}
+    Simple Table Comparing          SKU                 ${dynamic sku}      ${number of new row}
+    Simple Table Comparing          Type                BUTTON              ${number of new row}
+    Simple Table Comparing          Critical Min        0                   ${number of new row}
+    Simple Table Comparing          Min                 0                   ${number of new row}
+    Simple Table Comparing          Max                 10                  ${number of new row}
+    Simple Table Comparing          Surplus             OFF                 ${number of new row}
 
 Checking New Location Activity Log
     [Tags]                          CheckingNewLocationActivityLog
@@ -100,51 +100,40 @@ Checking New Location Activity Log
 Edit Location
     [Tags]                          EditLocation
     Goto Locations
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div/input             ${edit level 1}
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div/div/input             \ue007
+    Simple Table Editing            Location 1 Name     ${edit level 1}     ${number of new row}
     Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div/div/input             ${edit sub 1}
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div/div/input             \ue007
+    Simple Table Editing            Location 1 Value    ${edit sub 1}       ${number of new row}
     Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div/div/input            ${edit sku}
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div/div/input            \ue007
+    Simple Table Editing            SKU                 ${edit sku}         ${number of new row}
     Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div/div/input            100
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div/div/input            \ue007
+    Simple Table Editing            Max                 100                 ${number of new row}
     Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div/div/input            20
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div/div/input            \ue007
+    Simple Table Editing            Min                 20                  ${number of new row}
     Sleep                           1 second
-    Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]
-    Input Text                      xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            10
-    Press Key                       xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div/div/input            \ue007
+    Simple Table Editing            Critical Min        10                  ${number of new row}
     Sleep                           1 second
-    Click Element                   xpath:${button lg}
+    Click Element                   xpath:${button info}
     Sleep                           5 second
     Reload Page
 
 Checking Edit Location
     [Tags]                          CheckingEdit
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       DISTRIBUTOR
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${edit level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${edit sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[9]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]/div      ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[11]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${edit sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      BUTTON
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      20
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      100
+    Simple Table Comparing          Owned by            DISTRIBUTOR             ${number of new row}
+    Simple Table Comparing          Location 1 Name     ${edit level 1}         ${number of new row}
+    Simple Table Comparing          Location 1 Value    ${edit sub 1}           ${number of new row}
+    Simple Table Comparing          Location 2 Name     ${level 2}              ${number of new row}
+    Simple Table Comparing          Location 2 Value    ${sub 2}                ${number of new row}
+    Simple Table Comparing          Location 3 Name     ${level 3}              ${number of new row}
+    Simple Table Comparing          Location 3 Value    ${sub 3}                ${number of new row}
+    Simple Table Comparing          Location 4 Name     ${level 4}              ${number of new row}
+    Simple Table Comparing          Location 4 Value    ${sub 4}                ${number of new row}
+    Simple Table Comparing          SKU                 ${edit sku}             ${number of new row}
+    Simple Table Comparing          Type                BUTTON                  ${number of new row}
+    Simple Table Comparing          Critical Min        10                      ${number of new row}
+    Simple Table Comparing          Min                 20                      ${number of new row}
+    Simple Table Comparing          Max                 100                     ${number of new row}
+    Simple Table Comparing          Surplus             OFF                     ${number of new row}
     Sleep                           5 second
 
 Checking Edit Location Activity
@@ -162,19 +151,20 @@ Delete Location
     Goto Locations
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
-    Simple Table Comparing          Owned by    DISTRIBUTOR     1    ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]         ${edit level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]         ${edit sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]         ${level 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]         ${sub 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]         ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]         ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]         ${level 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]        ${sub 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]        ${edit sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]        10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]        20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]        100
+    Simple Table Comparing          Owned by            DISTRIBUTOR             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Name     ${edit level 1}         1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${edit sub 1}           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Name     ${level 2}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Value    ${sub 2}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 3 Name     ${level 3}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 3 Value    ${sub 3}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 4 Name     ${level 4}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 4 Value    ${sub 4}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${edit sku}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                BUTTON                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Critical Min        10                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 20                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 100                     1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
@@ -210,21 +200,21 @@ Sorting
 
 Locations Filtration
     [Tags]                          Filter
-    Filter Field                    1       4       loc1n
-    Filter Field                    2       5       loc1v
-    Filter Field                    3       6       loc2n
-    Filter Field                    4       7       loc2v
-    Filter Field                    5       8       loc3n
-    Filter Field                    6       9       loc3v
-    Filter Field                    7       10      loc4n
-    Filter Field                    8       11      loc4v
-    Filter Field                    9       12      STATIC SKU
-    Filter Field                    12      16      0
-    Filter Field                    13      17      20
-    Filter Field                    14      18      100
-    Filter Select Box               1       2       MOVING
+    Filter Field                    1       5       loc1n
+    Filter Field                    2       6       loc1v
+    Filter Field                    3       7       loc2n
+    Filter Field                    4       8       loc2v
+    Filter Field                    5       9       loc3n
+    Filter Field                    6       10      loc3v
+    Filter Field                    7       11      loc4n
+    Filter Field                    8       12      loc4v
+    Filter Field                    9       13      STATIC SKU
+    Filter Field                    11      16      0
+    Filter Field                    12      17      20
+    Filter Field                    13      18      100
+    Filter Select Box               1       3       MOVING
     Filter Select Box               3       15      RFID
-    Filter Select Box               2       3       CUSTOMER
+    Filter Select Box               2       4       CUSTOMER
 
 *** Keywords ***
 Preparation

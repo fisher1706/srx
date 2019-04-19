@@ -56,7 +56,7 @@ Pricing Information
     Goto Pricing Information
     Sleep                           3 second
     Select Radio Button             pricingInfoSettings                 API
-    Click Element                   xpath:${pricing integrations}${button primary}
+    Click Element                   xpath:${pricing integrations pane}${button primary}
     Sleep                           3 second
     Reload Page
     Sleep                           3 second
@@ -64,7 +64,7 @@ Pricing Information
     Sleep                           3 second
     Radio Button Should Be Set To   pricingInfoSettings                 API
     Select Radio Button             pricingInfoSettings                 NO_PRICING
-    Click Element                   xpath:${pricing integrations}${button primary}
+    Click Element                   xpath:${pricing integrations pane}${button primary}
     Sleep                           3 second
     Reload Page
     Sleep                           3 second
@@ -72,7 +72,7 @@ Pricing Information
     Sleep                           3 second
     Radio Button Should Be Set To   pricingInfoSettings                 NO_PRICING
     Select Radio Button             pricingInfoSettings                 SRX
-    Click Element                   xpath:${pricing integrations}${button primary}
+    Click Element                   xpath:${pricing integrations pane}${button primary}
     Sleep                           5 second
     Reload Page
     Sleep                           3 second
@@ -192,11 +192,11 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           6 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[2]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[13]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[13]/div/div/button
-    Input Text                      id:reorderQuantity_id           40
+    Input Text                      id:reorderQuantity_id           70
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           4 second
     &{headers}=                     Create Dictionary               Accept=application/json                                     ApiKey=${API_key}
@@ -247,7 +247,7 @@ Transaction Status Updates Logic
     Sleep                           3 second
     Click Element                   css:.checkbox-inline > input:nth-child(1)
     Sleep                           6 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[1]
+    Click Element                   xpath:${header xpath}/thead/tr/th[2]
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[12]/div/button
     Element Should Be Enabled       xpath:${table xpath}/tbody/tr[1]/td[13]/div/div/button
     Click Element                   xpath:${table xpath}/tbody/tr[1]/td[13]/div/div/button
