@@ -664,3 +664,15 @@ Set Order Status Settings
     Run Keyword If                  "${check1}"=="None"             Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Run Keyword If                  "${check2}"=="None"             Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Sleep                           2 second
+
+Simple Table Editing
+    [Arguments]                     ${head}     ${body}     ${raw}      ${table}=${table xpath}     ${header}=${header xpath}
+    ${count}                        Get Element Count       xpath:${header}/thead/tr/th
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${buffer}       Get Text    xpath:${header}/thead/tr/th[${index}]
+    \   Set Suite Variable          ${column}   ${index}
+    \   Exit For Loop If            "${buffer}"=="${head}"
+    \   Run Keyword If              ${index}==${count}      Fail    There is no such header
+    Click Element                   xpath:${table}/tbody/tr[${raw}]/td[${column}]
+    Input Text                      xpath:${table}/tbody/tr[${raw}]/td[${column}]/div/div/input     ${body}
+    Press Key                       xpath:${table}/tbody/tr[${raw}]/td[${column}]/div/div/input     \ue007

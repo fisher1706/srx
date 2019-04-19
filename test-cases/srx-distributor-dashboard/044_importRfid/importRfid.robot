@@ -27,15 +27,15 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${location name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${location value}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${import rfid sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
+    Simple Table Comparing          Owned by            CUSTOMER                    ${number of new row}
+    Simple Table Comparing          Location 1 Name     ${location name}            ${number of new row}
+    Simple Table Comparing          Location 1 Value    ${location value}           ${number of new row}
+    Simple Table Comparing          SKU                 ${import rfid sku}          ${number of new row}
+    Simple Table Comparing          Type                RFID                        ${number of new row}
+    Simple Table Comparing          Critical Min        0                           ${number of new row}
+    Simple Table Comparing          Min                 30                          ${number of new row}
+    Simple Table Comparing          Max                 60                          ${number of new row}
+    Simple Table Comparing          Surplus             OFF                         ${number of new row}
 
 Import RFID
     Goto Sidebar RFID
@@ -76,14 +76,13 @@ Delete Location
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${location name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${location value}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${import rfid sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
+    Simple Table Comparing          Location 1 Name     ${location name}            1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${location value}           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${import rfid sku}          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                RFID                        1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Critical Min        0                           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 30                          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 60                          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           7 second
     ${number of new row}            Get Rows Count          ${table xpath}
