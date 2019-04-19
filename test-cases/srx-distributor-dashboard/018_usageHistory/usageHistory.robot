@@ -106,28 +106,33 @@ Checking Usage History
     Input Text                      xpath:${text field}     ${order number}
     Sleep                           7 second
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${order number}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${shipto_name}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${usage history sku}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]     Delivered
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${shipto_name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${usage history sku}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]     Delivered
     Click Element                   xpath:${filter type}/button
     Sleep                           3 second
 
 Sorting Usage History
     [Tags]                          Sorting
     Sorting React With Last Page    1
-    #Sorting React With Last Page    2
+    Sorting React With Last Page    2
     Sorting React With Last Page    3
     Sorting React With Last Page    4
     Sorting React With Last Page    5
     Sorting React With Last Page    6
+    Sorting React With Last Page    7
+    Sorting React With Last Page    8
 
 Filter Activity Log
     [Tags]                          Filter
-    Goto Usage History
     Filter Add                      1   1   98719701
-    Filter Add                      2   2   14096
-    Filter Add                      3   3   PAND F1X4LG6
-    Filter Add                      4   4   1950
+    Filter Add                      2   2   1138
+    Filter Add                      3   3   14096
+    Filter Add                      4   4   test101
+    Filter Add                      5   5   PAND F1X4LG6
+    Filter Add                      6   6   1950
 
 Delete Location
     Goto Locations
