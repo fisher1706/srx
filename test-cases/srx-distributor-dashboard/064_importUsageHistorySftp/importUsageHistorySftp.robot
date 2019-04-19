@@ -18,7 +18,7 @@ Connect To SFTP To Validate
 Create Usage History File To Validate
     ${UH filename}                  Generate Random Name U
     Set Suite Variable              ${UH filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${UH filename}.csv      a,b,c,d,e${\n}${UH filename},${shipto_name},USAGE HISTORY,50,2018/12/30 10:15:30
+    Create File                     ${CURDIR}/../../../resources/generated/${UH filename}.csv      a,b,c,d,e,f,g${\n}${UH filename},${customer_name},${shipto_name},${shipto_id},USAGE HISTORY,50,2018/12/30 10:15:30
 
 Put Usage History File By SFTP To Validate
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${UH filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/usage-history/validate/${UH filename}.csv
@@ -55,7 +55,7 @@ Checking Activity Log To Validate
 Create Usage History File To Import
     ${UH filename}                  Generate Random Name U
     Set Suite Variable              ${UH filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${UH filename}.csv           a,b,c,d,e${\n}${UH filename},${shipto_name},USAGE HISTORY,50,2018/12/30 12:15:30
+    Create File                     ${CURDIR}/../../../resources/generated/${UH filename}.csv           a,b,c,d,e,f,g${\n}${UH filename},${customer_name},${shipto_name},${shipto_id},USAGE HISTORY,50,2018/12/30 10:15:30
 
 Put Usage History File By SFTP To Import
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${UH filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/usage-history/import/${UH filename}.csv
