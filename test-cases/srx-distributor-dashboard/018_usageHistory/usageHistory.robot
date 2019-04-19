@@ -28,17 +28,17 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[12]/div      ${usage history sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[15]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[20]/div      OFF
+    Simple Table Comparing          Owned by            CUSTOMER                    ${number of new row}
+    Simple Table Comparing          Location 1 Name     ${level 1}                  ${number of new row}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                    ${number of new row}
+    Simple Table Comparing          Location 2 Name     ${level 3}                  ${number of new row}
+    Simple Table Comparing          Location 2 Value    ${sub 3}                    ${number of new row}
+    Simple Table Comparing          SKU                 ${usage history sku}        ${number of new row}
+    Simple Table Comparing          Type                RFID                        ${number of new row}
+    Simple Table Comparing          Critical Min        0                           ${number of new row}
+    Simple Table Comparing          Min                 30                          ${number of new row}
+    Simple Table Comparing          Max                 60                          ${number of new row}
+    Simple Table Comparing          Surplus             OFF                         ${number of new row}
 
 Create RFID
     Goto Sidebar RFID
@@ -106,7 +106,7 @@ Checking Usage History
     Input Text                      xpath:${text field}     ${order number}
     Sleep                           7 second
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${order number}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     1138
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${shipto_name}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${EMPTY}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${usage history sku}
@@ -139,16 +139,15 @@ Delete Location
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]     ${level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]    ${usage history sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[14]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[19]    OFF
+    Simple Table Comparing          Location 1 Name     ${level 1}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Name     ${level 3}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Value    ${sub 3}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${usage history sku}    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                RFID                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Critical Min        0                       1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 30                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 60                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
