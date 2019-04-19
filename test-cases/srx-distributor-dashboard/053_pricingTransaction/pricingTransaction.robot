@@ -107,14 +107,14 @@ Delete Location
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          CUSTOMER
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          bla
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          bla1
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          bla2
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          bla3
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${pricing sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]         20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         60
+    Simple Table Comparing          Owned by            CUSTOMER                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Name     bla                     1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    bla1                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Name     bla2                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Value    bla3                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${pricing sku}          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 20                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 60                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second
 
