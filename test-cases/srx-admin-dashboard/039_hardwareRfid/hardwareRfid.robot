@@ -11,7 +11,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Valid Create New Serial Number
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Choose From Select Box          (${modal dialog}${select control})[1]       RFID Reader
     Choose From Select Box          (${modal dialog}${select control})[2]       Static Test
     Input Text                      xpath:${modal dialog}${form control}        12/12/2021, 12:00 A
@@ -147,7 +147,7 @@ Filter Serial Numbers
     [Tags]                          Filter
     Click Element                   ${button right margin}
     Choose From Select Box          (${modal dialog}${select control})[1]       RFID Reader
-    Click Element                   ${modal dialog}${button primary}
+    Click Element                   ${modal dialog}${button info}
     Sleep                           2 second
     ${count}                        Get Rows Count      ${table xpath}
     : FOR   ${index}    IN RANGE    1       ${count}+1
@@ -156,7 +156,7 @@ Filter Serial Numbers
     Sleep                           3 second
     Click Element                   ${button right margin}
     Choose From Select Box          (${modal dialog}${select control})[2]       Srx-group-test-distributor
-    Click Element                   ${modal dialog}${button primary}
+    Click Element                   ${modal dialog}${button info}
     Sleep                           2 second
     ${count}                        Get Rows Count      ${table xpath}
     : FOR   ${index}    IN RANGE    1       ${count}+1

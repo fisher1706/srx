@@ -15,7 +15,7 @@ ${location name}                    location name 1
 
 *** Test Cases ***
 Valid Create New Location
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${import rfid sku}
     Go Down Selector                (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30

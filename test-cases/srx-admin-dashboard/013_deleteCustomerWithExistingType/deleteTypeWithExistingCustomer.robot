@@ -8,7 +8,7 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Valid Create New Customer Type
     Set Suite Variable              ${right size}                   ${number of row}
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:name_id                      ${test del type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second

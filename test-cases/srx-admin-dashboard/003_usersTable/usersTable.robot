@@ -22,13 +22,13 @@ Invalid Add Admin User
     [Tags]                          InvalidAddAdminUser
     Click Element                   css:#distributor-details-tab-2
     Sleep                           2 second
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Input Text                      id:email_id             ${incorrect email}
     Sleep                           1 second
     Element Should Be Visible       xpath:(${error_msg}${help block})[1]/*
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Press Key                       id:email_id             \ue004
     Element Should Be Visible       xpath:(${error_msg}${help block})[1]/*
     Press Key                       id:firstName_id         \ue004
@@ -41,7 +41,7 @@ Invalid Add Admin User
 Valid Add Admin User
     [Tags]                          ValidAddAdminUser
     Click Element                   css:#distributor-details-tab-2
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Input Text                      id:email_id             dprovorov+srx@agilevision.io
     Input Text                      id:firstName_id         ${user first name}
     Input Text                      id:lastName_id          ${user last name}

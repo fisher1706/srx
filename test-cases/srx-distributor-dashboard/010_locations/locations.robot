@@ -12,7 +12,7 @@ ${for edit}                         xpath://td[contains(@class, 'FOR-EDIT')]
 *** Test Cases ***
 Invalid Create New Location
     [Tags]                          InvalidCreateNewLocation
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Press Key                       id:orderingConfig-product-partSku_id                                                                    \ue004
     Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Click Element                   xpath:${modal dialog}${select control}
@@ -32,7 +32,7 @@ Invalid Create New Location
 
 Valid Create New Location
     [Tags]                          ValidCreateNewLocation
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
     Click Element                   xpath:${modal dialog}${select control}
     Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015

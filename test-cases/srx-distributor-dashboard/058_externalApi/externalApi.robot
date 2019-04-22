@@ -20,7 +20,7 @@ Create Location
     [Tags]                          CreateLocation
     Goto Locations
     Sleep                           2 second
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                            ${dynamic sku}
     Click Element                   xpath:${modal dialog}${select control}
     Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
@@ -46,19 +46,19 @@ Checking Location
     [Tags]                          CheckingLocation
     Sleep                           2 second
     ${number of row}                Get Rows Count              ${table xpath}
-    Simple Table Comparing          Owned by            CUSTOMER                ${number of new row}
-    Simple Table Comparing          Location 1 Name     ${edit level 1}         ${number of new row}
-    Simple Table Comparing          Location 1 Value    ${edit sub 1}           ${number of new row}
-    Simple Table Comparing          Location 2 Name     ${level 2}              ${number of new row}
-    Simple Table Comparing          Location 2 Value    ${sub 2}                ${number of new row}
-    Simple Table Comparing          Location 3 Name     ${level 3}              ${number of new row}
-    Simple Table Comparing          Location 3 Value    ${sub 3}                ${number of new row}
-    Simple Table Comparing          Location 4 Name     ${level 4}              ${number of new row}
-    Simple Table Comparing          Location 4 Value    ${sub 4}                ${number of new row}
-    Simple Table Comparing          SKU                 ${dynamic sku}          ${number of new row}
-    Simple Table Comparing          Type                LOCKER                  ${number of new row}
-    Simple Table Comparing          Min                 10                      ${number of new row}
-    Simple Table Comparing          Max                 1000                    ${number of new row}
+    Simple Table Comparing          Owned by            CUSTOMER                ${number of row}
+    Simple Table Comparing          Location 1 Name     ${level 1}              ${number of row}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                ${number of row}
+    Simple Table Comparing          Location 2 Name     ${level 2}              ${number of row}
+    Simple Table Comparing          Location 2 Value    ${sub 2}                ${number of row}
+    Simple Table Comparing          Location 3 Name     ${level 3}              ${number of row}
+    Simple Table Comparing          Location 3 Value    ${sub 3}                ${number of row}
+    Simple Table Comparing          Location 4 Name     ${level 4}              ${number of row}
+    Simple Table Comparing          Location 4 Value    ${sub 4}                ${number of row}
+    Simple Table Comparing          SKU                 ${dynamic sku}          ${number of row}
+    Simple Table Comparing          Type                LOCKER                  ${number of row}
+    Simple Table Comparing          Min                 10                      ${number of row}
+    Simple Table Comparing          Max                 1000                    ${number of row}
 
 Request Locker
     [Tags]                          Locker
@@ -174,8 +174,8 @@ Delete Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
     Simple Table Comparing          Owned by            CUSTOMER                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 1 Name     ${edit level 1}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 1 Value    ${edit sub 1}               1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Name     ${level 1}                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 2 Name     ${level 2}                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 2 Value    ${sub 2}                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 3 Name     ${level 3}                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}

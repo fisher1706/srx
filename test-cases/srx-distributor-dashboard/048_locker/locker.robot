@@ -17,7 +17,7 @@ ${location name}                    ln1
 
 *** Test Cases ***
 Valid Create New Location
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${locker sku}
     Go Down Selector                (${modal dialog}${select control})[1]                   LOCKER
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30

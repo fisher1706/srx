@@ -14,7 +14,7 @@ ${usage history sku}                USAGE HISTORY
 
 *** Test Cases ***
 Valid Create New Location
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${usage history sku}
     Go Down Selector                (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
