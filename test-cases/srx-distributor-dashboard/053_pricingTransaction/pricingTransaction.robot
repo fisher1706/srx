@@ -1,12 +1,14 @@
 *** Settings ***
 Suite Setup                         Preparation
-Suite Teardown                      Finish Suite
+Suite Teardown                      Close SFTP Connection And Browser
 Library                             Selenium2Library
 Library                             String
 Library                             RequestsLibrary
 Library                             String
 Library                             Collections
 Library                             json
+Library                             OperatingSystem
+Library                             ../../../resources/py/sftp.py
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -14,41 +16,60 @@ Resource                            ../../../resources/testData.robot
 ${pricing sku}                      PRICING_SKU
 ${pricing customer}                 Static Customer
 ${pricing shipto}                   2048
-
 *** Test Cases ***
-Import Pricing
+Connect To SFTP To Validate
+    ${sftp}                         sftpConnect     ${sftp_distributor_user}    ${CURDIR}/../../../resources/my-key
+    Set Suite Variable              ${sftp}
+
+Create Product File
+    ${product filename}             Generate Random Name U
+    Set Suite Variable              ${product filename}
+    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,,active
+
+Put Product File By SFTP
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${product filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/import/${product filename}.csv
+    Sleep                           5 second
+
+Pricing For Customer
     Goto Sidebar Pricing
     Go Down Selector                (${select control})[1]      ${pricing customer}
-    Go Down Selector                (${select control})[2]      ${pricing shipto}
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
-    Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importPricing.csv
+    Create File                     ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv      a,b,c,d${\n}${product filename},10,22,2021-12-12T10:15:30
+    Sleep                           2 second
+    Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}                                Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           10 second
+    Remove Files                    ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv
+    Remove Directory                ${CURDIR}/../../../resources/generated                      recursive=True
+    Sleep                           2 second
 
-Valid Create New Location
-    Goto Locations
-    Click Element                   xpath:${button info}
-    Input Text                      id:orderingConfig-product-partSku_id                    ${pricing sku}
-    Go Down Selector                (${modal dialog}${select control})[1]                   LOCKER
-    Input Text                      id:orderingConfig-currentInventoryControls-min_id       20
-    Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
-    Input Text                      id:attributeName1_id                                    bla
-    Input Text                      id:attributeValue1_id                                   bla1
-    Input Text                      id:attributeName2_id                                    bla2
-    Input Text                      id:attributeValue2_id                                   bla3
-    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
-    Click Element                   xpath:${button modal dialog ok}
-    sleep                           10 second
+Create Location File To Import
+    ${location filename}            Generate Random Name U
+    Set Suite Variable              ${location filename}
+    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r${\n}${product filename},${product filename},,,,,,,${product filename},20,60,LOCKER,,0,customer,Off
+
+Put Location File By SFTP To Import
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${location filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/import/${location filename}.csv
+    Sleep                           5 second
+
+Get Location File From SFTP To Import
+    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/imported/${location filename}.csv-report    ${CURDIR}/../../../resources/generated/${location filename}.csv-report
+
+Remove Files To Import
+    File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${location filename}.csv
+    File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${location filename}.csv-report
+    Remove Files                    ${CURDIR}/../../../resources/generated/${location filename}.csv      ${CURDIR}/../../../resources/generated/${location filename}.csv-report
+    Remove Directory                ${CURDIR}/../../../resources/generated                      recursive=True
 
 Request Locker
     [Tags]          Locker
     ${request url locker}           Get Locker URL
     Create Session                  httpbin                 ${request url locker}        verify=true
     &{headers}=                     Create Dictionary       Content-Type=application/json
-    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 210, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
+    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${product filename}", "kioskId": "${shipto_id}", "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 210, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Check Transactions
@@ -58,23 +79,25 @@ Check Transactions
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
     ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${pricing sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${product filename}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${pricing sku}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${product filename}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $10.00
     Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            SHIPPED
+    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
 
-Update Pricing
+Pricing For Shipto
     Goto Sidebar Pricing
     Go Down Selector                (${select control})[1]      ${pricing customer}
     Go Down Selector                (${select control})[2]      ${pricing shipto}
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
-    Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/updatePricing.csv
+    Create File                     ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv      a,b,c,d${\n}${product filename},80,22,2021-12-12T10:15:30
+    Sleep                           2 second
+    Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}                                Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
@@ -85,7 +108,7 @@ Request Locker New
     ${request url locker}           Get Locker URL
     Create Session                  httpbin                 ${request url locker}        verify=true
     &{headers}=                     Create Dictionary       Content-Type=application/json
-    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${pricing sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 100, "quantityRequested": 10, "timestamp": "2019-03-04T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
+    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${product filename}", "kioskId": "${shipto_id}", "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 100, "quantityRequested": 10, "timestamp": "2019-03-04T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Check Transactions New
@@ -95,10 +118,13 @@ Check Transactions New
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${pricing sku}
+    ${my transaction}               Get Row By Text     ${table xpath}      3   ${product filename}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${pricing sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $50.00
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${product filename}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $80.00
+    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
+    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
+    Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
 
 Delete Location
@@ -107,17 +133,15 @@ Delete Location
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Simple Table Comparing          Owned by            CUSTOMER                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 1 Name     bla                     1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 1 Value    bla1                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 2 Name     bla2                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 2 Value    bla3                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          SKU                 ${pricing sku}          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Min                 20                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Max                 60                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Click Element                   css:button.btn:nth-child(2)
+    Simple Table Comparing          Location 1 Name     ${product filename}                 1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${product filename}                 1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${product filename}                 1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                LOCKER                              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Critical Min        0                                   1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 20                                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 60                                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
-
 
 *** Keywords ***
 Preparation
@@ -130,3 +154,7 @@ Preparation
     Select Radio Button             pricingInfoSettings         SRX
     Sleep                           5 second
     Set Order Status Settings
+
+Close SFTP Connection And Browser
+    sftpClose                       ${sftp}
+    Close All Browsers
