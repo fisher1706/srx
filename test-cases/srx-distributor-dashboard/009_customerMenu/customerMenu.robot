@@ -96,6 +96,19 @@ Delete Customer User
     Click Element                   xpath:(${dialog}${button})[3]
     Sleep                           5 second
 
+Sorting Customer User
+    [Tags]                          Sorting
+    Sort React                      1
+    Sort React                      2
+    Sort React                      3
+    Sort React                      4
+
+Filter Customer User
+    [Tags]                          FilterCustomer
+    Filter Add                      1       1       srx-group+dev-customer@agilevision.io
+    Filter Add                      2       2       first
+    Filter Add                      3       3       last
+
 Delete Shipto
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
@@ -103,6 +116,16 @@ Delete Shipto
     Dialog Should Be About          ${edit name}
     Click Element                   xpath:${button submit}
     Sleep                           5 second
+
+Sorting ShipTo
+    [Tags]                          Sorting
+    Sort React                      1
+    Sort React                      3
+
+Filter ShipTo
+    [Tags]                          FilterCustomer
+    Filter Add                      1       1       2048
+    Filter Add                      2       3       9000
 
 *** Keywords ***
 Preparation
