@@ -8,17 +8,17 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Invalid Create New Customer Type
     [Tags]                          InvalidCreateNewCustomer
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Press Key                       id:name_id                      \ue004
     Element Should Be Enabled       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
 
 Valid Create New Customer Type
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:name_id                      ${test type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second

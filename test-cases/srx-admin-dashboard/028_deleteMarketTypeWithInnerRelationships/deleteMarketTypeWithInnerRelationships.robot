@@ -8,7 +8,7 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Valid Create New Market Type
     Set Suite Variable              ${right size}                   ${number of row}
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:name_id                      ${market del type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second

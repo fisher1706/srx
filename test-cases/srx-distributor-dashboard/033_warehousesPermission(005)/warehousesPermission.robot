@@ -8,11 +8,11 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Invalid Create New Warehouse
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Sleep                           1 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Press Key                       id:address.line1_id     \ue004
     Element Should Be Visible       xpath:(${modal dialog}${help block})[1]/*
     Press Key                       id:name_id              \ue004
@@ -34,7 +34,7 @@ Invalid Create New Warehouse
 
 Valid Create New Warehouse
     [Tags]                          ValidCreateNewWarehouse
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:name_id              ${user first name}
     Input Text                      id:address.line1_id     ${dynamic adress1}
     Input Text                      id:address.line2_id     ${dynamic adress2}

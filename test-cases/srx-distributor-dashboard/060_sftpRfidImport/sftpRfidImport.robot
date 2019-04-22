@@ -204,7 +204,7 @@ Delete Location
     ${my location}                  Get Row By Text             ${table xpath}      12      ${product filename}
     Click Element                   xpath:${table xpath}/tbody/tr[${my location}]/td[1]
     Click Element                   xpath:${button danger}
-    Simple Table Comparing          Owned by            DISTRIBUTOR                     1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Owned by            CUSTOMER                        1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Name     ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Value    ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          SKU                 ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}

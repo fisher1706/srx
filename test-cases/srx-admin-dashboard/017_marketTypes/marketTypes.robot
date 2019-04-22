@@ -8,10 +8,10 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Invalid Create New Market Type
     [Tags]                          InvalidCreateNewCustomer
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Press Key                       id:name_id                      \ue004
     Element Should Be Enabled       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
@@ -19,7 +19,7 @@ Invalid Create New Market Type
 
 Valid Create New Market Type
     [Tags]                          ValidCreateNewCustomer
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:name_id                      ${market type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second

@@ -8,7 +8,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Invalid Create New Security Group
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Is Create Security Group
     Press Key                       id:name_id                 \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
@@ -16,7 +16,7 @@ Invalid Create New Security Group
     Sleep                           1 second
 
 Valid Create New Security Group
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Is Create Security Group
     ${security group}               Generate Random Name L
     Set Suite Variable              ${security group}
@@ -31,7 +31,7 @@ Create User With New Security Group
     [Tags]                          Test
     Goto Sidebar Users
     Click Element                   id:users-tab-users
-    Click Element                   xpath:${users pane users}${button primary}
+    Click Element                   xpath:${users pane users}${button info}
     Input Text                      id:email_id                 ${dynamic email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}

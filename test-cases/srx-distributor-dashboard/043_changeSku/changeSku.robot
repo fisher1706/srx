@@ -15,7 +15,7 @@ ${change sku 2}                     CHANGE SKU 2
 
 *** Test Cases ***
 Valid Create New Location
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${change sku 1}
     Go Down Selector                (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
@@ -104,7 +104,9 @@ Change Location SKU
     Simple Table Editing            SKU                 ${change sku 2}     ${number of new row}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
-    Click Element                   xpath:${button info}
+    Click Element                   xpath:${button primary}
+    Sleep                           4 second
+    Reload Page
 
 Checking Edit Location
     Sleep                           5 second
@@ -113,7 +115,7 @@ Checking Edit Location
     Simple Table Comparing          Location 1 Value    ${sub 1}            ${number of new row}
     Simple Table Comparing          Location 2 Name     ${level 2}          ${number of new row}
     Simple Table Comparing          Location 2 Value    ${sub 2}            ${number of new row}
-    Simple Table Comparing          SKU                 ${change sku 1}     ${number of new row}
+    Simple Table Comparing          SKU                 ${change sku 2}     ${number of new row}
     Simple Table Comparing          Type                RFID                ${number of new row}
     Simple Table Comparing          Critical Min        0                   ${number of new row}
     Simple Table Comparing          Min                 30                  ${number of new row}
@@ -141,7 +143,7 @@ Delete Location
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Simple Table Comparing          Owned by            DISTRIBUTOR             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Owned by            CUSTOMER                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Name     ${edit level 1}         1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Value    ${edit sub 1}           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 2 Name     ${level 2}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}

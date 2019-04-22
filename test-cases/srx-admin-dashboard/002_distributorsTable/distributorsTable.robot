@@ -8,7 +8,7 @@ Resource                            ../../../resources/testData.robot
 *** Test Cases ***
 Invalid Add Distributor
     [Tags]                          InvalidAddDistributor
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Click Element                   id:name_id
     Press Key                       id:name_id                      \ue004
     Element Should Be Visible       xpath:(${help block})[1]/*
@@ -28,7 +28,7 @@ Invalid Add Distributor
 
 Valid Add Distributor
     [Tags]                          ValidAddDistributor
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:name_id                                      ${dynamic name}
     Input Text                      id:address.line1_id                             ${dynamic adress1}
     Input Text                      id:address.line2_id                             ${dynamic adress2}

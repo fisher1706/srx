@@ -30,7 +30,7 @@ Import Pricing
 
 Valid Create New Location
     Goto Locations
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${pricing sku}
     Go Down Selector                (${modal dialog}${select control})[1]                   LOCKER
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       20

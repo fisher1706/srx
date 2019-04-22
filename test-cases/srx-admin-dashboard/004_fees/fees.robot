@@ -52,7 +52,7 @@ Testing Fees Tab
     Sleep                           1 second
     ${rows count}                   Get Rows Count      ${pane}${table xpath}
     ${new rows count}               Evaluate    ${rows count}+1
-    Click Element                   xpath:${pane}${button primary}
+    Click Element                   xpath:${pane}${button info}
     Input Text                      xpath:(${modal dialog}${form control})[1]       ${amount}
     Input Text                      xpath:(${modal dialog}${form control})[2]       ${value}
     Click Element                   xpath:${modal dialog}${button modal dialog ok}

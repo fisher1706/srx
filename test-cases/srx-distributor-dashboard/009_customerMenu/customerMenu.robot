@@ -74,18 +74,16 @@ Checking New Customer User
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[5]      ${edit name}
 
 Edit Customer User
-    Click Element                   xpath:(${react table raw})[${my customer user}]${edit user}
+    Click Element                   xpath:(${react table raw})[${my customer user}]${customer info}
     Sleep                           2 second
     Select From Dropdown            (${dropdown menu})[1]   Customer Super User
     Input By Name                   firstName               ${edit first name}
     Input By Name                   lastName                ${edit last name}
     Click Element                   xpath:${button submit}
     Sleep                           5 second
+    Goto Customer Users
 
 Checking Edit User
-    Goto Sidebar Customers
-    Click Element                   xpath:(${react table raw})[${my customer}]
-    Click Element                   xpath:(${tab element})[3]
     Sleep                           2 second
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${dynamic email}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[2]      ${edit first name}

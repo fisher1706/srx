@@ -11,7 +11,7 @@ Valid Add Admin User
     Set Suite Variable              ${const number admin}           ${number of row}
     Click Element                   id:distributor-details-tab-2
     Sleep                           2 second
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Input Text                      id:email_id                     ${admin email}
     Input Text                      id:firstName_id                 ${admin first}
     Input Text                      id:lastName_id                  ${admin last}
@@ -107,7 +107,7 @@ Checking Users Number On Admin Portal After Delete From Distributor Portal
 Delete User From Admin Portal
     [Tags]                          ContentSuperUser
     Sleep                           2 second
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Input Text                      id:email_id             ${admin email}
     Input Text                      id:firstName_id         ${admin first}
     Input Text                      id:lastName_id          ${admin last}
@@ -139,7 +139,7 @@ Create Admin On Distributor Portal
     [Tags]                          AddSuperUser
     Goto Users Sub
     Sleep                           2 second
-    Click Element                   xpath:${users pane super users}${button primary}
+    Click Element                   xpath:${users pane super users}${button info}
     Input Text                      id:email_id                         ${admin email}
     Input Text                      id:firstName_id                     ${admin first}
     Input Text                      id:lastName_id                      ${admin last}
