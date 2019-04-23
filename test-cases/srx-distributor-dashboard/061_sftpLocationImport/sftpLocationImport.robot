@@ -109,7 +109,7 @@ Delete Location
     Click Element                   xpath:${button danger}
     Simple Table Comparing          Location 1 Name     ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Value    ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          SKU                 ${edit sku}                     1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Type                RFID                            1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Critical Min        0                               1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Min                 20                              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}

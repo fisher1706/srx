@@ -144,8 +144,8 @@ Delete Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
     Simple Table Comparing          Owned by            CUSTOMER                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 1 Name     ${edit level 1}         1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Location 1 Value    ${edit sub 1}           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Name     ${level 1}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 2 Name     ${level 2}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 2 Value    ${sub 2}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          SKU                 ${change sku 2}         1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
