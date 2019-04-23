@@ -574,7 +574,7 @@ Filter Add
     [Arguments]                     ${dialog index}     ${table index}      ${value}
     Click Element                   xpath:${button filter}
     Click Element                   xpath:(${menu}${menu item})[${dialog index}]
-    Input Text                      xpath:${text field}                     ${value}
+    Input Text                      xpath:${filter type}/div/div/input      ${value}
     Sleep                           5 second
     ${count}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count}+1

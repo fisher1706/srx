@@ -35,12 +35,19 @@ Unassign RFID
     Should Not Be Equal As Strings  ${epc}      ${previous epc}
 
 Sorting RFIDs
-    [Tags]                          Sorting
+    [Tags]                          Sort
     Sorting React With Last Page    1
     Sorting React With Last Page    2
     Sorting React With Last Page    3
     Sorting React With Last Page    4
     Sorting React With Last Page    5
+
+Filter RFID
+    [Tags]                          Filter
+    Filter Add                      1       1       WKYSPCTYJIXSTVPSXC
+    Filter Add                      3       4       SYSTEM
+    Filter Add                      4       5       TestDATA
+    Filter Add For Select Box       2       2       ASSIGNED
 
 *** Keywords ***
 Preparation

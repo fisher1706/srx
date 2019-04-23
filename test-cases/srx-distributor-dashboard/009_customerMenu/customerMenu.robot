@@ -97,14 +97,14 @@ Delete Customer User
     Sleep                           5 second
 
 Sorting Customer User
-    [Tags]                          Sorting
+    [Tags]                          Sort
     Sort React                      1
     Sort React                      2
     Sort React                      3
     Sort React                      4
 
 Filter Customer User
-    [Tags]                          FilterCustomer
+    [Tags]                          Filter
     Filter Add                      1       1       srx-group+dev-customer@agilevision.io
     Filter Add                      2       2       first
     Filter Add                      3       3       last
@@ -118,12 +118,12 @@ Delete Shipto
     Sleep                           5 second
 
 Sorting ShipTo
-    [Tags]                          Sorting
+    [Tags]                          Sort
     Sort React                      1
     Sort React                      3
 
 Filter ShipTo
-    [Tags]                          FilterCustomer
+    [Tags]                          Filter
     Filter Add                      1       1       2048
     Filter Add                      2       3       9000
 

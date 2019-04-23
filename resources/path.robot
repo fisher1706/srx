@@ -12,7 +12,7 @@ ${tab element}                  //button[contains(@role, 'tab')]
 ${menu}                         //ul[contains(@role, 'menu')]
 ${menu item}                    //li[contains(@role, 'menuitem')]
 ${text field}                   //input[contains(@type, 'text')]
-${button filter}                //button[contains(@aria-haspopup, 'true')]
+${button filter}                //span[text()='Add filter']/..
 ${button}                       //button[contains(@type, 'button')]
 ${listbox}                      //ul[contains(@role, 'listbox')]
 ${alert dialog}                 //div[contains(@role, 'alertdialog')]
