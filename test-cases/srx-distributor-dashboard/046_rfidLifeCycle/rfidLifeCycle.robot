@@ -182,7 +182,7 @@ Checking Issued RFID In Activity Log
     Sleep                           1 second
     Expanded AL Element Should Be   5   ${epc}
     Expanded AL Element Should Be   9   ISSUED
-    Expanded AL Element Should Be   13  STATIC SKU
+    Expanded AL Element Should Be   14  STATIC SKU
 
 *** Keywords ***
 Preparation

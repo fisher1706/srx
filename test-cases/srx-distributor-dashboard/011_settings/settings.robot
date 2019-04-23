@@ -10,15 +10,15 @@ Resource                            ../../../resources/testData.robot
 Integrations
     [Tags]                          Integrations
     Goto Integrations
-    Click Element                   xpath:${keys pane}${button primary}
+    Click Element                   xpath:${keys pane}${button info}
     Click Element                   css:.modal-dialog-cancel-button
     Sleep                           2 second
-    Click Element                   xpath:${keys pane}${button primary}
+    Click Element                   xpath:${keys pane}${button info}
     Input Text                      css:.rdt > input:nth-child(1)               10/18/2018, 12:00 A
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   xpath:${keys pane}${button primary}
+    Click Element                   xpath:${keys pane}${button info}
     Clear Element Text              css:.rdt > input:nth-child(1)
     Input Text                      css:.rdt > input:nth-child(1)               7/18/2020, 12:00 A
     Input Text                      id:description_id                           ${keyword}

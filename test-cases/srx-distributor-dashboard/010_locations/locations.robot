@@ -112,7 +112,7 @@ Edit Location
     Sleep                           1 second
     Simple Table Editing            Critical Min        10                  ${number of new row}
     Sleep                           1 second
-    Click Element                   xpath:${button info}
+    Click Element                   xpath:${button primary}
     Sleep                           5 second
     Reload Page
 

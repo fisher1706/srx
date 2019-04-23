@@ -147,7 +147,7 @@ Filter Serial Numbers
     [Tags]                          Filter
     Click Element                   ${button right margin}
     Choose From Select Box          (${modal dialog}${select control})[1]       RFID Reader
-    Click Element                   ${modal dialog}${button info}
+    Click Element                   ${modal dialog}${button primary}
     Sleep                           2 second
     ${count}                        Get Rows Count      ${table xpath}
     : FOR   ${index}    IN RANGE    1       ${count}+1
@@ -156,7 +156,7 @@ Filter Serial Numbers
     Sleep                           3 second
     Click Element                   ${button right margin}
     Choose From Select Box          (${modal dialog}${select control})[2]       Srx-group-test-distributor
-    Click Element                   ${modal dialog}${button info}
+    Click Element                   ${modal dialog}${button primary}
     Sleep                           2 second
     ${count}                        Get Rows Count      ${table xpath}
     : FOR   ${index}    IN RANGE    1       ${count}+1
