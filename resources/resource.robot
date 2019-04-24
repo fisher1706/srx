@@ -115,7 +115,7 @@ Start Distributor
     Input Text                      id:email                ${email_dist}
     Input Text                      id:password             ${password_dist}
     Click Element                   xpath:${button submit}
-    Sleep                           5 second
+    Sleep                           3 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -124,7 +124,7 @@ Start Customer
     Input Text                      id:email                ${email_cust}
     Input Text                      id:password             ${password_cust}
     Click Element                   xpath:${button submit}
-    Sleep                           4 second
+    Sleep                           3 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -133,7 +133,7 @@ Start Permission
     Input Text                      id:email                ${email_perm}
     Input Text                      id:password             ${password_perm}
     Click Element                   xpath:${button submit}
-    Sleep                           4 second
+    Sleep                           3 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -406,7 +406,7 @@ Filter Field
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 Filter Select Box
     [Arguments]                     ${dialog index}     ${table index}      ${value}
@@ -418,7 +418,7 @@ Filter Select Box
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 Get RFID URL
     Return From Keyword             https://${RFID_SN}:${RFID_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/rfid
@@ -491,7 +491,7 @@ Filter React Field
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 Filter React Select Box
     [Arguments]                     ${dialog index}     ${table index}      ${value}
@@ -503,7 +503,7 @@ Filter React Select Box
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 React Last
     ${count}                        Get Element Count       xpath:${pagination bottom}/div/div[2]/*
@@ -580,7 +580,7 @@ Filter Add
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
     Click Element                   xpath:${filter type}/button
-    Sleep                           3 second
+    Sleep                           2 second
 
 Filter Add For Select Box
     [Arguments]                     ${dialog index}     ${table index}      ${value}
@@ -597,7 +597,7 @@ Filter Add For Select Box
     : FOR   ${index}    IN RANGE    1       ${count2}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
     Click Element                   xpath:${filter type}/button
-    Sleep                           3 second
+    Sleep                           2 second
 
 Select Filter Element
     [Arguments]                     ${index}
@@ -628,15 +628,15 @@ Get React Rows Count
 
 Goto Locations
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
-    Sleep                           2 second
+    Sleep                           1 second
 
 Goto Usage History
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#usage-history
-    Sleep                           2 second
+    Sleep                           1 second
 
 Goto Customer Users
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#users
-    Sleep                           2 second
+    Sleep                           1 second
 
 Is Full Table
     [Arguments]                     ${number of row}
@@ -654,11 +654,11 @@ Simple Table Comparing
 
 Set Order Status Settings
     Go To                           https://distributor-${environment}.storeroomlogix.com/settings
-    Sleep                           2 second
+    Sleep                           1 second
     Click Element                   id:settings-tab-erp-integration
-    Sleep                           2 second
+    Sleep                           1 second
     Click Element                   id:erp-integration-tab-transaction-status
-    Sleep                           2 second
+    Sleep                           1 second
     Click Element                   xpath:${order staus pane}${button primary}
     Sleep                           4 second
     ${check1}                       Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)       checked
