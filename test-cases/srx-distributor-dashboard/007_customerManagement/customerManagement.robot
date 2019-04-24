@@ -53,7 +53,7 @@ Delete Customer
     Sleep                           5 second
 
 Sorting Customer
-    [Tags]                          Sorting
+    [Tags]                          Sort
     Sort React                      1
     Sort React                      2
     Sort React                      3
@@ -61,7 +61,7 @@ Sorting Customer
     Sort React                      5
 
 Filter Customer
-    [Tags]                          FilterCustomer
+    [Tags]                          Filter
     Filter Add                      1       1       Customer A
     Filter Add                      2       2       number
     Filter Add For Select Box       3       4       Test type
