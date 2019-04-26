@@ -125,7 +125,7 @@ Sorting Usage History
     Sorting React With Last Page    7
     Sorting React With Last Page    8
 
-Filter Activity Log
+Filter Usage History
     [Tags]                          Filter
     Filter Add                      1   1   98719701
     Filter Add                      2   2   1138
