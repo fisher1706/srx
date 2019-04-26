@@ -83,7 +83,7 @@ Check Transactions
     Set Suite Variable              ${my transaction}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${product filename}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $10.00
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $0.45
     Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}            DELIVERED
     Click Element                   xpath:${button modal dialog ok}
@@ -121,7 +121,7 @@ Check Transactions New
     ${my transaction}               Get Row By Text     ${table xpath}      3   ${product filename}
     Set Suite Variable              ${my transaction}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${product filename}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $80.00
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $3.64
     Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
     Choose From Select Box          ${modal dialog}${select control}            DELIVERED
     Click Element                   xpath:${button modal dialog ok}
