@@ -14,7 +14,7 @@ ${usage history sku}                USAGE HISTORY
 
 *** Test Cases ***
 Valid Create New Location
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${usage history sku}
     Go Down Selector                (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
@@ -28,17 +28,17 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[8]/div       ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${usage history sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[22]/div      OFF
+    Simple Table Comparing          Owned by            CUSTOMER                    ${number of new row}
+    Simple Table Comparing          Location 1 Name     ${level 1}                  ${number of new row}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                    ${number of new row}
+    Simple Table Comparing          Location 2 Name     ${level 3}                  ${number of new row}
+    Simple Table Comparing          Location 2 Value    ${sub 3}                    ${number of new row}
+    Simple Table Comparing          SKU                 ${usage history sku}        ${number of new row}
+    Simple Table Comparing          Type                RFID                        ${number of new row}
+    Simple Table Comparing          Critical Min        0                           ${number of new row}
+    Simple Table Comparing          Min                 30                          ${number of new row}
+    Simple Table Comparing          Max                 60                          ${number of new row}
+    Simple Table Comparing          Surplus             OFF                         ${number of new row}
 
 Create RFID
     Goto Sidebar RFID
@@ -106,25 +106,48 @@ Checking Usage History
     Input Text                      xpath:${text field}     ${order number}
     Sleep                           7 second
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${order number}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${shipto_name}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${usage history sku}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]     Delivered
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     1138
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${shipto_name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${usage history sku}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]     Delivered
+    Click Element                   xpath:${filter type}/button
+    Sleep                           3 second
+
+Sorting Usage History
+    [Tags]                          Sorting
+    Sorting React With Last Page    1
+    Sorting React With Last Page    2
+    Sorting React With Last Page    3
+    Sorting React With Last Page    4
+    Sorting React With Last Page    5
+    Sorting React With Last Page    6
+    Sorting React With Last Page    7
+    Sorting React With Last Page    8
+
+Filter Usage History
+    [Tags]                          Filter
+    Filter Add                      1   1   98719701
+    Filter Add                      2   2   1138
+    Filter Add                      3   3   14096
+    Filter Add                      4   4   test101
+    Filter Add                      5   5   PAND F1X4LG6
+    Filter Add                      6   6   1950
 
 Delete Location
     Goto Locations
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]     ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]     ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${usage history sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[21]    OFF
+    Simple Table Comparing          Location 1 Name     ${level 1}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Name     ${level 3}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Value    ${sub 3}                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${usage history sku}    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                RFID                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Critical Min        0                       1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 30                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 60                      1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 
@@ -132,6 +155,7 @@ Delete Location
 Preparation
     Start Distributor
     Sleep                           3 second
+    Set Order Status Settings
     Goto Locations
     Sleep                           5 second
     ${number of row}                Get Rows Count              ${table xpath}

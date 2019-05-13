@@ -17,7 +17,7 @@ Import Usage history
     [Tags]                          ImportUsageHistory
     ${random id}                    Generate Random Name L
     Set Suite Variable              ${random id}
-    Create File                     ${CURDIR}/../../../resources/importUsageHistory.csv    a,b,c,d,e${\n}${random id},${shipto_name},STATIC SKU,50,2018/12/30 10:15:30
+    Create File                     ${CURDIR}/../../../resources/importUsageHistory.csv    a,b,c,d,e,f,g${\n}${random id},${customer_name},${shipto_name},${shipto_id},STATIC SKU,50,2018/12/30 10:15:30
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importUsageHistory.csv
@@ -34,11 +34,13 @@ Checking Usage History
     Input Text                      xpath:${text field}                                         ${random id}
     Sleep                           5 second
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${random id}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${shipto_name}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     STATIC SKU
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     50
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     Sun Dec 30 2018
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]     Imported
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${customer_name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${shipto_name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${shipto_id}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     STATIC SKU
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]     50
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[7]     Sun Dec 30 2018
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]     Imported
     Click Element                   xpath:${filter type}/button
 
 *** Keywords ***

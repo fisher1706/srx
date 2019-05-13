@@ -74,18 +74,16 @@ Checking New Customer User
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[5]      ${edit name}
 
 Edit Customer User
-    Click Element                   xpath:(${react table raw})[${my customer user}]${edit user}
+    Click Element                   xpath:(${react table raw})[${my customer user}]${customer info}
     Sleep                           2 second
     Select From Dropdown            (${dropdown menu})[1]   Customer Super User
     Input By Name                   firstName               ${edit first name}
     Input By Name                   lastName                ${edit last name}
     Click Element                   xpath:${button submit}
     Sleep                           5 second
+    Goto Customer Users
 
 Checking Edit User
-    Goto Sidebar Customers
-    Click Element                   xpath:(${react table raw})[${my customer}]
-    Click Element                   xpath:(${tab element})[3]
     Sleep                           2 second
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${dynamic email}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[2]      ${edit first name}
@@ -98,6 +96,19 @@ Delete Customer User
     Click Element                   xpath:(${dialog}${button})[3]
     Sleep                           5 second
 
+Sorting Customer User
+    [Tags]                          Sort
+    Sort React                      1
+    Sort React                      2
+    Sort React                      3
+    Sort React                      4
+
+Filter Customer User
+    [Tags]                          Filter
+    Filter Add                      1       1       srx-group+dev-customer@agilevision.io
+    Filter Add                      2       2       first
+    Filter Add                      3       3       last
+
 Delete Shipto
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
@@ -105,6 +116,16 @@ Delete Shipto
     Dialog Should Be About          ${edit name}
     Click Element                   xpath:${button submit}
     Sleep                           5 second
+
+Sorting ShipTo
+    [Tags]                          Sort
+    Sort React                      1
+    Sort React                      3
+
+Filter ShipTo
+    [Tags]                          Filter
+    Filter Add                      1       1       2048
+    Filter Add                      2       3       9000
 
 *** Keywords ***
 Preparation

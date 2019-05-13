@@ -11,7 +11,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Valid Create New Serial Number
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Choose From Select Box          (${modal dialog}${select control})[1]       RFID Reader
     Choose From Select Box          (${modal dialog}${select control})[2]       Static Test
     Input Text                      xpath:${modal dialog}${form control}        12/12/2021, 12:00 A

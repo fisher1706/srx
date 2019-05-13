@@ -14,30 +14,6 @@ ${view product}                     //button[contains(@title, 'View Details')]
 ${dist sku}                         AD
 
 *** Test Cases ***
-Invalid Create New Product
-    [Tags]                          CatalogInvalid
-    Click Element                   ${create button}
-    Sleep                           2 second
-    Click Element                   xpath:${button submit}
-    ${data shrink}                  Get Element Attribute                                   xpath://input[contains(@name, 'partSku')]/../..//label                  data-shrink
-    Should Be Equal As Strings      ${data shrink}                                          true
-    Input Text                      xpath://input[contains(@name, 'partSku')]               ${random string}
-    Click Element                   xpath:${button submit}
-    ${data shrink}                  Get Element Attribute                                   xpath://input[contains(@name, 'shortDescription')]/../..//label         data-shrink
-    Should Be Equal As Strings      ${data shrink}                                          true
-    Input Text                      xpath://input[contains(@name, 'shortDescription')]      ${user last name}
-    Click Element                   xpath:${button submit}
-    ${data shrink}                  Get Element Attribute                                   xpath://input[contains(@name, 'roundBuy')]/../..//label                 data-shrink
-    Should Be Equal As Strings      ${data shrink}                                          true
-    Input Text                      xpath://input[contains(@name, 'roundBuy')]              ${round by}
-    Clear Element Text              xpath://input[contains(@name, 'partSku')]
-    Input Text                      xpath://input[contains(@name, 'partSku')]               ${dist sku}
-    Click Element                   xpath:${button submit}
-    Sleep                           2 second
-    Page Should Contain Element     ${alert dialog}
-    Sleep                           1 second
-    Click Element                   ${close dialog}
-
 Valid Create New Product
     [Tags]                          CatalogValid
     Click Element                   ${create button}

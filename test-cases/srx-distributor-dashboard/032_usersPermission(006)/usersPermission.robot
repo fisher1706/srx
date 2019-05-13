@@ -12,7 +12,7 @@ ${number of row}
 
 *** Test Cases ***
 Invalid Create New User
-    Click Element                   xpath:${users pane users}${button primary}
+    Click Element                   xpath:${users pane users}${button info}
     Press Key                       id:email_id                 \ue004
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Press Key                       id:firstName_id             \ue004
@@ -28,7 +28,7 @@ Invalid Create New User
 
 Valid Create New User
     [Tags]                          ValidCreateNewUser
-    Click Element                   xpath:${users pane users}${button primary}
+    Click Element                   xpath:${users pane users}${button info}
     Input Text                      id:email_id                 ${incorrect email}
     Element Should Be Enabled       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
     Input Text                      id:email_id                 ${dynamic email}

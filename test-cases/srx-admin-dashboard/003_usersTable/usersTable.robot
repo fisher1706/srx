@@ -16,20 +16,19 @@ Admin Users Menu Checking
     Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2)     ${static city}
     Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(2)     ${static state}
     Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(2)     ${static code}
-    Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)     Singular Billing
-    Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(2)     ${static email}
+    Element Text Should Be          css:.table-responsive > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)     ${static email}
 
 Invalid Add Admin User
     [Tags]                          InvalidAddAdminUser
     Click Element                   css:#distributor-details-tab-2
     Sleep                           2 second
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Input Text                      id:email_id             ${incorrect email}
     Sleep                           1 second
     Element Should Be Visible       xpath:(${error_msg}${help block})[1]/*
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Press Key                       id:email_id             \ue004
     Element Should Be Visible       xpath:(${error_msg}${help block})[1]/*
     Press Key                       id:firstName_id         \ue004
@@ -42,7 +41,7 @@ Invalid Add Admin User
 Valid Add Admin User
     [Tags]                          ValidAddAdminUser
     Click Element                   css:#distributor-details-tab-2
-    Click Element                   xpath:${distributors admin pane}${button primary}
+    Click Element                   xpath:${distributors admin pane}${button info}
     Input Text                      id:email_id             dprovorov+srx@agilevision.io
     Input Text                      id:firstName_id         ${user first name}
     Input Text                      id:lastName_id          ${user last name}

@@ -14,7 +14,7 @@ Resource                            ../../../resources/testData.robot
 Create File To Upload To Validate
     ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d${\n}PRICING_SKU,10,${filename},2023-12-12T10:15:30
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d${\n}PRICING_SKU,10,EACH,2023-12-12T10:15:30
 
 Connect To SFTP
     ${sftp}                         sftpConnect     ${sftp_distributor_user}    ${CURDIR}/../../../resources/my-key
@@ -54,7 +54,7 @@ Checking Activity Log To Validate
 Create File To Upload To Import
     ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d${\n}PRICING_SKU,10,${filename},2023-12-12T10:15:30
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d${\n}PRICING_SKU,10,M,2023-12-12T10:15:30
 
 Put File By SFTP To Import
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/product-prices/import/${filename}.csv
@@ -93,8 +93,7 @@ Checking Pricing Table
     Sleep                           2 second
     Choose From Select Box          (${select control})[2]      ${shipto_name}
     Sleep                           2 second
-    ${my price}                     Get Row By Text             ${table xpath}      3       ${filename}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my price}]/td[3]        ${filename}
+    ${my price}                     Get Row By Text             ${table xpath}      1       ${filename}
 
 *** Keywords ***
 Close SFTP Connection And Browser

@@ -20,7 +20,7 @@ Create Location
     [Tags]                          CreateLocation
     Goto Locations
     Sleep                           2 second
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                            ${dynamic sku}
     Click Element                   xpath:${modal dialog}${select control}
     Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
@@ -46,19 +46,19 @@ Checking Location
     [Tags]                          CheckingLocation
     Sleep                           2 second
     ${number of row}                Get Rows Count              ${table xpath}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[4]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[5]/div       ${level 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[6]/div       ${sub 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[7]/div       ${level 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[8]/div       ${sub 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[9]/div       ${level 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[10]/div      ${sub 3}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[11]/div      ${level 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[12]/div      ${sub 4}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[13]/div      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[15]/div      LOCKER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[18]/div      10
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[19]/div      1000
+    Simple Table Comparing          Owned by            CUSTOMER                ${number of row}
+    Simple Table Comparing          Location 1 Name     ${level 1}              ${number of row}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                ${number of row}
+    Simple Table Comparing          Location 2 Name     ${level 2}              ${number of row}
+    Simple Table Comparing          Location 2 Value    ${sub 2}                ${number of row}
+    Simple Table Comparing          Location 3 Name     ${level 3}              ${number of row}
+    Simple Table Comparing          Location 3 Value    ${sub 3}                ${number of row}
+    Simple Table Comparing          Location 4 Name     ${level 4}              ${number of row}
+    Simple Table Comparing          Location 4 Value    ${sub 4}                ${number of row}
+    Simple Table Comparing          SKU                 ${dynamic sku}          ${number of row}
+    Simple Table Comparing          Type                LOCKER                  ${number of row}
+    Simple Table Comparing          Min                 10                      ${number of row}
+    Simple Table Comparing          Max                 1000                    ${number of row}
 
 Request Locker
     [Tags]                          Locker
@@ -173,18 +173,18 @@ Delete Location
     ${number of row}                Get Rows Count              ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          CUSTOMER
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          ${level 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${sub 1}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]          ${level 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]          ${sub 2}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[8]          ${level 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[9]          ${sub 3}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[10]         ${level 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[11]         ${sub 4}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]         ${dynamic sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]         10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]         1000
+    Simple Table Comparing          Owned by            CUSTOMER                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Name     ${level 1}                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${sub 1}                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Name     ${level 2}                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 2 Value    ${sub 2}                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 3 Name     ${level 3}                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 3 Value    ${sub 3}                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 4 Name     ${level 4}                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 4 Value    ${sub 4}                    1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${dynamic sku}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 10                          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 1000                        1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 second
 
@@ -202,11 +202,7 @@ Close Transaction
 ***Keywords***
 Preparation
     Start Distributor
-    Goto Sidebar Settings
-    Goto Transaction Status Updates Logic
-    Select Checkbox                 xpath:(${order staus pane}${checkbox type})[2]
-    Click Element                   xpath:${order staus pane}${button primary}
-    Sleep                           3 second
+    Set Order Status Settings
 
 Get Split Request URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/api/distributor/items/${transaction_id}/split/10

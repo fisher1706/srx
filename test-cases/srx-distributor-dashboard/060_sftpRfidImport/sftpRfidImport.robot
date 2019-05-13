@@ -204,15 +204,14 @@ Delete Location
     ${my location}                  Get Row By Text             ${table xpath}      12      ${product filename}
     Click Element                   xpath:${table xpath}/tbody/tr[${my location}]/td[1]
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${product filename}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    20
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[20]    10
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[21]    OFF
+    Simple Table Comparing          Owned by            CUSTOMER                        1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Name     ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${product filename}             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                RFID                            1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Critical Min        0                               1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 20                              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 30                              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
 

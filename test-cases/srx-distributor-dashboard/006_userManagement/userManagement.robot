@@ -12,11 +12,11 @@ ${number of row}
 
 *** Test Cases ***
 Invalid Create New User
-    Click Element                   xpath:${users pane users}${button primary}
+    Click Element                   xpath:${users pane users}${button info}
     Sleep                           1 second
     Click Element                   xpath:${button close}
     Sleep                           2 second
-    Click Element                   xpath:${users pane users}${button primary}
+    Click Element                   xpath:${users pane users}${button info}
     Press Key                       id:email_id                 \ue004
     Element Should Be Enabled       xpath:(${modal dialog}${help block})[1]/*
     Press Key                       id:firstName_id             \ue004
@@ -32,7 +32,7 @@ Invalid Create New User
 
 Valid Create New User
     [Tags]                          ValidCreateNewUser
-    Click Element                   xpath:${users pane users}${button primary}
+    Click Element                   xpath:${users pane users}${button info}
     Input Text                      id:email_id                 ${incorrect email}
     Element Should Be Enabled       xpath:(${modal dialog}${help block})[1]/*
     Input Text                      id:email_id                 ${dynamic email}

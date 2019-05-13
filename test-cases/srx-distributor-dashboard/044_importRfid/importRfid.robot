@@ -15,7 +15,7 @@ ${location name}                    location name 1
 
 *** Test Cases ***
 Valid Create New Location
-    Click Element                   xpath:${button primary}
+    Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${import rfid sku}
     Go Down Selector                (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
@@ -27,15 +27,15 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           7 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]/div       CUSTOMER
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]/div       ${location name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]/div       ${location value}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[13]/div      ${import rfid sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[16]/div      RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[17]/div      0
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[18]/div      30
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[19]/div      60
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[22]/div      OFF
+    Simple Table Comparing          Owned by            CUSTOMER                    ${number of new row}
+    Simple Table Comparing          Location 1 Name     ${location name}            ${number of new row}
+    Simple Table Comparing          Location 1 Value    ${location value}           ${number of new row}
+    Simple Table Comparing          SKU                 ${import rfid sku}          ${number of new row}
+    Simple Table Comparing          Type                RFID                        ${number of new row}
+    Simple Table Comparing          Critical Min        0                           ${number of new row}
+    Simple Table Comparing          Min                 30                          ${number of new row}
+    Simple Table Comparing          Max                 60                          ${number of new row}
+    Simple Table Comparing          Surplus             OFF                         ${number of new row}
 
 Import RFID
     Goto Sidebar RFID
@@ -76,14 +76,13 @@ Delete Location
     Sleep                           5 second
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
     Click Element                   xpath:${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${location name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]     ${location value}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[12]    ${import rfid sku}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[15]    RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[16]    0
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[17]    30
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[18]    60
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[21]    OFF
+    Simple Table Comparing          Location 1 Name     ${location name}            1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Location 1 Value    ${location value}           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          SKU                 ${import rfid sku}          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                RFID                        1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Critical Min        0                           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Min                 30                          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Max                 60                          1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           7 second
     ${number of new row}            Get Rows Count          ${table xpath}

@@ -115,7 +115,7 @@ Start Distributor
     Input Text                      id:email                ${email_dist}
     Input Text                      id:password             ${password_dist}
     Click Element                   xpath:${button submit}
-    Sleep                           5 second
+    Sleep                           3 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -124,7 +124,7 @@ Start Customer
     Input Text                      id:email                ${email_cust}
     Input Text                      id:password             ${password_cust}
     Click Element                   xpath:${button submit}
-    Sleep                           4 second
+    Sleep                           3 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -133,7 +133,7 @@ Start Permission
     Input Text                      id:email                ${email_perm}
     Input Text                      id:password             ${password_perm}
     Click Element                   xpath:${button submit}
-    Sleep                           4 second
+    Sleep                           3 second
     Click Element                   xpath:${to portal}
     Sleep                           1 second
 
@@ -406,7 +406,7 @@ Filter Field
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 Filter Select Box
     [Arguments]                     ${dialog index}     ${table index}      ${value}
@@ -418,7 +418,7 @@ Filter Select Box
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[${table index}]      ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 Get RFID URL
     Return From Keyword             https://${RFID_SN}:${RFID_SN}@api-${environment}.storeroomlogix.com/api/webhook/events/rfid
@@ -491,7 +491,7 @@ Filter React Field
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 Filter React Select Box
     [Arguments]                     ${dialog index}     ${table index}      ${value}
@@ -503,7 +503,7 @@ Filter React Select Box
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
     Click Element                   xpath:${button default}
-    Sleep                           3 second
+    Sleep                           2 second
 
 React Last
     ${count}                        Get Element Count       xpath:${pagination bottom}/div/div[2]/*
@@ -574,13 +574,13 @@ Filter Add
     [Arguments]                     ${dialog index}     ${table index}      ${value}
     Click Element                   xpath:${button filter}
     Click Element                   xpath:(${menu}${menu item})[${dialog index}]
-    Input Text                      xpath:${text field}                     ${value}
+    Input Text                      xpath:${filter type}/div/div/input      ${value}
     Sleep                           5 second
     ${count}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
     Click Element                   xpath:${filter type}/button
-    Sleep                           3 second
+    Sleep                           2 second
 
 Filter Add For Select Box
     [Arguments]                     ${dialog index}     ${table index}      ${value}
@@ -597,7 +597,7 @@ Filter Add For Select Box
     : FOR   ${index}    IN RANGE    1       ${count2}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
     Click Element                   xpath:${filter type}/button
-    Sleep                           3 second
+    Sleep                           2 second
 
 Select Filter Element
     [Arguments]                     ${index}
@@ -628,12 +628,55 @@ Get React Rows Count
 
 Goto Locations
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
-    Sleep                           2 second
+    Sleep                           1 second
 
 Goto Usage History
     Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#usage-history
-    Sleep                           2 second
+    Sleep                           1 second
+
+Goto Customer Users
+    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#users
+    Sleep                           1 second
 
 Is Full Table
     [Arguments]                     ${number of row}
     Run Keyword If                  ${number of row} >= 50        React Last
+
+Simple Table Comparing
+    [Arguments]                     ${head}     ${body}     ${raw}      ${table}=${table xpath}     ${header}=${header xpath}
+    ${count}                        Get Element Count       xpath:${header}/thead/tr/th
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${buffer}       Get Text    xpath:${header}/thead/tr/th[${index}]
+    \   Set Suite Variable          ${column}   ${index}
+    \   Exit For Loop If            "${buffer}"=="${head}"
+    \   Run Keyword If              ${index}==${count}      Fail    There is no such header
+    Element Text Should Be          xpath:${table}/tbody/tr[${raw}]/td[${column}]     ${body}
+
+Set Order Status Settings
+    Go To                           https://distributor-${environment}.storeroomlogix.com/settings
+    Sleep                           1 second
+    Click Element                   id:settings-tab-erp-integration
+    Sleep                           1 second
+    Click Element                   id:erp-integration-tab-transaction-status
+    Sleep                           1 second
+    Click Element                   xpath:${order staus pane}${button primary}
+    Sleep                           4 second
+    ${check1}                       Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)       checked
+    ${check2}                       Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)       checked
+    Log To Console                  ${check1}
+    Log To Console                  ${check2}
+    Run Keyword If                  "${check1}"=="None"             Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
+    Run Keyword If                  "${check2}"=="None"             Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
+    Sleep                           2 second
+
+Simple Table Editing
+    [Arguments]                     ${head}     ${body}     ${raw}      ${table}=${table xpath}     ${header}=${header xpath}
+    ${count}                        Get Element Count       xpath:${header}/thead/tr/th
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${buffer}       Get Text    xpath:${header}/thead/tr/th[${index}]
+    \   Set Suite Variable          ${column}   ${index}
+    \   Exit For Loop If            "${buffer}"=="${head}"
+    \   Run Keyword If              ${index}==${count}      Fail    There is no such header
+    Click Element                   xpath:${table}/tbody/tr[${raw}]/td[${column}]
+    Input Text                      xpath:${table}/tbody/tr[${raw}]/td[${column}]/div/div/input     ${body}
+    Press Key                       xpath:${table}/tbody/tr[${raw}]/td[${column}]/div/div/input     \ue007
