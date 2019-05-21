@@ -1,16 +1,16 @@
 *** Variable ***
 ${email_adm}                    srx-group+dev@agilevision.io
-${email_dist}                   srx-group+dev-distributor@agilevision.io
-${email cust}                   srx-group+dev-customer@agilevision.io
+${email_dist}                   dprovorov+testadmin@agilevision.io
+${email cust}                   dprovorov+customer3@agilevision.io
 ${email_perm}                   srx-group+dev-permissions@agilevision.io
 
 ${password_adm}                 srx-group
-${password_dist}                srx-group
-${password_cust}                srx-group
+${password_dist}                test29
+${password_cust}                test29
 ${password_perm}                srx-group
 
-${host_adm}                     admin-dev.storeroomlogix.com
-${host_auth}                    auth-dev.storeroomlogix.com
+${host_adm}                     admin.dev.storeroomlogix.com
+${host_auth}                    auth.dev.storeroomlogix.com
 
 ${environment}                  dev
 ${browser}                      ff
@@ -25,3 +25,4 @@ ${shipto_id}                    59
 ${shipto_name}                  2048
 ${customer_id}                  92
 ${customer_name}                Static Customer
+${distributor_name}             QA-distributor

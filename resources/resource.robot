@@ -371,15 +371,14 @@ Choose From Select Box
     ${current}                      Get Text        xpath:${select}/div/div
     Return From Keyword If          "${current}"=="${item}"
     Click Element                   xpath:${select}
-    ${count}                        Get Element Count       xpath:${select}/..${select menu outer}/div/div
-    : FOR   ${index}    IN RANGE    1       ${count}+2
-    \   Press Key                   xpath:${select}/div[1]/div[2]           \ue015
-    \   ${text buffer sub}          Get Text                                xpath:${select}/..${select menu outer}${select is focused}
-    \   Run Keyword If              "${text buffer sub}"=="${item}"         Select Element      ${select}
+    ${count}                        Get Element Count       xpath:${select}/../div[2]/div/div
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${text buffer sub}          Get Text                                xpath:${select}/../div[2]/div/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${item}"         Select Element      ${select}   ${index}
 
 Select Element
-    [Arguments]                     ${select}
-    Press Key                       xpath:${select}/div[1]/div[2]           \ue007
+    [Arguments]                     ${select}   ${index}
+    Click Element                   xpath:${select}/../div[2]/div/div[${index}]
     Exit For Loop
 
 Open Full Table

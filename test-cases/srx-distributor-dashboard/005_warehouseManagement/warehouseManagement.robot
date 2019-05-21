@@ -21,14 +21,12 @@ Invalid Create New Warehouse
     Element Should Be Visible       xpath:(${modal dialog}${help block})[4]/*
     Press Key                       id:address.city_id      \ue004
     Element Should Be Visible       xpath:(${modal dialog}${help block})[5]/*
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]   \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[7]/*
     Press Key                       id:address.zipCode_id   \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[8]/*
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[6]/*
     Press Key                       id:contactEmail_id      \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[9]/*
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[7]/*
     Press Key                       id:invoiceEmail_id      \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[10]/*
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[8]/*
     Click Element                   xpath:${button modal dialog cancel}
     Sleep                           2 second
 
@@ -40,14 +38,12 @@ Valid Create New Warehouse
     Input Text                      id:address.line2_id     ${dynamic adress2}
     Input Text                      id:number_id            ${warehouse number}
     Input Text                      id:address.city_id      ${dynamic city}
-    Click Element                   xpath:(${modal dialog}${select control})[2]
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue007
+    Choose From Select Box          (${modal dialog}${select control})[2]       Alaska
     Input Text                      id:contactEmail_id      ${incorrect email}
     Input Text                      id:address.zipCode_id   ${dynamic code}
     Input Text                      id:invoiceEmail_id      ${incorrect email}
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[10]/*
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[9]/*
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[7]/*
+    Element Should Be Visible       xpath:(${modal dialog}${help block})[8]/*
     Input Text                      id:contactEmail_id      ${correct wrong email}
     Input Text                      id:invoiceEmail_id      ${correct wrong email}
     Click Element                   xpath:${button modal dialog ok}
@@ -77,11 +73,8 @@ Edit Warehouse
     Input Text                      id:address.line2_id     ${edit adress2}
     Input Text                      id:number_id            ${edit warehouse number}
     Input Text                      id:address.city_id      ${edit city}
-    Choose From Select Box          (${modal dialog}${select control})[1]                           US/Hawaii (-10:00)
-    Click Element                   xpath:(${modal dialog}${select control})[2]
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue015
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue015
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]       \ue007
+    Choose From Select Box          (${modal dialog}${select control})[1]       US/Hawaii (-10:00)
+    Choose From Select Box          (${modal dialog}${select control})[2]       Arizona
     Input Text                      id:address.zipCode_id   ${edit code}
     Input Text                      id:contactEmail_id      ${edit email}
     Input Text                      id:invoiceEmail_id      ${edit email}

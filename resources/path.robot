@@ -21,3 +21,5 @@ ${filter type}                  //div[contains(@data-type, 'filter')]
 ${dialog}                       //div[contains(@role, 'dialog')]
 ${edit}                         //button[contains(@title, 'edit')]
 ${expanded not}                 //div[contains(@aria-expanded, 'false')]
+${srx select}                   //div[contains(@class, 'srx-select')]
+${select control}               ${srx select}/div/div
