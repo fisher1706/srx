@@ -9,8 +9,8 @@ ${password_dist}                srx-group
 ${password_cust}                srx-group
 ${password_perm}                srx-group
 
-${host_adm}                     admin-dev.storeroomlogix.com
-${host_auth}                    auth-dev.storeroomlogix.com
+${host_adm}                     admin.dev.storeroomlogix.com
+${host_auth}                    auth.dev.storeroomlogix.com
 
 ${environment}                  dev
 ${browser}                      xvfb

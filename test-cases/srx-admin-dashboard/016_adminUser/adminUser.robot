@@ -230,5 +230,5 @@ Goto Admin Users Sub
     Sleep                           3 second
     Open Full Table
     Sleep                           4 second
-    ${static distributor}           Get Row By Text         ${table xpath}      1       Srx-group-test-distributor
+    ${static distributor}           Get Row By Text         ${table xpath}      1       ${distributor_name}
     Click Element                   xpath:${table xpath}/tbody/tr[${static distributor}]/td[1]/a

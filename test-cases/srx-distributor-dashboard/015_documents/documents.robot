@@ -26,7 +26,7 @@ Check Document Status In Documents
     :FOR    ${colomn}               IN RANGE        1       ${number of row}+1
     \   Set Suite Variable          ${colomn}
     \   ${text buffer}              Get Text    xpath:${table xpath}/tbody/tr[${colomn}]/td[1]/div
-    \   Run Keyword If              "${text buffer}"=="Srx-group-test-distributor"   Exit For Loop
+    \   Run Keyword If              "${text buffer}"=="${distributor_name}"   Exit For Loop
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${colomn}]/td[5]/div/span    ${status}
 
 Change Document Status

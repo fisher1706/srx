@@ -27,7 +27,7 @@ Checking New Serial Number
 
 Edit Serial Number
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            Srx-group-test-distributor
+    Choose From Select Box          ${modal dialog}${select control}            ${distributor_name}
     Clear Element Text              xpath:${modal dialog}${form control}
     Input Text                      xpath:${modal dialog}${form control}        10/10/2022, 11:00 P
     Click Element                   xpath:${button modal dialog ok}
@@ -36,7 +36,7 @@ Checking Edit Serial Number
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${serial number}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]       RFID
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       Srx-group-test-distributor
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]       ${distributor_name}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[10]      10/10/2022, 11:00 PM
 
 Checking Serial Number On Distributor Portal
@@ -121,7 +121,7 @@ Delete Serial Number
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]       ${serial number}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]       RFID
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]       Srx-group-test-distributor
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]       ${distributor_name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]       ${customer_name} - ${shipto_name}
     ${buffer}                       Get Text    xpath:${modal dialog}${simple table}/tbody/tr/td[7]
     ${name}     ${email}            Split String    ${buffer}   \n
@@ -155,12 +155,12 @@ Filter Serial Numbers
     Click Element                   xpath:${button default}
     Sleep                           3 second
     Click Element                   ${button right margin}
-    Choose From Select Box          (${modal dialog}${select control})[2]       Srx-group-test-distributor
+    Choose From Select Box          (${modal dialog}${select control})[2]       ${distributor_name}
     Click Element                   ${modal dialog}${button primary}
     Sleep                           2 second
     ${count}                        Get Rows Count      ${table xpath}
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[6]       Srx-group-test-distributor
+    \   Element Text Should Be      xpath:${table xpath}/tbody/tr[${index}]/td[6]       ${distributor_name}
 
 *** Keywords ***
 Preparation
