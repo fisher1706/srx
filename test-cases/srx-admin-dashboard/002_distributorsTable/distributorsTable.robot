@@ -18,27 +18,21 @@ Invalid Add Distributor
     Element Should Be Visible       xpath:(${help block})[4]/*
     Press Key                       id:invoiceEmail_id              \ue004
     Element Should Be Visible       xpath:(${help block})[5]/*
-    Press Key                       xpath:(${modal dialog}${select control})[1]/div[1]/div[2]   \ue004
-    Press Key                       xpath:(${modal dialog}${select control})[1]/div[1]/div[2]   \ue004
-    Element Should Be Visible       xpath:(${help block})[6]/*
     Press Key                       id:address.zipCode_id           \ue004
-    Element Should Be Visible       xpath:(${help block})[7]/*
+    Element Should Be Visible       xpath:(${help block})[6]/*
     Click Element                   xpath:${button close}
     Sleep                           2 second
 
 Valid Add Distributor
     [Tags]                          ValidAddDistributor
     Click Element                   xpath:${button info}
-    Input Text                      id:name_id                                      ${dynamic name}
-    Input Text                      id:address.line1_id                             ${dynamic adress1}
-    Input Text                      id:address.line2_id                             ${dynamic adress2}
-    Input Text                      id:address.city_id                              ${dynamic city}
-    Input Text                      id:invoiceEmail_id                              ${dynamic email}
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue007
-    Input Text                      id:address.zipCode_id                           ${dynamic code}
+    Input Text                      id:name_id                                  ${dynamic name}
+    Input Text                      id:address.line1_id                         ${dynamic adress1}
+    Input Text                      id:address.line2_id                         ${dynamic adress2}
+    Input Text                      id:address.city_id                          ${dynamic city}
+    Input Text                      id:invoiceEmail_id                          ${dynamic email}
+    Choose From Select Box          (${modal dialog}${select control})[1]       Alaska
+    Input Text                      id:address.zipCode_id                       ${dynamic code}
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Data
