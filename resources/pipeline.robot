@@ -25,3 +25,4 @@ ${shipto_id}                    59
 ${shipto_name}                  2048
 ${customer_id}                  92
 ${customer_name}                Static Customer
+${distributor_name}             QA-distributor
