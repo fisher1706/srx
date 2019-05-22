@@ -36,7 +36,7 @@ Create User With New Security Group
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Go Down Selector                ${select control}           ${security group}
+    Choose From Select Box          ${select control}           ${security group}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           4 second
     ${number of row u}              Get Rows Count                  ${users pane users}${table xpath}

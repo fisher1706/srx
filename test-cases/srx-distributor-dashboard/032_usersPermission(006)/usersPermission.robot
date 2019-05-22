@@ -37,7 +37,7 @@ Valid Create New User
     Click Element                   xpath:${button modal dialog ok}
     Element Should Be Enabled       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Go Down Selector                ${modal dialog}${select control}    User
+    Choose From Select Box          ${modal dialog}${select control}    User
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     
@@ -56,7 +56,7 @@ Edit User
     Click Element                   ${edit user button}
     Input Text                      id:firstName_id             ${edit first name}
     Input Text                      id:lastName_id              ${edit last name}
-    Go Down Selector                ${modal dialog}${select control}    Static Group
+    Choose From Select Box          ${modal dialog}${select control}    Static Group
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   xpath:${button modal dialog ok}

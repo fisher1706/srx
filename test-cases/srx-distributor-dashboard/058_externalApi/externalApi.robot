@@ -38,7 +38,7 @@ Create Location
     Input Text                      id:attributeValue3_id                                           ${sub 3}
     Input Text                      id:attributeName4_id                                            ${level 4}
     Input Text                      id:attributeValue4_id                                           ${sub 4}
-    Go Down Selector                (${modal dialog}${select control})[2]                           CUSTOMER
+    Choose From Select Box          (${modal dialog}${select control})[2]                           CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
 

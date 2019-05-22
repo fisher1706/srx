@@ -17,14 +17,14 @@ ${change sku 2}                     CHANGE SKU 2
 Valid Create New Location
     Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${change sku 1}
-    Go Down Selector                (${modal dialog}${select control})[1]                   RFID
+    Choose From Select Box          (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
     Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
     Input Text                      id:attributeName1_id                                    ${level 1}
     Input Text                      id:attributeValue1_id                                   ${sub 1}
     Input Text                      id:attributeName2_id                                    ${level 2}
     Input Text                      id:attributeValue2_id                                   ${sub 2}
-    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
+    Choose From Select Box          (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Location

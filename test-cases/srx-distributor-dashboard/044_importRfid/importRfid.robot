@@ -17,12 +17,12 @@ ${location name}                    location name 1
 Valid Create New Location
     Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${import rfid sku}
-    Go Down Selector                (${modal dialog}${select control})[1]                   RFID
+    Choose From Select Box          (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
     Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
     Input Text                      id:attributeName1_id                                    ${location name}
     Input Text                      id:attributeValue1_id                                   ${location value}
-    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
+    Choose From Select Box          (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Location

@@ -19,12 +19,12 @@ ${location name}                    ln1
 Valid Create New Location
     Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${locker sku}
-    Go Down Selector                (${modal dialog}${select control})[1]                   LOCKER
+    Choose From Select Box          (${modal dialog}${select control})[1]                   LOCKER
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
     Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
     Input Text                      id:attributeName1_id                                    ${location name}
     Input Text                      id:attributeValue1_id                                   ${location value}
-    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
+    Choose From Select Box          (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Location
