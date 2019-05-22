@@ -626,15 +626,15 @@ Get React Rows Count
     Return From Keyword If          ${columns}<=1               0
 
 Goto Locations
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
+    Go To                           https://distributor.${environment}.storeroomlogix.com/customers/${customer_id}/shiptos/${shipto_id}#vmi-list
     Sleep                           1 second
 
 Goto Usage History
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#usage-history
+    Go To                           https://distributor.${environment}.storeroomlogix.com/customers/${customer_id}#usage-history
     Sleep                           1 second
 
 Goto Customer Users
-    Go To                           https://distributor-${environment}.storeroomlogix.com/customers/${customer_id}#users
+    Go To                           https://distributor.${environment}.storeroomlogix.com/customers/${customer_id}#users
     Sleep                           1 second
 
 Is Full Table
@@ -652,7 +652,7 @@ Simple Table Comparing
     Element Text Should Be          xpath:${table}/tbody/tr[${raw}]/td[${column}]     ${body}
 
 Set Order Status Settings
-    Go To                           https://distributor-${environment}.storeroomlogix.com/settings
+    Go To                           https://distributor.${environment}.storeroomlogix.com/settings
     Sleep                           1 second
     Click Element                   id:settings-tab-erp-integration
     Sleep                           1 second
