@@ -43,7 +43,7 @@ Valid Create New User
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     ${warehouse}                    Get Text                    xpath:(${modal dialog}${checkbox})[1]/*
     Set Suite Variable              ${warehouse}
-    Go Down Selector                ${modal dialog}${select control}    User
+    Choose From Select Box          ${modal dialog}${select control}    User
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
     

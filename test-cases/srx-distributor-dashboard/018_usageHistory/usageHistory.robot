@@ -16,14 +16,14 @@ ${usage history sku}                USAGE HISTORY
 Valid Create New Location
     Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                    ${usage history sku}
-    Go Down Selector                (${modal dialog}${select control})[1]                   RFID
+    Choose From Select Box          (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id       30
     Input Text                      id:orderingConfig-currentInventoryControls-max_id       60
     Input Text                      id:attributeName1_id                                    ${level 1}
     Input Text                      id:attributeValue1_id                                   ${sub 1}
     Input Text                      id:attributeName2_id                                    ${level 3}
     Input Text                      id:attributeValue2_id                                   ${sub 3}
-    Go Down Selector                (${modal dialog}${select control})[2]                   CUSTOMER
+    Choose From Select Box          (${modal dialog}${select control})[2]                   CUSTOMER
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Location

@@ -32,7 +32,7 @@ Put Product File By SFTP
 
 Pricing For Customer
     Goto Sidebar Pricing
-    Go Down Selector                (${select control})[1]      ${pricing customer}
+    Choose From Select Box          (${select control})[1]      ${pricing customer}
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Create File                     ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv      a,b,c,d${\n}${product filename},10,22,2021-12-12T10:15:30
@@ -91,8 +91,8 @@ Check Transactions
 
 Pricing For Shipto
     Goto Sidebar Pricing
-    Go Down Selector                (${select control})[1]      ${pricing customer}
-    Go Down Selector                (${select control})[2]      ${pricing shipto}
+    Choose From Select Box          (${select control})[1]      ${pricing customer}
+    Choose From Select Box          (${select control})[2]      ${pricing shipto}
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Create File                     ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv      a,b,c,d${\n}${product filename},80,22,2021-12-12T10:15:30

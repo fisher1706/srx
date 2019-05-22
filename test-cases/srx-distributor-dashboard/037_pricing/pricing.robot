@@ -21,7 +21,7 @@ ${date 2 2}                         Sat, Nov 11, 2023
 
 *** Test Case ***
 Pricing Import
-    Go Down Selector                (${select control})[1]      Static Customer
+    Choose From Select Box          (${select control})[1]      Static Customer
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     ${status}                       Get Text        xpath:${table xpath}/tbody/tr[1]/td[3]/div
     Run Keyword If                  "${status}"=="${uom 1 1}"   If First Pricing    ELSE IF     "${status}"=="${uom 2 1}"   If Second Pricing   ELSE    Fail    Pricing data is incorrect
@@ -36,7 +36,7 @@ Checking Pricing
 Checking Pricing Report
     Goto Pricing Report
     Click Element                   xpath:${button info}
-    Go Down Selector                (${modal dialog}${select control})[1]     Static Customer
+    Choose From Select Box          (${modal dialog}${select control})[1]     Static Customer
     Click Element                   xpath:${modal dialog}${button info}
     Run Keyword If                  "${restatus}"=="first"      First Pricing Report       ELSE IF     "${restatus}"=="second"      Second Pricing Report     ELSE    Fail    Unexpected Behaviour
     Sleep                           3 second
@@ -46,8 +46,8 @@ Checking Static Pricing Report
     Goto Sidebar Reports
     Sleep                           3 second
     Click Element                   xpath:${button info}
-    Go Down Selector                (${modal dialog}${select control})[1]           Static Customer
-    Go Down Selector                (${modal dialog}${select control})[2]           2048
+    Choose From Select Box          (${modal dialog}${select control})[1]           Static Customer
+    Choose From Select Box          (${modal dialog}${select control})[2]           2048
     Input Text                      xpath:(${modal dialog}${form control})[1]       12/12/2021, 12:00 A
     Input Text                      xpath:(${modal dialog}${form control})[2]       12/13/2021, 12:00 A
     Click Element                   xpath:${modal dialog}${button info}
@@ -60,7 +60,7 @@ Sorting Pricing
     [Tags]                          Sorting
     Goto Sidebar Pricing
     Sleep                           1 second
-    Go Down Selector                (${select control})[1]      Customer A
+    Choose From Select Box          (${select control})[1]      Customer A
     ${count}                        Get Rows Count      ${table xpath}
     Sort Column                     1                   ${count}
     Sort Column                     2                   ${count}
