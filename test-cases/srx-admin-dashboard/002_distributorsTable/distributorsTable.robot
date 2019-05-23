@@ -49,16 +49,13 @@ Checking New Data
 Edit Distributor
     [Tags]                          EditDistributor
     Click Element                   ${edit button}
-    Input Text                      id:name_id                                      ${edit name}
-    Input Text                      id:address.line1_id                             ${edit adress1}
-    Input Text                      id:address.line2_id                             ${edit adress2}
-    Input Text                      id:address.city_id                              ${edit city}
-    Input Text                      id:invoiceEmail_id                              ${edit email}
-    Click Element                   xpath:(${select control})[1]
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue015
-    Press Key                       xpath:(${select control})[1]/div[1]/div[2]      \ue007
-    Input Text                      id:address.zipCode_id                           ${edit code}
+    Input Text                      id:name_id                                  ${edit name}
+    Input Text                      id:address.line1_id                         ${edit adress1}
+    Input Text                      id:address.line2_id                         ${edit adress2}
+    Input Text                      id:address.city_id                          ${edit city}
+    Input Text                      id:invoiceEmail_id                          ${edit email}
+    Choose From Select Box          (${modal dialog}${select control})[1]       Arizona
+    Input Text                      id:address.zipCode_id                       ${edit code}
     Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit Data

@@ -23,8 +23,6 @@ Invalid Create New User
     Element Should Be Visible       xpath:(${modal dialog}${help block})[2]/*
     Press Key                       id:lastName_id              \ue004
     Element Should Be Visible       xpath:(${modal dialog}${help block})[3]/*
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]        \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[4]/*
     Press Key                       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)         \ue004
     Element Should Be Visible       css:.red-help-block > svg:nth-child(1) > path:nth-child(1)
     Click Element                   xpath:${button modal dialog cancel}
@@ -69,16 +67,13 @@ Edit User
     Click Element                   ${edit user button}
     Input Text                      id:firstName_id             ${edit first name}
     Input Text                      id:lastName_id              ${edit last name}
-    Click Element                   xpath:${modal dialog}${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]            \ue007
-    ${role}                         Get Text                    ${select value}
+    Choose Last From Select Box     ${modal dialog}${select control}
+    ${role}                         Get Text                    ${modal dialog}${select control}/div/div
     Set Suite Variable              ${role}
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Click Element                   css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           2 second
-    
 
 Checking Edit User
     [Tags]                          EditUser

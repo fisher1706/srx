@@ -376,6 +376,17 @@ Choose From Select Box
     \   ${text buffer sub}          Get Text                                xpath:${select}/../div[2]/div/div[${index}]
     \   Run Keyword If              "${text buffer sub}"=="${item}"         Select Element      ${select}   ${index}
 
+Choose First From Select Box
+    [Arguments]                     ${select}
+    Click Element                   xpath:${select}
+    Click Element                   xpath:${select}/../div[2]/div/div[1]
+
+Choose Last From Select Box
+    [Arguments]                     ${select}
+    Click Element                   xpath:${select}
+    ${count}                        Get Element Count       xpath:${select}/../div[2]/div/div
+    Click Element                   xpath:${select}/../div[2]/div/div[${count}]
+
 Select Element
     [Arguments]                     ${select}   ${index}
     Click Element                   xpath:${select}/../div[2]/div/div[${index}]
@@ -456,11 +467,17 @@ Expanded AL Element Should Be
 
 Select Location At Rfid Menu
     [Arguments]                     ${shipto}       ${sku}
-    Input Text                      xpath:(${srx select})[1]/div/div/div/div[2]/div/input       ${shipto}
-    Press Key                       xpath:(${srx select})[1]/div/div/div/div/div/input          \ue007
-    Sleep                           1 second
-    Input Text                      xpath:(${srx select})[2]/div/div/div/div[2]/div/input       ${sku}
-    Press Key                       xpath:(${srx select})[2]/div/div/div/div/div/input          \ue007
+    Click Element                   xpath:(${select control})[1]
+    ${count}                        Get Element Count       xpath:(${select control})[1]/../div[2]/div/div
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${text buffer sub}          Get Text                                xpath:(${select control})[1]/../div[2]/div/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      (${select control})[1]   ${index}
+    Sleep                           2 second
+    Click Element                   xpath:(${select control})[2]
+    ${count}                        Get Element Count       xpath:(${select control})[2]/../div[2]/div/div
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${text buffer sub}          Get Text                                xpath:(${select control})[2]/../div[2]/div/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${sku}"       Select Element      (${select control})[2]   ${index}
 
 Sorting React With Last Page
     [Arguments]                     ${column}

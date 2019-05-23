@@ -138,7 +138,7 @@ Delete Customer
 Checking On Transactions
     [Tags]                          Check
     Goto Sidebar Order Status
-    ${start shipto}                 Get Text                    xpath:${select control}/div[1]/div[1]/span
+    ${start shipto}                 Get Text                    xpath:${select control}/div/div
     Set Suite Variable              ${start shipto}
     Go Down Check
 
@@ -150,8 +150,7 @@ Preparation
 
 Go Down Check
     Click Element                   xpath:${select control}
-    Press Key                       xpath:${select control}/div[1]/div[2]      \ue015
-    Press Key                       xpath:${select control}/div[1]/div[2]      \ue007
-    ${current shipto}               Get Text                    xpath:${select control}/div[1]/div[1]/span
-    Run Keyword If                  "${current shipto}"=="${delete customer name} - ${dynamic name}"        Fail    Fail
-    Run Keyword If                  "${current shipto}"!="${start shipto}"      Go Down Check
+    ${count}                        Get Element Count       xpath:${select control}/../div[2]/div/div
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${text buffer sub}          Get Text                                xpath:${select control}/../div[2]/div/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${delete customer name} - ${dynamic name}"   Fail    Customer was not deleted
