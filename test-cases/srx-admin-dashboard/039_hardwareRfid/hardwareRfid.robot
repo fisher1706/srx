@@ -50,14 +50,10 @@ Change Serial Number On Distributor Portal
     Input Text                      id:deviceName_id                    MyDeviceRFID
     Choose From Select Box          (${modal dialog}${select control})[1]   ${customer_name} - ${shipto_name}
     Sleep                           5 second
-    Click Element                   xpath:(${modal dialog}${select control})[2]
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]        \ue007
-    ${dist user}                    Get Text    xpath:(${modal dialog}${select control})[2]/div/div/span
-    Click Element                   xpath:(${modal dialog}${select control})[3]
-    Press Key                       xpath:(${modal dialog}${select control})[3]/div[1]/div[2]        \ue015
-    Press Key                       xpath:(${modal dialog}${select control})[3]/div[1]/div[2]        \ue007
-    ${cust user}                    Get Text    xpath:(${modal dialog}${select control})[3]/div/div/span
+    Choose First From Select Box    (${modal dialog}${select control})[2]
+    ${dist user}                    Get Text    xpath:(${modal dialog}${select control})[2]/div/div
+    Choose First From Select Box    (${modal dialog}${select control})[3]
+    ${cust user}                    Get Text    xpath:(${modal dialog}${select control})[3]/div/div
     Click Element                   xpath:${button modal dialog ok}
     Set Suite Variable              ${dist user}
     Set Suite Variable              ${cust user}

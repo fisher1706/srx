@@ -10,33 +10,11 @@ Resource                            ../../../resources/testData.robot
 ${for edit}                         xpath://td[contains(@class, 'FOR-EDIT')]
 
 *** Test Cases ***
-Invalid Create New Location
-    [Tags]                          InvalidCreateNewLocation
-    Click Element                   xpath:${button info}
-    Press Key                       id:orderingConfig-product-partSku_id                                                                    \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(1) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   xpath:${modal dialog}${select control}
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue004
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(2) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:orderingConfig-currentInventoryControls-min_id                                                       \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(3) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:orderingConfig-currentInventoryControls-max_id                                                       \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(4) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:attributeName1_id                                                                                    \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Press Key                       id:attributeValue1_id                                                                                   \ue004
-    Element Should Be Visible       css:div.item-form-field:nth-child(5) > div:nth-child(2) > span:nth-child(2) > svg:nth-child(1) > path:nth-child(1)
-    Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
-
 Valid Create New Location
     [Tags]                          ValidCreateNewLocation
     Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                                                                    ${dynamic sku}
-    Click Element                   xpath:${modal dialog}${select control}
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue007
+    Choose From Select Box          (${modal dialog}${select control})[1]   BUTTON
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       43
     Input Text                      id:orderingConfig-currentInventoryControls-max_id                                                       59
     Input Text                      id:attributeName1_id                                                                                    ${level 1}
@@ -47,9 +25,6 @@ Valid Create New Location
     Input Text                      id:attributeValue3_id                                                                                   ${sub 3}
     Input Text                      id:attributeName4_id                                                                                    ${level 4}
     Input Text                      id:attributeValue4_id                                                                                   ${sub 4}
-    Click Element                   xpath:(${modal dialog}${select control})[2]
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]            \ue015
-    Press Key                       xpath:(${modal dialog}${select control})[2]/div[1]/div[2]            \ue007
     Click Element                   xpath:${button modal dialog ok}
     Element Text Should Be          css:.external-page-alert > strong:nth-child(2)                                                          Operation failed!
     Input Text                      id:orderingConfig-currentInventoryControls-min_id                                                       30
@@ -72,7 +47,7 @@ Valid Create New Location
 
 Checking New Location
     Sleep                           5 second
-    Simple Table Comparing          Owned by            DISTRIBUTOR         ${number of new row}
+    Simple Table Comparing          Owned by            CUSTOMER            ${number of new row}
     Simple Table Comparing          Location 1 Name     ${level 1}          ${number of new row}
     Simple Table Comparing          Location 1 Value    ${sub 1}            ${number of new row}
     Simple Table Comparing          Location 2 Name     ${level 2}          ${number of new row}
@@ -87,6 +62,7 @@ Checking New Location
     Simple Table Comparing          Min                 0                   ${number of new row}
     Simple Table Comparing          Max                 10                  ${number of new row}
     Simple Table Comparing          Surplus             OFF                 ${number of new row}
+    Simple Table Comparing          Auto Submit         OFF                 ${number of new row}
 
 Checking New Location Activity Log
     [Tags]                          CheckingNewLocationActivityLog
@@ -119,7 +95,7 @@ Edit Location
 Checking Edit Location
     [Tags]                          CheckingEdit
     Sleep                           5 second
-    Simple Table Comparing          Owned by            DISTRIBUTOR             ${number of new row}
+    Simple Table Comparing          Owned by            CUSTOMER                ${number of new row}
     Simple Table Comparing          Location 1 Name     ${edit level 1}         ${number of new row}
     Simple Table Comparing          Location 1 Value    ${edit sub 1}           ${number of new row}
     Simple Table Comparing          Location 2 Name     ${level 2}              ${number of new row}
@@ -151,7 +127,7 @@ Delete Location
     Goto Locations
     Click Element                   ${check location}
     Click Element                   xpath:${button danger}
-    Simple Table Comparing          Owned by            DISTRIBUTOR             1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Owned by            CUSTOMER                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Name     ${edit level 1}         1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Value    ${edit sub 1}           1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 2 Name     ${level 2}              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}

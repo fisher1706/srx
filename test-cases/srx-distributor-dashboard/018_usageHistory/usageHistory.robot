@@ -41,6 +41,7 @@ Checking New Location
     Simple Table Comparing          Surplus             OFF                         ${number of new row}
 
 Create RFID
+    [Tags]                          RFID
     Goto Sidebar RFID
     Sleep                           5 second
     Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      ${usage history sku}

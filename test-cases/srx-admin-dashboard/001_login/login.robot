@@ -41,7 +41,7 @@ Valid Login
     Click Element                   ${button submit}
     Sleep                           3 second
     Element Text Should Be          ${page header}                                  Distributor Management
-    Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)         ${email_adm}
+    #Element Text Should Be          css:.sidebar-user-info > p:nth-child(2)         ${email_adm}
     Sign Out
 
 Forget Password
