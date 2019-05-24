@@ -39,7 +39,7 @@ Checking Usage History
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${shipto_id}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     STATIC SKU
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]     50
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[7]     Sun Dec 30 2018
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[7]     Sun, Dec 30, 2018
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]     Imported
     Click Element                   xpath:${filter type}/button
 

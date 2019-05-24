@@ -696,3 +696,15 @@ Simple Table Editing
     Click Element                   xpath:${table}/tbody/tr[${raw}]/td[${column}]
     Input Text                      xpath:${table}/tbody/tr[${raw}]/td[${column}]/div/div/input     ${body}
     Press Key                       xpath:${table}/tbody/tr[${raw}]/td[${column}]/div/div/input     \ue007
+
+Select Shipto
+    [Arguments]                     ${name}
+    ${count}                        Get Element Count       xpath:${shipto}
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${buffer}       Get Text    xpath:(${shipto})[${index}]
+    \   Run Keyword If      "${buffer}"=="${name}"      Shipto Selection    ${index}
+
+Shipto Selection
+    [Arguments]                     ${index}
+    Click Element                   xpath:(${shipto})[${index}]
+    Exit For Loop

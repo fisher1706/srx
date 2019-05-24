@@ -34,11 +34,6 @@ Checking Assigned RFID In Activity Log
     Last AL Element Should Be       5   USER
     Last AL Element Should Be       6   ${email_dist}
     Last AL Element Should Be       8   SUCCESS
-    Expand Last AL
-    Sleep                           1 second
-    Expanded AL Element Should Be   2   ${epc}
-    Expanded AL Element Should Be   6   ASSIGNED
-    Expanded AL Element Should Be   9   STATIC SKU
 
 Get Manifest
     ${manifest url}                 Get Manifest URL
@@ -80,11 +75,6 @@ Checking Manifest RFID In Activity Log
     Last AL Element Should Be       5   USER
     Last AL Element Should Be       6   ${email_dist}
     Last AL Element Should Be       8   SUCCESS
-    Expand Last AL
-    Sleep                           1 second
-    Expanded AL Element Should Be   2   ${epc}
-    Expanded AL Element Should Be   6   MANIFEST
-    Expanded AL Element Should Be   9   STATIC SKU
 
 Webhook To Checkin
     ${request url rfid}             Get RFID URL
@@ -110,11 +100,6 @@ Checking Checkin RFID In Activity Log
     Last AL Element Should Be       5   HARDWARE
     Last AL Element Should Be       6   ${RFID_SN}
     Last AL Element Should Be       8   SUCCESS
-    Expand Last AL
-    Sleep                           1 second
-    Expanded AL Element Should Be   5   ${epc}
-    Expanded AL Element Should Be   9   CHECK_IN
-    Expanded AL Element Should Be   13  STATIC SKU
 
 Get RFID ID
     ${putaway url}                  Get Putaway URL
@@ -148,11 +133,6 @@ Checking Available RFID In Activity Log
     Last AL Element Should Be       5   USER
     Last AL Element Should Be       6   ${email_dist}
     Last AL Element Should Be       8   SUCCESS
-    Expand Last AL
-    Sleep                           1 second
-    Expanded AL Element Should Be   2   ${epc}
-    Expanded AL Element Should Be   6   AVAILABLE
-    Expanded AL Element Should Be   9   STATIC SKU
 
 Webhook To Issued
     ${request url rfid}             Get RFID URL
@@ -178,11 +158,6 @@ Checking Issued RFID In Activity Log
     Last AL Element Should Be       5   HARDWARE
     Last AL Element Should Be       6   ${RFID_SN}
     Last AL Element Should Be       8   SUCCESS
-    Expand Last AL
-    Sleep                           1 second
-    Expanded AL Element Should Be   5   ${epc}
-    Expanded AL Element Should Be   9   ISSUED
-    Expanded AL Element Should Be   14  STATIC SKU
 
 *** Keywords ***
 Preparation

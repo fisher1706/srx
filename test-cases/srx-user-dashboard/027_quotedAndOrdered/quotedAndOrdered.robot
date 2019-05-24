@@ -35,6 +35,6 @@ Filter List
 Preparation
     Start Customer
     Sleep                           2 second
-    Click Element                   xpath:/html/body/div/div/div/div/div/div/button[1]
+    Select Shipto                   ${distributor_name} - ${shipto_name}
     Click Element                   css:.select-shipto-button
-    Is Customer Portal
+    Sleep                           2 second
