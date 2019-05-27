@@ -23,17 +23,17 @@ Import Catalog
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}                                Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
-    Sleep                           10 second
+    Sleep                           12 second
+    React Last
+    Sleep                           3 second
+    ${number of new row}            Get React Rows Count                ${react table raw}
+    Set Suite Variable              ${number of new row}
 
 Сhecking Import
-    React Last
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${catalog sku}
+    Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
     Sleep                           2 second
-    ${number of row}                Get React Rows Count                                                                ${react table raw}
-    Set Suite Variable              ${number of row}
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
-    Click Element                   xpath:(${react table raw})[${number of row}]${view product}
-    Sleep                           3 second
-    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                     ACTIVE
+    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         ACTIVE
     Click Element                   xpath:${close dialog}
     Sleep                           3 second
 
@@ -53,12 +53,11 @@ Import Lifecycle Status
 Сhecking Lifecycle Status
     Click Element                   xpath:(${tab element})[1]
     Sleep                           2 second
-    Element Text Should Be          xpath:((${react table raw})[${number of row}]${react table column})[1]              ${catalog sku}
-    Click Element                   xpath:(${react table raw})[${number of row}]${view product}
-    Sleep                           3 second
-    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                     MATURE
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]              ${catalog sku}
+    Click Element                   xpath:(${react table raw})[${number of new row}]${view product}
+    Sleep                           2 second
+    Element Text Should Be          xpath://table/tbody/tr[2]/td[2]                                                         MATURE
     Click Element                   xpath:${close dialog}
-    Sleep                           3 second
 
 *** Keywords ***
 Preparation

@@ -7,6 +7,7 @@ Library                             RequestsLibrary
 Library                             String
 Library                             Collections
 Library                             json
+Library                             OperatingSystem
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -22,12 +23,7 @@ Create Location
     Sleep                           2 second
     Click Element                   xpath:${button info}
     Input Text                      id:orderingConfig-product-partSku_id                            ${dynamic sku}
-    Click Element                   xpath:${modal dialog}${select control}
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue015
-    Press Key                       xpath:${modal dialog}${select control}/div[1]/div[2]            \ue007
+    Choose From Select Box          (${modal dialog}${select control})[1]                   RFID
     Input Text                      id:orderingConfig-currentInventoryControls-min_id               10
     Input Text                      id:orderingConfig-currentInventoryControls-max_id               1000
     Input Text                      id:attributeName1_id                                            ${level 1}
@@ -56,16 +52,40 @@ Checking Location
     Simple Table Comparing          Location 4 Name     ${level 4}              ${number of row}
     Simple Table Comparing          Location 4 Value    ${sub 4}                ${number of row}
     Simple Table Comparing          SKU                 ${dynamic sku}          ${number of row}
-    Simple Table Comparing          Type                LOCKER                  ${number of row}
+    Simple Table Comparing          Type                RFID                    ${number of row}
     Simple Table Comparing          Min                 10                      ${number of row}
     Simple Table Comparing          Max                 1000                    ${number of row}
 
-Request Locker
-    [Tags]                          Locker
-    ${request url locker}           Get Locker URL
-    Create Session                  httpbin                 ${request url locker}        verify=true
+Create RFID
+    Goto Sidebar RFID
+    Sleep                           5 second
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      ${dynamic sku}
+    Sleep                           5 second
+    ${epc}                          Generate Random Name U
+    Set Suite Variable              ${epc}
+    Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},${dynamic sku},
+    Sleep                           5 second
+    Click Element                   xpath:${import rfid button}
+    Sleep                           2 second
+    Execute Javascript              document.getElementById("upload-rfid-available").style.display='block'
+    Sleep                           1 second
+    Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
+    Sleep                           5 second
+    Element Text Should Be          xpath:${modal title}            Validation status: valid
+    Click Element                   xpath:${button modal dialog ok}
+    Sleep                           5 second
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}          ${dynamic sku}
+    Sleep                           10 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      AVAILABLE
+    Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
+
+Request RFID
+    [Tags]                          RFID
+    ${request url rfid}             Get RFID URL
+    Create Session                  httpbin                 ${request url rfid}     verify=true
     &{headers}=                     Create Dictionary       Content-Type=application/json
-    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${dynamic sku}", "kioskId": ${shipto_id}, "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 30, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"example@example.com" }    headers=${headers}
+    ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${epc}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Checking Original Transaction Order Status
@@ -81,23 +101,22 @@ Checking Original Transaction Order Status
     Set Suite Variable              ${transaction_id}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      30
 
 Checking Original Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
     Goto Sidebar Activity Feed
     Sleep                           2 second
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]                      Locker
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]                      LOCKER_SUBMIT
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]                      Locker
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]                      RFID
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]                      RFID_TAG_READ
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]                      RFID Reader
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]                      HARDWARE
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]                      example@example.com
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]                      ${RFID_SN}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]                      SUCCESS
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]                      Transaction
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]                      CREATE
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]                      Locker
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]                      RFID Reader
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[5]                      HARDWARE
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[6]                      example@example.com
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[6]                      ${RFID_SN}
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[8]                      SUCCESS
 
 ExternalApi Update
