@@ -683,7 +683,8 @@ Set Order Status Settings
     Log To Console                  ${check2}
     Run Keyword If                  "${check1}"=="None"             Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
     Run Keyword If                  "${check2}"=="None"             Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Sleep                           2 second
+    Click Element                   xpath:${order staus pane}${button primary}
+    Sleep                           3 second
 
 Simple Table Editing
     [Arguments]                     ${head}     ${body}     ${raw}      ${table}=${table xpath}     ${header}=${header xpath}
