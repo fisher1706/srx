@@ -49,7 +49,11 @@ Pricing For Customer
 Create Location File To Import
     ${location filename}            Generate Random Name U
     Set Suite Variable              ${location filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r${\n}${product filename},${product filename},,,,,,,${product filename},20,60,LOCKER,,0,customer,Off
+    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r${\n}${product filename},${product filename},,,,,,,${product filename},20,60,RFID,,0,customer,Off
+
+Check First List Of Folder
+    ${first list}                   sftpListFolder   ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations
+    Set Suite Variable              ${first list}
 
 Put Location File By SFTP To Import
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${location filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/import/${location filename}.csv
@@ -58,18 +62,43 @@ Put Location File By SFTP To Import
 Get Location File From SFTP To Import
     ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/imported/${location filename}.csv-report    ${CURDIR}/../../../resources/generated/${location filename}.csv-report
 
+Check Second List Of Folder
+    ${second list}                  sftpListFolder   ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations
+    Set Suite Variable              ${second list}
+
+Compare Folder Lists
+    ${new location id}              sftpCompareLists                ${first list}   ${second list}
+    Set Suite Variable              ${location id}                  ${new location id}[0]
+
+Create RFID Available File To Validate
+    ${rfid filename}                Generate Random Name U
+    ${rfid 1}                       Generate Random Name U
+    ${rfid 2}                       Generate Random Name U
+    Set Suite Variable              ${rfid filename}
+    Set Suite Variable              ${rfid 1}
+    Set Suite Variable              ${rfid 2}
+    Create File                     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      a,b,c${\n}${rfid 1},${product filename},${\n}${rfid 2},${product filename},
+
+Put RFID Available File By SFTP To Validate
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/import/${rfid filename}.csv
+    Sleep                           5 second
+
+Get RFID Available File From SFTP To Validate
+    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/imported/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
+
 Remove Files To Import
     File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${location filename}.csv
     File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${location filename}.csv-report
-    Remove Files                    ${CURDIR}/../../../resources/generated/${location filename}.csv      ${CURDIR}/../../../resources/generated/${location filename}.csv-report
+    File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${rfid filename}.csv
+    File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
+    Remove Files                    ${CURDIR}/../../../resources/generated/${location filename}.csv      ${CURDIR}/../../../resources/generated/${location filename}.csv-report     ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv
     Remove Directory                ${CURDIR}/../../../resources/generated                      recursive=True
 
-Request Locker
-    [Tags]          Locker
-    ${request url locker}           Get Locker URL
-    Create Session                  httpbin                 ${request url locker}        verify=true
+Request RFID
+    ${request url rfid}             Get RFID URL
+    Create Session                  httpbin                 ${request url rfid}     verify=true
     &{headers}=                     Create Dictionary       Content-Type=application/json
-    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${product filename}", "kioskId": "${shipto_id}", "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 210, "quantityRequested": 10, "timestamp": "2018-10-30T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
+    ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${rfid 1}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Check Transactions
@@ -103,17 +132,19 @@ Pricing For Shipto
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           10 second
 
-Request Locker New
-    [Tags]          Locker
-    ${request url locker}           Get Locker URL
-    Create Session                  httpbin                 ${request url locker}        verify=true
+Request RFID New
+    ${request url rfid}             Get RFID URL
+    Create Session                  httpbin                 ${request url rfid}     verify=true
     &{headers}=                     Create Dictionary       Content-Type=application/json
-    ${resp}=                        Post Request            httpbin    /        data={ "currentWeight": 0, "distributorSku": "${product filename}", "kioskId": "${shipto_id}", "lastWeight": 0, "location1": 1, "location2": 11, "location3": 111, "lockerId": 9999, "quantityIssued": 100, "quantityRequested": 10, "timestamp": "2019-03-04T11:22:48.806", "transactionStatus": "Issued", "weightOfProduct": 0, "user":"qweqwewe" }    headers=${headers}
+    ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${rfid 2}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
 Check Transactions New
-    Sleep                           5 second
+    Sleep                           2 second
     Goto Sidebar Order Status
+    Sleep                           1 second
+    Reload Page
+    Sleep                           2 second
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           5 second
@@ -136,7 +167,7 @@ Delete Location
     Simple Table Comparing          Location 1 Name     ${product filename}                 1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Location 1 Value    ${product filename}                 1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          SKU                 ${product filename}                 1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
-    Simple Table Comparing          Type                LOCKER                              1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
+    Simple Table Comparing          Type                RFID                                1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Critical Min        0                                   1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Min                 20                                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
     Simple Table Comparing          Max                 60                                  1       ${modal dialog}${simple table}   ${modal dialog}${simple table}
