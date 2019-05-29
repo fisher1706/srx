@@ -10,9 +10,9 @@ Invalid Add Distributor
     [Tags]                          InvalidAddDistributor
     Click Element                   xpath:${button info}
     Click Element                   id:name_id
-    Press Key                       id:name_id                      \ue004
-    Element Should Be Visible       xpath:(${help block})[1]/*
     Press Key                       id:address.line1_id             \ue004
+    Element Should Be Visible       xpath:(${help block})[1]/*
+    Press Key                       id:name_id                      \ue004
     Element Should Be Visible       xpath:(${help block})[2]/*
     Press Key                       id:address.city_id              \ue004
     Element Should Be Visible       xpath:(${help block})[4]/*
