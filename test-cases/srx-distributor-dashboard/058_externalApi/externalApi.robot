@@ -92,6 +92,9 @@ Checking Original Transaction Order Status
     [Tags]                          CheckingOriginalTransaction
     Sleep                           2 second
     Goto Sidebar Order Status
+    Sleep                           2 second
+    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Sleep                           2 second
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
@@ -130,7 +133,9 @@ ExternalApi Update
 Checking Update Transaction Order Status
     [Tags]                          CheckingUpdateTransaction
     Goto Sidebar Order Status
-    Sleep                           5 second
+    Sleep                           2 second
+    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Sleep                           2 second
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
@@ -161,7 +166,9 @@ ExternalApi Split
 Checking Split Transaction Order Status
     [Tags]                          CheckingUpdateTransactionOrderStatus
     Goto Sidebar Order Status
-    Sleep                           5 second
+    Sleep                           2 second
+    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Sleep                           2 second
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Sleep                           1 second
@@ -210,6 +217,8 @@ Delete Location
 Close Transaction
     [Tags]                          CloseTransaction
     Goto Sidebar Order Status
+    Sleep                           2 second
+    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
     Sleep                           2 second
     ${number of row}                Get Rows Count              ${table xpath}
     :FOR    ${var}                  IN RANGE    1   ${number of row}+1
