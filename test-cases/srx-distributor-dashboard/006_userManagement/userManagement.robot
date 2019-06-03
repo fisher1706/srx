@@ -33,7 +33,7 @@ Valid Create New User
     Click Element                   xpath:${users pane users}${button info}
     Input Text                      id:email_id                 ${incorrect email}
     Element Should Be Enabled       xpath:(${modal dialog}${help block})[1]/*
-    Input Text                      id:email_id                 ${dynamic email}
+    Input Text                      id:email_id                 ${distributor user email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
     Click Element                   xpath:${button modal dialog ok}
@@ -49,7 +49,7 @@ Valid Create New User
 Checking New User
     [Tags]                          ValidCreateNewUser
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${distributor user email}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${user first name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${user last name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[4]/div      ${warehouse}
@@ -78,7 +78,7 @@ Edit User
 Checking Edit User
     [Tags]                          EditUser
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${dynamic email}
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[1]/div      ${distributor user email}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[2]/div      ${edit first name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[3]/div      ${edit last name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]/td[5]/div      ${role}
@@ -93,7 +93,7 @@ Delete User
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
     Click Element                   ${delete user button}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${dynamic email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${distributor user email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${edit first name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${edit last name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${role}
@@ -117,6 +117,8 @@ User Filtration
 Preparation
     Start Distributor
     Sleep                           3 second
+    ${buffer}                       Generate Random Name L  10
+    Set Suite Variable              ${distributor user email}   distributor.${buffer}@example.com
     Goto Sidebar Users
     Click Element                   id:users-tab-users
     ${number of row}                Get Rows Count              ${users pane users}${table xpath}
