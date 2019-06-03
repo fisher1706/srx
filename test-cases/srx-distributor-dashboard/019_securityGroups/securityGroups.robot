@@ -32,7 +32,7 @@ Create User With New Security Group
     Goto Sidebar Users
     Click Element                   id:users-tab-users
     Click Element                   xpath:${users pane users}${button info}
-    Input Text                      id:email_id                 ${dynamic email}
+    Input Text                      id:email_id                 ${security user email}
     Input Text                      id:firstName_id             ${user first name}
     Input Text                      id:lastName_id              ${user last name}
     Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
@@ -45,7 +45,7 @@ Create User With New Security Group
 Checking New User
     [Tags]                          Test
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div      ${dynamic email}
+    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div      ${security user email}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[2]/div      ${user first name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[3]/div      ${user last name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div      A_Warehouse
@@ -70,7 +70,7 @@ Try To Delete Security Group
 Delete User
     [Tags]                          Test
     Click Element                   xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${dynamic email}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${security user email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${user first name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${user last name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          A_Warehouse
@@ -138,7 +138,9 @@ Preparation
     Start Distributor
     Sleep                           2 second
     Goto Sidebar Security Groups
-    Sleep                           5 second
+    Sleep                           2 second
+    ${buffer}                       Generate Random Name L  10
+    Set Suite Variable              ${security user email}   distributor.${buffer}@example.com
     ${number of row}                Get Rows Count              (${table xpath})[2]
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
