@@ -20,10 +20,33 @@ Checking RFID
     Element Text Should Be          xpath:(${react table column})[2]      ASSIGNED
     Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
 
+Update RFID
+    Click Element                   xpath:(${react table raw}${edit status})[1]
+    Sleep                           3 second
+    Click Element                   xpath:(${react modal dialog}${role button})[5]
+
+Checking Updated RFID
+    Sleep                           5 second
+    Element Text Should Be          xpath:(${react table column})[1]      ${epc}
+    Element Text Should Be          xpath:(${react table column})[2]      MANIFEST
+    Element Text Should Be          xpath:(${react table column})[4]      ${email_dist}
+
+Checking Updated RFID In Activity Log
+    Goto Sidebar Activity Feed
+    Sleep                           2 second
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     RFID
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     RFID_TAG_UPDATE
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     USER
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]     SUCCESS
+
 Unassign RFID
+    Goto Sidebar RFID
+    Sleep                           2 second
+    Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
+    Sleep                           3 second
     Click Element                   xpath:(${react table raw}${unassign rfid})[1]
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${epc}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ASSIGNED
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     MANIFEST
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${email_dist}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
