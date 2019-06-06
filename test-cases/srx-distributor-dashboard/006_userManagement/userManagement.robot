@@ -6,10 +6,6 @@ Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Variables ***
-${number of new row}
-${number of row}
-
 *** Test Cases ***
 Invalid Create New User
     Click Element                   xpath:${users pane users}${button info}
