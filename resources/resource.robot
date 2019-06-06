@@ -245,66 +245,35 @@ Field Comparing First Fields
 
 Set Permission
     [Arguments]                     ${row}      ${column}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
+    ${to click}                     Set Variable    xpath:(${modal dialog}${tab pane})[1]//table/tbody/tr[${row}]/td[${column}+1]${checkbox type}
+    ${checked}                      Get Element Attribute   ${to click}     checked
+    Run Keyword If                  "${checked}"=="None"    Click Element   ${to click}
 
 Set Settings Permission
     [Arguments]                     ${row}      ${column}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
-
-Clear Permission
-    [Arguments]                     ${row}
-    Run Keyword If                  ${row}==6       Clear Only Read             ${row}
-    Run Keyword If                  ${row}==12      Clear Only Read             ${row}
-    Run Keyword If                  ${row}==18      Clear Only Read             ${row}
-    Run Keyword If                  ${row}!=6 and ${row}!=12 and ${row}!=17     Clear Standart      ${row}
-
-Clear Settings Permission
-    [Arguments]                     ${row}
-    Run Keyword If                  ${row}==14    Clear Settings Only Read      ${row}
-    Run Keyword If                  ${row}==15    Clear Settings Only Read      ${row}
-    Run Keyword If                  ${row}!=15 and ${row}!=14                   Clear Settings Standart     ${row}
+    ${to click}                     Set Variable    xpath:(${modal dialog}${tab pane})[2]//table/tbody/tr[${row}]/td[${column}+1]${checkbox type}
+    ${checked}                      Get Element Attribute   ${to click}     checked
+    Run Keyword If                  "${checked}"=="None"    Click Element   ${to click}
 
 Clear All Permissions
-    Set Suite Variable              ${index}        1
-    :FOR  ${index}  IN RANGE  1     20
-    \   Clear Permission            ${index}
+    ${rows}                         Get Element Count   xpath:(${modal dialog}${tab pane})[1]//table/tbody/tr
+    :FOR  ${index}  IN RANGE  1     ${rows}+1
+    \   ${to click}                 Set Variable    (${modal dialog}${tab pane})[1]//table/tbody/tr[${index}]${checkbox type}
+    \   ${checkboxes}               Get Element Count       xpath:${to click}
+    \   Inloop Permission           ${to click}     ${checkboxes}
+
+Inloop Permission
+    [Arguments]                     ${to click}     ${checkboxes}
+    :FOR    ${index 2}              IN RANGE  1     ${checkboxes}+1
+    \   ${checked}                  Get Element Attribute   xpath:(${to click})[${index 2}]     checked
+    \   Run Keyword If              "${checked}"=="true"    Click Element   xpath:(${to click})[${index 2}]
 
 Clear All Settings Permissions
-    Set Suite Variable              ${index}        1
-    :FOR  ${index}  IN RANGE  1     17
-    \   Clear Settings Permission   ${index}
-
-Clear Only Read
-    [Arguments]                     ${row}
-    Set Permission                  ${row}          2
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[3]/label/input
-
-Clear Standart
-    [Arguments]                     ${row}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Double Click    ${row}      ELSE IF     "${checked}"=="true"    Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
-
-Clear Settings Only Read
-    [Arguments]                     ${row}
-    Set Settings Permission         ${row}          2
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[3]/label/input
-
-Clear Settings Standart
-    [Arguments]                     ${row}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input     checked
-    Run Keyword If                  "${checked}"=="None"        Double Settings Click    ${row}      ELSE IF     "${checked}"=="true"    Click Element       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
-
-Double Click
-    [Arguments]                     ${row}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[2]/label/input
-
-Double Settings Click
-    [Arguments]                     ${row}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[2]/label/input
+    ${rows}                         Get Element Count   xpath:(${modal dialog}${tab pane})[2]//table/tbody/tr
+    :FOR  ${index}  IN RANGE  1     ${rows}+1
+    \   ${to click}                 Set Variable    (${modal dialog}${tab pane})[2]//table/tbody/tr[${index}]${checkbox type}
+    \   ${checkboxes}               Get Element Count       xpath:${to click}
+    \   Inloop Permission           ${to click}     ${checkboxes}
 
 Section Is Present
     [Arguments]                     ${section}

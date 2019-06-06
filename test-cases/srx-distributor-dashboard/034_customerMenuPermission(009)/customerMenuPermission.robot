@@ -2,6 +2,7 @@
 Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
+Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -57,7 +58,7 @@ Create New Customer User
     ${my customer user}             Evaluate                ${customer user number}+1
     Set Suite Variable              ${my customer user}
     Click Element                   id:item-action-create
-    Input By Name                   email                   ${dynamic email}
+    Input By Name                   email                   ${customer user email}
     Select From Dropdown            (${dropdown menu})[1]   Customer User
     Input By Name                   firstName               ${user first name}
     Input By Name                   lastName                ${user last name}
@@ -67,14 +68,14 @@ Create New Customer User
     Sleep                           5 second
 
 Checking New Customer User
-    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${dynamic email}
+    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${customer user email}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[2]      ${user first name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[3]      ${user last name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[4]      Customer User
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[5]      ${edit name}
 
 Edit Customer User
-    Click Element                   xpath:(${react table raw})[${my customer user}]${customer info}
+    Click Element                   xpath:(${react table raw})[${my customer user}]${user info}
     Sleep                           2 second
     Select From Dropdown            (${dropdown menu})[1]   Customer Super User
     Input By Name                   firstName               ${edit first name}
@@ -85,7 +86,7 @@ Edit Customer User
 
 Checking Edit User
     Sleep                           2 second
-    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${dynamic email}
+    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[1]      ${customer user email}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[2]      ${edit first name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[3]      ${edit last name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[4]      Customer Super User
@@ -115,7 +116,7 @@ Preparation
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  8       1
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
+    Click Element                   xpath:(${dialog tab})[2]
     Clear All Settings Permissions
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
@@ -124,7 +125,9 @@ Preparation
     Start Permission
     Sleep                           3 second
     Goto Sidebar Customers
-    Sleep                           3 second
+    Sleep                           5 second
+    ${buffer}                       Generate Random Name L  10
+    Set Suite Variable              ${customer user email}      customer.${buffer}@example.com
     ${my customer}                  Get React Row By Text   1   ${customer_name}
     Set Suite Variable              ${my customer}
     Click Element                   xpath:(${react table raw})[${my customer}]

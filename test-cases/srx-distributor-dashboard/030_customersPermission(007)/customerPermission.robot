@@ -54,13 +54,13 @@ Preparation
     Start Distributor
     Sleep                           2 second
     Goto Sidebar Security Groups
-    Sleep                           5 second
+    Sleep                           3 second
     ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
     Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
     Click Element                   ${edit group button}
     Clear All Permissions
     Set Permission                  8       1
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
+    Click Element                   xpath:(${dialog tab})[2]
     Clear All Settings Permissions
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           3 second
