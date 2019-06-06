@@ -257,7 +257,7 @@ Clear Permission
     [Arguments]                     ${row}
     Run Keyword If                  ${row}==6       Clear Only Read             ${row}
     Run Keyword If                  ${row}==12      Clear Only Read             ${row}
-    Run Keyword If                  ${row}==17      Clear Only Read             ${row}
+    Run Keyword If                  ${row}==18      Clear Only Read             ${row}
     Run Keyword If                  ${row}!=6 and ${row}!=12 and ${row}!=17     Clear Standart      ${row}
 
 Clear Settings Permission
@@ -268,7 +268,7 @@ Clear Settings Permission
 
 Clear All Permissions
     Set Suite Variable              ${index}        1
-    :FOR  ${index}  IN RANGE  1     18
+    :FOR  ${index}  IN RANGE  1     20
     \   Clear Permission            ${index}
 
 Clear All Settings Permissions
