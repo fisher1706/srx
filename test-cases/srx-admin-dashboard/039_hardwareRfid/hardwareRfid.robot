@@ -80,10 +80,6 @@ Create RFID
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},STATIC SKU,
     Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
-    Click Element                   xpath:${import rfid button}
-    Sleep                           2 second
-    Execute Javascript              document.getElementById("upload-rfid-available").style.display='block'
-    Sleep                           1 second
     Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}            Validation status: valid
