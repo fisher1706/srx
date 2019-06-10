@@ -10,7 +10,7 @@ Resource                            ../../../resources/testData.robot
 
 ***Test Cases***
 Import locations
-    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,h,i,j,k,l,m,o,p,q,r${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,LOCIMPORT,20,30,Button,customer_sku_1,0,CUSTOMER,Off
+    Create File                     ${CURDIR}/../../../resources/importLocations.csv    a,b,c,d,e,f,g,h,i,j,k,l,m,o,p,q,r,s${\n}Cabinet1,Cabinet_value1,Shelf1,Shelf_value1,Location1,Location_value1,,,LOCIMPORT,20,30,Button,customer_sku_1,0,CUSTOMER,Off,110
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importLocations.csv
@@ -35,6 +35,7 @@ Checking locations
     Simple Table Comparing          Max                 30                  ${number of new row}
     Simple Table Comparing          Auto Submit         OFF                 ${number of new row}
     Simple Table Comparing          Surplus             OFF                 ${number of new row}
+    #Simple Table Comparing          OHI                 110                 ${number of new row}
 
 Delete Location
     Click Element                   xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/input
