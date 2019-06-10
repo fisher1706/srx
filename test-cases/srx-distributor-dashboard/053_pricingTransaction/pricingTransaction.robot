@@ -49,7 +49,7 @@ Pricing For Customer
 Create Location File To Import
     ${location filename}            Generate Random Name U
     Set Suite Variable              ${location filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r${\n}${product filename},${product filename},,,,,,,${product filename},20,60,RFID,,0,customer,Off
+    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r,s${\n}${product filename},${product filename},,,,,,,${product filename},20,60,RFID,,0,customer,Off,100
 
 Check First List Of Folder
     ${first list}                   sftpListFolder   ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations

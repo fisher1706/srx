@@ -65,10 +65,6 @@ Create RFID
     Set Suite Variable              ${epc}
     Create File                     ${CURDIR}/../../../resources/importRfid.csv     RFID ID,SKU,${\n}${epc},${dynamic sku},
     Sleep                           5 second
-    Click Element                   xpath:${import rfid button}
-    Sleep                           2 second
-    Execute Javascript              document.getElementById("upload-rfid-available").style.display='block'
-    Sleep                           1 second
     Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}            Validation status: valid

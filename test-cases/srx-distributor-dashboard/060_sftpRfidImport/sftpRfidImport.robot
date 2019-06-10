@@ -31,7 +31,7 @@ Check First List Of Folder
 Create Location File
     ${location filename}            Generate Random Name U
     Set Suite Variable              ${location filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r${\n}${product filename},${product filename},,,,,,,${product filename},20,30,RFID,,0,Customer,Off
+    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r,s${\n}${product filename},${product filename},,,,,,,${product filename},20,30,RFID,,0,Customer,Off,100
 
 Put Location File By SFTP
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${location filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/import/${location filename}.csv
