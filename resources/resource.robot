@@ -356,11 +356,6 @@ Choose Last From Select Box
     ${count}                        Get Element Count       xpath:${select}/../div[2]/div/div
     Click Element                   xpath:${select}/../div[2]/div/div[${count}]
 
-Select Element
-    [Arguments]                     ${select}   ${index}
-    Click Element                   xpath:${select}/../div[2]/div/div[${index}]
-    Exit For Loop
-
 Open Full Table
     Sleep                           1 second
     Execute Javascript              for(var i = 0 ; i<document.getElementsByClassName("dropdown-menu").length; i++){ if((document.getElementsByClassName("dropdown-menu"))[i].attributes["aria-labelledby"]){ (document.getElementsByClassName("dropdown-menu"))[i].setAttribute("class","dropdown-menu open show") }}
@@ -436,17 +431,22 @@ Expanded AL Element Should Be
 
 Select Location At Rfid Menu
     [Arguments]                     ${shipto}       ${sku}
-    Click Element                   xpath:(${select control})[1]
-    ${count}                        Get Element Count       xpath:(${select control})[1]/../div[2]/div/div
+    Click Element                   xpath:(${selector shipto})[1]/div
+    ${count}                        Get Element Count       xpath:(${selector shipto})[1]/div[1]/div[2]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:(${select control})[1]/../div[2]/div/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      (${select control})[1]   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:(${selector shipto})[1]/div[1]/div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      (${selector shipto})[1]   ${index}
     Sleep                           2 second
-    Click Element                   xpath:(${select control})[2]
-    ${count}                        Get Element Count       xpath:(${select control})[2]/../div[2]/div/div
+    Click Element                   xpath:(${selector shipto})[2]/div
+    ${count}                        Get Element Count       xpath:(${selector shipto})[2]/div[1]/div[2]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:(${select control})[2]/../div[2]/div/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${sku}"       Select Element      (${select control})[2]   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:(${selector shipto})[2]/div[1]/div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${sku}"          Select Element      (${selector shipto})[2]   ${index}
+
+Select Element
+    [Arguments]                     ${select}   ${index}
+    Click Element                   xpath:${select}/div[1]/div[2]/div[1]/div[${index}]
+    Exit For Loop
 
 Sorting React With Last Page
     [Arguments]                     ${column}

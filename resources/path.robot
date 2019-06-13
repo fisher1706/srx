@@ -30,3 +30,4 @@ ${srx select}                   //div[contains(@class, 'srx-select')]
 ${react modal dialog}           //div[contains(@data-testid, 'modal-dialog')]
 ${select control}               ${srx select}/div/div
 ${tab pane}                     //div[contains(@role, 'tabpanel')]
+${selector shipto}              //div[contains(@selector, 'shipToId')]

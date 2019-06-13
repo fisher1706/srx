@@ -11,8 +11,8 @@ Create RFID
     Click Element                   id:item-action-create
     ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
-    Input Text                      id:labelId_id               ${epc}
-    Click Element                   xpath:${modal dialog}${button primary}
+    Input By Name                   labelId     ${epc}
+    Click Element                   xpath:${button submit}
 
 Checking RFID
     Sleep                           5 second
@@ -45,10 +45,10 @@ Unassign RFID
     Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           3 second
     Click Element                   xpath:(${react table raw}${unassign rfid})[1]
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]     ${epc}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     MANIFEST
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]     ${email_dist}
-    Click Element                   xpath:${modal dialog}${button danger}
+    Element Text Should Be          xpath:${dialog}//table/tbody/tr/td[1]     ${epc}
+    Element Text Should Be          xpath:${dialog}//table/tbody/tr/td[2]     MANIFEST
+    Element Text Should Be          xpath:${dialog}//table/tbody/tr/td[4]     ${email_dist}
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           5 second
     Reload Page
     Sleep                           7 second
