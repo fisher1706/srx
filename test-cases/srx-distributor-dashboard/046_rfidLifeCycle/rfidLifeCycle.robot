@@ -15,8 +15,8 @@ Create RFID
     Click Element                   id:item-action-create
     ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
-    Input Text                      id:labelId_id               ${epc}
-    Click Element                   xpath:${modal dialog}${button primary}
+    Input By Name                   labelId     ${epc}
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Checking Assigned RFID
