@@ -23,7 +23,7 @@ Checking RFID
 Update RFID
     Click Element                   xpath:(${react table raw}${edit status})[1]
     Sleep                           3 second
-    Click Element                   xpath:(${react modal dialog}${role button})[4]
+    Click Element                   xpath:(${react modal dialog}${role button})[5]
 
 Checking Updated RFID
     Sleep                           5 second

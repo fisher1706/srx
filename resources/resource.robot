@@ -343,7 +343,12 @@ Choose From Select Box
     ${count}                        Get Element Count       xpath:${select}/../div[2]/div/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   ${text buffer sub}          Get Text                                xpath:${select}/../div[2]/div/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${item}"         Select Element      ${select}   ${index}
+    \   Run Keyword If              "${text buffer sub}"=="${item}"         Select Element In Select Box    ${select}   ${index}
+
+Select Element In Select Box
+    [Arguments]                     ${select}   ${index}
+    Click Element                   xpath:${select}/../div[2]/div/div[${index}]
+    Exit For Loop
 
 Choose First From Select Box
     [Arguments]                     ${select}
@@ -431,17 +436,17 @@ Expanded AL Element Should Be
 
 Select Location At Rfid Menu
     [Arguments]                     ${shipto}       ${sku}
-    Click Element                   xpath:(${selector shipto})[1]/div
-    ${count}                        Get Element Count       xpath:(${selector shipto})[1]/div[1]/div[2]/div[1]/div
+    Click Element                   xpath:${selector shipto}/div
+    ${count}                        Get Element Count       xpath:${selector shipto}/div[1]/div[2]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:(${selector shipto})[1]/div[1]/div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      (${selector shipto})[1]   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:${selector shipto}/div[1]/div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      ${selector shipto}   ${index}
     Sleep                           2 second
-    Click Element                   xpath:(${selector shipto})[2]/div
-    ${count}                        Get Element Count       xpath:(${selector shipto})[2]/div[1]/div[2]/div[1]/div
+    Click Element                   xpath:${selector sku}/div
+    ${count}                        Get Element Count       xpath:${selector sku}/div[1]/div[2]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:(${selector shipto})[2]/div[1]/div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${sku}"          Select Element      (${selector shipto})[2]   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:${selector sku}/div[1]/div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${sku}"          Select Element      ${selector sku}   ${index}
 
 Select Element
     [Arguments]                     ${select}   ${index}
