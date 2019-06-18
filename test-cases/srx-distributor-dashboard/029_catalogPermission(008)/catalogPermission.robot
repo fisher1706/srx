@@ -63,19 +63,19 @@ Checking New Product
     Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         15
     Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         22
     Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         30
-    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${round by}
-    Element Text Should Be          xpath://table/tbody/tr[10]/td[2]                                                        ${dynamic code}
-    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${level 1}
-    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${level 2}
-    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${level 3}
-    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${sub 1}
-    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${sub 2}
-    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${sub 3}
-    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${dynamic city}
-    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${test string}
-    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${test number}
-    Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${keyword}
-    Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${keyword}
+    Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                         ${round by}
+    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${dynamic code}
+    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${level 1}
+    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${level 2}
+    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${level 3}
+    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${sub 1}
+    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${sub 2}
+    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${sub 3}
+    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${dynamic city}
+    Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${test string}
+    Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${test number}
+    Element Text Should Be          xpath://table/tbody/tr[23]/td[2]                                                        ${keyword}
+    Element Text Should Be          xpath://table/tbody/tr[24]/td[2]                                                        ${keyword}
     Click Element                   xpath:${close dialog}
     Sleep                           3 second
 
@@ -126,19 +126,19 @@ Checking Edit Product
     Element Text Should Be          xpath://table/tbody/tr[6]/td[2]                                                         20
     Element Text Should Be          xpath://table/tbody/tr[7]/td[2]                                                         27
     Element Text Should Be          xpath://table/tbody/tr[8]/td[2]                                                         32
-    Element Text Should Be          xpath://table/tbody/tr[9]/td[2]                                                         ${edit round by}
-    Element Text Should Be          xpath://table/tbody/tr[10]/td[2]                                                        ${edit code}
-    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${edit level 1}
-    Element Text Should Be          xpath://table/tbody/tr[13]/td[2]                                                        ${edit level 2}
-    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${edit level 3}
-    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${edit sub 1}
-    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${edit sub 2}
-    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${edit sub 3}
-    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${edit city}
-    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${edit string}
-    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${edit test number}
-    Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${edit keyword}
-    Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${edit keyword}
+    Element Text Should Be          xpath://table/tbody/tr[11]/td[2]                                                         ${edit round by}
+    Element Text Should Be          xpath://table/tbody/tr[12]/td[2]                                                        ${edit code}
+    Element Text Should Be          xpath://table/tbody/tr[14]/td[2]                                                        ${edit level 1}
+    Element Text Should Be          xpath://table/tbody/tr[15]/td[2]                                                        ${edit level 2}
+    Element Text Should Be          xpath://table/tbody/tr[16]/td[2]                                                        ${edit level 3}
+    Element Text Should Be          xpath://table/tbody/tr[17]/td[2]                                                        ${edit sub 1}
+    Element Text Should Be          xpath://table/tbody/tr[18]/td[2]                                                        ${edit sub 2}
+    Element Text Should Be          xpath://table/tbody/tr[19]/td[2]                                                        ${edit sub 3}
+    Element Text Should Be          xpath://table/tbody/tr[20]/td[2]                                                        ${edit city}
+    Element Text Should Be          xpath://table/tbody/tr[21]/td[2]                                                        ${edit string}
+    Element Text Should Be          xpath://table/tbody/tr[22]/td[2]                                                        ${edit test number}
+    Element Text Should Be          xpath://table/tbody/tr[23]/td[2]                                                        ${edit keyword}
+    Element Text Should Be          xpath://table/tbody/tr[24]/td[2]                                                        ${edit keyword}
     Click Element                   xpath:${close dialog}
     Sleep                           3 second
 

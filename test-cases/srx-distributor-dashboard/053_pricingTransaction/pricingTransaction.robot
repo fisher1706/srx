@@ -24,7 +24,7 @@ Connect To SFTP To Validate
 Create Product File
     ${product filename}             Generate Random Name U
     Set Suite Variable              ${product filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,,active
+    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,,active,1,1
 
 Put Product File By SFTP
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${product filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/import/${product filename}.csv
@@ -32,7 +32,7 @@ Put Product File By SFTP
 
 Pricing For Customer
     Goto Sidebar Pricing
-    Choose From Select Box          (${select control})[1]      ${pricing customer}
+    Select Pricing Customer         ${pricing customer}
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Create File                     ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv      a,b,c,d${\n}${product filename},10,22,2021-12-12T10:15:30
@@ -120,8 +120,8 @@ Check Transactions
 
 Pricing For Shipto
     Goto Sidebar Pricing
-    Choose From Select Box          (${select control})[1]      ${pricing customer}
-    Choose From Select Box          (${select control})[2]      ${pricing shipto}
+    Select Pricing Customer         ${pricing customer}
+    Select Pricing Shipto           ${pricing shipto}
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second
     Create File                     ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv      a,b,c,d${\n}${product filename},80,22,2021-12-12T10:15:30

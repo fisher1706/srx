@@ -48,7 +48,6 @@ Checking New User
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div      ${security user email}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[2]/div      ${user first name}
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[4]/div      A_Warehouse
     Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[5]/div      ${security group}
 
 Try To Delete Security Group
@@ -73,7 +72,6 @@ Delete User
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${security user email}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${user first name}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${user last name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]          A_Warehouse
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${security group}
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           5 second

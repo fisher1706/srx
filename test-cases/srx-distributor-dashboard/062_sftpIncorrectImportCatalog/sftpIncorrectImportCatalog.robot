@@ -82,7 +82,7 @@ Checking Activity Log To Import Less
 Create File To Upload To Validate More
     ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,,active,
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,z${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,,active,1,1,,
 
 Put File By SFTP To Validate More
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/validate/${filename}.csv

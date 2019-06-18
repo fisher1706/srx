@@ -14,7 +14,7 @@ Resource                            ../../../resources/testData.robot
 Create File To Upload To Validate
     ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,,active
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,,active,1,1
 
 Connect To SFTP
     ${sftp}                         sftpConnect     ${sftp_distributor_user}    ${CURDIR}/../../../resources/my-key
@@ -54,7 +54,7 @@ Checking Activity Log To Validate
 Create File To Upload To Import
     ${filename}                     Generate Random Name U
     Set Suite Variable              ${filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,,active
+    Create File                     ${CURDIR}/../../../resources/generated/${filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x${\n}${filename},,,${filename},,,,,,,,,,10,,,,,,,,active,1,1
 
 Put File By SFTP To Import
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/import/${filename}.csv

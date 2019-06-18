@@ -15,7 +15,7 @@ ${view product}                     //button[contains(@title, 'View Details')]
 Import Catalog
     ${catalog sku}                  Generate Random Name U
     Set Suite Variable              ${catalog sku}
-    Create File                     ${CURDIR}/../../../resources/importCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${catalog sku},,,${catalog sku},,,,,,,,,,10,,,,1.2,1.3,1.4,1.5,
+    Create File                     ${CURDIR}/../../../resources/importCatalog.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x${\n}${catalog sku},,,${catalog sku},,,,,,,,,,10,,,,1.2,1.3,1.4,1.5,,1,1
     Sleep                           2 second
     Execute Javascript              document.getElementById("file-upload").style.display='block'
     Sleep                           1 second

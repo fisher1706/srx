@@ -89,11 +89,9 @@ Checking Activity Log To Import
 
 Checking Pricing Table
     Goto Sidebar Pricing
-    Choose From Select Box          (${select control})[1]      ${customer_name}
-    Sleep                           2 second
-    Choose From Select Box          (${select control})[2]      ${shipto_name}
-    Sleep                           2 second
-    ${my price}                     Get Row By Text             ${table xpath}      1       ${filename}
+    Select Pricing Customer         ${customer_name}
+    Select Pricing Shipto           ${shipto_name}
+    Filter Add                      1       1       ${filename}
 
 *** Keywords ***
 Close SFTP Connection And Browser
