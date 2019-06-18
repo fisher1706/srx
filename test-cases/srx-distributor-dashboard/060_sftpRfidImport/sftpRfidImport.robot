@@ -18,7 +18,7 @@ Connect To SFTP
 Create Product File
     ${product filename}             Generate Random Name U
     Set Suite Variable              ${product filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,,active
+    Create File                     ${CURDIR}/../../../resources/generated/${product filename}.csv      a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x${\n}${product filename},,,${product filename},,,,,,,,,,10,,,,,,,,active,1,1
 
 Put Product File By SFTP
     ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${product filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/products/import/${product filename}.csv

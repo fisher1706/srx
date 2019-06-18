@@ -448,6 +448,24 @@ Select Location At Rfid Menu
     \   ${text buffer sub}          Get Text                                xpath:${selector sku}/div[1]/div[2]/div[1]/div[${index}]
     \   Run Keyword If              "${text buffer sub}"=="${sku}"          Select Element      ${selector sku}   ${index}
 
+Select Pricing Customer
+    [Arguments]                     ${customer}
+    Click Element                   xpath:${selector customer pricing}/div
+    ${count}                        Get Element Count       xpath:${selector customer pricing}/div[1]/div[2]/div[1]/div
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${text buffer sub}          Get Text                                xpath:${selector customer pricing}/div[1]/div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${customer}"       Select Element      ${selector customer pricing}   ${index}
+    Sleep                           2 second
+
+Select Pricing Shipto
+    [Arguments]                     ${shipto}
+    Click Element                   xpath:${selector customer shpto}/div
+    ${count}                        Get Element Count       xpath:${selector customer shpto}/div[1]/div[2]/div[1]/div
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${text buffer sub}          Get Text                                xpath:${selector customer shpto}/div[1]/div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      ${selector customer shpto}   ${index}
+    Sleep                           2 second
+
 Select Element
     [Arguments]                     ${select}   ${index}
     Click Element                   xpath:${select}/div[1]/div[2]/div[1]/div[${index}]
@@ -577,7 +595,6 @@ Filter Add For Select Box
     Click Element                   xpath:${button filter}
     Click Element                   xpath:(${menu}${menu item})[${dialog index}]
     Sleep                           2 second
-    Click Element                   xpath:${filter type}/div/div
     ${count}                        Get Element Count       xpath:${listbox}/*
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   ${buffer}                   Get Text                xpath:${listbox}/li[${index}]

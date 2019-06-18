@@ -21,9 +21,8 @@ ${date 2 2}                         Sat, Nov 11, 2023
 
 *** Test Case ***
 Pricing Import
-    Choose From Select Box          (${select control})[1]      Static Customer
-    Execute Javascript              document.getElementById("file-upload").style.display='block'
-    ${status}                       Get Text        xpath:${table xpath}/tbody/tr[1]/td[3]/div
+    Select Pricing Customer         Static Customer
+    ${status}                       Get Text        xpath:((${react table raw})[1]${react table column})[3]
     Run Keyword If                  "${status}"=="${uom 1 1}"   If First Pricing    ELSE IF     "${status}"=="${uom 2 1}"   If Second Pricing   ELSE    Fail    Pricing data is incorrect
     Sleep                           5 second
     Element Text Should Be          xpath:${modal title}            Validation status: valid
@@ -60,49 +59,11 @@ Sorting Pricing
     [Tags]                          Sorting
     Goto Sidebar Pricing
     Sleep                           1 second
-    Choose From Select Box          (${select control})[1]      Customer A
-    ${count}                        Get Rows Count      ${table xpath}
-    Sort Column                     1                   ${count}
-    Sort Column                     2                   ${count}
-    Sort Column                     3                   ${count}
-    Sort Column                     4                   ${count}
-
-Filtering Pricing
-    [Tags]                          Filter
-    Click Element                   xpath:${button right margin}
-    Input Text                      xpath:(${modal dialog}${form control})[1]       AD
-    Click Element                   xpath:${modal dialog}${button primary}
-    Sleep                           2 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/div      AD
-    Click Element                   xpath:${button default}
-    Sleep                           2 second
-    Click Element                   xpath:${button right margin}
-    Input Text                      xpath:(${modal dialog}${form control})[4]       M
-    Click Element                   xpath:${modal dialog}${button primary}
-    Sleep                           2 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      M
-    Click Element                   xpath:${button default}
-    Sleep                           2 second
-    Click Element                   xpath:${button right margin}
-    Input Text                      xpath:(${modal dialog}${form control})[2]       11
-    Input Text                      xpath:(${modal dialog}${form control})[3]       11.20
-    Click Element                   xpath:${modal dialog}${button primary}
-    Sleep                           2 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $11.10
-    Click Element                   xpath:${button default}
-    Sleep                           2 second
-
-Filter Pricing Date
-    [Tags]                          Filter      FilterDate
-    Click Element                   xpath:${button right margin}
-    Input Text                      xpath:(${modal dialog}${form control})[5]       11/10/2019, 9:03 A
-    Input Text                      xpath:(${modal dialog}${form control})[6]       11/12/2019, 9:05 A
-    Sleep                           2 second
-    Click Element                   xpath:${modal dialog}${button primary}
-    Sleep                           2 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      Mon, Nov 11, 2019
-    Click Element                   xpath:${button default}
-    Sleep                           2 second
+    Select Pricing Customer         Customer A
+    Sort React                      1
+    Sort React                      2
+    Sort React                      3
+    Sort React                      4
 
 *** Keywords ***
 Preparation
@@ -129,20 +90,20 @@ If Second Pricing
     Set Suite Variable              ${restatus}     first
 
 First Pricing
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      ${price 1 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      ${uom 1 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      ${date 1 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]/div      ${price 1 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[3]/div      ${uom 1 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]/div      ${date 1 2}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${price 1 1}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${uom 1 1}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${date 1 1}
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]     ${price 1 2}
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]     ${uom 1 2}
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]     ${date 1 2}
 
 Second Pricing
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      ${price 2 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      ${uom 2 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      ${date 2 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[2]/div      ${price 2 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[3]/div      ${uom 2 2}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[2]/td[4]/div      ${date 2 2}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     ${price 2 1}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${uom 2 1}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${date 2 1}
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]     ${price 2 2}
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]     ${uom 2 2}
+    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]     ${date 2 2}
 
 First Pricing Report
     Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[2]/div      ${price 1 1}
