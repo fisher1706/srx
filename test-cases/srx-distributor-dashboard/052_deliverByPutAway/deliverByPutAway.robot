@@ -136,9 +136,9 @@ Checking Transaction In Activity Log
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]     Transaction
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]     UPDATE
     Click Element                   xpath:((${react table raw})[2]${react table column})[1]
-    Element Text Should Be          xpath:((${react table raw})[4]${react table column})[2]     RFID
-    Element Text Should Be          xpath:((${react table raw})[9]${react table column})[2]     DELIVERED
-    Element Text Should Be          xpath:((${react table raw})[8]${react table column})[2]     STATIC SKU
+    Element Text Should Be          xpath:((${react table raw})[6]${react table column})[2]     RFID
+    Element Text Should Be          xpath:((${react table raw})[11]${react table column})[2]     DELIVERED
+    Element Text Should Be          xpath:((${react table raw})[10]${react table column})[2]     STATIC SKU
 
 *** Keywords ***
 Preparation
