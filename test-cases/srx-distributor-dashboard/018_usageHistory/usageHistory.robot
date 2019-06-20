@@ -80,20 +80,17 @@ Check Transactions
     [Tags]                          Transactions
     Goto Sidebar Order Status
     Sleep                           3 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
     Sleep                           2 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${usage history sku}
+    ${my transaction}               Get Row Number      3   ${usage history sku}
     Set Suite Variable              ${my transaction}
-    ${order number}                 Get Text    xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]
+    ${order number}                 Get Text    xpath:((${react table raw})[${my transaction}]${react table column})[2]/div/div
     Set Suite Variable              ${order number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${usage history sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
-    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
-    Click Element                   xpath:${button modal dialog ok}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${usage history sku}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ACTIVE
+    Click Element                   xpath:${edit transaction}
+    Select From Dropdown            ${dialog}${dropdown menu}    DELIVERED
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Checking Usage History

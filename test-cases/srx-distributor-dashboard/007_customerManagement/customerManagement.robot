@@ -6,9 +6,6 @@ Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Variables ***
-
-
 *** Test Cases ***
 Create New Customer
     Click Element                   id:item-action-create

@@ -335,6 +335,14 @@ Get Row By Text
     \   Exit For Loop If            "${text}"=="${text buffer}"
     Return From Keyword             ${index}
 
+Get Row Number
+    [Arguments]                     ${column}   ${text}
+    ${number}                       Get Element Count           xpath:${react table raw}
+    : FOR   ${index}    IN RANGE    1   ${number}+1
+    \   ${text buffer}              Get Text    xpath:((${react table raw})[${index}]${react table column})[${column}]
+    \   Exit For Loop If            "${text}"=="${text buffer}"
+    Return From Keyword             ${index}
+
 Choose From Select Box
     [Arguments]                     ${select}       ${item}
     ${current}                      Get Text        xpath:${select}/div/div
@@ -466,6 +474,15 @@ Select Pricing Shipto
     \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      ${selector customer shpto}   ${index}
     Sleep                           2 second
 
+Select Transaction Customer Shipto
+    [Arguments]                     ${customer shipto}
+    Click Element                   xpath:${selector transactions}/div
+    ${count}                        Get Element Count       xpath:${selector transactions}/div[1]/div[2]/div[1]/div
+    : FOR   ${index}    IN RANGE    1       ${count}+1
+    \   ${text buffer sub}          Get Text                                xpath:${selector transactions}/div[1]/div[2]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${customer shipto}"       Select Element      ${selector transactions}   ${index}
+    Sleep                           2 second
+
 Select Element
     [Arguments]                     ${select}   ${index}
     Click Element                   xpath:${select}/div[1]/div[2]/div[1]/div[${index}]
@@ -582,6 +599,7 @@ Filter Add
     [Arguments]                     ${dialog index}     ${table index}      ${value}
     Click Element                   xpath:${button filter}
     Click Element                   xpath:(${menu}${menu item})[${dialog index}]
+    Input Text                      xpath:${filter type}/div/div/input      ${value}
     Sleep                           5 second
     ${count}                        Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count}+1

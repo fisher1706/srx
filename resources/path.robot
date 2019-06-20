@@ -11,6 +11,7 @@ ${edit status}                  //button[contains(@title, 'Edit status')]
 ${customer info}                //button[contains(@title, 'Customer info')]
 ${user info}                    //button[contains(@title, 'User info')]
 ${unassign rfid}                //button[contains(@title, 'Unassign')]
+${edit transaction}             //button[contains(@title, 'Edit Transaction')]
 ${tab element}                  //button[contains(@role, 'tab')]
 ${dialog tab}                   //a[contains(@role, 'tab')]
 ${menu}                         //ul[contains(@role, 'menu')]
@@ -34,4 +35,6 @@ ${selector shipto}              //div[contains(@id, 'rfid-select-shipto')]/div
 ${selector sku}                 //div[contains(@id, 'rfid-select-sku')]/div
 ${selector customer pricing}    //div[contains(@id, 'pricing-select-customer')]/div
 ${selector customer shpto}      //div[contains(@id, 'pricing-select-shipto')]/div
+${selector transactions}        //div[contains(@id, 'transaction-select-shipto')]/div
 ${confirm button}               //button[@data-testid='confirm-button']
+${columnheader}                 //div[@role='columnheader']
