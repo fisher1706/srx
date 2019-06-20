@@ -73,7 +73,7 @@ Request First FOB
 Delete FOB
     Click Element                   xpath:(${react table raw})[1]${delete fob}
     Dialog Should Be About          ${fob epc 1}
-    Click Element                   xpath:(${dialog}${button})[3]
+    Click Element                   xpath:${confirm button}
     Sleep                           5 second
     ${fobs number}                  Get Element Count       xpath:${react table raw}
     Run Keyword If                  ${fobs number}!=1       Fail    There are more than 1 fob
@@ -97,14 +97,6 @@ Request Second FOB
     ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${fob epc 2}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
-Second Read Checking Activity Log
-    Reload Page
-    Sleep                           4 second
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     FOB
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     FOB_READ
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     RFID Reader
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]     SUCCESS
-
 Delete Customer User
     Goto Customer Users
     Sleep                           2 second
@@ -112,13 +104,6 @@ Delete Customer User
     Dialog Should Be About          ${user first name} ${user last name}
     Click Element                   xpath:(${dialog}${button})[3]
     Sleep                           5 second
-
-Second Checking Activity Log
-    Goto Sidebar Activity Feed
-    Sleep                           4 second
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     FOB
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     FOB_DELETE
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]     SUCCESS
 
 *** Keywords ***
 Preparation

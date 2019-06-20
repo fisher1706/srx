@@ -34,3 +34,4 @@ ${selector shipto}              //div[contains(@id, 'rfid-select-shipto')]/div
 ${selector sku}                 //div[contains(@id, 'rfid-select-sku')]/div
 ${selector customer pricing}    //div[contains(@id, 'pricing-select-customer')]/div
 ${selector customer shpto}      //div[contains(@id, 'pricing-select-shipto')]/div
+${confirm button}               //button[@data-testid='confirm-button']
