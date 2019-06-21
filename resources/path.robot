@@ -37,4 +37,5 @@ ${selector customer pricing}    //div[contains(@id, 'pricing-select-customer')]/
 ${selector customer shpto}      //div[contains(@id, 'pricing-select-shipto')]/div
 ${selector transactions}        //div[contains(@id, 'transaction-select-shipto')]/div
 ${confirm button}               //button[@data-testid='confirm-button']
+${close button}                 //button[@data-testid='closeButton']
 ${columnheader}                 //div[@role='columnheader']
