@@ -5,6 +5,8 @@ pipelines:
     dev:
       - step:
           script:
+            - add-apt-repository ppa:nilarimogard/webupd8
+            - apt-get update
             - apt-get -y install firefox xvfb
             - curl -O https://bootstrap.pypa.io/get-pip.py
             - python get-pip.py
