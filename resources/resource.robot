@@ -42,7 +42,7 @@ Goto Admin Users
     Click Element                   xpath:${table xpath}/tbody/tr[${static row e}]/td[1]/a
 
 Goto Sidebar Users  
-    Click Element                   id:sidebar-users
+    Click Element                   id:sidebar-distributor_users
     Sleep                           5 second
 
 Goto Sidebar Warehouses
