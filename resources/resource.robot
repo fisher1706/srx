@@ -57,10 +57,6 @@ Goto Sidebar Catalog
     Click Element                   id:sidebar-catalog
     Sleep                           5 second
 
-Goto Sidebar Usage History
-    Click Element                   id:sidebar-usage_history
-    Sleep                           5 second
-
 Goto Sidebar Pricing
     Click Element                   id:sidebar-pricing
     Sleep                           5 second
@@ -116,7 +112,7 @@ Start Distributor
     Input Text                      id:password             ${password_dist}
     Click Element                   xpath:${button submit}
     Sleep                           3 second
-    Click Element                   xpath:${to portal}
+    Click Element                   id:redirectButton
     Sleep                           1 second
 
 Start Customer
@@ -125,7 +121,7 @@ Start Customer
     Input Text                      id:password             ${password_cust}
     Click Element                   xpath:${button submit}
     Sleep                           3 second
-    Click Element                   xpath:${to portal}
+    Click Element                   id:redirectButton
     Sleep                           1 second
 
 Start Permission
@@ -134,7 +130,7 @@ Start Permission
     Input Text                      id:password             ${password_perm}
     Click Element                   xpath:${button submit}
     Sleep                           3 second
-    Click Element                   xpath:${to portal}
+    Click Element                   id:redirectButton
     Sleep                           1 second
 
 Start Suite Adv
@@ -218,31 +214,6 @@ Successfull Upload
 Fail Upload
     Fail                            Operation failed!
 
-Enter Correct Email Sub
-    Input Text                      id:email                        ${SUB EMAIL}
-
-Filter Check First Fields
-    [Arguments]                     ${inputField}            ${inputText}
-    Click Element                   css:.button-right-margin
-    Input Text                      ${inputField}            ${inputText}
-    ${result} =                     Fetch From Left          ${inputField}    2]/input
-    ${newString}=                   Strip String             ${result}1]/div
-    ${fieldName}                    Get Text                 ${newString}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           2 seconds
-    ${rowNum}                       Get Element Count        xpath:${header xpath}/thead/tr/th
-    ${rowNum}=                      Evaluate                 ${rowNum}+1
-     :FOR    ${var}                 IN RANGE             1   ${rowNum}
-    \        ${textInfo}            Get Text                 xpath:${header xpath}/thead/tr/th[${var}]
-    \       Run Keyword If          "${textInfo}" == "${fieldName}"      Field Comparing First Fields   ${var}        ${inputText}
-    Click Element                   css:button.button-right-margin:nth-child(2)
-    Sleep                           2 seconds
-
-Field Comparing First Fields
-    [Arguments]                     ${rowNum}       ${expectedValue}
-    ${rowValue}        Get Text     xpath:${table xpath}/tbody/tr/td[${rowNum}]
-    Should Be Equal As Strings      ${rowValue}     ${expectedValue}
-
 Set Permission
     [Arguments]                     ${row}      ${column}
     ${to click}                     Set Variable    xpath:(${modal dialog}${tab pane})[1]//table/tbody/tr[${row}]/td[${column}+1]${checkbox type}
@@ -275,49 +246,9 @@ Clear All Settings Permissions
     \   ${checkboxes}               Get Element Count       xpath:${to click}
     \   Inloop Permission           ${to click}     ${checkboxes}
 
-Section Is Present
-    [Arguments]                     ${section}
-    Run Keyword And Ignore Error    Checking Sections   ${section}
-    Run Keyword If                  "${check}"!="true"  Fail    Fail
-
-Section Is Not Present
-    [Arguments]                     ${section}
-    Run Keyword And Ignore Error    Checking Sections   ${section}
-    Run Keyword If                  "${check}"!="false"  Fail    Fail
-
-Checking Sections
-    [Arguments]                     ${section}
-    Set Suite Variable              ${check}            false
-    Element Should Be Visible       ${section}
-    Set Suite Variable              ${check}            true
-
-Is Present
-    [Arguments]                     ${section}
-    Run Keyword And Ignore Error    Checking Sections   ${section}
-
 Number Of Rows
     ${number of row}                Get Element Count           xpath:${table xpath}/tbody/tr
     Set Suite Variable              ${number of row}
-
-Number Of Rows G
-    ${number of row g}              Get Element Count           xpath:(${table xpath})[2]/tbody/tr
-    Set Suite Variable              ${number of row g}
-
-Number Of Static Row G
-    : FOR   ${counter}              IN RANGE    1   ${number of row g}+1
-    \   ${text buffer1 g}           Get Text    xpath:(${table xpath})[2]/tbody/tr[${counter}]/td[1]/div
-    \   Exit For Loop If            "Permissions Test"=="${text buffer1 g}"
-    Set Suite Variable              ${static row g}     ${counter}
-
-Go Down Selector
-    [Arguments]                     ${select}       ${item}
-    Click Element                   xpath:${select}
-    Press Key                       xpath:${select}/div[1]/div[2]           \ue015
-    Sleep                           1 second
-    Press Key                       xpath:${select}/div[1]/div[2]           \ue007
-    ${text buffer sub}              Get Text                                xpath:${select}/div[1]/div[1]/span
-    Sleep                           2 second
-    Run Keyword If                  "${text buffer sub}"!="${item}"         Go Down Selector    ${select}       ${item}
 
 Get Rows Count
     [Arguments]                     ${table}
@@ -429,19 +360,6 @@ Last AL Element Should Be
     ${content}                      Check Last AL   ${column}
     Should Be Equal As Strings      ${content}      ${text}
 
-Expand Last AL
-    Click Element                   xpath:(${react table raw}${react table column})[1]
-
-Check Last Expanded AL
-    [Arguments]                     ${column}
-    ${content}                      Get Text    xpath:((${react table raw})[2]${react table column})[${column}]
-    Return From Keyword             ${content}
-
-Expanded AL Element Should Be
-    [Arguments]                     ${column}                   ${text}
-    ${content}                      Check Last Expanded AL      ${column}
-    Should Be Equal As Strings      ${content}                  ${text}
-
 Select Location At Rfid Menu
     [Arguments]                     ${shipto}       ${sku}
     Click Element                   xpath:${selector shipto}/div
@@ -505,30 +423,6 @@ Sorting React With Last Page
     ${text buffer2up}               Get Text                    xpath:(${react table column})[${column}]
     Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting ${column} is failed
     Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting ${column} is failed
-
-Filter React Field
-    [Arguments]                     ${dialog index}     ${table index}      ${value}
-    Click Element                   xpath:${button right margin}
-    Input Text                      xpath:(${modal dialog}${form control})[${dialog index}]         ${value}
-    Click Element                   xpath:${modal dialog}${button primary}
-    Sleep                           2 second
-    ${count}                        Get Element Count       xpath:${react table raw}
-    : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
-    Click Element                   xpath:${button default}
-    Sleep                           2 second
-
-Filter React Select Box
-    [Arguments]                     ${dialog index}     ${table index}      ${value}
-    Click Element                   xpath:${button right margin}
-    Choose From Select Box          (${modal dialog}${select control})[${dialog index}]             ${value}
-    Click Element                   xpath:${modal dialog}${button primary}
-    Sleep                           2 second
-    ${count}                        Get Element Count       xpath:${react table raw}
-    : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]   ${value}
-    Click Element                   xpath:${button default}
-    Sleep                           2 second
 
 React Last
     ${count}                        Get Element Count       xpath:${pagination bottom}/div/div[2]/*
