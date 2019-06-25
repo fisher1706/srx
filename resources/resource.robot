@@ -111,8 +111,10 @@ Start Distributor
     Input Text                      id:email                ${email_dist}
     Input Text                      id:password             ${password_dist}
     Click Element                   xpath:${button submit}
-    Sleep                           3 second
+    Sleep                           5 second
+    Set Selenium Implicit Wait      30 second
     Click Element                   id:redirectButton
+    Set Selenium Implicit Wait      20 second
     Sleep                           1 second
 
 Start Customer
@@ -120,8 +122,10 @@ Start Customer
     Input Text                      id:email                ${email_cust}
     Input Text                      id:password             ${password_cust}
     Click Element                   xpath:${button submit}
-    Sleep                           3 second
+    Sleep                           5 second
+    Set Selenium Implicit Wait      30 second
     Click Element                   id:redirectButton
+    Set Selenium Implicit Wait      20 second
     Sleep                           1 second
 
 Start Permission
@@ -129,8 +133,10 @@ Start Permission
     Input Text                      id:email                ${email_perm}
     Input Text                      id:password             ${password_perm}
     Click Element                   xpath:${button submit}
-    Sleep                           3 second
+    Sleep                           5 second
+    Set Selenium Implicit Wait      30 second
     Click Element                   id:redirectButton
+    Set Selenium Implicit Wait      20 second
     Sleep                           1 second
 
 Start Suite Adv
