@@ -62,7 +62,7 @@ Create Assigned RFID
     Sleep                           5 second
     Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     ${epc}                          Generate Random Name U
     Set Suite Variable              ${epc}
     Input By Name                   labelId               ${epc}

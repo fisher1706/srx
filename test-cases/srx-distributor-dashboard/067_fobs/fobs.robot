@@ -14,7 +14,7 @@ Create New Customer User
     ${customer user number}         Get Element Count       xpath:${react table raw}
     ${my customer user}             Evaluate                ${customer user number}+1
     Set Suite Variable              ${my customer user}
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   email                   ${fob user email}
     Select From Dropdown            (${dropdown menu})[1]   Customer Super User
     Input By Name                   firstName               ${user first name}
@@ -33,7 +33,7 @@ Create First FOB
     Sleep                           2 second
     Click Element                   xpath:(${tab element})[2]
     Sleep                           1 second
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     ${fob epc 1}                    Generate Random Name U  18
     Set Suite Variable              ${fob epc 1}
     Input By Name                   epc             ${fob epc 1}
@@ -48,7 +48,7 @@ Checking First FOB
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      fob1-${user last name}
 
 Create Second FOB
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     ${fob epc 2}                    Generate Random Name U  18
     Set Suite Variable              ${fob epc 2}
     Input By Name                   epc             ${fob epc 2}

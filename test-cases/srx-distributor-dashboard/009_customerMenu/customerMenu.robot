@@ -13,7 +13,7 @@ Create New Shipto
     ${shipto number}                Get Element Count       xpath:${react table raw}
     ${my shipto}                    Evaluate                ${shipto number}+1
     Set Suite Variable              ${my shipto}
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   name                    ${dynamic name}
     Input By Name                   address.line1           ${dynamic adress1}
     Input By Name                   address.line2           ${dynamic adress2}
@@ -57,7 +57,7 @@ Create New Customer User
     ${customer user number}         Get Element Count       xpath:${react table raw}
     ${my customer user}             Evaluate                ${customer user number}+1
     Set Suite Variable              ${my customer user}
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   email                   ${customer user email}
     Select From Dropdown            (${dropdown menu})[1]   Customer User
     Input By Name                   firstName               ${user first name}
