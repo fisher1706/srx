@@ -25,13 +25,10 @@ ${user first name}              First
 ${user last name}               Last
 ${edit first name}              edit first
 ${edit last name}               edit last
-${counter}                      0
 ${warehouse number}             1137
 ${edit warehouse number}        2020
 ${test number}                  5553535
 ${edit test number}             8800
-${distributor contact info}     Last\n14033 5553535\ndynamic.test@example.com
-${distributor edit info}        edit last\n89000 8800\nedit.test@example.com
 ${round by}                     10
 ${edit round by}                20
 ${level 1}                      level 1
@@ -45,97 +42,18 @@ ${sub 4}                        sub 4
 ${edit level 1}                 edit level 1
 ${edit level 2}                 edit level 2
 ${edit level 3}                 edit level 3
-${edit level 4}                 edit level 4
 ${edit sub 1}                   edit sub 1
 ${edit sub 2}                   edit sub 2
 ${edit sub 3}                   edit sub 3
-${edit sub 4}                   edit sub 4
 ${keyword}                      keyword
 ${edit keyword}                 edit keyword
 ${test string}                  test string
 ${edit string}                  edit string
 ${dynamic sku}                  DYNAMIC SKU
 ${edit sku}                     EDIT SKU
-${test number 1}                100
-${test number 2}                200 
-${test number 3}                300
-${test number 4}                400
-${test number 5}                500
-${edit test number 1}           1000
-${edit test number 2}           2000
-${edit test number 3}           3000
-${edit test number 4}           4000
-${edit test number 5}           5000
-${test type}                    auto-type
-${edit test type}               edit-auto-type
-${test del type}                auto-type-del
-${edit test del type}           edit-auto-type-del
 ${year fee}                     4320
-${month fee}                    500
 ${edit year fee}                9000
-${edit month fee}               1000
 ${filter email}                 filter@example.com
 ${filter first}                 filter first
 ${filter last}                  filter last
 ${user email}                   origin.user@example.com
-${edit user email}              edituser@example.com
-${admin email}                  admin@example.com
-${admin edit email}             edit.admin@example.com
-${admin first}                  admin first
-${admin last}                   admin last
-${edit admin first}             edit admin first
-${edit admin last}              edit admin last
-${market type}                  auto-market
-${edit market type}             edit-auto-market
-${market del type}              auto-market-del
-${edit market del type}         edit-auto-market-del
-${locationName}                 testLocName1
-${locationValue}                testLocValue1
-${minValue}                     20
-${maxValue}                     30
-${APIKEY}                       m4DAfPuRurdzlsVrlen2
-${edit security group}          auto-edit-security-group
-${replenishment email}          replenishment@ukr.net
-${simple table}                 //table[contains(@class, 'table')]
-${table xpath}                  //table[contains(@class, 'table table-striped table-bordered table-hover table-condensed')]
-${header xpath}                 //table[contains(@class, 'table table-hover table-bordered table-condensed')]
-${base fee pane}                //div[contains(@id, 'fees-pane-base-fees')]
-${deeplens monthly pane}        //div[contains(@id, 'fees-pane-deeplens-monthly-fee')]
-${triggers monthly pane}        //div[contains(@id, 'fees-pane-triggers-monthly-fee')]
-${documents pane}               //div[contains(@id, 'pricing-billing-pane-documents')]
-${keys pane}                    //div[contains(@id, 'erp-integration-pane-api-keys')]
-${claiming hardware pane}       //div[contains(@id, 'erp-integration-pane-claiming-hardware')]
-${taxes pane}                   //div[contains(@id, 'pricing-billing-pane-taxes')]
-${transaction submission pane}  //div[contains(@id, 'erp-integration-pane-rl-submit-integration')]
-${order close logic}            //div[contains(@id, 'enterprise-workflow-pane-order-close')]
-${pricing integrations}         //div[contains(@id, 'settings-pane-enterprise-profile')]
-${pricing integrations pane}    //div[contains(@id, 'erp-integration-pane-pricing-integration')]
-${order staus pane}             //div[contains(@id, 'erp-integration-pane-transaction-status')]
-${radio button}                 //label[contains(@class, 'select-options')]
-${modal dialog}                 //div[contains(@class, 'modal-dialog')]
-${modal title}                  //*[contains(@class, 'modal-title')]
-${control button}               //button[contains(@class, 'control-button')]
-${button lg}                    //button[contains(@class, 'btn-lg')]
-${button danger}                //button[contains(@class, 'btn-danger')]
-${button close}                 //button[contains(@class, 'close')]
-${button modal dialog ok}       //button[contains(@class, 'modal-dialog-ok-button')]
-${button modal dialog cancel}   //button[contains(@class, 'modal-dialog-cancel-button')]
-${button info}                  //button[contains(@class, 'btn-info')]
-${button primary}               //button[contains(@class, 'btn-primary')]
-${button success}               //button[contains(@class, 'btn-success')]
-${button default}               //button[contains(@class, 'btn-default')]
-${button right margin}          //button[contains(@class, 'button-right-margin')]
-${report pricing pane}          //div[contains(@id, 'reports-pane-pricing-report')]
-${form control}                 //input[contains(@class, 'form-control')]
-${checkbox type}                //input[contains(@type, 'checkbox')]
-${distributors admin pane}      //div[contains(@id,'distributor-details-pane-2')]
-${dropdown menu item}           //a[contains(@role, 'menuitem')]
-${last page}                    //li[contains(@title, 'last page')]/a
-${help block}                   //span[contains(@class, 'help-block')]
-${react table}                  //div[contains(@class, 'rt-table')]
-${react table raw}              //div[contains(@class, 'rt-tr-group')]
-${react table column}           //div[contains(@class, 'rt-td')]
-${react header}                 //div[contains(@class, 'rt-th')]
-${srx select}                   //div[contains(@class, 'srx-select')]
-${shipto}                       //button[contains(@class, 'list-group-item')]
-${pagination bottom}            //div[contains(@class, 'pagination-bottom')]
