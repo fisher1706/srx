@@ -12,7 +12,6 @@ ${edit security group}              auto-edit-security-group
 *** Test Cases ***
 Invalid Create New Security Group
     Click Element                   xpath:${button info}
-    Is Create Security Group
     Press Key                       id:name_id                 \ue004
     Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
     Click Element                   xpath:${button close}
@@ -20,7 +19,6 @@ Invalid Create New Security Group
 
 Valid Create New Security Group
     Click Element                   xpath:${button info}
-    Is Create Security Group
     ${security group}               Generate Random Name L
     Set Suite Variable              ${security group}
     Input Text                      id:name_id                  ${security group}
@@ -31,34 +29,29 @@ Checking New Security Group
     Element Text Should Be          xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[1]          ${security group}
 
 Create User With New Security Group
-    [Tags]                          Test
+    ${buffer}                       Generate Random Name L  10
+    Set Suite Variable              ${distributor user email}   distributor.${buffer}@example.com
     Goto Sidebar Users
-    Click Element                   id:users-tab-users
-    Click Element                   xpath:${users pane users}${button info}
-    Input Text                      id:email_id                 ${security user email}
-    Input Text                      id:firstName_id             ${user first name}
-    Input Text                      id:lastName_id              ${user last name}
-    Click Element                   css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Choose From Select Box          ${select control}           ${security group}
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   ${create button}
+    Input By Name                   email       ${distributor user email}
+    Input By Name                   firstName   ${user first name}
+    Input By Name                   lastName    ${user last name}
+    Select From Dropdown            (${dialog}${dropdown menu})[1]   ${security group}
+    Click Element                   (${dialog}${checkbox type})[1]
+    Click Element                   xpath:${button submit}
     Sleep                           4 second
-    ${number of row u}              Get Rows Count                  ${users pane users}${table xpath}
+    ${number of row u}              Get Element Count           xpath:${react table raw}
     Set Suite Variable              ${number of row u}
 
 Checking New User
-    [Tags]                          Test
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div      ${security user email}
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[2]/div      ${user first name}
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[3]/div      ${user last name}
-    Element Text Should Be          xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[5]/div      ${security group}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[1]      ${distributor user email}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[2]      ${user first name}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[3]      ${user last name}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[5]      ${security group}
 
 Try To Delete Security Group
     Goto Sidebar Security Groups
-    Click Element                   ${delete group button}
-    Sleep                           1 second
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
     Click Element                   ${delete group button}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td     ${security group}
     Click Element                   css:button.btn:nth-child(2)
@@ -67,25 +60,17 @@ Try To Delete Security Group
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
     Goto Sidebar Users
-    Click Element                   id:users-tab-users
 
 Delete User
     [Tags]                          Test
-    Click Element                   xpath:${users pane users}${table xpath}/tbody/tr[${number of row u}]/td[6]/div/div[2]/button
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]          ${security user email}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]          ${user first name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]          ${user last name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]          ${security group}
-    Click Element                   css:button.btn:nth-child(2)
+    Click Element                   xpath:(${react table raw})[${number of row u}]${delete user}
+    Dialog Should Be About          ${user first name} ${user last name}
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
     Goto Sidebar Security Groups
 
 Edit Security Group
     Click Element                   ${edit group button}
-    Is Edit Security Group
-    Click Element                   xpath:${button close}
-    Click Element                   ${edit group button}
-    Is Edit Security Group
     Input Text                      id:name_id                  ${edit security group}
     Set Permission                  2           1
     Set Permission                  3           1
@@ -148,12 +133,6 @@ Preparation
     Set Suite Variable              ${number of new row}
     Set Suite Variable              ${edit group button}        xpath:(${table xpath})[2]/tbody/tr[${number of new row}]${button success}
     Set Suite Variable              ${delete group button}      xpath:(${table xpath})[2]/tbody/tr[${number of new row}]${button danger}
-
-Is Create Security Group
-    Element Text Should Be          css:.modal-title            Create new custom security group
-
-Is Edit Security Group
-    Element Text Should Be          css:.modal-title            Edit custom security group
 
 Set Permission
     [Arguments]                     ${row}      ${column}

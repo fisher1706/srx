@@ -8,7 +8,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Valid Create New User
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   email       ${incorrect email}
     Page Should Contain             Email must be a valid email
     Input By Name                   email       ${distributor user email}
@@ -19,7 +19,6 @@ Valid Create New User
     Page Should Contain             Warehouses is a required field
     Select From Dropdown            (${dialog}${dropdown menu})[1]   User
     Click Element                   (${dialog}${checkbox type})[1]
-    Set Suite Variable              ${warehouse}
     Click Element                   xpath:${button submit}
     Sleep                           2 second
 
@@ -48,7 +47,7 @@ Checking Edit User
     Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]      Static Group
 
 Delete User
-    Click Element                   xpath:(${react table raw})[${number of new row}]${delete customer}
+    Click Element                   xpath:(${react table raw})[${number of new row}]${delete user}
     Dialog Should Be About          ${edit first name} ${edit last name}
     Click Element                   xpath:${button submit}
     Sleep                           5 second

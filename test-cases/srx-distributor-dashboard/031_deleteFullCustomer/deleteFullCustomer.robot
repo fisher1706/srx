@@ -11,7 +11,7 @@ ${delete customer name}             Delete Customer
 
 *** Test Cases ***
 Create Customer
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   name            ${delete customer name}
     ${customer type}                Select First    (${dropdown menu})[1]
     Set Suite Variable              ${customer type}
@@ -34,7 +34,7 @@ Create Shipto 1
     Sleep                           1 second
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   name                    ${dynamic name}
     Input By Name                   address.line1           ${dynamic adress1}
     Input By Name                   address.line2           ${dynamic adress2}
@@ -54,7 +54,7 @@ Create Customer User 1
     Set Suite Variable              ${delete customer user1}    ${buffer}@example.com
     Click Element                   xpath:(${tab element})[3]
     Sleep                           2 second
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   email                   ${delete customer user1}
     Select From Dropdown            (${dropdown menu})[1]   Customer User
     Input By Name                   firstName               ${user first name}
@@ -82,7 +82,7 @@ Delete Shipto 1
 Create Shipto 2
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   name                    ${dynamic name}
     Input By Name                   address.line1           ${dynamic adress1}
     Input By Name                   address.line2           ${dynamic adress2}
@@ -104,7 +104,7 @@ Create Customer User 2
     Set Suite Variable              ${delete customer user2}    ${buffer}@example.com
     Click Element                   xpath:(${tab element})[3]
     Sleep                           2 second
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   email                   ${delete customer user1}
     Select From Dropdown            (${dropdown menu})[1]   Customer User
     Input By Name                   firstName               ${user first name}

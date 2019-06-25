@@ -8,7 +8,7 @@ Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
 Create New Customer
-    Click Element                   id:item-action-create
+    Click Element                   ${create button}
     Input By Name                   name            ${user first name}
     ${customer type}                Select First    (${dropdown menu})[1]
     Set Suite Variable              ${customer type}
