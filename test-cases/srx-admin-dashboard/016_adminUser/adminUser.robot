@@ -5,6 +5,13 @@ Library                             SeleniumLibrary
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
+*** Variable ***
+${admin email}                  admin@example.com
+${admin first}                  admin first
+${admin last}                   admin last
+${edit admin first}             edit admin first
+${edit admin last}              edit admin last
+
 *** Test Cases ***
 Valid Add Admin User
     [Tags]                          ContentSuperUser                ValidAddAdminUser

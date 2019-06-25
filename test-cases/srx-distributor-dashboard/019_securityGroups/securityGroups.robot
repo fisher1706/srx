@@ -6,6 +6,9 @@ Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
+*** Variable ***
+${edit security group}              auto-edit-security-group
+
 *** Test Cases ***
 Invalid Create New Security Group
     Click Element                   xpath:${button info}
