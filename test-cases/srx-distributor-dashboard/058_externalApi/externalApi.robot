@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup                         Preparation
-Suite Teardown                      Finish Suite
+Suite Teardown                      Close Test
 Library                             Selenium2Library
 Library                             String
 Library                             RequestsLibrary
@@ -84,22 +84,17 @@ Request RFID
     ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${epc}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
-Checking Original Transaction Order Status
-    [Tags]                          CheckingOriginalTransaction
-    Sleep                           2 second
+Check Transaction
     Goto Sidebar Order Status
     Sleep                           2 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
     Sleep                           2 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
-    ${transaction_id}               Get Text            xpath:${table xpath}/tbody/tr[${my transaction}]/td[2]
+    ${my transaction}               Get Row Number      3   ${dynamic sku}
+    Set Suite Variable              ${my transaction}
+    ${transaction_id}               Get Text    xpath:((${react table raw})[${my transaction}]${react table column})[2]/div/div
     Set Suite Variable              ${transaction_id}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${dynamic sku}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ACTIVE
 
 Checking Original Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
@@ -141,6 +136,17 @@ Checking Update Transaction Order Status
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ORDERED
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      70
 
+Check Transaction Update
+    Goto Sidebar Order Status
+    Sleep                           2 second
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
+    Sleep                           2 second
+    ${my transaction}               Get Row Number      3   ${dynamic sku}
+    Set Suite Variable              ${my transaction}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${dynamic sku}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[6]     70
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ORDERED
+
 Checking Update Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
     Sleep                           2 second
@@ -159,21 +165,17 @@ ExternalApi Split
     ${resp}=                        Post Request                    httpbin    /       headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
-Checking Split Transaction Order Status
-    [Tags]                          CheckingUpdateTransactionOrderStatus
+Check Transaction Split
     Goto Sidebar Order Status
     Sleep                           2 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
     Sleep                           2 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${dynamic sku}
+    ${my transaction}               Get Row Number      3   ${dynamic sku}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${dynamic sku}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ORDERED
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[6]      10
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${dynamic sku}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[6]     10
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ORDERED
+
 
 Checking Split Transaction Activity Log
     [Tags]                          CheckingOriginalTransactionActivityLog
@@ -210,23 +212,14 @@ Delete Location
     Click Element                   css:button.btn:nth-child(2)
     Sleep                           3 second
 
-Close Transaction
-    [Tags]                          CloseTransaction
-    Goto Sidebar Order Status
-    Sleep                           2 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
-    Sleep                           2 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    :FOR    ${var}                  IN RANGE    1   ${number of row}+1
-    \   Click Element               xpath:${table xpath}/tbody/tr[1]${button success}
-    \   Choose From Select Box      ${modal dialog}${select control}            DELIVERED
-    \   Click Element               xpath:${button modal dialog ok}
-    \   Sleep                       5 second
-
 ***Keywords***
 Preparation
     Start Distributor
     Set Order Status Settings
+
+Close Test
+    Close All Transactions
+    Finish Suite
 
 Get Split Request URL
     Return From Keyword             https://api-${environment}.storeroomlogix.com/api/distributor/items/${transaction_id}/split/10

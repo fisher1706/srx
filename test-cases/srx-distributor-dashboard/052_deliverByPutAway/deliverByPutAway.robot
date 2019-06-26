@@ -41,20 +41,18 @@ Checking RFID Status
     Element Text Should Be          xpath:(${react table column})[2]      ISSUED
     Element Text Should Be          xpath:(${react table column})[4]      SYSTEM
 
-Check Transactions
+Check Transaction
     Goto Sidebar Order Status
     Sleep                           2 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
     Sleep                           2 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    ${my transaction}               Get Row By Text     ${table xpath}      3   STATIC SKU
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      STATIC SKU
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
-    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            SHIPPED
-    Click Element                   xpath:${button modal dialog ok}
+    ${my transaction}               Get Row Number      3   STATIC SKU
+    Set Suite Variable              ${my transaction}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     STATIC SKU
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ACTIVE
+    Click Element                   xpath:(${react table raw})[${my transaction}]${edit transaction}
+    Select From Dropdown            ${dialog}${dropdown menu}   SHIPPED
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Create Assigned RFID

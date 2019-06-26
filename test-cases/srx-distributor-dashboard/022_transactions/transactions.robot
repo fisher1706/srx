@@ -22,12 +22,13 @@ Sorting Transactions
     Sleep                           7 second
 
 Filter Transactions Part Number
-    Filter Add                      2   1   92-71
-    Filter Add                      3   3   USAGE HISTORY
-    Filter Add                      4   4   USAGE HISTORY
-    Filter Add                      5   6   218
-    Filter Add                      6   7   0000
-    Filter Add                      7   8   G030PM036107NGQ5
+    [Tags]                          Filter
+    #Filter Add                      2   1   92-71
+    #Filter Add                      3   3   USAGE HISTORY
+    #Filter Add                      4   4   USAGE HISTORY
+    #Filter Add                      5   6   218
+    #Filter Add                      6   7   0000
+    #Filter Add                      7   8   G030PM036107NGQ5
     Filter Add For Select Box       8   11  CUSTOMER
 
 *** Keywords ***

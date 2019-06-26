@@ -2,6 +2,7 @@
 Suite Setup                         Preparation
 Suite Teardown                      Finish Suite
 Library                             SeleniumLibrary
+Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
@@ -20,17 +21,21 @@ Invalid Create New Customer Type
     Sleep                           2 second
 
 Valid Create New Customer Type
+    ${customer type}                Generate Random Name L
+    ${market type}                  Generate Random Name L
+    Set Suite Variable              ${customer type}
+    Set Suite Variable              ${market type}
     Click Element                   xpath:${button info}
-    Input Text                      id:name_id                      ${test type}
+    Input Text                      id:name_id                      ${customer type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           5 second
     ${my customer type}             Get Rows Count                  ${table xpath}
     Set Suite Variable              ${my customer type}
-    Set Suite Variable              ${edit customer type}           xpath:${table xpath}/tbody/tr[${my customer type}]${button success}
-    Set Suite Variable              ${delete customer type}         xpath:${table xpath}/tbody/tr[${my customer type}]${button danger}
+    Set Suite Variable              ${edit customer type button}           xpath:${table xpath}/tbody/tr[${my customer type}]${button success}
+    Set Suite Variable              ${delete customer type button}         xpath:${table xpath}/tbody/tr[${my customer type}]${button danger}
 
 Checking New Customer Type In Table
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer type}]/td[2]/div        ${test type}
+    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my customer type}]/td[2]/div        ${customer type}
 
 Invalid Create New Market Type
     [Tags]                          InvalidCreateNewCustomer
@@ -63,11 +68,11 @@ Checking New Types On Distributor Portal
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
     Click Element                   xpath:(${react table raw})[1]
-    Select From Dropdown            (${dropdown menu})[1]       ${test type}
+    Select From Dropdown            (${dropdown menu})[1]       ${customer type}
     Select From Dropdown            (${dropdown menu})[2]       ${market type}
     Click Element                   xpath:${button submit}
     Goto Sidebar Customers
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${test type}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${customer type}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${market type}
     Finish Suite
     Sleep                           5 second
@@ -76,16 +81,20 @@ Delete Customer Type Not Delete
     Preparation
     Click Link                      xpath://*[@href="/customer-types"]
     Sleep                           1 second
-    Click Element                   ${delete customer type}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]         ${test type}
+    Click Element                   ${delete customer type button}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]         ${customer type}
     Click Element                   xpath:${modal dialog}${button danger}
     Element Text Should Be          css:.external-page-alert > strong:nth-child(2)              Operation failed!
     Click Element                   css:.modal-footer > button:nth-child(1)
     Sleep                           2 second
 
 Edit Customer Type
-    Click Element                   ${edit customer type}
-    Input Text                      id:name_id                      ${edit test type}
+    ${edit customer type}           Generate Random Name L
+    ${edit market type}             Generate Random Name L
+    Set Suite Variable              ${edit customer type}
+    Set Suite Variable              ${edit market type}
+    Click Element                   ${edit customer type button}
+    Input Text                      id:name_id                      ${edit customer type}
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           1 second
 
@@ -109,7 +118,7 @@ Checking New Types On Distributor
     [Tags]                          CheckingOnDistributorPortal
     Goto Customer Menu Sub
     Sleep                           2 second
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${edit test type}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]     ${edit customer type}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]     ${edit market type}
     Click Element                   xpath:(${react table raw})[1]
     Select From Dropdown            (${dropdown menu})[1]       Not specified
@@ -124,8 +133,8 @@ Checking New Types On Distributor
 Delete Customer Type
     Preparation
     Click Link                      xpath://*[@href="/customer-types"]
-    Click Element                   ${delete customer type}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${edit test type}
+    Click Element                   ${delete customer type button}
+    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]     ${edit customer type}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           4 second
     ${current size}                 Get Rows Count                  ${table xpath}

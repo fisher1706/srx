@@ -79,18 +79,15 @@ Checking RFID Status
 Check Transactions
     Goto Sidebar Order Status
     Sleep                           2 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
     Sleep                           2 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${change sku 1}
+    ${my transaction}               Get Row Number      3   ${change sku 1}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
-    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            SHIPPED
-    Click Element                   xpath:${button modal dialog ok}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${change sku 1}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ACTIVE
+    Click Element                   xpath:(${react table raw})[${my transaction}]${edit transaction}
+    Select From Dropdown            ${dialog}${dropdown menu}   SHIPPED
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Change Location SKU
@@ -121,17 +118,17 @@ Checking Edit Location
 Check Transactions After Change SKU
     Goto Sidebar Order Status
     Sleep                           2 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
     Sleep                           2 second
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${change sku 1}
+    ${my transaction}               Get Row Number      3   ${change sku 1}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${change sku 1}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]      SHIPPED
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${change sku 1}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    SHIPPED
 
 Deliver Transaction
-    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}       DELIVERED
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${react table raw})[${my transaction}]${edit transaction}
+    Select From Dropdown            ${dialog}${dropdown menu}   DELIVERED
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Delete Location
