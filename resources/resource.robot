@@ -510,8 +510,8 @@ Filter Add For Select Box
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   ${buffer}                   Get Text                xpath:${listbox}/li[${index}]
     \   Run Keyword If              "${buffer}"=="${value}"     Select Filter Element   ${index}
-    Sleep                           3 second
-    ${count2}                        Get Element Count       xpath:${react table raw}
+    Sleep                           6 second
+    ${count2}                       Get Element Count       xpath:${react table raw}
     : FOR   ${index}    IN RANGE    1       ${count2}+1
     \   Element Text Should Be      xpath:((${react table raw})[${index}]${react table column})[${table index}]     ${value}
     Click Element                   xpath:${filter type}/button
@@ -611,3 +611,16 @@ Shipto Selection
     [Arguments]                     ${index}
     Click Element                   xpath:(${shipto})[${index}]
     Exit For Loop
+
+Close All Transactions
+    [Tags]                          CloseTransaction
+    Goto Sidebar Order Status
+    Sleep                           2 second
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
+    Sleep                           2 second
+    ${number of row}                Get Element Count           xpath:${react table raw}
+    :FOR    ${var}                  IN RANGE    1   ${number of row}+1
+    \   Click Element               xpath:(${react table raw})[${my transaction}]${edit transaction}
+    \   Select From Dropdown        ${dialog}${dropdown menu}   DELIVERED
+    \   Click Element               xpath:${button submit}
+    \   Sleep                       5 second

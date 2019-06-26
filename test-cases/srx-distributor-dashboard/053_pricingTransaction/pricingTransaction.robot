@@ -101,21 +101,19 @@ Request RFID
     ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${rfid 1}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
-Check Transactions
-    Sleep                           5 second
+Check Transaction
     Goto Sidebar Order Status
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           1 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${product filename}
+    Sleep                           2 second
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
+    Sleep                           2 second
+    ${my transaction}               Get Row Number      3   ${product filename}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${product filename}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[10]     ACTIVE
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $0.45
-    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
-    Click Element                   xpath:${button modal dialog ok}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${product filename}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ACTIVE
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[5]     $0.45
+    Click Element                   xpath:(${react table raw})[${my transaction}]${edit transaction}
+    Select From Dropdown            ${dialog}${dropdown menu}   DELIVERED
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Pricing For Shipto
@@ -139,23 +137,19 @@ Request RFID New
     ${resp}=                        Post Request            httpbin     /issued     data={"reader_name": "reader", "mac_address": "12:12:12:12:12:12", "tag_reads": [{"antennaPort": 1, "epc": "${rfid 2}", "firstSeenTimestamp": "2018-06-14T00:15:54.373293Z", "peakRssi": -50, "isHeartBeat": false }]}    headers=${headers}
     Should Be Equal As Strings      ${resp}                 <Response [200]>
 
-Check Transactions New
-    Sleep                           2 second
+Check Transaction New
     Goto Sidebar Order Status
-    Sleep                           1 second
-    Reload Page
     Sleep                           2 second
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Click Element                   xpath:${header xpath}/thead/tr/th[9]
-    Sleep                           5 second
-    ${number of row}                Get Rows Count              ${table xpath}
-    ${my transaction}               Get Row By Text     ${table xpath}      3   ${product filename}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
+    Sleep                           2 second
+    ${my transaction}               Get Row Number      3   ${product filename}
     Set Suite Variable              ${my transaction}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[3]      ${product filename}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${my transaction}]/td[5]      $3.64
-    Click Element                   xpath:${table xpath}/tbody/tr[${my transaction}]${button success}
-    Choose From Select Box          ${modal dialog}${select control}            DELIVERED
-    Click Element                   xpath:${button modal dialog ok}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${product filename}
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ACTIVE
+    Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[5]     $3.64
+    Click Element                   xpath:(${react table raw})[${my transaction}]${edit transaction}
+    Select From Dropdown            ${dialog}${dropdown menu}   DELIVERED
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Delete Location

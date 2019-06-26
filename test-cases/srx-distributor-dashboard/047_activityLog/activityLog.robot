@@ -12,7 +12,7 @@ Filter Activity Log
     Filter Add For Select Box       1   2   Transaction
     Filter Add For Select Box       2   3   SPLIT
     Filter Add For Select Box       3   8   FAIL
-    Filter Add For Select Box       4   5   HARDWARE
+    Filter Add For Select Box       6   5   HARDWARE
 
 *** Keywords ***
 Preparation

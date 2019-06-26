@@ -88,7 +88,7 @@ Check Transactions
     Set Suite Variable              ${order number}
     Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${usage history sku}
     Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[10]    ACTIVE
-    Click Element                   xpath:${edit transaction}
+    Click Element                   xpath:(${react table raw})[${my transaction}]${edit transaction}
     Select From Dropdown            ${dialog}${dropdown menu}    DELIVERED
     Click Element                   xpath:${button submit}
     Sleep                           5 second
