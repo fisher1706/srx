@@ -77,10 +77,8 @@ Preparation
     ${buffer}                       Generate Random Name L  10
     Set Suite Variable              ${distributor user email}   distributor.${buffer}@example.com
     Goto Sidebar Users
-    Click Element                   id:users-tab-users
-    ${number of row}                Get Rows Count              ${users pane users}${table xpath}
+    Click Element                   xpath:${tab element}
+    ${number of row}                Get Element Count           xpath:${react table raw}
     ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${edit user button}         xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]${button success}
-    Set Suite Variable              ${delete user button}       xpath:${users pane users}${table xpath}/tbody/tr[${number of new row}]${button danger}
