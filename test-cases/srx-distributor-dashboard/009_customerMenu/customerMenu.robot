@@ -10,11 +10,11 @@ Resource                            ../../../resources/testData.robot
 Create New Shipto
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
-    ${shipto number}                Get Element Count       xpath:${react table raw}
-    ${my shipto}                    Evaluate                ${shipto number}+1
+    ${number of shiptos}            Get Element Count       xpath:${react table raw}
+    ${my shipto}                    Evaluate                ${number of shiptos}+1
     Set Suite Variable              ${my shipto}
     Click Element                   ${create button}
-    Input By Name                   name                    ${dynamic name}
+    Input By Name                   number                  ${shipto number}
     Input By Name                   address.line1           ${dynamic adress1}
     Input By Name                   address.line2           ${dynamic adress2}
     Input By Name                   address.city            ${dynamic city}
@@ -24,14 +24,14 @@ Create New Shipto
     Sleep                           5 second
 
 Checking New Shipto
-    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[1]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[1]      ${shipto number}
     Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[2]      ${dynamic full adress}
     Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[3]      ${EMPTY}
 
 Edit Shipto
     Click Element                   xpath:(${react table raw})[${my shipto}]
     Sleep                           2 second
-    Input By Name                   name                    ${edit name}
+    Input By Name                   number                  ${edit shipto number}
     Input By Name                   poNumber                4550
     Input By Name                   address.line1           ${edit adress1}
     Input By Name                   address.line2           ${edit adress2}
@@ -47,7 +47,7 @@ Checking Shipto
     Click Element                   xpath:(${react table raw})[${my customer}]
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
-    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[1]      ${edit name}
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[1]      ${edit shipto number}
     Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[2]      ${edit full adress}
     Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[3]      4550
 
@@ -72,7 +72,7 @@ Checking New Customer User
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[2]      ${user first name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[3]      ${user last name}
     Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[4]      Customer User
-    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[5]      ${edit name}
+    Element Text Should Be          xpath:((${react table raw})[${my customer user}]${react table column})[5]      ${edit shipto number}
 
 Edit Customer User
     Click Element                   xpath:(${react table raw})[${my customer user}]${user info}
@@ -114,7 +114,7 @@ Delete Shipto
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
     Click Element                   xpath:(${react table raw})[${my shipto}]${delete shipto}
-    Dialog Should Be About          ${edit name}
+    Dialog Should Be About          ${edit shipto number}
     Click Element                   xpath:${button submit}
     Sleep                           5 second
 
@@ -136,6 +136,8 @@ Preparation
     Sleep                           5 second
     ${buffer}                       Generate Random Name L  10
     Set Suite Variable              ${customer user email}      customer.${buffer}@example.com
+    Set Suite Variable              ${shipto number}            new-${buffer}
+    Set Suite Variable              ${edit shipto number}       edit-${buffer}
     ${my customer}                  Get React Row By Text   1   ${customer_name}
     Set Suite Variable              ${my customer}
     Click Element                   xpath:(${react table raw})[${my customer}]

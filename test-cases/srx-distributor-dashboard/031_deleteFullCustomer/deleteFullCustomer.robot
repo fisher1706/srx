@@ -30,12 +30,13 @@ Checking Customer
     Element Text Should Be          xpath:((${react table raw})[${my customer}]${react table column})[5]      ${market type}
 
 Create Shipto 1
+    ${shipto number 1}              Generate Random Name L
     Click Element                   xpath:(${react table raw})[${my customer}]
     Sleep                           1 second
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
     Click Element                   ${create button}
-    Input By Name                   name                    ${dynamic name}
+    Input By Name                   number                  ${shipto number 1}
     Input By Name                   address.line1           ${dynamic adress1}
     Input By Name                   address.line2           ${dynamic adress2}
     Input By Name                   address.city            ${dynamic city}
@@ -45,7 +46,7 @@ Create Shipto 1
     Sleep                           5 second
 
 Checking Shipto 1
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${shipto number 1}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${dynamic full adress}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${EMPTY}
 
@@ -69,21 +70,22 @@ Checking Customer User 1
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${user first name}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${user last name}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]      Customer User
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]      ${shipto number 1}
 
 Delete Shipto 1
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
     Click Element                   xpath:(${react table raw})[1]${delete shipto}
-    Dialog Should Be About          ${dynamic name}
+    Dialog Should Be About          ${shipto number 1}
     Click Element                   xpath:${button submit}
     Sleep                           5 second
 
 Create Shipto 2
+    ${shipto number 2}              Generate Random Name L
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
     Click Element                   ${create button}
-    Input By Name                   name                    ${dynamic name}
+    Input By Name                   number                  ${shipto number 2}
     Input By Name                   address.line1           ${dynamic adress1}
     Input By Name                   address.line2           ${dynamic adress2}
     Input By Name                   address.city            ${dynamic city}
@@ -95,7 +97,7 @@ Create Shipto 2
     Should Be Equal As Integers     ${number of shiptos}    1
 
 Checking Shipto 2
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${shipto number 2}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${dynamic full adress}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${EMPTY}
 
@@ -122,7 +124,7 @@ Checking Customer User 2
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${user first name}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${user last name}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]      Customer User
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]      ${dynamic name}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]      ${shipto number 2}
 
 Delete Customer
     Goto Sidebar Customers
