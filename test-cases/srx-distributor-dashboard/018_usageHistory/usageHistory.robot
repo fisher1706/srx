@@ -99,6 +99,10 @@ Checking Usage History
     Click Element                   xpath:(${menu}${menu item})[1]
     Input Text                      xpath:${text field}     ${order number}
     Sleep                           7 second
+    Click Element                   xpath:(${react header})[7]
+    Sleep                           5 second
+    Click Element                   xpath:(${react header})[7]
+    Sleep                           5 second
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]     ${order number}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]     1138
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]     ${shipto_name}
