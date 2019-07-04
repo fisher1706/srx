@@ -125,7 +125,8 @@ Delete Shipto
 Sorting ShipTo
     [Tags]                          Sort
     Sort React                      1
-    Sort React                      3
+    Sort React                      2
+    Sort React                      4
 
 Filter ShipTo
     [Tags]                          Filter
