@@ -125,12 +125,13 @@ Delete Shipto
 Sorting ShipTo
     [Tags]                          Sort
     Sort React                      1
-    Sort React                      3
+    Sort React                      2
+    Sort React                      4
 
 Filter ShipTo
     [Tags]                          Filter
     Filter Add                      1       1       2048
-    Filter Add                      2       3       9000
+    Filter Add                      2       4       9000
 
 *** Keywords ***
 Preparation
