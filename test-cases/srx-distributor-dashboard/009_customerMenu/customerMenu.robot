@@ -15,6 +15,7 @@ Create New Shipto
     Set Suite Variable              ${my shipto}
     Click Element                   ${create button}
     Input By Name                   number                  ${shipto number}
+    Input By Name                   name                    shipto
     Input By Name                   address.line1           ${dynamic adress1}
     Input By Name                   address.line2           ${dynamic adress2}
     Input By Name                   address.city            ${dynamic city}
@@ -25,13 +26,15 @@ Create New Shipto
 
 Checking New Shipto
     Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[1]      ${shipto number}
-    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[2]      ${dynamic full adress}
-    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[3]      ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[2]      shipto
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[3]      ${dynamic full adress}
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[4]      ${EMPTY}
 
 Edit Shipto
     Click Element                   xpath:(${react table raw})[${my shipto}]
     Sleep                           2 second
     Input By Name                   number                  ${edit shipto number}
+    Input By Name                   name                    edit-shipto
     Input By Name                   poNumber                4550
     Input By Name                   address.line1           ${edit adress1}
     Input By Name                   address.line2           ${edit adress2}
@@ -48,8 +51,9 @@ Checking Shipto
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
     Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[1]      ${edit shipto number}
-    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[2]      ${edit full adress}
-    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[3]      4550
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[2]      edit-shipto
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[3]      ${edit full adress}
+    Element Text Should Be          xpath:((${react table raw})[${my shipto}]${react table column})[4]      4550
 
 Create New Customer User
     Click Element                   xpath:(${tab element})[3]

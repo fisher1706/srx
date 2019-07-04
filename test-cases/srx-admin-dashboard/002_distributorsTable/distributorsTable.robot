@@ -36,7 +36,7 @@ Valid Add Distributor
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New Data
-    Sleep                           5 second
+    Sleep                           7 second
     Open Full Table
     Sleep                           2 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]       ${dynamic name}

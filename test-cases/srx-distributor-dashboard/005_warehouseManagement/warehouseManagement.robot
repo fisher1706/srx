@@ -7,114 +7,72 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Test Cases ***
-Invalid Create New Warehouse
-    Click Element                   xpath:${button info}
-    Sleep                           1 second
-    Click Element                   xpath:${button close}
-    Sleep                           2 second
-    Click Element                   xpath:${button info}
-    Press Key                       id:address.line1_id     \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[1]/*
-    Press Key                       id:name_id              \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[2]/*
-    Press Key                       id:number_id            \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[4]/*
-    Press Key                       id:address.city_id      \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[5]/*
-    Press Key                       id:address.zipCode_id   \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[6]/*
-    Press Key                       id:contactEmail_id      \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[7]/*
-    Press Key                       id:invoiceEmail_id      \ue004
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[8]/*
-    Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
-
 Valid Create New Warehouse
-    [Tags]                          ValidCreateNewWarehouse
-    Click Element                   xpath:${button info}
-    Input Text                      id:name_id              ${user first name}
-    Input Text                      id:address.line1_id     ${dynamic adress1}
-    Input Text                      id:address.line2_id     ${dynamic adress2}
-    Input Text                      id:number_id            ${warehouse number}
-    Input Text                      id:address.city_id      ${dynamic city}
-    Choose From Select Box          (${modal dialog}${select control})[2]       Alaska
-    Input Text                      id:contactEmail_id      ${incorrect email}
-    Input Text                      id:address.zipCode_id   ${dynamic code}
-    Input Text                      id:invoiceEmail_id      ${incorrect email}
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[7]/*
-    Element Should Be Visible       xpath:(${modal dialog}${help block})[8]/*
-    Input Text                      id:contactEmail_id      ${correct wrong email}
-    Input Text                      id:invoiceEmail_id      ${correct wrong email}
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   ${create button}
+    Input By Name                   name                ${user first name}
+    Input By Name                   number              ${warehouse number}
+    Input By Name                   address.line1       ${dynamic adress1}
+    Input By Name                   address.line2       ${dynamic adress2}
+    Input By Name                   address.city        ${dynamic city}
+    Select From Dropdown            (${dialog}${dropdown menu})[1]      Alaska
+    Input By Name                   address.zipCode     ${dynamic code}
+    Input By Name                   contactEmail        ${correct wrong email}
+    Input By Name                   invoiceEmail        ${correct wrong email}
+    Click Element                   xpath:${button submit}
+    Sleep                           2 second
 
 Checking New Warehouse
-    [Tags]                          ValidCreateNewWarehouse
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${user first name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   America/New_York (-04:00)
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${dynamic full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ${correct wrong email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ${correct wrong email}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]      ${user first name}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]      ${warehouse number}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]      America/New_York (-04:00)
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]      ${dynamic full adress}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]      ${correct wrong email}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]      ${correct wrong email}
 
 Edit Warehouse
-    [Tags]                          EditWarehouse
-    Click Element                   ${edit warehouse button}
-    Sleep                           1 second
-    Click Element                   xpath:${button close}
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit warehouse}
+    Input By Name                   name                ${user last name}
+    Input By Name                   number              ${edit warehouse number}
+    Input By Name                   address.line1       ${edit adress1}
+    Input By Name                   address.line2       ${edit adress2}
+    Input By Name                   address.city        ${edit city}
+    Select From Dropdown            (${dialog}${dropdown menu})[1]      Arizona
+    Select From Dropdown            (${dialog}${dropdown menu})[2]      US/Hawaii (-10:00)
+    Input By Name                   address.zipCode     ${edit code}
+    Input By Name                   contactEmail        ${edit email}
+    Input By Name                   invoiceEmail        ${edit email}
+    Click Element                   xpath:${button submit}
     Sleep                           2 second
-    Click Element                   ${edit warehouse button}
-    Click Element                   xpath:${button modal dialog cancel}
-    Sleep                           2 second
-    Click Element                   ${edit warehouse button}
-    Input Text                      id:name_id              ${user last name}
-    Input Text                      id:address.line1_id     ${edit adress1}
-    Input Text                      id:address.line2_id     ${edit adress2}
-    Input Text                      id:number_id            ${edit warehouse number}
-    Input Text                      id:address.city_id      ${edit city}
-    Choose From Select Box          (${modal dialog}${select control})[1]       US/Hawaii (-10:00)
-    Choose From Select Box          (${modal dialog}${select control})[2]       Arizona
-    Input Text                      id:address.zipCode_id   ${edit code}
-    Input Text                      id:contactEmail_id      ${edit email}
-    Input Text                      id:invoiceEmail_id      ${edit email}
-    Click Element                   xpath:${button modal dialog ok}
 
 Checking Edit Warehouse
-    [Tags]                          EditWarehouse
     Sleep                           5 second
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]   ${user last name}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]   ${edit warehouse number}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[4]   US/Hawaii (-10:00)
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[5]   ${edit full adress}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[6]   ${edit email}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[7]   ${edit email}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]      ${user last name}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[3]      ${edit warehouse number}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[4]      US/Hawaii (-10:00)
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[5]      ${edit full adress}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[6]      ${edit email}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[7]      ${edit email}
 
-Delete Warehouse
-    [Tags]                          DeleteWarehouse
-    Click Element                   ${delete warehouse button}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]      ${user last name}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]      ${edit warehouse number}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[4]      US/Hawaii (-10:00)
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[5]      ${edit full adress}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[6]      ${edit email}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[7]      ${edit email}
-    Click Element                   xpath:${modal dialog}${button danger}
-    Sleep                           10 second
+Delete User
+    Click Element                   xpath:(${react table raw})[${number of new row}]${delete warehouse}
+    Dialog Should Be About          ${user last name}
+    Click Element                   xpath:${button submit}
+    Sleep                           5 second
 
 Sorting Warehouses
     [Tags]                          Sorting
-    Sorting Column                  1
-    Sorting Column                  2
-    Sorting Column                  3
-    Sorting Column                  6
-    Sorting Column                  7
+    Sort React                      1
+    Sort React                      2
+    Sort React                      3
+    Sort React                      6
+    Sort React                      7
 
 Warehouse Filtration
     [Tags]                          Filter
-    Filter Field                    1   1   Z_Warehouse
-    Filter Field                    2   3   9999
-    Filter Field                    3   6   warehouseZ@example.com
+    Filter Add                      1   1   Z_Warehouse
+    Filter Add                      2   3   9999
+    Filter Add                      3   6   warehouseZ@example.com
 
 *** Keywords ***
 Preparation
@@ -122,11 +80,7 @@ Preparation
     Sleep                           2 second
     Goto Sidebar Warehouses
     Sleep                           5 second
-    Reload Page
-    Sleep                           5 second
-    ${number of row}                Get Rows Count                  ${table xpath}
-    ${number of new row}=           Evaluate                        ${number of row}+1
-    Set Suite Variable              ${number of new row}
+    ${number of row}                Get Element Count           xpath:${react table raw}
+    ${number of new row}=           Evaluate                    ${number of row}+1
     Set Suite Variable              ${number of row}
-    Set Suite Variable              ${edit warehouse button}        xpath:${table xpath}/tbody/tr[${number of new row}]${button success}
-    Set Suite Variable              ${delete warehouse button}      xpath:${table xpath}/tbody/tr[${number of new row}]${button danger}
+    Set Suite Variable              ${number of new row}
