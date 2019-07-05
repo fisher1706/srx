@@ -49,8 +49,6 @@ Unassign RFID
     Element Text Should Be          xpath:${dialog}//table/tbody/tr/td[2]     MANIFEST
     Element Text Should Be          xpath:${dialog}//table/tbody/tr/td[4]     ${email_dist}
     Click Element                   xpath:(${dialog}${button})[2]
-    Sleep                           5 second
-    Reload Page
     Sleep                           7 second
     Select Location At Rfid Menu    ${customer_name} - ${shipto_name}      STATIC SKU
     Sleep                           5 second

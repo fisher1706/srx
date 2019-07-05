@@ -31,6 +31,7 @@ Checking Customer
 
 Create Shipto 1
     ${shipto number 1}              Generate Random Name L
+    Set Suite Variable              ${shipto number 1}
     Click Element                   xpath:(${react table raw})[${my customer}]
     Sleep                           1 second
     Click Element                   xpath:(${tab element})[2]
@@ -47,8 +48,8 @@ Create Shipto 1
 
 Checking Shipto 1
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${shipto number 1}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${dynamic full adress}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${dynamic full adress}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]      ${EMPTY}
 
 Create Customer User 1
     ${buffer}                       Generate Random Name L
@@ -82,6 +83,7 @@ Delete Shipto 1
 
 Create Shipto 2
     ${shipto number 2}              Generate Random Name L
+    Set Suite Variable              ${shipto number 2}
     Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
     Click Element                   ${create button}
@@ -98,8 +100,8 @@ Create Shipto 2
 
 Checking Shipto 2
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[1]      ${shipto number 2}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[2]      ${dynamic full adress}
-    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${EMPTY}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[3]      ${dynamic full adress}
+    Element Text Should Be          xpath:((${react table raw})[1]${react table column})[4]      ${EMPTY}
 
 Create Customer User 2
     ${buffer}                       Generate Random Name L
