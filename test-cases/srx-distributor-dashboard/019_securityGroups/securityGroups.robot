@@ -6,27 +6,17 @@ Library                             String
 Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
-*** Variable ***
-${edit security group}              auto-edit-security-group
-
 *** Test Cases ***
-Invalid Create New Security Group
-    Click Element                   xpath:${button info}
-    Press Key                       id:name_id                 \ue004
-    Element Should Be Visible       css:.fa-exclamation-circle > path:nth-child(1)
-    Click Element                   xpath:${button close}
-    Sleep                           1 second
-
 Valid Create New Security Group
-    Click Element                   xpath:${button info}
+    Click Element                   ${create button}
     ${security group}               Generate Random Name L
     Set Suite Variable              ${security group}
-    Input Text                      id:name_id                  ${security group}
-    Click Element                   xpath:${button modal dialog ok}
+    Input By Name                   name    ${security group}
+    Click Element                   xpath:${button submit}
 
 Checking New Security Group
     Sleep                           5 second
-    Element Text Should Be          xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[1]          ${security group}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row}]${react table column})[1]      ${security group}
 
 Create User With New Security Group
     ${buffer}                       Generate Random Name L  10
@@ -52,13 +42,12 @@ Checking New User
 
 Try To Delete Security Group
     Goto Sidebar Security Groups
-    Click Element                   ${delete group button}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td     ${security group}
-    Click Element                   css:button.btn:nth-child(2)
-    Element Should Be Visible       css:.external-page-alert > br:nth-child(3)
-    Page Should Contain             Can't delete SecurityGroup with inner relationships.
-    Click Element                   css:.modal-footer > button:nth-child(1)
-    Sleep                           2 second
+    Click Element                   xpath:(${react table raw})[${number of new row}]${delete security group}
+    Dialog Should Be About          ${security group}
+    Click Element                   xpath:${button submit}
+    Sleep                           5 second
+    Page Should Contain             UserGroup with key 
+    Page Should Contain             has unresolved constraint: Users are present.
     Goto Sidebar Users
 
 Delete User
@@ -70,54 +59,21 @@ Delete User
     Goto Sidebar Security Groups
 
 Edit Security Group
-    Click Element                   ${edit group button}
-    Input Text                      id:name_id                  ${edit security group}
-    Set Permission                  2           1
-    Set Permission                  3           1
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
-    Set Settings Permission         2           1
-    Click Element                   xpath:${button modal dialog ok}
-    
-Checking Edit Security Group
+    Click Element                   xpath:(${react table raw})[${number of new row}]${edit security group}
+    Input By Name                   name    ${security group}
+    Click Element                   xpath:${general permission card}
+    Set General Permission          Users           1
+    Set General Permission          Super Users     2
+    Click Element                   xpath:${settings permission card}
+    Set Settings Permission         Settings - Distributor Contact Information      1
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
-    Element Text Should Be          xpath:(${table xpath})[2]/tbody/tr[${number of new row}]/td[1]      ${edit security group}
-    Click Element                   ${edit group button}
-    ${checked}                      Get Permission      2       1
-    Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail Fail
-    ${checked}                      Get Permission      3       1
-    Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail Fail
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/ul/li[2]/a
-    ${checked}                      Get Settings Permission      2       1
-    Run Keyword If                  "${checked}"=="true"        Log To Console      Pass    ELSE    Fail Fail
-    Click Element                   css:.modal-dialog-cancel-button
 
 Delete Security Group
-    Click Element                   ${delete group button}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td     ${edit security group}
-    Click Element                   css:button.btn:nth-child(2)
-    Sleep                           7 second
-
-Sorting Security Groups
-    [Tags]                          Sorting
-    Click Element                   xpath:(${header xpath})[2]/thead/tr/th[1]
-    ${text buffer1up}               Get Text                    xpath:(${table xpath})[2]/tbody/tr[1]/td[1]
-    ${text buffer1down}             Get Text                    xpath:(${table xpath})[2]/tbody/tr[${number of row}]/td[1]
-    Click Element                   xpath:(${header xpath})[2]/thead/tr/th[1]
-    ${text buffer2up}               Get Text                    xpath:(${table xpath})[2]/tbody/tr[1]/td[1]
-    ${text buffer2down}             Get Text                    xpath:(${table xpath})[2]/tbody/tr[${number of row}]/td[1]
-    Run Keyword If                  "${text buffer1up}"!="${text buffer2down}"          Log To Console      Sorting 1 is failed
-    Run Keyword If                  "${text buffer1down}"!="${text buffer2up}"          Log To Console      Sorting 1 is failed
-    Click Element                   xpath:(${header xpath})[2]/thead/tr/th[1]
-
-Filter Security Groups
-    [Tags]                          Filter
-    Click Element                   css:.button-right-margin
-    Input Text                      css:.form-control           Static Group
-    Click Element                   css:button.btn:nth-child(2)
+    Click Element                   xpath:(${react table raw})[${number of new row}]${delete security group}
+    Dialog Should Be About          ${security group}
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
-    Element Text Should Be          xpath:(${table xpath})[2]/tbody/tr/td[1]     Static Group
-    ${number of row}                Get Rows Count              (${table xpath})[2]
-    Should Be Equal                 "${number of row}"      "1"
 
 *** Keywords ***
 Preparation
@@ -125,29 +81,7 @@ Preparation
     Sleep                           2 second
     Goto Sidebar Security Groups
     Sleep                           2 second
-    ${buffer}                       Generate Random Name L  10
-    Set Suite Variable              ${security user email}   distributor.${buffer}@example.com
-    ${number of row}                Get Rows Count              (${table xpath})[2]
-    ${number of new row}=           Evaluate                    ${number of row}+1
+    ${number of row}                Get Element Count           xpath:${react table raw}
+    ${number of new row}=           Evaluate    ${number of row}+1
     Set Suite Variable              ${number of row}
     Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${edit group button}        xpath:(${table xpath})[2]/tbody/tr[${number of new row}]${button success}
-    Set Suite Variable              ${delete group button}      xpath:(${table xpath})[2]/tbody/tr[${number of new row}]${button danger}
-
-Set Permission
-    [Arguments]                     ${row}      ${column}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
-
-Set Settings Permission
-    [Arguments]                     ${row}      ${column}
-    Click Element                   xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input
-
-Get Permission
-    [Arguments]                     ${row}      ${column}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[1]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
-    Return From Keyword             ${checked}
-
-Get Settings Permission
-    [Arguments]                     ${row}      ${column}
-    ${checked}                      Get Element Attribute       xpath:/html/body/div[2]/div[2]/div/div/div[2]/div/div/form/div[2]/div/div[2]/div/table/tbody/tr[${row}]/td[${column}+1]/label/input     checked
-    Return From Keyword             ${checked}
