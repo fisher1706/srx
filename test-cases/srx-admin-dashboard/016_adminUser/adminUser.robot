@@ -14,7 +14,6 @@ ${edit admin last}              edit admin last
 
 *** Test Cases ***
 Valid Add Admin User
-    [Tags]                          ContentSuperUser                ValidAddAdminUser
     Set Suite Variable              ${const number admin}           ${number of row}
     Click Element                   id:distributor-details-tab-2
     Sleep                           2 second
@@ -25,39 +24,34 @@ Valid Add Admin User
     Click Element                   xpath:${button modal dialog ok}
 
 Checking New User
-    [Tags]                          ContentSuperUser
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[1]/div       ${admin email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[2]/div       ${admin first}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of new row}]/td[3]/div       ${admin last}
 
 Checking User On Distributor Portal
-    [Tags]                          ContentSuperUser
     Goto Users Sub
     ${const number distributor}     Evaluate                ${number of row u}-1
     Set Suite Variable              ${const number distributor}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div                ${admin email}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[2]/div                ${admin first}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[3]/div                ${admin last}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[1]      ${admin email}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[2]      ${admin first}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[3]      ${admin last}
 
 Edit From Distributor Portal
-    [Tags]                          ContentSuperUser
-    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]${button success}
-    Input Text                      id:firstName_id             ${edit admin first}
-    Input Text                      id:lastName_id              ${edit admin last}
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${react table raw})[${number of row u}]${edit super user}
+    Input By Name                   firstName   ${edit admin first}
+    Input By Name                   lastName    ${edit admin last}
+    Click Element                   xpath:${button submit}
 
 Checking Edit User From Distributor Portal
-    [Tags]                          ContentSuperUser
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div            ${admin email}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[2]/div            ${edit admin first}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[3]/div            ${edit admin last}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[1]      ${admin email}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[2]      ${edit admin first}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[3]      ${edit admin last}
     Finish Suite
     Sleep                           5 second
 
 Checking Edit User On Admin Portal
-    [Tags]                          ContentSuperUser
     Preparation
     Click Element                   id:distributor-details-tab-2
     Sleep                           2 second
@@ -66,7 +60,6 @@ Checking Edit User On Admin Portal
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
 
 Edit From Admin Portal
-    [Tags]                          ContentSuperUser
     Click Element                   id:distributor-details-tab-2
     Sleep                           2 second
     Click Element                   ${edit user button}
@@ -75,44 +68,36 @@ Edit From Admin Portal
     Click Element                   xpath:${button modal dialog ok} 
 
 Checking Edit User From Admin Portal
-    [Tags]                          ContentSuperUser
     Sleep                           5 second
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[1]/div       ${admin email}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[2]/div       ${admin first}
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${admin last}
 
 Checking Edit User On Distributor Portal
-    [Tags]                          ContentSuperUser
     Goto Users Sub
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[1]/div            ${admin email}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[2]/div            ${admin first}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]/td[3]/div            ${admin last}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[1]      ${admin email}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[2]      ${admin first}
+    Element Text Should Be          xpath:((${react table raw})[${number of row u}]${react table column})[3]      ${admin last}
 
 Delete User From Distributor Portal
-    [Tags]                          ContentSuperUser
-    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of row u}]${button danger}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]            ${admin first}
-    Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[3]            ${admin last}
-    Click Element                   xpath:${modal dialog}${button danger}
-    Sleep                           4 second
+    Click Element                   xpath:(${react table raw})[${number of row u}]${delete super user}
+    Dialog Should Be About          ${admin first} ${admin last}
+    Click Element                   xpath:${button submit}
+    Sleep                           5 second
 
 Checking Users Number On Distributor Portal After Delete From Distributor Portal
-    [Tags]                          ContentSuperUser
-    ${number of row u}              Get Rows Count                  ${users pane super users}${table xpath}
+    ${number of row u}              Get Element Count           xpath:${react table raw}
     Run Keyword If                  ${number of row u}==${const number distributor}     Log To Console      Pass    ELSE    Fail    Fail
     Finish Suite
     Sleep                           5 second
 
 Checking Users Number On Admin Portal After Delete From Distributor Portal
-    [Tags]                          ContentSuperUser
     Preparation
     Click Element                   id:distributor-details-tab-2
     ${number of row}                Get Rows Count          ${table xpath}
     Run Keyword If                  ${number of row}==${const number admin}     Log To Console      Pass    ELSE    Fail    Fail
 
 Delete User From Admin Portal
-    [Tags]                          ContentSuperUser
     Sleep                           2 second
     Click Element                   xpath:${distributors admin pane}${button info}
     Input Text                      id:email_id             ${admin email}
@@ -129,52 +114,45 @@ Delete User From Admin Portal
     Sleep                           5 second
 
 Checking Users Number On Admin Portal After Delete From Admin Portal
-    [Tags]                          ContentSuperUser
     Click Element                   id:distributor-details-tab-2
     ${number of row}                Get Rows Count          ${table xpath}
     Run Keyword If                  ${number of row}==${const number admin}     Log To Console      Pass    ELSE    Fail    Fail
 
 Checking Users Number On Distributor Portal After Delete From Admin Portal
-    [Tags]                          ContentSuperUser
     Goto Users Sub
-    ${number of row}                Get Rows Count          ${table xpath}
+    ${number of row}                Get Element Count           xpath:${react table raw}
     Run Keyword If                  ${number of row u}==${const number distributor}     Log To Console      Pass    ELSE    Fail    Fail
     Finish Suite
     Sleep                           5 second
 
 Create Admin On Distributor Portal
-    [Tags]                          AddSuperUser
     Goto Users Sub
-    Sleep                           2 second
-    Click Element                   xpath:${users pane super users}${button info}
-    Input Text                      id:email_id                         ${admin email}
-    Input Text                      id:firstName_id                     ${admin first}
-    Input Text                      id:lastName_id                      ${admin last}
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   ${create button}
+    Input By Name                   email       ${admin email}
+    Input By Name                   firstName   ${admin first}
+    Input By Name                   lastName    ${admin last}
+    Click Element                   xpath:${button submit}
     Sleep                           3 second
     Set Suite Variable              ${const number distributor 2}       ${number of row u}
     ${number of new row u}          Evaluate                            ${number of row u}+1
     Set Suite Variable              ${number of new row u}
 
 Checking Admin On Distributor Portal
-    [Tags]                          AddSuperUser
     Sleep                           5 second
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]/td[1]/div            ${admin email}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]/td[2]/div            ${admin first}
-    Element Text Should Be          xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]/td[3]/div            ${admin last}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row u}]${react table column})[1]      ${admin email}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row u}]${react table column})[2]      ${admin first}
+    Element Text Should Be          xpath:((${react table raw})[${number of new row u}]${react table column})[3]      ${admin last}
 
 Edit Admin From Distributor Portal
-    [Tags]                          ContentSuperUser
-    Click Element                   xpath:${users pane super users}${table xpath}/tbody/tr[${number of new row u}]${button success}
-    Input Text                      id:firstName_id             ${edit admin first}
-    Input Text                      id:lastName_id              ${edit admin last}
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${react table raw})[${number of new row u}]${edit super user}
+    Input By Name                   firstName   ${edit admin first}
+    Input By Name                   lastName    ${edit admin last}
+    Click Element                   xpath:${button submit}
     Sleep                           5 second
     Finish Suite
     Sleep                           5 second
 
 Checking Admin On Admin Portal
-    [Tags]                          AddSuperUser
     Preparation
     ${const number admin 2}         Evaluate                            ${number of row}-1
     Set Suite Variable              ${const number admin 2}
@@ -185,7 +163,6 @@ Checking Admin On Admin Portal
     Element Text Should Be          xpath:${table xpath}/tbody/tr[${number of row}]/td[3]/div       ${edit admin last}
 
 Delete Admin
-    [Tags]                          AddSuperUser
     ${number of row}                Get Rows Count          ${table xpath}
     Click Element                   xpath:${table xpath}/tbody/tr[${number of row}]${button danger}
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[1]            ${admin email}
@@ -195,15 +172,13 @@ Delete Admin
     Sleep                           2 second
 
 Checking Admins Number On Admin Portal After Delete From Admin Portal
-    [Tags]                          AddSuperUser
     Click Element                   id:distributor-details-tab-2
     ${number of row}                Get Rows Count          ${table xpath}
     Run Keyword If                  ${number of row}==${const number admin 2}     Log To Console      Pass    ELSE    Fail    Fail
 
 Checking Admins Number On Distributor Portal After Delete From Admin Portal
-    [Tags]                          AddSuperUser
     Goto Users Sub
-    ${number of row u}              Get Rows Count                  ${users pane super users}${table xpath}
+    ${number of row u}              Get Element Count           xpath:${react table raw}
     Run Keyword If                  ${number of row u}==${const number distributor 2}     Log To Console      Pass    ELSE    Fail    Fail
     Finish Suite
     Sleep                           5 second
@@ -225,9 +200,9 @@ Goto Users Sub
     Sleep                           5 second
     Goto Sidebar Users
     Sleep                           1 second
-    Click Element                   id:users-tab-super-users
+    Click Element                   xpath:(${tab element})[2]
     Sleep                           2 second
-    ${number of row u}              Get Rows Count                  ${users pane super users}${table xpath}
+    ${number of row u}              Get Element Count           xpath:${react table raw}
     Set Suite Variable              ${number of row u}
 
 Goto Admin Users Sub
