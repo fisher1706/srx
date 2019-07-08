@@ -215,16 +215,26 @@ Fail Upload
     Fail                            Operation failed!
 
 Set Permission
-    [Arguments]                     ${row}      ${column}
-    ${to click}                     Set Variable    xpath:(${modal dialog}${tab pane})[1]//table/tbody/tr[${row}]/td[${column}+1]${checkbox type}
-    ${checked}                      Get Element Attribute   ${to click}     checked
-    Run Keyword If                  "${checked}"=="None"    Click Element   ${to click}
+    [Arguments]                     ${table number}     ${name}     ${column}
+    ${row}                          Set Variable        (//tbody)[${table number}]/tr
+    ${rows}                         Get Element Count   xpath:${row}
+    :FOR  ${index}  IN RANGE  1     ${rows}+1
+    \   ${buffer}                   Get Text        xpath:(${row})[${index}]/td[1]
+    \   Run Keyword If              "${name}"=="${buffer}"      Select Permission   (${row})[${index}]      ${column}+1
+    \   Run Keyword If              ${index}==${rows}           Fail    Permission doesn't detect
+
+Select Permission
+    [Arguments]                     ${selected row}     ${column}
+    Select Checkbox                 xpath:${selected row}/td[${column}]${checkbox type}
+    Exit For Loop
+
+Set General Permission
+    [Arguments]                     ${name}     ${column}
+    Set Permission                  1       ${name}     ${column}
 
 Set Settings Permission
-    [Arguments]                     ${row}      ${column}
-    ${to click}                     Set Variable    xpath:(${modal dialog}${tab pane})[2]//table/tbody/tr[${row}]/td[${column}+1]${checkbox type}
-    ${checked}                      Get Element Attribute   ${to click}     checked
-    Run Keyword If                  "${checked}"=="None"    Click Element   ${to click}
+    [Arguments]                     ${name}     ${column}
+    Set Permission                  2       ${name}     ${column}
 
 Clear All Permissions
     ${rows}                         Get Element Count   xpath:(${modal dialog}${tab pane})[1]//table/tbody/tr
