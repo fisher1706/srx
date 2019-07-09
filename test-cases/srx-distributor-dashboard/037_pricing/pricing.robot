@@ -44,7 +44,7 @@ Sorting Pricing
 *** Keywords ***
 Preparation
     Start Distributor
-     Goto Sidebar Pricing
+    Goto Sidebar Pricing
 
 If First Pricing
     First Pricing
