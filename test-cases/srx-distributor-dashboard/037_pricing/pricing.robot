@@ -34,7 +34,6 @@ Checking Pricing
 
 Sorting Pricing
     [Tags]                          Sorting
-    Goto Sidebar Pricing
     Sleep                           1 second
     Select Pricing Customer         Customer A
     Sort React                      1
@@ -45,6 +44,7 @@ Sorting Pricing
 *** Keywords ***
 Preparation
     Start Distributor
+    Goto Sidebar Pricing
 
 If First Pricing
     First Pricing
