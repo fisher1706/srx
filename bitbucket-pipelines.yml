@@ -22,4 +22,4 @@ pipelines:
             - chmod +x geckodriver
             - mv geckodriver /usr/local/bin/
             - export PYTHONWARNINGS="ignore"
-            - robot -v set:pipeline.robot test-cases
+            - robot -v set:dev.robot -v browser:xvfb test-cases
