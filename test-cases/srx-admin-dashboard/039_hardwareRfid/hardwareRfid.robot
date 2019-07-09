@@ -41,36 +41,38 @@ Checking Edit Serial Number
 
 Checking Serial Number On Distributor Portal
     Goto Settings Sub
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[1]       ${serial number}
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[2]       RFID
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[10]      10/10/2022, 11:00 PM
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[1]       ${serial number}
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[2]       RFID
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[7]       10/10/2022, 11:00 PM
 
 Change Serial Number On Distributor Portal
-    Click Element                   xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]${button success}
-    Input Text                      id:deviceName_id                    MyDeviceRFID
-    Choose From Select Box          (${modal dialog}${select control})[1]   ${customer_name} - ${shipto_name}
+    Click Element                   xpath:(${react table raw})[${my serial number}]${edit serial number}
+    Input By Name                   deviceName      MyDeviceRFID
+    Select From Dropdown            (${dialog}${dropdown menu})[1]      ${customer_name} - ${shipto_name}
     Sleep                           5 second
-    Choose First From Select Box    (${modal dialog}${select control})[2]
-    ${dist user}                    Get Text    xpath:(${modal dialog}${select control})[2]/div/div
-    Choose First From Select Box    (${modal dialog}${select control})[3]
-    ${cust user}                    Get Text    xpath:(${modal dialog}${select control})[3]/div/div
-    Click Element                   xpath:${button modal dialog ok}
+    ${dist user}                    Select First    (${dialog}${dropdown menu})[2]
+    ${cust user}                    Select First    (${dialog}${dropdown menu})[3]
+    Click Element                   xpath:${button submit}
     Set Suite Variable              ${dist user}
     Set Suite Variable              ${cust user}
     Sleep                           5 second
 
 Checking Serial Number On Distributor Portal After Change
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[1]       ${serial number}
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[2]       RFID
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[3]       MyDeviceRFID
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[5]       ${customer_name} - ${shipto_name}
-    ${buffer}                       Get Text    xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[7]
-    ${name}     ${email}            Split String    ${buffer}   \n
+    ${my serial number}             Get Row Number      1       ${serial number}
+    Set Suite Variable              ${my serial number}
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[1]       ${serial number}
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[2]       RFID
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[3]       MyDeviceRFID
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[4]       ${customer_name} - ${shipto_name}
+    ${buffer}                       Get Text    xpath:((${react table raw})[${my serial number}]${react table column})[5]
+    ${name}     ${email}            Split String    ${buffer}   (
+    ${name}                         Strip String    ${name}     mode=right
     Should Be Equal As Strings      ${dist user}    ${name}
-    ${buffer}                       Get Text    xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[9]
-    ${name}     ${email}            Split String    ${buffer}   \n
+    ${buffer}                       Get Text    xpath:((${react table raw})[${my serial number}]${react table column})[6]
+    ${name}     ${email}            Split String    ${buffer}   (
+    ${name}                         Strip String    ${name}     mode=right
     Should Be Equal As Strings      ${cust user}    ${name}
-    Element Text Should Be          xpath:${claiming hardware pane}${table xpath}/tbody/tr[${my serial number}]/td[10]      10/10/2022, 11:00 PM
+    Element Text Should Be          xpath:((${react table raw})[${my serial number}]${react table column})[7]       10/10/2022, 11:00 PM
 
 Create RFID
     Goto Sidebar RFID
@@ -83,7 +85,7 @@ Create RFID
     Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
     Page Should Contain             Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Checking Available RFID
@@ -169,12 +171,7 @@ Preparation
 Goto Settings Sub
     Finish Suite
     Start Distributor
+    Go To                           https://distributor.${environment}.storeroomlogix.com/settings#hardware-integration
     Sleep                           3 second
-    Goto Sidebar Settings
-    Sleep                           1 second
-    Click Element                   id:settings-tab-erp-integration
-    Sleep                           1 second
-    Click Element                   id:erp-integration-tab-claiming-hardware
-    Sleep                           1 second
-    ${my serial number}             Get Row By Text     ${claiming hardware pane}${table xpath}       1       ${serial number}
+    ${my serial number}             Get Row Number      1       ${serial number}
     Set Suite Variable              ${my serial number}
