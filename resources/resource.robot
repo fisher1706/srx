@@ -237,24 +237,17 @@ Set Settings Permission
     Set Permission                  2       ${name}     ${column}
 
 Clear All Permissions
-    ${rows}                         Get Element Count   xpath:(${modal dialog}${tab pane})[1]//table/tbody/tr
-    :FOR  ${index}  IN RANGE  1     ${rows}+1
-    \   ${to click}                 Set Variable    (${modal dialog}${tab pane})[1]//table/tbody/tr[${index}]${checkbox type}
-    \   ${checkboxes}               Get Element Count       xpath:${to click}
-    \   Inloop Permission           ${to click}     ${checkboxes}
+    [Arguments]                     ${table number}
+    ${my checkbox}                  Set Variable        (//tbody)[${table number}]${checkbox type}
+    ${checkbox count}               Get Element Count   xpath:${my checkbox}
+    :FOR  ${index}  IN RANGE  1     ${checkbox count}+1
+    \   Unselect Checkbox           xpath:(${my checkbox})[${index}]
 
-Inloop Permission
-    [Arguments]                     ${to click}     ${checkboxes}
-    :FOR    ${index 2}              IN RANGE  1     ${checkboxes}+1
-    \   ${checked}                  Get Element Attribute   xpath:(${to click})[${index 2}]     checked
-    \   Run Keyword If              "${checked}"=="true"    Click Element   xpath:(${to click})[${index 2}]
+Clear All General Permissions
+    Clear All Permissions           1
 
 Clear All Settings Permissions
-    ${rows}                         Get Element Count   xpath:(${modal dialog}${tab pane})[2]//table/tbody/tr
-    :FOR  ${index}  IN RANGE  1     ${rows}+1
-    \   ${to click}                 Set Variable    (${modal dialog}${tab pane})[2]//table/tbody/tr[${index}]${checkbox type}
-    \   ${checkboxes}               Get Element Count       xpath:${to click}
-    \   Inloop Permission           ${to click}     ${checkboxes}
+    Clear All Permissions           2
 
 Number Of Rows
     ${number of row}                Get Element Count           xpath:${table xpath}/tbody/tr
