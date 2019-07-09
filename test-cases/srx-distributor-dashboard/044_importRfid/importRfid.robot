@@ -50,8 +50,8 @@ Import RFID
     Sleep                           5 second
     Choose File                     id:upload-rfid-csv              ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}            Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Checking RFID

@@ -25,7 +25,7 @@ Pricing Import
     ${status}                       Get Text        xpath:((${react table raw})[1]${react table column})[3]
     Run Keyword If                  "${status}"=="${uom 1 1}"   If First Pricing    ELSE IF     "${status}"=="${uom 2 1}"   If Second Pricing   ELSE    Fail    Pricing data is incorrect
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}            Validation status: valid
+    Page Should Contain             Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           10 second
 

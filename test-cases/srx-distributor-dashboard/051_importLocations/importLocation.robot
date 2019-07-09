@@ -15,8 +15,8 @@ Import locations
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importLocations.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           5 second
 
 Checking locations

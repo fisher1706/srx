@@ -35,7 +35,7 @@ Create Location
     Input Text                      id:attributeName4_id                                            ${level 4}
     Input Text                      id:attributeValue4_id                                           ${sub 4}
     Choose From Select Box          (${modal dialog}${select control})[2]                           CUSTOMER
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           2 second
 
 Checking Location
@@ -67,8 +67,8 @@ Create RFID
     Sleep                           5 second
     Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}            Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           5 second
     Select Location At Rfid Menu    ${customer_name} - ${shipto_name}          ${dynamic sku}
     Sleep                           10 second
