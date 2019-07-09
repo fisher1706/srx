@@ -41,6 +41,7 @@ ${selector customer shpto}      //div[contains(@id, 'pricing-select-shipto')]/di
 ${selector transactions}        //div[contains(@id, 'transaction-select-shipto')]/div
 ${confirm button}               //button[@data-testid='confirm-button']
 ${close button}                 //button[@data-testid='closeButton']
+${settings card}                //div[@data-testid='card']
 ${columnheader}                 //div[@role='columnheader']
 ${simple table}                 //table[contains(@class, 'table')]
 ${table xpath}                  //table[contains(@class, 'table table-striped table-bordered table-hover table-condensed')]

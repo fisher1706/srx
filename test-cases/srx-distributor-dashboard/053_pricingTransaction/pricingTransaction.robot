@@ -39,8 +39,8 @@ Pricing For Customer
     Sleep                           2 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
     Remove Files                    ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv
     Remove Directory                ${CURDIR}/../../../resources/generated                      recursive=True
@@ -126,8 +126,8 @@ Pricing For Shipto
     Sleep                           2 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/generated/${product filename}_pricing.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Request RFID New

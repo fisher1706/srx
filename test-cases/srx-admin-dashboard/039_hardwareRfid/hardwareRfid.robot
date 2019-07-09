@@ -82,7 +82,7 @@ Create RFID
     Sleep                           5 second
     Choose File                     id:upload-rfid-available        ${CURDIR}/../../../resources/importRfid.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}            Validation status: valid
+    Page Should Contain             Validation status: valid
     Click Element                   xpath:${button modal dialog ok}
     Sleep                           10 second
 

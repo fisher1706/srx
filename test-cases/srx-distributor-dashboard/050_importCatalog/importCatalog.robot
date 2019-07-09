@@ -19,8 +19,8 @@ Import Catalog
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importCatalog.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Сhecking Import
@@ -43,8 +43,8 @@ Update Catalog
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/updateCatalog.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Сhecking Update Catalog
@@ -69,8 +69,8 @@ Import Inventory Data
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importInventory.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Сhecking Import Inventory
@@ -94,8 +94,8 @@ Update Inventory
     Sleep                           1 second
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/updateInventory.csv
     Sleep                           5 second
-    Element Text Should Be          xpath:${modal title}                                Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Page Should Contain             Validation status: valid
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Сhecking Update Inventory

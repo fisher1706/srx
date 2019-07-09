@@ -581,21 +581,13 @@ Simple Table Comparing
     Element Text Should Be          xpath:${table}/tbody/tr[${raw}]/td[${column}]     ${body}
 
 Set Order Status Settings
-    Go To                           https://distributor.${environment}.storeroomlogix.com/settings
+    Go To                           https://distributor.${environment}.storeroomlogix.com/settings#erp-integration
     Sleep                           1 second
-    Click Element                   id:settings-tab-erp-integration
-    Sleep                           1 second
-    Click Element                   id:erp-integration-tab-transaction-status
-    Sleep                           1 second
-    Click Element                   xpath:${order staus pane}${button primary}
-    Sleep                           4 second
-    ${check1}                       Get Element Attribute           css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)       checked
-    ${check2}                       Get Element Attribute           css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)       checked
-    Log To Console                  ${check1}
-    Log To Console                  ${check2}
-    Run Keyword If                  "${check1}"=="None"             Click Element       css:div.checkbox:nth-child(1) > label:nth-child(1) > input:nth-child(1)
-    Run Keyword If                  "${check2}"=="None"             Click Element       css:div.checkbox:nth-child(2) > label:nth-child(1) > input:nth-child(1)
-    Click Element                   xpath:${order staus pane}${button primary}
+    Click On Card                   Order Status
+    Sleep                           2 second
+    Select Checkbox                 xpath:((${settings card})[2]${checkbox type})[1]
+    Select Checkbox                 xpath:((${settings card})[2]${checkbox type})[2]
+    Click Element                   xpath:(${settings card})[2]${button submit}
     Sleep                           3 second
 
 Simple Table Editing
@@ -634,3 +626,7 @@ Close All Transactions
     \   Select From Dropdown        ${dialog}${dropdown menu}   DELIVERED
     \   Click Element               xpath:${button submit}
     \   Sleep                       5 second
+
+Click On Card
+    [Arguments]                     ${name}
+    Click Element                   xpath:${settings card}//span[text()="${name}"]/../..
