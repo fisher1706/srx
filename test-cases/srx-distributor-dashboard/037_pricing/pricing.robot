@@ -32,29 +32,6 @@ Pricing Import
 Checking Pricing
     Run Keyword If                  "${restatus}"=="first"      First Pricing       ELSE IF     "${restatus}"=="second"      Second Pricing     ELSE    Fail    Unexpected Behaviour
 
-Checking Pricing Report
-    Goto Pricing Report
-    Click Element                   xpath:${button info}
-    Choose From Select Box          (${modal dialog}${select control})[1]     Static Customer
-    Click Element                   xpath:${modal dialog}${button info}
-    Run Keyword If                  "${restatus}"=="first"      First Pricing Report       ELSE IF     "${restatus}"=="second"      Second Pricing Report     ELSE    Fail    Unexpected Behaviour
-    Sleep                           3 second
-
-Checking Static Pricing Report
-    [Tags]                          Report
-    Goto Sidebar Reports
-    Sleep                           3 second
-    Click Element                   xpath:${button info}
-    Choose From Select Box          (${modal dialog}${select control})[1]           Static Customer
-    Choose From Select Box          (${modal dialog}${select control})[2]           2048
-    Input Text                      xpath:(${modal dialog}${form control})[1]       12/12/2021, 12:00 A
-    Input Text                      xpath:(${modal dialog}${form control})[2]       12/13/2021, 12:00 A
-    Click Element                   xpath:${modal dialog}${button info}
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[1]/div      AUTO_SUBMIT
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[2]/div      $5.00
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[3]/div      FT
-    Element Text Should Be          xpath:${table xpath}/tbody/tr[1]/td[4]/div      Sun, Dec 12, 2021
-
 Sorting Pricing
     [Tags]                          Sorting
     Goto Sidebar Pricing
@@ -94,27 +71,3 @@ Second Pricing
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]     ${price 2 2}
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]     ${uom 2 2}
     Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]     ${date 2 2}
-
-First Pricing Report
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[2]/div      ${price 1 1}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[3]/div      ${uom 1 1}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[4]/div      ${date 1 1}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[2]/div      ${price 1 2}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[3]/div      ${uom 1 2}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[4]/div      ${date 1 2}
-
-Second Pricing Report
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[2]/div      ${price 2 1}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[3]/div      ${uom 2 1}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[1]/td[4]/div      ${date 2 1}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[2]/div      ${price 2 2}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[3]/div      ${uom 2 2}
-    Element Text Should Be          xpath:${report pricing pane}${table xpath}/tbody/tr[2]/td[4]/div      ${date 2 2}
-
-Goto Pricing Report
-    Goto Sidebar Reports
-    Sleep                           2 second
-    Click Element                   id:reports-tab-pricing-report
-    Sleep                           1 second
-
-
