@@ -26,7 +26,7 @@ Pricing Import
     Run Keyword If                  "${status}"=="${uom 1 1}"   If First Pricing    ELSE IF     "${status}"=="${uom 2 1}"   If Second Pricing   ELSE    Fail    Pricing data is incorrect
     Sleep                           5 second
     Page Should Contain             Validation status: valid
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           10 second
 
 Checking Pricing
