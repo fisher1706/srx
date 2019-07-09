@@ -62,14 +62,14 @@ Preparation
     Sleep                           2 second
     Goto Sidebar Security Groups
     Sleep                           3 second
-    ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
-    Click Element                   ${edit group button}
-    Clear All Permissions
-    Set Permission                  2       1
-    Click Element                   xpath:(${dialog tab})[2]
+    ${permission test group}        Get Row Number      1       Permissions Test
+    Click Element                   xpath:(${react table raw})[${permission test group}]${edit security group}
+    Click Element                   xpath:${general permission card}
+    Clear All General Permissions
+    Set General Permission          Users   1
+    Click Element                   xpath:${settings permission card}
     Clear All Settings Permissions
-    Click Element                   xpath:${button modal dialog ok}
+    Click Element                   xpath:${button submit}
     Sleep                           3 second
     Finish Suite
     Sleep                           3 second

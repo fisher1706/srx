@@ -7,8 +7,6 @@ Resource                            ../../../resources/resource.robot
 Resource                            ../../../resources/testData.robot
 
 *** Variables ***
-${number of new row}
-${number of row}
 ${edit product}                     //button[contains(@title, 'Edit Product')]
 ${view product}                     //button[contains(@title, 'View Details')]
 ${dist sku}                         AD
@@ -148,15 +146,15 @@ Preparation
     Sleep                           2 second
     Goto Sidebar Security Groups
     Sleep                           2 second
-    ${permission test group}        Get Row By Text     (${table xpath})[2]     1       Permissions Test
-    Set Suite Variable              ${edit group button}            xpath:(${table xpath})[2]/tbody/tr[${permission test group}]${button success}
-    Click Element                   ${edit group button}
-    Clear All Permissions
-    Set Permission                  7       1
-    Click Element                   xpath:(${dialog tab})[2]
+    ${permission test group}        Get Row Number      1       Permissions Test
+    Click Element                   xpath:(${react table raw})[${permission test group}]${edit security group}
+    Click Element                   xpath:${general permission card}
+    Clear All General Permissions
+    Set General Permission          Catalog     1
+    Click Element                   xpath:${settings permission card}
     Clear All Settings Permissions
-    Click Element                   xpath:${button modal dialog ok}
-    Sleep                           3 second
+    Click Element                   xpath:${button submit}
+    Sleep                           5 second
     Finish Suite
     Sleep                           3 second
     Start Permission
@@ -167,5 +165,3 @@ Preparation
     ${edit random string}           Generate Random Name U
     Set Suite Variable              ${random string}
     Set Suite Variable              ${edit random string}
-    Set Suite Variable              ${number of new row}
-    Set Suite Variable              ${number of row}
