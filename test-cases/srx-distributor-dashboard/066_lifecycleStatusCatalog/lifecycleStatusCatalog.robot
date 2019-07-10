@@ -22,7 +22,7 @@ Import Catalog
     Choose File                     id:file-upload                                      ${CURDIR}/../../../resources/importCatalog.csv
     Sleep                           5 second
     Page Should Contain             Validation status: valid
-    CClick Element                   xpath:(${dialog}${button})[2]
+    Click Element                   xpath:(${dialog}${button})[2]
     Sleep                           12 second
     React Last
     Sleep                           3 second
