@@ -13,16 +13,18 @@ This project contains automation tests using Robot Framework for the SRX platfor
 * **testData.robot** -- main test data;
 * **path.robot** -- frequently used path;
 * **py** -- folder with python functions;
-* **dev.rovot**, **pipeline.robot** -- files with environment variables.
+* **dev.rovot** -- file with environment variables.
 
 ## Test execution
 
 Examples of use:
 ```
-robot -v set:pipeline.robot test-cases
+robot -v set:dev.robot -v browser:xvfb test-cases
 ```
 
 **-v set:[fileName].robot** -- using for select file with environment variables
+
+**-v browser:xvfb** -- select XVFB headless browser
 
 #### Variables
 
