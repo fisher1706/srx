@@ -366,47 +366,47 @@ Last AL Element Should Be
 Select Location At Rfid Menu
     [Arguments]                     ${shipto}       ${sku}
     Click Element                   xpath:${selector shipto}/div
-    ${count}                        Get Element Count       xpath:${selector shipto}/div[1]/div[2]/div[1]/div
+    ${count}                        Get Element Count       xpath:${selector shipto}/div[1]/div[2]/div[1]/div[1]/div 
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:${selector shipto}/div[1]/div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      ${selector shipto}   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:${selector shipto}/div[1]/div[2]/div[1]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      ${selector shipto}/div[1]/div[2]/div[1]/div[1]/div[${index}]
     Sleep                           2 second
     Click Element                   xpath:${selector sku}/div
     ${count}                        Get Element Count       xpath:${selector sku}/div[1]/div[2]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
     \   ${text buffer sub}          Get Text                                xpath:${selector sku}/div[1]/div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${sku}"          Select Element      ${selector sku}   ${index}
+    \   Run Keyword If              "${text buffer sub}"=="${sku}"          Select Element      ${selector sku}/div[1]/div[2]/div[1]/div[${index}]
 
 Select Pricing Customer
     [Arguments]                     ${customer}
     Click Element                   xpath:${selector customer pricing}/div
-    ${count}                        Get Element Count       xpath:${selector customer pricing}/div[1]/div[2]/div[1]/div
+    ${count}                        Get Element Count       xpath:${selector customer pricing}/div[1]/div[2]/div[1]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:${selector customer pricing}/div[1]/div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${customer}"       Select Element      ${selector customer pricing}   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:${selector customer pricing}/div[1]/div[2]/div[1]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${customer}"       Select Element      ${selector customer pricing}/div[1]/div[2]/div[1]/div[1]/div[${index}]
     Sleep                           2 second
 
 Select Pricing Shipto
     [Arguments]                     ${shipto}
     Click Element                   xpath:${selector customer shpto}/div
-    ${count}                        Get Element Count       xpath:${selector customer shpto}/div[1]/div[2]/div[1]/div
+    ${count}                        Get Element Count       xpath:${selector customer shpto}/div[1]/div[2]/div[1]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:${selector customer shpto}/div[1]/div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      ${selector customer shpto}   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:${selector customer shpto}/div[1]/div[2]/div[1]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${shipto}"       Select Element      ${selector customer shpto}/div[1]/div[2]/div[1]/div[1]/div[${index}]
     Sleep                           2 second
 
 Select Transaction Customer Shipto
     [Arguments]                     ${customer shipto}
     Click Element                   xpath:${selector transactions}/div
-    ${count}                        Get Element Count       xpath:${selector transactions}/div[1]/div[2]/div[1]/div
+    ${count}                        Get Element Count       xpath:${selector transactions}/div[1]/div[2]/div[1]/div[1]/div
     : FOR   ${index}    IN RANGE    1       ${count}+1
-    \   ${text buffer sub}          Get Text                                xpath:${selector transactions}/div[1]/div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${text buffer sub}"=="${customer shipto}"       Select Element      ${selector transactions}   ${index}
+    \   ${text buffer sub}          Get Text                                xpath:${selector transactions}/div[1]/div[2]/div[1]/div[1]/div[${index}]
+    \   Run Keyword If              "${text buffer sub}"=="${customer shipto}"       Select Element      ${selector transactions}/div[1]/div[2]/div[1]/div[1]/div[${index}]
     Sleep                           2 second
 
 Select Element
-    [Arguments]                     ${select}   ${index}
-    Click Element                   xpath:${select}/div[1]/div[2]/div[1]/div[${index}]
+    [Arguments]                     ${select}
+    Click Element                   xpath:${select}
     Exit For Loop
 
 Sorting React With Last Page
@@ -473,15 +473,16 @@ Dialog Should Be About
 
 Select From Dropdown
     [Arguments]                     ${item}     ${text}
+    ${selected item}                Set Variable        ${item}/../../../../../div[2]/div[1]/div[1]/div
     Press Key                       xpath:${item}       \ue015
-    ${count}                        Get Element Count       xpath:${item}/../../../../../div[2]/div[1]/div
+    ${count}                        Get Element Count       xpath:${selected item}
     : FOR   ${index}    IN RANGE    1       ${count}+2
-    \   ${buffer}                   Get Text        xpath:${item}/../../../../../div[2]/div[1]/div[${index}]
-    \   Run Keyword If              "${buffer}"=="${text}"         Select Dropdown Element      ${index}    ${item}
+    \   ${buffer}                   Get Text        xpath:(${selected item})[${index}]
+    \   Run Keyword If              "${buffer}"=="${text}"         Select Dropdown Element      (${selected item})[${index}]
 
 Select Dropdown Element
-    [Arguments]                     ${index}    ${item}
-    Click Element                   xpath:${item}/../../../../../div[2]/div[1]/div[${index}]
+    [Arguments]                     ${item}
+    Click Element                   xpath:${item}
     Exit For Loop
 
 Get React Row By Text

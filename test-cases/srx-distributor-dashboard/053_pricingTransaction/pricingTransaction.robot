@@ -171,13 +171,7 @@ Delete Location
 *** Keywords ***
 Preparation
     Start Distributor
-    Sleep                           5 second
-    Goto Sidebar Settings
-    Click Element                   id:settings-tab-erp-integration
-    Sleep                           1 second
-    Click Element                   id:erp-integration-tab-pricing-integration
-    Select Radio Button             pricingInfoSettings         SRX
-    Sleep                           5 second
+    Sleep                           2 second
     Set Order Status Settings
 
 Close SFTP Connection And Browser
