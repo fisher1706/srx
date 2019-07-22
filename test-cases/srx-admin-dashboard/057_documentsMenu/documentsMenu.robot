@@ -14,7 +14,7 @@ SortingDocuments
     Sorting Column                  5
 
 Documents Filtration
-    Filter Field                    1       1       ES&E Dev Distributor
+    Filter Field                    1       1       Static Test
     Filter Field                    2       2       aefimenko+test10@agilevision.io
 
 *** Keywords ***
