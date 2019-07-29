@@ -106,12 +106,12 @@ Checking Original Transaction Activity Log
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[5]                      HARDWARE
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[6]                      ${RFID_SN}
     Element Text Should Be          xpath:((${react table raw})[1]${react table column})[8]                      SUCCESS
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[2]                      Transaction
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[3]                      CREATE
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[4]                      RFID Reader
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[5]                      HARDWARE
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[6]                      ${RFID_SN}
-    Element Text Should Be          xpath:((${react table raw})[2]${react table column})[8]                      SUCCESS
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[2]                      Transaction
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[3]                      CREATE
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[4]                      RFID Reader
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[5]                      HARDWARE
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[6]                      ${RFID_SN}
+    Element Text Should Be          xpath:((${react table raw})[3]${react table column})[8]                      SUCCESS
 
 ExternalApi Update
     [Tags]                          ExternalApiUpdate
@@ -125,7 +125,7 @@ Checking Update Transaction Order Status
     [Tags]                          CheckingUpdateTransaction
     Goto Sidebar Order Status
     Sleep                           2 second
-    Choose From Select Box          (${select control})[1]       ${customer_name} - ${shipto_name}
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
     Sleep                           2 second
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
     Click Element                   xpath:${header xpath}/thead/tr/th[9]
