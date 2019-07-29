@@ -75,8 +75,5 @@ Testing Fees Tab
     Element Text Should Be          xpath:${modal dialog}${simple table}/tbody/tr/td[2]                  $${edit value}
     Click Element                   xpath:${modal dialog}${button danger}
     Sleep                           5 second
-
     ${new rows count}               Get Rows Count                  ${pane}${table xpath}
     Should Be Equal As Integers     ${rows count}                   ${new rows count}
-
-
