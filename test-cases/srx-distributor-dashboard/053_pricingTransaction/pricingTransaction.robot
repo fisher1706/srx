@@ -49,7 +49,7 @@ Pricing For Customer
 Create Location File To Import
     ${location filename}            Generate Random Name U
     Set Suite Variable              ${location filename}
-    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r,s${\n}${product filename},${product filename},,,,,,,${product filename},20,60,RFID,,0,customer,Off,100
+    Create File                     ${CURDIR}/../../../resources/generated/${location filename}.csv      a,b,c,d,e,f,g,j,h,k,l,m,o,p,q,r,s${\n}${product filename},${product filename},,,,,,,${product filename},20,60,RFID,,0,customer,Off,49
 
 Check First List Of Folder
     ${first list}                   sftpListFolder   ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations
@@ -80,11 +80,11 @@ Create RFID Available File To Validate
     Create File                     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      a,b,c${\n}${rfid 1},${product filename},${\n}${rfid 2},${product filename},
 
 Put RFID Available File By SFTP To Validate
-    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/import/${rfid filename}.csv
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/rfid-available/import/${rfid filename}.csv
     Sleep                           5 second
 
 Get RFID Available File From SFTP To Validate
-    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/imported/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
+    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/rfid-available/imported/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
 
 Remove Files To Import
     File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${location filename}.csv
@@ -104,8 +104,10 @@ Request RFID
 Check Transaction
     Goto Sidebar Order Status
     Sleep                           2 second
-    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
+    Reload Page
     Sleep                           2 second
+    Select Transaction Customer Shipto      ${customer_name} - ${shipto_name}
+    Sleep                           5 second
     ${my transaction}               Get Row Number      3   ${product filename}
     Set Suite Variable              ${my transaction}
     Element Text Should Be          xpath:((${react table raw})[${my transaction}]${react table column})[3]     ${product filename}
@@ -118,6 +120,7 @@ Check Transaction
 
 Pricing For Shipto
     Goto Sidebar Pricing
+    Sleep                           3 second
     Select Pricing Customer         ${pricing customer}
     Select Pricing Shipto           ${pricing shipto}
     Execute Javascript              document.getElementById("file-upload").style.display='block'

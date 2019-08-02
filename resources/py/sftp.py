@@ -1,6 +1,8 @@
 import paramiko
+import os
 
 def sftpConnect(my_username,my_key_filename,my_host='sftp.storeroomlogix.com',my_port=22):
+    os.umask(0)
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(my_host, port=my_port, username=my_username, key_filename=my_key_filename, timeout=20)

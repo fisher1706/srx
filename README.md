@@ -12,7 +12,7 @@ This project contains automation tests using Robot Framework for the SRX platfor
 * **resources.robot** -- frequently used keywords;
 * **testData.robot** -- main test data;
 * **path.robot** -- frequently used path;
-* **py** -- folder with python functions;
+* **py** -- folder with python libraries;
 * **dev.rovot** -- file with environment variables.
 
 ## Test execution
