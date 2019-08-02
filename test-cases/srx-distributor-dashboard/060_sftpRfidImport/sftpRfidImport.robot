@@ -127,11 +127,11 @@ Create RFID Available File To Validate
     Create File                     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      a,b,c${\n}${rfid filename},${product filename},
 
 Put RFID Available File By SFTP To Validate
-    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/validate/${rfid filename}.csv
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/rfid-available/validate/${rfid filename}.csv
     Sleep                           5 second
 
 Get RFID Available File From SFTP To Validate
-    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/validated/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
+    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/rfid-available/validated/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
 
 Remove RFID Available Files To Validate
     File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${rfid filename}.csv
@@ -163,11 +163,11 @@ Create RFID Available File To Import
     Create File                     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      a,b,c${\n}${rfid filename},${product filename},
 
 Put RFID Available File By SFTP To Import
-    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/import/${rfid filename}.csv
+    ${putfile}                      sftpPutFile     ${sftp}     ${CURDIR}/../../../resources/generated/${rfid filename}.csv      /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/rfid-available/import/${rfid filename}.csv
     Sleep                           5 second
 
 Get RFID Available File From SFTP To Import
-    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/locations/${location id}/rfid-available/imported/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
+    ${getfile}                      sftpGetFile     ${sftp}     /srx-data-bucket-${environment}/distributors/${sftp_distributor_user}/customers/${customer_name}_${customer_id}/shipTos/${shipto_name}_${shipto_id}/rfid-available/imported/${rfid filename}.csv-report      ${CURDIR}/../../../resources/generated/${rfid filename}.csv-report
 
 Remove RFID Available Files To Import
     File Should Not Be Empty        ${CURDIR}/../../../resources/generated/${rfid filename}.csv
