@@ -131,7 +131,8 @@ Sorting ShipTo
 Filter ShipTo
     [Tags]                          Filter
     Filter Add                      1       1       2048
-    Filter Add                      2       4       9000
+    Filter Add                      2       2       2048-name
+    Filter Add                      3       4       9000
 
 *** Keywords ***
 Preparation
