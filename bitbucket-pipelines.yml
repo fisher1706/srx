@@ -1,5 +1,5 @@
-image: atlassian/default-image:2
-
+#image: atlassian/default-image:2
+image: python:3.5.2
 pipelines:
   custom: # Pipelines that can only be triggered manually
     robot:
@@ -26,14 +26,11 @@ pipelines:
     pybot:
       - step:
           script:
-            - curl -O https://bootstrap.pypa.io/get-pip.py
-            - apt-get install python
-            - python get-pip.py
             - pip install selenium
             - pip install requests
             - wget https://github.com/mozilla/geckodriver/releases/download/v0.25.0/geckodriver-v0.25.0-linux32.tar.gz
             - tar -xvzf geckodriver-v0.25.0-linux32.tar.gz
             - chmod +x geckodriver
             - mv geckodriver /usr/local/bin/
-            - export PYTHONPATH=$PYTHONPATH:./srx-pybot/:.
+            - export PYTHONPATH=$PYTHONPATH:./srx-pybot/
             - python srx-pybot/src/suites/main_suite.py fhl
