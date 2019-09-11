@@ -29,10 +29,8 @@ pipelines:
             - pip install selenium
             - pip install requests
             - apt-get install debian-archive-keyring
-            - set +e
-            - sudo apt-get update && sudo apt-get dist-upgrade
+            - apt-get update && apt-get dist-upgrade
             - apt-get install firefox -y
-            - set -e
             - wget https://github.com/mozilla/geckodriver/releases/download/v0.25.0/geckodriver-v0.25.0-linux32.tar.gz
             - tar -xvzf geckodriver-v0.25.0-linux32.tar.gz
             - chmod +x geckodriver
