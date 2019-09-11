@@ -4,6 +4,8 @@ from src.resources.logger import Logger
 from src.resources.url import URL
 from src.resources.variables import Variables
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+import sys
 
 class Activity():
     def __init__(self):
@@ -12,11 +14,18 @@ class Activity():
         self.logger = Logger()
         self.url = URL()
         self.variables = Variables()
-        self.configuration()
+        if (len(sys.argv) == 1):
+            self.configuration("firefox")
+        elif (len(sys.argv) == 2):
+            self.configuration(browser=sys.argv[1])
 
-    def configuration(self, browser='firefox', wait=20):
-        if (browser=='firefox'):
+    def configuration(self, browser, wait=20):
+        if (browser == 'firefox'):
             self.driver = webdriver.Firefox()
+        elif (browser == 'firefox-headless' or browser == 'fhl'):
+            options = Options()
+            options.headless = True
+            self.driver = webdriver.Firefox(options=options)
         else:
             pass
         self.driver.implicitly_wait(wait)

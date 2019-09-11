@@ -9,15 +9,18 @@ def distributor_users_crud(case):
     lp = LoginPage(case.activity)
     dup = DistributorUsersPage(case.activity)
 
+    #-------------------
     email = case.random_email()
     first_name = "my First"
     last_name = "my Last"
     role = "User"
     warehouses = ["Z_Warehouse (9999)", "A_Warehouse (1138)"]
+    #-------------------
     edit_first_name = "my Edit First"
     edit_last_name = "my Edit Last"
     edit_role = "Static Group"
     edit_warehouses = ["A_Warehouse (1138)"]
+    #-------------------
 
     lp.log_in_distributor_portal()
     dup.sidebar_users()
