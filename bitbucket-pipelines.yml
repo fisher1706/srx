@@ -35,5 +35,5 @@ pipelines:
             - tar -xvzf geckodriver-v0.25.0-linux32.tar.gz
             - chmod +x geckodriver
             - mv geckodriver /usr/local/bin/
-            - export PYTHONPATH=$PYTHONPATH:./srx-pybot/
+            - export PYTHONPATH=$PYTHONPATH:./srx-pybot/:.
             - python srx-pybot/src/suites/main_suite.py fhl
