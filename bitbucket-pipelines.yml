@@ -28,6 +28,7 @@ pipelines:
           script:
             - pip install selenium
             - pip install requests
+            - apt-get update
             - apt-get install software-properties-common
             - add-apt-repository ppa:ubuntu-mozilla-security/ppa -y
             - apt update && sudo apt install firefox -y
