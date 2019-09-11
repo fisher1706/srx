@@ -23,12 +23,11 @@ pipelines:
             - mv geckodriver /usr/local/bin/
             - export PYTHONWARNINGS="ignore"
             - robot -v set:dev.robot -v browser:xvfb test-cases
-  custom: # Pipelines that can only be triggered manually
     pybot:
       - step:
           script:
             - curl -O https://bootstrap.pypa.io/get-pip.py
-            - sudo apt-get install python
+            - apt-get install python
             - python get-pip.py
             - pip install selenium
             - wget https://github.com/mozilla/geckodriver/releases/download/v0.25.0/geckodriver-v0.25.0-linux32.tar.gz
