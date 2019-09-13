@@ -9,8 +9,8 @@ if __name__ == "__main__":
     invalid_admin_login(Case(activity,'SUITE'))
     valid_admin_login(Case(activity,'SUITE'))
     reset_admin_password(Case(activity,'SUITE'))
-    distributor_users_crud(Case(activity,'SUITE'))
-    warehouses_crud(Case(activity,'SUITE'))
+    distributor_user_crud(Case(activity,'SUITE'))
+    warehouse_crud(Case(activity,'SUITE'))
 
     activity.logger.output_suite_result()
     activity.finish_activity()

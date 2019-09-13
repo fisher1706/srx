@@ -3,7 +3,7 @@ from src.pages.distributor.warehouses_page import WarehousesPage
 from src.resources.case import Case
 from src.resources.activity import Activity
 
-def warehouses_crud(case):
+def warehouse_crud(case):
     case.log_name("Warehouses CRUD")
     case.testrail_config(case.activity.variables.run_number, 29)
     lp = LoginPage(case.activity)
@@ -45,4 +45,4 @@ def warehouses_crud(case):
     case.finish_case()
 
 if __name__ == "__main__":
-    warehouses_crud(Case(Activity()))
+    warehouse_crud(Case(Activity()))

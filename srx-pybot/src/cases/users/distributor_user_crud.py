@@ -3,7 +3,7 @@ from src.pages.distributor.distributor_users_page import DistributorUsersPage
 from src.resources.case import Case
 from src.resources.activity import Activity
 
-def distributor_users_crud(case):
+def distributor_user_crud(case):
     case.log_name("Distributor users CRUD")
     case.testrail_config(case.activity.variables.run_number, 28)
     lp = LoginPage(case.activity)
@@ -32,4 +32,4 @@ def distributor_users_crud(case):
     case.finish_case()
 
 if __name__ == "__main__":
-    distributor_users_crud(Case(Activity()))
+    distributor_user_crud(Case(Activity()))
