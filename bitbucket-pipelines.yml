@@ -25,7 +25,6 @@ pipelines:
     pybot:
       - step:
           script:
-            - apt-get update
             - apt-get install python3 -y
             - apt-get install python3-pip -y
             - pip3 install selenium
@@ -36,4 +35,5 @@ pipelines:
             - chmod +x geckodriver
             - mv geckodriver /usr/local/bin/
             - export PYTHONPATH=$PYTHONPATH:./srx-pybot/
+            - set +e
             - python3 srx-pybot/src/suites/main_suite.py fhl
