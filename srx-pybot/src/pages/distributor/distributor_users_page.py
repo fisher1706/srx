@@ -44,3 +44,31 @@ class DistributorUsersPage(DistributorPortalPage):
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(self.locators.xpath_confirm_button)
         self.dialog_should_not_be_visible()
+
+    def create_distributor_super_user(self, email, first_name, last_name):
+        self.click_id(self.locators.id_create_button)
+        self.input_by_name("email", email)
+        self.input_by_name("firstName", first_name)
+        self.input_by_name("lastName", last_name)
+        self.click_xpath(self.locators.xpath_submit_button)
+        self.dialog_should_not_be_visible()
+
+    def check_last_distributor_super_user(self, email, first_name, last_name):
+        self.check_last_table_item_by_header("Email", email)
+        self.check_last_table_item_by_header("First name", first_name)
+        self.check_last_table_item_by_header("Last name", last_name)
+
+    def update_distributor_super_user(self, first_name, last_name):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_super_user, self.get_table_rows_number()))
+        self.input_by_name("firstName", first_name)
+        self.input_by_name("lastName", last_name)
+        self.click_xpath(self.locators.xpath_submit_button)
+        self.dialog_should_not_be_visible()
+
+    def delete_last_distributor_super_user(self):
+        full_name = self.get_last_table_item_text_by_header("First name")
+        full_name += " " + self.get_last_table_item_text_by_header("Last name")
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_delete_super_user, self.get_table_rows_number()))
+        self.delete_dialog_should_be_about(full_name)
+        self.click_xpath(self.locators.xpath_confirm_button)
+        self.dialog_should_not_be_visible()

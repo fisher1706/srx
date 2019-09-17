@@ -2,6 +2,7 @@ from src.resources.activity import Activity
 from src.resources.testrail import APIClient
 import random
 import string
+import traceback
 
 class Case():
     def __init__(self, activity, level='CASE'):
@@ -9,12 +10,16 @@ class Case():
         self.level = level
         self.testrail = False
 
+    def critical_finish_case(self):
+        self.activity.logger.critical("Test crashed\n"+str(traceback.format_exc()))
+        self.finish_case()
+
     def finish_case(self):
         self.activity.driver.delete_all_cookies()
         self.activity.logger.output_case_result()
         self.testrail_publish_result()
         self.activity.logger.case_error_count = 0
-        self.activity.logger.case_crytical_count = 0
+        self.activity.logger.case_critical_count = 0
         self.activity.logger.case_result = ""
         if (self.level == 'CASE'):
             self.activity.finish_activity()
@@ -24,7 +29,7 @@ class Case():
 
     def testrail_publish_result(self):
         if (self.testrail == True):
-            if (self.activity.logger.case_error_count == 0 and self.activity.logger.case_crytical_count == 0):
+            if (self.activity.logger.case_error_count == 0 and self.activity.logger.case_critical_count == 0):
                 self.result = 1
                 self.comment = "[pybot]: Test passed"
             else:

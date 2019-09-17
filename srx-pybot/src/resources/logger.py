@@ -6,7 +6,7 @@ full_log_path = os.path.join(root_directory,'output/full.log')
 suite_log_path = os.path.join(root_directory,'output/suite.log')
 
 class Logger():
-    def __init__(self):
+    def __init__(self, activity):
         self.my_logger = logging.getLogger()
         self.my_logger.setLevel(logging.INFO)
 
@@ -30,12 +30,14 @@ class Logger():
         self.my_logger.addHandler(self.console_handler)
 
         self.suite_error_count = 0
-        self.suite_crytical_count = 0
+        self.suite_critical_count = 0
         self.case_error_count = 0
-        self.case_crytical_count = 0
+        self.case_critical_count = 0
         self.case_result = ""
+        self.error_series = False
 
     def info(self, msg):
+        self.error_series = False
         self.my_logger.info(msg)
         self.case_result = self.case_result + '\n[INFO] ' + msg
 
@@ -44,22 +46,26 @@ class Logger():
         self.suite_error_count = self.suite_error_count + 1
         self.case_error_count = self.case_error_count + 1
         self.case_result = self.case_result + '\n[ERROR] ' + msg
+        if (self.error_series == False):
+            self.error_series = True
+        else:
+            self.critical("Series of errors. Test finished")
 
-    def crytical(self, msg):
-        self.my_logger.crytical(msg)
-        self.suite_crytical_count = self.suite_crytical_count + 1
-        self.case_crytical_count = self.case_crytical_count + 1
-        self.case_result = self.case_result + '\n[CRYTICAL] ' + msg
+    def critical(self, msg):
+        self.my_logger.critical(msg)
+        self.suite_critical_count = self.suite_critical_count + 1
+        self.case_critical_count = self.case_critical_count + 1
+        self.case_result = self.case_result + '\n[CRITICAL] ' + msg
 
     def output_case_result(self):
         self.info("----------------------------")
         self.info("CASE ERRORS: "+str(self.case_error_count))
-        self.info("CASE CRYTICALS: "+str(self.case_crytical_count))
+        self.info("CASE CRITICALS: "+str(self.case_critical_count))
         self.info("============================")
 
     def output_suite_result(self):
         self.info("SUITE ERRORS: "+str(self.case_error_count))
-        self.info("SUITE CRYTICALS: "+str(self.case_crytical_count))
+        self.info("SUITE CRITICALS: "+str(self.case_critical_count))
         self.info("============================")
 
     def log_case_name(self, name):

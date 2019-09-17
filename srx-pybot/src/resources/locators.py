@@ -20,6 +20,8 @@ class Locators():
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
     title_delete_user = "//span[@title='Delete User']/button"
+    title_edit_super_user = "//span[@title='Edit Super User']/button"
+    title_delete_super_user = "//span[@title='Delete Super User']/button"
     title_edit_warehouse = "//span[@title='Edit Warehouse']/button"
     title_delete_warehouse = "//span[@title='Delete Warehouse']/button"
 
