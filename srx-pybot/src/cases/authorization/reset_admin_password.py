@@ -5,7 +5,7 @@ from src.resources.activity import Activity
 def reset_admin_password(case):
     case.log_name("Check the Reset Password form on Admin portal")
     case.testrail_config(case.activity.variables.run_number, 8)
-    
+
     try:
         lp = LoginPage(case.activity)
 

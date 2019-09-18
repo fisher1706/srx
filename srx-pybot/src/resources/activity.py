@@ -8,6 +8,7 @@ from selenium.webdriver.firefox.options import Options
 import sys
 
 class Activity():
+    current_case = None
     def __init__(self):
         self.data = Data()
         self.locators = Locators()
@@ -19,7 +20,7 @@ class Activity():
         elif (len(sys.argv) == 2):
             self.configuration(browser=sys.argv[1])
 
-    def configuration(self, browser, wait=20):
+    def configuration(self, browser, wait=18):
         if (browser == 'firefox'):
             self.driver = webdriver.Firefox()
         elif (browser == 'firefox-headless' or browser == 'fhl'):

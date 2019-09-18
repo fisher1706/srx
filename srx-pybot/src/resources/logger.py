@@ -6,7 +6,7 @@ full_log_path = os.path.join(root_directory,'output/full.log')
 suite_log_path = os.path.join(root_directory,'output/suite.log')
 
 class Logger():
-    def __init__(self, activity):
+    def __init__(self):
         self.my_logger = logging.getLogger()
         self.my_logger.setLevel(logging.INFO)
 
@@ -34,10 +34,11 @@ class Logger():
         self.case_error_count = 0
         self.case_critical_count = 0
         self.case_result = ""
-        self.error_series = False
+        self.expected_error_series = 2
+        self.current_error_series = 0
 
     def info(self, msg):
-        self.error_series = False
+        self.current_error_series = 0
         self.my_logger.info(msg)
         self.case_result = self.case_result + '\n[INFO] ' + msg
 
@@ -45,11 +46,10 @@ class Logger():
         self.my_logger.error(msg)
         self.suite_error_count = self.suite_error_count + 1
         self.case_error_count = self.case_error_count + 1
+        self.current_error_series = self.current_error_series +1
         self.case_result = self.case_result + '\n[ERROR] ' + msg
-        if (self.error_series == False):
-            self.error_series = True
-        else:
-            self.critical("Series of errors. Test finished")
+        if (self.current_error_series >= self.expected_error_series and self.expected_error_series > 0):
+            raise IOError("Series of errors. Test finished")
 
     def critical(self, msg):
         self.my_logger.critical(msg)
@@ -64,8 +64,8 @@ class Logger():
         self.info("============================")
 
     def output_suite_result(self):
-        self.info("SUITE ERRORS: "+str(self.case_error_count))
-        self.info("SUITE CRITICALS: "+str(self.case_critical_count))
+        self.info("SUITE ERRORS: "+str(self.suite_error_count))
+        self.info("SUITE CRITICALS: "+str(self.suite_critical_count))
         self.info("============================")
 
     def log_case_name(self, name):
