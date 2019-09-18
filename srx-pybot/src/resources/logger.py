@@ -34,7 +34,7 @@ class Logger():
         self.case_error_count = 0
         self.case_critical_count = 0
         self.case_result = ""
-        self.expected_error_series = 2
+        self.expected_error_series = 0
         self.current_error_series = 0
 
     def info(self, msg):

@@ -15,12 +15,13 @@ class Activity():
         self.logger = Logger()
         self.url = URL()
         self.variables = Variables()
+        self.logger.expected_error_series = self.variables.expected_error_series
         if (len(sys.argv) == 1):
             self.configuration("firefox")
         elif (len(sys.argv) == 2):
             self.configuration(browser=sys.argv[1])
 
-    def configuration(self, browser, wait=18):
+    def configuration(self, browser):
         if (browser == 'firefox'):
             self.driver = webdriver.Firefox()
         elif (browser == 'firefox-headless' or browser == 'fhl'):
@@ -29,7 +30,7 @@ class Activity():
             self.driver = webdriver.Firefox(options=options)
         else:
             pass
-        self.driver.implicitly_wait(wait)
+        self.driver.implicitly_wait(self.variables.default_wait)
 
     def finish_activity(self):
         self.driver.close()
