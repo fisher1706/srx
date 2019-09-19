@@ -10,5 +10,8 @@ class DistributorPortalPage(Page):
     def sidebar_warehouses(self):
         self.click_id("sidebar-warehouses")
 
+    def sidebar_customers(self):
+        self.click_id("sidebar-customers")
+
     def sign_out(self):
         self.click_id("sidebar-sign_out")

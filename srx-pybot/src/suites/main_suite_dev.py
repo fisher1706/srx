@@ -12,6 +12,7 @@ if __name__ == "__main__":
     distributor_user_crud(Case(activity,'SUITE'))
     distributor_super_user_crud(Case(activity,'SUITE'))
     warehouse_crud(Case(activity,'SUITE'))
+    customer_crud(Case(activity,'SUITE'))
 
     activity.logger.output_suite_result()
     activity.finish_activity()

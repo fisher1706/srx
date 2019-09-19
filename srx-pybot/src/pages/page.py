@@ -2,7 +2,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from src.waits.dialog_is_not_present import dialog_is_not_present
+from src.waits.new_element_in_table import new_element_in_table
 
 class Page():
     def __init__(self, activity):
@@ -223,6 +225,14 @@ class Page():
         else:
             self.logger.info("Dialog is closed")
 
+    def new_element_appears_in_table(self, number):
+        try:
+            WebDriverWait(self.driver, 15).until(new_element_in_table(number))
+        except TimeoutException:
+            self.logger.error("New element doesn't appear in the table")
+        else:
+            self.logger.info("New element appears in the table")
+
     def get_table_rows_number(self):
         return len(self.activity.driver.find_elements_by_xpath(self.locators.xpath_table_row))
 
@@ -290,3 +300,15 @@ class Page():
             self.logger.info("Delete dialog about '"+current_text+"'")
         else:
             self.logger.info("Delete dialog about '"+current_text+"', but should be about '"+expected_text+"'")
+
+    def set_slider(self, xpath, condition):
+        try:
+            element = self.activity.driver.find_element_by_xpath(xpath)
+        except NoSuchElementException:
+            self.logger.error("Slider with XPATH = '"+xpath+"' not found")
+        else:
+            if (element.get_attribute("value") != condition):
+                element.click()
+                self.logger.info("Value of slider with XPATH = '"+xpath+"' is changed")
+            else:
+                self.logger.info("Slider with XPATH = '"+xpath+"' already has necessary value")
