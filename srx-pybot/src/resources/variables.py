@@ -1,10 +1,29 @@
 class Variables():
-    admin_email = "srx-group+dev@agilevision.io"
-    admin_password = "srx-group"
-    distributor_email = "dprovorov+testadmin@agilevision.io"
-    distributor_password = "test29"
-    distributor_name = "QA-distributor"
-    sub_distributor_name = "Dev Distributor"
-    run_number = (1, 2)
-    expected_error_series = 2
-    default_wait = 18
+    def __init__(self, environment):
+        if (environment == 'dev' or environment == None):
+            self.dev_environment()
+        elif (environment == 'staging'):
+            self.staging_environment()
+        self.general()
+
+    def dev_environment(self):
+        self.admin_email = "srx-group+dev@agilevision.io"
+        self.admin_password = "srx-group"
+        self.distributor_email = "dprovorov+testadmin@agilevision.io"
+        self.distributor_password = "test29"
+        self.distributor_name = "QA-distributor"
+        self.sub_distributor_name = "Dev Distributor"
+        self.run_number = [1, 2]
+
+    def staging_environment(self):
+        self.admin_email = "srx-group+staging@agilevision.io"
+        self.admin_password = "srx-group"
+        self.distributor_email = "dprovorov+distributor@agilevision.io"
+        self.distributor_password = "test29"
+        self.distributor_name = "QA-distributor"
+        self.sub_distributor_name = "Static Test"
+        self.run_number = [8]
+
+    def general(self):
+        self.expected_error_series = 2
+        self.default_wait = 18

@@ -5,24 +5,31 @@ from src.resources.variables import Variables
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import sys
+import argparse
 
 class Activity():
-    current_case = None
     def __init__(self):
+        self.arg_browser, self.arg_environment = self.get_args()
         self.locators = Locators()
         self.logger = Logger()
-        self.url = URL()
-        self.variables = Variables()
+        self.variables = Variables(self.arg_environment)
+        self.url = URL(self.arg_environment)
         self.logger.expected_error_series = self.variables.expected_error_series
-        if (len(sys.argv) == 1):
-            self.configuration("firefox")
-        elif (len(sys.argv) == 2):
-            self.configuration(browser=sys.argv[1])
+        self.browser_config(self.arg_browser)
 
-    def configuration(self, browser):
-        if (browser == 'firefox'):
+    def get_args(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--browser", "-b", help="Set browser: "+
+                            "[ff] - Firefox; "+
+                            "[ffhl] - Firefox headless")
+        parser.add_argument("--environment", "-e", help="Set environment : [dev]; [staging]")
+        args = parser.parse_args()
+        return args.browser, args.environment
+
+    def browser_config(self, browser):
+        if (browser == 'ff' or browser == None):
             self.driver = webdriver.Firefox()
-        elif (browser == 'firefox-headless' or browser == 'fhl'):
+        elif (browser == 'ffhl'):
             options = Options()
             options.headless = True
             self.driver = webdriver.Firefox(options=options)
