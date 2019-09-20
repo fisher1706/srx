@@ -1,4 +1,3 @@
-from src.resources.data import Data
 from src.resources.locators import Locators
 from src.resources.logger import Logger
 from src.resources.url import URL
@@ -10,7 +9,6 @@ import sys
 class Activity():
     current_case = None
     def __init__(self):
-        self.data = Data()
         self.locators = Locators()
         self.logger = Logger()
         self.url = URL()

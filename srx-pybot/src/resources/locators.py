@@ -45,3 +45,23 @@ class Locators():
     def xpath_table_item(self, row, column):
         return "(("+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"
 
+    #bootstrap
+    class_button_info = "//button[@class='btn btn-info']"
+    class_button_ok = "//button[@class='modal-dialog-ok-button btn btn-lg btn-primary']"
+    class_button_close = "//button[@class='close']"
+    class_button_success = "//button[@class='control-button btn btn-success']"
+    class_button_danger = "//button[@class='control-button btn btn-danger']"
+    class_button_danger_dialog = "//button[@class='btn btn-danger']"
+    class_modal_dialog = "//div[@class='modal-dialog']"
+    class_srx_select = "//div[@class='srx-select has-error']"
+    class_jumbotron = "//div[@class='jumbotron']"
+    class_page_item = "//li[@class='page-item']"
+    class_pagination_bar = "//ul[@class='react-bootstrap-table-page-btns-ul pagination']"
+    bootstrap_select_box = class_srx_select+"/div"
+    bootstrap_table_row = "//tbody/tr"
+    bootstrap_table_column = "//td"
+    bootstrap_table_header_column = "//th"
+
+    def xpath_table_item_bootstrap(self, row, column):
+        return self.bootstrap_table_row+"["+str(row)+"]"+self.bootstrap_table_column+"["+str(column)+"]"
+

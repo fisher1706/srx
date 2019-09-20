@@ -19,9 +19,7 @@ resources/generated
 resources/staging.robot
 resources/prod.robot
 manual
-test
 resources/py/sftp.pyc
-srx-pybot-test
 .vscode
 **/__pycache__
 **/**/__pycache__

@@ -12,7 +12,6 @@ class Page():
         self.logger = activity.logger
         self.url = activity.url
         self.locators = activity.locators
-        self.data = activity.data
         self.variables = activity.variables
         self.activity = activity
     
@@ -233,8 +232,18 @@ class Page():
         else:
             self.logger.info("New element appears in the table")
 
+    def get_element_count(self, xpath):
+        try:
+            elements = self.activity.driver.find_elements_by_xpath(xpath)
+        except:
+            self.logger.error("Elements with XPATH = '"+xpath+"' do not found")
+        else:
+            count = len(elements)
+            self.logger.info("There are '"+str(count)+"' elements with XPATH = '"+xpath+"'")
+            return count
+
     def get_table_rows_number(self):
-        return len(self.activity.driver.find_elements_by_xpath(self.locators.xpath_table_row))
+        return self.get_element_count(self.locators.xpath_table_row)
 
     def get_header_column(self, header):
         headers = self.activity.driver.find_elements_by_xpath(self.locators.xpath_table_header_column)
@@ -246,6 +255,9 @@ class Page():
 
     def get_table_item_text_by_indexes(self, row, column):
         xpath = self.locators.xpath_table_item(row, column)
+        return self.get_element_text(xpath)
+
+    def get_element_text(self, xpath):
         try:
             element = self.activity.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
@@ -261,21 +273,22 @@ class Page():
             self.logger.error("There is no header '"+header+"'")
 
     def check_last_table_item_by_header(self, header, expected_text):
-        current_text = self.get_last_table_item_text_by_header(header)
-        if isinstance(expected_text, list):
-            correctness = True
-            for element in expected_text:
-                if (element not in current_text):
-                    self.logger.error("Last list element in '"+header+"' column is incorrect")
-                    correctness = False
-                    break
-            if (correctness == True):
-                self.logger.info("Last element in '"+header+"' column is correct")
-        else:
-            if (current_text == expected_text):
-                self.logger.info("Last element in '"+header+"' column is correct")
+        if (expected_text != None):
+            current_text = self.get_last_table_item_text_by_header(header)
+            if isinstance(expected_text, list):
+                correctness = True
+                for element in expected_text:
+                    if (element not in current_text):
+                        self.logger.error("Last list element in '"+header+"' column is incorrect")
+                        correctness = False
+                        break
+                if (correctness == True):
+                    self.logger.info("Last element in '"+header+"' column is correct")
             else:
-                self.logger.error("Last element in '"+header+"' column is '"+current_text+"', but should be '"+expected_text+"'")
+                if (current_text == expected_text):
+                    self.logger.info("Last element in '"+header+"' column is correct")
+                else:
+                    self.logger.error("Last element in '"+header+"' column is '"+current_text+"', but should be '"+expected_text+"'")
 
     def convert_list_to_string(self, input_list):
         string_list = ""

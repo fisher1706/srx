@@ -58,7 +58,7 @@ class LoginPage(Page):
         self.click_xpath("//a[@href='/sign-in']")
 
     def log_in_admin_portal(self):
-        self.follow_admin_protal()
+        self.follow_admin_portal()
         self.input_email(self.variables.admin_email)
         self.input_password(self.variables.admin_password)
         self.click_on_submit_button()

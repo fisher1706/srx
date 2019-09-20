@@ -9,6 +9,7 @@ if __name__ == "__main__":
     invalid_admin_login(Case(activity,'SUITE'))
     valid_admin_login(Case(activity,'SUITE'))
     reset_admin_password(Case(activity,'SUITE'))
+    iot_hub_crud(Case(activity,'SUITE'))
     distributor_user_crud(Case(activity,'SUITE'))
     distributor_super_user_crud(Case(activity,'SUITE'))
     warehouse_crud(Case(activity,'SUITE'))
