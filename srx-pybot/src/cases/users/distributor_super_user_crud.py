@@ -25,7 +25,7 @@ def distributor_super_user_crud(case):
         dup.click_xpath(case.activity.locators.xpath_button_tab_by_name("Super Users"))
         dup.create_distributor_super_user(email=email, first_name=first_name, last_name=last_name)
         dup.check_last_distributor_super_user(email=email, first_name=first_name, last_name=last_name)
-        dup.update_distributor_super_user(first_name=edit_first_name, last_name=edit_last_name)
+        dup.update_last_distributor_super_user(first_name=edit_first_name, last_name=edit_last_name)
         dup.check_last_distributor_super_user(email=email, first_name=edit_first_name, last_name=edit_last_name)
         dup.delete_last_distributor_super_user()
         case.finish_case()

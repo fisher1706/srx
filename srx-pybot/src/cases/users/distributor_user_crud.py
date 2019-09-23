@@ -28,7 +28,7 @@ def distributor_user_crud(case):
         dup.sidebar_users()
         dup.create_distributor_user(email=email, first_name=first_name, last_name=last_name, role=role, warehouses=warehouses)
         dup.check_last_distributor_user(email=email, first_name=first_name, last_name=last_name, role=role, warehouses=warehouses)
-        dup.update_distributor_user(first_name=edit_first_name, last_name=edit_last_name, role=edit_role, warehouses=edit_warehouses)
+        dup.update_last_distributor_user(first_name=edit_first_name, last_name=edit_last_name, role=edit_role, warehouses=edit_warehouses)
         dup.check_last_distributor_user(email=email, first_name=edit_first_name, last_name=edit_last_name, role=edit_role, warehouses=edit_warehouses)
         dup.delete_last_distributor_user()
         case.finish_case()

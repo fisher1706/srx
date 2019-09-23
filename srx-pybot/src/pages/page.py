@@ -5,6 +5,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from src.waits.dialog_is_not_present import dialog_is_not_present
 from src.waits.new_element_in_table import new_element_in_table
+from src.waits.last_page import last_page
+from src.waits.is_page_loading import is_page_loading
 
 class Page():
     def __init__(self, activity):
@@ -288,7 +290,7 @@ class Page():
                 if (current_text == expected_text):
                     self.logger.info("Last element in '"+header+"' column is correct")
                 else:
-                    self.logger.error("Last element in '"+header+"' column is '"+current_text+"', but should be '"+expected_text+"'")
+                    self.logger.error("Last element in '"+header+"' column is '"+str(current_text)+"', but should be '"+expected_text+"'")
 
     def convert_list_to_string(self, input_list):
         string_list = ""
@@ -325,3 +327,25 @@ class Page():
                 self.logger.info("Value of slider with XPATH = '"+xpath+"' is changed")
             else:
                 self.logger.info("Slider with XPATH = '"+xpath+"' already has necessary value")
+
+    def open_last_page(self):
+        pagination_buttons = self.activity.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
+        if (len(pagination_buttons) > 3):
+            if(pagination_buttons[-2].is_enabled() == True):
+                try:
+                    WebDriverWait(self.driver, 3).until(is_page_loading())
+                except TimeoutException:
+                    pass
+                WebDriverWait(self.driver, 15).until_not(is_page_loading())
+                pagination_buttons[-2].click()
+                try:
+                    WebDriverWait(self.driver, 15).until(last_page())
+                except TimeoutException:
+                    self.logger.error("Last page is not opened")
+                else:
+                    self.logger.info("Last page is opened")
+                try:
+                    WebDriverWait(self.driver, 3).until(is_page_loading())
+                except TimeoutException:
+                    pass
+                WebDriverWait(self.driver, 15).until_not(is_page_loading())

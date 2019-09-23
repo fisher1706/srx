@@ -25,7 +25,7 @@ class CustomersPage(DistributorPortalPage):
         self.check_last_table_item_by_header("Customer Type", customer_type) 
         self.check_last_table_item_by_header("Market Type", market_type)
 
-    def update_customer(self, name, number, customer_type, market_type, notes, supply_force):
+    def update_last_customer(self, name, number, customer_type, market_type, notes, supply_force):
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_customer_info, self.get_table_rows_number()))
         self.input_by_name("name", name)
         self.input_by_name("number", number)

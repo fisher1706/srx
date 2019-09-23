@@ -26,7 +26,7 @@ class DistributorUsersPage(DistributorPortalPage):
             splitted_warehouses.append((re.split(r' \(', element))[0])
         self.check_last_table_item_by_header("Warehouses", splitted_warehouses)
 
-    def update_distributor_user(self, first_name, last_name, role, warehouses):
+    def update_last_distributor_user(self, first_name, last_name, role, warehouses):
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_user, self.get_table_rows_number()))
         self.input_by_name("firstName", first_name)
         self.input_by_name("lastName", last_name)
@@ -58,7 +58,7 @@ class DistributorUsersPage(DistributorPortalPage):
         self.check_last_table_item_by_header("First name", first_name)
         self.check_last_table_item_by_header("Last name", last_name)
 
-    def update_distributor_super_user(self, first_name, last_name):
+    def update_last_distributor_super_user(self, first_name, last_name):
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_super_user, self.get_table_rows_number()))
         self.input_by_name("firstName", first_name)
         self.input_by_name("lastName", last_name)

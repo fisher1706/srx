@@ -27,7 +27,7 @@ class WarehousesPage(DistributorPortalPage):
         self.check_last_table_item_by_header("Contact email", contact_email)
         self.check_last_table_item_by_header("Invoice email", invoice_email)
 
-    def update_warehouse(self, name, number, address1, address2, city, state, code, timezone, contact_email, invoice_email):
+    def update_last_warehouse(self, name, number, address1, address2, city, state, code, timezone, contact_email, invoice_email):
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_warehouse, self.get_table_rows_number()))
         self.input_by_name("name", name)
         self.input_by_name("number", number)

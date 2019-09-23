@@ -34,7 +34,7 @@ def customer_crud(case):
         cp.sidebar_customers()
         cp.create_customer(name=name, number=number, customer_type=customer_type, market_type=market_type, warehouse=warehouse_name+" ("+warehouse_number+")", notes=notes, supply_force=supply_force)
         cp.check_last_customer(name=name, number=number, customer_type=customer_type, market_type=market_type, warehouse=warehouse_name+"("+warehouse_number+")")
-        cp.update_customer(name=edit_name, number=edit_number, customer_type=edit_customer_type, market_type=edit_market_type, notes=edit_notes, supply_force=edit_supply_force)
+        cp.update_last_customer(name=edit_name, number=edit_number, customer_type=edit_customer_type, market_type=edit_market_type, notes=edit_notes, supply_force=edit_supply_force)
         cp.sidebar_customers()
         cp.check_last_customer(name=edit_name, number=edit_number, customer_type=edit_customer_type, market_type=edit_market_type, warehouse=warehouse_name+"("+warehouse_number+")")
         cp.delete_last_customer()

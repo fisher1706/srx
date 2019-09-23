@@ -16,6 +16,7 @@ class Locators():
     xpath_table_header_column = "//div[@role='columnheader']"
     xpath_checkbox = "//input[@type='checkbox']"
     xpath_confirm_button = "//button[@data-testid='confirm-button']"
+    xpath_pagination_bottom = "//div[@class='pagination-bottom']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
