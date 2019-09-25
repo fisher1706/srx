@@ -21,7 +21,8 @@ class Activity():
         parser = argparse.ArgumentParser()
         parser.add_argument("--browser", "-b", help="Set browser: "+
                             "[ff] - Firefox; "+
-                            "[ffhl] - Firefox headless")
+                            "[ffhl] - Firefox headless"+
+                            "[chrome] - Chrome")
         parser.add_argument("--environment", "-e", help="Set environment : [dev]; [staging]")
         args = parser.parse_args()
         return args.browser, args.environment
@@ -33,6 +34,8 @@ class Activity():
             options = Options()
             options.headless = True
             self.driver = webdriver.Firefox(options=options)
+        elif (browser == 'chrome'):
+            self.driver = webdriver.Chrome()
         else:
             pass
         self.driver.implicitly_wait(self.variables.default_wait)

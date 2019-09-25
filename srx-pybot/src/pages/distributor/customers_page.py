@@ -3,36 +3,50 @@ from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 class CustomersPage(DistributorPortalPage):
     def __init__(self, activity):
         super().__init__(activity)
+        self.customer_body = {
+            "name": None,
+            "number": None,
+            "customerType": None,
+            "marketType": None,
+            "warehouse": None,
+            "notes": None,
+            "supplyForce": None
+        }
 
-    def create_customer(self, name, number, customer_type, market_type, warehouse, notes, supply_force):
+    def create_customer(self, customer_body):
         start_number_of_rows = self.get_table_rows_number()
         self.click_id(self.locators.id_create_button)
-        self.input_by_name("name", name)
-        self.input_by_name("number", number)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_type)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), market_type)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), warehouse)
-        self.input_by_name("notes", notes)
-        self.set_slider(self.locators.xpath_dialog+self.locators.xpath_checkbox, supply_force)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), customer_body.pop("warehouse"))
+        self.set_slider(self.locators.xpath_dialog+self.locators.xpath_checkbox, customer_body.pop("supplyForce"))
+        for field in customer_body.keys():
+            self.input_by_name(field, customer_body[field])
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
         self.new_element_appears_in_table(start_number_of_rows+1)
 
-    def check_last_customer(self, name, number, customer_type, market_type, warehouse):
-        self.check_last_table_item_by_header("Name", name)
-        self.check_last_table_item_by_header("Number", number)
-        self.check_last_table_item_by_header("Warehouse", warehouse)
-        self.check_last_table_item_by_header("Customer Type", customer_type) 
-        self.check_last_table_item_by_header("Market Type", market_type)
+    def check_last_customer(self, customer_body):
+        self.open_last_page()
+        table_cells = {
+            "Name": customer_body["name"],
+            "Number": customer_body["number"],
+            #"Warehouse": customer_body["warehouse"],
+            "Customer Type": customer_body["customerType"],
+            "Market Type": customer_body["marketType"]
+        }
+        for cell in table_cells.keys():
+            self.check_last_table_item_by_header(cell, table_cells[cell])
 
-    def update_last_customer(self, name, number, customer_type, market_type, notes, supply_force):
+    def update_last_customer(self, customer_body):
+        self.remove_focus() #the KOSTYL', please investigate and find solution to correct running without THIS. Need at least 9 items in Customers table and GUI FireFox
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_customer_info, self.get_table_rows_number()))
-        self.input_by_name("name", name)
-        self.input_by_name("number", number)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_type)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), market_type)
-        self.input_by_name("notes", notes)
-        self.set_slider(self.locators.xpath_checkbox, supply_force)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
+        self.set_slider(self.locators.xpath_checkbox, customer_body.pop("supplyForce"))
+        for field in customer_body.keys():
+            self.input_by_name(field, customer_body[field])
         self.click_xpath(self.locators.xpath_submit_button)
 
     def delete_last_customer(self):

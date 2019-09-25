@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
@@ -72,7 +73,8 @@ class Page():
             self.logger.info("Data '"+data+"' inputed into element with XPATH = '"+xpath+"'")
 
     def input_by_name(self, name, data):
-        self.input_data_xpath(data, "//input[@name='"+name+"']")
+        if (data != None):
+            self.input_data_xpath(data, "//input[@name='"+name+"']")
 
     def should_be_disabled_id(self, id):
         try:
@@ -209,14 +211,15 @@ class Page():
                     element.click()
 
     def select_in_dropdown(self, xpath, name):
-        try:
-            element = self.activity.driver.find_element_by_xpath(xpath)
-        except NoSuchElementException:
-            self.logger.error("Dropdown list with XPATH = '"+xpath+"' not found")
-        else:
-            element.click()
-            self.logger.info("Dropdown list with XPATH = '"+xpath+"' is opened")
-            self.click_xpath(xpath+"/..//div[text()='"+name+"']")
+        if (name != None):
+            try:
+                element = self.activity.driver.find_element_by_xpath(xpath)
+            except NoSuchElementException:
+                self.logger.error("Dropdown list with XPATH = '"+xpath+"' not found")
+            else:
+                element.click()
+                self.logger.info("Dropdown list with XPATH = '"+xpath+"' is opened")
+                self.click_xpath(xpath+"/..//div[text()='"+name+"']")
 
     def dialog_should_not_be_visible(self):
         try:
@@ -317,35 +320,42 @@ class Page():
             self.logger.info("Delete dialog about '"+current_text+"', but should be about '"+expected_text+"'")
 
     def set_slider(self, xpath, condition):
-        try:
-            element = self.activity.driver.find_element_by_xpath(xpath)
-        except NoSuchElementException:
-            self.logger.error("Slider with XPATH = '"+xpath+"' not found")
-        else:
-            if (element.get_attribute("value") != condition):
-                element.click()
-                self.logger.info("Value of slider with XPATH = '"+xpath+"' is changed")
+        if (condition != None):
+            try:
+                element = self.activity.driver.find_element_by_xpath(xpath)
+            except NoSuchElementException:
+                self.logger.error("Slider with XPATH = '"+xpath+"' not found")
             else:
-                self.logger.info("Slider with XPATH = '"+xpath+"' already has necessary value")
+                if (element.get_attribute("value") != condition):
+                    element.click()
+                    self.logger.info("Value of slider with XPATH = '"+xpath+"' is changed")
+                else:
+                    self.logger.info("Slider with XPATH = '"+xpath+"' already has necessary value")
+
+    def wait_until_page_loaded(self):
+        try:
+            WebDriverWait(self.driver, 3).until(is_page_loading())
+        except TimeoutException:
+            pass
+        WebDriverWait(self.driver, 15).until_not(is_page_loading())
+
+    def should_be_last_page(self):
+        try:
+            WebDriverWait(self.driver, 15).until(last_page())
+        except TimeoutException:
+            self.logger.error("Last page is not opened")
+        else:
+            self.logger.info("Last page is opened")
 
     def open_last_page(self):
         pagination_buttons = self.activity.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
         if (len(pagination_buttons) > 3):
             if(pagination_buttons[-2].is_enabled() == True):
-                try:
-                    WebDriverWait(self.driver, 3).until(is_page_loading())
-                except TimeoutException:
-                    pass
-                WebDriverWait(self.driver, 15).until_not(is_page_loading())
+                self.wait_until_page_loaded()
                 pagination_buttons[-2].click()
-                try:
-                    WebDriverWait(self.driver, 15).until(last_page())
-                except TimeoutException:
-                    self.logger.error("Last page is not opened")
-                else:
-                    self.logger.info("Last page is opened")
-                try:
-                    WebDriverWait(self.driver, 3).until(is_page_loading())
-                except TimeoutException:
-                    pass
-                WebDriverWait(self.driver, 15).until_not(is_page_loading())
+                self.should_be_last_page()
+                self.wait_until_page_loaded()
+
+    def remove_focus(self):
+        root = self.driver.find_element_by_xpath("/html")
+        root.click()

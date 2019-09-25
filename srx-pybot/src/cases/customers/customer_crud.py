@@ -10,33 +10,30 @@ def customer_crud(case):
     try:
         lp = LoginPage(case.activity)
         cp = CustomersPage(case.activity)
+        customer_body = cp.customer_body.copy()
+        edit_customer_body = cp.customer_body.copy()
 
         #-------------------
-        name = "Customer Name"
-        number = ""
-        customer_type = "Test Customer"
-        market_type = "Not specified"
-        warehouse_name = "A_Warehouse"
-        warehouse_number = "1138"
-        notes = ""
-        supply_force = "false"
+        customer_body["name"] = "Customer Name"
+        customer_body["customerType"] = "Test Customer"
+        customer_body["marketType"] = "Not specified"
+        customer_body["warehouse"] = "A_Warehouse (1138)"
         #-------------------
-        edit_name = "Customer Edit Name"
-        edit_number = "Customer Edit Number"
-        edit_customer_type = "Not specified"
-        edit_market_type = "Not specified"
-        edit_warehouse = "Z_Warehouse (9999)"
-        edit_notes = "any note"
-        edit_supply_force = "true"
+        edit_customer_body["name"] = "Customer Edit Name"
+        edit_customer_body["number"] = "Customer Edit Number"
+        edit_customer_body["customerType"] = "Not specified"
+        edit_customer_body["marketType"] = "Not specified"
+        edit_customer_body["notes"] = "any note"
+        edit_customer_body["supplyForce"] = "true"
         #-------------------
 
         lp.log_in_distributor_portal()
         cp.sidebar_customers()
-        cp.create_customer(name=name, number=number, customer_type=customer_type, market_type=market_type, warehouse=warehouse_name+" ("+warehouse_number+")", notes=notes, supply_force=supply_force)
-        cp.check_last_customer(name=name, number=number, customer_type=customer_type, market_type=market_type, warehouse=warehouse_name+"("+warehouse_number+")")
-        cp.update_last_customer(name=edit_name, number=edit_number, customer_type=edit_customer_type, market_type=edit_market_type, notes=edit_notes, supply_force=edit_supply_force)
+        cp.create_customer(customer_body.copy())
+        cp.check_last_customer(customer_body.copy())
+        cp.update_last_customer(edit_customer_body.copy())
         cp.sidebar_customers()
-        cp.check_last_customer(name=edit_name, number=edit_number, customer_type=edit_customer_type, market_type=edit_market_type, warehouse=warehouse_name+"("+warehouse_number+")")
+        cp.check_last_customer(edit_customer_body.copy())
         cp.delete_last_customer()
         case.finish_case()
     except:
