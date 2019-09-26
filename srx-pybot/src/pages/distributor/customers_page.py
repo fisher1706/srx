@@ -32,7 +32,7 @@ class CustomersPage(DistributorPortalPage):
         table_cells = {
             "Name": customer_body["name"],
             "Number": customer_body["number"],
-            #"Warehouse": customer_body["warehouse"],
+            "Warehouse": customer_body["warehouse"],
             "Customer Type": customer_body["customerType"],
             "Market Type": customer_body["marketType"]
         }
@@ -40,7 +40,7 @@ class CustomersPage(DistributorPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
 
     def update_last_customer(self, customer_body):
-        self.remove_focus() #the KOSTYL', please investigate and find solution to correct running without THIS. Need at least 9 items in Customers table and GUI FireFox
+        self.remove_focus() #the KOSTYL', please investigate and find solution for correct running without THIS. Need at least 9 items in Customers table and GUI FireFox
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_customer_info, self.get_table_rows_number()))
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))

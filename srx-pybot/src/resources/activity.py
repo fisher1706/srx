@@ -4,7 +4,6 @@ from src.resources.url import URL
 from src.resources.variables import Variables
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-import sys
 import argparse
 
 class Activity():
@@ -28,7 +27,7 @@ class Activity():
         return args.browser, args.environment
 
     def browser_config(self, browser):
-        if (browser == 'ff' or browser == None):
+        if (browser == 'ff' or browser is None):
             self.driver = webdriver.Firefox()
         elif (browser == 'ffhl'):
             options = Options()

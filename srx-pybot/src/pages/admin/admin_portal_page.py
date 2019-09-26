@@ -41,7 +41,7 @@ class AdminPortalPage(Page):
             self.logger.error("There is no header '"+header+"'")
 
     def check_last_table_item_by_header_bootstrap(self, header, expected_text):
-        if (expected_text != None):
+        if (expected_text is not None):
             current_text = self.get_last_table_item_text_by_header_bootstrap(header)
             if isinstance(expected_text, list):
                 correctness = True

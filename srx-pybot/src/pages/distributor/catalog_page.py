@@ -53,7 +53,7 @@ class CatalogPage(DistributorPortalPage):
         }
         for cell in table_cells.keys():
             self.check_last_table_item_by_header(cell, table_cells[cell])
-        
+        #Not fully checking. Also need to check ALL fields in Details dialog
 
     def update_last_product(self, product_body):
         self.open_last_page()

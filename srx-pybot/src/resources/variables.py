@@ -1,6 +1,6 @@
 class Variables():
     def __init__(self, environment):
-        if (environment == 'dev' or environment == None):
+        if (environment == 'dev' or environment is None):
             self.dev_environment()
         elif (environment == 'staging'):
             self.staging_environment()

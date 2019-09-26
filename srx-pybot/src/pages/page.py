@@ -73,7 +73,7 @@ class Page():
             self.logger.info("Data '"+data+"' inputed into element with XPATH = '"+xpath+"'")
 
     def input_by_name(self, name, data):
-        if (data != None):
+        if (data is not None):
             self.input_data_xpath(data, "//input[@name='"+name+"']")
 
     def should_be_disabled_id(self, id):
@@ -179,7 +179,7 @@ class Page():
             checked = element.get_attribute("checked")
             if (checked == 'true'):
                 self.logger.info("Checkbox with XPATH = '"+xpath+"' has been already checked")
-            elif (checked == None):
+            elif (checked is None):
                 element.click()
                 self.logger.info("Checkbox with XPATH = '"+xpath+"' is checked")
 
@@ -193,7 +193,7 @@ class Page():
             if (checked == 'true'):
                 element.click()
                 self.logger.info("Checkbox with XPATH = '"+xpath+"' is unchecked")
-            elif (checked == None):
+            elif (checked is None):
                 self.logger.info("Checkbox with XPATH = '"+xpath+"' has been already unchecked")
 
     def select_checkbox_in_dialog_by_name(self, name):
@@ -211,7 +211,7 @@ class Page():
                     element.click()
 
     def select_in_dropdown(self, xpath, name):
-        if (name != None):
+        if (name is not None):
             try:
                 element = self.activity.driver.find_element_by_xpath(xpath)
             except NoSuchElementException:
@@ -278,7 +278,7 @@ class Page():
             self.logger.error("There is no header '"+header+"'")
 
     def check_last_table_item_by_header(self, header, expected_text):
-        if (expected_text != None):
+        if (expected_text is not None):
             current_text = self.get_last_table_item_text_by_header(header)
             if isinstance(expected_text, list):
                 correctness = True
@@ -320,7 +320,7 @@ class Page():
             self.logger.info("Delete dialog about '"+current_text+"', but should be about '"+expected_text+"'")
 
     def set_slider(self, xpath, condition):
-        if (condition != None):
+        if (condition is not None):
             try:
                 element = self.activity.driver.find_element_by_xpath(xpath)
             except NoSuchElementException:

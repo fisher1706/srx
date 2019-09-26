@@ -1,7 +1,7 @@
 class URL():
     def __init__(self, environment):
         self.environment = environment
-        if (self.environment == None):
+        if (self.environment is None):
             self.environment = 'dev'
         if (self.environment == 'dev' or self.environment == 'staging' or self.environment == 'prod'):
             self.admin_portal = self.get_admin_portal()

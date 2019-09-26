@@ -2,7 +2,6 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.admin.hardware_page import HardwarePage
 from src.resources.case import Case
 from src.resources.activity import Activity
-import time
 
 def iot_hub_crud(case):
     case.log_name("IoT Hub CRUD")
