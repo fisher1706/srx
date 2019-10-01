@@ -3,6 +3,7 @@
 *.log
 *.png
 *.csv#
+*.csv
 resources/environment.robot
 resources/importRfid.csv
 resources/importCatalog.csv
