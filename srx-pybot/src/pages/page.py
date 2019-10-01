@@ -8,6 +8,8 @@ from src.waits.dialog_is_not_present import dialog_is_not_present
 from src.waits.new_element_in_table import new_element_in_table
 from src.waits.last_page import last_page
 from src.waits.is_page_loading import is_page_loading
+import csv
+import os
 
 class Page():
     def __init__(self, activity):
@@ -229,6 +231,14 @@ class Page():
         else:
             self.logger.info("Dialog is closed")
 
+    def dialog_should_be_visible(self):
+        try:
+            WebDriverWait(self.driver, 15).until_not(dialog_is_not_present())
+        except TimeoutException:
+            self.logger.error("Dialog is not opened")
+        else:
+            self.logger.info("Dialog is opened")
+
     def new_element_appears_in_table(self, number):
         try:
             WebDriverWait(self.driver, 15).until(new_element_in_table(number))
@@ -359,3 +369,25 @@ class Page():
     def remove_focus(self):
         root = self.driver.find_element_by_xpath("/html")
         root.click()
+
+    def generate_csv(self, filename, columns, rows):
+        folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        folder += "/output/"+filename
+        headers = []
+        for n in range(columns):
+            headers.append(n)
+        table = []
+        table.append(headers)
+        table.append(rows)
+        with open(folder, "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerows(table)
+
+    def import_csv(self, id, filename):
+        folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        folder += "/output/"+filename
+        self.activity.driver.find_element_by_id(id).send_keys(folder)
+        self.dialog_should_be_visible()
+        self.click_xpath(self.locators.xpath_continue_import)
+        self.dialog_should_not_be_visible()
+

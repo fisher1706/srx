@@ -4,6 +4,7 @@ class Locators():
     id_password = "password"
     id_enter_here = "redirectButton"
     id_create_button = "item-action-create"
+    id_file_upload = "file-upload"
 
     #XPATHs
     xpath_forgot_password = "//a[@href='/forgot-password']"
@@ -17,6 +18,7 @@ class Locators():
     xpath_checkbox = "//input[@type='checkbox']"
     xpath_confirm_button = "//button[@data-testid='confirm-button']"
     xpath_pagination_bottom = "//div[@class='pagination-bottom']"
+    xpath_continue_import = "//button/span[text()='Continue import']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
