@@ -3,7 +3,7 @@ from src.pages.distributor.catalog_page import CatalogPage
 from src.resources.case import Case
 from src.resources.activity import Activity
 
-def product_crud(case):
+def product_import(case):
     case.log_name("Product import")
     case.testrail_config(case.activity.variables.run_number, 34)
 
@@ -30,4 +30,4 @@ def product_crud(case):
         case.critical_finish_case()
 
 if __name__ == "__main__":
-    product_crud(Case(Activity()))
+    product_import(Case(Activity()))

@@ -15,6 +15,7 @@ if __name__ == "__main__":
     warehouse_crud(Case(activity,'SUITE'))
     customer_crud(Case(activity,'SUITE'))
     product_crud(Case(activity, 'SUITE'))
+    product_import(Case(activity, 'SUITE'))
 
     activity.logger.output_suite_result()
     activity.finish_activity()
