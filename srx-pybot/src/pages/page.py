@@ -10,6 +10,7 @@ from src.waits.last_page import last_page
 from src.waits.is_page_loading import is_page_loading
 import csv
 import os
+import time
 
 class Page():
     def __init__(self, activity):
@@ -370,15 +371,16 @@ class Page():
         root = self.driver.find_element_by_xpath("/html")
         root.click()
 
-    def generate_csv(self, filename, columns, rows):
+    def generate_csv(self, filename, rows):
         folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         folder += "/output/"+filename
         headers = []
-        for n in range(columns):
+        for n in range(len(rows[0])):
             headers.append(n)
         table = []
         table.append(headers)
-        table.append(rows)
+        for row in rows:
+            table.append(row)
         with open(folder, "w", newline="") as file:
             writer = csv.writer(file)
             writer.writerows(table)
@@ -391,3 +393,16 @@ class Page():
         self.click_xpath(self.locators.xpath_continue_import)
         self.dialog_should_not_be_visible()
 
+    def select_customer_shipto(self, customer=None, shipto=None):
+        if (customer is None):
+            customer=self.locators.xpath_by_count(self.locators.xpath_select_box, 1)
+        if (shipto is None):
+            shipto=self.locators.xpath_by_count(self.locators.xpath_select_box, 2)
+        self.wait_until_page_loaded()
+        self.select_in_dropdown(customer, "Static Customer")
+        self.wait_until_page_loaded()
+        self.select_in_dropdown(shipto, "2048")
+        self.wait_until_page_loaded()
+
+    def scan_table(self, scan_by, column, body):
+        pass

@@ -11,18 +11,18 @@ def product_import(case):
         lp = LoginPage(case.activity)
         cp = CatalogPage(case.activity)
         product_body = cp.product_body.copy()
-        edit_product_body = cp.product_body.copy()
 
         #-------------------
         product_body["partSku"] = case.random_string_u(18)
         product_body["shortDescription"] = product_body["partSku"]+" - short description"
         product_body["roundBuy"] = "39"
         #-------------------
-        products = [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None]
-        cp.generate_csv("products.csv", 24, products)
+        products = [
+            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None]
+        ]
         lp.log_in_distributor_portal()
         cp.sidebar_catalog()
-        cp.import_product()
+        cp.import_product(products)
         cp.check_last_product(product_body.copy())
 
         case.finish_case()

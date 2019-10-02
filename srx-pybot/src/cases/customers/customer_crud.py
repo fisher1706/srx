@@ -35,6 +35,7 @@ def customer_crud(case):
         cp.sidebar_customers()
         cp.check_last_customer(edit_customer_body.copy())
         cp.delete_last_customer()
+
         case.finish_case()
     except:
         case.critical_finish_case()

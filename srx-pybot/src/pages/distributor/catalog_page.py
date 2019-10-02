@@ -64,5 +64,6 @@ class CatalogPage(DistributorPortalPage):
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
 
-    def import_product(self):
+    def import_product(self, products):
+        self.generate_csv("products.csv", products)
         self.import_csv(self.locators.id_file_upload, "products.csv")

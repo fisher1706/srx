@@ -16,5 +16,8 @@ class DistributorPortalPage(Page):
     def sidebar_catalog(self):
         self.click_id("sidebar-catalog")
 
+    def sidebar_pricing(self):
+        self.click_id("sidebar-pricing")
+
     def sign_out(self):
         self.click_id("sidebar-sign_out")
