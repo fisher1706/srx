@@ -13,20 +13,21 @@ def pricing_import(case):
         pp = PricingPage(case.activity)
         pricing_body = pp.pricing_body.copy()
 
+        temporary_price = str(random.choice(range(10000))/100)
         #-------------------
         pricing_body["SKU"] = "PRICING_SKU"
-        pricing_body["Price"] = str(random.choice(range(10000))/100)
+        pricing_body["Price"] = "$"+temporary_price
         pricing_body["UOM"] = "M"
-        pricing_body["Expiration Date"] = "12/12/2025 10:15:30"
+        pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
         #-------------------
 
         pricing = [
-            [pricing_body["SKU"], pricing_body["Price"], pricing_body["UOM"], pricing_body["Expiration Date"]]
+            [pricing_body["SKU"], temporary_price, pricing_body["UOM"], "12/12/2025 10:15:30"]
         ]
 
         lp.log_in_distributor_portal()
         pp.sidebar_pricing()
-        pp.select_customer_shipto()
+        pp.select_customer_shipto(customer_name=case.activity.variables.customer_name)
         pp.import_pricing(pricing)
         pp.check_price_by_name(pricing_body.copy())
 

@@ -19,6 +19,7 @@ class Locators():
     xpath_confirm_button = "//button[@data-testid='confirm-button']"
     xpath_pagination_bottom = "//div[@class='pagination-bottom']"
     xpath_continue_import = "//button/span[text()='Continue import']"
+    xpath_successfully_imported_msg = "//span[@id='client-snackbar']//strong[text()='Successfully imported']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"

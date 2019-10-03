@@ -23,28 +23,22 @@ class Page():
     
     def click_id(self, id):
         try:
-            element = WebDriverWait(self.driver, 15).until(
-                EC.element_to_be_clickable((By.ID, id))
-            )
+            WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.ID, id))).click()
         except NoSuchElementException:
             self.logger.error("Element with ID = '"+id+"' not found")
         except:
             self.logger.error("Element with ID = '"+id+"' is not clickable")
         else:
-            element.click()
             self.logger.info("Element with ID = '"+id+"' is clicked")
 
     def click_xpath(self, xpath):
         try:
-            element = WebDriverWait(self.driver, 15).until(
-                EC.element_to_be_clickable((By.XPATH, xpath))
-            )
+            WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, xpath))).click()
         except NoSuchElementException:
             self.logger.error("Element with XPATH = '"+xpath+"' not found")
         except:
             self.logger.error("Element with XPATH = '"+xpath+"' is not clickable")
         else:
-            element.click()
             self.logger.info("Element with XPATH = '"+xpath+"' is clicked")
 
     def input_data_id(self, data, id):
@@ -281,38 +275,31 @@ class Page():
         else:
             return element.text
 
-    def get_last_table_item_text_by_header(self, header):
-        column = self.get_header_column(header)
-        if (column):
-            return self.get_table_item_text_by_indexes(self.get_table_rows_number(), column)
-        else:
-            self.logger.error("There is no header '"+header+"'")
-
     def check_last_table_item_by_header(self, header, expected_text):
+        self.check_table_item_by_header(self.get_table_rows_number(), header, expected_text)
+
+    def check_table_item_by_header(self, row, header, expected_text):
         if (expected_text is not None):
-            current_text = self.get_last_table_item_text_by_header(header)
+            column = self.get_header_column(header)
+            current_text = None
+            if (column):
+                current_text = self.get_table_item_text_by_indexes(row, column)
+            else:
+                self.logger.error("There is no header '"+header+"'")
             if isinstance(expected_text, list):
                 correctness = True
                 for element in expected_text:
                     if (element not in current_text):
-                        self.logger.error("Last list element in '"+header+"' column is incorrect")
+                        self.logger.error(str(row)+" element in '"+header+"' column is incorrect")
                         correctness = False
                         break
                 if (correctness == True):
-                    self.logger.info("Last element in '"+header+"' column is correct")
+                    self.logger.info(str(row)+" element in '"+header+"' column is correct")
             else:
                 if (current_text == expected_text):
-                    self.logger.info("Last element in '"+header+"' column is correct")
+                    self.logger.info(str(row)+" element in '"+header+"' column is correct")
                 else:
-                    self.logger.error("Last element in '"+header+"' column is '"+str(current_text)+"', but should be '"+expected_text+"'")
-
-    def convert_list_to_string(self, input_list):
-        string_list = ""
-        for element in input_list:
-            if (string_list != ""):
-                string_list += ", "
-            string_list += element
-        return string_list
+                    self.logger.error(str(row)+" element in '"+header+"' column is '"+str(current_text)+"', but should be '"+expected_text+"'")
 
     def delete_dialog_about(self):
         xpath = self.locators.xpath_dialog+"//b"
@@ -393,16 +380,38 @@ class Page():
         self.click_xpath(self.locators.xpath_continue_import)
         self.dialog_should_not_be_visible()
 
-    def select_customer_shipto(self, customer=None, shipto=None):
-        if (customer is None):
-            customer=self.locators.xpath_by_count(self.locators.xpath_select_box, 1)
-        if (shipto is None):
-            shipto=self.locators.xpath_by_count(self.locators.xpath_select_box, 2)
+    def select_customer_shipto(self, customer_xpath=None, customer_name=None, shipto_xpath=None, shipto_name=None):
+        if (customer_xpath is None):
+            customer_xpath=self.locators.xpath_by_count(self.locators.xpath_select_box, 1)
+        if (shipto_xpath is None):
+            shipto_xpath=self.locators.xpath_by_count(self.locators.xpath_select_box, 2)
         self.wait_until_page_loaded()
-        self.select_in_dropdown(customer, "Static Customer")
+        self.select_in_dropdown(customer_xpath, customer_name)
         self.wait_until_page_loaded()
-        self.select_in_dropdown(shipto, "2048")
+        self.select_in_dropdown(shipto_xpath, shipto_name)
         self.wait_until_page_loaded()
 
-    def scan_table(self, scan_by, column, body):
-        pass
+    def scan_table(self, scan_by, column_header, body):
+        column = self.get_header_column(column_header)
+        pagination_buttons = self.activity.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
+        if (column):
+            is_break = False
+            while True:
+                for row in range(1, self.get_table_rows_number()+1):
+                    cell_value = self.get_table_item_text_by_indexes(row, column)
+                    if (cell_value == scan_by):
+                        self.logger.info("Text '"+scan_by+"' is found in the table")
+                        for cell in body.keys():
+                            self.check_table_item_by_header(row, cell, body[cell])
+                        is_break = True
+                        break
+                if(is_break):
+                    break
+                if (len(pagination_buttons) > 3 and pagination_buttons[-2].is_enabled() == True):
+                        pagination_buttons[-1].click()
+                        self.wait_until_page_loaded()
+                else:
+                    self.logger.error("There is no value '"+scan_by+"' in the '"+str(column)+"' column")
+                    break
+        else:
+            self.logger.error("There is no header '"+header+"'")

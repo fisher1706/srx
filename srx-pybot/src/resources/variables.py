@@ -14,6 +14,8 @@ class Variables():
         self.distributor_name = "QA-distributor"
         self.sub_distributor_name = "Dev Distributor"
         self.run_number = [1, 2]
+        self.customer_name = "Static Customer"
+        self.shipto_number = "2048"
 
     def staging_environment(self):
         self.admin_email = "srx-group+staging@agilevision.io"
