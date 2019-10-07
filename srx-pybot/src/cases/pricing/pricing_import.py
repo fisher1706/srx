@@ -6,7 +6,7 @@ import random
 
 def pricing_import(case):
     case.log_name("Pricing import")
-    #case.testrail_config(case.activity.variables.run_number, 34)
+    case.testrail_config(case.activity.variables.run_number, 35)
 
     try:
         lp = LoginPage(case.activity)
@@ -29,6 +29,7 @@ def pricing_import(case):
         pp.sidebar_pricing()
         pp.select_customer_shipto(customer_name=case.activity.variables.customer_name)
         pp.import_pricing(pricing)
+        pp.select_customer_shipto(customer_name=case.activity.variables.customer_name)
         pp.check_price_by_name(pricing_body.copy())
 
         case.finish_case()

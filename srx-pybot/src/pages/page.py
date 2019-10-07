@@ -278,6 +278,13 @@ class Page():
     def check_last_table_item_by_header(self, header, expected_text):
         self.check_table_item_by_header(self.get_table_rows_number(), header, expected_text)
 
+    def get_last_table_item_text_by_header(self, header):
+        column = self.get_header_column(header)
+        if (column):
+            return self.get_table_item_text_by_indexes(self.get_table_rows_number(), column)
+        else:
+            self.logger.error("There is no header '"+header+"'")
+
     def check_table_item_by_header(self, row, header, expected_text):
         if (expected_text is not None):
             column = self.get_header_column(header)
