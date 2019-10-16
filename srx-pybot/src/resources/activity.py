@@ -5,9 +5,12 @@ from src.resources.variables import Variables
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import argparse
+_ENV = None
 
 class Activity():
+    
     def __init__(self):
+        _ENV = None
         self.arg_browser, self.arg_environment = self.get_args()
         self.locators = Locators()
         self.logger = Logger()

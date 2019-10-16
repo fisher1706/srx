@@ -28,6 +28,7 @@ class CatalogPage(DistributorPortalPage):
             "gtin": None,
             "upc": None,
             "keyword": None,
+            "unitName": None
         }
 
     def create_product(self, product_body):

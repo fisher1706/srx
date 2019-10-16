@@ -9,6 +9,16 @@ class URL():
             self.distributor_portal = self.get_distributor_portal()
         else:
             raise IOError("Incorrect environment")
+        _ENV = self.environment
+        
+    @staticmethod
+    def get_api_url_for_env(self, url, portal):
+        switcher = {
+            'dev': "https://"+portal+"-dev."+url,
+            'staging': "https://"+portal+"-staging."+url,
+            'prod': "https://"+portal+"."+url
+        }
+        return switcher.get(_ENV)
 
     def get_admin_portal(self):
         switcher = {

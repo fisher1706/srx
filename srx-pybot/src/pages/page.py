@@ -10,7 +10,6 @@ from src.waits.last_page import last_page
 from src.waits.is_page_loading import is_page_loading
 import csv
 import os
-import time
 
 class Page():
     def __init__(self, activity):

@@ -42,6 +42,7 @@ def product_crud(case):
         edit_product_body["gtin"] = "1600"
         edit_product_body["upc"] = "1700"
         edit_product_body["keyword"] = "1800"
+        edit_product_body["unitName"] = "1900"
         #-------------------
 
         lp.log_in_distributor_portal()
