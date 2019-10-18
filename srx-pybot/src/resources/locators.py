@@ -15,11 +15,14 @@ class Locators():
     xpath_table_row = "//div[@role='rowgroup']"
     xpath_table_column = "//div[@role='gridcell']"
     xpath_table_header_column = "//div[@role='columnheader']"
+    xpath_table = "//div[@class='rt-table']"
     xpath_checkbox = "//input[@type='checkbox']"
     xpath_confirm_button = "//button[@data-testid='confirm-button']"
     xpath_pagination_bottom = "//div[@class='pagination-bottom']"
     xpath_continue_import = "//button/span[text()='Continue import']"
     xpath_successfully_imported_msg = "//span[@id='client-snackbar']//strong[text()='Successfully imported']"
+    xpath_successfully_uploaded_document_msg = "//span[text()='Document uploaded successfully!']"
+    xpath_button = "//div[@role='button']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -31,6 +34,7 @@ class Locators():
     title_customer_info = "//button[@title='Customer info']"
     title_delete_customer = "//span[@title='Delete Customer']/button"
     title_edit_product = "//span[@title='Edit Product']/button"
+    title_delete_document = "//span[@title='Delete document']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"

@@ -8,6 +8,7 @@ from src.waits.dialog_is_not_present import dialog_is_not_present
 from src.waits.new_element_in_table import new_element_in_table
 from src.waits.last_page import last_page
 from src.waits.is_page_loading import is_page_loading
+from src.waits.elements_count_should_be import elements_count_should_be
 import csv
 import os
 
@@ -250,6 +251,14 @@ class Page():
             count = len(elements)
             self.logger.info("There are '"+str(count)+"' elements with XPATH = '"+xpath+"'")
             return count
+
+    def elements_count_should_be(self, xpath, number):
+        try:
+            WebDriverWait(self.driver, 15).until(elements_count_should_be(xpath, number))
+        except TimeoutException:
+            self.logger.error("Count of elements is incorrect")
+        else:
+            self.logger.info("Count of elements is correct")
 
     def get_table_rows_number(self):
         return self.get_element_count(self.locators.xpath_table_row)

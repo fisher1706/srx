@@ -10,7 +10,7 @@ class HardwarePage(AdminPortalPage):
         self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 2), distributor)
         self.click_xpath(self.locators.class_button_ok)
         self.should_be_present_xpath("//h4[text()='IoT HUB provision information']")
-        serial_number = self.get_element_text(self.locators.class_modal_dialog+self.locators.class_jumbotron)
+        serial_number = self.get_element_text(self.locators.class_modal_dialog+self.locators.class_jumbotron+"/h3")
         self.click_xpath(self.locators.class_button_close)
         self.dialog_should_not_be_visible()
         return serial_number

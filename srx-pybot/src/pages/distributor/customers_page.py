@@ -25,7 +25,7 @@ class CustomersPage(DistributorPortalPage):
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
-        self.new_element_appears_in_table(start_number_of_rows+1)
+        self.elements_count_should_be(self.locators.xpath_table_row, start_number_of_rows+1)
 
     def check_last_customer(self, customer_body):
         self.open_last_page()

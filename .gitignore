@@ -4,6 +4,7 @@
 *.png
 *.csv#
 *.csv
+appium_test.py
 resources/environment.robot
 resources/importRfid.csv
 resources/importCatalog.csv
@@ -28,3 +29,7 @@ resources/py/sftp.pyc
 **/**/**/**/__pycache__
 **/**/**/*.pyc
 **/**/**/**/*.pyc
+srx-pybot/src/output
+
+srx-pybot/src/cases/users/create_exist_distributor_super_user.py
+srx-pybot/src/api

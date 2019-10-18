@@ -12,6 +12,8 @@ class Variables():
         self.distributor_email = "dprovorov+testadmin@agilevision.io"
         self.distributor_password = "test29"
         self.distributor_name = "QA-distributor"
+        self.customer_email = "dprovorov+customer3@agilevision.io"
+        self.customer_password = "test29"
         self.sub_distributor_name = "Dev Distributor"
         self.run_number = [1, 2]
         self.customer_name = "Static Customer"
@@ -23,8 +25,12 @@ class Variables():
         self.distributor_email = "dprovorov+distributor@agilevision.io"
         self.distributor_password = "test29"
         self.distributor_name = "QA-distributor"
+        self.customer_email = "dprovorov+customer3@agilevision.io"
+        self.customer_password = "test29"
         self.sub_distributor_name = "Static Test"
         self.run_number = [8]
+        self.customer_name = "Static Customer"
+        self.shipto_number = "2048"
 
     def general(self):
         self.expected_error_series = 2

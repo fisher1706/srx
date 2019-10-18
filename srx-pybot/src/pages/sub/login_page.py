@@ -7,7 +7,7 @@ class LoginPage(Page):
     def follow_admin_portal(self):
         self.follow_url(self.url.admin_portal)
 
-    def follow_distributor_portal(self):
+    def follow_auth_portal(self):
         self.follow_url(self.url.auth_portal)
 
     def input_email(self, email):
@@ -64,10 +64,18 @@ class LoginPage(Page):
         self.click_on_submit_button()
 
     def log_in_distributor_portal(self):
-        self.follow_distributor_portal()
+        self.follow_auth_portal()
         self.input_email(self.variables.distributor_email)
         self.input_password(self.variables.distributor_password)
         self.click_on_submit_button()
         self.title_should_be("SRX Distributor Portal")
         self.follow_url(self.url.distributor_portal)
-        #self.should_be_present_xpath("//span[text()='"+self.variables.distributor_email+"']")
+
+    def log_in_customer_portal(self):
+        self.follow_auth_portal()
+        self.input_email(self.variables.customer_email)
+        self.input_password(self.variables.customer_password)
+        self.click_on_submit_button()
+        self.title_should_be("SRX User Dashboard")
+        self.follow_url(self.url.customer_portal)
+        self.click_xpath(self.locators.xpath_button)
