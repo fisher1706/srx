@@ -54,6 +54,12 @@ class Locators():
     def xpath_table_item(self, row, column):
         return "(("+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"
 
+    def xpath_table_item_in_dialog(self, row, column):
+        return "(("+self.xpath_dialog+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"
+
+    def xpath_button_by_name(self, name):
+        return "//button[@type='button']//span[text()='"+name+"']"
+
     #bootstrap
     class_button_info = "//button[@class='btn btn-info']"
     class_button_ok = "//button[@class='modal-dialog-ok-button btn btn-lg btn-primary']"

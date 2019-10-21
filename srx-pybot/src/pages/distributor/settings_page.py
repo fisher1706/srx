@@ -1,6 +1,5 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 import os
-import time
 
 class SettingsPage(DistributorPortalPage):
     def __init__(self, activity):
