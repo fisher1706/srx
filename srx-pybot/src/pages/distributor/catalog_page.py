@@ -32,7 +32,7 @@ class CatalogPage(DistributorPortalPage):
         }
 
     def create_product(self, product_body):
-        self.click_id(self.locators.id_create_button)
+        self.click_id(self.locators.id_add_button)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), product_body.pop("lifecycleStatus"))
         for field in product_body.keys():
             self.input_by_name(field, product_body[field])

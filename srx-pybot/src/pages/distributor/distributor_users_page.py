@@ -6,7 +6,7 @@ class DistributorUsersPage(DistributorPortalPage):
         super().__init__(activity)
 
     def create_distributor_user(self, email, first_name, last_name, role, warehouses):
-        self.click_id(self.locators.id_create_button)
+        self.click_id(self.locators.id_add_button)
         self.input_by_name("email", email)
         self.input_by_name("firstName", first_name)
         self.input_by_name("lastName", last_name)
@@ -46,7 +46,7 @@ class DistributorUsersPage(DistributorPortalPage):
         self.dialog_should_not_be_visible()
 
     def create_distributor_super_user(self, email, first_name, last_name):
-        self.click_id(self.locators.id_create_button)
+        self.click_id(self.locators.id_add_button)
         self.input_by_name("email", email)
         self.input_by_name("firstName", first_name)
         self.input_by_name("lastName", last_name)

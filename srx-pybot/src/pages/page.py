@@ -56,18 +56,20 @@ class Page():
             self.logger.info("Data '"+data+"' inputed into element with ID = '"+id+"'")
 
     def input_data_xpath(self, data, xpath):
-        try:
-            element = WebDriverWait(self.driver, 15).until(
-                EC.element_to_be_clickable((By.XPATH, xpath))
-            )
-        except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
-        except:
-            self.logger.error("Data '"+data+"' was not inputed into element with XPATH = '"+xpath+"'")
-        else:
+            element = self.get_element_xpath(xpath)
             element.clear()
             element.send_keys(data)
             self.logger.info("Data '"+data+"' inputed into element with XPATH = '"+xpath+"'")
+
+    def get_element_xpath(self, xpath):
+        try:
+            element = self.driver.find_element_by_xpath(xpath)
+        except NoSuchElementException:
+            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+        except:
+            self.logger.error("It's not possible to get element with XPATH = '"+xpath+"'")
+        else:
+            return element
 
     def input_by_name(self, name, data):
         if (data is not None):
@@ -287,9 +289,12 @@ class Page():
         self.check_table_item_by_header(self.get_table_rows_number(), header, expected_text)
 
     def get_last_table_item_text_by_header(self, header):
+        return self.get_table_item_text_by_header(header, self.get_table_rows_number())
+
+    def get_table_item_text_by_header(self, header, row):
         column = self.get_header_column(header)
         if (column):
-            return self.get_table_item_text_by_indexes(self.get_table_rows_number(), column)
+            return self.get_table_item_text_by_indexes(row, column)
         else:
             self.logger.error("There is no header '"+header+"'")
 
@@ -309,7 +314,7 @@ class Page():
                         correctness = False
                         break
                 if (correctness == True):
-                    self.logger.info(str(row)+" element in '"+header+"' column is correct")
+                    self.logger.info(str(row)+" elements in '"+header+"' column is correct")
             else:
                 if (current_text == expected_text):
                     self.logger.info(str(row)+" element in '"+header+"' column is correct")
@@ -430,3 +435,21 @@ class Page():
                     break
         else:
             self.logger.error("There is no header '"+header+"'")
+
+    def manage_shipto(self, shiptos, prefix_path=""):
+        if (shiptos is not None):
+            self.click_xpath(self.locators.xpath_button_by_name("Manage"))
+            for shipto in shiptos:
+                for row in range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1):
+                    if (shipto == self.activity.driver.find_element_by_xpath(self.locators.xpath_table_item_in_dialog(row, 1)).text):
+                        self.click_xpath(self.locators.xpath_table_item_in_dialog(row, 5)+"//button")
+                        break
+                else:
+                    self.logger.error("There is no ShipTo '"+shipto+"'")
+            self.click_xpath(self.locators.xpath_button_by_name("Apply"))
+
+    def get_row_of_table_item_by_header(self, scan_by, column_header, prefix_path=""):
+        column = self.get_header_column(column_header)
+        for index, row in enumerate(range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1)):
+            if (scan_by == self.activity.driver.find_element_by_xpath(prefix_path+self.locators.xpath_table_item(row, column)).text):
+                return index+1

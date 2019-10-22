@@ -3,7 +3,8 @@ class Locators():
     id_email = "email"
     id_password = "password"
     id_enter_here = "redirectButton"
-    id_create_button = "item-action-create"
+    id_add_button = "item-action-create"
+    id_add_button = "item-action-add"
     id_file_upload = "file-upload"
 
     #XPATHs
@@ -35,6 +36,7 @@ class Locators():
     title_delete_customer = "//span[@title='Delete Customer']/button"
     title_edit_product = "//span[@title='Edit Product']/button"
     title_delete_document = "//span[@title='Delete document']/button"
+    title_delete_allocation_code = "//span[@title='Delete Allocation Codes']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"

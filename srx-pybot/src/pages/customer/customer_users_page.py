@@ -13,28 +13,15 @@ class CustomerUsersPage(CustomerPortalPage):
 
     def create_customer_user(self, customer_user_body):
         start_number_of_rows = self.get_table_rows_number()
-        self.click_id(self.locators.id_create_button)
+        self.click_id(self.locators.id_add_button)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_user_body.pop("role"))
-        self.manage_shipto(customer_user_body.pop("shiptos"))
+        self.manage_shipto(customer_user_body.pop("shiptos"), self.locators.xpath_dialog)
         for field in customer_user_body.keys():
             self.input_by_name(field, customer_user_body[field])
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
         self.elements_count_should_be(self.locators.xpath_table_row, start_number_of_rows+1)
-
-    def manage_shipto(self, shiptos):
-        if (shiptos is not None):
-            self.click_xpath(self.locators.xpath_button_by_name("Manage"))
-            for shipto in shiptos:
-                for row in range(1, self.get_element_count(self.locators.xpath_dialog+self.locators.xpath_table_row)+1):
-                    if (shipto == self.activity.driver.find_element_by_xpath(self.locators.xpath_table_item_in_dialog(row, 1)).text):
-                        self.click_xpath(self.locators.xpath_table_item_in_dialog(row, 5)+"//button")
-                        break
-                else:
-                    self.logger.error("There is no ShipTo '"+shipto+"'")
-            self.click_xpath(self.locators.xpath_button_by_name("Apply"))
-
 
     def check_last_customer_user(self, customer_user_body):
         self.open_last_page()
@@ -51,7 +38,7 @@ class CustomerUsersPage(CustomerPortalPage):
     def update_last_customer_user(self, customer_user_body):
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number()))
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_user_body.pop("role"))
-        self.manage_shipto(customer_user_body.pop("shiptos"))
+        self.manage_shipto(customer_user_body.pop("shiptos"), self.locators.xpath_dialog)
         for field in customer_user_body.keys():
             self.input_by_name(field, customer_user_body[field])
         self.click_xpath(self.locators.xpath_submit_button)

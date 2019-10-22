@@ -5,7 +5,7 @@ class WarehousesPage(DistributorPortalPage):
         super().__init__(activity)
 
     def create_warehouse(self, name, number, address1, address2, city, state, code, timezone, contact_email, invoice_email):
-        self.click_id(self.locators.id_create_button)
+        self.click_id(self.locators.id_add_button)
         self.input_by_name("name", name)
         self.input_by_name("number", number)
         self.input_by_name("address.line1", address1)
