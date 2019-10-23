@@ -12,8 +12,8 @@ def pricing_import(case):
         lp = LoginPage(case.activity)
         pp = PricingPage(case.activity)
         pricing_body = pp.pricing_body.copy()
+        temporary_price = str(float('{:.2f}'.format(random.choice(range(10000))/100)))
 
-        temporary_price = str(random.choice(range(10000))/100)
         #-------------------
         pricing_body["SKU"] = "PRICING_SKU"
         pricing_body["Price"] = "$"+temporary_price
