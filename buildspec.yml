@@ -3,5 +3,6 @@ version: 0.2
 phases:
   build:
     commands:
+      - export PYTHONPATH=$PYTHONPATH:./srx-pybot/
       - set +e
       - python3 srx-pybot/src/suites/main_suite_dev.py --browser=ffhl --environment=dev
