@@ -35,7 +35,7 @@ def customer_user_crud(case):
         cup.wait_until_page_loaded()
         cup.check_last_customer_user(edit_customer_user_body.copy())
         cup.delete_last_customer_user()
-        
+
         case.finish_case()
     except:
         case.critical_finish_case()

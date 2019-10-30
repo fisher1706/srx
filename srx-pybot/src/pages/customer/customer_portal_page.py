@@ -10,5 +10,8 @@ class CustomerPortalPage(Page):
     def sidebar_allocation_codes(self):
         self.click_id("sidebar-allocation_codes")
 
+    def sidebar_activity_feed(self):
+        self.click_id("sidebar-activity_feed")
+
     def sign_out(self):
         self.click_id("sidebar-sign_out")

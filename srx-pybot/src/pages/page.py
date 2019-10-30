@@ -4,11 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
-from src.waits.dialog_is_not_present import dialog_is_not_present
-from src.waits.new_element_in_table import new_element_in_table
-from src.waits.last_page import last_page
-from src.waits.is_page_loading import is_page_loading
-from src.waits.elements_count_should_be import elements_count_should_be
+from src.waits import *
 import csv
 import os
 
@@ -350,9 +346,9 @@ class Page():
                 else:
                     self.logger.info("Slider with XPATH = '"+xpath+"' already has necessary value")
 
-    def wait_until_page_loaded(self):
+    def wait_until_page_loaded(self, time=3):
         try:
-            WebDriverWait(self.driver, 3).until(is_page_loading())
+            WebDriverWait(self.driver, time).until(is_page_loading())
         except TimeoutException:
             pass
         WebDriverWait(self.driver, 15).until_not(is_page_loading())
@@ -446,10 +442,21 @@ class Page():
                         break
                 else:
                     self.logger.error("There is no ShipTo '"+shipto+"'")
-            self.click_xpath(self.locators.xpath_button_by_name("Apply"))
+            self.click_xpath(self.locators.xpath_dialog+self.locators.xpath_submit_button+"//span[text()='Save']")
 
     def get_row_of_table_item_by_header(self, scan_by, column_header, prefix_path=""):
         column = self.get_header_column(column_header)
         for index, row in enumerate(range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1)):
             if (scan_by == self.activity.driver.find_element_by_xpath(prefix_path+self.locators.xpath_table_item(row, column)).text):
                 return index+1
+
+    def url_should_be(self, url):
+        try:
+            WebDriverWait(self.driver, 15).until(page_url_is(url))
+        except TimeoutException:
+            self.logger.error("Incorrect page url")
+        else:
+            self.logger.info("Page url is correct")
+
+    def page_refresh(self):
+        self.driver.refresh()

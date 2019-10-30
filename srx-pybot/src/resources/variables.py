@@ -1,9 +1,11 @@
 class Variables():
     def __init__(self, environment):
-        if (environment == 'dev' or environment is None):
+        if (environment == 'dev'):
             self.dev_environment()
         elif (environment == 'staging'):
             self.staging_environment()
+        elif (environment == 'qa' or environment is None):
+            self.qa_environment()
         self.general()
 
     def dev_environment(self):
@@ -31,6 +33,19 @@ class Variables():
         self.run_number = [8]
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
+
+    def qa_environment(self):
+        self.admin_email = "dprovorov@agilevision.io"
+        self.admin_password = "test29"
+        self.distributor_email = "dprovorov+dist@agilevision.io"
+        self.distributor_password = "test29"
+        self.distributor_name = "MAIN-QA-DISTRIBUTOR"
+        self.customer_email = "dprovorov+cust@agilevision.io"
+        self.customer_password = "test29"
+        self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
+        self.run_number = [1, 2]
+        self.customer_name = "Static Customer"
+        self.shipto_number = "FIRST-QA-SHIPTO"
 
     def general(self):
         self.expected_error_series = 2

@@ -24,6 +24,7 @@ class Locators():
     xpath_successfully_imported_msg = "//span[@id='client-snackbar']//strong[text()='Successfully imported']"
     xpath_successfully_uploaded_document_msg = "//span[text()='Document uploaded successfully!']"
     xpath_button = "//div[@role='button']"
+    xpath_role_row = "//div[@role='row']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -36,7 +37,7 @@ class Locators():
     title_delete_customer = "//span[@title='Delete Customer']/button"
     title_edit_product = "//span[@title='Edit Product']/button"
     title_delete_document = "//span[@title='Delete document']/button"
-    title_delete_allocation_code = "//span[@title='Delete Allocation Codes']/button"
+    title_delete_allocation_code = "//span[@title='Delete Allocation Code']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"
@@ -53,8 +54,8 @@ class Locators():
     def xpath_button_tab_by_name(self, name):
         return self.xpath_button_tab+"//span[text()='"+name+"']"
 
-    def xpath_table_item(self, row, column):
-        return "(("+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"
+    def xpath_table_item(self, row, column, sub_xpath=""):
+        return "(("+sub_xpath+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"
 
     def xpath_table_item_in_dialog(self, row, column):
         return "(("+self.xpath_dialog+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"

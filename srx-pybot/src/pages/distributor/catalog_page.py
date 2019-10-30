@@ -68,3 +68,5 @@ class CatalogPage(DistributorPortalPage):
     def import_product(self, products):
         self.generate_csv("products.csv", products)
         self.import_csv(self.locators.id_file_upload, "products.csv")
+        self.should_be_present_xpath(self.locators.xpath_successfully_imported_msg)
+        self.wait_until_page_loaded()
