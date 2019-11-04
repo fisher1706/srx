@@ -12,11 +12,13 @@ def pricing_import(case):
         lp = LoginPage(case.activity)
         pp = PricingPage(case.activity)
         pricing_body = pp.pricing_body.copy()
-        temporary_price = str(float('{:.2f}'.format(random.choice(range(10000))/100)))
+        temporary_price = random.choice(range(10000))/100
+        if (temporary_price%10 == 0):
+            temporary_price += 0.01
 
         #-------------------
         pricing_body["SKU"] = "PRICING_SKU"
-        pricing_body["Price"] = "$"+temporary_price
+        pricing_body["Price"] = "$"+str(temporary_price)
         pricing_body["UOM"] = "M"
         pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
         #-------------------
