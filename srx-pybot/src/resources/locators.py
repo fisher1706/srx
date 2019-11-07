@@ -6,6 +6,7 @@ class Locators():
     id_add_button = "item-action-create"
     id_add_button = "item-action-add"
     id_file_upload = "file-upload"
+    id_intercom_container = "intercom-container"
 
     #XPATHs
     xpath_forgot_password = "//a[@href='/forgot-password']"

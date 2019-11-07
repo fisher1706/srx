@@ -67,6 +67,16 @@ class Page():
         else:
             return element
 
+    def get_element_id(self, id):
+        try:
+            element = self.driver.find_element_by_id(id)
+        except NoSuchElementException:
+            self.logger.error("Element with ID = '"+id+"' not found")
+        except:
+            self.logger.error("It's not possible to get element with ID = '"+id+"'")
+        else:
+            return element
+
     def input_by_name(self, name, data):
         if (data is not None):
             self.input_data_xpath(data, "//input[@name='"+name+"']")
@@ -327,7 +337,7 @@ class Page():
             return element.text
 
     def delete_dialog_should_be_about(self, expected_text):
-        current_text = self.delete_dialog_about()
+        current_text = str(self.delete_dialog_about())
         if (current_text == expected_text):
             self.logger.info("Delete dialog about '"+current_text+"'")
         else:
