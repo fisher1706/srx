@@ -16,7 +16,7 @@ def pricing_import(case):
 
         #-------------------
         pricing_body["SKU"] = "PRICING_SKU"
-        pricing_body["Price"] = "$"+temporary_price
+        pricing_body["Price"] = "$"+temporary_price+".00"
         pricing_body["UOM"] = "M"
         pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
         #-------------------
