@@ -39,6 +39,12 @@ class CustomersPage(DistributorPortalPage):
         for cell in table_cells.keys():
             self.check_last_table_item_by_header(cell, table_cells[cell])
 
+    def open_customer_users(self, row):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_manage_customer_users, row))
+
+    def open_last_customer_users(self):
+        self.open_customer_users(self.get_table_rows_number())
+
     def update_last_customer(self, customer_body):
         self.remove_focus() #the KOSTYL', please investigate and find solution for correct running without THIS. Need at least 9 items in Customers table and GUI FireFox
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_customer_info, self.get_table_rows_number()))

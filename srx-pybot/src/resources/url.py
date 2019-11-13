@@ -19,3 +19,12 @@ class URL():
             'qa': "https://"+portal+".qa."+url
         }
         return switcher.get(self.environment)
+
+    def get_api_url_for_env(self, url):
+        switcher = {
+            'dev': "https://api-dev.storeroomlogix.com"+url,
+            'staging': "https://api-staging.storeroomlogix.com"+url,
+            'prod': "https://api-prod.storeroomlogix.com"+url,
+            'qa': "https://api-qa.storeroomlogix.com"+url
+        }
+        return switcher.get(self.environment)

@@ -14,6 +14,7 @@ class CustomerUsersPage(CustomerPortalPage):
     def create_customer_user(self, customer_user_body):
         start_number_of_rows = self.get_table_rows_number()
         self.click_id(self.locators.id_add_button)
+        self.page_refresh() #kostyl'
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_user_body.pop("role"))
         self.manage_shipto(customer_user_body.pop("shiptos"), self.locators.xpath_dialog)
         for field in customer_user_body.keys():

@@ -127,7 +127,7 @@ class Page():
 
     def should_be_present_id(self, id):
         try:
-            self.activity.driver.find_element_by_id(id)
+            self.driver.find_element_by_id(id)
         except NoSuchElementException:
             self.logger.error("Element with ID = '"+id+"' not found")
         else:
@@ -135,7 +135,7 @@ class Page():
 
     def should_be_present_xpath(self, xpath):
         try:
-            self.activity.driver.find_element_by_xpath(xpath)
+            self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
             self.logger.error("Element with XPATH = '"+xpath+"' not found")
         else:
@@ -143,7 +143,7 @@ class Page():
 
     def clear_id(self, id):
         try:
-            self.activity.driver.find_element_by_id(id).clear()
+            self.driver.find_element_by_id(id).clear()
         except NoSuchElementException:
             self.logger.error("Element with ID = '"+id+"' not found")
         else:
@@ -151,7 +151,7 @@ class Page():
 
     def clear_xpath(self, xpath):
         try:
-            self.activity.driver.find_element_by_xpath(xpath).clear()
+            self.driver.find_element_by_xpath(xpath).clear()
         except NoSuchElementException:
             self.logger.error("Element with XPATH = '"+xpath+"' not found")
         else:
@@ -177,7 +177,7 @@ class Page():
 
     def select_checkbox(self, xpath):
         try:
-            element = self.activity.driver.find_element_by_xpath(xpath)
+            element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
             self.logger.error("Checkbox with XPATH = '"+xpath+"' not found")
         else:
@@ -190,7 +190,7 @@ class Page():
 
     def unselect_checkbox(self, xpath):
         try:
-            element = self.activity.driver.find_element_by_xpath(xpath)
+            element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
             self.logger.error("Checkbox with XPATH = '"+xpath+"' not found")
         else:
@@ -206,7 +206,7 @@ class Page():
 
     def clear_all_selectboxes_in_dialog(self):
         try:
-            checkboxes = self.activity.driver.find_elements_by_xpath(self.locators.xpath_dialog+self.locators.xpath_checkbox)
+            checkboxes = self.driver.find_elements_by_xpath(self.locators.xpath_dialog+self.locators.xpath_checkbox)
         except:
             self.logger.error("Checkboxes in dialog not found")
         else:
@@ -218,7 +218,7 @@ class Page():
     def select_in_dropdown(self, xpath, name):
         if (name is not None):
             try:
-                element = self.activity.driver.find_element_by_xpath(xpath)
+                element = self.driver.find_element_by_xpath(xpath)
             except NoSuchElementException:
                 self.logger.error("Dropdown list with XPATH = '"+xpath+"' not found")
             else:
@@ -252,7 +252,7 @@ class Page():
 
     def get_element_count(self, xpath):
         try:
-            elements = self.activity.driver.find_elements_by_xpath(xpath)
+            elements = self.driver.find_elements_by_xpath(xpath)
         except:
             self.logger.error("Elements with XPATH = '"+xpath+"' do not found")
         else:
@@ -272,7 +272,7 @@ class Page():
         return self.get_element_count(self.locators.xpath_table_row)
 
     def get_header_column(self, header):
-        headers = self.activity.driver.find_elements_by_xpath(self.locators.xpath_table_header_column)
+        headers = self.driver.find_elements_by_xpath(self.locators.xpath_table_header_column)
         for index, item in enumerate(headers):
             if (item.text == header):
                 return index+1
@@ -285,7 +285,7 @@ class Page():
 
     def get_element_text(self, xpath):
         try:
-            element = self.activity.driver.find_element_by_xpath(xpath)
+            element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
             self.logger.error("Element with XPATH = '"+xpath+"' not found")
         else:
@@ -330,7 +330,7 @@ class Page():
     def delete_dialog_about(self):
         xpath = self.locators.xpath_dialog+"//b"
         try:
-            element = self.activity.driver.find_element_by_xpath(xpath)
+            element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
             self.logger.error("Element with XPATH = '"+xpath+"' not found")
         else:
@@ -346,7 +346,7 @@ class Page():
     def set_slider(self, xpath, condition):
         if (condition is not None):
             try:
-                element = self.activity.driver.find_element_by_xpath(xpath)
+                element = self.driver.find_element_by_xpath(xpath)
             except NoSuchElementException:
                 self.logger.error("Slider with XPATH = '"+xpath+"' not found")
             else:
@@ -372,7 +372,7 @@ class Page():
             self.logger.info("Last page is opened")
 
     def open_last_page(self):
-        pagination_buttons = self.activity.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
+        pagination_buttons = self.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
         if (len(pagination_buttons) > 3):
             if(pagination_buttons[-2].is_enabled() == True):
                 self.wait_until_page_loaded()
@@ -401,7 +401,7 @@ class Page():
     def import_csv(self, id, filename):
         folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         folder += "/output/"+filename
-        self.activity.driver.find_element_by_id(id).send_keys(folder)
+        self.driver.find_element_by_id(id).send_keys(folder)
         self.dialog_should_be_visible()
         self.click_xpath(self.locators.xpath_continue_import)
         self.dialog_should_not_be_visible()
@@ -419,7 +419,7 @@ class Page():
 
     def scan_table(self, scan_by, column_header, body):
         column = self.get_header_column(column_header)
-        pagination_buttons = self.activity.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
+        pagination_buttons = self.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
         if (column):
             is_break = False
             while True:
@@ -447,7 +447,7 @@ class Page():
             self.click_xpath(self.locators.xpath_button_by_name("Manage"))
             for shipto in shiptos:
                 for row in range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1):
-                    if (shipto == self.activity.driver.find_element_by_xpath(self.locators.xpath_table_item_in_dialog(row, 1)).text):
+                    if (shipto == self.driver.find_element_by_xpath(self.locators.xpath_table_item_in_dialog(row, 1)).text):
                         self.click_xpath(self.locators.xpath_table_item_in_dialog(row, 5)+"//button")
                         break
                 else:
@@ -457,7 +457,7 @@ class Page():
     def get_row_of_table_item_by_header(self, scan_by, column_header, prefix_path=""):
         column = self.get_header_column(column_header)
         for index, row in enumerate(range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1)):
-            if (scan_by == self.activity.driver.find_element_by_xpath(prefix_path+self.locators.xpath_table_item(row, column)).text):
+            if (scan_by == self.driver.find_element_by_xpath(prefix_path+self.locators.xpath_table_item(row, column)).text):
                 return index+1
 
     def url_should_be(self, url):
@@ -470,3 +470,6 @@ class Page():
 
     def page_refresh(self):
         self.driver.refresh()
+
+    def delete_cookies(self):
+        self.driver.delete_all_cookies()
