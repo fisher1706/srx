@@ -13,5 +13,8 @@ class CustomerPortalPage(Page):
     def sidebar_activity_feed(self):
         self.click_id("sidebar-activity_feed")
 
+    def sidebar_orders_and_quotes(self):
+        self.click_id("sidebar-quoted_ordered_list")
+
     def sign_out(self):
         self.click_id("sidebar-sign_out")

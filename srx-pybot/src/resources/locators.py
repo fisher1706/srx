@@ -24,8 +24,14 @@ class Locators():
     xpath_continue_import = "//button/span[text()='Continue import']"
     xpath_successfully_imported_msg = "//span[@id='client-snackbar']//strong[text()='Successfully imported']"
     xpath_successfully_uploaded_document_msg = "//span[text()='Document uploaded successfully!']"
+    xpath_successfully_submitted_reorder_list = "//span[text()='Reorder list was successfully submitted']"
     xpath_button = "//div[@role='button']"
     xpath_role_row = "//div[@role='row']"
+    xpath_replenishment_item = "//div[@data-testid='replenishment-item']"
+    xpath_replenishment_item_sku = "//div[@data-testid='part-sku']"
+    xpath_submit_quote_button = "//button/span[text()='Submit quote']"
+    xpath_cancel_button = "//button[@label='Cancel']"
+    xpath_type_text = "//input[@type='text']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -40,6 +46,8 @@ class Locators():
     title_delete_document = "//span[@title='Delete document']/button"
     title_delete_allocation_code = "//span[@title='Delete Allocation Code']/button"
     title_manage_customer_users = "//button[@title='Manage Customer users']"
+    title_shipto_info = "//button[@title='Shipto info']"
+    title_delete_shipto = "//span[@title='Delete Shipto']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"

@@ -9,6 +9,9 @@ class Case():
         self.activity = activity
         self.level = level
         self.testrail = False
+        self.admin_token = None
+        self.distributor_token = None
+        self.customer_token = None
 
     def critical_finish_case(self):
         self.activity.logger.critical("Test crashed\n"+str(traceback.format_exc()))

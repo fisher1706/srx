@@ -45,6 +45,7 @@ class Variables():
         self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
         self.run_number = [1, 2]
         self.customer_name = "Static Customer"
+        self.customer_id = "4"
         self.shipto_number = "FIRST-QA-SHIPTO"
 
     def general(self):

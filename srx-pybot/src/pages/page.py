@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from src.waits import *
 import csv
 import os
+import traceback
 
 class Page():
     def __init__(self, activity):
@@ -34,6 +35,7 @@ class Page():
             self.logger.error("Element with XPATH = '"+xpath+"' not found")
         except:
             self.logger.error("Element with XPATH = '"+xpath+"' is not clickable")
+            #print(str(traceback.format_exc()))
         else:
             self.logger.info("Element with XPATH = '"+xpath+"' is clicked")
 
@@ -315,10 +317,11 @@ class Page():
             if isinstance(expected_text, list):
                 correctness = True
                 for element in expected_text:
-                    if (element not in current_text):
-                        self.logger.error(str(row)+" element in '"+header+"' column is incorrect")
-                        correctness = False
-                        break
+                    if (element is not None):
+                        if (element not in current_text):
+                            self.logger.error(str(row)+" element in '"+header+"' column is incorrect")
+                            correctness = False
+                            break
                 if (correctness == True):
                     self.logger.info(str(row)+" elements in '"+header+"' column is correct")
             else:
