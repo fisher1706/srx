@@ -20,8 +20,8 @@ if __name__ == "__main__":
     pricing_import(Case(activity, 'SUITE'))
     document_import(Case(activity, 'SUITE'))
     customer_user_crud(Case(activity, 'SUITE'))
-    different_multiple_po_number(Case(activity, 'SUITE'))
-    general_multiple_po_number(Case(activity, 'SUITE'))
+    #different_multiple_po_number(Case(activity, 'SUITE'))
+    #general_multiple_po_number(Case(activity, 'SUITE'))
     allocation_code_crud(Case(activity, 'SUITE'))
 
     activity.logger.output_suite_result()
