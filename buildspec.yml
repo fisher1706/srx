@@ -4,5 +4,4 @@ phases:
   build:
     commands:
       - export PYTHONPATH=$PYTHONPATH:./srx-pybot/
-      - set +e
-      - python3 srx-pybot/src/suites/main_suite_qa.py --browser=ffhl --environment=qa
+      - python3 srx-pybot/src/suites/main_suite_qa.py --browser=ffhl --environment=qa --USER_POOL_ID=$USER_POOL_ID --CLIENT_ID=$CLIENT_ID --CLIENT_SECRET=$CLIENT_SECRET

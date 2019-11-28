@@ -58,18 +58,18 @@ class Case():
     def random_string_u(self, length=10):
         letters = string.ascii_uppercase
         random_string = ''.join(random.choice(letters) for i in range(length))
-        self.activity.logger.info("New random string generated: '"+random_string+"'")
+        #self.activity.logger.info("New random string generated: '"+random_string+"'")
         return random_string
 
     def random_string_l(self, length=10):
         letters = string.ascii_lowercase
         random_string = ''.join(random.choice(letters) for i in range(length))
-        self.activity.logger.info("New random string generated: '"+random_string+"'")
+        #self.activity.logger.info("New random string generated: '"+random_string+"'")
         return random_string
 
     def random_email(self, length=10):
         letters = string.ascii_lowercase
         random_string = ''.join(random.choice(letters) for i in range(length))
         random_email = "email."+random_string+"@example.com"
-        self.activity.logger.info("New random email generated: '"+random_email+"'")
+        #self.activity.logger.info("New random email generated: '"+random_email+"'")
         return random_email
