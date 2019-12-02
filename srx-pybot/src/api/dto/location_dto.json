@@ -1,0 +1,25 @@
+{
+    "orderingConfig": {
+        "product": {
+            "partSku": null
+        },
+        "type": null,
+        "currentInventoryControls": {
+            "min": null,
+            "max": null
+        }
+    },
+    "inventoryOwned": "CUSTOMER",
+    "attributeName1": null,
+    "attributeValue1": null,
+    "attributeName2": null,
+    "attributeValue2": null,
+    "attributeName3": null,
+    "attributeValue3": null,
+    "attributeName4": null,
+    "attributeValue4": null,
+    "customerSku": null,
+    "autoSubmit": false,
+    "surplus": false,
+    "onHandInventory": null
+}

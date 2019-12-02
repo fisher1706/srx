@@ -1,0 +1,14 @@
+{
+    "number": null,
+    "name": null,
+    "poNumber": null,
+    "address": {
+        "zipCode": null,
+        "line1": null,
+        "line2": null,
+        "city": null,
+        "state": null
+    },
+    "notes": null,
+    "contactId": null
+}

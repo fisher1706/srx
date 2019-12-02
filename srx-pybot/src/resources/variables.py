@@ -33,6 +33,7 @@ class Variables():
         self.run_number = [8]
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
+        self.inbox_email = "auto-test-stg@storeroomlogix.com"
 
     def qa_environment(self):
         self.admin_email = "dprovorov@agilevision.io"
@@ -47,6 +48,7 @@ class Variables():
         self.customer_name = "Static Customer"
         self.customer_id = "4"
         self.shipto_number = "FIRST-QA-SHIPTO"
+        self.inbox_email = "auto-test-qa@storeroomlogix.com"
 
     def general(self):
         self.expected_error_series = 2
