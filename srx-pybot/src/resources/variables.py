@@ -32,7 +32,9 @@ class Variables():
         self.sub_distributor_name = "Static Test"
         self.run_number = [8]
         self.customer_name = "Static Customer"
+        self.customer_id = "54"
         self.shipto_number = "2048"
+        self.shipto_id = "31"
         self.inbox_email = "auto-test-stg@storeroomlogix.com"
 
     def qa_environment(self):
@@ -48,6 +50,7 @@ class Variables():
         self.customer_name = "Static Customer"
         self.customer_id = "4"
         self.shipto_number = "FIRST-QA-SHIPTO"
+        self.shipto_id = "4"
         self.inbox_email = "auto-test-qa@storeroomlogix.com"
 
     def general(self):

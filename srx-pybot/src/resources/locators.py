@@ -13,6 +13,7 @@ class Locators():
     xpath_submit_button = "//button[@type='submit']"
     xpath_dialog = "//div[@role='dialog']"
     xpath_select_box = "//div[@test-id='select-box']/div"
+    xpath_dropdown_list_item = xpath_select_box+"/div[2]/div/div"
     xpath_button_tab = "//button[@role='tab']"
     xpath_table_row = "//div[@role='rowgroup']"
     xpath_table_column = "//div[@role='gridcell']"

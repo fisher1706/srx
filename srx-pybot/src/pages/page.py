@@ -206,7 +206,7 @@ class Page():
     def select_checkbox_in_dialog_by_name(self, name):
         self.select_checkbox(self.locators.xpath_checkbox_in_dialog_by_name(name))
 
-    def clear_all_selectboxes_in_dialog(self):
+    def clear_all_checkboxes_in_dialog(self):
         try:
             checkboxes = self.driver.find_elements_by_xpath(self.locators.xpath_dialog+self.locators.xpath_checkbox)
         except:
@@ -476,3 +476,22 @@ class Page():
 
     def delete_cookies(self):
         self.driver.delete_all_cookies()
+
+    def wait_until_dropdown_list_loaded(self, count):
+        try:
+            WebDriverWait(self.driver, 15).until(wait_until_dropdown_list_loaded(count))
+        except TimeoutException:
+            self.logger.error("Dropdown list is not loaded")
+        else:
+            self.logger.info("Dropdown list is loaded")
+
+    def check_found_dropdown_list_item(self, item_xpath, expected_text):
+        item_text = self.get_element_text(item_xpath)
+        number = self.get_element_count(item_xpath)
+        if (number == 1):
+            if (item_text == expected_text):
+                self.logger.info("Dropdown list element has been found")
+            else:
+                self.logger.error("The text of dropdown list element is '"+item_text+"'")
+        else:
+            self.logger.error("The number of dropdown list elements = '"+str(number)+"'")

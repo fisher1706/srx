@@ -1,32 +1,18 @@
-from src.api.distributor.product_api import ProductApi
-from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.location_api import LocationApi
 from src.api.api_methods import ApiMethods as apim
+from src.bases.shipto_basis import shipto_basis
+from src.bases.product_basis import product_basis
 import random
 
 
 def location_basis(case, product_dto=None, shipto_dto=None, location_dto=None, location_type="LABEL"):
-    pa = ProductApi(case)
-    sa = ShiptoApi(case)
     la = LocationApi(case)
 
-    if (product_dto is None):
-        product_dto = apim.get_dto("product_dto.json")
-        product_dto["partSku"] = case.random_string_u(18)
-        product_dto["shortDescription"] = product_dto["partSku"] + " - short description"
-        product_dto["roundBuy"] = random.choice(range(100))
+    product_dto = product_basis(case, product_dto)
 
-    if (shipto_dto is None):
-        shipto_dto = apim.get_dto("shipto_dto.json")
-        shipto_dto["number"] = case.random_string_l(10)
-        shipto_dto["address"] = {
-            "zipCode": "12345",
-            "line1": "addressLn1",
-            "line2": "addressLn1",
-            "city": "Ct",
-            "state": "AL"
-        }
-        shipto_dto["poNumber"] = case.random_string_l(10)
+    shipto_response = shipto_basis(case, shipto_dto)
+    shipto_dto = shipto_response["shipto"].copy()
+    new_shipto = shipto_response["shipto_number"]
 
     if (location_dto is None):
         location_dto = apim.get_dto("location_dto.json")
@@ -44,8 +30,6 @@ def location_basis(case, product_dto=None, shipto_dto=None, location_dto=None, l
         }
     location_list = [location_dto.copy()]
 
-    pa.create_product(product_dto.copy())
-    new_shipto = sa.create_shipto(shipto_dto.copy())
     la.create_location(location_list.copy(), new_shipto)
 
     response = {

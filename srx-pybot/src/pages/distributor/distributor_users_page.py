@@ -31,7 +31,7 @@ class DistributorUsersPage(DistributorPortalPage):
         self.input_by_name("firstName", first_name)
         self.input_by_name("lastName", last_name)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), role)
-        self.clear_all_selectboxes_in_dialog()
+        self.clear_all_checkboxes_in_dialog()
         for checkbox in warehouses:
             self.select_checkbox_in_dialog_by_name(checkbox)
         self.click_xpath(self.locators.xpath_submit_button)
