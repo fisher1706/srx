@@ -26,6 +26,11 @@ class API():
             self.case.customer_token = self.get_token(self.variables.customer_email, self.variables.customer_password)
         return self.case.customer_token
 
+    def get_admin_token(self):
+        if (self.case.admin_token is None):
+            self.case.admin_token = self.get_token(self.variables.admin_email, self.variables.admin_password)
+        return self.case.admin_token
+
     def send_post(self, url, token, data=None):
         headers = {
             "Authorization": token,

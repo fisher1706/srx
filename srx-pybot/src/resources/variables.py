@@ -27,6 +27,7 @@ class Variables():
         self.distributor_email = "dprovorov+distributor@agilevision.io"
         self.distributor_password = "test29"
         self.distributor_name = "QA-distributor"
+        self.distributor_id = "98"
         self.customer_email = "dprovorov+customer3@agilevision.io"
         self.customer_password = "test29"
         self.sub_distributor_name = "Static Test"
@@ -43,6 +44,7 @@ class Variables():
         self.distributor_email = "dprovorov+dist@agilevision.io"
         self.distributor_password = "test29"
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
+        self.distributor_id = "4"
         self.customer_email = "dprovorov+cust@agilevision.io"
         self.customer_password = "test29"
         self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
@@ -54,5 +56,5 @@ class Variables():
         self.inbox_email = "auto-test-qa@storeroomlogix.com"
 
     def general(self):
-        self.expected_error_series = 2
+        self.expected_error_series = 1
         self.default_wait = 18
