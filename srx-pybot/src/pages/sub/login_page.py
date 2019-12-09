@@ -63,21 +63,33 @@ class LoginPage(Page):
         self.input_password(self.variables.admin_password)
         self.click_on_submit_button()
 
-    def log_in_distributor_portal(self):
+    def log_in_distributor_portal(self, email=None, password=None):
         self.follow_auth_portal()
-        self.input_email(self.variables.distributor_email)
-        self.input_password(self.variables.distributor_password)
+        if (email is None):
+            email = self.variables.distributor_email
+        if (password is None):
+            password = self.variables.distributor_password
+        self.input_email(email)
+        self.input_password(password)
         self.click_on_submit_button()
         self.title_should_be("SRX Distributor Portal")
         self.follow_url(self.url.distributor_portal)
         self.should_be_present_id(self.locators.id_intercom_container)
         self.driver.execute_script("document.getElementById('intercom-container').style.display = 'None';")
 
-    def log_in_customer_portal(self):
+    def log_in_customer_portal(self, email=None, password=None):
         self.follow_auth_portal()
-        self.input_email(self.variables.customer_email)
-        self.input_password(self.variables.customer_password)
+        if (email is None):
+            email = self.variables.distributor_email
+        if (password is None):
+            password = self.variables.distributor_password
+        self.input_email(email)
+        self.input_password(password)
         self.click_on_submit_button()
         self.title_should_be("SRX User Dashboard")
         self.follow_url(self.url.customer_portal)
         self.click_xpath(self.locators.xpath_button)
+
+    def accept_invite(self, invite_url):
+        self.follow_url(invite_url)
+        self.should_be_present_xpath("//h3[text()='Your invite was successfully accepted']")

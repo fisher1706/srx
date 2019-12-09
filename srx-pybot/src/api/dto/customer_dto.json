@@ -1,0 +1,15 @@
+{
+    "name": null,
+    "number": null,
+    "type": {
+        "id": 1
+    },
+    "marketType": {
+        "id": 1
+    },
+    "warehouse": {
+        "id": null
+    },
+    "notes": null,
+    "supplyForce": false
+}

@@ -16,14 +16,22 @@ class API():
     def get_token(self, username, password):
         return Cognito(self.activity, username, password).id_token
 
-    def get_distributor_token(self):
+    def get_distributor_token(self, username=None, password=None):
         if (self.case.distributor_token is None):
-            self.case.distributor_token = self.get_token(self.variables.distributor_email, self.variables.distributor_password)
+            if (username is None):
+                username = self.variables.distributor_email
+            if (password is None):
+                password = self.variables.distributor_password
+            self.case.distributor_token = self.get_token(username, password)
         return self.case.distributor_token
 
-    def get_customer_token(self):
+    def get_customer_token(self, username=None, password=None):
         if (self.case.customer_token is None):
-            self.case.customer_token = self.get_token(self.variables.customer_email, self.variables.customer_password)
+            if (username is None):
+                username = self.variables.customer_email
+            if (password is None):
+                password = self.variables.customer_password
+            self.case.customer_token = self.get_token(username, password)
         return self.case.customer_token
 
     def get_admin_token(self):

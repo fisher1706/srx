@@ -54,6 +54,8 @@ class Variables():
         self.shipto_number = "FIRST-QA-SHIPTO"
         self.shipto_id = "4"
         self.inbox_email = "auto-test-qa@storeroomlogix.com"
+        self.secondary_distributor_email = "dprovorov+second-distributor@agilevision.io"
+        self.secondary_distributor_password = self.distributor_password
 
     def general(self):
         self.expected_error_series = 1

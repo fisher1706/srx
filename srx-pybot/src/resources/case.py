@@ -39,8 +39,8 @@ class Case():
                 self.result = 5
                 self.comment = "[pybot]: Test failed"+self.activity.logger.case_result
             client = APIClient('https://agilevisionio.testrail.io')
-            client.user = 'dprovorov@agilevision.io'
-            client.password = 'ZDqF6V3SxJT6tKVBGJiN-4Q/5mlBKf6qPcmdod8tB'
+            client.user = self.activity.testrail_email
+            client.password = self.activity.testrail_password
             for run in self.run_number:
                 body = 'add_result_for_case/' + str(run) + '/' + str(self.case_number)
                 client.send_post(
