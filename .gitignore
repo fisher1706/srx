@@ -13,4 +13,4 @@ manual
 **/**/**/**/__pycache__
 srx-pybot/src/output
 srx-pybot/src/cases/users/join_to_customer_aggregation.py
-srx-pybot/src/resources/local_cognito_credentials.py
+srx-pybot/src/resources/local_credentials.py

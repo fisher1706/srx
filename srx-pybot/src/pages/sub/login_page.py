@@ -80,9 +80,9 @@ class LoginPage(Page):
     def log_in_customer_portal(self, email=None, password=None):
         self.follow_auth_portal()
         if (email is None):
-            email = self.variables.distributor_email
+            email = self.variables.customer_email
         if (password is None):
-            password = self.variables.distributor_password
+            password = self.variables.customer_password
         self.input_email(email)
         self.input_password(password)
         self.click_on_submit_button()

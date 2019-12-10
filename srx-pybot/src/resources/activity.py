@@ -21,7 +21,7 @@ class Activity():
         parser = argparse.ArgumentParser()
         parser.add_argument("--browser", "-b", help="Set browser: "+
                             "[ff] - Firefox; "+
-                            "[ffhl] - Firefox headless "+
+                            "[ffhl] - Firefox headless; "+
                             "[chrome] - Chrome")
         parser.add_argument("--environment", "-e", help="Set environment : [qa]; [staging]")
         parser.add_argument("--USER_POOL_ID", "-p", help="Set ID of Cognito User Pool")
