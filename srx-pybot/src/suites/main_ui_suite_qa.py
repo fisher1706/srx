@@ -20,6 +20,7 @@ if __name__ == "__main__":
     product_crud(Case(activity, 'SUITE'))
     product_import(Case(activity, 'SUITE'))
     pricing_import(Case(activity, 'SUITE'))
+    usage_history_import(Case(activity, 'SUITE'))
     document_import(Case(activity, 'SUITE'))
     customer_user_crud(Case(activity, 'SUITE'))
     different_multiple_po_number(Case(activity, 'SUITE'))
