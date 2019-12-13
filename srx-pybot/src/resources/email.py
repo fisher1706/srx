@@ -24,9 +24,9 @@ class Email():
         for second in range(1, delay):
             self.imap.select('INBOX')
             if (email_from is not None):
-                status, response = self.imap.search(None, '(ALL)', '(FROM "'+email_from+'")')
+                status, response = self.imap.search(None, '(UNSEEN)', '(FROM "'+email_from+'")')
             else:
-                status, response = self.imap.search(None, '(ALL)')
+                status, response = self.imap.search(None, '(UNSEEN)')
             unread_msg_nums = list()
             unread_msg_nums = response[0].split()
             if (len(unread_msg_nums) == 0):
@@ -41,7 +41,7 @@ class Email():
 
         for e_id in unread_msg_nums:
             self.imap.store(e_id, '+FLAGS', '\Seen')
-        
+
         if (len(emails_body) > 0):
             return emails_body[-1]
         else:

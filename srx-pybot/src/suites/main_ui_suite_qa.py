@@ -1,11 +1,11 @@
 from src.resources.case import Case
 from src.resources.activity import Activity
-from src.cases import *
+from src.cases.ui import *
 
 if __name__ == "__main__":
+    #ui tests
     activity = Activity()
 
-    #tests
     invalid_admin_login(Case(activity,'SUITE'))
     valid_admin_login(Case(activity,'SUITE'))
     reset_admin_password(Case(activity,'SUITE'))

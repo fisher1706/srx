@@ -18,7 +18,8 @@ class Case():
         self.finish_case()
 
     def finish_case(self):
-        self.activity.driver.delete_all_cookies()
+        if (self.activity.api_test == False):
+            self.activity.driver.delete_all_cookies()
         self.activity.logger.output_case_result()
         self.testrail_publish_result()
         self.activity.logger.case_error_count = 0

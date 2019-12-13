@@ -8,6 +8,7 @@ import argparse
 
 class Activity():
     def __init__(self, api_test=False):
+        self.api_test = api_test
         self.get_args()
         self.locators = Locators()
         self.logger = Logger()
@@ -45,17 +46,18 @@ class Activity():
         self.remote_credentials = args.remotely
 
     def browser_config(self, browser):
-        if (browser == 'ff' or browser is None):
-            self.driver = webdriver.Firefox()
-        elif (browser == 'ffhl'):
-            options = Options()
-            options.headless = True
-            self.driver = webdriver.Firefox(options=options)
-        elif (browser == 'chrome'):
-            self.driver = webdriver.Chrome()
-        else:
-            pass
-        self.driver.implicitly_wait(self.variables.default_wait)
+        if (self.api_test == False):
+            if (browser == 'ff' or browser is None):
+                self.driver = webdriver.Firefox()
+            elif (browser == 'ffhl'):
+                options = Options()
+                options.headless = True
+                self.driver = webdriver.Firefox(options=options)
+            elif (browser == 'chrome'):
+                self.driver = webdriver.Chrome()
+            else:
+                pass
+            self.driver.implicitly_wait(self.variables.default_wait)
 
     def credentials_config(self):
         if (self.remote_credentials == False):
@@ -77,4 +79,5 @@ class Activity():
                 self.testrail_password = local_credentials.testrail_password
 
     def finish_activity(self):
-        self.driver.close()
+        if (self.api_test == False):
+            self.driver.close()

@@ -6,7 +6,7 @@ from src.resources.email import Email
 from src.api.distributor.customer_api import CustomerApi
 from src.bases import customer_basis
 
-def distributor_user_crud(case):
+def elevate_customer_user(case):
     case.log_name("Elevate customer user")
     #case.testrail_config(case.activity.variables.run_number, 28)
 

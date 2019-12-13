@@ -5,7 +5,6 @@ from src.api.api_methods import ApiMethods as apim
 
 class API():
     def __init__(self, case):
-        self.driver = case.activity.driver
         self.logger = case.activity.logger
         self.url = case.activity.url
         self.locators = case.activity.locators

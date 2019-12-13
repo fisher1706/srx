@@ -2,12 +2,10 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.customer.reorder_list_page import ReorderListPage
 from src.resources.case import Case
 from src.resources.activity import Activity
-from src.api.distributor.product_api import ProductApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.bases.location_basis import location_basis
-import time
 
 def different_multiple_po_number(case):
     case.log_name("Different multiple PO numbers")
