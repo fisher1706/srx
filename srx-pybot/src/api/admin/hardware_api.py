@@ -29,6 +29,6 @@ class HardwareApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
-            self.logger.info("New hardware with ID = '"+str(hardware_id)+"' has been successfully created")
+            self.logger.info("New hardware with ID = '"+str(hardware_id)+"' has been successfully deleted")
         else:
             self.logger.error(str(response.content))

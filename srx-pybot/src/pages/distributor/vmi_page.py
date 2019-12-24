@@ -9,4 +9,4 @@ class VmiPage(DistributorPortalPage):
             customer_id = self.variables.customer_id
         if (shipto_id is None):
             shipto_id = self.variables.shipto_id
-        self.follow_url(self.url.get_url_for_env("storeroomlogix.com/customers/"+customer_id+"/shiptos/"+shipto_id+"#vmi-list", "distributor"))
+        self.follow_url(self.url.get_url_for_env("storeroomlogix.com/customers/"+customer_id+"/shiptos/"+shipto_id+"#vmi-list", "distributor"), hide_intercom=True)

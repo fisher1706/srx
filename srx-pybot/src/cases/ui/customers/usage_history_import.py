@@ -3,6 +3,7 @@ from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.resources.case import Case
 from src.resources.activity import Activity
 import random
+import time
 
 def usage_history_import(case):
     case.log_name("Usage history import")

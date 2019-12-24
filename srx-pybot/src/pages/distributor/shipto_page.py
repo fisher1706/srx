@@ -17,7 +17,7 @@ class ShiptoPage(DistributorPortalPage):
         }
 
     def follow_shipto_url(self):
-        self.follow_url(self.url.get_url_for_env("storeroomlogix.com/customers/"+self.variables.customer_id+"#shiptos", "distributor"))
+        self.follow_url(self.url.get_url_for_env("storeroomlogix.com/customers/"+self.variables.customer_id+"#shiptos", "distributor"), hide_intercom=True)
 
     def create_shipto(self, shipto_body):
         start_number_of_rows = self.get_table_rows_number()

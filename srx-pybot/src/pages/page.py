@@ -159,13 +159,16 @@ class Page():
         else:
             self.logger.info("Element with XPATH = '"+xpath+"' is cleared")
 
-    def follow_url(self, url):
+    def follow_url(self, url, hide_intercom=False):
         try:
             self.driver.get(url)
         except:
             self.logger.error("Error during try to follow URL = '"+url+"'")
         else:
             self.logger.info("URL = '"+url+"' is followed")
+            if (hide_intercom == True):
+                self.should_be_present_id(self.locators.id_intercom_container)
+                self.driver.execute_script("document.getElementById('intercom-container').style.display = 'None';")
 
     def title_should_be(self, title):
         try:

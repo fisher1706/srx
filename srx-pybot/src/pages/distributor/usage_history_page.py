@@ -14,7 +14,7 @@ class UsageHistoryPage(DistributorPortalPage):
         }
 
     def follow_usage_history_url(self):
-        self.follow_url(self.url.get_url_for_env("storeroomlogix.com/customers/"+self.variables.customer_id+"#usage-history", "distributor"))
+        self.follow_url(self.url.get_url_for_env("storeroomlogix.com/customers/"+self.variables.customer_id+"#usage-history", "distributor"), hide_intercom=True)
 
     def import_usage_history(self, usage_history):
         self.generate_csv("usage_history.csv", usage_history)

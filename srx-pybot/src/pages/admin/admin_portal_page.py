@@ -10,13 +10,13 @@ class AdminPortalPage(Page):
         super().__init__(activity)
     
     def admin_sidebar_should_contain_email(self):
-        self.should_be_present_xpath("//p[text()='"+self.variables.admin_email+"']")
+        self.should_be_present_xpath("//span[text()='"+self.variables.admin_email+"']")
 
     def sign_out(self):
-        self.click_xpath("//a[@href='/sign-out']")
+        self.click_id("sidebar-sign-out")
 
     def sidebar_hardware(self):
-        self.click_xpath("//a[@href='/hardware']")
+        self.click_id("sidebar-hardware")
 
     def get_table_rows_number_bootstrap(self):
         return len(self.activity.driver.find_elements_by_xpath(self.locators.bootstrap_table_row))
