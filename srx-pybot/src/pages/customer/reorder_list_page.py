@@ -3,8 +3,8 @@ from src.pages.customer.customer_portal_page import CustomerPortalPage
 class ReorderListPage(CustomerPortalPage):
     def __init__(self, activity):
         super().__init__(activity)
-        self.xpath_po_dialog_row = "//div[@data-testid='row']"
-        self.xpath_po_dialog_column = "//div[@data-testid='col']"
+        self.xpath_po_dialog_row = "//table/tbody/tr"
+        self.xpath_po_dialog_column = "//td"
 
     def unselect_all(self):
         self.unselect_checkbox(self.locators.xpath_by_count(self.locators.xpath_checkbox, 1))
@@ -29,7 +29,7 @@ class ReorderListPage(CustomerPortalPage):
         return self.get_element_text(item_xpath)
 
     def check_po_number_in_dialog(self, po_number_body):
-        self.click_xpath(self.locators.xpath_submit_quote_button)
+        self.click_xpath(self.locators.xpath_submit_reorder_list_button)
         rows_count = self.get_element_count(self.xpath_po_dialog_row)
         for shipto in po_number_body.keys():
             for index in range(1, rows_count+1):
@@ -46,7 +46,7 @@ class ReorderListPage(CustomerPortalPage):
         self.dialog_should_not_be_visible()
 
     def submit_replenishment_list_different_po(self, po_number_body):
-        self.click_xpath(self.locators.xpath_submit_quote_button)
+        self.click_xpath(self.locators.xpath_submit_reorder_list_button)
         self.set_slider(self.locators.xpath_dialog+self.locators.xpath_checkbox, "false")
         rows_count = self.get_element_count(self.xpath_po_dialog_row)
         for shipto in po_number_body.keys():
@@ -60,7 +60,7 @@ class ReorderListPage(CustomerPortalPage):
         self.should_be_present_xpath(self.locators.xpath_successfully_submitted_reorder_list)
 
     def submit_replenishment_list_general_po(self, po_number):
-        self.click_xpath(self.locators.xpath_submit_quote_button)
+        self.click_xpath(self.locators.xpath_submit_reorder_list_button)
         self.set_slider(self.locators.xpath_dialog+self.locators.xpath_checkbox, "true")
         self.input_data_xpath(po_number, self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_type_text, 1))
         self.click_xpath(self.locators.xpath_submit_button)

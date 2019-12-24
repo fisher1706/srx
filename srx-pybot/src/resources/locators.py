@@ -30,7 +30,7 @@ class Locators():
     xpath_role_row = "//div[@role='row']"
     xpath_replenishment_item = "//div[@data-testid='replenishment-item']"
     xpath_replenishment_item_sku = "//div[@data-testid='part-sku']"
-    xpath_submit_quote_button = "//button/span[text()='Submit quote']"
+    xpath_submit_reorder_list_button = "//button/span[text()='Submit']"
     xpath_cancel_button = "//button[@label='Cancel']"
     xpath_type_text = "//input[@type='text']"
 

@@ -50,17 +50,15 @@ def different_multiple_po_number(case):
         sa.check_po_number_by_number(shipto_1_dto["number"], new_po_number_body[shipto_1_dto["number"]])
         sa.check_po_number_by_number(shipto_2_dto["number"], new_po_number_body[shipto_2_dto["number"]])
 
-
-        sa.delete_shipto(new_shipto_1)
-        sa.delete_shipto(new_shipto_2)
         case.finish_case()
     except:
-        try:
-            sa.delete_shipto(new_shipto_1)
-            sa.delete_shipto(new_shipto_2)
-        except:
-            pass
         case.critical_finish_case()
 
+    try:
+        sa.delete_shipto(new_shipto_1)
+        sa.delete_shipto(new_shipto_2)
+    except:
+        pass
+
 if __name__ == "__main__":
-   different_multiple_po_number(Case(Activity()))
+    different_multiple_po_number(Case(Activity()))
