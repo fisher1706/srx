@@ -40,11 +40,14 @@ def zero_transaction_qty(case):
         new_transaction_id, new_transaction_qty = ta.get_transaction_id_and_qty(sku=product_dto["partSku"], status="ACTIVE", shipto_id=new_shipto)
         assert new_transaction_qty == 0, "The quantity of new transaction should be 0"
 
-        sa.delete_shipto(new_shipto)
-
         case.finish_case()
     except:
         case.critical_finish_case()
+
+    try:
+        sa.delete_shipto(new_shipto)
+    except:
+        pass
 
 if __name__ == "__main__":
     zero_transaction_qty(Case(Activity(api_test=True)))

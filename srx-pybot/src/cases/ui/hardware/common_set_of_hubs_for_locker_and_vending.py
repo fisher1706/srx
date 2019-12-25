@@ -49,11 +49,14 @@ def common_set_of_hubs_for_locker_and_vending(case):
         hp.iothub_should_be_available("Vending", iothub_name)
         hp.iothub_should_be_available("IP Camera", iothub_name)
 
-        ha.delete_hardware(iothub_dto["id"])
-
         case.finish_case()
     except:
         case.critical_finish_case()
+
+    try:
+        ha.delete_hardware(iothub_dto["id"])
+    except:
+        pass
 
 if __name__ == "__main__":
     common_set_of_hubs_for_locker_and_vending(Case(Activity()))

@@ -29,11 +29,15 @@ def vmi_list_partial_sku_match(case):
         vp.input_data_xpath(product_sku, vp.locators.xpath_dialog+vp.locators.xpath_select_box+"//input")
         vp.wait_until_dropdown_list_loaded(1)
         vp.check_found_dropdown_list_item(vp.locators.xpath_dropdown_list_item, product_sku)
-        sa.delete_shipto(shipto_number)
 
         case.finish_case()
     except:
         case.critical_finish_case()
+
+    try:
+        sa.delete_shipto(shipto_number)
+    except:
+        pass
 
 if __name__ == "__main__":
     vmi_list_partial_sku_match(Case(Activity()))
