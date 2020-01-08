@@ -4,7 +4,7 @@ from src.resources.case import Case
 from src.resources.activity import Activity
 
 def checkout_user_crud(case):
-    case.log_name("Customer user CRUD")
+    case.log_name("Checkout user CRUD")
     case.testrail_config(case.activity.variables.run_number, 1848)
 
     try:
@@ -29,13 +29,13 @@ def checkout_user_crud(case):
         cup.sidebar_users_and_groups()
         cup.click_xpath(case.activity.locators.xpath_button_tab_by_name("Fobs & Passcodes"))
         cup.create_checkout_user(checkout_user_body.copy())
-        row = cup.scan_table(checkout_user_body["firstName"], "First Name")
+        row = cup.scan_table(checkout_user_body["firstName"], "First Name", pagination=False)
         cup.check_new_checkout_user(checkout_user_body.copy(), row)
         cup.update_new_checkout_user(edit_checkout_user_body.copy(), row, first_group=True)
         cup.sidebar_users_and_groups()
         cup.click_xpath(case.activity.locators.xpath_button_tab_by_name("Fobs & Passcodes"))
         cup.wait_until_page_loaded()
-        row = cup.scan_table(edit_checkout_user_body["firstName"], "First Name")
+        row = cup.scan_table(edit_checkout_user_body["firstName"], "First Name", pagination=False)
         cup.check_new_checkout_user(edit_checkout_user_body.copy(), row)
         cup.delete_new_checkout_user(row)
 

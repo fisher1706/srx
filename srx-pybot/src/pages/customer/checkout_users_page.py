@@ -52,3 +52,9 @@ class CheckoutUsersPage(CustomerPortalPage):
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+
+    def import_checkout_user(self, checkout_users):
+        self.generate_csv("checkout_users.csv", checkout_users)
+        self.import_csv(self.locators.id_file_upload, "checkout_users.csv")
+        self.should_be_present_xpath(self.locators.xpath_successfully_imported_msg)
+        self.wait_until_page_loaded()

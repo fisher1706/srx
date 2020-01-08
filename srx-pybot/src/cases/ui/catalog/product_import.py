@@ -20,6 +20,8 @@ def product_import(case):
         products = [
             [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None]
         ]
+        #-------------------
+
         lp.log_in_distributor_portal()
         cp.sidebar_catalog()
         cp.import_product(products)

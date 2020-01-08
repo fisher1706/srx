@@ -431,9 +431,10 @@ class Page():
         self.select_in_dropdown(shipto_xpath, shipto_name)
         self.wait_until_page_loaded()
 
-    def scan_table(self, scan_by, column_header, body=None):
+    def scan_table(self, scan_by, column_header, body=None, pagination=True):
         column = self.get_header_column(column_header)
-        pagination_buttons = self.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
+        if (pagination == True):
+            pagination_buttons = self.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
         if (column):
             is_break = False
             while True:
@@ -448,11 +449,15 @@ class Page():
                                 self.check_table_item_by_header(row, cell, body[cell])
                             is_break = True
                             break
-                if(is_break):
+                if (is_break):
                     break
-                if (len(pagination_buttons) > 3 and pagination_buttons[-2].is_enabled() == True):
-                        pagination_buttons[-1].click()
-                        self.wait_until_page_loaded()
+                if (pagination == True):
+                    if (len(pagination_buttons) > 3 and pagination_buttons[-2].is_enabled() == True):
+                            pagination_buttons[-1].click()
+                            self.wait_until_page_loaded()
+                    else:
+                        self.logger.error("There is no value '"+scan_by+"' in the '"+str(column)+"' column")
+                        break
                 else:
                     self.logger.error("There is no value '"+scan_by+"' in the '"+str(column)+"' column")
                     break

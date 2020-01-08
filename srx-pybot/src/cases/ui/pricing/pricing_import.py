@@ -20,10 +20,10 @@ def pricing_import(case):
         pricing_body["UOM"] = "M"
         pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
         #-------------------
-
         pricing = [
             [pricing_body["SKU"], temporary_price, pricing_body["UOM"], "12/12/2025 10:15:30"]
         ]
+        #-------------------
 
         lp.log_in_distributor_portal()
         pp.sidebar_pricing()
