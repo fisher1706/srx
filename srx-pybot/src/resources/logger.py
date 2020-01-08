@@ -1,6 +1,7 @@
 import logging
 import logging.handlers
 import os
+import traceback
 root_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 full_log_path = os.path.join(root_directory,'output/full.log')
 suite_log_path = os.path.join(root_directory,'output/suite.log')
@@ -43,6 +44,7 @@ class Logger():
         self.case_result = self.case_result + '\n[INFO] ' + msg
 
     def error(self, msg):
+        #print(str(traceback.format_exc()))
         self.my_logger.error(msg)
         self.suite_error_count = self.suite_error_count + 1
         self.case_error_count = self.case_error_count + 1

@@ -4,6 +4,7 @@ from src.resources.case import Case
 from src.resources.activity import Activity
 from src.resources.email import Email
 from src.api.distributor.customer_api import CustomerApi
+from src.api.distributor.warehouse_api import WarehouseApi
 from src.bases import customer_basis
 
 def elevate_customer_user(case):
@@ -14,11 +15,12 @@ def elevate_customer_user(case):
         lp = LoginPage(case.activity)
         dcup = DistributorCustomerUsersPage(case.activity)
         ca = CustomerApi(case)
+        wa = WarehouseApi(case)
         
         #email = Email(case)
         #email.mark_all_emails_as_seen()
-        #ca.get_distributor_token(lp.variables.secondary_distributor_email, lp.variables.secondary_distributor_password)
-        #customer_response = customer_basis(case)
+        ca.get_distributor_token(lp.variables.secondary_distributor_email, lp.variables.secondary_distributor_password)
+        customer_response = customer_basis(case)
 
 
         #lp.log_in_distributor_portal(lp.variables.secondary_distributor_email, lp.variables.secondary_distributor_password)
@@ -26,11 +28,16 @@ def elevate_customer_user(case):
         
         #lp.accept_invite(email.get_accept_invite_url_from_last_email())
 
-        #ca.delete_customer(customer_response["warehouseId"], customer_response["customerId"])
+        
 
         case.finish_case()
     except:
         case.critical_finish_case()
+
+    try:
+        ca.delete_customer(customer_response["warehouseId"], customer_response["customerId"])
+    except:
+        pass
 
 if __name__ == "__main__":
     distributor_user_crud(Case(Activity()))

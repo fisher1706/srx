@@ -5,16 +5,16 @@ class CustomerUserApi(API):
         super().__init__(case)
 
     def create_customer_user(self, dto, warehouse_id):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/warehouses/"+str(warehouse_id)+"/customers/create")
+        url = self.url.get_api_url_for_env("/customer-portal/customer/users")
         token = self.get_customer_token()
         response = self.send_post(url, token, dto)
-        if (response.status_code == 201):
-            self.logger.info("New customer '"+dto["name"]+"' has been successfully created")
+        if (response.status_code == 200):
+            self.logger.info("New customer user '"+dto["email"]+"' has been successfully created")
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        new_customer = (response_json["data"].split("/"))[-1]
-        return new_customer
+        new_customer_user = (response_json["data"]["id"])
+        return new_customer_user
 
     def delete_customer_user(self, warehouse_id, customer_id):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/warehouses/"+str(warehouse_id)+"/customers/"+str(customer_id)+"/delete")

@@ -1,7 +1,7 @@
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.api_methods import ApiMethods as apim
 import random
-
+import copy
 
 def shipto_basis(case, shipto_dto=None):
     sa = ShiptoApi(case)
@@ -18,11 +18,11 @@ def shipto_basis(case, shipto_dto=None):
         }
         shipto_dto["poNumber"] = case.random_string_l(10)
 
-    new_shipto = sa.create_shipto(shipto_dto.copy())
+    new_shipto = sa.create_shipto(copy.deepcopy(shipto_dto))
 
     response = {
-        "shipto": shipto_dto.copy(),
+        "shipto": copy.deepcopy(shipto_dto),
         "shipto_number": new_shipto
     }
 
-    return response.copy()
+    return copy.deepcopy(response)

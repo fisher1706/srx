@@ -7,7 +7,6 @@ from selenium.common.exceptions import TimeoutException
 from src.waits import *
 import csv
 import os
-import traceback
 
 class Page():
     def __init__(self, activity):
@@ -35,7 +34,16 @@ class Page():
             self.logger.error("Element with XPATH = '"+xpath+"' not found")
         except:
             self.logger.error("Element with XPATH = '"+xpath+"' is not clickable")
-            #print(str(traceback.format_exc()))
+        else:
+            self.logger.info("Element with XPATH = '"+xpath+"' is clicked")
+
+    def click_xpath_free(self, xpath):
+        try:
+            self.driver.find_element_by_xpath(xpath).click()
+        except NoSuchElementException:
+            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+        except:
+            self.logger.error("Element with XPATH = '"+xpath+"' is not clickable")
         else:
             self.logger.info("Element with XPATH = '"+xpath+"' is clicked")
 
@@ -423,7 +431,7 @@ class Page():
         self.select_in_dropdown(shipto_xpath, shipto_name)
         self.wait_until_page_loaded()
 
-    def scan_table(self, scan_by, column_header, body):
+    def scan_table(self, scan_by, column_header, body=None):
         column = self.get_header_column(column_header)
         pagination_buttons = self.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
         if (column):
@@ -433,10 +441,13 @@ class Page():
                     cell_value = self.get_table_item_text_by_indexes(row, column)
                     if (cell_value == scan_by):
                         self.logger.info("Text '"+scan_by+"' is found in the table")
-                        for cell in body.keys():
-                            self.check_table_item_by_header(row, cell, body[cell])
-                        is_break = True
-                        break
+                        if (body is None):
+                            return row
+                        else:
+                            for cell in body.keys():
+                                self.check_table_item_by_header(row, cell, body[cell])
+                            is_break = True
+                            break
                 if(is_break):
                     break
                 if (len(pagination_buttons) > 3 and pagination_buttons[-2].is_enabled() == True):

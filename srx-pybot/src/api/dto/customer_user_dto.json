@@ -1,0 +1,10 @@
+{
+    "firstName": null,
+    "lastName": null,
+    "email": null,
+    "userGroup": {
+        "type": "DEFAULT_CUSTOMER_SUPER_USER"
+    },
+    "shipTos": [],
+    "path": "/users-and-groups"
+}
