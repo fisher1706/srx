@@ -74,3 +74,6 @@ class Case():
         random_email = "email."+random_string+"@example.com"
         #self.activity.logger.info("New random email generated: '"+random_email+"'")
         return random_email
+
+    def print_traceback(self):
+        print(str(traceback.format_exc()))

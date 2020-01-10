@@ -50,7 +50,7 @@ def general_multiple_po_number(case):
         sa.delete_shipto(new_shipto_1)
         sa.delete_shipto(new_shipto_2)
     except:
-        pass
+        case.print_traceback()
 
 if __name__ == "__main__":
     general_multiple_po_number(Case(Activity()))

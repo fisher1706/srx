@@ -7,6 +7,7 @@ if __name__ == "__main__":
     api_activity = Activity(api_test=True)
 
     zero_transaction_qty(Case(api_activity, 'SUITE'))
+    checkout_user_of_customer_user(Case(api_activity, 'SUITE'))
 
     api_activity.logger.output_suite_result()
     api_activity.finish_activity()

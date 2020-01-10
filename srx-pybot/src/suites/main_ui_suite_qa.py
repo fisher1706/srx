@@ -27,6 +27,7 @@ if __name__ == "__main__":
     general_multiple_po_number(Case(activity, 'SUITE'))
     allocation_code_crud(Case(activity, 'SUITE'))
     checkout_user_crud(Case(activity, 'SUITE'))
+    checkout_user_import_without_group(Case(activity, 'SUITE'))
 
     activity.logger.output_suite_result()
     activity.finish_activity()

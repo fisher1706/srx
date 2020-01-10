@@ -56,7 +56,7 @@ def common_set_of_hubs_for_locker_and_vending(case):
     try:
         ha.delete_hardware(iothub_dto["id"])
     except:
-        pass
+        case.print_traceback()
 
 if __name__ == "__main__":
     common_set_of_hubs_for_locker_and_vending(Case(Activity()))

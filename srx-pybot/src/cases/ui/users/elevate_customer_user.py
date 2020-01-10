@@ -37,7 +37,7 @@ def elevate_customer_user(case):
     try:
         ca.delete_customer(customer_response["warehouseId"], customer_response["customerId"])
     except:
-        pass
+        case.print_traceback()
 
 if __name__ == "__main__":
     distributor_user_crud(Case(Activity()))

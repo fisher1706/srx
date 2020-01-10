@@ -3,7 +3,7 @@ from src.pages.customer.checkout_users_page import CheckoutUsersPage
 from src.resources.case import Case
 from src.resources.activity import Activity
 
-def checkout_user_import(case):
+def checkout_user_import_without_group(case):
     case.log_name("Checkout user import without checkout group")
     case.testrail_config(case.activity.variables.run_number, 1849)
 
@@ -38,4 +38,4 @@ def checkout_user_import(case):
         case.critical_finish_case()
 
 if __name__ == "__main__":
-    checkout_user_import(Case(Activity()))
+    checkout_user_import_without_group(Case(Activity()))

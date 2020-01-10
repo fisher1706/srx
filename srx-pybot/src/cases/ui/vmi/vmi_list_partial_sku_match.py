@@ -37,7 +37,7 @@ def vmi_list_partial_sku_match(case):
     try:
         sa.delete_shipto(shipto_number)
     except:
-        pass
+        case.print_traceback()
 
 if __name__ == "__main__":
     vmi_list_partial_sku_match(Case(Activity()))

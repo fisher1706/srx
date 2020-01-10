@@ -47,7 +47,7 @@ def zero_transaction_qty(case):
     try:
         sa.delete_shipto(new_shipto)
     except:
-        pass
+        case.print_traceback()
 
 if __name__ == "__main__":
     zero_transaction_qty(Case(Activity(api_test=True)))

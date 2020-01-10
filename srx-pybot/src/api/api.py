@@ -53,3 +53,19 @@ class API():
             "Accept":"application/json"
         }
         return requests.get(url, headers=headers)
+
+    def send_delete(self, url, token):
+        headers = {
+            "Authorization": token,
+            "Content-Type": "application/json",
+            "Accept":"application/json"
+        }
+        return requests.delete(url, headers=headers)
+
+    def send_put(self, url, token, data=None):
+        headers = {
+            "Authorization": token,
+            "Content-Type": "application/json",
+            "Accept":"application/json"
+        }
+        return requests.put(url, headers=headers, data=json.dumps(data))
