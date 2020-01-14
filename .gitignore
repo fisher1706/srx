@@ -7,10 +7,7 @@
 *.pyc
 manual
 .vscode
-**/__pycache__
-**/**/__pycache__
-**/**/**/__pycache__
-**/**/**/**/__pycache__
+*/__pycache__
 srx-pybot/src/output
-srx-pybot/src/cases/users/join_to_customer_aggregation.py
 srx-pybot/src/resources/local_credentials.py
+srx-pybot/src/suites/testrail_bulk_retest.py
