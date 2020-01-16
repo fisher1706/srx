@@ -14,12 +14,15 @@ class Variables():
         self.distributor_email = "dprovorov+testadmin@agilevision.io"
         self.distributor_password = "test29"
         self.distributor_name = "QA-distributor"
+        self.distributor_id = "73"
         self.customer_email = "dprovorov+customer3@agilevision.io"
         self.customer_password = "test29"
         self.sub_distributor_name = "Dev Distributor"
-        self.run_number = [1, 2]
+        self.run_number = None
         self.customer_name = "Static Customer"
+        self.customer_id = "92"
         self.shipto_number = "2048"
+        self.shipto_id = "59"
 
     def staging_environment(self):
         self.admin_email = "srx-group+staging@agilevision.io"
@@ -53,9 +56,6 @@ class Variables():
         self.customer_id = "4"
         self.shipto_number = "FIRST-QA-SHIPTO"
         self.shipto_id = "4"
-        self.inbox_email = "auto-test-qa@storeroomlogix.com"
-        self.secondary_distributor_email = "dprovorov+second-distributor@agilevision.io"
-        self.secondary_distributor_password = self.distributor_password
 
     def general(self):
         self.expected_error_series = 1
