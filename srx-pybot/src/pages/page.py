@@ -228,6 +228,22 @@ class Page():
                 if (checked == 'true'):
                     element.click()
 
+    def checkbox_should_be(self, xpath, condition):
+        element = self.get_element_xpath(xpath)
+        checked = element.get_attribute("checked")
+        if (condition == True):
+            if (checked == 'true'):
+                self.logger.info("Checkbox with XPATH = '"+xpath+"' is checked")
+            elif (checked is None):
+                self.logger.error("Checkbox with XPATH = '"+xpath+"' should be checked")
+        elif (condition == False):
+            if (checked is None):
+                self.logger.info("Checkbox with XPATH = '"+xpath+"' is unchecked")
+            elif (checked == 'true'):
+                self.logger.error("Checkbox with XPATH = '"+xpath+"' should be unchecked")
+        else:
+            self.logger.error("Incorrect checkbox condition")
+
     def select_in_dropdown(self, xpath, name):
         if (name is not None):
             try:

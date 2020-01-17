@@ -22,13 +22,41 @@ class HardwareApi(API):
             "distributorId": distributor_id,
             "type": "IOTHUB"
         }
-        return self.create_hardware(dto.copy())
+        return self.create_hardware(dto)
+
+    def create_locker(self, locker_type_id, iothub_id=None):
+        dto = {
+            "lockerType":{
+                "id": locker_type_id
+            },
+            "iotHub":{
+                "id": iothub_id
+            },
+            "type": "LOCKER"
+        }
+        return self.create_hardware(dto)
 
     def delete_hardware(self, hardware_id):
         url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/keys/"+str(hardware_id)+"/delete")
         token = self.get_admin_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
-            self.logger.info("New hardware with ID = '"+str(hardware_id)+"' has been successfully deleted")
+            self.logger.info("Hardware with ID = '"+str(hardware_id)+"' has been successfully deleted")
         else:
             self.logger.error(str(response.content))
+
+    def get_locker_types(self):
+        url = self.url.get_api_url_for_env("/admin-portal/admin/locker-types")
+        token = self.get_admin_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Locker types have been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]["entities"]
+
+    def get_first_locker_type(self):
+        locker_types = self.get_locker_types()
+        return locker_types[0]
+

@@ -28,6 +28,7 @@ if __name__ == "__main__":
     allocation_code_crud(Case(activity, 'SUITE'))
     checkout_user_crud(Case(activity, 'SUITE'))
     checkout_user_import_without_group(Case(activity, 'SUITE'))
+    change_locker_doortype(Case(activity, 'SUITE'))
 
     activity.logger.output_suite_result()
     activity.finish_activity()

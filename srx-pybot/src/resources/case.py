@@ -32,7 +32,7 @@ class Case():
         self.activity.logger.log_case_name(name)
 
     def testrail_publish_result(self):
-        if (self.testrail == True):
+        if (self.testrail == True and self.run_number is not None):
             if (self.activity.logger.case_error_count == 0 and self.activity.logger.case_critical_count == 0):
                 self.result = 1
                 self.comment = "[pybot]: Test passed"
