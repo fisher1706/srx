@@ -1,0 +1,22 @@
+{
+    "shipToNumber": null,
+    "deviceName": null,
+    "distributorId": null,
+    "iotHub": null,
+    "customerUser": {
+        "id": null
+    },
+    "customerName": null,
+    "value": null,
+    "deviceId": null,
+    "distributorUser": {
+        "id": null
+    },
+    "shipToId": null,
+    "lockerType": null,
+    "distributorName": null,
+    "type": null,
+    "id": null,
+    "description": null,
+    "expirationDate": null
+}

@@ -49,7 +49,7 @@ class Case():
                     { 'status_id': self.result, 'comment': self.comment }
                 )
         else:
-            self.activity.logger.info("Testrail was not configure")
+            self.activity.logger.info("Testrail does not configure")
 
     def testrail_config(self, run_number, case_number):
         self.testrail = True

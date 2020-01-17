@@ -60,3 +60,19 @@ class HardwareApi(API):
         locker_types = self.get_locker_types()
         return locker_types[0]
 
+    def update_locker_weight_configuration(self, locker_id, number, condition):
+        dto = {
+            "config":{
+                "doors":[{
+                    "noWeights": condition,
+                    "number": number
+                }]
+            }
+        }
+        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/lockers/"+str(locker_id)+"/configuration")
+        token = self.get_admin_token()
+        response = self.send_put(url, token, dto)
+        if (response.status_code == 200):
+            self.logger.info("Configuration of locker with ID = '"+str(locker_id)+"' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
