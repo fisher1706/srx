@@ -13,6 +13,15 @@ class LocationApi(API):
         else:
             self.logger.error(str(response.content))
 
+    def update_location(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/customers/"+self.variables.customer_id+"/shiptos/"+str(shipto_id)+"/locations/update")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if (response.status_code == 200):
+            self.logger.info("Location '"+dto[0]["orderingConfig"]["product"]["partSku"]+"' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
+
     def get_location_by_sku(self, shipto_id, sku):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/customers/"+self.variables.customer_id+"/shiptos/"+str(shipto_id)+"/locations?orderingConfig.product.partSku="+sku)
         token = self.get_distributor_token()

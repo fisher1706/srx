@@ -10,7 +10,7 @@ def product_basis(case, product_dto=None):
         product_dto = apim.get_dto("product_dto.json")
         product_dto["partSku"] = case.random_string_u(18)
         product_dto["shortDescription"] = product_dto["partSku"] + " - short description"
-        product_dto["roundBuy"] = random.choice(range(1, 100))
+        product_dto["roundBuy"] = random.choice(range(2, 100))
 
     pa.create_product(product_dto.copy())
 

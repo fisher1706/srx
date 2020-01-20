@@ -34,12 +34,11 @@ class Variables():
         self.customer_email = "dprovorov+customer3@agilevision.io"
         self.customer_password = "test29"
         self.sub_distributor_name = "Static Test"
-        self.run_number = [8]
+        self.run_number = None
         self.customer_name = "Static Customer"
         self.customer_id = "54"
         self.shipto_number = "2048"
         self.shipto_id = "31"
-        self.inbox_email = "auto-test-stg@storeroomlogix.com"
 
     def qa_environment(self):
         self.admin_email = "dprovorov@agilevision.io"

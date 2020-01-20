@@ -57,16 +57,16 @@ class TransactionApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        return response_json
+        return response_json["data"]["entities"]
 
     def get_transactions_count(self, sku=None, status=None, customer_id=None, shipto_id=None):
         response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
-        return len(response["data"]["entities"])
+        return len(response)
 
     def get_transaction_id(self, sku=None, status=None, customer_id=None, shipto_id=None):
         response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
-        return response["data"]["entities"][0]["id"]
+        return response[0]["id"]
 
     def get_transaction_id_and_qty(self, sku=None, status=None, customer_id=None, shipto_id=None):
         response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
-        return response["data"]["entities"][0]["id"], response["data"]["entities"][0]["reorderQuantity"]
+        return response[0]["id"], response[0]["reorderQuantity"]

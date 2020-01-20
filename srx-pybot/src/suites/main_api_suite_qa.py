@@ -9,6 +9,7 @@ if __name__ == "__main__":
     zero_transaction_qty(Case(api_activity, 'SUITE'))
     checkout_user_of_customer_user(Case(api_activity, 'SUITE'))
     delete_location_by_change_doortype(Case(api_activity, 'SUITE'))
+    create_transaction_for_noweight_locker(Case(api_activity, 'SUITE'))
 
     api_activity.logger.output_suite_result()
     api_activity.finish_activity()

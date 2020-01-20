@@ -1,11 +1,12 @@
 from src.bases.location_basis import location_basis
 from src.bases.locker_basis import locker_basis
 from src.api.distributor.user_api import UserApi
-from src.api.distributor.hardware_api import HardwareApi
+from src.api.distributor.hardware_api import HardwareApi as DistributorHardwareApi
+from src.api.admin.hardware_api import HardwareApi as AdminHardwareApi
 from src.api.api_methods import ApiMethods as apim
 import copy
 
-def locker_location_basis(case):
+def locker_location_basis(case, no_weight=False):
         response = locker_basis(case)
         locker_body = response["locker"]
         iothub_body = response["iothub"]
@@ -20,6 +21,10 @@ def locker_location_basis(case):
             "attributeName4": None,
             "attributeValue4": None
         }
+
+        if (no_weight == True):
+            aha = AdminHardwareApi(case)
+            aha.update_locker_weight_configuration(locker_body["id"], 1, True)
 
         response = location_basis(case, location_pairs=location_pairs, location_type="LOCKER")
         product_body = response["product"]
@@ -46,8 +51,8 @@ def locker_location_basis(case):
         iothub_dto["type"] = "IOTHUB"
         iothub_dto["value"] = iothub_body["value"]
 
-        ha = HardwareApi(case)
-        ha.update_hardware(iothub_dto)
+        dha = DistributorHardwareApi(case)
+        dha.update_hardware(iothub_dto)
 
         response = {
             "locker": locker_body,
