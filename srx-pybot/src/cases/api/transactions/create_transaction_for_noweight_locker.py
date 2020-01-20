@@ -22,18 +22,7 @@ def create_transaction_for_noweight_locker(case):
         sta = SettingsApi(case)
 
         location_response = locker_location_basis(case, no_weight=True)
-        checkout_settings_dto = {
-            "settings": {
-                "enableCheckoutSoftware": True,
-                "reorderControls": "ADD_AT_MIN",
-                "labelOptions": [
-                    "TRACK_OHI",
-                    "ENABLE_SCAN_TO_ORDER",
-                    "ENABLE_REORDER_CONTROLS"
-                ]
-            },
-            "useDefault": False
-        }
+        checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
         sta.update_checkout_software_settings_shipto(checkout_settings_dto, location_response["shipto_id"])
 
         location_id = la.get_location_by_sku(location_response["shipto_id"], location_response["product"]["partSku"])["data"]["entities"][0]["id"]
