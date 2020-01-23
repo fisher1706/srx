@@ -5,7 +5,7 @@ class HardwareApi(API):
         super().__init__(case)
 
     def create_hardware(self, dto):
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/keys/create")
+        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware")
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 201):
@@ -37,10 +37,10 @@ class HardwareApi(API):
         return self.create_hardware(dto)
 
     def delete_hardware(self, hardware_id):
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/keys/"+str(hardware_id)+"/delete")
+        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware/"+str(hardware_id))
         token = self.get_admin_token()
         for count in range (1, 5):
-            response = self.send_post(url, token)
+            response = self.send_delete(url, token)
             if (response.status_code == 200):
                 self.logger.info("Hardware with ID = '"+str(hardware_id)+"' has been successfully deleted")
                 break
