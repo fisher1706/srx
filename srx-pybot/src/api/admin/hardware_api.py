@@ -39,9 +39,17 @@ class HardwareApi(API):
     def delete_hardware(self, hardware_id):
         url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/keys/"+str(hardware_id)+"/delete")
         token = self.get_admin_token()
-        response = self.send_post(url, token)
-        if (response.status_code == 200):
-            self.logger.info("Hardware with ID = '"+str(hardware_id)+"' has been successfully deleted")
+        for count in range (1, 5):
+            response = self.send_post(url, token)
+            if (response.status_code == 200):
+                self.logger.info("Hardware with ID = '"+str(hardware_id)+"' has been successfully deleted")
+                break
+            elif (response.status_code == 400):
+                self.logger.info("Hardware with ID = '"+str(hardware_id)+"' cannot be deleted now")
+                self.logger.info(str(response.content))
+            else:
+                self.logger.error(str(response.content))
+                break
         else:
             self.logger.error(str(response.content))
 

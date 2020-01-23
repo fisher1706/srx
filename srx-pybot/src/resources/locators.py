@@ -34,6 +34,7 @@ class Locators():
     xpath_submit_reorder_list_button = "//button/span[text()='Submit']"
     xpath_cancel_button = "//button[@label='Cancel']"
     xpath_type_text = "//input[@type='text']"
+    xpath_assign_product_planogram = "//button[@type='button']/span[text()='ASSIGN PRODUCT']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -75,6 +76,9 @@ class Locators():
 
     def xpath_button_by_name(self, name):
         return "//button[@type='button']//span[text()='"+name+"']"
+
+    def xpath_planogram(self, door, cell):
+        return "//div[@data-door='"+str(door)+"']//div[@data-cell='"+str(cell)+"']"
 
     #bootstrap
     class_button_info = "//button[@class='btn btn-info']"

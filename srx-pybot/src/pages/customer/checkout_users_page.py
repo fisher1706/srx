@@ -48,7 +48,7 @@ class CheckoutUsersPage(CustomerPortalPage):
     def delete_new_checkout_user(self, row):
         full_name = self.get_table_item_text_by_header("First Name", row)
         full_name += " " + self.get_table_item_text_by_header("Last Name", row)
-        self.click_xpath_free(self.locators.xpath_by_count(self.locators.xpath_table_row, row)+self.locators.title_delete_checkout_user)
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, row)+self.locators.title_delete_checkout_user)
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()

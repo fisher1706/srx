@@ -76,4 +76,4 @@ class Case():
         return random_email
 
     def print_traceback(self):
-        print(str(traceback.format_exc()))
+        self.activity.logger.info(str(traceback.format_exc()))

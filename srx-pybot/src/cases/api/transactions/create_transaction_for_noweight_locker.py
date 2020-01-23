@@ -25,7 +25,7 @@ def create_transaction_for_noweight_locker(case):
         checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
         sta.update_checkout_software_settings_shipto(checkout_settings_dto, location_response["shipto_id"])
 
-        location_id = la.get_location_by_sku(location_response["shipto_id"], location_response["product"]["partSku"])["data"]["entities"][0]["id"]
+        location_id = la.get_location_by_sku(location_response["shipto_id"], location_response["product"]["partSku"])[0]["id"]
         location_body = copy.deepcopy(location_response["location"])
         location_dto = copy.deepcopy(location_body)
         location_dto["onHandInventory"] = 1

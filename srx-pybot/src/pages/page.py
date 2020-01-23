@@ -37,16 +37,6 @@ class Page():
         else:
             self.logger.info("Element with XPATH = '"+xpath+"' is clicked")
 
-    def click_xpath_free(self, xpath):
-        try:
-            self.driver.find_element_by_xpath(xpath).click()
-        except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
-        except:
-            self.logger.error("Element with XPATH = '"+xpath+"' is not clickable")
-        else:
-            self.logger.info("Element with XPATH = '"+xpath+"' is clicked")
-
     def input_data_id(self, data, id):
         try:
             element = WebDriverWait(self.driver, 15).until(
@@ -65,7 +55,7 @@ class Page():
             element = self.get_element_xpath(xpath)
             element.clear()
             element.send_keys(data)
-            self.logger.info("Data '"+data+"' inputed into element with XPATH = '"+xpath+"'")
+            self.logger.info("Data '"+str(data)+"' inputed into element with XPATH = '"+xpath+"'")
 
     def get_element_xpath(self, xpath):
         try:
