@@ -31,6 +31,7 @@ if __name__ == "__main__":
     change_locker_doortype(Case(activity, 'SUITE'))
     create_noweight_locker_location_via_planogram(Case(activity, 'SUITE'))
     universal_catalog_crud(Case(activity, 'SUITE'))
+    universal_catalog_import(Case(activity, 'SUITE'))
 
     activity.logger.output_suite_result()
     activity.finish_activity()

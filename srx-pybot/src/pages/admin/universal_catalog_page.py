@@ -41,3 +41,9 @@ class UniversalCatalogPage(AdminPortalPage):
         self.click_xpath(self.locators.xpath_dialog+self.locators.xpath_confirm_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
+
+    def import_universal_catalog(self, elements):
+        self.generate_csv("universal_catalog.csv", elements)
+        self.import_csv(self.locators.id_file_upload, "universal_catalog.csv")
+        self.should_be_present_xpath(self.locators.xpath_successfully_imported_msg)
+        self.wait_until_page_loaded()
