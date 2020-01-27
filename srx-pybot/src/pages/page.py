@@ -453,8 +453,7 @@ class Page():
                         else:
                             for cell in body.keys():
                                 self.check_table_item_by_header(row, cell, body[cell])
-                            is_break = True
-                            break
+                            return row
                 if (is_break):
                     break
                 if (pagination == True):

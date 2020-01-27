@@ -18,6 +18,9 @@ class AdminPortalPage(Page):
     def sidebar_hardware(self):
         self.click_id("sidebar-hardware")
 
+    def sidebar_universal_catalog(self):
+        self.click_id("sidebar-undefined")
+
     def get_table_rows_number_bootstrap(self):
         return len(self.activity.driver.find_elements_by_xpath(self.locators.bootstrap_table_row))
 

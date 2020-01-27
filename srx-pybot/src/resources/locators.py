@@ -52,6 +52,8 @@ class Locators():
     title_shipto_info = "//button[@title='Shipto info']"
     title_delete_shipto = "//span[@title='Delete Shipto']/button"
     title_delete_checkout_user = "//span[@title='Delete Checkout User']"
+    title_update_utc_and_gtin = "//span[@title='Edit UPC & GTIN']/button"
+    title_delete_utc_and_gtin = "//span[@title='Delete UPC & GTIN']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"
