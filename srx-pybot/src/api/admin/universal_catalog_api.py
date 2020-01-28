@@ -4,7 +4,7 @@ class UniversalCatalogApi(API):
     def __init__(self, case):
         super().__init__(case)
 
-    def get_universal_catalog(self, upc="", gtin="", manufacturer="", manufacturer_part_number=""):
+    def get_universal_catalog(self, upc="", gtin="", manufacturer="", manufacturer_part_number="", count=False):
         url = self.url.get_api_url_for_env("/admin-portal/admin/upc-gtin-catalog?upc="+str(upc)+"&gtin="+str(gtin)+"&manufacturer="+str(manufacturer)+"&manufacturerPartNumber="+str(manufacturer_part_number))
         token = self.get_admin_token()
         response = self.send_get(url, token)
@@ -13,4 +13,7 @@ class UniversalCatalogApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        return response_json["data"]["entities"]
+        if (count == True):
+            return response_json["data"]["totalElements"]
+        else:
+            return response_json["data"]["entities"]

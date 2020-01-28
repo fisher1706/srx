@@ -11,6 +11,7 @@ if __name__ == "__main__":
     delete_location_by_change_doortype(Case(api_activity, 'SUITE'))
     create_transaction_for_noweight_locker(Case(api_activity, 'SUITE'))
     universal_catalog_by_distributor_catalog(Case(api_activity, 'SUITE'))
+    no_empty_products_in_universal_catalog(Case(api_activity, 'SUITE'))
 
     api_activity.logger.output_suite_result()
     api_activity.finish_activity()
