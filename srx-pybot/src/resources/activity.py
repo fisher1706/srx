@@ -32,7 +32,7 @@ class Activity():
         parser.add_argument("--email_password", "-ep", help="Set password of inbox email")
         parser.add_argument("--testrail_email", "-te", help="Set email address of testrail account")
         parser.add_argument("--testrail_password", "-tp", help="Set password of testrail account")
-        parser.add_argument("--remotely", "-r", default=False, nargs='?', const=True, help="If present, credentials will be taken from the buildspec")
+        parser.add_argument("--credentials", "-c", default=False, nargs='?', const=True, help="If present, credentials will be taken from the command line")
         args = parser.parse_args()
         self.arg_browser = args.browser
         self.arg_environment = args.environment
