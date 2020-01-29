@@ -51,7 +51,8 @@ class Locators():
     title_manage_customer_users = "//button[@title='Manage Customer users']"
     title_shipto_info = "//button[@title='Shipto info']"
     title_delete_shipto = "//span[@title='Delete Shipto']/button"
-    title_delete_checkout_user = "//span[@title='Delete Checkout User']"
+    title_delete_checkout_user = "//span[@title='Delete Checkout User']/button"
+    title_delete_checkout_group = "//span[@title='Delete Checkout Group']/button"
     title_update_utc_and_gtin = "//span[@title='Edit UPC & GTIN']/button"
     title_delete_utc_and_gtin = "//span[@title='Delete UPC & GTIN']/button"
 

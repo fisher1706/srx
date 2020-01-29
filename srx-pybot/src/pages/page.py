@@ -467,7 +467,7 @@ class Page():
                     self.logger.error("There is no value '"+scan_by+"' in the '"+str(column)+"' column")
                     break
         else:
-            self.logger.error("There is no header '"+header+"'")
+            self.logger.error("There is no header '"+column_header+"'")
 
     def manage_shipto(self, shiptos, prefix_path=""):
         if (shiptos is not None):
