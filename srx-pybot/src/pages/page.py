@@ -340,7 +340,7 @@ class Page():
                             correctness = False
                             break
                 if (correctness == True):
-                    self.logger.info(str(row)+" elements in '"+header+"' column is correct")
+                    self.logger.info(str(row)+" element in '"+header+"' column is correct")
             else:
                 if (current_text == expected_text):
                     self.logger.info(str(row)+" element in '"+header+"' column is correct")

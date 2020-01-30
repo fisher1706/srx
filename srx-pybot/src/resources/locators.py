@@ -28,6 +28,8 @@ class Locators():
     xpath_successfully_uploaded_document_msg = "//span[text()='Document uploaded successfully!']"
     xpath_successfully_submitted_reorder_list = "//span[text()='Reorder list was successfully submitted']"
     xpath_button = "//div[@role='button']"
+    xpath_button_type = "//button[@type='button']"
+    xpath_button_save = "//button[@label='Save']"
     xpath_role_row = "//div[@role='row']"
     xpath_replenishment_item = "//div[@data-testid='replenishment-item']"
     xpath_replenishment_item_sku = "//div[@data-testid='part-sku']"
@@ -35,6 +37,7 @@ class Locators():
     xpath_cancel_button = "//button[@label='Cancel']"
     xpath_type_text = "//input[@type='text']"
     xpath_assign_product_planogram = "//button[@type='button']/span[text()='ASSIGN PRODUCT']"
+    xpath_no_data_found = "//div[text()='No data found']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -55,6 +58,8 @@ class Locators():
     title_delete_checkout_group = "//span[@title='Delete Checkout Group']/button"
     title_update_utc_and_gtin = "//span[@title='Edit UPC & GTIN']/button"
     title_delete_utc_and_gtin = "//span[@title='Delete UPC & GTIN']/button"
+    title_associated_shiptos = "//button[@title='Associated Shiptos']"
+    title_delete_associated_shipto = "//span[@title='Delete Associated Shipto']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"

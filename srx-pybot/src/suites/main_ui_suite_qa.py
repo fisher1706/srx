@@ -33,6 +33,7 @@ if __name__ == "__main__":
     universal_catalog_crud(Case(activity, 'SUITE'))
     universal_catalog_import(Case(activity, 'SUITE'))
     checkout_group_crud(Case(activity, 'SUITE'))
+    checkout_group_assign_shipto(Case(activity, 'SUITE'))
 
     activity.logger.output_suite_result()
     activity.finish_activity()

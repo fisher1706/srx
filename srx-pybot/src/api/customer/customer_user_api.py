@@ -33,3 +33,14 @@ class CustomerUserApi(API):
             self.logger.info("Customer user '"+dto["email"]+"' has been successfully udated")
         else:
             self.logger.error(str(response.content))
+
+    def get_customer_users(self):
+        url = self.url.get_api_url_for_env("/customer-portal/customer/users")
+        token = self.get_customer_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Customer users has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]["entities"]
