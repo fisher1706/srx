@@ -43,7 +43,7 @@ class Activity():
         self.email_password = args.email_password
         self.testrail_email = args.testrail_email
         self.testrail_password = args.testrail_password
-        self.remote_credentials = args.remotely
+        self.remote_credentials = args.credentials
 
     def browser_config(self, browser):
         if (self.api_test == False):
