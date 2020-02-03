@@ -12,8 +12,7 @@ def document_import(case):
         sp = SettingsPage(case.activity)
 
         lp.log_in_distributor_portal()
-        sp.sidebar_settings()
-        sp.click_xpath(case.activity.locators.xpath_button_tab_by_name("Enterprise Pricing & Billing"))
+        sp.sidebar_account_status()
         sp.import_document()
         sp.delete_last_document()
 

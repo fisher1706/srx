@@ -24,7 +24,7 @@ class Activity():
                             "[ff] - Firefox; "+
                             "[ffhl] - Firefox headless; "+
                             "[chrome] - Chrome")
-        parser.add_argument("--environment", "-e", help="Set environment : [qa]; [staging]")
+        parser.add_argument("--environment", "-e", help="Set environment : [dev]; [qa]; [staging]")
         parser.add_argument("--USER_POOL_ID", "-p", help="Set ID of Cognito User Pool")
         parser.add_argument("--CLIENT_ID", "-i", help="Set ID of Cognito Client")
         parser.add_argument("--CLIENT_SECRET", "-s", help="Set Secret Key of Cognito Client")

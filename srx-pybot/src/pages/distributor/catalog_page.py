@@ -45,10 +45,6 @@ class CatalogPage(DistributorPortalPage):
             "Distributor SKU": product_body["partSku"],
             "Short Description": product_body["shortDescription"],
             "Round Buy": product_body["roundBuy"],
-            "Weight (g)": product_body["weight"],
-            "Height": product_body["height"],
-            "Width": product_body["width"],
-            "Length": product_body["length"],
             "Issue Quantity": product_body["issueQuantity"],
             "Package Conversion": product_body["packageConversion"],
         }

@@ -4,6 +4,9 @@ class DistributorPortalPage(Page):
     def __init__(self, activity):
         super().__init__(activity)
 
+    def sidebar_account_status(self):
+        self.click_xpath("//button[@data-testid='status-button']/..")
+
     def sidebar_users(self):
         self.click_id("sidebar-distributor_users")
 
