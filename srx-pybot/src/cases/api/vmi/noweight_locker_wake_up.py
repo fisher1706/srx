@@ -36,7 +36,7 @@ def noweight_locker_wake_up(case):
 
         location_body = la.get_location_by_sku(new_shipto, product_body["partSku"])
         location_id = location_body[0]["id"]
-        assert location_body[0]["inventoryStatus"] == "FROZEN", "Location should be in FROZEN inventory status"
+        assert location_body[0]["inventoryStatus"] == "FROZEN", "Location should be in FROZEN inventory status, now "+str(location_body[0]["inventoryStatus"])
 
         location_body = copy.deepcopy(location_response["location"])
         location_dto = copy.deepcopy(location_body)
@@ -47,7 +47,7 @@ def noweight_locker_wake_up(case):
         la.update_location(location_list, new_shipto)
 
         location_body = la.get_location_by_sku(new_shipto, product_body["partSku"])
-        assert location_body[0]["inventoryStatus"] == "SLOW", "Location should be in SLOW inventory status"
+        assert location_body[0]["inventoryStatus"] == "SLOW", "Location should be in SLOW inventory status, now "+str(location_body[0]["inventoryStatus"])
 
         transaction_id = ta.get_transaction_id(sku=product_body["partSku"], shipto_id=new_shipto)
         ta.update_replenishment_item(transaction_id, product_body["roundBuy"], "DELIVERED")
@@ -57,7 +57,7 @@ def noweight_locker_wake_up(case):
         la.update_location(location_list, new_shipto)
 
         location_body = la.get_location_by_sku(new_shipto, product_body["partSku"])
-        assert location_body[0]["inventoryStatus"] == "MOVING", "Location should be in MOVING inventory status"
+        assert location_body[0]["inventoryStatus"] == "MOVING", "Location should be in MOVING inventory status, now "+str(location_body[0]["inventoryStatus"])
 
         case.finish_case()
     except:
