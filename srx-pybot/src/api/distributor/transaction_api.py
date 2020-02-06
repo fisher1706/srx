@@ -7,7 +7,7 @@ class TransactionApi(API):
 
     def create_active_item(self, shipto_id, ordering_config_id):
         transactions_count = self.get_transactions_count(status="ACTIVE", shipto_id=shipto_id)
-        for count in range (1, 60):
+        for count in range (1, 21):
             url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId="+self.variables.customer_id+"&shipToId="+str(shipto_id)+"&orderingConfigId="+str(ordering_config_id))
             token = self.get_distributor_token()
             response = self.send_post(url, token)
@@ -20,10 +20,12 @@ class TransactionApi(API):
                 break
             elif (new_transactions_count > transactions_count+1):
                 self.logger.error("Unexpected count of transactions")
+                break
             self.logger.info("Transaction cannot be created now due to the deduplication mechanism. Next attempt after 5 second")
             time.sleep(5)
         else:
             self.logger.error("New transaction has not been created")
+            self.logger.error(str(response.content))
 
     def update_replenishment_item(self, transaction_id, quantity, status):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/item/update")
@@ -57,16 +59,16 @@ class TransactionApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        return response_json["data"]["entities"]
+        return response_json["data"]
 
     def get_transactions_count(self, sku=None, status=None, customer_id=None, shipto_id=None):
         response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
-        return len(response)
+        return response["totalElements"]
 
     def get_transaction_id(self, sku=None, status=None, customer_id=None, shipto_id=None):
         response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
-        return response[0]["id"]
+        return response["entities"][0]["id"]
 
     def get_transaction_id_and_qty(self, sku=None, status=None, customer_id=None, shipto_id=None):
         response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
-        return response[0]["id"], response[0]["reorderQuantity"]
+        return response["entities"][0]["id"], response["entities"][0]["reorderQuantity"]

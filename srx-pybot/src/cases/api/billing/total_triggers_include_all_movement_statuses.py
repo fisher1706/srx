@@ -46,7 +46,7 @@ def total_triggers_include_all_movement_statuses(case):
         assert slow_total_triggers == start_total_triggers + 1, "The number of triggers should be increased by 1"
 
         location_body = la.get_location_by_sku(new_shipto, product_body["partSku"])
-        assert location_body[0]["inventoryStatus"] == "SLOW", "New location should be created in SLOW inventory status"
+        assert location_body[0]["inventoryStatus"] == "SLOW", "New location should be in SLOW inventory status"
 
         aba.billing_transit(timestamp_another_day)
         aba.billing_calculate(timestamp_another_day)
@@ -56,7 +56,7 @@ def total_triggers_include_all_movement_statuses(case):
         assert slow_total_triggers == start_total_triggers + 1, "The number of triggers should be increased by 1"
 
         location_body = la.get_location_by_sku(new_shipto, product_body["partSku"])
-        assert location_body[0]["inventoryStatus"] == "FROZEN", "New location should be created in SLOW inventory status"
+        assert location_body[0]["inventoryStatus"] == "FROZEN", "New location should be in FROZEN inventory status"
 
         case.finish_case()
     except:
