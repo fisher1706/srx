@@ -59,7 +59,9 @@ class Locators():
     title_update_utc_and_gtin = "//span[@title='Edit UPC & GTIN']/button"
     title_delete_utc_and_gtin = "//span[@title='Delete UPC & GTIN']/button"
     title_associated_shiptos = "//button[@title='Associated Shiptos']"
+    title_associated_users = "//button[@title='Associated Users']"
     title_delete_associated_shipto = "//span[@title='Delete Associated Shipto']/button"
+    title_delete_associated_user = "//span[@title='Delete Associated User']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"
