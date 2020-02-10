@@ -4,17 +4,20 @@ from src.cases.api import *
 
 if __name__ == "__main__":
     #api tests
-    api_activity = Activity(api_test=True)
+    try:
+        api_activity = Activity(api_test=True)
 
-    zero_transaction_qty(Case(api_activity, 'SUITE'))
-    checkout_user_of_customer_user(Case(api_activity, 'SUITE'))
-    delete_location_by_change_doortype(Case(api_activity, 'SUITE'))
-    create_transaction_for_noweight_locker(Case(api_activity, 'SUITE'))
-    universal_catalog_by_distributor_catalog(Case(api_activity, 'SUITE'))
-    no_empty_products_in_universal_catalog(Case(api_activity, 'SUITE'))
-    total_triggers_include_all_movement_statuses(Case(api_activity, 'SUITE'))
-    label_wake_up(Case(api_activity, 'SUITE'))
-    noweight_locker_wake_up(Case(api_activity, 'SUITE'))
+        zero_transaction_qty(Case(api_activity, 'SUITE'))
+        checkout_user_of_customer_user(Case(api_activity, 'SUITE'))
+        delete_location_by_change_doortype(Case(api_activity, 'SUITE'))
+        create_transaction_for_noweight_locker(Case(api_activity, 'SUITE'))
+        universal_catalog_by_distributor_catalog(Case(api_activity, 'SUITE'))
+        no_empty_products_in_universal_catalog(Case(api_activity, 'SUITE'))
+        total_triggers_include_all_movement_statuses(Case(api_activity, 'SUITE'))
+        label_wake_up(Case(api_activity, 'SUITE'))
+        noweight_locker_wake_up(Case(api_activity, 'SUITE'))
 
-    api_activity.logger.output_suite_result()
-    api_activity.finish_activity()
+        api_activity.logger.output_suite_result()
+        api_activity.finish_activity()
+    except:
+        pass
