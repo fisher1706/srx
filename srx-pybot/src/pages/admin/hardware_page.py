@@ -7,57 +7,68 @@ class HardwarePage(AdminPortalPage):
         super().__init__(activity)
 
     def create_iothub(self, distributor):
-        self.click_xpath(self.locators.class_button_info)
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 1), "IoT Hub")
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 2), distributor)
-        self.click_xpath(self.locators.class_button_ok)
-        self.should_be_present_xpath("//h4[text()='IoT HUB provision information']")
-        serial_number = self.get_element_text(self.locators.class_modal_dialog+self.locators.class_jumbotron+"/h3")
-        self.click_xpath(self.locators.class_button_close)
+        self.click_id(self.locators.id_add_button)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), "IoT Hub")
+        self.should_be_present_xpath(self.locators.xpath_dropdown_in_dialog(3))
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), distributor)
+        self.click_xpath(self.locators.xpath_submit_button)
+        self.wait_until_page_loaded()
+        self.should_be_present_xpath("//h6[text()='IoTHub provision information']")
+        serial_number = self.get_element_text("//div[text()='Access Key:']/../span")
+        self.click_xpath(self.locators.xpath_close_button)
         self.dialog_should_not_be_visible()
         return serial_number
 
     def check_last_hardware(self, serial_number=None, device_type=None, iothub=None, device_name=None, distributor=None, customer_shipto=None, distributor_user=None, customer_user=None, expiration_date=None, device_subtype=None):
-        self.open_last_page_bootstrap()
-        self.check_last_table_item_by_header_bootstrap("Serial Number", serial_number)
-        self.check_last_table_item_by_header_bootstrap("Device Type", device_type)
-        self.check_last_table_item_by_header_bootstrap("IoT Hub", iothub)
-        self.check_last_table_item_by_header_bootstrap("Device name", device_name)
-        self.check_last_table_item_by_header_bootstrap("Distributor", distributor)
-        self.check_last_table_item_by_header_bootstrap("Customer-ShipTo", customer_shipto)
-        self.check_last_table_item_by_header_bootstrap("Distributor User", distributor_user)
-        self.check_last_table_item_by_header_bootstrap("Customer User", customer_user)
-        self.check_last_table_item_by_header_bootstrap("Expiration Date", expiration_date)
-        self.check_last_table_item_by_header_bootstrap("Device Sub-Type", device_subtype)
+        self.open_last_page()
+        self.check_last_table_item_by_header("Serial Number", serial_number)
+        self.check_last_table_item_by_header("Device Type", device_type)
+        self.check_last_table_item_by_header("IoT Hub", iothub)
+        self.check_last_table_item_by_header("Device name", device_name)
+        self.check_last_table_item_by_header("Distributor", distributor)
+        self.check_last_table_item_by_header("Customer-ShipTo", customer_shipto)
+        self.check_last_table_item_by_header("Distributor User", distributor_user)
+        self.check_last_table_item_by_header("Customer User", customer_user)
+        self.check_last_table_item_by_header("Expiration Date", expiration_date)
+        self.check_last_table_item_by_header("Device Sub-Type", device_subtype)
 
     def update_last_iothub(self, distributor):
-        self.open_last_page_bootstrap()
-        self.click_xpath(self.locators.xpath_by_count(self.locators.class_button_success, self.get_table_rows_number_bootstrap()))
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 1), distributor)
-        self.click_xpath(self.locators.class_button_ok)
+        self.open_last_page()
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_edit_iothub)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), distributor)
+        self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
 
-    def remove_last_hardware(self):
-        self.open_last_page_bootstrap()
-        self.click_xpath(self.locators.xpath_by_count(self.locators.class_button_danger, self.get_table_rows_number_bootstrap()))
-        self.click_xpath("//span[text()='Yes, delete item']/..")
+    def remove_last_hardware(self, hardware_type, serial_number=None):
+        if (hardware_type == "IOTHUB"):
+            type_title = self.locators.title_delete_iothub
+        elif (hardware_type == "LOCKER"):
+            type_title = self.locators.title_delete_locker
+        elif (hardware_type == "VENDING"):
+            type_title = self.locators.title_delete_vending
+        self.open_last_page()
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+type_title)
+        if (serial_number is not None):
+            self.delete_dialog_should_be_about(serial_number)
+        self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
 
     def is_iothub_available_in_dialog(self, type_name, hub_text):
         result = False
-        self.click_xpath(self.locators.class_button_info)
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 1), type_name)
-        self.click_xpath(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 2))
-        dropdown_list_item_xpath = "//div[text()='-- select a IoTHub --']/../div"
-        number_of_dropdown_list_items = self.get_element_count(dropdown_list_item_xpath)
+        self.click_id(self.locators.id_add_button)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), type_name)
+        self.click_xpath(self.locators.xpath_dropdown_in_dialog(2))
+        number_of_dropdown_list_items = self.get_element_count(self.locators.xpath_dropdown_list_item+"/div")
         for index in range(1, number_of_dropdown_list_items+1):
-            dropdown_list_item_text = self.get_element_text(self.locators.xpath_by_count(dropdown_list_item_xpath, index))
+            dropdown_list_item_text = self.get_element_text(self.locators.xpath_by_count(self.locators.xpath_dropdown_list_item+"/div", index))
             if (dropdown_list_item_text == hub_text):
                 result = True
                 break
         else:
             result = False
-        self.click_xpath(self.locators.class_button_close)
+        self.click_xpath(self.locators.xpath_close_button)
         return result
 
     def iothub_should_be_available(self, type_name, hub_text):
@@ -73,19 +84,21 @@ class HardwarePage(AdminPortalPage):
             self.logger.error("There is IoT Hub '"+hub_text+"', but it should NOT be here")
 
     def create_locker(self, distributor, iothub_name):
-        self.click_xpath(self.locators.class_button_info)
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 1), "Locker")
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 2), iothub_name)
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 3), "Standard")
-        self.click_xpath(self.locators.class_button_ok)
+        self.click_id(self.locators.id_add_button)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), "Locker")
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), iothub_name)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(4), "Standard")
+        self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
 
     def create_vending(self, distributor, iothub_name):
-        self.click_xpath(self.locators.class_button_info)
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 1), "Vending")
-        self.select_in_dropdown(self.locators.xpath_by_count(self.locators.bootstrap_select_box, 2), iothub_name)
-        self.click_xpath(self.locators.class_button_ok)
+        self.click_id(self.locators.id_add_button)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), "Vending")
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), iothub_name)
+        self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
 
     def configure_last_locker_door(self, clear_previous_data=None):
         self.click_xpath(self.locators.xpath_by_count(self.locators.bootstrap_table_row, self.get_table_rows_number_bootstrap())+self.locators.class_button_default)

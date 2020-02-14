@@ -17,7 +17,7 @@ def iothub_crud(case):
         hp.check_last_hardware(serial_number=serial_number, device_type="IOTHUB", distributor=case.activity.variables.distributor_name)
         hp.update_last_iothub(case.activity.variables.sub_distributor_name)
         hp.check_last_hardware(serial_number=serial_number, device_type="IOTHUB", distributor=case.activity.variables.sub_distributor_name)
-        hp.remove_last_hardware()
+        hp.remove_last_hardware("IOTHUB")
 
         case.finish_case()
     except:

@@ -38,6 +38,7 @@ class Locators():
     xpath_type_text = "//input[@type='text']"
     xpath_assign_product_planogram = "//button[@type='button']/span[text()='ASSIGN PRODUCT']"
     xpath_no_data_found = "//div[text()='No data found']"
+    xpath_close_button = "//button[@data-testid='close-btn']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -62,6 +63,10 @@ class Locators():
     title_associated_users = "//button[@title='Associated Users']"
     title_delete_associated_shipto = "//span[@title='Delete Associated Shipto']/button"
     title_delete_associated_user = "//span[@title='Delete Associated User']/button"
+    title_edit_iothub = "//span[@title='Edit IoTHub']/button"
+    title_delete_iothub = "//span[@title='Delete IoTHub']/button"
+    title_delete_locker = "//span[@title='Delete Locker']/button"
+    title_delete_vending = "//span[@title='Delete Vending']/button"
 
     def xpath_by_count(self, xpath, count):
         return "("+xpath+")["+str(count)+"]"
@@ -89,25 +94,3 @@ class Locators():
 
     def xpath_planogram(self, door, cell):
         return "//div[@data-door='"+str(door)+"']//div[@data-cell='"+str(cell)+"']"
-
-    #bootstrap
-    class_button_info = "//button[@class='btn btn-info']"
-    class_button_ok = "//button[@class='modal-dialog-ok-button btn btn-lg btn-primary']"
-    class_button_close = "//button[@class='close']"
-    class_button_success = "//button[@class='control-button btn btn-success']"
-    class_button_danger = "//button[@class='control-button btn btn-danger']"
-    class_button_danger_dialog = "//button[@class='btn btn-danger']"
-    class_button_default = "//button[@class='btn btn-default']"
-    class_modal_dialog = "//div[@class='modal-dialog']"
-    class_srx_select = "//div[@class='srx-select has-error']"
-    class_jumbotron = "//div[@class='jumbotron']"
-    class_page_item = "//li[@class='page-item']"
-    class_pagination_bar = "//ul[@class='react-bootstrap-table-page-btns-ul pagination']"
-    bootstrap_select_box = class_srx_select+"/div"
-    bootstrap_table_row = "//tbody/tr"
-    bootstrap_table_column = "//td"
-    bootstrap_table_header_column = "//th"
-
-    def xpath_table_item_bootstrap(self, row, column):
-        return self.bootstrap_table_row+"["+str(row)+"]"+self.bootstrap_table_column+"["+str(column)+"]"
-

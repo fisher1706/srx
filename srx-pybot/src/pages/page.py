@@ -236,12 +236,7 @@ class Page():
 
     def select_in_dropdown(self, xpath, name):
         if (name is not None):
-            try:
-                element = self.driver.find_element_by_xpath(xpath)
-            except NoSuchElementException:
-                self.logger.error("Dropdown list with XPATH = '"+xpath+"' not found")
-            else:
-                element.click()
+                self.click_xpath(xpath)
                 self.logger.info("Dropdown list with XPATH = '"+xpath+"' is opened")
                 self.click_xpath(xpath+"/..//div[text()='"+name+"']")
 
