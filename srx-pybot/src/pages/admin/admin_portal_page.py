@@ -1,5 +1,4 @@
 from src.pages.page import Page
-from src.waits.not_first_page_bootstrap import not_first_page_bootstrap
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
