@@ -27,12 +27,6 @@ def checkout_group_assign_shipto(case):
         cgp.click_xpath(cgp.locators.xpath_by_count(cgp.locators.title_associated_shiptos, row))
         cgp.assign_shipto(shipto["shipto"]["number"])
         cgp.check_assigned_shipto(shipto["shipto"], 1)
-        cgp.sidebar_users_and_groups()
-        cgp.click_xpath(cgp.locators.xpath_button_tab_by_name("Checkout Groups"))
-        row = cgp.scan_table(checkout_group["name"], "Checkout Group Name", pagination=False)
-        cgp.wait_until_page_loaded()
-        cgp.check_table_item_by_header(row, "Associated Shipto", cgp.variables.distributor_name + " - " + shipto["shipto"]["number"])
-        cgp.click_xpath(cgp.locators.xpath_by_count(cgp.locators.title_associated_shiptos, row))
         cgp.unassign_shipto(1)
         cgp.should_be_present_xpath(cgp.locators.xpath_no_data_found)
 

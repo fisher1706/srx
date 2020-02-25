@@ -46,7 +46,6 @@ class AllocationCodesPage(CustomerPortalPage):
             "Type": allocation_code_body["type"],
             "Required": self.is_required(allocation_code_body["isRequired"]),
             "Values": allocation_code_body["values"],
-            "Shiptos": allocation_code_body["shiptos"]
         }
         for cell in table_cells.keys():
             self.check_table_item_by_header(self.get_row_of_table_item_by_header(table_cells["Name"], "Name"), cell, table_cells[cell])

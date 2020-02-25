@@ -30,7 +30,6 @@ class CustomerUsersPage(CustomerPortalPage):
             "First Name": customer_user_body["firstName"],
             "Last Name": customer_user_body["lastName"],
             "Security Group": customer_user_body["role"],
-            "Shiptos": customer_user_body["shiptos"]
         }
         for cell in table_cells.keys():
             self.check_last_table_item_by_header(cell, table_cells[cell])
