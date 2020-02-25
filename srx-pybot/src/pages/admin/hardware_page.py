@@ -101,7 +101,7 @@ class HardwarePage(AdminPortalPage):
         self.wait_until_page_loaded()
 
     def configure_last_locker_door(self, clear_previous_data=None):
-        self.click_xpath(self.locators.xpath_by_count(self.locators.bootstrap_table_row, self.get_table_rows_number_bootstrap())+self.locators.class_button_default)
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
         if (clear_previous_data is not None):
             self.unselect_checkbox(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_checkbox, clear_previous_data["checkbox"]))
             self.clear_xpath(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_type_text, clear_previous_data["text"]))
@@ -125,7 +125,7 @@ class HardwarePage(AdminPortalPage):
         return data
 
     def check_last_locker_door(self, doors_data):
-        self.click_xpath(self.locators.xpath_by_count(self.locators.bootstrap_table_row, self.get_table_rows_number_bootstrap())+self.locators.class_button_default)
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
         self.checkbox_should_be(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_checkbox, doors_data["checkbox"]), True)
         if (self.get_element_xpath(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_type_text, doors_data["text"])).get_attribute("value") != str(doors_data["text"])):
             self.logger.error("There is no necessary value in the '"+str(doors_data["text"])+"' text field")
