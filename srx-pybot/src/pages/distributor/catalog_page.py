@@ -38,6 +38,7 @@ class CatalogPage(DistributorPortalPage):
             self.input_by_name(field, product_body[field])
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
 
     def check_last_product(self, product_body):
         self.open_last_page()
@@ -60,6 +61,7 @@ class CatalogPage(DistributorPortalPage):
             self.input_by_name(field, product_body[field])
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
 
     def import_product(self, products):
         self.generate_csv("products.csv", products)
