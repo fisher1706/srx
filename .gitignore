@@ -7,7 +7,9 @@
 *.pyc
 manual
 .vscode
+pyvenv.cfg
 */__pycache__
+env-pybot
 srx-pybot/src/output
 srx-pybot/src/resources/local_credentials.py
 srx-pybot/src/suites/testrail_bulk_retest.py
