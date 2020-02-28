@@ -15,13 +15,13 @@ def customer_user_crud(case):
 
         #-------------------
         customer_user_body["email"] = case.random_email()
-        customer_user_body["firstName"] = "User " + case.random_string_l()
-        customer_user_body["lastName"] = "User " + case.random_string_l()
+        customer_user_body["firstName"] = f"User {case.random_string_l()}"
+        customer_user_body["lastName"] = f"User {case.random_string_l()}"
         customer_user_body["role"] = "User"
         customer_user_body["shiptos"] = [case.activity.variables.shipto_number]
         #-------------------
-        edit_customer_user_body["firstName"] = "User " + case.random_string_l()
-        edit_customer_user_body["lastName"] = "User " + case.random_string_l()
+        edit_customer_user_body["firstName"] = f"User {case.random_string_l()}"
+        edit_customer_user_body["lastName"] = f"User {case.random_string_l()}"
         edit_customer_user_body["role"] = "Customer Super User"
         #-------------------
 

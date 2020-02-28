@@ -21,10 +21,10 @@ class CheckoutUserApi(API):
         for index in range(0, count):
             if (checkout_user_body["email"] == checkout_users["data"][index]["email"]):
                 if (checkout_user_body["lastName"] == checkout_users["data"][index]["lastName"] and checkout_user_body["firstName"] == checkout_users["data"][index]["firstName"]):
-                    self.logger.info("New checkout user '"+checkout_user_body["email"]+"' has been successfuly created")
+                    self.logger.info(f"New checkout user '{checkout_user_body['email']}' has been successfuly created")
                     break
         else:
-            self.logger.error("New checkout user '"+checkout_user_body["email"]+"' has not been successfuly created")
+            self.logger.error(f"New checkout user '{checkout_user_body['email']}' has not been successfuly created")
         return count
 
     def checkout_user_should_not_be_present(self, checkout_user_body):
@@ -32,8 +32,8 @@ class CheckoutUserApi(API):
         count = len(checkout_users["data"])
         for index in range(0, count):
             if (checkout_user_body["firstName"] == checkout_users["data"][index]["firstName"]):
-                self.logger.error("There is checkout user with email '"+checkout_user_body["email"]+"'")
+                self.logger.error(f"There is checkout user with email '{checkout_user_body['email']}'")
                 break
         else:
-            self.logger.info("There is no checkout user with email '"+checkout_user_body["email"]+"'")
+            self.logger.info(f"There is no checkout user with email '{checkout_user_body['email']}'")
         return count

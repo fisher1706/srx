@@ -54,7 +54,7 @@ class CheckoutGroupsPage(CustomerPortalPage):
                 self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_table_row+self.locators.xpath_button_type, index))
                 break
         else:
-            self.logger.error("There is no shipto '"+str(shipto_number)+"'")
+            self.logger.error(f"There is no shipto '{shipto_number}'")
         self.click_xpath(self.locators.xpath_button_save)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()

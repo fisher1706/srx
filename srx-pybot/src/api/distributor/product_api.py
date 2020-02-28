@@ -9,6 +9,6 @@ class ProductApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 201):
-            self.logger.info("New product '"+dto["partSku"]+"' has been successfully created")
+            self.logger.info(f"New product '{dto['partSku']}' has been successfully created")
         else:
             self.logger.error(str(response.content))

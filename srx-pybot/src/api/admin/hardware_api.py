@@ -9,7 +9,7 @@ class HardwareApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 201):
-            self.logger.info("New hardware with type '"+dto["type"]+"' has been successfully created")
+            self.logger.info(f"New hardware with type '{dto['type']}' has been successfully created")
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -46,15 +46,15 @@ class HardwareApi(API):
         return self.create_hardware(dto)
 
     def delete_hardware(self, hardware_id):
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware/"+str(hardware_id))
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/hardware/{hardware_id}")
         token = self.get_admin_token()
         for count in range (1, 5):
             response = self.send_delete(url, token)
             if (response.status_code == 200):
-                self.logger.info("Hardware with ID = '"+str(hardware_id)+"' has been successfully deleted")
+                self.logger.info(f"Hardware with ID = '{hardware_id}' has been successfully deleted")
                 break
             elif (response.status_code == 400):
-                self.logger.info("Hardware with ID = '"+str(hardware_id)+"' cannot be deleted now")
+                self.logger.info(f"Hardware with ID = '{hardware_id}' cannot be deleted now")
                 self.logger.info(str(response.content))
             else:
                 self.logger.error(str(response.content))
@@ -86,10 +86,10 @@ class HardwareApi(API):
                 }]
             }
         }
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/lockers/"+str(locker_id)+"/configuration")
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/lockers/{locker_id}/configuration")
         token = self.get_admin_token()
         response = self.send_put(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info("Configuration of locker with ID = '"+str(locker_id)+"' has been successfully updated")
+            self.logger.info(f"Configuration of locker with ID = '{locker_id}' has been successfully updated")
         else:
             self.logger.error(str(response.content))

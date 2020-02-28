@@ -35,7 +35,7 @@ def create_transaction_for_noweight_locker(case):
         la.update_location(location_list, location_response["shipto_id"])
         transaction = ta.get_transaction(shipto_id=location_response["shipto_id"])["entities"]
         assert len(transaction) == 1, "The number of transactions should be equal to 1"
-        assert transaction[0]["reorderQuantity"] == (location_response["product"]["roundBuy"]*3), "Reorder quantity of transaction should be equal to "+str(location_response["product"]["roundBuy"]*3)
+        assert transaction[0]["reorderQuantity"] == (location_response["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {location_response['product']['roundBuy']*3}"
         assert transaction[0]["product"]["partSku"] == location_response["product"]["partSku"]
 
         case.finish_case()

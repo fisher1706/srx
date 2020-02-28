@@ -5,11 +5,11 @@ class CustomerApi(API):
         super().__init__(case)
 
     def create_customer(self, dto, warehouse_id):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/warehouses/"+str(warehouse_id)+"/customers/create")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{warehouse_id}/customers/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 201):
-            self.logger.info("New customer '"+dto["name"]+"' has been successfully created")
+            self.logger.info(f"New customer '{dto['name']}' has been successfully created")
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -17,10 +17,10 @@ class CustomerApi(API):
         return new_customer
 
     def delete_customer(self, warehouse_id, customer_id):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/warehouses/"+str(warehouse_id)+"/customers/"+str(customer_id)+"/delete")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{warehouse_id}/customers/{customer_id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
-            self.logger.info("Customer with ID = '"+str(customer_id)+"' has been successfully deleted")
+            self.logger.info(f"Customer with ID = '{customer_id}' has been successfully deleted")
         else:
             self.logger.error(str(response.content))

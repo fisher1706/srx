@@ -9,7 +9,7 @@ class AdminPortalPage(Page):
         super().__init__(activity)
     
     def admin_sidebar_should_contain_email(self):
-        self.should_be_present_xpath("//span[text()='"+self.variables.admin_email+"']")
+        self.should_be_present_xpath(f"//span[text()='{self.variables.admin_email}']")
 
     def sign_out(self):
         self.click_id("sidebar-sign-out")

@@ -14,11 +14,11 @@ def checkout_user_crud(case):
         edit_checkout_user_body = cup.checkout_user_body.copy()
 
         #-------------------
-        checkout_user_body["firstName"] = "Checkout User " + case.random_string_l()
-        checkout_user_body["lastName"] = "Checkout User " + case.random_string_l()
+        checkout_user_body["firstName"] = f"Checkout User {case.random_string_l()}"
+        checkout_user_body["lastName"] = f"Checkout User {case.random_string_l()}"
         #-------------------
-        edit_checkout_user_body["firstName"] = "Checkout User " + case.random_string_l()
-        edit_checkout_user_body["lastName"] = "Checkout User " + case.random_string_l()
+        edit_checkout_user_body["firstName"] = f"Checkout User {case.random_string_l()}"
+        edit_checkout_user_body["lastName"] = f"Checkout User {case.random_string_l()}"
         edit_checkout_user_body["fob"] = case.random_string_u(18)
         edit_checkout_user_body["passCode"] = case.random_string_u(18)
         edit_checkout_user_body["email"] = case.random_email()

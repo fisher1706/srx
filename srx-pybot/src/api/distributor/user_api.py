@@ -6,7 +6,7 @@ class UserApi(API):
         super().__init__(case)
 
     def get_distributor_users(self, shipto_id):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/shiptos/"+str(shipto_id)+"/distributor-users")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/shiptos/{shipto_id}/distributor-users")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
@@ -21,7 +21,7 @@ class UserApi(API):
         return distributor_users[0]
 
     def get_customer_users(self, shipto_id):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/shiptos/"+str(shipto_id)+"/customer-users")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/shiptos/{shipto_id}/customer-users")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):

@@ -27,27 +27,27 @@ def full_rfid_available_flow(case):
         assert len(manifest_body_1["items"]) == 1, "Only 1 RFID label should being in the manifest"
         assert str(manifest_body_1["items"][0]["rfidLabel"]["id"]) == str(rfid_location_response["labels"][0]["rfid_id"])
         assert manifest_body_1["items"][0]["rfidLabel"]["labelId"] == test_label
-        assert manifest_body_1["items"][0]["rfidLabel"]["state"] == "ASSIGNED", "RFID label should be in ASSIGNED status, now "+str(manifest_body_1["items"][0]["rfidLabel"]["state"])
+        assert manifest_body_1["items"][0]["rfidLabel"]["state"] == "ASSIGNED", f"RFID label should be in ASSIGNED status, now {manifest_body_1['items'][0]['rfidLabel']['state']}"
 
         ra.submit_manifest(initial_manifest_body["data"]["id"])
         manifest_body_2 = ra.get_delivery_manifest(initial_manifest_body["device_id"])
 
-        assert manifest_body_2["items"][0]["rfidLabel"]["state"] == "MANIFEST", "RFID label should be in MANIFEST status, now "+str(manifest_body_2["items"][0]["rfidLabel"]["state"])
+        assert manifest_body_2["items"][0]["rfidLabel"]["state"] == "MANIFEST", f"RFID label should be in MANIFEST status, now {manifest_body_2['items'][0]['rfidLabel']['state']}"
 
         ra.rfid_issue(rfid_response["value"], test_label)
         manifest_body_3 = ra.get_delivery_manifest(initial_manifest_body["device_id"])
 
-        assert manifest_body_3["items"][0]["rfidLabel"]["state"] == "CHECK_IN", "RFID label should be in CHECK_IN status, now " +str(manifest_body_3["items"][0]["rfidLabel"]["state"])
+        assert manifest_body_3["items"][0]["rfidLabel"]["state"] == "CHECK_IN", f"RFID label should be in CHECK_IN status, now {manifest_body_3['items'][0]['rfidLabel']['state']}"
 
         ra.close_manifest(initial_manifest_body["data"]["id"])
         ra.rfid_put_away(rfid_location_response["shipto_id"], rfid_location_response["labels"][0]["rfid_id"])
         rfid_labels_response = ra.get_rfid_labels(rfid_location_response["location_id"])
 
-        assert len(rfid_labels_response) == 1, "Location with ID = '"+rfid_location_response["location_id"]+"' should contain only 1 RFID label, now "+str(len(rfid_labels_response))
+        assert len(rfid_labels_response) == 1, f"Location with ID = '{rfid_location_response['location_id']}' should contain only 1 RFID label, now {len(rfid_labels_response)}"
         
         test_label_body_1 = rfid_labels_response[0]
 
-        assert test_label_body_1["state"] == "AVAILABLE", "RFID label should be in AVAILABLE status, now " +str(test_label_body_1["state"])
+        assert test_label_body_1["state"] == "AVAILABLE", f"RFID label should be in AVAILABLE status, now {test_label_body_1['state']}"
 
         case.finish_case()
     except:

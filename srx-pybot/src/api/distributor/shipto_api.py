@@ -5,28 +5,28 @@ class ShiptoApi(API):
         super().__init__(case)
 
     def create_shipto(self, dto):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/customers/"+self.variables.customer_id+"/shipto/create")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.variables.customer_id}/shipto/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 201):
-            self.logger.info("New shipto '"+dto["number"]+"' has been successfully created")
+            self.logger.info(f"New shipto '{dto['number']}' has been successfully created")
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
         new_shipto = (response_json["data"].split("/"))[-1]
         return new_shipto
 
-    def delete_shipto(self, id):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/customers/"+self.variables.customer_id+"/shipto/"+str(id)+"/delete")
+    def delete_shipto(self, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.variables.customer_id}/shipto/{shipto_id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
-            self.logger.info("ShipTo with ID = '"+str(id)+"' has been successfully deleted")
+            self.logger.info(f"ShipTo with ID = '{shipto_id}' has been successfully deleted")
         else:
             self.logger.error(str(response.content))
 
     def get_shipto_by_number(self, number):
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/customers/"+self.variables.customer_id+"/shiptos/pageable?number="+str(number))
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.variables.customer_id}/shiptos/pageable?number={number}")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
@@ -45,4 +45,4 @@ class ShiptoApi(API):
         if (actual_po_number == expected_po_number):
             self.logger.info("PO number is correct")
         else:
-            self.logger.error("PO number should be '"+str(expected_po_number)+"', but now it is '"+str(actual_po_number)+"'")
+            self.logger.error(f"PO number should be '{expected_po_number}', but now it is '{actual_po_number}'")

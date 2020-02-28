@@ -14,10 +14,10 @@ def checkout_group_crud(case):
         edit_checkout_group_body = cgp.checkout_group_body.copy()
 
         #-------------------
-        checkout_group_body["name"] = "Name " + case.random_string_l()
+        checkout_group_body["name"] = f"Name {case.random_string_l()}"
         checkout_group_body["email"] = case.random_email()
         #-------------------
-        edit_checkout_group_body["name"] = "Edit name " + case.random_string_l()
+        edit_checkout_group_body["name"] = f"Edit name {case.random_string_l()}"
         #-------------------
 
         lp.log_in_customer_portal()

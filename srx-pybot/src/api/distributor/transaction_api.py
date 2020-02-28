@@ -8,7 +8,7 @@ class TransactionApi(API):
     def create_active_item(self, shipto_id, ordering_config_id):
         transactions_count = self.get_transactions_count(status="ACTIVE", shipto_id=shipto_id)
         for count in range (1, 21):
-            url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId="+self.variables.customer_id+"&shipToId="+str(shipto_id)+"&orderingConfigId="+str(ordering_config_id))
+            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={self.variables.customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
             token = self.get_distributor_token()
             response = self.send_post(url, token)
             new_transactions_count = self.get_transactions_count(status="ACTIVE", shipto_id=shipto_id)
@@ -46,11 +46,11 @@ class TransactionApi(API):
             customer_id = self.variables.customer_id
         if (shipto_id is None):
             shipto_id = self.variables.shipto_id
-        url_string = "/distributor-portal/distributor/replenishments/list/customers/"+customer_id+"/shiptos/"+shipto_id+"/items/pageable?"
+        url_string = f"/distributor-portal/distributor/replenishments/list/customers/{customer_id}/shiptos/{shipto_id}/items/pageable?"
         if (sku is not None):
-            url_string += "productPartSku="+sku+"&"
+            url_string += f"productPartSku={sku}&"
         if (status is not None):
-            url_string += "status="+status+"&"
+            url_string += f"status={status}&"
         url = self.url.get_api_url_for_env(url_string)
         token = self.get_distributor_token()
         response = self.send_get(url, token)

@@ -9,6 +9,6 @@ class HardwareApi(API):
         token = self.get_distributor_token()
         response = self.send_put(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info("Hardware with ID = '"+str(dto["id"])+"' has been successfully updated")
+            self.logger.info(f"Hardware with ID = '{dto['id']}' has been successfully updated")
         else:
             self.logger.error(str(response.content))

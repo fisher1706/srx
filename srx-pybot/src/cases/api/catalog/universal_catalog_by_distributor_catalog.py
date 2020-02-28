@@ -13,7 +13,7 @@ def universal_catalog_by_distributor_catalog(case):
 
         product_dto = apim.get_dto("product_dto.json")
         product_dto["partSku"] = case.random_string_u(18)
-        product_dto["shortDescription"] = product_dto["partSku"] + " - short description"
+        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
         product_dto["roundBuy"] = "1"
         product_dto["upc"] = case.random_string_u(18)
         product_dto["gtin"] = case.random_string_u(18)

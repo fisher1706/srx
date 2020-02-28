@@ -5,7 +5,7 @@ class AdminBillingApi(API):
         super().__init__(case)
     
     def billing_calculate(self, timestamp):
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/calculateWaterMark?currentTime="+str(timestamp))
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/calculateWaterMark?currentTime={timestamp}")
         token = self.get_admin_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
@@ -14,7 +14,7 @@ class AdminBillingApi(API):
             self.logger.error(str(response.content))
 
     def billing_transit(self, timestamp):
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/transitInventoryStatus?currentTime="+str(timestamp))
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/transitInventoryStatus?currentTime={timestamp}")
         token = self.get_admin_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):

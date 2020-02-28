@@ -33,7 +33,7 @@ def create_noweight_locker_location_via_planogram(case):
         lpp.follow_locker_planogram_url(shipto_id=shipto_number)
         lpp.create_location_via_planogram(1, 1, product_sku, round_buy, round_buy*3)
         locations = la.get_location_by_sku(shipto_number, product_sku)
-        assert len(locations) == 1, "There should be 1 location with SKU = '"+product_sku+"'"
+        assert len(locations) == 1, "There should be 1 location with SKU = '{product_sku}'"
         assert locations[0]["orderingConfig"]["lockerWithNoWeights"] == True, "Locations should be with NoWeight flag"
 
         case.finish_case()

@@ -19,7 +19,7 @@ class ReorderListPage(CustomerPortalPage):
                 self.select_checkbox(item_xpath+self.locators.xpath_checkbox)
                 break
         else:
-            self.logger.error("Replenishment item with SKU = '"+str(expected_sku)+"' not found")
+            self.logger.error(f"Replenishment item with SKU = '{expected_sku}' not found")
 
     def get_item_xpath_in_po_dialog(self, row, column):
         return "(("+self.locators.xpath_dialog+self.xpath_po_dialog_row+")["+str(row)+"]"+self.xpath_po_dialog_column+")["+str(column)+"]"
@@ -34,14 +34,14 @@ class ReorderListPage(CustomerPortalPage):
         for shipto in po_number_body.keys():
             for index in range(1, rows_count+1):
                 if (self.get_item_text_in_po_dialog(index, 1) == shipto):
-                    po_value = self.get_element_xpath(self.get_item_xpath_in_po_dialog(index, 4)+"//input[@type='text']").get_attribute("value")
+                    po_value = self.get_element_xpath(f"{self.get_item_xpath_in_po_dialog(index, 4)}//input[@type='text']").get_attribute("value")
                     if (po_number_body[shipto] == po_value):
-                        self.logger.info("PO number of '"+str(shipto)+"' shipto is correct")
+                        self.logger.info(f"PO number of '{shipto}' shipto is correct")
                     else:
-                        self.logger.error("PO number of '"+str(shipto)+"' shipto is incorrect")
+                        self.logger.error(f"PO number of '{shipto}' shipto is incorrect")
                     break
             else:
-                self.logger.error("There is no shipto '"+shipto+"' in dialog")
+                self.logger.error(f"There is no shipto '{shipto}' in dialog")
         self.click_xpath(self.locators.xpath_cancel_button)
         self.dialog_should_not_be_visible()
 
@@ -55,7 +55,7 @@ class ReorderListPage(CustomerPortalPage):
                     self.input_data_xpath(po_number_body[shipto], self.get_item_xpath_in_po_dialog(index, 4)+self.locators.xpath_type_text)
                     break
             else:
-                self.logger.error("There is no shipto '"+shipto+"' in dialog")
+                self.logger.error(f"There is no shipto '{shipto}' in dialog")
         self.click_xpath(self.locators.xpath_submit_button)
         self.should_be_present_xpath(self.locators.xpath_successfully_submitted_reorder_list)
 

@@ -13,7 +13,7 @@ def no_empty_products_in_universal_catalog(case):
         start_count = uca.get_universal_catalog(count=True)
         product_basis(case)
         end_count = uca.get_universal_catalog(count=True)
-        assert start_count == end_count, "Empty products should not be added to the universal catalog ("+str(start_count)+" != "+str(end_count)+")"
+        assert start_count == end_count, f"Empty products should not be added to the universal catalog ({start_count} != {end_count})"
 
         case.finish_case()
     except:

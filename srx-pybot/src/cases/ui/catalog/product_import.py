@@ -14,7 +14,7 @@ def product_import(case):
 
         #-------------------
         product_body["partSku"] = case.random_string_u(18)
-        product_body["shortDescription"] = product_body["partSku"]+" - short description"
+        product_body["shortDescription"] = f"{product_body['partSku']} - short description"
         product_body["roundBuy"] = "39"
         #-------------------
         products = [

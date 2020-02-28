@@ -73,15 +73,15 @@ class HardwarePage(AdminPortalPage):
 
     def iothub_should_be_available(self, type_name, hub_text):
         if (self.is_iothub_available_in_dialog(type_name, hub_text)):
-            self.logger.info("IoT Hub '"+hub_text+"' is found")
+            self.logger.info(f"IoT Hub '{hub_text}' is found")
         else:
-            self.logger.error("IoT Hub '"+hub_text+"' is not found")
+            self.logger.error(f"IoT Hub '{hub_text}' is not found")
 
     def iothub_should_not_be_available(self, type_name, hub_text):
         if (not self.is_iothub_available_in_dialog(type_name, hub_text)):
-            self.logger.info("There is no IoT Hub '"+hub_text+"'")
+            self.logger.info(f"There is no IoT Hub '{hub_text}'")
         else:
-            self.logger.error("There is IoT Hub '"+hub_text+"', but it should NOT be here")
+            self.logger.error(f"There is IoT Hub '{hub_text}', but it should NOT be here")
 
     def create_locker(self, distributor, iothub_name):
         self.click_id(self.locators.id_add_button)
@@ -128,8 +128,8 @@ class HardwarePage(AdminPortalPage):
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
         self.checkbox_should_be(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_checkbox, doors_data["checkbox"]), True)
         if (self.get_element_xpath(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_type_text, doors_data["text"])).get_attribute("value") != str(doors_data["text"])):
-            self.logger.error("There is no necessary value in the '"+str(doors_data["text"])+"' text field")
+            self.logger.error(f"There is no necessary value in the '{doors_data['text']}' text field")
         else:
-            self.logger.info("Value in the '"+str(doors_data["text"])+"' text field is correct")
+            self.logger.info(f"Value in the '{doors_data['text']}' text field is correct")
         self.click_xpath(self.locators.xpath_dialog+self.locators.xpath_dialog_cancel_button)
         self.dialog_should_not_be_visible()

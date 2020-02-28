@@ -9,17 +9,17 @@ class CheckoutGroupApi(API):
         token = self.get_customer_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info("New checkout group '"+dto["name"]+"' has been successfully created")
+            self.logger.info(f"New checkout group '{dto['name']}' has been successfully created")
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
     def delete_checkout_group(self, checkout_group_id):
-        url = self.url.get_api_url_for_env("/customer-portal/customer/pass-code/checkout-groups/"+str(checkout_group_id))
+        url = self.url.get_api_url_for_env(f"/customer-portal/customer/pass-code/checkout-groups/{checkout_group_id}")
         token = self.get_customer_token()
         response = self.send_delete(url, token)
         if (response.status_code == 200):
-            self.logger.info("Checkout group with ID = '"+str(checkout_group_id)+"' has been successfully deleted")
+            self.logger.info(f"Checkout group with ID = '{checkout_group_id}' has been successfully deleted")
         else:
             self.logger.error(str(response.content))

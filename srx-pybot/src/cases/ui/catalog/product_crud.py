@@ -15,11 +15,11 @@ def product_crud(case):
 
         #-------------------
         product_body["partSku"] = case.random_string_u(18)
-        product_body["shortDescription"] = product_body["partSku"]+" - short description"
+        product_body["shortDescription"] = f"{product_body['partSku']} - short description"
         product_body["roundBuy"] = "15"
         #-------------------
         edit_product_body["partSku"] = case.random_string_u(18)
-        edit_product_body["shortDescription"] = product_body["partSku"]+" - edit short description"
+        edit_product_body["shortDescription"] = f"{product_body['partSku']} - edit short description"
         edit_product_body["roundBuy"] = "27"
         edit_product_body["lifecycleStatus"] = "OBSOLETE"
         edit_product_body["image"] = "example.com"
