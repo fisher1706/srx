@@ -9,6 +9,7 @@ class Variables():
         self.general()
 
     def dev_environment(self):
+        self.api_environment = "dev"
         self.admin_email = "srx-group+dev@agilevision.io"
         self.admin_password = "srx-group"
         self.distributor_email = "dprovorov+testadmin@agilevision.io"
@@ -25,6 +26,7 @@ class Variables():
         self.shipto_id = "59"
 
     def staging_environment(self):
+        self.api_environment = "staging"
         self.admin_email = "srx-group+staging@agilevision.io"
         self.admin_password = "srx-group"
         self.distributor_email = "dprovorov+distributor@agilevision.io"
@@ -41,6 +43,7 @@ class Variables():
         self.shipto_id = "31"
 
     def qa_environment(self):
+        self.api_environment = "qa"
         self.admin_email = "dprovorov@agilevision.io"
         self.admin_password = "test29"
         self.distributor_email = "dprovorov+dist@agilevision.io"

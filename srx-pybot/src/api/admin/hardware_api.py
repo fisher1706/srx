@@ -36,6 +36,15 @@ class HardwareApi(API):
         }
         return self.create_hardware(dto)
 
+    def create_rfid(self, distributor_id=None):
+        if (distributor_id is None):
+            distributor_id = self.variables.distributor_id
+        dto = {
+            "distributorId": distributor_id,
+            "type": "RFID"
+        }
+        return self.create_hardware(dto)
+
     def delete_hardware(self, hardware_id):
         url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware/"+str(hardware_id))
         token = self.get_admin_token()

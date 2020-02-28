@@ -3,7 +3,6 @@ from src.bases.locker_basis import locker_basis
 from src.api.distributor.user_api import UserApi
 from src.api.distributor.hardware_api import HardwareApi as DistributorHardwareApi
 from src.api.admin.hardware_api import HardwareApi as AdminHardwareApi
-from src.api.api_methods import ApiMethods as apim
 import copy
 
 def locker_location_basis(case, no_weight=False):
@@ -36,7 +35,7 @@ def locker_location_basis(case, no_weight=False):
         customer_user = ua.get_first_customer_user(new_shipto)
         distributor_user = ua.get_first_distributor_user(new_shipto)
 
-        iothub_dto = apim.get_dto("customer_user_dto.json")
+        iothub_dto = {}
         iothub_dto["id"] = iothub_body["id"]
         iothub_dto["customerUser"] = {
             "id": customer_user["id"]
