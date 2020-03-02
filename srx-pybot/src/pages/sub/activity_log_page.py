@@ -31,7 +31,7 @@ class ActivityLogPage(Page):
         expanding_xpath = self.locators.xpath_table_item(row_number, 1, sub_xpath=self.locators.xpath_by_count(self.locators.xpath_table, 1))
         expanding_element = self.get_element_xpath(f"{expanding_xpath}/div/div")
         if (expanding_element.get_attribute('class') == "rt-expander -open"):
-            self.logger.info("Row '"+str(row_number)+"' already expanded")
+            self.logger.info(f"Row '{row_number}' already expanded")
         elif (expanding_element.get_attribute('class') == "rt-expander"):
             self.click_xpath(expanding_xpath)
         else:

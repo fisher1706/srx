@@ -37,7 +37,7 @@ class TransactionApi(API):
         }
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info("Transaction '"+str(transaction_id)+"' has been successfully updated")
+            self.logger.info(f"Transaction '{transaction_id}' has been successfully updated")
         else:
             self.logger.error(str(response.content))
 

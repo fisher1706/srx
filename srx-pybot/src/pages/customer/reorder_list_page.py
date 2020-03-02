@@ -22,7 +22,7 @@ class ReorderListPage(CustomerPortalPage):
             self.logger.error(f"Replenishment item with SKU = '{expected_sku}' not found")
 
     def get_item_xpath_in_po_dialog(self, row, column):
-        return "(("+self.locators.xpath_dialog+self.xpath_po_dialog_row+")["+str(row)+"]"+self.xpath_po_dialog_column+")["+str(column)+"]"
+        return f"(({self.locators.xpath_dialog}{self.xpath_po_dialog_row})[{row}]{self.xpath_po_dialog_column})[{column}]"
 
     def get_item_text_in_po_dialog(self, row, column):
         item_xpath = self.get_item_xpath_in_po_dialog(row, column)

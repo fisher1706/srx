@@ -5,7 +5,7 @@ class new_element_in_table(object):
         self.number = number
 
     def __call__(self, driver):
-        if (driver.find_element_by_xpath("(//div[@role='rowgroup'])["+str(self.number)+"]")):
+        if (driver.find_element_by_xpath(f"(//div[@role='rowgroup'])[{self.number}]")):
             return True
         else:
             return False
