@@ -38,13 +38,18 @@ class API():
             self.case.admin_token = self.get_token(self.variables.admin_email, self.variables.admin_password)
         return self.case.admin_token
 
-    def send_post(self, url, token, data=None):
+    def send_post(self, url, token, data=None, additional_headers=None, line_data=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
             "Accept":"application/json"
         }
-        return requests.post(url, headers=headers, data=json.dumps(data))
+        if (additional_headers is not None):
+            headers.update(additional_headers)
+        if (line_data is not None):
+            return requests.post(url, headers=headers, data=line_data)
+        else:
+            return requests.post(url, headers=headers, data=json.dumps(data))
 
     def send_get(self, url, token):
         headers = {
