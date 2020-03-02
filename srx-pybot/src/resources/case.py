@@ -14,7 +14,7 @@ class Case():
         self.customer_token = None
 
     def critical_finish_case(self):
-        self.activity.logger.critical("Test crashed\n"+str(traceback.format_exc()))
+        self.activity.logger.critical(f"Test crashed\n{traceback.format_exc()}")
         self.finish_case()
 
     def finish_case(self):
@@ -43,7 +43,7 @@ class Case():
             client.user = self.activity.testrail_email
             client.password = self.activity.testrail_password
             for run in self.run_number:
-                body = 'add_result_for_case/' + str(run) + '/' + str(self.case_number)
+                body = f"add_result_for_case/{run}/{self.case_number}"
                 client.send_post(
                     body,
                     { 'status_id': self.result, 'comment': self.comment }
@@ -71,7 +71,7 @@ class Case():
     def random_email(self, length=10):
         letters = string.ascii_lowercase
         random_string = ''.join(random.choice(letters) for i in range(length))
-        random_email = "email."+random_string+"@example.com"
+        random_email = f"email.{random_string}@example.com"
         #self.activity.logger.info("New random email generated: '"+random_email+"'")
         return random_email
 

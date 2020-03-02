@@ -61,16 +61,16 @@ class Logger():
 
     def output_case_result(self):
         self.info("----------------------------")
-        self.info("CASE ERRORS: "+str(self.case_error_count))
+        self.info(f"CASE ERRORS: {self.case_error_count}")
         #self.info("CASE CRITICALS: "+str(self.case_critical_count))
         self.info("----------------------------")
 
     def output_suite_result(self):
-        self.info("SUITE ERRORS: "+str(self.suite_error_count))
-        self.info("SUITE CRITICALS: "+str(self.suite_critical_count))
+        self.info(f"SUITE ERRORS: {self.suite_error_count}")
+        self.info(f"SUITE CRITICALS: {self.suite_critical_count}")
         self.info("============================")
 
     def log_case_name(self, name):
         self.info("============================")
-        self.info("START CASE: "+name)
+        self.info(f"START CASE: {name}")
         self.info("----------------------------")

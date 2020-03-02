@@ -21,21 +21,21 @@ class Page():
         try:
             WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.ID, id))).click()
         except NoSuchElementException:
-            self.logger.error("Element with ID = '"+id+"' not found")
+            self.logger.error(f"Element with ID = '{id}' not found")
         except:
-            self.logger.error("Element with ID = '"+id+"' is not clickable")
+            self.logger.error(f"Element with ID = '{id}' is not clickable")
         else:
-            self.logger.info("Element with ID = '"+id+"' is clicked")
+            self.logger.info(f"Element with ID = '{id}' is clicked")
 
     def click_xpath(self, xpath):
         try:
             WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, xpath))).click()
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         except:
-            self.logger.error("Element with XPATH = '"+xpath+"' is not clickable")
+            self.logger.error(f"Element with XPATH = '{xpath}' is not clickable")
         else:
-            self.logger.info("Element with XPATH = '"+xpath+"' is clicked")
+            self.logger.info(f"Element with XPATH = '{xpath}' is clicked")
 
     def input_data_id(self, data, id):
         try:
@@ -43,27 +43,27 @@ class Page():
                 EC.element_to_be_clickable((By.ID, id))
             )
         except NoSuchElementException:
-            self.logger.error("Element with ID = '"+id+"' not found")
+            self.logger.error(f"Element with ID = '{id}' not found")
         except:
-            self.logger.error("Data '"+data+"' was not inputed into element with ID = '"+id+"'")
+            self.logger.error(f"Data '{data}' was not inputed into element with ID = '{id}'")
         else:
             element.clear()
             element.send_keys(data)
-            self.logger.info("Data '"+data+"' inputed into element with ID = '"+id+"'")
+            self.logger.info(f"Data '{data}' inputed into element with ID = '{id}'")
 
     def input_data_xpath(self, data, xpath):
             element = self.get_element_xpath(xpath)
             element.clear()
             element.send_keys(data)
-            self.logger.info("Data '"+str(data)+"' inputed into element with XPATH = '"+xpath+"'")
+            self.logger.info(f"Data '{data}' inputed into element with XPATH = '{xpath}'")
 
     def get_element_xpath(self, xpath):
         try:
             element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         except:
-            self.logger.error("It's not possible to get element with XPATH = '"+xpath+"'")
+            self.logger.error(f"It's not possible to get element with XPATH = '{xpath}'")
         else:
             return element
 
@@ -71,99 +71,99 @@ class Page():
         try:
             element = self.driver.find_element_by_id(id)
         except NoSuchElementException:
-            self.logger.error("Element with ID = '"+id+"' not found")
+            self.logger.error(f"Element with ID = '{id}' not found")
         except:
-            self.logger.error("It's not possible to get element with ID = '"+id+"'")
+            self.logger.error(f"It's not possible to get element with ID = '{id}'")
         else:
             return element
 
     def input_by_name(self, name, data):
         if (data is not None):
-            self.input_data_xpath(data, "//input[@name='"+name+"']")
+            self.input_data_xpath(data, f"//input[@name='{name}']")
 
     def should_be_disabled_id(self, id):
         try:
             element = self.driver.find_element_by_id(id)
         except NoSuchElementException:
-            self.logger.error("Element with ID = '"+id+"' not found")
+            self.logger.error(f"Element with ID = '{id}' not found")
         else:
             if(element.is_enabled()==True):
-                self.logger.error("Element with ID = '"+id+"' is enabled, but should be disabled")
+                self.logger.error(f"Element with ID = '{id}' is enabled, but should be disabled")
             else:
-                self.logger.info("Element with ID = '"+id+"' is disabled, as should")
+                self.logger.info(f"Element with ID = '{id}' is disabled, as should")
 
     def should_be_disabled_xpath(self, xpath):
         try:
             element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
             if(element.is_enabled()==True):
-                self.logger.error("Element with XPATH = '"+xpath+"' is enabled, but should be disabled")
+                self.logger.error(f"Element with XPATH = '{xpath}' is enabled, but should be disabled")
             else:
-                self.logger.info("Element with XPATH = '"+xpath+"' is disabled, as should")
+                self.logger.info(f"Element with XPATH = '{xpath}' is disabled, as should")
 
     def should_be_enabled_id(self, id):
         try:
             element = self.driver.find_element_by_id(id)
         except NoSuchElementException:
-            self.logger.error("Element with ID = '"+id+"' not found")
+            self.logger.error(f"Element with ID = '{id}' not found")
         else:
             if(element.is_enabled()==False):
-                self.logger.error("Element with ID = '"+id+"' is disabled, but should be enabled")
+                self.logger.error(f"Element with ID = '{id}' is disabled, but should be enabled")
             else:
-                self.logger.info("Element with ID = '"+id+"' is enabled, as should")
+                self.logger.info(f"Element with ID = '{id}' is enabled, as should")
 
     def should_be_enabled_xpath(self, xpath):
         try:
             element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
             if(element.is_enabled()==False):
-                self.logger.error("Element with XPATH = '"+xpath+"' is disabled, but should be enabled")
+                self.logger.error(f"Element with XPATH = '{xpath}' is disabled, but should be enabled")
             else:
-                self.logger.info("Element with XPATH = '"+xpath+"' is enabled, as should")
+                self.logger.info(f"Element with XPATH = '{xpath}' is enabled, as should")
 
     def should_be_present_id(self, id):
         try:
             self.driver.find_element_by_id(id)
         except NoSuchElementException:
-            self.logger.error("Element with ID = '"+id+"' not found")
+            self.logger.error(f"Element with ID = '{id}' not found")
         else:
-            self.logger.info("Element with ID = '"+id+"' is present")
+            self.logger.info(f"Element with ID = '{id}' is present")
 
     def should_be_present_xpath(self, xpath):
         try:
             self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
-            self.logger.info("Element with XPATH = '"+xpath+"' is present")
+            self.logger.info(f"Element with XPATH = '{xpath}' is present")
 
     def clear_id(self, id):
         try:
             self.driver.find_element_by_id(id).clear()
         except NoSuchElementException:
-            self.logger.error("Element with ID = '"+id+"' not found")
+            self.logger.error(f"Element with ID = '{id}' not found")
         else:
-            self.logger.info("Element with ID = '"+id+"' is cleared")
+            self.logger.info(f"Element with ID = '{id}' is cleared")
 
     def clear_xpath(self, xpath):
         try:
             self.driver.find_element_by_xpath(xpath).clear()
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
-            self.logger.info("Element with XPATH = '"+xpath+"' is cleared")
+            self.logger.info(f"Element with XPATH = '{xpath}' is cleared")
 
     def follow_url(self, url, hide_intercom=False):
         try:
             self.driver.get(url)
         except:
-            self.logger.error("Error during try to follow URL = '"+url+"'")
+            self.logger.error(f"Error during try to follow URL = '{url}'")
         else:
-            self.logger.info("URL = '"+url+"' is followed")
+            self.logger.info(f"URL = '{url}' is followed")
             if (hide_intercom == True):
                 self.should_be_present_id(self.locators.id_intercom_container)
                 self.driver.execute_script("document.getElementById('intercom-container').style.display = 'None';")
@@ -174,35 +174,35 @@ class Page():
                 EC.title_is(title)
             )
         except:
-            self.logger.error("Title should be '"+title+"', but now it is '"+self.driver.title+"'")
+            self.logger.error(f"Title should be '{title}', but now it is '{self.driver.title}'")
         else:
-            self.logger.info("Title is '"+title+"'")
+            self.logger.info(f"Title is '{title}'")
 
     def select_checkbox(self, xpath):
         try:
             element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Checkbox with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Checkbox with XPATH = '{xpath}' not found")
         else:
             checked = element.get_attribute("checked")
             if (checked == 'true'):
-                self.logger.info("Checkbox with XPATH = '"+xpath+"' has been already checked")
+                self.logger.info(f"Checkbox with XPATH = '{xpath}' has been already checked")
             elif (checked is None):
                 element.click()
-                self.logger.info("Checkbox with XPATH = '"+xpath+"' is checked")
+                self.logger.info(f"Checkbox with XPATH = '{xpath}' is checked")
 
     def unselect_checkbox(self, xpath):
         try:
             element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Checkbox with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Checkbox with XPATH = '{xpath}' not found")
         else:
             checked = element.get_attribute("checked")
             if (checked == 'true'):
                 element.click()
-                self.logger.info("Checkbox with XPATH = '"+xpath+"' is unchecked")
+                self.logger.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
             elif (checked is None):
-                self.logger.info("Checkbox with XPATH = '"+xpath+"' has been already unchecked")
+                self.logger.info(f"Checkbox with XPATH = '{xpath}' has been already unchecked")
 
     def select_checkbox_in_dialog_by_name(self, name):
         self.select_checkbox(self.locators.xpath_checkbox_in_dialog_by_name(name))
@@ -223,22 +223,22 @@ class Page():
         checked = element.get_attribute("checked")
         if (condition == True):
             if (checked == 'true'):
-                self.logger.info("Checkbox with XPATH = '"+xpath+"' is checked")
+                self.logger.info(f"Checkbox with XPATH = '{xpath}' is checked")
             elif (checked is None):
-                self.logger.error("Checkbox with XPATH = '"+xpath+"' should be checked")
+                self.logger.error(f"Checkbox with XPATH = '{xpath}' should be checked")
         elif (condition == False):
             if (checked is None):
-                self.logger.info("Checkbox with XPATH = '"+xpath+"' is unchecked")
+                self.logger.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
             elif (checked == 'true'):
-                self.logger.error("Checkbox with XPATH = '"+xpath+"' should be unchecked")
+                self.logger.error(f"Checkbox with XPATH = '{xpath}' should be unchecked")
         else:
             self.logger.error("Incorrect checkbox condition")
 
     def select_in_dropdown(self, xpath, name):
         if (name is not None):
                 self.click_xpath(xpath)
-                self.logger.info("Dropdown list with XPATH = '"+xpath+"' is opened")
-                self.click_xpath(xpath+"/..//div[text()='"+name+"']")
+                self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
+                self.click_xpath(f"{xpath}/..//div[text()='{name}']")
 
     def dialog_should_not_be_visible(self):
         try:
@@ -268,10 +268,10 @@ class Page():
         try:
             elements = self.driver.find_elements_by_xpath(xpath)
         except:
-            self.logger.error("Elements with XPATH = '"+xpath+"' do not found")
+            self.logger.error(f"Elements with XPATH = '{xpath}' do not found")
         else:
             count = len(elements)
-            self.logger.info("There are '"+str(count)+"' elements with XPATH = '"+xpath+"'")
+            self.logger.info(f"There are '{count}' elements with XPATH = '{xpath}'")
             return count
 
     def elements_count_should_be(self, xpath, number):
@@ -301,7 +301,7 @@ class Page():
         try:
             element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
             return element.text
 
@@ -316,7 +316,7 @@ class Page():
         if (column):
             return self.get_table_item_text_by_indexes(row, column)
         else:
-            self.logger.error("There is no header '"+header+"'")
+            self.logger.error(f"There is no header '{header}'")
 
     def check_table_item_by_header(self, row, header, expected_text):
         if (expected_text is not None):
@@ -325,51 +325,51 @@ class Page():
             if (column):
                 current_text = self.get_table_item_text_by_indexes(row, column)
             else:
-                self.logger.error("There is no header '"+header+"'")
+                self.logger.error(f"There is no header '{header}'")
             if isinstance(expected_text, list):
                 correctness = True
                 for element in expected_text:
                     if (element is not None):
                         if (element not in current_text):
-                            self.logger.error(str(row)+" element in '"+header+"' column is incorrect")
+                            self.logger.error(f"{row} element in '{header}' column is incorrect")
                             correctness = False
                             break
                 if (correctness == True):
-                    self.logger.info(str(row)+" element in '"+header+"' column is correct")
+                    self.logger.info(f"{row} element in '{header}' column is correct")
             else:
                 if (current_text == expected_text):
-                    self.logger.info(str(row)+" element in '"+header+"' column is correct")
+                    self.logger.info(f"{row} element in '{header}' column is correct")
                 else:
-                    self.logger.error(str(row)+" element in '"+header+"' column is '"+str(current_text)+"', but should be '"+expected_text+"'")
+                    self.logger.error(f"{row} element in '{header}' column is '{current_text}', but should be '{expected_text}'")
 
     def delete_dialog_about(self):
         xpath = self.locators.xpath_dialog+"//b"
         try:
             element = self.driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
-            self.logger.error("Element with XPATH = '"+xpath+"' not found")
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
             return element.text
 
     def delete_dialog_should_be_about(self, expected_text):
         current_text = str(self.delete_dialog_about())
         if (current_text == expected_text):
-            self.logger.info("Delete dialog about '"+current_text+"'")
+            self.logger.info(f"Delete dialog about '{current_text}'")
         else:
-            self.logger.info("Delete dialog about '"+current_text+"', but should be about '"+expected_text+"'")
+            self.logger.info(f"Delete dialog about '{current_text}', but should be about '{expected_text}'")
 
     def set_slider(self, xpath, condition):
         if (condition is not None):
             try:
                 element = self.driver.find_element_by_xpath(xpath)
             except NoSuchElementException:
-                self.logger.error("Slider with XPATH = '"+xpath+"' not found")
+                self.logger.error(f"Slider with XPATH = '{xpath}' not found")
             else:
                 if (element.get_attribute("value") != condition):
                     element.click()
-                    self.logger.info("Value of slider with XPATH = '"+xpath+"' is changed")
+                    self.logger.info(f"Value of slider with XPATH = '{xpath}' is changed")
                 else:
-                    self.logger.info("Slider with XPATH = '"+xpath+"' already has necessary value")
+                    self.logger.info(f"Slider with XPATH = '{xpath}' already has necessary value")
 
     def wait_until_page_loaded(self, time=3):
         try:
@@ -387,7 +387,7 @@ class Page():
             self.logger.info("Last page is opened")
 
     def open_last_page(self):
-        pagination_buttons = self.driver.find_elements_by_xpath(self.locators.xpath_pagination_bottom+"//button")
+        pagination_buttons = self.driver.find_elements_by_xpath(f"{self.locators.xpath_pagination_bottom}//button")
         if (len(pagination_buttons) > 3):
             if(pagination_buttons[-2].is_enabled() == True):
                 self.wait_until_page_loaded()
@@ -442,7 +442,7 @@ class Page():
                 for row in range(1, self.get_table_rows_number()+1):
                     cell_value = self.get_table_item_text_by_indexes(row, column)
                     if (cell_value == scan_by):
-                        self.logger.info("Text '"+scan_by+"' is found in the table")
+                        self.logger.info(f"Text '{scan_by}' is found in the table")
                         if (body is None):
                             return row
                         else:
@@ -456,13 +456,13 @@ class Page():
                             pagination_buttons[-1].click()
                             self.wait_until_page_loaded()
                     else:
-                        self.logger.error("There is no value '"+scan_by+"' in the '"+str(column)+"' column")
+                        self.logger.error(f"There is no value '{scan_by}' in the '{column}' column")
                         break
                 else:
-                    self.logger.error("There is no value '"+scan_by+"' in the '"+str(column)+"' column")
+                    self.logger.error(f"There is no value '{scan_by}' in the '{column}' column")
                     break
         else:
-            self.logger.error("There is no header '"+column_header+"'")
+            self.logger.error(f"There is no header '{column_header}'")
 
     def manage_shipto(self, shiptos, prefix_path=""):
         if (shiptos is not None):
@@ -470,11 +470,11 @@ class Page():
             for shipto in shiptos:
                 for row in range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1):
                     if (shipto == self.driver.find_element_by_xpath(self.locators.xpath_table_item_in_dialog(row, 1)).text):
-                        self.click_xpath(self.locators.xpath_table_item_in_dialog(row, 5)+"//button")
+                        self.click_xpath(f"{self.locators.xpath_table_item_in_dialog(row, 5)}//button")
                         break
                 else:
-                    self.logger.error("There is no ShipTo '"+shipto+"'")
-            self.click_xpath(self.locators.xpath_dialog+self.locators.xpath_submit_button+"//span[text()='Save']")
+                    self.logger.error(f"There is no ShipTo '{shipto}'")
+            self.click_xpath(f"{self.locators.xpath_dialog}{self.locators.xpath_submit_button}//span[text()='Save']")
 
     def get_row_of_table_item_by_header(self, scan_by, column_header, prefix_path=""):
         column = self.get_header_column(column_header)
@@ -511,6 +511,6 @@ class Page():
             if (item_text == expected_text):
                 self.logger.info("Dropdown list element has been found")
             else:
-                self.logger.error("The text of dropdown list element is '"+item_text+"'")
+                self.logger.error(f"The text of dropdown list element is '{item_text}'")
         else:
-            self.logger.error("The number of dropdown list elements = '"+str(number)+"'")
+            self.logger.error(f"The number of dropdown list elements = '{number}'")

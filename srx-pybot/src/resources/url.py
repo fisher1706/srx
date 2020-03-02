@@ -13,18 +13,18 @@ class URL():
 
     def get_url_for_env(self, url, portal):
         switcher = {
-            'dev': "https://"+portal+".dev."+url,
-            'staging': "https://"+portal+".staging."+url,
-            'prod': "https://"+portal+"."+url,
-            'qa': "https://"+portal+".qa."+url
+            'dev': f"https://{portal}.dev.{url}",
+            'staging': f"https://{portal}.staging.{url}",
+            'prod': f"https://{portal}.{url}",
+            'qa': f"https://{portal}.qa.{url}"
         }
         return switcher.get(self.environment)
 
     def get_api_url_for_env(self, url):
         switcher = {
-            'dev': "https://api-dev.storeroomlogix.com"+url,
-            'staging': "https://api-staging.storeroomlogix.com"+url,
-            'prod': "https://api-prod.storeroomlogix.com"+url,
-            'qa': "https://api-qa.storeroomlogix.com"+url
+            'dev': f"https://api-dev.storeroomlogix.com{url}",
+            'staging': f"https://api-staging.storeroomlogix.com{url}",
+            'prod': f"https://api-prod.storeroomlogix.com{url}",
+            'qa': f"https://api-qa.storeroomlogix.com{url}"
         }
         return switcher.get(self.environment)

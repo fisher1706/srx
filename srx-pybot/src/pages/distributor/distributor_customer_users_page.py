@@ -19,4 +19,4 @@ class DistributorCustomerUsersPage(DistributorPortalPage):
     def follow_customer_users_url(self, customer_id=None):
         if (customer_id is None):
             customer_id = self.variables.customer_id
-        self.follow_url(self.url.get_url_for_env("storeroomlogix.com/customers/"+customer_id+"#users", "distributor"), hide_intercom=True)
+        self.follow_url(self.url.get_url_for_env(f"storeroomlogix.com/customers/{customer_id}#users", "distributor"), hide_intercom=True)

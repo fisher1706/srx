@@ -67,10 +67,10 @@ class Locators():
     title_delete_iothub = "//span[@title='Delete IoTHub']/button"
     title_delete_locker = "//span[@title='Delete Locker']/button"
     title_delete_vending = "//span[@title='Delete Vending']/button"
-    title_configure = "//span[@title='Configure']/button"
+    title_configure = "//button[@title='Configure']"
 
     def xpath_by_count(self, xpath, count):
-        return "("+xpath+")["+str(count)+"]"
+        return f"({xpath})[{count}]"
 
     def xpath_checkbox_in_dialog(self, index):
         return self.xpath_by_count(self.xpath_dialog+self.xpath_checkbox, index)
@@ -79,19 +79,19 @@ class Locators():
         return self.xpath_by_count(self.xpath_select_box, index)
 
     def xpath_checkbox_in_dialog_by_name(self, name):
-        return self.xpath_dialog+"//span[text()='"+name+"']/..//input[@type='checkbox']"
+        return f"{self.xpath_dialog}//span[text()='{name}']/..//input[@type='checkbox']"
 
     def xpath_button_tab_by_name(self, name):
-        return self.xpath_button_tab+"//span[text()='"+name+"']"
+        return f"{self.xpath_button_tab}//span[text()='{name}']"
 
     def xpath_table_item(self, row, column, sub_xpath=""):
-        return "(("+sub_xpath+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"
+        return f"(({sub_xpath}{self.xpath_table_row})[{row}]{self.xpath_table_column})[{column}]"
 
     def xpath_table_item_in_dialog(self, row, column):
-        return "(("+self.xpath_dialog+self.xpath_table_row+")["+str(row)+"]"+self.xpath_table_column+")["+str(column)+"]"
+        return f"(({self.xpath_dialog}{self.xpath_table_row})[{row}]{self.xpath_table_column})[{column}]"
 
     def xpath_button_by_name(self, name):
-        return "//button[@type='button']//span[text()='"+name+"']"
+        return f"//button[@type='button']//span[text()='{name}']"
 
     def xpath_planogram(self, door, cell):
-        return "//div[@data-door='"+str(door)+"']//div[@data-cell='"+str(cell)+"']"
+        return f"//div[@data-door='{door}']//div[@data-cell='{cell}']"

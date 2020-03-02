@@ -14,9 +14,11 @@ class HardwarePage(AdminPortalPage):
         self.click_xpath(self.locators.xpath_submit_button)
         self.wait_until_page_loaded()
         self.should_be_present_xpath("//h6[text()='IoTHub provision information']")
+        self.should_be_present_xpath("//div[text()='Access Key:']/../span")
         serial_number = self.get_element_text("//div[text()='Access Key:']/../span")
         self.click_xpath(self.locators.xpath_close_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
         return serial_number
 
     def check_last_hardware(self, serial_number=None, device_type=None, iothub=None, device_name=None, distributor=None, customer_shipto=None, distributor_user=None, customer_user=None, expiration_date=None, device_subtype=None):
@@ -35,7 +37,7 @@ class HardwarePage(AdminPortalPage):
     def update_last_iothub(self, distributor):
         self.open_last_page()
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_edit_iothub)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), distributor)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(4), distributor)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()

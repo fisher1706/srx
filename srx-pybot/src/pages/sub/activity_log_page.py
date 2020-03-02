@@ -6,7 +6,7 @@ class ActivityLogPage(Page):
 
     def get_full_activity_log_row(self, row_number):
         self.expand_activity_log_row(row_number)
-        expanded_row_xpath = "("+self.locators.xpath_by_count(self.locators.xpath_table, 1)+self.locators.xpath_table_row+")["+str(row_number)+"]"+self.locators.xpath_table_row
+        expanded_row_xpath = f"({self.locators.xpath_by_count(self.locators.xpath_table, 1)}{self.locators.xpath_table_row})[{row_number}]{self.locators.xpath_table_row}"
         expanded_rows_number = len(self.activity.driver.find_elements_by_xpath(expanded_row_xpath))
         expanded_rows_text = dict()
         for index in range(1, expanded_rows_number+1):
@@ -20,7 +20,7 @@ class ActivityLogPage(Page):
         headers_text = list()
         for header in header_objects:
             headers_text.append(header.text)
-        row_objects = self.activity.driver.find_elements_by_xpath("(("+self.locators.xpath_by_count(self.locators.xpath_table, 1)+self.locators.xpath_table_row+")["+str(row_number)+"]"+self.locators.xpath_role_row+")[1]"+self.locators.xpath_table_column)
+        row_objects = self.activity.driver.find_elements_by_xpath(f"(({self.locators.xpath_by_count(self.locators.xpath_table, 1)}{self.locators.xpath_table_row})[{row_number}]{self.locators.xpath_role_row})[1]{self.locators.xpath_table_column}")
         del row_objects[0]
         rows_text = list()
         for row in row_objects:
@@ -29,7 +29,7 @@ class ActivityLogPage(Page):
 
     def expand_activity_log_row(self, row_number):
         expanding_xpath = self.locators.xpath_table_item(row_number, 1, sub_xpath=self.locators.xpath_by_count(self.locators.xpath_table, 1))
-        expanding_element = self.get_element_xpath(expanding_xpath+"/div/div")
+        expanding_element = self.get_element_xpath(f"{expanding_xpath}/div/div")
         if (expanding_element.get_attribute('class') == "rt-expander -open"):
             self.logger.info("Row '"+str(row_number)+"' already expanded")
         elif (expanding_element.get_attribute('class') == "rt-expander"):
@@ -44,11 +44,11 @@ class ActivityLogPage(Page):
         if (expected_expanded_body is not None):
             actual_main_body, actual_expanded_body = self.get_full_activity_log_row(row_number)
             for key in expected_expanded_body.keys():
-                assert expected_expanded_body[key] == actual_expanded_body[key], key+" value in Activity Log is '"+actual_expanded_body[key]+"', but should be '"+expected_expanded_body[key]+"'"
+                assert expected_expanded_body[key] == actual_expanded_body[key], f"{key} value in Activity Log is '{actual_expanded_body[key]}', but should be '{expected_expanded_body[key]}'"
         else:
             actual_main_body = self.get_main_activity_log_row(row_number)
             for key in expected_main_body.keys():
-                assert expected_main_body[key] == actual_main_body[key], key+" value in Activity Log is '"+actual_main_body[key]+"', but should be '"+expected_main_body[key]+"'"
+                assert expected_main_body[key] == actual_main_body[key], f"{key} value in Activity Log is '{actual_main_body[key]}', but should be '{expected_main_body[key]}'"
 
     def check_last_activity_log(self, expected_main_body, expected_expanded_body=None):
         self.check_activity_log_row(1, expected_main_body, expected_expanded_body)

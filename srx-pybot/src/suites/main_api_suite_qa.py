@@ -16,6 +16,7 @@ if __name__ == "__main__":
         total_triggers_include_all_movement_statuses(Case(api_activity, 'SUITE'))
         label_wake_up(Case(api_activity, 'SUITE'))
         noweight_locker_wake_up(Case(api_activity, 'SUITE'))
+        full_rfid_available_flow(Case(api_activity, 'SUITE'))
 
         api_activity.logger.output_suite_result()
         api_activity.finish_activity()
