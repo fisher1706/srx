@@ -19,7 +19,8 @@ def rfid_location_basis(case, number_of_labels=None):
         "location": location_response,
         "location_id": location_id,
         "labels": rfid_labels,
-        "shipto_id": location_response["shipto_number"]
+        "shipto_id": location_response["shipto_number"],
+        "product": location_response["product"]
     }
     
     return copy.deepcopy(response)
