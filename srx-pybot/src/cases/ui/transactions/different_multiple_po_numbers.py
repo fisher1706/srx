@@ -7,7 +7,6 @@ from src.api.distributor.location_api import LocationApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 from src.bases.location_basis import location_basis
-from src.api.api_methods import ApiMethods as apim
 
 def different_multiple_po_number(case):
     case.log_name("Different multiple PO numbers")
@@ -30,9 +29,8 @@ def different_multiple_po_number(case):
         new_shipto_1 = response_1["shipto_number"]
         new_shipto_2 = response_2["shipto_number"]
         
-        checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
-        sta.update_checkout_software_settings_shipto(checkout_settings_dto, new_shipto_1)
-        sta.update_checkout_software_settings_shipto(checkout_settings_dto, new_shipto_2)
+        sta.set_checkout_software_settings_for_shipto(new_shipto_1)
+        sta.set_checkout_software_settings_for_shipto(new_shipto_1)
 
         ta.create_active_item(new_shipto_1, la.get_ordering_config_by_sku(new_shipto_1, product_1_dto["partSku"]))
         ta.create_active_item(new_shipto_2, la.get_ordering_config_by_sku(new_shipto_2, product_2_dto["partSku"]))

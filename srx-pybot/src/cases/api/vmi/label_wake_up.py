@@ -5,7 +5,6 @@ from src.api.distributor.location_api import LocationApi
 from src.api.admin.admin_billing_api import AdminBillingApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
-from src.api.api_methods import ApiMethods as apim
 from src.bases.location_basis import location_basis
 
 def label_wake_up(case):
@@ -24,8 +23,7 @@ def label_wake_up(case):
         new_shipto = response["shipto_number"]
         product_body = response["product"]
 
-        checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
-        sta.update_checkout_software_settings_shipto(checkout_settings_dto, new_shipto)
+        sta.set_checkout_software_settings_for_shipto(new_shipto)
 
         aba.billing_transit(timestamp_another_day)
         aba.billing_transit(timestamp_another_day)

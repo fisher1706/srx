@@ -6,7 +6,6 @@ from src.api.admin.admin_billing_api import AdminBillingApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 from src.api.admin.hardware_api import HardwareApi
-from src.api.api_methods import ApiMethods as apim
 from src.bases.locker_location_basis import locker_location_basis
 import time
 import copy
@@ -28,8 +27,7 @@ def noweight_locker_wake_up(case):
         new_shipto = location_response["shipto_id"]
         product_body = location_response["product"]
 
-        checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
-        sta.update_checkout_software_settings_shipto(checkout_settings_dto, new_shipto)
+        sta.set_checkout_software_settings_for_shipto(new_shipto)
 
         aba.billing_transit(timestamp_another_day)
         aba.billing_transit(timestamp_another_day)

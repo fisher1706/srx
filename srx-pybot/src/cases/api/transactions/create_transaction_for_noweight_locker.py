@@ -6,7 +6,6 @@ from src.api.distributor.transaction_api import TransactionApi
 from src.api.admin.hardware_api import HardwareApi
 from src.api.distributor.settings_api import SettingsApi
 from src.bases.locker_location_basis import locker_location_basis
-from src.api.api_methods import ApiMethods as apim
 import time
 import copy
 
@@ -22,8 +21,7 @@ def create_transaction_for_noweight_locker(case):
         sta = SettingsApi(case)
 
         location_response = locker_location_basis(case, no_weight=True)
-        checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
-        sta.update_checkout_software_settings_shipto(checkout_settings_dto, location_response["shipto_id"])
+        sta.set_checkout_software_settings_for_shipto(location_response["shipto_id"])
 
         location_id = la.get_location_by_sku(location_response["shipto_id"], location_response["product"]["partSku"])[0]["id"]
         location_body = copy.deepcopy(location_response["location"])

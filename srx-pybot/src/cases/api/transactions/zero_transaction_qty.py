@@ -5,7 +5,6 @@ from src.api.distributor.location_api import LocationApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 from src.bases.location_basis import location_basis
-from src.api.api_methods import ApiMethods as apim
 
 def zero_transaction_qty(case):
     case.log_name("Zero quantity of new transaction")
@@ -22,8 +21,7 @@ def zero_transaction_qty(case):
         shipto_dto = response["shipto"]
         new_shipto = response["shipto_number"]
         
-        checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
-        sta.update_checkout_software_settings_shipto(checkout_settings_dto, new_shipto)
+        sta.set_checkout_software_settings_for_shipto(new_shipto)
 
         ordering_config_id = la.get_ordering_config_by_sku(new_shipto, product_dto["partSku"])
         ta.create_active_item(new_shipto, ordering_config_id)
