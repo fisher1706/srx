@@ -3,6 +3,7 @@ from src.bases.locker_basis import locker_basis
 from src.api.distributor.user_api import UserApi
 from src.api.distributor.hardware_api import HardwareApi as DistributorHardwareApi
 from src.api.admin.hardware_api import HardwareApi as AdminHardwareApi
+from src.resources.tools import Tools
 import copy
 
 def locker_location_basis(case, no_weight=False):
@@ -43,7 +44,7 @@ def locker_location_basis(case, no_weight=False):
         iothub_dto["distributorUser"] = {
             "id": distributor_user["id"]
         }
-        iothub_dto["deviceName"] = case.random_string_u()
+        iothub_dto["deviceName"] = Tools.random_string_u()
         iothub_dto["shipToId"] = new_shipto
         iothub_dto["distributorId"] = case.activity.variables.distributor_id
         iothub_dto["distributorName"] = case.activity.variables.distributor_name

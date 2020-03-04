@@ -1,7 +1,6 @@
 from src.api.cognito import Cognito
 import requests
 import json
-from src.api.api_methods import ApiMethods as apim
 
 class API():
     def __init__(self, case):

@@ -1,7 +1,6 @@
 from src.api.distributor.customer_api import CustomerApi
 from src.api.distributor.warehouse_api import WarehouseApi
-from src.api.api_methods import ApiMethods as apim
-import random
+from src.resources.tools import Tools
 import copy
 
 def customer_basis(case, customer_dto=None, warehouse_id=None):
@@ -12,8 +11,8 @@ def customer_basis(case, customer_dto=None, warehouse_id=None):
     ca = CustomerApi(case)
 
     if (customer_dto is None):
-        customer_dto = apim.get_dto("customer_dto.json")
-        customer_dto["name"] = case.random_string_l(10)
+        customer_dto = Tools.get_dto("customer_dto.json")
+        customer_dto["name"] = Tools.random_string_l(10)
         customer_dto["warehouse"]["id"] = warehouse_id
 
     new_customer = ca.create_customer(copy.deepcopy(customer_dto), warehouse_id)

@@ -2,6 +2,7 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.customer.checkout_users_page import CheckoutUsersPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 
 def checkout_user_crud(case):
     case.log_name("Checkout user CRUD")
@@ -14,15 +15,15 @@ def checkout_user_crud(case):
         edit_checkout_user_body = cup.checkout_user_body.copy()
 
         #-------------------
-        checkout_user_body["firstName"] = f"Checkout User {case.random_string_l()}"
-        checkout_user_body["lastName"] = f"Checkout User {case.random_string_l()}"
+        checkout_user_body["firstName"] = f"Checkout User {Tools.random_string_l()}"
+        checkout_user_body["lastName"] = f"Checkout User {Tools.random_string_l()}"
         #-------------------
-        edit_checkout_user_body["firstName"] = f"Checkout User {case.random_string_l()}"
-        edit_checkout_user_body["lastName"] = f"Checkout User {case.random_string_l()}"
-        edit_checkout_user_body["fob"] = case.random_string_u(18)
-        edit_checkout_user_body["passCode"] = case.random_string_u(18)
-        edit_checkout_user_body["email"] = case.random_email()
-        edit_checkout_user_body["phone"] = case.random_string_l()
+        edit_checkout_user_body["firstName"] = f"Checkout User {Tools.random_string_l()}"
+        edit_checkout_user_body["lastName"] = f"Checkout User {Tools.random_string_l()}"
+        edit_checkout_user_body["fob"] = Tools.random_string_u(18)
+        edit_checkout_user_body["passCode"] = Tools.random_string_u(18)
+        edit_checkout_user_body["email"] = Tools.random_email()
+        edit_checkout_user_body["phone"] = Tools.random_string_l()
         #-------------------
 
         lp.log_in_customer_portal()

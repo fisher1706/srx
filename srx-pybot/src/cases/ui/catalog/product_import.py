@@ -2,6 +2,7 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.distributor.catalog_page import CatalogPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 
 def product_import(case):
     case.log_name("Product import")
@@ -13,7 +14,7 @@ def product_import(case):
         product_body = cp.product_body.copy()
 
         #-------------------
-        product_body["partSku"] = case.random_string_u(18)
+        product_body["partSku"] = Tools.random_string_u(18)
         product_body["shortDescription"] = f"{product_body['partSku']} - short description"
         product_body["roundBuy"] = "39"
         #-------------------

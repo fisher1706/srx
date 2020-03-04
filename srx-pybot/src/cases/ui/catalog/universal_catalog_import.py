@@ -2,6 +2,7 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.admin.universal_catalog_page import UniversalCatalogPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 
 def universal_catalog_import(case):
     case.log_name("Universal catalog import")
@@ -13,10 +14,10 @@ def universal_catalog_import(case):
         universal_product_body = ucp.universal_product_body.copy()
 
         #-------------------
-        universal_product_body["manufacturerPartNumber"] = case.random_string_u(18)
-        universal_product_body["manufacturer"] = case.random_string_u(18)
-        universal_product_body["gtin"] = case.random_string_u(18)
-        universal_product_body["upc"] = case.random_string_u(18)
+        universal_product_body["manufacturerPartNumber"] = Tools.random_string_u(18)
+        universal_product_body["manufacturer"] = Tools.random_string_u(18)
+        universal_product_body["gtin"] = Tools.random_string_u(18)
+        universal_product_body["upc"] = Tools.random_string_u(18)
         #-------------------
         table_body = ucp.remapping_to_table_keys(universal_product_body.copy())
 

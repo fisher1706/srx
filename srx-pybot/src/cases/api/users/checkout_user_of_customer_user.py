@@ -3,7 +3,7 @@ from src.resources.activity import Activity
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.bases.customer_user_basis import customer_user_basis
-from src.api.api_methods import ApiMethods as apim
+from src.resources.tools import Tools
 
 def checkout_user_of_customer_user(case):
     case.log_name("Checkout user of customer user")
@@ -17,7 +17,7 @@ def checkout_user_of_customer_user(case):
         customer_user_body = response_customer_user["customerUser"]
         customer_user_id = response_customer_user["customerUserId"]
 
-        edit_customer_user_body = apim.get_dto("customer_user_dto.json")
+        edit_customer_user_body = Tools.get_dto("customer_user_dto.json")
         edit_customer_user_body["firstName"] = customer_user_body["firstName"]+"edit"
         edit_customer_user_body["lastName"] = customer_user_body["lastName"]+"edit"
         edit_customer_user_body["email"] = customer_user_body["email"]

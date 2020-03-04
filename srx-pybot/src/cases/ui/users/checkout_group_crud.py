@@ -2,6 +2,7 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.customer.checkout_groups_page import CheckoutGroupsPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 
 def checkout_group_crud(case):
     case.log_name("Checkout group CRUD")
@@ -14,10 +15,10 @@ def checkout_group_crud(case):
         edit_checkout_group_body = cgp.checkout_group_body.copy()
 
         #-------------------
-        checkout_group_body["name"] = f"Name {case.random_string_l()}"
-        checkout_group_body["email"] = case.random_email()
+        checkout_group_body["name"] = f"Name {Tools.random_string_l()}"
+        checkout_group_body["email"] = Tools.random_email()
         #-------------------
-        edit_checkout_group_body["name"] = f"Edit name {case.random_string_l()}"
+        edit_checkout_group_body["name"] = f"Edit name {Tools.random_string_l()}"
         #-------------------
 
         lp.log_in_customer_portal()

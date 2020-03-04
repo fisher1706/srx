@@ -1,7 +1,6 @@
 from src.resources.activity import Activity
 from src.resources.testrail import APIClient
 import random
-import string
 import traceback
 
 class Case():
@@ -55,25 +54,6 @@ class Case():
         self.testrail = True
         self.run_number = run_number
         self.case_number = case_number
-
-    def random_string_u(self, length=10):
-        letters = string.ascii_uppercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
-        #self.activity.logger.info("New random string generated: '"+random_string+"'")
-        return random_string
-
-    def random_string_l(self, length=10):
-        letters = string.ascii_lowercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
-        #self.activity.logger.info("New random string generated: '"+random_string+"'")
-        return random_string
-
-    def random_email(self, length=10):
-        letters = string.ascii_lowercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
-        random_email = f"email.{random_string}@example.com"
-        #self.activity.logger.info("New random email generated: '"+random_email+"'")
-        return random_email
 
     def print_traceback(self):
         self.activity.logger.info(str(traceback.format_exc()))

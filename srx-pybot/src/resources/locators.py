@@ -3,7 +3,6 @@ class Locators():
     id_email = "email"
     id_password = "password"
     id_enter_here = "redirectButton"
-    id_add_button = "item-action-create"
     id_add_button = "item-action-add"
     id_file_upload = "file-upload"
     id_intercom_container = "intercom-container"

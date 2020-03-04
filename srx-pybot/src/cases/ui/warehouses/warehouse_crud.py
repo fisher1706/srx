@@ -2,6 +2,7 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.distributor.warehouses_page import WarehousesPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 
 def warehouse_crud(case):
     case.log_name("Warehouse CRUD")
@@ -21,8 +22,8 @@ def warehouse_crud(case):
         short_state = "GA"
         code = "33333"
         timezone = "America/Halifax (-04:00)"
-        contact_email = case.random_email()
-        invoice_email = case.random_email()
+        contact_email = Tools.random_email()
+        invoice_email = Tools.random_email()
         #-------------------
         edit_name = "Warehouse Edit Name"
         edit_number = "Warehouse Edit Number"
@@ -33,8 +34,8 @@ def warehouse_crud(case):
         edit_short_state = "CO"
         edit_code = "99999"
         edit_timezone = "America/Atka (-10:00)"
-        edit_contact_email = case.random_email()
-        edit_invoice_email = case.random_email()
+        edit_contact_email = Tools.random_email()
+        edit_invoice_email = Tools.random_email()
         #-------------------
 
         lp.log_in_distributor_portal()

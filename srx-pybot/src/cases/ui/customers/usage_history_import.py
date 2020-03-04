@@ -2,8 +2,8 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 import random
-import time
 
 def usage_history_import(case):
     case.log_name("Usage history import")
@@ -15,11 +15,11 @@ def usage_history_import(case):
         usage_history_body = uhp.usage_history_body.copy()
 
         #-------------------
-        usage_history_body["Order Number"] = case.random_string_u(10)
-        usage_history_body["Customer Number"] = case.random_string_u(10)
-        usage_history_body["ShipTo Number"] = case.random_string_u(10)
-        usage_history_body["ShipTo Name"] = case.random_string_u(10)
-        usage_history_body["Part SKU"] = case.random_string_u(10)
+        usage_history_body["Order Number"] = Tools.random_string_u(10)
+        usage_history_body["Customer Number"] = Tools.random_string_u(10)
+        usage_history_body["ShipTo Number"] = Tools.random_string_u(10)
+        usage_history_body["ShipTo Name"] = Tools.random_string_u(10)
+        usage_history_body["Part SKU"] = Tools.random_string_u(10)
         usage_history_body["Quantity"] = str(random.choice(range(1, 100)))
         usage_history_body["Date"] = "Sun, Dec 30, 2018"
         #-------------------

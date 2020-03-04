@@ -1,5 +1,5 @@
 from src.api.api import API
-from src.api.api_methods import ApiMethods as apim
+from src.resources.tools import Tools
 
 class SettingsApi(API):
     def __init__(self, case):
@@ -15,7 +15,7 @@ class SettingsApi(API):
             self.logger.error(str(response.content))
 
     def set_checkout_software_settings_for_shipto(self, shipto_id, reorder_controls="MIN", track_ohi=True, scan_to_order=True, enable_reorder_control=True):
-        checkout_settings_dto = apim.get_dto("checkout_settings_dto.json")
+        checkout_settings_dto = Tools.get_dto("checkout_settings_dto.json")
         if (track_ohi == False):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("TRACK_OHI")
         if (scan_to_order == False):

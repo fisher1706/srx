@@ -7,6 +7,7 @@ from src.api.distributor.location_api import LocationApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 from src.bases.location_basis import location_basis
+from src.resources.tools import Tools
 
 def different_multiple_po_number(case):
     case.log_name("Different multiple PO numbers")
@@ -46,8 +47,8 @@ def different_multiple_po_number(case):
         }
         rlp.check_po_number_in_dialog(po_number_body.copy())
         new_po_number_body = {
-            shipto_1_dto["number"]:case.random_string_l(10),
-            shipto_2_dto["number"]:case.random_string_l(10)
+            shipto_1_dto["number"]:Tools.random_string_l(10),
+            shipto_2_dto["number"]:Tools.random_string_l(10)
         }
         rlp.submit_replenishment_list_different_po(new_po_number_body)
 

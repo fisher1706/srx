@@ -7,6 +7,7 @@ from src.api.distributor.location_api import LocationApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 from src.bases.location_basis import location_basis
+from src.resources.tools import Tools
 
 def general_multiple_po_number(case):
     case.log_name("General multiple PO numbers")
@@ -41,7 +42,7 @@ def general_multiple_po_number(case):
         rlp.select_by_sku(product_1_dto["partSku"])
         rlp.select_by_sku(product_2_dto["partSku"])
 
-        new_po_number = case.random_string_l(10)
+        new_po_number = Tools.random_string_l(10)
         rlp.submit_replenishment_list_general_po(new_po_number)
 
         sa.check_po_number_by_number(shipto_1_dto["number"], new_po_number)

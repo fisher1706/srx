@@ -1,8 +1,7 @@
 from src.api.distributor.location_api import LocationApi
-from src.api.api_methods import ApiMethods as apim
 from src.bases.shipto_basis import shipto_basis
 from src.bases.product_basis import product_basis
-import random
+from src.resources.tools import Tools
 import copy
 
 def location_basis(case, product_dto=None, shipto_dto=None, location_dto=None, location_pairs=None, location_type="LABEL"):
@@ -15,7 +14,7 @@ def location_basis(case, product_dto=None, shipto_dto=None, location_dto=None, l
     new_shipto = shipto_response["shipto_id"]
 
     if (location_dto is None):
-        location_dto = apim.get_dto("location_dto.json")
+        location_dto = Tools.get_dto("location_dto.json")
         if (location_pairs is None):
             location_dto["attributeName1"] = product_dto["partSku"]
             location_dto["attributeValue1"] = product_dto["partSku"]

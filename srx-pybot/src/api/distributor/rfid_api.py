@@ -1,5 +1,5 @@
 from src.api.api import API
-import random
+from src.resources.tools import Tools
 
 class RfidApi(API):
     def __init__(self, case):
@@ -9,7 +9,7 @@ class RfidApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/locations/{location_id}/rfids/create")
         token = self.get_distributor_token()
         if (label is None):
-            label = self.case.random_string_u()
+            label = Tools.random_string_u()
         dto = {
             "labelId": str(label),
             "locationId": location_id
@@ -44,7 +44,7 @@ class RfidApi(API):
             stop_cycle = True
         while True:
             if (device_id is None):
-                device_id = self.case.random_string_u(20)
+                device_id = Tools.random_string_u(20)
             manifest_data = self.get_manifest(device_id)
             if (len(manifest_data["items"]) == 0 and manifest_data["type"] == "DELIVERY"):
                 response = {
@@ -57,7 +57,7 @@ class RfidApi(API):
                     self.logger.error("Error during getting the delivery manifest")
 
     def create_return_manifest(self):
-        device_id = self.case.random_string_u(20)
+        device_id = Tools.random_string_u(20)
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/return")
         token = self.get_distributor_token()
         additional_header = {

@@ -3,6 +3,7 @@ from src.pages.customer.allocation_codes_page import AllocationCodesPage
 from src.pages.sub.activity_log_page import ActivityLogPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 import time
 
 def allocation_code_crud(case):
@@ -17,14 +18,14 @@ def allocation_code_crud(case):
         edit_allocation_code_body = acp.allocation_code_body.copy()
 
         #-------------------
-        allocation_code_body["name"] = case.random_string_u(10)
+        allocation_code_body["name"] = Tools.random_string_u(10)
         allocation_code_body["type"] = "Dropdown"
-        allocation_code_body["values"] = [case.random_string_u(7), case.random_string_u(7)]
+        allocation_code_body["values"] = [Tools.random_string_u(7), Tools.random_string_u(7)]
         allocation_code_body["isRequired"] = True
         allocation_code_body["shiptos"] = [case.activity.variables.shipto_number]
         #-------------------
-        edit_allocation_code_body["name"] = case.random_string_u(10)
-        edit_allocation_code_body["values"] = [case.random_string_u(7)]
+        edit_allocation_code_body["name"] = Tools.random_string_u(10)
+        edit_allocation_code_body["values"] = [Tools.random_string_u(7)]
         edit_allocation_code_body["isRequired"] = False
         #-------------------
         activity_log_main_body = {

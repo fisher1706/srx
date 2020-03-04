@@ -2,6 +2,7 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.distributor.distributor_users_page import DistributorUsersPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 
 def distributor_super_user_crud(case):
     case.log_name("Distributor super user CRUD")
@@ -12,7 +13,7 @@ def distributor_super_user_crud(case):
         dup = DistributorUsersPage(case.activity)
 
         #-------------------
-        email = case.random_email()
+        email = Tools.random_email()
         first_name = "my Super First"
         last_name = "my Super Last"
         #-------------------

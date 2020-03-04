@@ -1,6 +1,7 @@
 from src.api.admin.hardware_api import HardwareApi as AdminHardwareApi
 from src.api.distributor.user_api import UserApi
 from src.api.distributor.hardware_api import HardwareApi as DistributorHardwareApi
+from src.resources.tools import Tools
 import copy
 
 def rfid_basis(case, shipto=None):
@@ -21,7 +22,7 @@ def rfid_basis(case, shipto=None):
             "distributorUser": {
                 "id": distributor_user["id"]
             },
-            "deviceName": case.random_string_u(),
+            "deviceName": Tools.random_string_u(),
             "shipToId": shipto,
             "distributorId": case.activity.variables.distributor_id,
             "distributorName": case.activity.variables.distributor_name,

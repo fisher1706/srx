@@ -2,6 +2,7 @@ from src.pages.sub.login_page import LoginPage
 from src.pages.distributor.shipto_page import ShiptoPage
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.tools import Tools
 
 def shipto_crud(case):
     case.log_name("ShipTo CRUD")
@@ -14,16 +15,16 @@ def shipto_crud(case):
         edit_shipto_body = sp.shipto_body.copy()
 
         #-------------------
-        shipto_body["number"] = case.random_string_l(12)
-        shipto_body["poNumber"] = case.random_string_l(10)
+        shipto_body["number"] = Tools.random_string_l(12)
+        shipto_body["poNumber"] = Tools.random_string_l(10)
         shipto_body["address.zipCode"] = "77777"
         shipto_body["address.line1"] = "test_address 1"
         shipto_body["address.city"] = "test city)"
         shipto_body["state"] = "Alaska"
         #-------------------
-        edit_shipto_body["number"] = case.random_string_l(12)
-        edit_shipto_body["name"] = case.random_string_l(10)
-        edit_shipto_body["poNumber"] = case.random_string_l(10)
+        edit_shipto_body["number"] = Tools.random_string_l(12)
+        edit_shipto_body["name"] = Tools.random_string_l(10)
+        edit_shipto_body["poNumber"] = Tools.random_string_l(10)
         edit_shipto_body["address.zipCode"] = "77777"
         edit_shipto_body["address.line1"] = "test_address 1"
         edit_shipto_body["address.line2"] = "test_address 2"
