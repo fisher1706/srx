@@ -19,7 +19,7 @@ def zero_transaction_qty(case):
         response = location_basis(case)
         product_dto = response["product"]
         shipto_dto = response["shipto"]
-        new_shipto = response["shipto_number"]
+        new_shipto = response["shipto_id"]
         
         sta.set_checkout_software_settings_for_shipto(new_shipto)
 

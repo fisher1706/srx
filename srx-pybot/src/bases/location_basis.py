@@ -12,7 +12,7 @@ def location_basis(case, product_dto=None, shipto_dto=None, location_dto=None, l
 
     shipto_response = shipto_basis(case, shipto_dto)
     shipto_dto = copy.deepcopy(shipto_response["shipto"])
-    new_shipto = shipto_response["shipto_number"]
+    new_shipto = shipto_response["shipto_id"]
 
     if (location_dto is None):
         location_dto = apim.get_dto("location_dto.json")
@@ -47,7 +47,7 @@ def location_basis(case, product_dto=None, shipto_dto=None, location_dto=None, l
         "product": product_dto,
         "shipto": shipto_dto,
         "location": location_dto,
-        "shipto_number": new_shipto
+        "shipto_id": new_shipto
     }
 
     return copy.deepcopy(response)

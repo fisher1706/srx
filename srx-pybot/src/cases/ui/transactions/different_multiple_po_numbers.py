@@ -26,8 +26,8 @@ def different_multiple_po_number(case):
         product_2_dto = response_2["product"]
         shipto_1_dto = response_1["shipto"]
         shipto_2_dto = response_2["shipto"]
-        new_shipto_1 = response_1["shipto_number"]
-        new_shipto_2 = response_2["shipto_number"]
+        new_shipto_1 = response_1["shipto_id"]
+        new_shipto_2 = response_2["shipto_id"]
         
         sta.set_checkout_software_settings_for_shipto(new_shipto_1)
         sta.set_checkout_software_settings_for_shipto(new_shipto_1)

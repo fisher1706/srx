@@ -77,15 +77,23 @@ class HardwareApi(API):
         locker_types = self.get_locker_types()
         return locker_types[0]
 
-    def update_locker_weight_configuration(self, locker_id, number, condition):
-        dto = {
-            "config":{
-                "doors":[{
-                    "noWeights": condition,
-                    "number": number
-                }]
+    def update_locker_configuration(self, locker_id, number, condition):
+        locker_configuration = self.get_locker_configuration(locker_id)
+        for door in locker_configuration:
+            if (door["number"] == 1):
+                first_door_id = door["id"]
+                break
+        else:
+            self.logger.error("Something went wrong: there is no lockerdoor with number 1")
+        dto = [{
+            "id": first_door_id,
+            "number": 1,
+            "noWeight": condition,
+            "doorSerialNumber": number,
+            "smartShelfHardware": {
+                "id": None
             }
-        }
+        }]
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/lockers/{locker_id}/configuration")
         token = self.get_admin_token()
         response = self.send_put(url, token, dto)
@@ -93,3 +101,14 @@ class HardwareApi(API):
             self.logger.info(f"Configuration of locker with ID = '{locker_id}' has been successfully updated")
         else:
             self.logger.error(str(response.content))
+
+    def get_locker_configuration(self, locker_id):
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/lockers/{locker_id}/configuration")
+        token = self.get_admin_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info(f"Configuration of locker with ID = '{locker_id}' has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]

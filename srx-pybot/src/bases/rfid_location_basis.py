@@ -11,7 +11,7 @@ def rfid_location_basis(case, number_of_labels=None):
     if (number_of_labels is not None):
         ra = RfidApi(case)
         la = LocationApi(case)
-        location_id = la.get_location_by_sku(location_response["shipto_number"], location_response["product"]["partSku"])[0]["id"]
+        location_id = la.get_location_by_sku(location_response["shipto_id"], location_response["product"]["partSku"])[0]["id"]
         for index in range(0, number_of_labels):
             rfid_labels.append(ra.create_rfid(location_id))
 
@@ -19,7 +19,7 @@ def rfid_location_basis(case, number_of_labels=None):
         "location": location_response,
         "location_id": location_id,
         "labels": rfid_labels,
-        "shipto_id": location_response["shipto_number"],
+        "shipto_id": location_response["shipto_id"],
         "product": location_response["product"]
     }
     

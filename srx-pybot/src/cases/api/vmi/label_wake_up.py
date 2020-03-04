@@ -20,7 +20,7 @@ def label_wake_up(case):
         sta = SettingsApi(case)
 
         response = location_basis(case)
-        new_shipto = response["shipto_number"]
+        new_shipto = response["shipto_id"]
         product_body = response["product"]
 
         sta.set_checkout_software_settings_for_shipto(new_shipto)

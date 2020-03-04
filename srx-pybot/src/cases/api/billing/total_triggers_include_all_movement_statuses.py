@@ -26,7 +26,7 @@ def total_triggers_include_all_movement_statuses(case):
         start_total_triggers = dba.get_distributor_fees()["totalTriggers"]
 
         response = location_basis(case)
-        new_shipto = response["shipto_number"]
+        new_shipto = response["shipto_id"]
         product_body = response["product"]
 
         aba.billing_calculate(timestamp_another_day)

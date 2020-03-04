@@ -19,7 +19,7 @@ def vmi_list_partial_sku_match(case):
         lp.log_in_distributor_portal()
 
         shipto_response = shipto_basis(case)
-        shipto_number = shipto_response["shipto_number"]
+        shipto_id = shipto_response["shipto_id"]
         product_dto = product_basis(case)
         product_sku = product_dto["partSku"]
 
@@ -35,7 +35,7 @@ def vmi_list_partial_sku_match(case):
         case.critical_finish_case()
 
     try:
-        sa.delete_shipto(shipto_number)
+        sa.delete_shipto(shipto_id)
     except:
         case.print_traceback()
 

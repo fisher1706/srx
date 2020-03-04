@@ -24,15 +24,15 @@ def create_noweight_locker_location_via_planogram(case):
         lp.log_in_distributor_portal()
 
         shipto_response = shipto_basis(case)
-        shipto_number = shipto_response["shipto_number"]
+        shipto_id = shipto_response["shipto_id"]
         product_response = product_basis(case)
         product_sku = product_response["partSku"]
         round_buy = product_response["roundBuy"]
-        locker_response = locker_basis(case, shipto=shipto_number, no_weight=True)
+        locker_response = locker_basis(case, shipto=shipto_id, no_weight=True)
 
-        lpp.follow_locker_planogram_url(shipto_id=shipto_number)
+        lpp.follow_locker_planogram_url(shipto_id=shipto_id)
         lpp.create_location_via_planogram(1, 1, product_sku, round_buy, round_buy*3)
-        locations = la.get_location_by_sku(shipto_number, product_sku)
+        locations = la.get_location_by_sku(shipto_id, product_sku)
         assert len(locations) == 1, "There should be 1 location with SKU = '{product_sku}'"
         assert locations[0]["orderingConfig"]["lockerWithNoWeights"] == True, "Locations should be with NoWeight flag"
 
@@ -45,7 +45,7 @@ def create_noweight_locker_location_via_planogram(case):
         ha.delete_hardware(locker_response["locker"]["id"])
         time.sleep(5)
         ha.delete_hardware(locker_response["iothub"]["id"])
-        sa.delete_shipto(shipto_number)
+        sa.delete_shipto(shipto_id)
     except:
         case.print_traceback()
 

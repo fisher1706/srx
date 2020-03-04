@@ -22,7 +22,7 @@ def shipto_basis(case, shipto_dto=None):
 
     response = {
         "shipto": copy.deepcopy(shipto_dto),
-        "shipto_number": new_shipto
+        "shipto_id": new_shipto
     }
 
     return copy.deepcopy(response)

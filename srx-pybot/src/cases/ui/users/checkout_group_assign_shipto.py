@@ -36,7 +36,7 @@ def checkout_group_assign_shipto(case):
 
     try:
         cga.delete_checkout_group(checkout_group["id"])
-        sa.delete_shipto(shipto["shipto_number"])
+        sa.delete_shipto(shipto["shipto_id"])
     except:
         case.print_traceback()
 

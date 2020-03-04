@@ -27,3 +27,6 @@ class DistributorPortalPage(Page):
 
     def sign_out(self):
         self.click_id("sidebar-sign_out")
+    
+    def sidebar_rfid(self):
+        self.click_id("sidebar-rfid")

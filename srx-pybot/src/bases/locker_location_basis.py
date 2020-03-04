@@ -23,13 +23,13 @@ def locker_location_basis(case, no_weight=False):
 
         if (no_weight == True):
             aha = AdminHardwareApi(case)
-            aha.update_locker_weight_configuration(locker_body["id"], 1, True)
+            aha.update_locker_configuration(locker_body["id"], 1, True)
 
         response = location_basis(case, location_pairs=location_pairs, location_type="LOCKER")
         product_body = response["product"]
         shipto_body = response["shipto"]
         location_body = response["location"]
-        new_shipto = response["shipto_number"]
+        new_shipto = response["shipto_id"]
 
         ua = UserApi(case)
         customer_user = ua.get_first_customer_user(new_shipto)
