@@ -21,7 +21,7 @@ def warehouse_crud(case):
         state = "Georgia"
         short_state = "GA"
         code = "33333"
-        timezone = "America/Halifax (-04:00)"
+        timezone = "America/Halifax (-03:00)"
         contact_email = Tools.random_email()
         invoice_email = Tools.random_email()
         #-------------------
@@ -33,7 +33,7 @@ def warehouse_crud(case):
         edit_state = "Colorado"
         edit_short_state = "CO"
         edit_code = "99999"
-        edit_timezone = "America/Atka (-10:00)"
+        edit_timezone = "America/Atka (-09:00)"
         edit_contact_email = Tools.random_email()
         edit_invoice_email = Tools.random_email()
         #-------------------
