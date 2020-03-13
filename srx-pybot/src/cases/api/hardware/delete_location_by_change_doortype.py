@@ -18,7 +18,7 @@ def delete_location_by_change_doortype(case):
         location_response = locker_location_basis(case)
         original_location_count = len(la.get_locations(location_response["shipto_id"]))
         assert original_location_count == 1, "The number of location should be 1"
-        ha.update_locker_configuration(location_response["locker"]["id"], 1, True)
+        ha.update_locker_configuration(location_response["locker"]["id"], True)
         new_location_count = len(la.get_locations(location_response["shipto_id"]))
         assert new_location_count == 0, "The number of location should be 0"
 

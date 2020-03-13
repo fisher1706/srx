@@ -25,7 +25,7 @@ def locker_basis(case, iothub=True, shipto=None, no_weight=False):
     }
 
     if (no_weight == True):
-        aha.update_locker_configuration(locker_body["id"], 1, True)
+        aha.update_locker_configuration(locker_body["id"], True)
 
     if (shipto is not None):
         ua = UserApi(case)

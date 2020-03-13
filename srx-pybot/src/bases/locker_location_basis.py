@@ -24,7 +24,7 @@ def locker_location_basis(case, no_weight=False):
 
         if (no_weight == True):
             aha = AdminHardwareApi(case)
-            aha.update_locker_configuration(locker_body["id"], 1, True)
+            aha.update_locker_configuration(locker_body["id"], True)
 
         response = location_basis(case, location_pairs=location_pairs, location_type="LOCKER")
         product_body = response["product"]

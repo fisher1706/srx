@@ -1,4 +1,5 @@
 from src.api.api import API
+from src.resources.tools import Tools
 
 class HardwareApi(API):
     def __init__(self, case):
@@ -77,8 +78,10 @@ class HardwareApi(API):
         locker_types = self.get_locker_types()
         return locker_types[0]
 
-    def update_locker_configuration(self, locker_id, number, condition):
+    def update_locker_configuration(self, locker_id, condition, number=None):
         locker_configuration = self.get_locker_configuration(locker_id)
+        if (number is None):
+            number = Tools.random_string_l(15)
         for door in locker_configuration:
             if (door["number"] == 1):
                 first_door_id = door["id"]
