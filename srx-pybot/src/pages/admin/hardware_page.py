@@ -1,7 +1,6 @@
 from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 import random
-import time
 
 class HardwarePage(AdminPortalPage):
     def __init__(self, activity):
