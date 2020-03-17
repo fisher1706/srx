@@ -1,10 +1,16 @@
 from src.pages.admin.admin_portal_page import AdminPortalPage
-import time
+from src.resources.tools import Tools
 import random
+import time
 
 class HardwarePage(AdminPortalPage):
     def __init__(self, activity):
         super().__init__(activity)
+        self.xpath_weight_radio = "//input[@name='noWeight' and @type='radio' and @value='false']"
+        self.xpath_no_weight_radio = "//input[@name='noWeight' and @type='radio' and @value='true']"
+        self.xpath_door_serial_number_title = "//div[text()='Door Serial Number']"
+        self.xpath_door_serial_number = f"{self.xpath_door_serial_number_title}/../div[2]"
+        self.xpath_smart_shelf_title = "//div[text()='Smart Shelf Serial Number']"
 
     def create_iothub(self, distributor):
         self.click_id(self.locators.id_add_button)
@@ -102,36 +108,35 @@ class HardwarePage(AdminPortalPage):
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
 
-    def configure_last_locker_door(self, clear_previous_data=None):
+    def configure_locker_door(self, door_number=None, serial_number=None, is_weight=False):
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
-        if (clear_previous_data is not None):
-            self.unselect_checkbox(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_checkbox, clear_previous_data["checkbox"]))
-            self.clear_xpath(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_type_text, clear_previous_data["text"]))
-        count = self.get_element_count(self.locators.xpath_dialog+self.locators.xpath_checkbox)
-        checking_count = self.get_element_count(self.locators.xpath_dialog+self.locators.xpath_type_text)
-        assert count == checking_count, "The number of checkboxes should be equal to the number of text fields"
-        if (count > 1):
-            checkbox = random.choice(range(1, count))
-            text_field = random.choice(range(1, count))
+        if (door_number is None):
+            count = self.get_element_count(self.locators.title_edit_door)
+            door_number = random.choice(range(0, count))+1
+        if (serial_number is None):
+            serial_number = Tools.random_string_u()
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_door, door_number))
+        if (is_weight == False):
+            xpath_radio = self.xpath_no_weight_radio
         else:
-            checkbox = 1
-            text_field = 1
-        self.select_checkbox(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_checkbox, checkbox))
-        self.input_data_xpath(str(text_field), self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_type_text, text_field))
-        self.click_xpath(self.locators.xpath_confirm_button)
+            xpath_radio = self.xpath_weight_radio
+        self.click_xpath(f"{xpath_radio}/../..")
+        self.input_by_name("doorSerial", serial_number)
+        self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         data = {
-            "checkbox": checkbox,
-            "text": text_field
+            "doors_count": count,
+            "door": door_number,
+            "weight": is_weight,
+            "serial_number": serial_number
         }
         return data
 
-    def check_last_locker_door(self, doors_data):
-        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
-        self.checkbox_should_be(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_checkbox, doors_data["checkbox"]), True)
-        if (self.get_element_xpath(self.locators.xpath_by_count(self.locators.xpath_dialog+self.locators.xpath_type_text, doors_data["text"])).get_attribute("value") != str(doors_data["text"])):
-            self.logger.error(f"There is no necessary value in the '{doors_data['text']}' text field")
-        else:
-            self.logger.info(f"Value in the '{doors_data['text']}' text field is correct")
-        self.click_xpath(self.locators.xpath_dialog+self.locators.xpath_dialog_cancel_button)
-        self.dialog_should_not_be_visible()
+    def check_locker_door(self, doors_data):
+        assert doors_data["serial_number"] == self.get_element_text(self.locators.xpath_by_count(self.xpath_door_serial_number, doors_data["door"])), "The Door SN is incorrect"
+        if (doors_data["weight"] == False):
+            smart_shelves = self.get_element_count(self.xpath_smart_shelf_title)
+            assert doors_data["doors_count"] == smart_shelves + 1, "The number of noWeight doors is incorrect"
+            for door in range(1, doors_data["doors_count"]+1):
+                if (door != doors_data["door"]):
+                    self.should_be_present_xpath(f"{self.xpath_door_serial_number_title}/../../..{self.xpath_smart_shelf_title}")
