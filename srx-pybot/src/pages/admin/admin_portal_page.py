@@ -19,3 +19,6 @@ class AdminPortalPage(Page):
 
     def sidebar_universal_catalog(self):
         self.click_id("sidebar-universal-catalog")
+    
+    def sidebar_distributors(self):
+        self.click_id("sidebar-distributors")

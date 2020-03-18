@@ -38,6 +38,7 @@ class Locators():
     xpath_assign_product_planogram = "//button[@type='button']/span[text()='ASSIGN PRODUCT']"
     xpath_no_data_found = "//div[text()='No data found']"
     xpath_close_button = "//button[@data-testid='close-btn']"
+    xpath_role_presentation = "//div[@role='presentation']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -67,6 +68,8 @@ class Locators():
     title_delete_locker = "//span[@title='Delete Locker']/button"
     title_delete_vending = "//span[@title='Delete Vending']/button"
     title_configure = "//button[@title='Configure']"
+    title_delete_distributor = "//span[@title='Delete distributor']/button"
+    title_edit_distributor = "//span[@title='Edit distributor']/button"
     title_edit_door = "//span[@title='Edit Door']/button"
     title_edit_status = "//span[@title='Edit status']/button"
     title_unassign = "//span[@title='Unassign']/button"

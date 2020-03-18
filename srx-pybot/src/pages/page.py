@@ -206,6 +206,9 @@ class Page():
 
     def select_checkbox_in_dialog_by_name(self, name):
         self.select_checkbox(self.locators.xpath_checkbox_in_dialog_by_name(name))
+    
+    def unselect_checkbox_in_dialog_by_name(self, name):
+        self.unselect_checkbox(self.locators.xpath_checkbox_in_dialog_by_name(name))
 
     def clear_all_checkboxes_in_dialog(self):
         try:
