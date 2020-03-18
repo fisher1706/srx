@@ -68,6 +68,8 @@ class Locators():
     title_delete_vending = "//span[@title='Delete Vending']/button"
     title_configure = "//button[@title='Configure']"
     title_edit_door = "//span[@title='Edit Door']/button"
+    title_edit_status = "//span[@title='Edit status']/button"
+    title_unassign = "//span[@title='Unassign']/button"
 
     def xpath_by_count(self, xpath, count):
         return f"({xpath})[{count}]"

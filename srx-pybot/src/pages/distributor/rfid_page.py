@@ -24,3 +24,15 @@ class RfidPage(DistributorPortalPage):
     def check_last_rfid_label(self, label, status):
         self.check_last_table_item_by_header("RFID", label)
         self.check_last_table_item_by_header("State", status)
+
+    def update_last_rfid_label_status(self, status):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_status, self.get_table_rows_number()))
+        self.click_xpath(f"{self.locators.xpath_dialog}{self.locators.xpath_button}//span[text()='{status}']")
+        self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
+
+    def unassign_last_rfid_label(self):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_unassign, self.get_table_rows_number()))
+        self.click_xpath(self.locators.xpath_button_by_name("Yes, unassign EPC"))
+        self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
