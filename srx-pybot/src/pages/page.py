@@ -140,6 +140,14 @@ class Page():
             self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' is present")
+    
+    def should_not_be_present_xpath(self, xpath):
+        try:
+            self.driver.find_element_by_xpath(xpath)
+        except NoSuchElementException:
+            self.logger.info(f"Element with XPATH = '{xpath}' is NOT present")
+        else:
+            self.logger.error(f"Element with XPATH = '{xpath}' is present")
 
     def clear_id(self, id):
         try:

@@ -27,6 +27,7 @@ def distributor_crud(case):
         state = "Massachusetts"
         bill_by = "SKU"
         checkbox_list = ["Processing Fee", "Supply Force", "User Data", "Agreements", "Billing Info"]
+        table_cells_checkbox = ["Process.Fee", "SupplyForce", "User Data", "Agreements", "Billing Info"]
         #-------------------
         edit_distributor_body["name"] = "my Edit First"
         edit_distributor_body["invoiceEmail"] = Tools.random_email()
@@ -45,10 +46,9 @@ def distributor_crud(case):
         dp.sidebar_distributors()
         time.sleep(7)
         dp.create_distributor(distributor_body.copy(), state=state, bill_by=bill_by, checkbox_list=checkbox_list)
-        time.sleep(2)
-        dp.check_last_distributor(distributor_body.copy(), checkbox_list=checkbox_list)
+        dp.check_last_distributor(distributor_body.copy(), state_short_code="MA", table_cells_checkbox=table_cells_checkbox, checkbox_list=checkbox_list)
         dp.update_last_distributor(edit_distributor_body.copy(), state=edit_state, bill_by=edit_bill_by, checkbox_list=edit_checkbox_list, ship_to_level=ship_to_level)
-        dp.check_last_distributor(edit_distributor_body.copy(), checkbox_list=edit_checkbox_list)
+        dp.check_last_edited_distributor(edit_distributor_body.copy(), state_short_code="AK", table_cells_checkbox=table_cells_checkbox, checkbox_list=edit_checkbox_list)
         dp.delete_last_distributor()
         case.finish_case()
 

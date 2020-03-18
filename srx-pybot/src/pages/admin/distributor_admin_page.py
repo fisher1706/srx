@@ -24,9 +24,10 @@ class DistributorAdminPage(AdminPortalPage):
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), bill_by)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
 
-    def check_last_distributor(self, distributor_body, checkbox_list):
-        primary_address = " ".join([distributor_body["address.line1"], distributor_body["address.line2"], distributor_body["address.city"], "MA", distributor_body["address.zipCode"]])
+    def check_last_distributor(self, distributor_body, state_short_code, table_cells_checkbox, checkbox_list):
+        primary_address = " ".join([distributor_body["address.line1"], distributor_body["address.line2"], distributor_body["address.city"], state_short_code, distributor_body["address.zipCode"]])
         table_cells = {
             "Name": distributor_body["name"],
             "Invoice Email": distributor_body["invoiceEmail"],
@@ -35,7 +36,6 @@ class DistributorAdminPage(AdminPortalPage):
         }
         for cell in table_cells.keys():
             self.check_last_table_item_by_header(cell, table_cells[cell])
-        table_cells_checkbox = ["Process.Fee", "SupplyForce", "User Data", "Agreements", "Billing Info"]
         row_number = self.get_table_rows_number()
         for cell_checkbox in table_cells_checkbox:
             column = self.get_header_column(cell_checkbox)
@@ -52,7 +52,27 @@ class DistributorAdminPage(AdminPortalPage):
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), ship_to_level)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
-
+        self.wait_until_page_loaded()
+    
+    def check_last_edited_distributor(self, distributor_body, state_short_code, table_cells_checkbox, checkbox_list):
+        primary_address = " ".join([distributor_body["address.line1"], distributor_body["address.line2"], distributor_body["address.city"], state_short_code, distributor_body["address.zipCode"]])
+        table_cells = {
+            "Name": distributor_body["name"],
+            "Invoice Email": distributor_body["invoiceEmail"],
+            "Primary Address": primary_address,
+            "Billing Delay": distributor_body["billingDelay"],
+        }
+        #for cell in table_cells.keys():
+        #    self.check_last_table_item_by_header(cell, table_cells[cell])
+        table_cells_checkbox = ["Process.Fee", "SupplyForce", "User Data", "Agreements", "Billing Info"]
+        row_number = self.get_table_rows_number()
+        for cell_checkbox in table_cells_checkbox[2:]:
+            column = self.get_header_column(cell_checkbox)
+            self.should_be_present_xpath(f"{self.locators.xpath_table_item(row_number, column)}//span/div")
+        for cell_checkbox in table_cells_checkbox[0:2]:
+            column = self.get_header_column(cell_checkbox)
+            self.should_not_be_present_xpath(f"{self.locators.xpath_table_item(row_number, column)}//span/div")
+    
     def delete_last_distributor(self):
         full_name = self.get_last_table_item_text_by_header("Name")
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_delete_distributor, self.get_table_rows_number()))
