@@ -7,7 +7,7 @@ from src.api.distributor.shipto_api import ShiptoApi
 
 def rfid_label_crud(case):
     case.log_name("RFID label CRUD")
-    #case.testrail_config(case.activity.variables.run_number, 28)
+    case.testrail_config(case.activity.variables.run_number, 1918)
 
     try:
         lp = LoginPage(case.activity)

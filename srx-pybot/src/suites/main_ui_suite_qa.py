@@ -37,6 +37,7 @@ if __name__ == "__main__":
         checkout_group_assign_shipto(Case(activity, 'SUITE'))
         checkout_group_assign_user(Case(activity, 'SUITE'))
         distributor_crud(Case(activity, 'SUITE'))
+        rfid_label_crud(Case(activity, 'SUITE'))
         
         activity.logger.output_suite_result()
         activity.finish_activity()
