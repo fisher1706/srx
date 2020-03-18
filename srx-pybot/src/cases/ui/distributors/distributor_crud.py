@@ -15,6 +15,8 @@ def distributor_crud(case):
         dp = DistributorAdminPage(case.activity)
         distributor_body = dp.distributor_body.copy()
         edit_distributor_body = dp.distributor_body.copy()
+        table_cells_checkbox = dp.table_cells_checkbox.copy()
+        edit_table_cells_checkbox = dp.table_cells_checkbox.copy()
 
         #-------------------
         distributor_body["name"] = "my First"
@@ -27,7 +29,7 @@ def distributor_crud(case):
         state = "Massachusetts"
         bill_by = "SKU"
         checkbox_list = ["Processing Fee", "Supply Force", "User Data", "Agreements", "Billing Info"]
-        table_cells_checkbox = ["Process.Fee", "SupplyForce", "User Data", "Agreements", "Billing Info"]
+
         #-------------------
         edit_distributor_body["name"] = "my Edit First"
         edit_distributor_body["invoiceEmail"] = Tools.random_email()
@@ -40,15 +42,17 @@ def distributor_crud(case):
         edit_state = "Alaska"
         edit_bill_by = "ShipTo"
         ship_to_level = "Level 1"
+        edit_table_cells_checkbox["Process.Fee"] = False
+        edit_table_cells_checkbox["SupplyForce"] = False
         #-------------------
 
         lp.log_in_admin_portal()
         dp.sidebar_distributors()
         time.sleep(7)
-        dp.create_distributor(distributor_body.copy(), state=state, bill_by=bill_by, checkbox_list=checkbox_list)
-        dp.check_last_distributor(distributor_body.copy(), state_short_code="MA", table_cells_checkbox=table_cells_checkbox, checkbox_list=checkbox_list)
+        check_mark = dp.create_distributor(distributor_body.copy(), state=state, bill_by=bill_by, checkbox_list=checkbox_list)
+        dp.check_last_distributor(distributor_body.copy(), state_short_code="MA", table_cells_checkbox=table_cells_checkbox, check_mark=check_mark)
         dp.update_last_distributor(edit_distributor_body.copy(), state=edit_state, bill_by=edit_bill_by, checkbox_list=edit_checkbox_list, ship_to_level=ship_to_level)
-        dp.check_last_edited_distributor(edit_distributor_body.copy(), state_short_code="AK", table_cells_checkbox=table_cells_checkbox, checkbox_list=edit_checkbox_list)
+        dp.check_last_distributor(edit_distributor_body.copy(), "AK", table_cells_checkbox=edit_table_cells_checkbox, check_mark=check_mark)
         dp.delete_last_distributor()
         case.finish_case()
 
