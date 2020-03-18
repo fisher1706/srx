@@ -23,7 +23,6 @@ class DistributorAdminPage(AdminPortalPage):
 
     def create_distributor(self, distributor_body, state, bill_by, checkbox_list):
         check_mark = self.get_element_count(f"{self.locators.xpath_table}//span/div")
-        print(check_mark)
         self.click_id(self.locators.id_add_button)
         for checkbox in checkbox_list:
             self.select_checkbox_in_dialog_by_name(checkbox)
