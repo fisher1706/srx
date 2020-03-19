@@ -22,3 +22,6 @@ class AdminPortalPage(Page):
     
     def sidebar_distributors(self):
         self.click_id("sidebar-distributors")
+    
+    def sidebar_fees(self):
+        self.click_id("sidebar-fees")
