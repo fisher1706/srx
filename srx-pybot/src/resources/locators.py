@@ -71,6 +71,7 @@ class Locators():
     title_delete_distributor = "//span[@title='Delete distributor']/button"
     title_edit_distributor = "//span[@title='Edit distributor']/button"
     title_edit_door = "//span[@title='Edit Door']/button"
+    title_undo = "//span[@title='Undo cell edit (Ctrl+Z)']/button"
 
     def xpath_by_count(self, xpath, count):
         return f"({xpath})[{count}]"

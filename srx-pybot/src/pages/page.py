@@ -57,6 +57,15 @@ class Page():
             element.send_keys(data)
             self.logger.info(f"Data '{data}' inputed into element with XPATH = '{xpath}'")
 
+    def input_inline_xpath(self, data, xpath):
+        if (data is not None):
+            self.click_xpath(xpath)
+            self.click_xpath(xpath)
+            element =self.driver.find_element_by_xpath(f"{xpath}//input")
+            self.driver.execute_script("arguments[0].value = arguments[1]", element, "")
+            self.input_data_xpath(data, f"{xpath}//input")
+            element.send_keys(Keys.ENTER)
+
     def get_element_xpath(self, xpath):
         try:
             element = self.driver.find_element_by_xpath(xpath)
@@ -517,3 +526,7 @@ class Page():
                 self.logger.error(f"The text of dropdown list element is '{item_text}'")
         else:
             self.logger.error(f"The number of dropdown list elements = '{number}'")
+
+    def click_tab_by_name(self, tab_name):
+        self.click_xpath(self.locators.xpath_button_tab_by_name(tab_name))
+        self.wait_until_page_loaded
