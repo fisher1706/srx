@@ -13,22 +13,19 @@ class FeesPage(AdminPortalPage):
         }
 
     def set_fee_price(self, fee_price):
-        row = 0
+        
         self.click_tab_by_name("ShipTo Fees")
-        for field in fee_price.keys():
-            row +=1
-            self.input_inline_xpath(fee_price[field], f"{self.locators.xpath_table_item(row, 2)}")
+        for row, field in enumerate(fee_price.keys()):
+            self.input_inline_xpath(fee_price[field], f"{self.locators.xpath_table_item(row+1, 2)}")
+        time.sleep(2)
 
     def check_fee_price(self, fee_price):
-        row = 0
-        self.page_refresh
-        self.wait_until_page_loaded
-        for field in fee_price.keys():
-            row +=1
-            self.check_table_item_by_header(row, "Price", f"${fee_price[field]}.00")
+        self.page_refresh()
+        for row, field in enumerate(fee_price.keys()):
+            self.check_table_item_by_header(row+1, "Price", f"${fee_price[field]}.00")
 
     def undo(self, fee_price):
         for field in fee_price.keys():
-            self.wait_until_page_loaded
-            self.click_xpath(self.locators.title_undo)
+            self.click_id("item-action-undefined")
+        time.sleep(2)
 
