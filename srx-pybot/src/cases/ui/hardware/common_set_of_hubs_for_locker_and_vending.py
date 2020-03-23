@@ -25,7 +25,7 @@ def common_set_of_hubs_for_locker_and_vending(case):
         hp.iothub_should_be_available("IP Camera", iothub_name)
 
         locker_serial_number = hp.create_locker(case.activity.variables.distributor_name, iothub_name) #create locker
-        hp.check_last_hardware(device_type="LOCKER", distributor=case.activity.variables.distributor_name)
+        hp.check_last_hardware(device_type="Locker", distributor=case.activity.variables.distributor_name)
 
         hp.iothub_should_not_be_available("Locker", iothub_name)
         hp.iothub_should_not_be_available("Vending", iothub_name)
@@ -38,7 +38,7 @@ def common_set_of_hubs_for_locker_and_vending(case):
         hp.iothub_should_be_available("IP Camera", iothub_name)
 
         locker_serial_number = hp.create_vending(case.activity.variables.distributor_name, iothub_name) #create vending
-        hp.check_last_hardware(device_type="VENDING", distributor=case.activity.variables.distributor_name)
+        hp.check_last_hardware(device_type="Vending", distributor=case.activity.variables.distributor_name)
 
         hp.iothub_should_not_be_available("Locker", iothub_name)
         hp.iothub_should_not_be_available("Vending", iothub_name)
