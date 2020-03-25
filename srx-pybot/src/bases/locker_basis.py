@@ -5,15 +5,22 @@ from src.resources.tools import Tools
 import copy
 import time
 
-def locker_basis(case, iothub=True, shipto=None, no_weight=False):
+def locker_basis(case, iothub=True, shipto=None, no_weight=False, distributor_id=None):
     aha = AdminHardwareApi(case)
-
-    if (iothub == True):
-        iothub_body = aha.create_iothub()
-        iothub_id = iothub_body["id"]
-    else:
-        iothub_body = None
-        iothub_id = None
+    if (distributor_id is None):
+        if (iothub == True):
+            iothub_body = aha.create_iothub()
+            iothub_id = iothub_body["id"]
+        else:
+            iothub_body = None
+            iothub_id = None
+    elif (distributor_id is not None):
+        if (iothub == True):
+            iothub_body = aha.create_iothub(distributor_id)
+            iothub_id = iothub_body["id"]
+        else:
+            iothub_body = None
+            iothub_id = None
 
     first_locker_type_id = (aha.get_first_locker_type())["id"]
     time.sleep(5)

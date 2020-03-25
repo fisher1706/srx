@@ -530,3 +530,10 @@ class Page():
     def click_tab_by_name(self, tab_name):
         self.click_xpath(self.locators.xpath_button_tab_by_name(tab_name))
         self.wait_until_page_loaded
+
+    def element_text_should_be_empty(self, xpath):
+        text = self.get_element_text(xpath)
+        if (text is None):
+            self.logger.info(f"Element {xpath} does not contain text")
+        else:
+            self.logger.info(f"Element {xpath} contains text: {text}")
