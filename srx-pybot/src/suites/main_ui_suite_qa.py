@@ -39,6 +39,7 @@ if __name__ == "__main__":
         distributor_crud(Case(activity, 'SUITE'))
         shipto_fee_levels(Case(activity, 'SUITE'))
         rfid_label_crud(Case(activity, 'SUITE'))
+        smart_shelves_crud(Case(activity, 'SUITE'))
         
         activity.logger.output_suite_result()
         activity.finish_activity()

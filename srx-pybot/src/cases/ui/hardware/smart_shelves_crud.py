@@ -1,6 +1,5 @@
 from src.pages.sub.login_page import LoginPage
-
-from src.pages.admin.hardware_page import HardwarePage
+from src.pages.admin.smart_shelves_page import SmartShelves
 from src.api.admin.hardware_api import HardwareApi
 from src.resources.case import Case
 from src.resources.activity import Activity
@@ -10,11 +9,11 @@ import random
 
 def smart_shelves_crud(case):
     case.log_name("Smart Shelves CRUD")
-    #case.testrail_config(case.activity.variables.run_number, 1851)
+    case.testrail_config(case.activity.variables.run_number, 1920)
 
     try:
         lp = LoginPage(case.activity)
-        hp = HardwarePage(case.activity)
+        sh = SmartShelves(case.activity)
         ha = HardwareApi(case)
 
         # create locker for main distributor
@@ -31,7 +30,7 @@ def smart_shelves_crud(case):
 
         #--------------------------------
         serial_number = random.randint(1000000, 9999999)
-        smart_shelves_body = hp.smart_shelves_body.copy()
+        smart_shelves_body = sh.smart_shelves_body.copy()
         smart_shelves_body["serialNumber"] = f"{serial_number}"
         smart_shelves_body["distributor"] = f"{case.activity.variables.distributor_name}"
         smart_shelves_body["assign_to"] = f"{locker}"
@@ -39,19 +38,19 @@ def smart_shelves_crud(case):
 
         #--------------------------------
         edit_serial_number = f"edit{serial_number}"
-        edit_smart_shelves_body = hp.smart_shelves_body.copy()
+        edit_smart_shelves_body = sh.smart_shelves_body.copy()
         edit_smart_shelves_body["serialNumber"] = f"{edit_serial_number}"
         edit_smart_shelves_body["distributor"] = f"{case.activity.variables.sub_distributor_name}"
         edit_smart_shelves_body["assign_to"] = f"{edit_locker}"
         edit_smart_shelves_body["door_number"] = "2"
 
         lp.log_in_admin_portal()
-        hp.open_smart_shelves()
-        hp.create_smart_shelves(smart_shelves_body)
-        hp.check_last_smart_shelf(smart_shelves_body)
-        hp.update_smart_shelves(edit_smart_shelves_body)
-        hp.check_last_smart_shelf(edit_smart_shelves_body)
-        hp.delete_smart_shelf(serial_number)
+        sh.open_smart_shelves()
+        sh.create_smart_shelves(smart_shelves_body)
+        sh.check_last_smart_shelf(smart_shelves_body)
+        sh.update_smart_shelves(edit_smart_shelves_body)
+        sh.check_last_smart_shelf(edit_smart_shelves_body)
+        sh.delete_smart_shelf(serial_number)
         case.finish_case()
     except:
         case.critical_finish_case()
