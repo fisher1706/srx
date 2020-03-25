@@ -21,7 +21,7 @@ def change_locker_doortype(case):
 
         lp.log_in_admin_portal()
         hp.sidebar_hardware()
-        hp.check_last_hardware(serial_number=locker_body["value"], device_type="Locker", iothub=str(iothub_body["id"]), device_subtype=locker_body["lockerType"]["name"])
+        hp.check_last_hardware(serial_number=locker_body["value"], device_type="LOCKER", iothub=str(iothub_body["id"]), device_subtype=locker_body["lockerType"]["name"])
         doors_data = hp.configure_locker_door()
         hp.check_locker_door(doors_data)
 
