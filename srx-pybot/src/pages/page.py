@@ -101,16 +101,26 @@ class Page():
             else:
                 self.logger.info(f"Element with ID = '{id}' is disabled, as should")
 
-    def should_be_disabled_xpath(self, xpath):
-        try:
-            element = self.driver.find_element_by_xpath(xpath)
-        except NoSuchElementException:
-            self.logger.error(f"Element with XPATH = '{xpath}' not found")
-        else:
-            if(element.is_enabled()==True):
-                self.logger.error(f"Element with XPATH = '{xpath}' is enabled, but should be disabled")
+    def should_be_disabled_xpath(self, xpath, wait=False):
+        if (wait == False):
+            try:
+                element = self.driver.find_element_by_xpath(xpath)
+            except NoSuchElementException:
+                self.logger.error(f"Element with XPATH = '{xpath}' not found")
             else:
-                self.logger.info(f"Element with XPATH = '{xpath}' is disabled, as should")
+                if(element.is_enabled()==True):
+                    self.logger.error(f"Element with XPATH = '{xpath}' is enabled, but should be disabled")
+                else:
+                    self.logger.info(f"Element with XPATH = '{xpath}' is disabled, as should")
+        elif (wait == True):
+            try:
+                WebDriverWait(self.driver, 7).until(wait_until_disabled(xpath))
+            except TimeoutException:
+                self.logger.error(f"Element with XPATH = '{xpath}' is enabled, but should be disabled")
+            except NoSuchElementException:
+                self.logger.error(f"Element with XPATH = '{xpath}' not found")
+            else:
+                self.logger.info(f"Element with XPATH = '{xpath}' is disabled")
 
     def should_be_enabled_id(self, id):
         try:
@@ -530,3 +540,10 @@ class Page():
     def click_tab_by_name(self, tab_name):
         self.click_xpath(self.locators.xpath_button_tab_by_name(tab_name))
         self.wait_until_page_loaded
+
+    def element_text_should_be_empty(self, xpath):
+        text = self.get_element_text(xpath)
+        if (text is None or text == ""):
+            self.logger.info(f"Element {xpath} does not contain text")
+        else:
+            self.logger.error(f"Element {xpath} contains text: {text}")

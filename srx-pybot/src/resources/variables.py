@@ -53,6 +53,7 @@ class Variables():
         self.customer_email = "dprovorov+cust@agilevision.io"
         self.customer_password = "test29"
         self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
+        self.sub_distributor_id = "5"
         self.run_number = [31, 2]
         self.customer_name = "Static Customer"
         self.customer_id = "4"
