@@ -1,0 +1,35 @@
+{
+    "serialNumber": null,
+    "distributor": {
+        "id": null
+    },
+    "cellsQuantity": "4",
+    "cells": [
+        {
+            "indexes": [
+                1
+            ]
+        },
+        {
+            "indexes": [
+                2
+            ]
+        },
+        {
+            "indexes": [
+                3
+            ]
+        },
+        {
+            "indexes": [
+                4
+            ]
+        }
+    ],
+    "doorConfiguration": {
+        "hardware": {
+            "id": null
+        },
+        "id": null
+    }
+}

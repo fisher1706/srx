@@ -39,6 +39,8 @@ class Locators():
     xpath_no_data_found = "//div[text()='No data found']"
     xpath_close_button = "//button[@data-testid='close-btn']"
     xpath_role_presentation = "//div[@role='presentation']"
+    xpath_label_confirm = "//button[@label='Confirm']"
+    xpath_label_cancel = "//button[@label='Cancel']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
