@@ -10,7 +10,7 @@ import random
 
 def smart_shelves_merge_cells(case):
     case.log_name("Smart Shelves Merge/Split cells")
-    case.testrail_config(case.activity.variables.run_number, 1920)
+    case.testrail_config(case.activity.variables.run_number, 2493)
 
     try:
         lp = LoginPage(case.activity)
