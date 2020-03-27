@@ -11,6 +11,8 @@ class SmartShelves(AdminPortalPage):
             "assign_to": None,
             "door_number": None
         }
+        self.xpath_merge_cells = "//span[text()='MERGE CELLS']"
+        self.xpath_split_cells = "//span[text()='SPLIT CELL']"
 
     def open_smart_shelves(self):
         self.sidebar_hardware()
@@ -65,3 +67,30 @@ class SmartShelves(AdminPortalPage):
         self.delete_dialog_should_be_about(f"{serial_number}")
         self.click_xpath(self.locators.xpath_confirm_button)
         self.dialog_should_not_be_visible()
+
+    def merge_cells(self, number_of_cells):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_smart_shelves, self.get_table_rows_number()))
+        for x in range(number_of_cells):
+            self.click_xpath(f"//div[@data-cell='{x}']")
+        self.click_xpath(self.xpath_merge_cells)
+        self.click_xpath(self.locators.xpath_submit_button)
+        self.click_xpath(self.locators.xpath_label_confirm)
+        self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
+
+    def split_cells(self, position_of_cell):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.click_xpath(f"//div[@data-cell='{position_of_cell}']")
+        self.click_xpath(self.xpath_split_cells)
+        self.click_xpath(self.locators.xpath_submit_button)
+        self.click_xpath(self.locators.xpath_label_confirm)
+        self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
+
+    def check_cells_number(self, number_of_cells):
+        self.check_last_table_item_by_header("Qnty of Cells", "4")
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.elements_count_should_be("//div[@data-cell]", number_of_cells)
+        self.click_xpath(self.locators.xpath_label_cancel)
+        self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
