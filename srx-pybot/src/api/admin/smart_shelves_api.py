@@ -64,13 +64,22 @@ class SmartShelvesApi(API):
         if (serial_number is not None):
             smart_shelf_dto["serialNumber"] = serial_number
         if (distributor_id is not None):
-            smart_shelf_dto["distributor"]["id"] = distributor_id
+            if (distributor_id is False):
+                smart_shelf_dto["distributor"]["id"] = None
+                smart_shelf_dto["doorConfiguration"]["hardware"]["id"] = None
+                smart_shelf_dto["doorConfiguration"]["id"] = None
+            else:
+                smart_shelf_dto["distributor"]["id"] = distributor_id
             if (locker_body_second is None):
                 self.logger.error("You need specify new locker")
         if (locker_body_second is not None):
-            smart_shelf_dto["doorConfiguration"]["hardware"]["id"] = locker_body_second["id"]
-            first_door_configuration = self.get_door_configuration(locker_body_second["id"])[0]
-            smart_shelf_dto["doorConfiguration"]["id"] = first_door_configuration["id"]
+            if (locker_body_second is False):
+                smart_shelf_dto["doorConfiguration"]["hardware"]["id"] = None
+                smart_shelf_dto["doorConfiguration"]["id"] = None
+            else:
+                smart_shelf_dto["doorConfiguration"]["hardware"]["id"] = locker_body_second["id"]
+                first_door_configuration = self.get_door_configuration(locker_body_second["id"])[0]
+                smart_shelf_dto["doorConfiguration"]["id"] = first_door_configuration["id"]
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves/")
         token = self.get_admin_token()
         response = self.send_put(url, token, smart_shelf_dto)
