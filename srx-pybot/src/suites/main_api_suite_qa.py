@@ -20,6 +20,7 @@ if __name__ == "__main__":
         full_return_rfid_available_flow(Case(api_activity, 'SUITE'))
         create_rfid_transaction_as_issued(Case(api_activity, 'SUITE'))
         create_rfid_transaction_at_min(Case(api_activity, 'SUITE'))
+        smart_shelves_change_door(Case(api_activity, 'SUITE'))
 
         api_activity.logger.output_suite_result()
         api_activity.finish_activity()

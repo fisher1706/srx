@@ -1,6 +1,7 @@
 from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 import random
+import time
 
 class SmartShelves(AdminPortalPage):
     def __init__(self, activity):
@@ -91,6 +92,17 @@ class SmartShelves(AdminPortalPage):
         self.check_last_table_item_by_header("Qnty of Cells", "4")
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_smart_shelves, self.get_table_rows_number()))
         self.elements_count_should_be("//div[@data-cell]", number_of_cells)
+        self.click_xpath(self.locators.xpath_label_cancel)
+        self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
+
+    def check_no_weight_door(self, locker):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), locker)
+        self.click_xpath(self.locators.xpath_dropdown_in_dialog(3))
+        text = self.get_element_text(f"{self.locators.xpath_dropdown_list_item}/div")
+        assert f"{text}" == "2", f"First element in dropdown should not be 1"
+        self.click_xpath(self.locators.xpath_dropdown_in_dialog(3))
         self.click_xpath(self.locators.xpath_label_cancel)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
