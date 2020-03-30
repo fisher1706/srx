@@ -9,9 +9,9 @@ from src.api.admin.smart_shelves_api import SmartShelvesApi
 import time
 import random
 
-def smart_shelves_without_weights(case):
+def smart_shelves_unavailable_door(case):
     case.log_name("There is no Locker door with 'without weights' configuration when create/update smart shelf")
-    case.testrail_config(case.activity.variables.run_number, 1922)
+    case.testrail_config(case.activity.variables.run_number, 1925)
 
     try:
         lp = LoginPage(case.activity)
@@ -25,28 +25,20 @@ def smart_shelves_without_weights(case):
         locker = locker_body["value"]
         iothub_body = response["iothub"]
 
-        # create locker with 'without weights' configuration
-        response_locker = locker_basis(case, no_weight=True)
-        locker_body_noweights = response_locker["locker"]
-        locker_noweights = locker_body_noweights["value"]
-        iothub_body_second = response_locker["iothub"]
-
         lp.log_in_admin_portal()
         ss.open_smart_shelves()
-        ss.check_first_door_is_unavaliable(locker_noweights)
+        ss.check_first_door_is_unavaliable(locker, create=True)
         case.finish_case()
     except:
         case.critical_finish_case()
 
     try:
         ha.delete_hardware(locker_body["id"])
-        ha.delete_hardware(locker_body_noweights["id"])
         time.sleep(5)
         ha.delete_hardware(iothub_body["id"])
-        ha.delete_hardware(iothub_body_second["id"])
         ssa.delete_smart_shelves(response["smart_shelves_id"])
     except:
         case.print_traceback()
 
 if __name__ == "__main__":
-    smart_shelves_without_weights(Case(Activity()))
+    smart_shelves_unavailable_door(Case(Activity()))
