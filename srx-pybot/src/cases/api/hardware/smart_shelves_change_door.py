@@ -11,7 +11,7 @@ import random
 
 def smart_shelves_change_door(case):
     case.log_name("Change Locker door in smart shelf")
-    #case.testrail_config(case.activity.variables.run_number, 1923)
+    case.testrail_config(case.activity.variables.run_number, 1923)
 
     try:
         ssa = SmartShelvesApi(case)
