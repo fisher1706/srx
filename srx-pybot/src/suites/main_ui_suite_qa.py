@@ -41,6 +41,10 @@ if __name__ == "__main__":
         rfid_label_crud(Case(activity, 'SUITE'))
         smart_shelves_crud(Case(activity, 'SUITE'))
         smart_shelves_merge_cells(Case(activity, 'SUITE'))
+        smart_shelves_without_weights(Case(activity, 'SUITE'))
+        smart_shelves_unavailable_door(Case(activity, 'SUITE'))
+        smart_shelves_remove_locker_distributor(Case(activity, 'SUITE'))
+        smart_shelves_assign_to_several_lockers(Case(activity, 'SUITE'))
         
         activity.logger.output_suite_result()
         activity.finish_activity()

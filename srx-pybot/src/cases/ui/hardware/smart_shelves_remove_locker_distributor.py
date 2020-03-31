@@ -8,9 +8,9 @@ from src.api.admin.smart_shelves_api import SmartShelvesApi
 import time
 import random
 
-def smart_shelves_merge_cells(case):
-    case.log_name("Smart Shelves Merge/Split cells")
-    case.testrail_config(case.activity.variables.run_number, 1921)
+def smart_shelves_remove_locker_distributor(case):
+    case.log_name("Smart Shelf: Remove distributor and locker, bug SRX-7746")
+    case.testrail_config(case.activity.variables.run_number, 1926)
 
     try:
         lp = LoginPage(case.activity)
@@ -18,7 +18,7 @@ def smart_shelves_merge_cells(case):
         ssa = SmartShelvesApi(case)
         ha = HardwareApi(case)
 
-        # # create locker for main distributor
+        # # create smart shelf for main distributor
         response = smart_shelves_basis(case)
         locker_body = response["locker"]
         locker = locker_body["value"]
@@ -26,10 +26,8 @@ def smart_shelves_merge_cells(case):
 
         lp.log_in_admin_portal()
         ss.open_smart_shelves()
-        ss.merge_cells(3)
-        ss.check_cells_number(2)
-        ss.split_cells(0)
-        ss.check_cells_number(4)
+        ss.clear_fields_smart_shelves(locker=True, distributor=True)
+        ss.open_smart_shelves()
 
         case.finish_case()
     except:
@@ -44,4 +42,4 @@ def smart_shelves_merge_cells(case):
         case.print_traceback()
 
 if __name__ == "__main__":
-    smart_shelves_merge_cells(Case(Activity()))
+    smart_shelves_remove_locker_distributor(Case(Activity()))
