@@ -12,7 +12,7 @@ import random
 
 def smart_shelves_assign_to_several_lockers(case):
     case.log_name("Smart Shelves: Can not assign smart shelf to the locker door if smart shelf is already assigned to another locker(SRX-7951)")
-    case.testrail_config(case.activity.variables.run_number, 1926)
+    case.testrail_config(case.activity.variables.run_number, 1927)
 
     try:
         lp = LoginPage(case.activity)
