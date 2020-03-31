@@ -1,5 +1,5 @@
 from src.pages.sub.login_page import LoginPage
-from src.pages.admin.smart_shelves_page import SmartShelves
+from src.pages.admin.smart_shelves_page import SmartShelvesPage
 from src.api.admin.hardware_api import HardwareApi
 from src.resources.case import Case
 from src.resources.activity import Activity
@@ -14,7 +14,7 @@ def smart_shelves_merge_cells(case):
 
     try:
         lp = LoginPage(case.activity)
-        ss = SmartShelves(case.activity)
+        ss = SmartShelvesPage(case.activity)
         ssa = SmartShelvesApi(case)
         ha = HardwareApi(case)
 

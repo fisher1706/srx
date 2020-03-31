@@ -547,3 +547,13 @@ class Page():
             self.logger.info(f"Element {xpath} does not contain text")
         else:
             self.logger.error(f"Element {xpath} contains text: {text}")
+
+    def element_should_have_text(self, xpath, text):
+        try:
+            WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.XPATH, xpath), text))
+        except NoSuchElementException:
+            self.logger.error(f"Element with XPATH = '{xpath}' not found")
+        except:
+            self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
+        else:
+            self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")

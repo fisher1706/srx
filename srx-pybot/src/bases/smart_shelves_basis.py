@@ -21,6 +21,7 @@ def smart_shelves_basis(case, iothub=True, shipto=None, no_weight=False, distrib
         "locker": locker_body,
         "iothub": locker_response["iothub"],
         "door": first_door_configuration,
-        "smart_shelves_id": smart_shelves_id
+        "smart_shelves_id": smart_shelves_id,
+        "smart_shelf_number": smart_shelves_dto["serialNumber"]
     }
     return copy.deepcopy(response)

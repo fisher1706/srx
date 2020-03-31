@@ -1,5 +1,5 @@
 from src.pages.sub.login_page import LoginPage
-from src.pages.admin.smart_shelves_page import SmartShelves
+from src.pages.admin.smart_shelves_page import SmartShelvesPage
 from src.api.admin.hardware_api import HardwareApi
 from src.resources.case import Case
 from src.resources.activity import Activity
@@ -10,12 +10,12 @@ import time
 import random
 
 def smart_shelves_unavailable_door(case):
-    case.log_name("There is no Locker door with 'without weights' configuration when create/update smart shelf")
+    case.log_name("Can not assign Locker door that already has smart shelf")
     case.testrail_config(case.activity.variables.run_number, 1925)
 
     try:
         lp = LoginPage(case.activity)
-        ss = SmartShelves(case.activity)
+        ss = SmartShelvesPage(case.activity)
         ssa = SmartShelvesApi(case)
         ha = HardwareApi(case)
 

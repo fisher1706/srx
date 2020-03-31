@@ -1,5 +1,5 @@
 from src.pages.sub.login_page import LoginPage
-from src.pages.admin.smart_shelves_page import SmartShelves
+from src.pages.admin.smart_shelves_page import SmartShelvesPage
 from src.api.admin.hardware_api import HardwareApi
 from src.resources.case import Case
 from src.resources.activity import Activity
@@ -13,7 +13,7 @@ def smart_shelves_crud(case):
 
     try:
         lp = LoginPage(case.activity)
-        sh = SmartShelves(case.activity)
+        sh = SmartShelvesPage(case.activity)
         ha = HardwareApi(case)
 
         # create locker for main distributor
@@ -50,7 +50,7 @@ def smart_shelves_crud(case):
         sh.check_last_smart_shelf(smart_shelves_body)
         sh.update_smart_shelves(edit_smart_shelves_body)
         sh.check_last_smart_shelf(edit_smart_shelves_body)
-        sh.delete_smart_shelf(serial_number)
+        sh.delete_smart_shelf(edit_serial_number)
         case.finish_case()
     except:
         case.critical_finish_case()

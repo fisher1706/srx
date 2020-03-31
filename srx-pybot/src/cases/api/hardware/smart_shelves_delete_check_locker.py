@@ -6,10 +6,12 @@ from src.resources.activity import Activity
 from src.bases.smart_shelves_basis import smart_shelves_basis
 from src.bases.locker_basis import locker_basis
 from src.api.admin.smart_shelves_api import SmartShelvesApi
+import time
+import random
 
-def remove_locker_from_smart_shelf(case):
-    case.log_name("Remove Smart shelf from Locker")
-    case.testrail_config(case.activity.variables.run_number, 1924)
+def smart_shelves_delete_check_locker(case):
+    case.log_name("Delete shelf and check that Locker door is empty ")
+    case.testrail_config(case.activity.variables.run_number, 1928)
 
     try:
         ssa = SmartShelvesApi(case)
@@ -22,7 +24,7 @@ def remove_locker_from_smart_shelf(case):
         locker = locker_body["value"]
         iothub_body = response["iothub"]
 
-        ssa.update_smart_shelf(locker_body, locker_body_second=False)
+        ssa.delete_smart_shelves(response["smart_shelves_id"])
         locker_conf = ha.get_locker_configuration(locker_id)
         assert (locker_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response['smart_shelves_id']}"
         case.finish_case()
@@ -33,9 +35,8 @@ def remove_locker_from_smart_shelf(case):
         ha.delete_hardware(locker_id)
         time.sleep(5)
         ha.delete_hardware(iothub_body["id"])
-        ssa.delete_smart_shelves(response["smart_shelves_id"])
     except:
         case.print_traceback()
 
 if __name__ == "__main__":
-    remove_locker_from_smart_shelf(Case(Activity(api_test=True)))
+    smart_shelves_delete_check_locker(Case(Activity(api_test=True)))
