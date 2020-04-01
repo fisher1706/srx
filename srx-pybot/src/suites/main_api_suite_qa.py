@@ -22,6 +22,7 @@ if __name__ == "__main__":
         create_rfid_transaction_at_min(Case(api_activity, 'SUITE'))
         smart_shelves_change_door(Case(api_activity, 'SUITE'))
         remove_locker_from_smart_shelf(Case(api_activity, 'SUITE'))
+        smart_shelves_delete_check_lockerCase(api_activity, 'SUITE'))
 
         api_activity.logger.output_suite_result()
         api_activity.finish_activity()
