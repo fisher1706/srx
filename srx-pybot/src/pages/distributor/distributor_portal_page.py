@@ -30,3 +30,6 @@ class DistributorPortalPage(Page):
     
     def sidebar_rfid(self):
         self.click_id("sidebar-rfid")
+
+    def sidebar_hardware(self):
+        self.click_id("sidebar-claiming_hardware")

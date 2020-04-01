@@ -45,6 +45,7 @@ if __name__ == "__main__":
         smart_shelves_unavailable_door(Case(activity, 'SUITE'))
         smart_shelves_remove_locker_distributor(Case(activity, 'SUITE'))
         smart_shelves_assign_to_several_lockers(Case(activity, 'SUITE'))
+        smart_shelves_edit_dist_portal(Case(activity, 'SUITE'))
         
         activity.logger.output_suite_result()
         activity.finish_activity()

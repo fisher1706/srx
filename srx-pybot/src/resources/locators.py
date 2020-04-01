@@ -78,6 +78,7 @@ class Locators():
     title_unassign = "//span[@title='Unassign']/button"
     title_delete_smart_shelves = "//span[@title='Delete Smart Shelf']/button"
     title_edit_smart_shelves = "//span[@title='Edit Smart Shelf']/button"
+    title_edit_smart_shelves_dist = "//span[@title='Edit smart shelf']/button"
 
     def xpath_by_count(self, xpath, count):
         return f"({xpath})[{count}]"
