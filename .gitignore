@@ -13,5 +13,4 @@ env-pybot
 srx-pybot/src/output
 srx-pybot/src/resources/local_credentials.py
 srx-pybot/src/suites/testrail_bulk_retest.py
-srx-pybot/src/suites/testrail_bulk_retest.py
 srx-pybot/src/cases/api/hardware/create_20_iothubs.py
