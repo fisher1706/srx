@@ -557,3 +557,10 @@ class Page():
             self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")
+    
+    def wait_until_progress_bar_loaded(self, time=4):
+        try:
+            WebDriverWait(self.driver, time).until(is_progress_bar_loading())
+        except TimeoutException:
+            pass
+        WebDriverWait(self.driver, 15).until_not(is_progress_bar_loading())

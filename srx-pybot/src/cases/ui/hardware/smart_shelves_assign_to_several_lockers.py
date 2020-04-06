@@ -41,7 +41,7 @@ def smart_shelves_assign_to_several_lockers(case):
         hp.sidebar_hardware()
         ss.assign_smart_shelf_locker_planogram(locker, smart_shelf_number)
         hp.sidebar_hardware()
-        ss.check_smart_shelf_unavailable_via_planogram(locker, smart_shelf_number)
+        ss.check_smart_shelf_unavailable_via_planogram(locker_second, smart_shelf_number)
         
         case.finish_case()
     except:

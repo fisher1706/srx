@@ -132,18 +132,18 @@ class SmartShelvesPage(AdminPortalPage):
         self.wait_until_page_loaded()
         
     def assign_smart_shelf_locker_planogram(self, locker, smart_shelf):
-        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
-        self.click_xpath(self.locators.title_edit_door)
-        self.click_xpath(self.locators.xpath_close_button)
-        self.dialog_should_not_be_visible()
-        self.click_xpath(self.locators.title_edit_door)
+        locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, locker_row)+self.locators.title_go_to_locker_planogram)
+        self.wait_until_progress_bar_loaded
+        self.click_xpath(self.locators.title_configure_door)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), smart_shelf)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
 
     def check_smart_shelf_unavailable_via_planogram(self, locker, smart_shelf):
-        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
-        self.click_xpath(self.locators.title_edit_door)
+        locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, locker_row)+self.locators.title_go_to_locker_planogram)
+        self.click_xpath(self.locators.title_configure_door)
         self.click_xpath(self.locators.xpath_dropdown_in_dialog(1))
         self.input_data_xpath(smart_shelf, f"{self.locators.xpath_dropdown_in_dialog(1)}//input")
         text = self.get_element_text(f"{self.locators.xpath_dropdown_list_item}/div")
@@ -153,4 +153,4 @@ class SmartShelvesPage(AdminPortalPage):
             self.logger.info(f"There is no {smart_shelf} as expected")
         self.click_xpath(self.locators.xpath_close_button)
         self.dialog_should_not_be_visible()
-        self.wait_until_page_loaded()
+

@@ -6,8 +6,12 @@ import copy
 import time
 
 def smart_shelves_basis(case, iothub=True, shipto=None, no_weight=False, distributor_id=None):
-    locker_response = locker_basis(case)
-    locker_body = locker_response["locker"]
+    if (shipto is not None):
+        locker_response = locker_basis(case, shipto=shipto)
+        locker_body = locker_response["locker"]
+    else:
+        locker_response = locker_basis(case)
+        locker_body = locker_response["locker"]
     ssa = SmartShelvesApi(case)
     first_door_configuration = ssa.get_door_configuration(locker_body["id"])[0]
     smart_shelves_dto = Tools.get_dto("smart_shelves_dto.json")
