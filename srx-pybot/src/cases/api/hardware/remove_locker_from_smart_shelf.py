@@ -6,6 +6,7 @@ from src.resources.activity import Activity
 from src.bases.smart_shelves_basis import smart_shelves_basis
 from src.bases.locker_basis import locker_basis
 from src.api.admin.smart_shelves_api import SmartShelvesApi
+import sleep
 
 def remove_locker_from_smart_shelf(case):
     case.log_name("Remove Smart shelf from Locker")

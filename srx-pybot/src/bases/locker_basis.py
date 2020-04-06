@@ -57,4 +57,11 @@ def locker_basis(case, iothub=True, shipto=None, no_weight=False, distributor_id
         dha = DistributorHardwareApi(case)
         dha.update_hardware(iothub_dto)
 
+        response = {
+        "iothub": iothub_body,
+        "locker": locker_body,
+        "shipTo": shipto,
+        "customerUser": customer_user["id"]
+    }
+
     return copy.deepcopy(response)

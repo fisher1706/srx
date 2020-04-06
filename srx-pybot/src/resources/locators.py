@@ -41,6 +41,7 @@ class Locators():
     xpath_role_presentation = "//div[@role='presentation']"
     xpath_label_confirm = "//button[@label='Confirm']"
     xpath_label_cancel = "//button[@label='Cancel']"
+    xpath_progress_bar = "//div[@role='progressbar']"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
@@ -79,6 +80,10 @@ class Locators():
     title_delete_smart_shelves = "//span[@title='Delete Smart Shelf']/button"
     title_edit_smart_shelves = "//span[@title='Edit Smart Shelf']/button"
     title_edit_smart_shelves_dist = "//span[@title='Edit smart shelf']/button"
+    title_switch_locker_planogram = "//button[@title='Switch to LOCKER Planogram']"
+    title_configure_door_number = "//span[@title='Configure Door #1']/button"
+    title_go_to_locker_planogram = "//button[@title='Go to LOCKER Planogram']"
+    title_configure_door = "//span[@title='Configure Door']/button"
 
     def xpath_by_count(self, xpath, count):
         return f"({xpath})[{count}]"
