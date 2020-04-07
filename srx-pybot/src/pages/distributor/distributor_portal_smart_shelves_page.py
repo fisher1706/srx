@@ -64,3 +64,16 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
         self.click_xpath(self.locators.xpath_label_cancel)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
+    
+    def assign_smart_shelf_to_locker(self, smart_shelf, locker, door_number):
+        row_number = self.get_row_of_table_item_by_header(smart_shelf, "Serial Number")
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, row_number)+self.locators.title_edit_smart_shelves_dist)
+        self.wait_until_progress_bar_loaded()
+        # input Assign To and check if Door Number is editable
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), locker)
+        self.should_be_enabled_xpath(self.locators.xpath_dropdown_in_dialog(2))
+        # input Door Number
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), door_number)
+        self.click_xpath(self.locators.xpath_submit_button)
+        self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()

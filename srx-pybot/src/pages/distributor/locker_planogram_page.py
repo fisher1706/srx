@@ -46,4 +46,13 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), smart_shelf)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
-        
+    
+    def check_smart_shelf_via_planogram(self, smart_shelf, door_number):
+        self.wait_until_progress_bar_loaded()
+        self.click_xpath(self.locators.title_configure_door_number)
+        text = self.get_element_text(self.locators.xpath_dropdown_in_dialog(2))
+        print(text)
+        if (text == smart_shelf):
+            self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
+        else:
+            self.logger.error(f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected")
