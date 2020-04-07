@@ -1,19 +1,18 @@
 from src.pages.sub.login_page import LoginPage
-from src.pages.distributor.locker_planogram_page import LockerPlanogramPage
 from src.pages.distributor.distributor_portal_smart_shelves_page import DistributorSmartShelvesPage
+from src.pages.distributor.locker_planogram_page import LockerPlanogramPage
 from src.api.admin.hardware_api import HardwareApi
 from src.api.admin.smart_shelves_api import SmartShelvesApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.resources.case import Case
 from src.resources.activity import Activity
-from src.bases.locker_basis import locker_basis
 from src.bases.smart_shelves_basis import smart_shelves_basis
 from src.bases.shipto_basis import shipto_basis
 import time
 
-def smart_shelves_assign_via_hardware_check_planogram(case):
-    case.log_name(" Assign smart shelf via hardware and check it on planogram ")
-    case.testrail_config(case.activity.variables.run_number, 1966)
+def planogram_merge_split_cells(case):
+    case.log_name(" Merge/Split cells via planorgam ")
+    case.testrail_config(case.activity.variables.run_number, 1970)
 
     try:
         lp = LoginPage(case.activity)
@@ -32,14 +31,13 @@ def smart_shelves_assign_via_hardware_check_planogram(case):
         locker = locker_body["value"]
         iothub_body = response["iothub"]
 
-        # remove locker from smart shelf
-        ssa.update_smart_shelf(locker_body, locker_body_second=False)
-
         lp.log_in_distributor_portal()
-        ssp.open_smart_shelves()
-        ssp.assign_smart_shelf_to_locker(response["smart_shelf_number"], locker, "1")
         lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
-        lpp.check_smart_shelf_via_planogram(response["smart_shelf_number"], "1")
+        ssp.merge_cells(3, is_planogram=True, door_number=1)
+        ssp.check_cells_number(2, is_planogram=True, door_number=1)
+        ssp.split_cells(1, is_planogram=True, door_number=1)
+        ssp.check_cells_number(4, is_planogram=True, door_number=1)
+
         case.finish_case()
     except:
         case.critical_finish_case()
@@ -54,4 +52,4 @@ def smart_shelves_assign_via_hardware_check_planogram(case):
         case.print_traceback()
 
 if __name__ == "__main__":
-    smart_shelves_assign_via_hardware_check_planogram(Case(Activity()))
+    planogram_merge_split_cells(Case(Activity()))
