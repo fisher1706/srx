@@ -55,3 +55,8 @@ class LockerPlanogramPage(DistributorPortalPage):
             self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
         else:
             self.logger.error(f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected")
+
+    def check_first_door_is_unavaliable_planogram(self):
+        self.wait_until_progress_bar_loaded()
+        self.click_xpath(self.locators.title_configure_door_number)
+        self.should_be_disabled_xpath(f"{self.locators.xpath_dropdown_in_dialog(2)}//input")
