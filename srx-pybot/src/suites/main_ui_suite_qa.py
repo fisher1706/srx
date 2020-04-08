@@ -52,6 +52,7 @@ if __name__ == "__main__":
         smart_shelves_assign_via_hardware_check_planogram(Case(activity, 'SUITE'))
         planogram_merge_split_cells(Case(activity, 'SUITE'))
         planogram_without_weights_assign_smart_shelf(Case(activity, 'SUITE'))
+        smart_shelf_move_locker_to_another_distributor(Case(activity, 'SUITE'))
         
         activity.logger.output_suite_result()
         activity.finish_activity()

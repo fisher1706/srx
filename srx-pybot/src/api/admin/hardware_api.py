@@ -36,6 +36,19 @@ class HardwareApi(API):
             "type": "LOCKER"
         }
         return self.create_hardware(dto)
+    
+    def update_locker(self, locker_id, locker_type_id, iothub_id=None):
+        dto = {
+            "id": locker_id,
+            "lockerType":{
+                "id": locker_type_id
+            },
+            "iotHub":{
+                "id": iothub_id
+            },
+            "type": "LOCKER"
+        }
+        return self.update_hardware(dto)
 
     def create_rfid(self, distributor_id=None):
         if (distributor_id is None):
@@ -115,3 +128,12 @@ class HardwareApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
+
+    def update_hardware(self, dto):
+        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware/")
+        token = self.get_admin_token()
+        response = self.send_put(url, token, dto)
+        if (response.status_code == 200):
+            self.logger.info(f"Hardware with ID = '{dto['id']}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))

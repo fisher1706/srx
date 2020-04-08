@@ -140,17 +140,23 @@ class SmartShelvesPage(AdminPortalPage):
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
 
-    def check_smart_shelf_unavailable_via_planogram(self, locker, smart_shelf):
+    def check_smart_shelf_unavailable_via_planogram(self, locker, smart_shelf, in_list=False):
         locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, locker_row)+self.locators.title_go_to_locker_planogram)
         self.click_xpath(self.locators.title_configure_door)
         self.click_xpath(self.locators.xpath_dropdown_in_dialog(1))
         self.input_data_xpath(smart_shelf, f"{self.locators.xpath_dropdown_in_dialog(1)}//input")
         text = self.get_element_text(f"{self.locators.xpath_dropdown_list_item}/div")
-        if (f"{text}" == f"{smart_shelf}"):
-            self.logger.error(f"Smart Shelf {smart_shelf} should not be in the list")
-        else:
-            self.logger.info(f"There is no {smart_shelf} as expected")
+        if (in_list is True):
+            if (f"{text}" == f"{smart_shelf}"):
+                self.logger.info(f"There is {smart_shelf} as expected")
+            else:
+                self.logger.error(f"Smart Shelf {smart_shelf} should be in the list")
+        if (in_list is False):
+            if (f"{text}" == f"{smart_shelf}"):
+                self.logger.error(f"Smart Shelf {smart_shelf} should not be in the list")
+            else:
+                self.logger.info(f"There is no {smart_shelf} as expected")
         self.click_xpath(self.locators.xpath_close_button)
         self.dialog_should_not_be_visible()
 
