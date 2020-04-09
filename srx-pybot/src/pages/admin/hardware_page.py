@@ -1,6 +1,7 @@
 from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 import random
+import time
 
 class HardwarePage(AdminPortalPage):
     def __init__(self, activity):
@@ -10,6 +11,7 @@ class HardwarePage(AdminPortalPage):
         self.xpath_door_serial_number_title = "//div[text()='Door Serial Number']"
         self.xpath_door_serial_number = f"{self.xpath_door_serial_number_title}/../div[2]"
         self.xpath_smart_shelf_title = "//div[text()='Smart Shelf Serial Number']"
+        self.xpath_smart_shelf_absence_title = "//span[text()='There is no smart shelf assigned']"
 
     def create_iothub(self, distributor):
         self.click_id(self.locators.id_add_button)
@@ -108,13 +110,13 @@ class HardwarePage(AdminPortalPage):
         self.wait_until_page_loaded()
 
     def configure_locker_door(self, door_number=None, serial_number=None, is_weight=False):
-        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_configure)
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_go_to_locker_planogram)
         if (door_number is None):
-            count = self.get_element_count(self.locators.title_edit_door)
+            count = self.get_element_count(self.locators.title_configure_door)
             door_number = random.choice(range(0, count))+1
         if (serial_number is None):
             serial_number = Tools.random_string_u()
-        self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_door, door_number))
+        self.click_xpath(self.locators.xpath_by_count(self.locators.title_configure_door, door_number))
         if (is_weight == False):
             xpath_radio = self.xpath_no_weight_radio
         else:
@@ -132,10 +134,11 @@ class HardwarePage(AdminPortalPage):
         return data
 
     def check_locker_door(self, doors_data):
-        assert doors_data["serial_number"] == self.get_element_text(self.locators.xpath_by_count(self.xpath_door_serial_number, doors_data["door"])), "The Door SN is incorrect"
+        assert doors_data["serial_number"] == self.get_element_text(self.xpath_door_serial_number), "The Door SN is incorrect"
         if (doors_data["weight"] == False):
-            smart_shelves = self.get_element_count(self.xpath_smart_shelf_title)
+            smart_shelves = self.get_element_count(self.xpath_smart_shelf_absence_title)
             assert doors_data["doors_count"] == smart_shelves + 1, "The number of noWeight doors is incorrect"
-            for door in range(1, doors_data["doors_count"]+1):
-                if (door != doors_data["door"]):
-                    self.should_be_present_xpath(f"{self.xpath_door_serial_number_title}/../../..{self.xpath_smart_shelf_title}")
+            # for door in range(1, doors_data["doors_count"]+1):
+            #     if (door != doors_data["door"]):
+            #         print("4")
+            #         self.should_be_present_xpath(f"{self.xpath_door_serial_number_title}/../../..{self.xpath_smart_shelf_title}")

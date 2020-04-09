@@ -11,6 +11,7 @@ class AllocationCodesPage(CustomerPortalPage):
             "isRequired": None,
             "shiptos": None
         }
+        self.xpath_add_to_list = "//span[text()='Add to list']"
 
     def add_allocation_code(self, allocation_code_body):
         self.click_id(self.locators.id_add_button)
@@ -20,6 +21,7 @@ class AllocationCodesPage(CustomerPortalPage):
         self.enter_values(allocation_code_body.pop("values"))
         for field in allocation_code_body.keys():
             self.input_by_name(field, allocation_code_body[field])
+        self.click_xpath(self.xpath_add_to_list)
         self.click_xpath(self.locators.xpath_submit_button)
         self.url_should_be(self.url.get_url_for_env("storeroomlogix.com/allocation-codes", "customer"))
         self.wait_until_page_loaded()
@@ -57,6 +59,7 @@ class AllocationCodesPage(CustomerPortalPage):
         self.enter_values(allocation_code_body.pop("values"))
         for field in allocation_code_body.keys():
             self.input_by_name(field, allocation_code_body[field])
+        self.click_xpath(self.xpath_add_to_list)
         self.click_xpath(self.locators.xpath_submit_button)
 
     def delete_allocation_code(self, current_name):

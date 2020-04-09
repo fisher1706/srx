@@ -13,6 +13,7 @@ def document_import(case):
 
         lp.log_in_distributor_portal()
         sp.sidebar_account_status()
+        sp.click_tab_by_name("Enterprise pricing")
         sp.import_document()
         sp.delete_last_document()
 
