@@ -138,7 +138,3 @@ class HardwarePage(AdminPortalPage):
         if (doors_data["weight"] == False):
             smart_shelves = self.get_element_count(self.xpath_smart_shelf_absence_title)
             assert doors_data["doors_count"] == smart_shelves + 1, "The number of noWeight doors is incorrect"
-            # for door in range(1, doors_data["doors_count"]+1):
-            #     if (door != doors_data["door"]):
-            #         print("4")
-            #         self.should_be_present_xpath(f"{self.xpath_door_serial_number_title}/../../..{self.xpath_smart_shelf_title}")
