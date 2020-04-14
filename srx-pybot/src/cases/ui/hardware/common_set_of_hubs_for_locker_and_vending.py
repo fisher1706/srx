@@ -16,7 +16,7 @@ def common_set_of_hubs_for_locker_and_vending(case):
         lp.log_in_admin_portal()
 
         iothub_dto = ha.create_iothub() #create IoT Hub via rest api
-        iothub_name = f"{iothub_dto['id']} ({iothub_dto['value']})"
+        iothub_name = f"{iothub_dto['id']} ({iothub_dto['value']}) / {case.activity.variables.distributor_name}"
         
         hp.sidebar_hardware()
         hp.wait_until_page_loaded()
