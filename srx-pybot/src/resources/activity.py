@@ -17,6 +17,7 @@ class Activity():
         self.logger.expected_error_series = self.variables.expected_error_series
         self.browser_config(self.arg_browser)
         self.credentials_config()
+        self.run_number = None
 
     def get_args(self):
         parser = argparse.ArgumentParser()

@@ -10,7 +10,7 @@ import time
 
 def locker_planogram(case):
     case.log_name("Open locker planogram via hardware tab")
-    case.testrail_config(case.activity.variables.run_number, 1961)
+    case.testrail_config(1961)
 
     try:
         lp = LoginPage(case.activity)

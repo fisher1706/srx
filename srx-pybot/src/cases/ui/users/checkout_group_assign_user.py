@@ -9,7 +9,7 @@ from src.resources.activity import Activity
 
 def checkout_group_assign_user(case):
     case.log_name("Assign user to the checkout group")
-    case.testrail_config(case.activity.variables.run_number, 1890)
+    case.testrail_config(1890)
 
     try:
         lp = LoginPage(case.activity)

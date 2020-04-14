@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 
 def shipto_crud(case):
     case.log_name("ShipTo CRUD")
-    case.testrail_config(case.activity.variables.run_number, 241)
+    case.testrail_config(241)
 
     try:
         lp = LoginPage(case.activity)

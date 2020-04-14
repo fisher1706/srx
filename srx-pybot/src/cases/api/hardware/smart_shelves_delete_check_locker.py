@@ -11,7 +11,7 @@ import random
 
 def smart_shelves_delete_check_locker(case):
     case.log_name("Delete shelf and check that Locker door is empty ")
-    case.testrail_config(case.activity.variables.run_number, 1928)
+    case.testrail_config(1928)
 
     try:
         ssa = SmartShelvesApi(case)

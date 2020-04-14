@@ -9,7 +9,7 @@ from src.resources.activity import Activity
 
 def checkout_group_assign_shipto(case):
     case.log_name("Assign shipto to the checkout group")
-    case.testrail_config(case.activity.variables.run_number, 1863)
+    case.testrail_config(1863)
 
     try:
         lp = LoginPage(case.activity)

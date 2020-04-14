@@ -13,7 +13,7 @@ import random
 
 def planogram_without_weights_assign_smart_shelf(case):
     case.log_name("Can`t assign smart shelf to locker door with without weights in planogram")
-    case.testrail_config(case.activity.variables.run_number, 1968)
+    case.testrail_config(1968)
 
     try:
         lp = LoginPage(case.activity)

@@ -9,7 +9,7 @@ import time
 
 def smart_shelf_move_locker_to_another_distributor(case):
     case.log_name(" Move Locker to another distributor and check shelves in planogram (SRX-8223) ")
-    case.testrail_config(case.activity.variables.run_number, 1969)
+    case.testrail_config(1969)
 
     try:
         lp = LoginPage(case.activity)

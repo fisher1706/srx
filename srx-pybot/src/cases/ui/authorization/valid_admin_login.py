@@ -5,7 +5,7 @@ from src.resources.activity import Activity
 
 def valid_admin_login(case):
     case.log_name("Valid log in Admin portal")
-    case.testrail_config(case.activity.variables.run_number, 9)
+    case.testrail_config(9)
 
     try:
         lp = LoginPage(case.activity)

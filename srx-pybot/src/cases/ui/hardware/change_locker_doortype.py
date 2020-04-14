@@ -8,7 +8,7 @@ import time
 
 def change_locker_doortype(case):
     case.log_name("Change locker doortype (Weight/NoWeight)")
-    case.testrail_config(case.activity.variables.run_number, 1851)
+    case.testrail_config(1851)
 
     try:
         lp = LoginPage(case.activity)

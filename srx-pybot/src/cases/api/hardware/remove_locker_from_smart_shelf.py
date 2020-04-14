@@ -10,7 +10,7 @@ import time
 
 def remove_locker_from_smart_shelf(case):
     case.log_name("Remove Smart shelf from Locker")
-    case.testrail_config(case.activity.variables.run_number, 1924)
+    case.testrail_config(1924)
 
     try:
         ssa = SmartShelvesApi(case)

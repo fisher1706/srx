@@ -9,7 +9,7 @@ import time
 
 def full_rfid_available_flow(case):
     case.log_name("Full workflow of RFID label from ASSIGNED to AVAILABLE")
-    case.testrail_config(case.activity.variables.run_number, 1911)
+    case.testrail_config(1911)
 
     try:
         sa = ShiptoApi(case)

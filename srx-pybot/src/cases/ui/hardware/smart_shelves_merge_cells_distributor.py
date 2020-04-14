@@ -11,7 +11,7 @@ import time
 
 def smart_shelves_merge_cells_distributor(case):
     case.log_name("Distributor portal: Smart Shelves Merge/Split cells")
-    case.testrail_config(case.activity.variables.run_number, 1959)
+    case.testrail_config(1959)
 
     try:
         lp = LoginPage(case.activity)

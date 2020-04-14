@@ -8,7 +8,7 @@ import time
 
 def allocation_code_crud(case):
     case.log_name("Allocation code CRUD")
-    case.testrail_config(case.activity.variables.run_number, 42)
+    case.testrail_config(42)
 
     try:
         lp = LoginPage(case.activity)

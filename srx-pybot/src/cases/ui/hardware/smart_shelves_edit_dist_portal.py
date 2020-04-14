@@ -9,7 +9,7 @@ from src.bases.smart_shelves_basis import smart_shelves_basis
 
 def smart_shelves_edit_dist_portal(case):
     case.log_name("Distributor portal: Edit Smart Shelves ")
-    case.testrail_config(case.activity.variables.run_number, 1960)
+    case.testrail_config(1960)
 
     try:
         lp = LoginPage(case.activity)

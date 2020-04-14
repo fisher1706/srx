@@ -8,7 +8,7 @@ from src.bases.location_basis import location_basis
 
 def zero_transaction_qty(case):
     case.log_name("Zero quantity of new transaction")
-    case.testrail_config(case.activity.variables.run_number, 1841)
+    case.testrail_config(1841)
 
     try:
         sa = ShiptoApi(case)

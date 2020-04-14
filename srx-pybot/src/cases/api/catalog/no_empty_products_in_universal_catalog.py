@@ -5,7 +5,7 @@ from src.api.admin.universal_catalog_api import UniversalCatalogApi
 
 def no_empty_products_in_universal_catalog(case):
     case.log_name("There are no empty products in the universal catalog")
-    case.testrail_config(case.activity.variables.run_number, 1860)
+    case.testrail_config(1860)
 
     try:
         uca = UniversalCatalogApi(case)

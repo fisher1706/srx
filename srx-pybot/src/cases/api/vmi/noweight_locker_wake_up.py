@@ -12,7 +12,7 @@ import copy
 
 def noweight_locker_wake_up(case):
     case.log_name("NoWeight locker Wake Up")
-    case.testrail_config(case.activity.variables.run_number, 1888)
+    case.testrail_config(1888)
 
     try:
         timestamp_another_day = 1736035200000

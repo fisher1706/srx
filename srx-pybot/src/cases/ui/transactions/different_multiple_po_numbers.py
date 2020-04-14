@@ -11,7 +11,7 @@ from src.resources.tools import Tools
 
 def different_multiple_po_number(case):
     case.log_name("Different multiple PO numbers")
-    case.testrail_config(case.activity.variables.run_number, 105)
+    case.testrail_config(105)
 
     try:
         lp = LoginPage(case.activity)

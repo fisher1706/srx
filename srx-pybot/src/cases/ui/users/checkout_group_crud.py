@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 
 def checkout_group_crud(case):
     case.log_name("Checkout group CRUD")
-    case.testrail_config(case.activity.variables.run_number, 1861)
+    case.testrail_config(1861)
 
     try:
         lp = LoginPage(case.activity)
