@@ -258,9 +258,9 @@ class Page():
 
     def select_in_dropdown(self, xpath, name):
         if (name is not None):
-                self.click_xpath(xpath)
-                self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
-                self.click_xpath(f"{xpath}/..//div[text()='{name}']")
+            self.click_xpath(xpath)
+            self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
+            self.click_xpath(f"{xpath}/..//div[text()='{name}']")
 
     def dialog_should_not_be_visible(self):
         try:
@@ -539,7 +539,7 @@ class Page():
 
     def click_tab_by_name(self, tab_name):
         self.click_xpath(self.locators.xpath_button_tab_by_name(tab_name))
-        self.wait_until_page_loaded
+        self.wait_until_progress_bar_loaded
 
     def element_text_should_be_empty(self, xpath):
         text = self.get_element_text(xpath)

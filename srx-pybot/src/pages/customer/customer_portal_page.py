@@ -18,3 +18,6 @@ class CustomerPortalPage(Page):
 
     def sign_out(self):
         self.click_id("sidebar-sign_out")
+    
+    def sidebar_assets(self):
+        self.click_id("sidebar-assets")
