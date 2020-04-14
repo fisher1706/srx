@@ -9,7 +9,7 @@ import time
 
 def total_triggers_include_all_movement_statuses(case):
     case.log_name("Total Triggers include all movement statuses")
-    case.testrail_config(case.activity.variables.run_number, 1886)
+    case.testrail_config(1886)
 
     try:
         timestamp_first_day = 1735689600000

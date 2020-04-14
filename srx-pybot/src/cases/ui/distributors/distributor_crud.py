@@ -8,7 +8,7 @@ import time
 
 def distributor_crud(case):
     case.log_name("Distributor CRUD")
-    case.testrail_config(case.activity.variables.run_number, 1917)
+    case.testrail_config(1917)
 
     try:
         lp = LoginPage(case.activity)

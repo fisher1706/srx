@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 
 def universal_catalog_by_distributor_catalog(case):
     case.log_name("Add new element to the universal catalog by adding it to the distributor catalog")
-    case.testrail_config(case.activity.variables.run_number, 1859)
+    case.testrail_config(1859)
 
     try:
         uca = UniversalCatalogApi(case)

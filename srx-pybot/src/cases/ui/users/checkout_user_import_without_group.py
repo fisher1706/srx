@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 
 def checkout_user_import_without_group(case):
     case.log_name("Checkout user import without checkout group")
-    case.testrail_config(case.activity.variables.run_number, 1849)
+    case.testrail_config(1849)
 
     try:
         lp = LoginPage(case.activity)

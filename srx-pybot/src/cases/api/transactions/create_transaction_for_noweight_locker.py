@@ -11,7 +11,7 @@ import copy
 
 def create_transaction_for_noweight_locker(case):
     case.log_name("Create transaction for NoWeight locker by changing OHI")
-    case.testrail_config(case.activity.variables.run_number, 1853)
+    case.testrail_config(1853)
 
     try:
         sha = ShiptoApi(case)

@@ -50,8 +50,12 @@ class Case():
         else:
             self.activity.logger.info("Testrail does not configure")
 
-    def testrail_config(self, run_number, case_number):
+    def testrail_config(self, case_number, run_number=None):
         self.testrail = True
+        if (run_number is None):
+            run_number = self.activity.variables.run_number
+        elif (run_number is None and self.activity.run_number is not None):
+            run_number = self.activity.run_number
         self.run_number = run_number
         self.case_number = case_number
 

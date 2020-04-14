@@ -7,7 +7,7 @@ from src.resources.tools import Tools
 
 def checkout_user_of_customer_user(case):
     case.log_name("Checkout user of customer user")
-    case.testrail_config(case.activity.variables.run_number, 1850)
+    case.testrail_config(1850)
 
     try:
         cua = CustomerUserApi(case)

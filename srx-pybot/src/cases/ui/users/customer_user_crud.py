@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 
 def customer_user_crud(case):
     case.log_name("Customer user CRUD")
-    case.testrail_config(case.activity.variables.run_number, 37)
+    case.testrail_config(37)
 
     try:
         lp = LoginPage(case.activity)

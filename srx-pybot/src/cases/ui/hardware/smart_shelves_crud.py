@@ -9,7 +9,7 @@ import random
 
 def smart_shelves_crud(case):
     case.log_name("Smart Shelves CRUD")
-    case.testrail_config(case.activity.variables.run_number, 1920)
+    case.testrail_config(1920)
 
     try:
         lp = LoginPage(case.activity)

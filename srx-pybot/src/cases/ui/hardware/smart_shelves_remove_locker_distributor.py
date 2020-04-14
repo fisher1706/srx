@@ -10,7 +10,7 @@ import random
 
 def smart_shelves_remove_locker_distributor(case):
     case.log_name("Smart Shelf: Remove distributor and locker, bug SRX-7746")
-    case.testrail_config(case.activity.variables.run_number, 1926)
+    case.testrail_config(1926)
 
     try:
         lp = LoginPage(case.activity)

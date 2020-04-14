@@ -9,7 +9,7 @@ import time
 
 def vmi_list_partial_sku_match(case):
     case.log_name("A partial SKU match during create location")
-    case.testrail_config(case.activity.variables.run_number, 1838)
+    case.testrail_config(1838)
 
     try:
         lp = LoginPage(case.activity)

@@ -5,7 +5,7 @@ from src.resources.activity import Activity
 
 def document_import(case):
     case.log_name("Document import")
-    case.testrail_config(case.activity.variables.run_number, 36)
+    case.testrail_config(36)
 
     try:
         lp = LoginPage(case.activity)

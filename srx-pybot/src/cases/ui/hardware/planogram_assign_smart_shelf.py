@@ -12,7 +12,7 @@ import time
 
 def planogram_assign_smart_shelf(case):
     case.log_name("Assign smart shelf to locker via planogram")
-    case.testrail_config(case.activity.variables.run_number, 1965)
+    case.testrail_config(1965)
 
     try:
         lp = LoginPage(case.activity)

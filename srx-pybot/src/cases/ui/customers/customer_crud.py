@@ -5,7 +5,7 @@ from src.resources.activity import Activity
 
 def customer_crud(case):
     case.log_name("Customer CRUD")
-    case.testrail_config(case.activity.variables.run_number, 31)
+    case.testrail_config(31)
 
     try:
         lp = LoginPage(case.activity)

@@ -11,7 +11,7 @@ import random
 
 def smart_shelves_without_weights(case):
     case.log_name("There is no Locker door with 'without weights' configuration when create/update smart shelf")
-    case.testrail_config(case.activity.variables.run_number, 1922)
+    case.testrail_config(1922)
 
     try:
         lp = LoginPage(case.activity)

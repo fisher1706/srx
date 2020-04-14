@@ -6,7 +6,7 @@ import random
 
 def pricing_import(case):
     case.log_name("Pricing import")
-    case.testrail_config(case.activity.variables.run_number, 35)
+    case.testrail_config(35)
 
     try:
         lp = LoginPage(case.activity)

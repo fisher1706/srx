@@ -7,7 +7,7 @@ import random
 
 def usage_history_import(case):
     case.log_name("Usage history import")
-    case.testrail_config(case.activity.variables.run_number, 1842)
+    case.testrail_config(1842)
 
     try:
         lp = LoginPage(case.activity)

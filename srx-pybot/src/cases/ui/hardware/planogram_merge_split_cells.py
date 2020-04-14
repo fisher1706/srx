@@ -12,7 +12,7 @@ import time
 
 def planogram_merge_split_cells(case):
     case.log_name(" Merge/Split cells via planorgam ")
-    case.testrail_config(case.activity.variables.run_number, 1970)
+    case.testrail_config(1970)
 
     try:
         lp = LoginPage(case.activity)

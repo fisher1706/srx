@@ -7,7 +7,7 @@ import random
 
 def shipto_fee_levels(case):
     case.log_name("Shipto levels undo")
-    case.testrail_config(case.activity.variables.run_number, 1919)
+    case.testrail_config(1919)
 
     try:
         lp = LoginPage(case.activity)

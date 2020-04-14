@@ -8,7 +8,7 @@ import time
 
 def delete_location_by_change_doortype(case):
     case.log_name("Delete location by change doortype")
-    case.testrail_config(case.activity.variables.run_number, 1852)
+    case.testrail_config(1852)
 
     try:
         sa = ShiptoApi(case)

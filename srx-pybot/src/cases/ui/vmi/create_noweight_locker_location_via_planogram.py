@@ -13,7 +13,7 @@ import time
 def create_noweight_locker_location_via_planogram(case):
     try:
         case.log_name("Create NoWeight locker location via planogram")
-        case.testrail_config(case.activity.variables.run_number, 1856)
+        case.testrail_config(1856)
 
         lp = LoginPage(case.activity)
         lpp = LockerPlanogramPage(case.activity)

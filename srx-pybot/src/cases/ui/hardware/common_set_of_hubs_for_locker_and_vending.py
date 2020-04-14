@@ -6,7 +6,7 @@ from src.resources.activity import Activity
 
 def common_set_of_hubs_for_locker_and_vending(case):
     case.log_name("Common set of available IoT Hubs for Lockers and Vending Machines")
-    case.testrail_config(case.activity.variables.run_number, 1839)
+    case.testrail_config(1839)
 
     try:
         lp = LoginPage(case.activity)

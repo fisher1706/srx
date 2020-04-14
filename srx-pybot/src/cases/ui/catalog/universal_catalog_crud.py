@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 
 def universal_catalog_crud(case):
     case.log_name("Universal catalog CRUD")
-    case.testrail_config(case.activity.variables.run_number, 1857)
+    case.testrail_config(1857)
 
     try:
         lp = LoginPage(case.activity)

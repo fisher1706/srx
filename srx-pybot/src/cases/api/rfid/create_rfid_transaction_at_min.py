@@ -10,7 +10,7 @@ from src.bases.rfid_basis import rfid_basis
 
 def create_rfid_transaction_at_min(case):
     case.log_name("Create transaction for RFID location by RFID Read (at min)")
-    case.testrail_config(case.activity.variables.run_number, 1913)
+    case.testrail_config(1913)
 
     try:
         sa = ShiptoApi(case)

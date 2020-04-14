@@ -13,7 +13,7 @@ import time
 
 def smart_shelves_assign_via_hardware_check_planogram(case):
     case.log_name(" Assign smart shelf via hardware and check it on planogram ")
-    case.testrail_config(case.activity.variables.run_number, 1966)
+    case.testrail_config(1966)
 
     try:
         lp = LoginPage(case.activity)

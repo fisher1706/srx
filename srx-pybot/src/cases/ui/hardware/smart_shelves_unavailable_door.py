@@ -11,7 +11,7 @@ import random
 
 def smart_shelves_unavailable_door(case):
     case.log_name("Can not assign Locker door that already has smart shelf")
-    case.testrail_config(case.activity.variables.run_number, 1925)
+    case.testrail_config(1925)
 
     try:
         lp = LoginPage(case.activity)

@@ -4,7 +4,7 @@ from src.pages.sub.login_page import LoginPage
 
 def invalid_admin_login(case):
     case.log_name("Invalid log in Admin portal")
-    case.testrail_config(case.activity.variables.run_number, 7)
+    case.testrail_config(7)
 
     try:
         lp = LoginPage(case.activity)

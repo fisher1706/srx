@@ -5,7 +5,7 @@ from src.resources.activity import Activity
 
 def iothub_crud(case):
     case.log_name("IoT Hub CRUD")
-    case.testrail_config(case.activity.variables.run_number, 32)
+    case.testrail_config(32)
 
     try:
         lp = LoginPage(case.activity)

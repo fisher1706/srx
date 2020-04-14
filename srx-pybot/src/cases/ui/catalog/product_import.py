@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 
 def product_import(case):
     case.log_name("Product import")
-    case.testrail_config(case.activity.variables.run_number, 34)
+    case.testrail_config(34)
 
     try:
         lp = LoginPage(case.activity)

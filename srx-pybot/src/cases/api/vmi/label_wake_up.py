@@ -9,7 +9,7 @@ from src.bases.location_basis import location_basis
 
 def label_wake_up(case):
     case.log_name("Label Wake Up")
-    case.testrail_config(case.activity.variables.run_number, 1887)
+    case.testrail_config(1887)
 
     try:
         timestamp_another_day = 1736035200000
