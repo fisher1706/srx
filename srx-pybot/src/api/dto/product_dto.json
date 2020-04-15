@@ -22,5 +22,6 @@
     "gtin": null,
     "upc": null,
     "unitName": null,
-    "keyword": null
+    "keyword": null,
+    "assetFlag": false
 }
