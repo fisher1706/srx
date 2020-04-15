@@ -1,6 +1,7 @@
 from src.resources.case import Case
 from src.resources.activity import Activity
 from src.cases.ui import *
+import traceback
 
 if __name__ == "__main__":
     #ui tests
@@ -57,4 +58,4 @@ if __name__ == "__main__":
         activity.logger.output_suite_result()
         activity.finish_activity()
     except:
-        case.print_traceback()
+        print(str(traceback.format_exc()))
