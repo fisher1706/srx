@@ -24,6 +24,7 @@ if __name__ == "__main__":
         smart_shelves_change_door(Case(api_activity, 'SUITE'))
         remove_locker_from_smart_shelf(Case(api_activity, 'SUITE'))
         smart_shelves_delete_check_locker(Case(api_activity, 'SUITE'))
+        create_location_for_asset(Case(api_activity, 'SUITE'))
 
         api_activity.logger.output_suite_result()
         api_activity.finish_activity()
