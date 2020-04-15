@@ -63,7 +63,7 @@ class Activity():
     def credentials_config(self):
         if (self.remote_credentials == False):
             from src.resources.local_credentials import LocalCredentials
-            local_credentials = LocalCredentials()
+            local_credentials = LocalCredentials(self.arg_environment)
             if (self.USER_POOL_ID is None):
                 self.USER_POOL_ID = local_credentials.USER_POOL_ID
             if (self.CLIENT_ID is None):

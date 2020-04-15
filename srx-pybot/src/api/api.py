@@ -11,8 +11,8 @@ class API():
         self.activity = case.activity
         self.case = case
 
-    def get_token(self, username, password):
-        return Cognito(self.activity, username, password).id_token
+    def get_token(self, username, password, user_pool_id, client_id, client_secret=None):
+        return Cognito(username, password, user_pool_id, client_id, client_secret).id_token
 
     def get_distributor_token(self, username=None, password=None):
         if (self.case.distributor_token is None):
@@ -20,7 +20,7 @@ class API():
                 username = self.variables.distributor_email
             if (password is None):
                 password = self.variables.distributor_password
-            self.case.distributor_token = self.get_token(username, password)
+            self.case.distributor_token = self.get_token(username, password, self.activity.USER_POOL_ID, self.activity.CLIENT_ID, self.activity.CLIENT_SECRET)
         return self.case.distributor_token
 
     def get_customer_token(self, username=None, password=None):
@@ -29,13 +29,22 @@ class API():
                 username = self.variables.customer_email
             if (password is None):
                 password = self.variables.customer_password
-            self.case.customer_token = self.get_token(username, password)
+            self.case.customer_token = self.get_token(username, password, self.activity.USER_POOL_ID, self.activity.CLIENT_ID, self.activity.CLIENT_SECRET)
         return self.case.customer_token
 
     def get_admin_token(self):
         if (self.case.admin_token is None):
-            self.case.admin_token = self.get_token(self.variables.admin_email, self.variables.admin_password)
+            self.case.admin_token = self.get_token(self.variables.admin_email, self.variables.admin_password, self.activity.USER_POOL_ID, self.activity.CLIENT_ID, self.activity.CLIENT_SECRET)
         return self.case.admin_token
+
+    def get_checkout_token(self, username=None, password=None):
+        if (self.case.checkout_token is None):
+            if (username is None):
+                username = self.variables.customer_email
+            if (password is None):
+                password = self.variables.customer_password
+            self.case.checkout_token = self.get_token(username, password, self.activity.USER_POOL_ID, self.activity.CLIENT_ID)
+        return self.case.checkout_token
 
     def send_post(self, url, token, data=None, additional_headers=None, line_data=None):
         headers = {
