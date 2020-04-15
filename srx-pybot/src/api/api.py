@@ -43,7 +43,7 @@ class API():
                 username = self.variables.customer_email
             if (password is None):
                 password = self.variables.customer_password
-            self.case.checkout_token = self.get_token(username, password, self.activity.USER_POOL_ID, self.activity.CLIENT_ID)
+            self.case.checkout_token = self.get_token(username, password, self.activity.USER_POOL_ID, self.activity.CHECKOUT_CLIENT_ID)
         return self.case.checkout_token
 
     def send_post(self, url, token, data=None, additional_headers=None, line_data=None):

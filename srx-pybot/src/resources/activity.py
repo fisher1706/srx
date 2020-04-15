@@ -29,6 +29,7 @@ class Activity():
         parser.add_argument("--USER_POOL_ID", "-p", help="Set ID of Cognito User Pool")
         parser.add_argument("--CLIENT_ID", "-i", help="Set ID of Cognito Client")
         parser.add_argument("--CLIENT_SECRET", "-s", help="Set Secret Key of Cognito Client")
+        parser.add_argument("--CHECKOUT_CLIENT_ID", "-ch", help="Set ID of Cognito Checkout Client")
         parser.add_argument("--email_address", "-ea", help="Set email address of inbox email")
         parser.add_argument("--email_password", "-ep", help="Set password of inbox email")
         parser.add_argument("--testrail_email", "-te", help="Set email address of testrail account")
@@ -40,6 +41,7 @@ class Activity():
         self.USER_POOL_ID = args.USER_POOL_ID
         self.CLIENT_ID = args.CLIENT_ID 
         self.CLIENT_SECRET = args.CLIENT_SECRET
+        self.CHECKOUT_CLIENT_ID = args.CHECKOUT_CLIENT_ID 
         self.email_address = args.email_address
         self.email_password = args.email_password
         self.testrail_email = args.testrail_email
@@ -68,6 +70,8 @@ class Activity():
                 self.USER_POOL_ID = local_credentials.USER_POOL_ID
             if (self.CLIENT_ID is None):
                 self.CLIENT_ID = local_credentials.CLIENT_ID
+            if (self.CHECKOUT_CLIENT_ID is None):
+                self.CHECKOUT_CLIENT_ID = local_credentials.CHECKOUT_CLIENT_ID
             if (self.CLIENT_SECRET is None):
                 self.CLIENT_SECRET = local_credentials.CLIENT_SECRET
             if (self.email_address is None):
