@@ -4,5 +4,5 @@ phases:
   build:
     commands:
       - export PYTHONPATH=$PYTHONPATH:./srx-pybot/
-      - python3 srx-pybot/src/suites/main_ui_suite.py --browser=ffhl --environment=qa --USER_POOL_ID=$USER_POOL_ID --CLIENT_ID=$CLIENT_ID --CLIENT_SECRET=$CLIENT_SECRET --email_address=$INBOX_EMAIL_ADDRESS --email_password=$INBOX_EMAIL_PASSWORD --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD -c
-      - python3 srx-pybot/src/suites/main_api_suite.py --browser=ffhl --environment=qa --USER_POOL_ID=$USER_POOL_ID --CLIENT_ID=$CLIENT_ID --CLIENT_SECRET=$CLIENT_SECRET --email_address=$INBOX_EMAIL_ADDRESS --email_password=$INBOX_EMAIL_PASSWORD --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD -c
+      - python3 srx-pybot/src/suites/main_ui_suite.py --browser=ffhl --environment=qa --USER_POOL_ID=$USER_POOL_ID --CLIENT_ID=$CLIENT_ID --CLIENT_SECRET=$CLIENT_SECRET --CHECKOUT_CLIENT_ID=$CHECKOUT_CLIENT_ID  --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD -c
+      - python3 srx-pybot/src/suites/main_api_suite.py --browser=ffhl --environment=qa --USER_POOL_ID=$USER_POOL_ID --CLIENT_ID=$CLIENT_ID --CLIENT_SECRET=$CLIENT_SECRET --CHECKOUT_CLIENT_ID=$CHECKOUT_CLIENT_ID --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD -c

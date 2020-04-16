@@ -30,8 +30,6 @@ class Logger():
         self.my_logger.addHandler(self.suite_handler)
         self.my_logger.addHandler(self.console_handler)
 
-        self.suite_error_count = 0
-        self.suite_critical_count = 0
         self.case_error_count = 0
         self.case_critical_count = 0
         self.case_result = ""
@@ -46,7 +44,6 @@ class Logger():
     def error(self, msg):
         #print(str(traceback.format_exc()))
         self.my_logger.error(msg)
-        self.suite_error_count = self.suite_error_count + 1
         self.case_error_count = self.case_error_count + 1
         self.current_error_series = self.current_error_series +1
         self.case_result = self.case_result + '\n[ERROR] ' + msg
@@ -55,20 +52,16 @@ class Logger():
 
     def critical(self, msg):
         self.my_logger.critical(msg)
-        self.suite_critical_count = self.suite_critical_count + 1
         self.case_critical_count = self.case_critical_count + 1
         self.case_result = self.case_result + '\n[CRITICAL] ' + msg
 
     def output_case_result(self):
         self.info("----------------------------")
-        self.info(f"CASE ERRORS: {self.case_error_count}")
-        #self.info("CASE CRITICALS: "+str(self.case_critical_count))
+        if (self.case_critical_count == 0 and self.case_error_count == 0):
+            self.info(f"TEST PASSED")
+        else:
+            self.info(f"TEST FAILED")
         self.info("----------------------------")
-
-    def output_suite_result(self):
-        self.info(f"SUITE ERRORS: {self.suite_error_count}")
-        self.info(f"SUITE CRITICALS: {self.suite_critical_count}")
-        self.info("============================")
 
     def log_case_name(self, name):
         self.info("============================")
