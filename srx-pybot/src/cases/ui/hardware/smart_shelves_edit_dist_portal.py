@@ -6,6 +6,7 @@ from src.resources.case import Case
 from src.resources.activity import Activity
 from src.bases.locker_basis import locker_basis
 from src.bases.smart_shelves_basis import smart_shelves_basis
+import time
 
 def smart_shelves_edit_dist_portal(case):
     case.log_name("Distributor portal: Edit Smart Shelves ")
