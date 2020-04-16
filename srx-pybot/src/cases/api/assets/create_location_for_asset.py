@@ -8,7 +8,7 @@ from src.resources.tools import Tools
 
 def create_location_for_asset(case):
     case.log_name("Create location for asset product ")
-    case.testrail_config(case.activity.variables.run_number, 1990)
+    case.testrail_config(1990)
 
     try:
         aa = AssetsApi(case)

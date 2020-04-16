@@ -21,7 +21,6 @@ class AssetsApi(API):
         assets_list = []
         for item in response_assets:
             assets_list.append(item["orderingConfig"]["product"]["partSku"])
-        print(assets_list)
         if asset in assets_list:
             self.logger.info(f"Assest {asset} is pesetnt in all assets list")
         else: 
