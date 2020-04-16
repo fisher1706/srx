@@ -3,7 +3,6 @@ import botocore.exceptions
 import hmac
 import hashlib
 import base64
-import srp
 from warrant.aws_srp import AWSSRP
 
 class Cognito():

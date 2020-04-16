@@ -15,7 +15,6 @@ class Activity():
         self.variables = Variables(self.arg_environment)
         self.url = URL(self.arg_environment)
         self.logger.expected_error_series = self.variables.expected_error_series
-        self.browser_config(self.arg_browser)
         self.credentials_config()
         self.run_number = None
 
@@ -48,8 +47,9 @@ class Activity():
         self.testrail_password = args.testrail_password
         self.remote_credentials = args.credentials
 
-    def browser_config(self, browser):
+    def browser_config(self):
         if (self.api_test == False):
+            browser = self.arg_browser
             if (browser == 'ff' or browser is None):
                 self.driver = webdriver.Firefox()
             elif (browser == 'ffhl'):
@@ -82,7 +82,3 @@ class Activity():
                 self.testrail_email = local_credentials.testrail_email
             if (self.testrail_password is None):
                 self.testrail_password = local_credentials.testrail_password
-
-    def finish_activity(self):
-        if (self.api_test == False):
-            self.driver.close()
