@@ -4,9 +4,8 @@ import random
 import traceback
 
 class Case():
-    def __init__(self, activity, level='CASE'):
+    def __init__(self, activity):
         self.activity = activity
-        self.level = level
         self.testrail = False
         self.admin_token = None
         self.distributor_token = None
@@ -18,18 +17,17 @@ class Case():
         self.finish_case()
 
     def finish_case(self):
-        if (self.activity.api_test == False):
-            self.activity.driver.delete_all_cookies()
         self.activity.logger.output_case_result()
         self.testrail_publish_result()
         self.activity.logger.case_error_count = 0
         self.activity.logger.case_critical_count = 0
         self.activity.logger.case_result = ""
-        if (self.level == 'CASE'):
-            self.activity.finish_activity()
+        if (self.activity.api_test == False):
+            self.activity.driver.close()
 
     def log_name(self, name):
         self.activity.logger.log_case_name(name)
+        self.activity.browser_config()
 
     def testrail_publish_result(self):
         if (self.testrail == True and self.run_number is not None):
