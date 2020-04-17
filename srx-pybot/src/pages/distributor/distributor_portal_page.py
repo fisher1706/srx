@@ -37,13 +37,3 @@ class DistributorPortalPage(Page):
 
     def distributor_sidebar_should_contain_email(self):
         self.should_be_present_xpath(f"//span[text()='{self.variables.distributor_email}']")
-
-    def get_authorization_token(self):
-        cookies = self.driver.get_cookies()
-        for cookies_dict in cookies:
-            result = cookies_dict["name"].split(".")
-            if ("idToken" in result):
-                token = cookies_dict["value"]
-                print(token)
-                break
-        return token

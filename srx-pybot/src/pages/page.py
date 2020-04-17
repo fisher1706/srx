@@ -587,6 +587,5 @@ class Page():
             result = cookies_dict["name"].split(".")
             if ("idToken" in result):
                 token = cookies_dict["value"]
-                print(token)
                 break
         return token

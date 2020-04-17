@@ -21,3 +21,6 @@ class CustomerPortalPage(Page):
     
     def sidebar_assets(self):
         self.click_id("sidebar-assets")
+    
+    def customer_sidebar_should_contain_email(self):
+        self.should_be_present_xpath(f"//span[text()='{self.variables.customer_email}']")

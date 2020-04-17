@@ -8,6 +8,7 @@ class URL():
             self.auth_portal = self.get_url_for_env("storeroomlogix.com", "auth")
             self.distributor_portal = self.get_url_for_env("storeroomlogix.com", "distributor")
             self.customer_portal = self.get_url_for_env("storeroomlogix.com", "customer")
+            self.checkout_portal = self.get_url_for_env("storeroomlogix.com", "checkout")
         else:
             raise IOError("Incorrect environment")
 
