@@ -296,9 +296,9 @@ class Page():
             self.logger.info(f"There are '{count}' elements with XPATH = '{xpath}'")
             return count
 
-    def elements_count_should_be(self, xpath, number):
+    def elements_count_should_be(self, xpath, number, time=15):
         try:
-            WebDriverWait(self.driver, 15).until(elements_count_should_be(xpath, number))
+            WebDriverWait(self.driver, time).until(elements_count_should_be(xpath, number))
         except TimeoutException:
             self.logger.error("Count of elements is incorrect")
         else:
