@@ -24,7 +24,7 @@ def create_location_for_asset(case):
         response = location_basis(case, product_dto=product_dto)
         # check assetFlag 
         assert response["product"]["assetFlag"] == True, f"Location {response['product']['partSku']} does not have asset flag = true"
-        t = aa.check_asset_in_all_assets_list(response["product"]["partSku"])
+        aa.check_asset_in_all_assets_list(response["product"]["partSku"])
 
         case.finish_case()
     except:
