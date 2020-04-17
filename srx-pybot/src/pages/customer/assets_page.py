@@ -37,22 +37,14 @@ class AssetsPage(CustomerPortalPage):
         self.element_should_have_text(f"{self.xpath_available}/../div[2]", f"{avaliable}")
         # comment because of bug
         # text = self.get_element_text(f"{self.xpath_user}/../div[2]/a")
-        # print(text)
         # self.element_should_have_text(f"{self.xpath_user}/../div[2]/a", f"{self.variables.customer_email} {self.variables.customer_email} {self.variables.customer_email}")
-
-    # unsure about this
-    # def check_user_assets_tab(self, asset, shipto, avaliable, total, checked_out):
-    #     self.sidebar_users_and_groups()
-    #     self.click_tab_by_name("Fobs & Passcodes")
 
     def checked_out_tab_should_not_contain(self, asset):
         self.click_tab_by_name("Checked Out")
         self.click_xpath(self.xpath_filter)
         self.input_data_xpath(asset, self.xpath_sku_input)
         self.click_xpath(self.xpath_apply)
-        self.wait_until_progress_bar_loaded()
-        count = self.get_element_count(self.xpath_asset_card)
-        print(count)
-        assert count == 0, f"Asset {asset} should Not be in the list"
+        self.elements_count_should_be(self.xpath_asset_card, 0, time=5)
+
 
 
