@@ -55,6 +55,7 @@ if __name__ == "__main__":
         planogram_without_weights_assign_smart_shelf(Case(activity))
         smart_shelf_move_locker_to_another_distributor(Case(activity))
         issue_return_assets_label(Case(activity))
+        customer_security_group_crud(Case(activity))
 
     except:
         print(str(traceback.format_exc()))

@@ -564,3 +564,11 @@ class Page():
         except TimeoutException:
             pass
         WebDriverWait(self.driver, 15).until_not(is_progress_bar_loading())
+    
+    def click_table_title(self, title, row):
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, row)+title)
+    
+    def get_row_of_table_item_by_column(self, scan_by, column, prefix_path=""):
+        for index, row in enumerate(range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1)):
+            if (scan_by == self.driver.find_element_by_xpath(prefix_path+self.locators.xpath_table_item(row, column)).text):
+                return index+1
