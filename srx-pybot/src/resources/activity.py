@@ -1,18 +1,18 @@
 from src.resources.locators import Locators
 from src.resources.logger import Logger
 from src.resources.url import URL
-from src.resources.variables import Variables
 from selenium import webdriver
+from src.resources.variables import Variables
 from selenium.webdriver.firefox.options import Options
 import argparse
 
 class Activity():
-    def __init__(self, api_test=False):
+    def __init__(self, api_test=False, smoke=None):
         self.api_test = api_test
         self.get_args()
         self.locators = Locators()
         self.logger = Logger()
-        self.variables = Variables(self.arg_environment)
+        self.variables = Variables(self.arg_environment, smoke)
         self.url = URL(self.arg_environment)
         self.logger.expected_error_series = self.variables.expected_error_series
         self.credentials_config()

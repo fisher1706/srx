@@ -17,14 +17,14 @@ def distributor_login(case):
         lp.input_password(case.activity.variables.distributor_password)
         lp.click_on_submit_button()
         dpp.click_id(case.activity.locators.id_enter_here)
-        dpp.distributor_sidebar_should_contain_email()
+        dpp.distributor_sidebar_should_contain_email(case.activity.variables.distributor_email)
         dpp.url_should_contain("distributor")
-        token = dpp.get_authorization_token()
+        distributor_token = dpp.get_authorization_token()
 
         case.finish_case()
     except:
         case.critical_finish_case()
-    return token
+    return distributor_token
 
 if __name__ == "__main__":
-    distributor_login(Case(Activity()))
+    distributor_login(Case(Activity(smoke=True)))

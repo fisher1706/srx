@@ -18,12 +18,10 @@ def customer_login(case):
         cpp.click_id(case.activity.locators.id_enter_here)
         cpp.customer_sidebar_should_contain_email()
         cpp.url_should_contain("customer")
-        token = lp.get_authorization_token()
 
         case.finish_case()
     except:
         case.critical_finish_case()
-    return token
 
 if __name__ == "__main__":
-    customer_login(Case(Activity()))
+    customer_login(Case(Activity(smoke=True)))

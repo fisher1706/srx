@@ -5,9 +5,9 @@ class TransactionApi(API):
     def __init__(self, case):
         super().__init__(case)
 
-    def create_active_item(self, shipto_id, ordering_config_id):
+    def create_active_item(self, shipto_id, ordering_config_id, repeat=21):
         transactions_count = self.get_transactions_count(status="ACTIVE", shipto_id=shipto_id)
-        for count in range (1, 21):
+        for count in range (1, repeat):
             url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={self.variables.customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
             token = self.get_distributor_token()
             response = self.send_post(url, token)

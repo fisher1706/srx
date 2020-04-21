@@ -29,3 +29,5 @@ class URL():
             'qa': f"https://api-qa.storeroomlogix.com{url}"
         }
         return switcher.get(self.environment)
+    
+    #def get_iothub_api_url(self):

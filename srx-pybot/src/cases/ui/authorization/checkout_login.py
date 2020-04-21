@@ -23,4 +23,4 @@ def checkout_login(case):
         case.critical_finish_case()
 
 if __name__ == "__main__":
-    checkout_login(Case(Activity()))
+    checkout_login(Case(Activity(smoke=True)))
