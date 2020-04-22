@@ -30,4 +30,11 @@ class URL():
         }
         return switcher.get(self.environment)
     
-    #def get_iothub_api_url(self):
+    def get_iothub_api_url_for_env(self, url):
+        switcher = {
+            'dev': f"https://iothub-api.storeroomlogix.com/dev{url}",
+            'staging': f"https://iothub-api.storeroomlogix.com/staging{url}",
+            'prod': f"https://iothub-api.storeroomlogix.com/prod{url}",
+            'qa': f"https://iothub-api.storeroomlogix.com/qa{url}"
+        }
+        return switcher.get(self.environment)

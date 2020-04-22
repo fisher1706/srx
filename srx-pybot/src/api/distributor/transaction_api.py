@@ -72,3 +72,12 @@ class TransactionApi(API):
     def get_transaction_id_and_qty(self, sku=None, status=None, customer_id=None, shipto_id=None):
         response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
         return response["entities"][0]["id"], response["entities"][0]["reorderQuantity"]
+
+    def update_transactions_with_specific_status(self, status_before, quantity, status_after):
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/item/update")
+        token = self.get_distributor_token()
+        transactions_response = self.get_transaction(status=status_before)
+        tranactions_list = transactions_response["entities"]
+        for item in range(transactions_response["totalElements"]):
+            transaction_id = tranactions_list[item]["id"]
+            self.update_replenishment_item(transaction_id, quantity, status_after)

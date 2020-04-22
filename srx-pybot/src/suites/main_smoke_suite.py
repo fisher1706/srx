@@ -21,7 +21,9 @@ if __name__ == "__main__":
 
         smoke_api_suite = [
             get_settings,
-            create_user
+            create_user,
+            create_user,
+            label_transaction_activity_log
         ]
 
         for test_case in smoke_ui_suite:
