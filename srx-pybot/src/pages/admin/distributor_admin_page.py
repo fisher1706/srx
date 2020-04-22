@@ -18,6 +18,8 @@ class DistributorAdminPage(AdminPortalPage):
             "SupplyForce": True,
             "User Data": True,
             "Agreements": True,
+            "Taxes": True,
+            "Level": None,
             "Billing Info": True
         }
 
@@ -28,8 +30,8 @@ class DistributorAdminPage(AdminPortalPage):
             self.select_checkbox_in_dialog_by_name(checkbox)
         for field in distributor_body.keys():
             self.input_by_name(field, distributor_body[field])
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), state)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), bill_by)
+        self.select_in_dropdown_via_input(self.locators.xpath_dropdown_in_dialog(1), state)
+        self.select_in_dropdown_via_input(self.locators.xpath_dropdown_in_dialog(2), bill_by)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
@@ -59,9 +61,9 @@ class DistributorAdminPage(AdminPortalPage):
             self.unselect_checkbox_in_dialog_by_name(checkbox)
         for field in distributor_body.keys():
             self.input_by_name(field, distributor_body[field])
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), state)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), bill_by)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), ship_to_level)
+        self.select_in_dropdown_via_input(self.locators.xpath_dropdown_in_dialog(1), state)
+        self.select_in_dropdown_via_input(self.locators.xpath_dropdown_in_dialog(2), bill_by)
+        self.select_in_dropdown_via_input(self.locators.xpath_dropdown_in_dialog(3), ship_to_level)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
