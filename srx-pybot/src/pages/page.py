@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.keys import Keys
 from src.waits import *
 import csv
 import os
@@ -261,6 +262,14 @@ class Page():
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.click_xpath(f"{xpath}/..//div[text()='{name}']")
+
+    def select_in_dropdown_via_input(self, xpath, name):
+        if (name is not None):
+            self.click_xpath(xpath)
+            self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
+            self.input_data_xpath(name, f"{xpath}//input")
+            #self.click_xpath(f"{xpath}/..//div[text()='{name}']")
+            self.driver.find_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
 
     def dialog_should_not_be_visible(self):
         try:
