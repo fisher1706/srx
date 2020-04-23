@@ -268,7 +268,6 @@ class Page():
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.input_data_xpath(name, f"{xpath}//input")
-            #self.click_xpath(f"{xpath}/..//div[text()='{name}']")
             self.driver.find_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
 
     def dialog_should_not_be_visible(self):
