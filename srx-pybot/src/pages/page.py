@@ -581,3 +581,20 @@ class Page():
         for index, row in enumerate(range(1, self.get_element_count(prefix_path+self.locators.xpath_table_row)+1)):
             if (scan_by == self.driver.find_element_by_xpath(prefix_path+self.locators.xpath_table_item(row, column)).text):
                 return index+1
+    
+    def url_should_contain(self, text):
+        current_url = self.driver.current_url
+        result = f"{text}" in current_url
+        if (result is True): 
+            self.logger.info(f"URL contains text '{text}'")
+        else: 
+            self.logger.error(f"URL does not contain '{text}'")
+    
+    def get_authorization_token(self):
+        cookies = self.driver.get_cookies()
+        for cookies_dict in cookies:
+            result = cookies_dict["name"].split(".")
+            if ("idToken" in result):
+                token = cookies_dict["value"]
+                break
+        return token

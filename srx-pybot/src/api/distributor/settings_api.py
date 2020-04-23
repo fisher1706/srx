@@ -25,3 +25,16 @@ class SettingsApi(API):
         if (reorder_controls == "ISSUED"):
             checkout_settings_dto["settings"]["reorderControls"] = "ADD_AS_ISSUED"
         self.update_checkout_software_settings_shipto(checkout_settings_dto, shipto_id)
+
+    def get_checkout_software_settings_for_shipto(self, shipto_id):
+        token = self.get_distributor_token()
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/checkout-software/settings")
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info(f"Checkout software settings of shipto with ID = '{shipto_id}' has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        if (bool(response_json["data"]) is False):
+            self.logger.error(f"Checkout software settings of shipto with ID = '{shipto_id}' are empty")
+        return response_json["data"]

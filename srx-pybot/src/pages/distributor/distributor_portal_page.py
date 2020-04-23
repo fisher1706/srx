@@ -1,4 +1,5 @@
 from src.pages.page import Page
+import time
 
 class DistributorPortalPage(Page):
     def __init__(self, activity):
@@ -33,3 +34,8 @@ class DistributorPortalPage(Page):
 
     def sidebar_hardware(self):
         self.click_id("sidebar-claiming_hardware")
+
+    def distributor_sidebar_should_contain_email(self, email=None):
+        if (email is None):
+            email = self.variables.distributor_email
+        self.should_be_present_xpath(f"//span[text()='{email}']")
