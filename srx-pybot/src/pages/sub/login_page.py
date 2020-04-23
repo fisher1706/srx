@@ -10,6 +10,9 @@ class LoginPage(Page):
     def follow_auth_portal(self):
         self.follow_url(self.url.auth_portal)
 
+    def follow_checkout_portal(self):
+        self.follow_url(self.url.checkout_portal)
+
     def input_email(self, email):
         self.input_data_id(email, self.locators.id_email)
 
