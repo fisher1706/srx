@@ -8,6 +8,7 @@ class URL():
             self.auth_portal = self.get_url_for_env("storeroomlogix.com", "auth")
             self.distributor_portal = self.get_url_for_env("storeroomlogix.com", "distributor")
             self.customer_portal = self.get_url_for_env("storeroomlogix.com", "customer")
+            self.checkout_portal = self.get_url_for_env("storeroomlogix.com", "checkout")
         else:
             raise IOError("Incorrect environment")
 
@@ -26,5 +27,14 @@ class URL():
             'staging': f"https://api-staging.storeroomlogix.com{url}",
             'prod': f"https://api-prod.storeroomlogix.com{url}",
             'qa': f"https://api-qa.storeroomlogix.com{url}"
+        }
+        return switcher.get(self.environment)
+    
+    def get_iothub_api_url_for_env(self, url):
+        switcher = {
+            'dev': f"https://iothub-api.storeroomlogix.com/dev{url}",
+            'staging': f"https://iothub-api.storeroomlogix.com/staging{url}",
+            'prod': f"https://iothub-api.storeroomlogix.com/prod{url}",
+            'qa': f"https://iothub-api.storeroomlogix.com/qa{url}"
         }
         return switcher.get(self.environment)

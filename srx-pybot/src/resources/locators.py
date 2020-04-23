@@ -42,6 +42,7 @@ class Locators():
     xpath_label_confirm = "//button[@label='Confirm']"
     xpath_label_cancel = "//button[@label='Cancel']"
     xpath_progress_bar = "//div[@role='progressbar']"
+    xpath_issue_button = "//span[text()='Issue']/../button"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"

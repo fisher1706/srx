@@ -1,5 +1,6 @@
 class Variables():
-    def __init__(self, environment):
+    def __init__(self, environment, smoke=None):
+        self.smoke = smoke
         if (environment == 'dev'):
             self.dev_environment()
         elif (environment == 'staging'):
@@ -46,19 +47,32 @@ class Variables():
         self.api_environment = "qa"
         self.admin_email = "dprovorov@agilevision.io"
         self.admin_password = "test29"
-        self.distributor_email = "dprovorov+dist@agilevision.io"
-        self.distributor_password = "test29"
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
         self.distributor_id = "4"
-        self.customer_email = "dprovorov+cust@agilevision.io"
-        self.customer_password = "test29"
         self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
         self.sub_distributor_id = "5"
-        self.run_number = [31, 2]
         self.customer_name = "Static Customer"
-        self.customer_id = "4"
         self.shipto_number = "FIRST-QA-SHIPTO"
-        self.shipto_id = "4"
+        if (self.smoke is True):
+            self.distributor_email = "vshara+dist-smoke@agilevision.io"
+            self.distributor_password = "test29"
+            self.customer_email = "vshara+cust-smoke@agilevision.io"
+            self.customer_password = "test29"
+            self.run_number = [40]
+            self.customer_id = "191"
+            self.shipto_id = "2192"
+            self.locker_id = "3869"
+            self.ordering_config_id = "2577"
+        else:
+            self.distributor_email = "dprovorov+dist@agilevision.io"
+            self.distributor_password = "test29"
+            self.customer_email = "dprovorov+cust@agilevision.io"
+            self.customer_password = "test29"
+            self.run_number = [31, 2]
+            self.customer_id = "4"
+            self.shipto_id = "4"
+        
+
 
     def general(self):
         self.expected_error_series = 1
