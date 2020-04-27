@@ -5,7 +5,7 @@ from src.resources.activity import Activity
 
 def checkout_login(case):
     case.log_name("Valid log in Checkout portal")
-    #case.testrail_config()
+    case.testrail_config(1975)
 
     try:
         lp = LoginPage(case.activity)

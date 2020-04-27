@@ -7,13 +7,7 @@ import traceback
 if __name__ == "__main__":
     #smoke tests
     try:
-        activity = Activity(smoke=True)
-        
-        try:
-            distributor_token = distributor_login(Case(activity))
-        except:
-            pass
-
+        #test cases
         smoke_ui_suite = [
             customer_login,
             checkout_login,
@@ -22,26 +16,39 @@ if __name__ == "__main__":
         smoke_api_suite = [
             get_settings,
             create_user,
-            create_user,
             label_transaction_activity_log
         ]
+        
+        #UI part
+        activity = Activity(smoke=True)
+
+        try:
+            distributor_token = distributor_login(Case(activity))
+        except:
+            activity.logger.error(f"Error with the distributor login test case. Authorization token was not received", True)
 
         for test_case in smoke_ui_suite:
             try:
-                test_case(Case(activity))
+                case = Case(activity)
+                test_case(case)
             except:
-                pass
+                activity.logger.error(f"Error with test case '{str(test_case)}'", True)
 
-        activity.logger.my_logger.handlers.clear()
+        try:
+            activity.logger.my_logger.handlers.clear()
+        except:
+            pass
+
+        #API part
         api_activity = Activity(api_test=True, smoke=True)
 
         for test_case in smoke_api_suite:
             try:
                 case = Case(api_activity)
                 case.distributor_token = distributor_token
-                test_case(Case(api_activity))
+                test_case(case)
             except:
-                pass
+                activity.logger.error(f"Error with test case '{str(test_case)}'", True)
 
     except:
         print(str(traceback.format_exc()))

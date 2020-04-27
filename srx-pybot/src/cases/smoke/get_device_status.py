@@ -3,7 +3,7 @@ from src.resources.activity import Activity
 from src.api.distributor.hardware_api import HardwareApi
 from src.resources.tools import Tools
 
-def create_user(case, token):
+def get_device_status(case):
     case.log_name("Get device status")
     case.testrail_config(2003)
 
@@ -19,5 +19,5 @@ def create_user(case, token):
     
 if __name__ == "__main__":
     case = Case(Activity(api_test=True, smoke=True))
-    distributor_token = HardwareApi(case).get_distributor_token()
-    create_user(case, distributor_token)
+    HardwareApi(case).get_distributor_token()
+    get_device_status(case)

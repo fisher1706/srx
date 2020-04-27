@@ -3,7 +3,7 @@ from src.resources.activity import Activity
 from src.api.distributor.user_api import UserApi
 from src.resources.tools import Tools
 
-def create_user(case, token):
+def create_user(case):
     case.log_name("Create/Get/Delete Distributor super user")
     case.testrail_config(2002)
 
@@ -34,5 +34,5 @@ def create_user(case, token):
     
 if __name__ == "__main__":
     case = Case(Activity(api_test=True, smoke=True))
-    distributor_token = UserApi(case).get_distributor_token()
-    create_user(case, distributor_token)
+    UserApi(case).get_distributor_token()
+    create_user(case)

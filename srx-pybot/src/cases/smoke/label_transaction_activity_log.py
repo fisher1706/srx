@@ -4,9 +4,9 @@ from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.activity_log_api import ActivityLogApi
 from src.resources.tools import Tools
 
-def label_transaction_activity_log(case, token):
+def label_transaction_activity_log(case):
     case.log_name("Transaction for LABEL and Activity Log")
-    #case.testrail_config(2005)
+    case.testrail_config(2005)
 
     try:
         ta = TransactionApi(case)
@@ -34,5 +34,5 @@ def label_transaction_activity_log(case, token):
     
 if __name__ == "__main__":
     case = Case(Activity(api_test=True, smoke=True))
-    distributor_token = TransactionApi(case).get_distributor_token()
-    label_transaction_activity_log(case, distributor_token)
+    TransactionApi(case).get_distributor_token()
+    label_transaction_activity_log(case)

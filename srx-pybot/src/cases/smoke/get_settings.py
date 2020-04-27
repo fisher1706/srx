@@ -17,5 +17,5 @@ def get_settings(case):
     
 if __name__ == "__main__":
     case = Case(Activity(api_test=True, smoke=True))
-    distributor_token = SettingsApi(case).get_distributor_token()
+    SettingsApi(case).get_distributor_token()
     get_settings(case)

@@ -6,7 +6,7 @@ from src.resources.activity import Activity
 
 def distributor_login(case):
     case.log_name("Valid log in Distributor portal")
-    #case.testrail_config()
+    case.testrail_config(1971)
 
     try:
         lp = LoginPage(case.activity)

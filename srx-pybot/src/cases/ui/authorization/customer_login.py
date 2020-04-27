@@ -5,7 +5,7 @@ from src.resources.activity import Activity
 
 def customer_login(case):
     case.log_name("Valid log in Customer portal")
-    #case.testrail_config()
+    case.testrail_config(1974)
 
     try:
         lp = LoginPage(case.activity)

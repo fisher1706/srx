@@ -41,13 +41,13 @@ class Logger():
         self.my_logger.info(msg)
         self.case_result = self.case_result + '\n[INFO] ' + msg
 
-    def error(self, msg):
+    def error(self, msg, only_msg=False):
         #print(str(traceback.format_exc()))
         self.my_logger.error(msg)
         self.case_error_count = self.case_error_count + 1
         self.current_error_series = self.current_error_series +1
         self.case_result = self.case_result + '\n[ERROR] ' + msg
-        if (self.current_error_series >= self.expected_error_series and self.expected_error_series > 0):
+        if (self.current_error_series >= self.expected_error_series and self.expected_error_series > 0 and only_msg == False):
             raise IOError("Series of errors. Test finished")
 
     def critical(self, msg):
