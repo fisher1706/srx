@@ -1,5 +1,5 @@
 from src.resources.activity import Activity
-from src.resources.testrail import APIClient
+from src.resources.testrail_client import APIClient
 import random
 import traceback
 
