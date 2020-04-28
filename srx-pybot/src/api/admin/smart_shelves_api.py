@@ -25,6 +25,17 @@ class SmartShelvesApi(API):
         response_json = response.json()
         return response_json["data"]
 
+    def get_storage_door_configuration(self, storage_id):
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/storage/{storage_id}/configuration")
+        token = self.get_admin_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Storage door configuration has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]
+
     def get_smart_shelves_id(self, locker_name):
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves?&lockerSerial={locker_name}")
         token = self.get_admin_token()
@@ -35,6 +46,20 @@ class SmartShelvesApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"][0]["id"]
+
+    def get_smart_shelves_id_assigned_to_hardware(self, hardware_name):
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves?&lockerSerial={hardware_name}")
+        token = self.get_admin_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Smart Shelf id has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        smart_shelves_id_list = []
+        for item in response_json["data"]["entities"]:
+            smart_shelves_id_list.append(item["id"])
+        return smart_shelves_id_list
 
     def delete_smart_shelves(self, smart_shelves_id):
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves/{smart_shelves_id}")

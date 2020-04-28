@@ -14,3 +14,7 @@ srx-pybot/src/output
 srx-pybot/src/resources/local_credentials.py
 srx-pybot/src/suites/testrail_bulk_retest.py
 srx-pybot/src/cases/api/hardware/create_20_iothubs.py
+srx-pybot/src/cases/api/hardware/create_storage_with_shelves.py
+srx-pybot/src/iot_hub_id.txt
+srx-pybot/src/smart_shelves_ids.txt
+srx-pybot/src/storage_ids.txt
