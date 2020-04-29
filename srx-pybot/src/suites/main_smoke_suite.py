@@ -52,6 +52,7 @@ if __name__ == "__main__":
             except:
                 activity.logger.error(f"Error with test case '{str(test_case)}'", True)
 
+        #Notification part
         testrail = Testrail(activity.testrail_email, activity.testrail_password)
         tests = testrail.get_tests(activity.variables.run_number[0])
         for test in tests:

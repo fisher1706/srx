@@ -13,8 +13,8 @@ class HardwareApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def get_device_status(self):
-        url = self.url.get_iothub_api_url_for_env("/generic/device-statuses")
+    def get_device_list(self):
+        url = self.url.get_iothub_api_url_for_env("/generic/list-devices")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
