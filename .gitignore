@@ -2,8 +2,6 @@
 *.html
 *.log
 *.png
-*.csv#
-*.csv
 *.pyc
 manual
 .vscode

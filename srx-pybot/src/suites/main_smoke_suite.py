@@ -1,5 +1,6 @@
 from src.resources.case import Case
 from src.resources.activity import Activity
+from src.resources.testrail import Testrail
 from src.cases.ui import *
 from src.cases.smoke import *
 import traceback
@@ -16,7 +17,8 @@ if __name__ == "__main__":
         smoke_api_suite = [
             get_settings,
             create_user,
-            label_transaction_activity_log
+            label_transaction_activity_log,
+            import_product
         ]
         
         #UI part
@@ -49,6 +51,16 @@ if __name__ == "__main__":
                 test_case(case)
             except:
                 activity.logger.error(f"Error with test case '{str(test_case)}'", True)
+
+        testrail = Testrail(activity.testrail_email, activity.testrail_password)
+        tests = testrail.get_tests(activity.variables.run_number[0])
+        for test in tests:
+            if (test["status_id"] == 5):
+                activity.logger.info("There are failed tests")
+                testrail.run_report(activity.variables.report_id)
+                break
+        else:
+            activity.logger.info("All test are passed")
 
     except:
         print(str(traceback.format_exc()))
