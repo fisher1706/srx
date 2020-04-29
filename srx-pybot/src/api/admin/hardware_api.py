@@ -36,6 +36,23 @@ class HardwareApi(API):
             "type": "LOCKER"
         }
         return self.create_hardware(dto)
+
+    def create_storage(self, doorsQuantity, columnsQuantity, iothub_id=None):
+        dto = {
+            "value": "",
+            "type": "STORAGE",
+            "iotHub": {
+                "id": iothub_id
+            },
+            "distributorId": 4,
+            "lockerType": {
+                "id":"",
+                "doorsQuantity": doorsQuantity,
+                "columnsQuantity": columnsQuantity,
+                "cellsWithoutWeightQuantity": 4
+                }
+        }
+        return self.create_hardware(dto)
     
     def update_locker(self, locker_id, locker_type_id, iothub_id=None):
         dto = {
