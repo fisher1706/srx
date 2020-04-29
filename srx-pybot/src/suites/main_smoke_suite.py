@@ -18,6 +18,7 @@ if __name__ == "__main__":
             get_settings,
             create_user,
             label_transaction_activity_log,
+            get_device_list,
             import_product
         ]
         
