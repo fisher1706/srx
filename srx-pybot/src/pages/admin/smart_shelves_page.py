@@ -18,6 +18,7 @@ class SmartShelvesPage(AdminPortalPage):
     def open_smart_shelves(self):
         self.sidebar_hardware()
         self.click_tab_by_name("Smart Shelves")
+        self.open_last_page()
         self.wait_until_page_loaded(7)
 
     def create_smart_shelves(self, smart_shelves_body):
