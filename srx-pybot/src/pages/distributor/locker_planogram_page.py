@@ -24,6 +24,7 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.dialog_should_not_be_visible()
     
     def open_locker_planogram(self, locker, shipto):
+        self.open_last_page()
         locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, locker_row)+self.locators.title_switch_locker_planogram)
         self.wait_until_progress_bar_loaded()
