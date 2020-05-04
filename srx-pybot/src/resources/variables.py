@@ -42,9 +42,17 @@ class Variables():
         self.sub_distributor_name = "Static Test"
         self.run_number = None
         self.customer_name = "Static Customer"
-        self.customer_id = "54"
         self.shipto_number = "2048"
-        self.shipto_id = "31"
+        if (self.smoke is True):
+            self.run_number = [43]
+            self.customer_id = "187"
+            self.shipto_id = "189"
+            self.ordering_config_id = "1516"
+            self.report_id = 6
+        else:
+            self.run_number = None
+            self.customer_id = "54"
+            self.shipto_id = "31"
 
     def qa_environment(self):
         self.api_environment = "qa"

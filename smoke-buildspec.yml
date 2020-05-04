@@ -1,0 +1,7 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - export PYTHONPATH=$PYTHONPATH:./srx-pybot/
+      - python3 srx-pybot/src/suites/main_ui_suite.py --browser=ffhl --environment=staging --distributor_email=$SMOKE_DISTRIBUTOR_EMAIL --distributor_password=$SMOKE_DISTRIBUTOR_PASSWORD --customer_email=$SMOKE_CUSTOMER_EMAIL --customer_password=$SMOKE_CUSTOMER_PASSWORD --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD -c
