@@ -26,6 +26,9 @@ class Case():
             self.activity.driver.close()
 
     def log_name(self, name):
+        self.activity.logger.case_error_count = 0
+        self.activity.logger.case_critical_count = 0
+        self.activity.logger.case_result = ""
         self.activity.logger.log_case_name(name)
         self.activity.browser_config()
 
