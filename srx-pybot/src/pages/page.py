@@ -591,9 +591,10 @@ class Page():
     
     def get_authorization_token(self):
         cookies = self.driver.get_cookies()
+        token = None
         for cookies_dict in cookies:
-            result = cookies_dict["name"].split(".")
-            if ("idToken" in result):
+            name = cookies_dict["name"].split(".")[-1]
+            if (name == "idToken"):
                 token = cookies_dict["value"]
                 break
         return token
