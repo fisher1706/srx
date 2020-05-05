@@ -9,6 +9,9 @@
         "city": null,
         "state": null
     },
+    "apiWarehouse": {
+        "id": null
+    },
     "notes": null,
     "contactId": null
 }

@@ -16,6 +16,9 @@ def shipto_basis(case, shipto_dto=None):
             "state": "AL"
         }
         shipto_dto["poNumber"] = Tools.random_string_l(10)
+        shipto_dto["apiWarehouse"] = {
+            "id": case.activity.variables.warehouse_id
+        }
 
     new_shipto = sa.create_shipto(copy.deepcopy(shipto_dto))
 

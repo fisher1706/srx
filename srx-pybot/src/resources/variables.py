@@ -39,6 +39,7 @@ class Variables():
         self.customer_password = self.portal_credentials["customer_password"]
         self.distributor_name = "QA-distributor"
         self.distributor_id = "98"
+        self.warehouse_id = "38"
         self.sub_distributor_name = "Static Test"
         self.run_number = None
         self.customer_name = "Static Customer"
@@ -64,6 +65,7 @@ class Variables():
         self.customer_password = self.portal_credentials["customer_password"]
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
         self.distributor_id = "4"
+        self.warehouse_id = "4"
         self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
         self.sub_distributor_id = "5"
         self.customer_name = "Static Customer"
