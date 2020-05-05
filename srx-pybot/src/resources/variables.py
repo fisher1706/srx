@@ -87,4 +87,4 @@ class Variables():
 
     def general(self):
         self.expected_error_series = 1
-        self.default_wait = 18
+        self.default_wait = 15

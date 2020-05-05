@@ -76,9 +76,7 @@ class LoginPage(Page):
         self.input_password(password)
         self.click_on_submit_button()
         self.title_should_be("SRX Distributor Portal")
-        self.follow_url(self.url.distributor_portal)
-        self.should_be_present_id(self.locators.id_intercom_container)
-        self.driver.execute_script("document.getElementById('intercom-container').style.display = 'None';")
+        self.follow_url(self.url.distributor_portal, hide_intercom=True)
 
     def log_in_customer_portal(self, email=None, password=None):
         self.follow_auth_portal()

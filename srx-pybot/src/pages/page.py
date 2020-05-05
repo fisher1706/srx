@@ -185,8 +185,7 @@ class Page():
         else:
             self.logger.info(f"URL = '{url}' is followed")
             if (hide_intercom == True):
-                self.should_be_present_id(self.locators.id_intercom_container)
-                self.driver.execute_script("document.getElementById('intercom-container').style.display = 'None';")
+                self.hide_intercom()
 
     def title_should_be(self, title):
         try:
@@ -598,3 +597,24 @@ class Page():
                 token = cookies_dict["value"]
                 break
         return token
+
+    def hide_intercom(self):
+        self.driver.implicitly_wait(2)
+        try:
+            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, self.locators.id_intercom_container)))
+            self.driver.execute_script("document.getElementById('intercom-container').style.display = 'None';")
+            self.driver.implicitly_wait(self.variables.default_wait)
+        except:
+            try:
+                WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'intercom-lightweight-app')))
+                self.driver.execute_script("document.getElementsByClassName('intercom-lightweight-app')[0].style.display = 'None';")
+                self.driver.implicitly_wait(self.variables.default_wait)
+            except:
+                self.driver.implicitly_wait(self.variables.default_wait)
+                self.logger.error("Intercom cannot be hide", True)
+            else:
+                self.logger.info("Intercom is hidden")
+                self.driver.implicitly_wait(self.variables.default_wait)
+        else:
+            self.logger.info("Intercom is hidden")
+        self.driver.implicitly_wait(self.variables.default_wait)

@@ -22,7 +22,7 @@ class ShiptoPage(DistributorPortalPage):
     def create_shipto(self, shipto_body):
         start_number_of_rows = self.get_table_rows_number()
         self.click_id(self.locators.id_add_button)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), shipto_body.pop("state"))
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), shipto_body.pop("state"))
         for field in shipto_body.keys():
             self.input_by_name(field, shipto_body[field])
         self.click_xpath(self.locators.xpath_submit_button)
@@ -43,7 +43,7 @@ class ShiptoPage(DistributorPortalPage):
 
     def update_last_shipto(self, shipto_body):
         self.click_xpath(self.locators.xpath_by_count(self.locators.title_shipto_info, self.get_table_rows_number()))
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), shipto_body.pop("state"))
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), shipto_body.pop("state"))
         for field in shipto_body.keys():
             self.input_by_name(field, shipto_body[field])
         self.click_xpath(self.locators.xpath_submit_button)

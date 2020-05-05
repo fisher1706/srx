@@ -143,8 +143,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.dialog_should_not_be_visible()
 
     def check_smart_shelf_unavailable_via_planogram(self, locker, smart_shelf, in_list=False):
-        self.open_last_page()
-        locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
+        locker_row = self.scan_table(scan_by=locker, column_header="Serial Number")
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, locker_row)+self.locators.title_go_to_locker_planogram)
         self.click_xpath(self.locators.title_configure_door)
         self.click_xpath(self.locators.xpath_dropdown_in_dialog(1))
