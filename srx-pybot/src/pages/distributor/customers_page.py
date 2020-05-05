@@ -46,8 +46,7 @@ class CustomersPage(DistributorPortalPage):
         self.open_customer_users(self.get_table_rows_number())
 
     def update_last_customer(self, customer_body):
-        self.remove_focus() #the KOSTYL', please investigate and find solution for correct running without THIS. Need at least 9 items in Customers table and GUI FireFox
-        self.click_xpath(self.locators.xpath_by_count(self.locators.title_customer_info, self.get_table_rows_number()))
+        self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_table_row, self.get_table_rows_number())+self.locators.title_customer_info)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
         self.set_slider(self.locators.xpath_checkbox, customer_body.pop("supplyForce"))

@@ -28,7 +28,7 @@ def product_crud(case):
         edit_product_body["weight"] = "100"
         edit_product_body["height"] = "200"
         edit_product_body["width"] = "300"
-        edit_product_body["length"] = "400"
+        edit_product_body["depth"] = "400"
         edit_product_body["issueQuantity"] = "500"
         edit_product_body["packageConversion"] = "600"
         edit_product_body["manufacturerPartNumber"] = "700"
