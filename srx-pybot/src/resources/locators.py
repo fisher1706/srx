@@ -51,7 +51,7 @@ class Locators():
     title_delete_super_user = "//span[@title='Delete Super User']/button"
     title_edit_warehouse = "//span[@title='Edit Warehouse']/button"
     title_delete_warehouse = "//span[@title='Delete Warehouse']/button"
-    title_customer_info = "//button[@title='Customer info']"
+    title_customer_info = "//div[@title='Customer info']/button"
     title_delete_customer = "//span[@title='Delete Customer']/button"
     title_edit_product = "//span[@title='Edit Product']/button"
     title_delete_document = "//span[@title='Delete document']/button"
