@@ -29,7 +29,7 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.wait_until_progress_bar_loaded()
         #check device
         text = self.get_element_text(self.locators.xpath_dropdown_in_dialog(1))
-        if (text == f"LOCKER - {locker}"):
+        if (text == f"{locker}"):
             self.logger.info(f"Selected Device is {locker} as expected")
         else:
             self.logger.error(f"Selected Device is {text} but should be {locker}")

@@ -78,7 +78,7 @@ class Variables():
             self.ordering_config_id = "2577"
             self.report_id = 5
         else:
-            self.run_number = [31, 2]
+            self.run_number = [2]
             self.customer_id = "4"
             self.shipto_id = "4"
         
