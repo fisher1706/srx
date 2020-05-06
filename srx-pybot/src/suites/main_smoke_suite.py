@@ -62,7 +62,7 @@ if __name__ == "__main__":
                 testrail.run_report(activity.variables.report_id)
                 break
         else:
-            activity.logger.info("All test are passed")
+            activity.logger.info("All tests are passed")
 
     except:
         print(str(traceback.format_exc()))
