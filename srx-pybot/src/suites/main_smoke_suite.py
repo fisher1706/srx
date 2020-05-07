@@ -24,6 +24,7 @@ if __name__ == "__main__":
         
         #UI part
         activity = Activity(smoke=True)
+        activity.variables.default_wait = 25
 
         try:
             distributor_token = distributor_login(Case(activity))
