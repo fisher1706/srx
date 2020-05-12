@@ -41,7 +41,6 @@ class Variables():
         self.distributor_id = "98"
         self.warehouse_id = "38"
         self.sub_distributor_name = "Static Test"
-        self.run_number = None
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
         if (self.smoke is True):
@@ -83,7 +82,16 @@ class Variables():
             self.shipto_id = "4"
         
     def smoke_prod_environment(self):
-        pass
+        self.api_environment = "prod"
+        self.distributor_email = self.portal_credentials["distributor_email"]
+        self.distributor_password = self.portal_credentials["distributor_password"]
+        self.customer_email = self.portal_credentials["customer_email"]
+        self.customer_password = self.portal_credentials["customer_password"]
+        self.run_number = [45]
+        self.customer_id = "120"
+        self.shipto_id = "159"
+        self.ordering_config_id = "24425"
+        self.report_id = 7
 
     def general(self):
         self.expected_error_series = 1
