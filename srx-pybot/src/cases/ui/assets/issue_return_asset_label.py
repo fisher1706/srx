@@ -39,19 +39,19 @@ def issue_return_assets_label(case):
         ap.sidebar_assets()
         ap.check_all_assets_tab(asset, shipto_name, total, total, 0)
         # issue 2 assets
-        issue_return_basis(case, shipto_id, asset, 2, issue_product=True)
+        issue_return_basis(case, shipto_id, asset, quantity=2, issue_product=True)
         lp.page_refresh()
         lp.wait_until_progress_bar_loaded()
         ap.check_all_assets_tab(asset, shipto_name, int(total)-2, total,  2)
         ap.check_checked_out_tab(asset, shipto_name, int(total)-2, total, 2)
         # return 1 asset
-        issue_return_basis(case, shipto_id, asset, 1, return_product=True)
+        issue_return_basis(case, shipto_id, asset, quantity=1, return_product=True)
         lp.page_refresh()
         lp.wait_until_progress_bar_loaded()
         ap.check_all_assets_tab(asset, shipto_name, int(total)-1, total, 1)
         ap.check_checked_out_tab(asset, shipto_name, int(total)-1, total, 1)
         # return 1 asset
-        issue_return_basis(case, shipto_id, asset, 1, return_product=True)
+        issue_return_basis(case, shipto_id, asset, quantity=1, return_product=True)
         lp.page_refresh()
         lp.wait_until_progress_bar_loaded()
         ap.check_all_assets_tab(asset, shipto_name, total, total, 0)

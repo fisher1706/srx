@@ -3,8 +3,11 @@ from src.api.distributor.rfid_api import RfidApi
 from src.api.distributor.location_api import LocationApi
 import copy
 
-def rfid_location_basis(case, number_of_labels=None):
-    location_response = location_basis(case, location_type="RFID")
+def rfid_location_basis(case, number_of_labels=None, product_dto=None):
+    if (product_dto is None):
+        location_response = location_basis(case, location_type="RFID")
+    else:
+        location_response = location_basis(case, location_type="RFID", product_dto=product_dto)
 
     rfid_labels = list()
 
