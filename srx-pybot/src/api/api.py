@@ -46,6 +46,15 @@ class API():
             self.case.checkout_token = self.get_token(username, password, self.activity.USER_POOL_ID, self.activity.CHECKOUT_CLIENT_ID)
         return self.case.checkout_token
 
+    def get_checkout_group_token(self, username=None, password=None):
+        if (self.case.checkout_group_token is None):
+            if (username is None):
+                username = self.variables.checkout_group_email
+            if (password is None):
+                password = self.variables.checkout_group_password
+            self.case.checkout_group_token = self.get_token(username, password, self.activity.USER_POOL_ID, self.activity.CHECKOUT_CLIENT_ID)
+        return self.case.checkout_group_token
+
     def send_post(self, url, token, data=None, additional_headers=None, line_data=None):
         headers = {
             "Authorization": token,
@@ -56,29 +65,37 @@ class API():
             headers.update(additional_headers)
         if (line_data is not None):
             return requests.post(url, headers=headers, data=line_data)
-        else:
+        elif (line_data is None and data is not None):
             return requests.post(url, headers=headers, data=json.dumps(data))
+        elif (line_data is None and data is None):
+            return requests.post(url, headers=headers)
 
-    def send_get(self, url, token):
+    def send_get(self, url, token, additional_headers=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
             "Accept":"application/json"
         }
+        if (additional_headers is not None):
+            headers.update(additional_headers)
         return requests.get(url, headers=headers)
 
-    def send_delete(self, url, token):
+    def send_delete(self, url, token, additional_headers=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
             "Accept":"application/json"
         }
+        if (additional_headers is not None):
+            headers.update(additional_headers)
         return requests.delete(url, headers=headers)
 
-    def send_put(self, url, token, data=None):
+    def send_put(self, url, token, data=None, additional_headers=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
             "Accept":"application/json"
         }
+        if (additional_headers is not None):
+            headers.update(additional_headers)
         return requests.put(url, headers=headers, data=json.dumps(data))
