@@ -11,6 +11,7 @@ class Case():
         self.distributor_token = None
         self.customer_token = None
         self.checkout_token = None
+        self.checkout_group_token = None
 
     def critical_finish_case(self):
         self.activity.logger.critical(f"Test crashed\n{traceback.format_exc()}")

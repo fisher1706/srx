@@ -18,7 +18,9 @@ class Activity():
             "distributor_email": self.distributor_email,
             "distributor_password": self.distributor_password,
             "customer_email": self.customer_email,
-            "customer_password": self.customer_password
+            "customer_password": self.customer_password,
+            "checkout_group_email": self.checkout_group_email,
+            "checkout_group_password": self.checkout_group_password
         }
         self.locators = Locators()
         self.logger = Logger()
@@ -48,6 +50,8 @@ class Activity():
         parser.add_argument("--distributor_password", "-dp", help="Set password of distributor portal")
         parser.add_argument("--customer_email", "-ce", help="Set email address of customer portal")
         parser.add_argument("--customer_password", "-cp", help="Set password of customer portal")
+        parser.add_argument("--checkout_group_email", "-che", help="Set email address of checkout group")
+        parser.add_argument("--checkout_group_password", "-chp", help="Set password of checkout group")
         parser.add_argument("--credentials", "-c", default=False, nargs='?', const=True, help="If present, credentials will be taken from the command line")
         args = parser.parse_args()
         self.arg_browser = args.browser
@@ -67,6 +71,8 @@ class Activity():
         self.distributor_password = args.distributor_password
         self.customer_email = args.customer_email
         self.customer_password = args.customer_password
+        self.checkout_group_email = args.checkout_group_email
+        self.checkout_group_password = args.checkout_group_email
 
     def browser_config(self):
         if (self.api_test == False):
@@ -115,3 +121,7 @@ class Activity():
                 self.customer_email = local_credentials.customer_email
             if (self.customer_password is None):
                 self.customer_password = local_credentials.customer_password
+            if (self.checkout_group_email is None):
+                self.checkout_group_email = local_credentials.checkout_group_email
+            if (self.checkout_group_password is None):
+                self.checkout_group_password = local_credentials.checkout_group_password
