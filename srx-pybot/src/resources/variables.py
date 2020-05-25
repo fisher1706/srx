@@ -64,6 +64,9 @@ class Variables():
         self.customer_password = self.portal_credentials["customer_password"]
         self.checkout_group_email = self.portal_credentials["checkout_group_email"]
         self.checkout_group_password = self.portal_credentials["checkout_group_password"]
+        self.checkout_group_id = "10"
+        self.checkout_user_id = "630"
+        self.customer_user_id = "11"
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
         self.distributor_id = "4"
         self.warehouse_id = "4"
@@ -72,6 +75,7 @@ class Variables():
         self.customer_name = "Static Customer"
         self.shipto_number = "FIRST-QA-SHIPTO"
         self.passcode = "AUTOTEST"
+        self.customer_user_passcode = "PSCD"
         if (self.smoke is True):
             self.run_number = [40]
             self.customer_id = "191"

@@ -15,7 +15,7 @@ from src.resources.tools import Tools
 
 def issue_return_assets_rfid(case):
     case.log_name("Issue/return asset as customer user, location type: rfid")
-    #case.testrail_config(1999)
+    case.testrail_config(1999)
 
     try:
         sa = ShiptoApi(case)
@@ -54,6 +54,8 @@ def issue_return_assets_rfid(case):
         assert result_checked_out["location"]["onHandInventory"] == 0, f"OHI of cheked out asset is NOT correct"
         result_all_assets = aa.check_asset_in_all_assets_list(asset)
         assert result_all_assets["onHandInventory"] == 0, f"OHI of cheked out asset is NOT correct"
+        rfid_labels = ra.get_rfid_labels(location_id)
+        assert rfid_labels[0]["state"] == "ISSUED", f"RFID label has incorrect status {rfid_labels[0]["state"]}"
 
         issue_return_basis(case, shipto_id, asset, epc=epc, return_product=True)
         aa.check_asset_in_checked_out_list(asset, should_be=False)

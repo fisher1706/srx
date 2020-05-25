@@ -12,6 +12,7 @@ class AssetsPage(CustomerPortalPage):
         self.xpath_checked_out = "//div[text()='Checked out']"
         self.xpath_user = "//div[text()='User']"
         self.xpath_sku_input = "//label[text()='SKU']/../div/input"
+        self.xpath_return_requested_text = "//div[text()='Asset return has been requested']"
         #self.xpath_empty_list = "//div[text()='List of checked out assets is empty.']"
 
 
@@ -35,9 +36,8 @@ class AssetsPage(CustomerPortalPage):
             self.element_should_have_text(f"{self.xpath_checked_out}/../div[2]", f"{checked_out} items")
         self.element_should_have_text(f"{self.xpath_total}/../div[2]", f"{total}")
         self.element_should_have_text(f"{self.xpath_available}/../div[2]", f"{avaliable}")
-        # comment because of bug
-        # text = self.get_element_text(f"{self.xpath_user}/../div[2]/a")
-        # self.element_should_have_text(f"{self.xpath_user}/../div[2]/a", f"{self.variables.customer_email} {self.variables.customer_email} {self.variables.customer_email}")
+        text = self.get_element_text(f"{self.xpath_user}/../div[2]/a")
+        self.element_should_have_text(f"{self.xpath_user}/../div[2]/a", f"{self.variables.customer_email} {self.variables.customer_email} {self.variables.customer_email}")
 
     def checked_out_tab_should_not_contain(self, asset):
         self.click_tab_by_name("Checked Out")
@@ -46,5 +46,10 @@ class AssetsPage(CustomerPortalPage):
         self.click_xpath(self.xpath_apply)
         self.elements_count_should_be(self.xpath_asset_card, 0, time=5)
 
+    def ping_to_return_last_asset(self):
+        self.click_tab_by_name("Checked Out")
+        self.click_xpath(f"{self.xpath_asset_card}{self.locators.xpath_ping_to_return}")
+        self.wait_until_progress_bar_loaded
+        self.elements_count_should_be(f"{self.locators.xpath_asset_card}{self.xpath_return_requested_text}", 1)
 
 

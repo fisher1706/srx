@@ -61,3 +61,14 @@ class AssetsApi(API):
                 self.logger.info(f"Assest {asset} is NOT present in checked out assets list")
             else: 
                 self.logger.error(f"Assest {asset} IS present in checked out assets list, but should not")
+
+    def get_list_of_assets_by_user(self, user_id):
+        url = self.url.get_api_url_for_env(f"/customer-portal/customer/assets-user-checked-out/{user_id}")
+        token = self.get_customer_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("List of user`s assets was successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]["entities"]

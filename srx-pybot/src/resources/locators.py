@@ -43,6 +43,7 @@ class Locators():
     xpath_label_cancel = "//button[@label='Cancel']"
     xpath_progress_bar = "//div[@role='progressbar']"
     xpath_issue_button = "//span[text()='Issue']/../button"
+    xpath_ping_to_return = "//span[text()='Request to return']/../button"
 
     #TITLEs
     title_edit_user = "//span[@title='Edit User']/button"
