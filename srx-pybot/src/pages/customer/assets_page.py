@@ -11,7 +11,7 @@ class AssetsPage(CustomerPortalPage):
         self.xpath_total = "//div[text()='Total']"
         self.xpath_checked_out = "//div[text()='Checked out']"
         self.xpath_user = "//div[text()='User']"
-        self.xpath_sku_input = "//label[text()='SKU']/../div/input"
+        self.xpath_sku_input = "//label[text()='Distributor SKU']/../div/input"
         #self.xpath_empty_list = "//div[text()='List of checked out assets is empty.']"
 
 

@@ -15,13 +15,13 @@ def pricing_import(case):
         temporary_price = str(random.choice(range(100)))
 
         #-------------------
-        pricing_body["SKU"] = "PRICING_SKU"
+        pricing_body["Distributor SKU"] = "PRICING_SKU"
         pricing_body["Price"] = "$"+temporary_price+".00"
         pricing_body["UOM"] = "M"
         pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
         #-------------------
         pricing = [
-            [pricing_body["SKU"], temporary_price, pricing_body["UOM"], "12/12/2025 10:15:30"]
+            [pricing_body["Distributor SKU"], temporary_price, pricing_body["UOM"], "12/12/2025 10:15:30"]
         ]
         #-------------------
 

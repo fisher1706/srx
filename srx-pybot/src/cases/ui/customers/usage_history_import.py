@@ -19,12 +19,12 @@ def usage_history_import(case):
         usage_history_body["Customer Number"] = Tools.random_string_u(10)
         usage_history_body["ShipTo Number"] = Tools.random_string_u(10)
         usage_history_body["ShipTo Name"] = Tools.random_string_u(10)
-        usage_history_body["Part SKU"] = Tools.random_string_u(10)
+        usage_history_body["Distributor SKU"] = Tools.random_string_u(10)
         usage_history_body["Quantity"] = str(random.choice(range(1, 100)))
         usage_history_body["Date"] = "Sun, Dec 30, 2018"
         #-------------------
         usage_history = [
-            [usage_history_body["Order Number"], usage_history_body["Customer Number"], usage_history_body["ShipTo Number"], usage_history_body["ShipTo Name"], usage_history_body["Part SKU"], usage_history_body["Quantity"], "2018/12/30 10:15:30"]
+            [usage_history_body["Order Number"], usage_history_body["Customer Number"], usage_history_body["ShipTo Number"], usage_history_body["ShipTo Name"], usage_history_body["Distributor SKU"], usage_history_body["Quantity"], "2018/12/30 10:15:30"]
         ]
         lp.log_in_distributor_portal()
         uhp.follow_usage_history_url()

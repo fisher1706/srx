@@ -15,7 +15,7 @@ class UniversalCatalogPage(AdminPortalPage):
             "UPC": body["upc"],
             "GTIN": body["gtin"],
             "Manufacturer": body["manufacturer"],
-            "Manufacturer Part Number": body["manufacturerPartNumber"],
+            "Manufacturer SKU": body["manufacturerPartNumber"],
             "Distributor Name": None
         }
         return new_body
