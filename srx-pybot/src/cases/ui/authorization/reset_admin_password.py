@@ -11,7 +11,6 @@ def reset_admin_password(case):
 
         lp.follow_admin_portal()
         lp.open_forgot_password_page()
-        lp.submit_button_should_be_disabled()
         lp.input_email("example@example.com")
         lp.submit_button_should_be_enabled()
         lp.click_on_submit_button()

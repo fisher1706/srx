@@ -31,13 +31,13 @@ def zero_transaction_qty(case):
         ta.create_active_item(new_shipto, ordering_config_id)
         new_transaction_id, new_transaction_qty = ta.get_transaction_id_and_qty(sku=product_dto["partSku"], status="ACTIVE", shipto_id=new_shipto)
         assert new_transaction_qty == 0, "The quantity of new transaction should be 0"
-        ta.update_replenishment_item(new_transaction_id, product_dto["roundBuy"], "DELIVERED")
+        ta.update_replenishment_item(new_transaction_id, product_dto["roundBuy"], "DO_NOT_REORDER")
         ta.update_replenishment_item(transaction_id, product_dto["roundBuy"], "ORDERED")
 
         ta.create_active_item(new_shipto, ordering_config_id)
         new_transaction_id, new_transaction_qty = ta.get_transaction_id_and_qty(sku=product_dto["partSku"], status="ACTIVE", shipto_id=new_shipto)
         assert new_transaction_qty == 0, "The quantity of new transaction should be 0"
-        ta.update_replenishment_item(new_transaction_id, product_dto["roundBuy"], "DELIVERED")
+        ta.update_replenishment_item(new_transaction_id, product_dto["roundBuy"], "DO_NOT_REORDER")
         ta.update_replenishment_item(transaction_id, product_dto["roundBuy"], "SHIPPED")
 
         ta.create_active_item(new_shipto, ordering_config_id)

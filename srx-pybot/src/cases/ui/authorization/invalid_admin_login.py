@@ -10,7 +10,6 @@ def invalid_admin_login(case):
         lp = LoginPage(case.activity)
 
         lp.follow_admin_portal()
-        lp.submit_button_should_be_disabled()
         lp.input_email("example@example.com")
         lp.submit_button_should_be_disabled()
         lp.input_password("example")

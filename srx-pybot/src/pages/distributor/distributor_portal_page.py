@@ -6,7 +6,7 @@ class DistributorPortalPage(Page):
         super().__init__(activity)
 
     def sidebar_account_status(self):
-        self.click_xpath("//button[@data-testid='status-button']/..")
+        self.follow_url(self.url.get_url_for_env(f"storeroomlogix.com/profile", "distributor"), hide_intercom=True)
 
     def sidebar_users(self):
         self.click_id("sidebar-distributor_users")

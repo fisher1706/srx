@@ -8,7 +8,7 @@ class UsageHistoryPage(DistributorPortalPage):
             "Customer Number": None,
             "ShipTo Number": None,
             "ShipTo Name": None,
-            "Part SKU": None,
+            "Distributor SKU": None,
             "Quantity": None,
             "Date": None,
         }

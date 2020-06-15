@@ -4,7 +4,7 @@ class PricingPage(DistributorPortalPage):
     def __init__(self, activity):
         super().__init__(activity)
         self.pricing_body = {
-            "SKU": None,
+            "Distributor SKU": None,
             "Price": None,
             "UOM": None,
             "Expiration Date": None
@@ -17,4 +17,4 @@ class PricingPage(DistributorPortalPage):
         self.wait_until_page_loaded()
 
     def check_price_by_name(self, pricing_body):
-        self.scan_table(pricing_body["SKU"], "SKU", pricing_body)
+        self.scan_table(pricing_body["Distributor SKU"], "Distributor SKU", pricing_body)
