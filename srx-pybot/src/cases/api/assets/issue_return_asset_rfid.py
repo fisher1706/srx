@@ -55,13 +55,13 @@ def issue_return_assets_rfid(case):
         result_all_assets = aa.check_asset_in_all_assets_list(asset)
         assert result_all_assets["onHandInventory"] == 0, f"OHI of cheked out asset is NOT correct"
         rfid_labels = ra.get_rfid_labels(location_id)
-        assert rfid_labels[0]["state"] == "ISSUED", f"RFID label has incorrect status {rfid_labels[0]["state"]}"
+        assert rfid_labels[0]["state"] == "ISSUED", f"RFID label has incorrect status {rfid_labels[0]['state']}"
 
         issue_return_basis(case, shipto_id, asset, epc=epc, return_product=True)
         aa.check_asset_in_checked_out_list(asset, should_be=False)
         #get status of RFID label
         rfid_labels = ra.get_rfid_labels(location_id)
-        assert rfid_labels[0]["state"] == "RETURN_CHECK_IN", f"RFID label has incorrect status {rfid_labels[0]["state"]}"
+        assert rfid_labels[0]["state"] == "RETURN_CHECK_IN", f"RFID label has incorrect status {rfid_labels[0]['state']}"
 
         case.finish_case()
     except:
