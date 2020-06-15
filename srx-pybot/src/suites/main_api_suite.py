@@ -25,6 +25,11 @@ if __name__ == "__main__":
         remove_locker_from_smart_shelf(Case(api_activity))
         smart_shelves_delete_check_locker(Case(api_activity))
         create_location_for_asset(Case(api_activity))
+        update_asset_location(Case(api_activity))
+        delete_location_for_asset(Case(api_activity))
+        issue_return_assets_rfid(Case(api_activity))
+        check_asstes_of_checkout_user(Case(api_activity))
+        checkout_asset_customer_checkout_user(Case(api_activity))
 
     except:
         print(str(traceback.format_exc()))
