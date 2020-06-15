@@ -6,7 +6,7 @@ class AssetsPage(CustomerPortalPage):
         super().__init__(activity)
         self.xpath_filter = "//span[text()='Filter']"
         self.xpath_apply = "//span[text()='Apply']"
-        self.xpath_asset_card = "//div[data-testid='asset-item']"
+        self.xpath_asset_card = "//div[@data-testid='asset-item']"
         self.xpath_available = "//div[text()='Available']"
         self.xpath_total = "//div[text()='Total']"
         self.xpath_checked_out = "//div[text()='Checked out']"
@@ -48,8 +48,8 @@ class AssetsPage(CustomerPortalPage):
 
     def ping_to_return_last_asset(self):
         self.click_tab_by_name("Checked Out")
-        self.click_xpath(f"{self.xpath_asset_card}{self.locators.xpath_ping_to_return}")
-        self.wait_until_progress_bar_loaded
-        self.elements_count_should_be(f"{self.locators.xpath_asset_card}{self.xpath_return_requested_text}", 1)
+        self.click_xpath(f"{self.locators.xpath_ping_to_return}")
+        self.wait_until_progress_bar_loaded()
+        self.elements_count_should_be(f"({self.xpath_asset_card})[1]{self.xpath_return_requested_text}", 1)
 
 
