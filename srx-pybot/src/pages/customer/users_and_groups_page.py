@@ -37,12 +37,13 @@ class UsersGroups(CustomerPortalPage):
         self.click_xpath(self.locators.xpath_table_item(row, 1))
         self.wait_until_progress_bar_loaded()
         self.input_by_name("name", security_group_body["name"])
+        self.click_xpath(self.locators.xpath_submit_button)
+        self.wait_until_progress_bar_loaded(7)
         for x in range(1, 4):
             if (security_group_body["checked"] is True):
                 self.select_checkbox(self.locators.xpath_by_count(self.locators.xpath_checkbox, x))
             if (security_group_body["checked"] is False):
                 self.unselect_checkbox(self.locators.xpath_by_count(self.locators.xpath_checkbox, x))
-        self.click_xpath(self.locators.xpath_submit_button)
         self.click_xpath(self.locators.xpath_by_count(self.locators.xpath_submit_button, 2))
         self.wait_until_progress_bar_loaded(7)
         self.click_xpath("//a[@href='/users-and-groups#security-groups']")

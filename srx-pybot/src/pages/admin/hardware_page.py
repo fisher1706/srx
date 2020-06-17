@@ -68,7 +68,7 @@ class HardwarePage(AdminPortalPage):
         result = False
         self.click_id(self.locators.id_add_button)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), type_name)
-        self.click_xpath(self.locators.xpath_dropdown_in_dialog(2))
+        self.click_xpath(self.locators.xpath_dropdown_in_dialog(3))
         number_of_dropdown_list_items = self.get_element_count(self.locators.xpath_dropdown_list_item+"/div")
         for index in range(1, number_of_dropdown_list_items+1):
             dropdown_list_item_text = self.get_element_text(self.locators.xpath_by_count(self.locators.xpath_dropdown_list_item+"/div", index))
@@ -95,8 +95,8 @@ class HardwarePage(AdminPortalPage):
     def create_locker(self, distributor, iothub_name):
         self.click_id(self.locators.id_add_button)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), "Locker")
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), iothub_name)
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(4), "Standard")
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), iothub_name)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(5), "Standard")
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
@@ -104,7 +104,7 @@ class HardwarePage(AdminPortalPage):
     def create_vending(self, distributor, iothub_name):
         self.click_id(self.locators.id_add_button)
         self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(1), "Vending")
-        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(2), iothub_name)
+        self.select_in_dropdown(self.locators.xpath_dropdown_in_dialog(3), iothub_name)
         self.click_xpath(self.locators.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
