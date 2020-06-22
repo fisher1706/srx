@@ -72,7 +72,7 @@ class Activity():
         self.customer_email = args.customer_email
         self.customer_password = args.customer_password
         self.checkout_group_email = args.checkout_group_email
-        self.checkout_group_password = args.checkout_group_email
+        self.checkout_group_password = args.checkout_group_password
 
     def browser_config(self):
         if (self.api_test == False):
