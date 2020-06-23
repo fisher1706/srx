@@ -56,6 +56,7 @@ class TestCatalog():
         cp.update_last_product(edit_product_body.copy())
         cp.check_last_product(edit_product_body.copy())
 
+    @pytest.mark.current
     @pytest.mark.regression
     def test_product_import(self, ui):
         ui.testrail_case_id = 34
