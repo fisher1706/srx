@@ -16,7 +16,7 @@ def pytest_addoption(parser):
     parser.addoption('--credentials', action='store', nargs='?', const=True, default=False,
                     help="If selected, credentials will be retrieved ONLY from the command line")
 
-    #credentials
+    #base credentials
     parser.addoption('--base_admin_email', action='store', default=None,
                      help="Enter email of admin user")
     parser.addoption('--base_admin_password', action='store', default=None,
@@ -33,6 +33,26 @@ def pytest_addoption(parser):
                      help="Enter email of checkout group")
     parser.addoption('--base_checkout_group_password', action='store', default=None,
                      help="Enter password of checkout_group")
+
+    #smoke credentials
+    parser.addoption('--smoke_distributor_email', action='store', default=None,
+                     help="Enter email of distributor user")
+    parser.addoption('--smoke_distributor_password', action='store', default=None,
+                     help="Enter password of distributor user")
+    parser.addoption('--smoke_customer_email', action='store', default=None,
+                     help="Enter email of customer user")
+    parser.addoption('--smoke_customer_password', action='store', default=None,
+                     help="Enter password of customer user")
+
+    #permission credentials
+    parser.addoption('--permission_distributor_email', action='store', default=None,
+                     help="Enter email of distributor user")
+    parser.addoption('--permission_distributor_password', action='store', default=None,
+                     help="Enter password of distributor user")
+    parser.addoption('--permission_customer_email', action='store', default=None,
+                     help="Enter email of customer user")
+    parser.addoption('--permission_customer_password', action='store', default=None,
+                     help="Enter password of customer user")
 
     #testrail
     parser.addoption('--testrail_email', action='store', default=None,
