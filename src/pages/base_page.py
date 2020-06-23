@@ -3,15 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from src.waits.dialog_is_not_present import dialog_is_not_present
-from src.waits.elements_count_should_be import elements_count_should_be
-from src.waits.is_page_loading import is_page_loading
-from src.waits.is_progress_bar_loading import is_progress_bar_loading
-from src.waits.last_page import last_page
-from src.waits.new_element_in_table import new_element_in_table
-from src.waits.page_url_is import page_url_is
-from src.waits.wait_until_disabled import wait_until_disabled
-from src.waits.wait_until_dropdown_list_loaded import wait_until_dropdown_list_loaded
+from src.waits import *
 from src.resources.locator import Locator
 import csv
 import os

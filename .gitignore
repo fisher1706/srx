@@ -2,7 +2,6 @@
 env-pytest
 __pycache__
 .pytest_cache
-__init__.py
 *.pyc
 geckodriver.log
 local_credentials.py
