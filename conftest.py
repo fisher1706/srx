@@ -83,8 +83,8 @@ def driver(request, session_context):
     elif browser_name == "chrome-headless":
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1300,1000")
-        chrome_options.add_arguments("--no-sandbox");
-        chrome_options.add_arguments("--disable-dev-shm-usage");
+        chrome_options.add_arguments("--no-sandbox")
+        chrome_options.add_arguments("--disable-dev-shm-usage")
         chrome_options.add_argument("--headless")
         driver = webdriver.Chrome(options=chrome_options)
     else:
