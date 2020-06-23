@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 class SessionContext():
     #base credentials
     base_admin_email = None
@@ -63,7 +61,7 @@ class Context():
 
     #main
     session_context = None
-    dynamic_context = defaultdict(list)
+    dynamic_context = None
     is_teardown = False
     driver = None
     testrail_case_id = None

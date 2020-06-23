@@ -1,5 +1,6 @@
 import pytest
 from context import Context, SessionContext
+from collections import defaultdict
 from src.resources.url import URL
 from src.resources.data import Data, SmokeData
 from src.resources.logger import Logger
@@ -91,6 +92,7 @@ def session_context(request):
 @pytest.fixture(scope="function")
 def context(session_context):
     context_object = Context()
+    context_object.dynamic_context = defaultdict(list)
     context_object.session_context = session_context
     return context_object
 

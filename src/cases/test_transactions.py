@@ -97,7 +97,6 @@ class TestTransactions():
         sa.check_po_number_by_number(shipto_1_dto["number"], new_po_number)
         sa.check_po_number_by_number(shipto_2_dto["number"], new_po_number)
 
-    @pytest.mark.current
     @pytest.mark.regression
     def test_create_transaction_for_noweight_locker(self, api, delete_shipto, delete_hardware):
         api.testrail_case_id = 1853
