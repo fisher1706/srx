@@ -25,6 +25,8 @@ def session_context(request):
         session_context_object.base_distributor_password = request.config.getoption("base_distributor_password")
         session_context_object.base_customer_email = request.config.getoption("base_customer_email")
         session_context_object.base_customer_password = request.config.getoption("base_customer_password")
+        session_context_object.base_checkout_group_email = request.config.getoption("base_checkout_group_email")
+        session_context_object.base_checkout_group_password = request.config.getoption("base_checkout_group_password")
 
         #smoke credentials
         session_context_object.smoke_distributor_email = request.config.getoption("smoke_distributor_email")
@@ -59,6 +61,8 @@ def session_context(request):
         session_context_object.base_distributor_password = creds.base_distributor_password
         session_context_object.base_customer_email = creds.base_customer_email
         session_context_object.base_customer_password = creds.base_customer_password
+        session_context_object.base_checkout_group_email = creds.base_checkout_group_email
+        session_context_object.base_checkout_group_password = creds.base_checkout_group_password
 
         #smoke credentials
         session_context_object.smoke_distributor_email = creds.smoke_distributor_email
@@ -103,6 +107,8 @@ def base_context(context, request):
     context_object.distributor_password = context_object.session_context.base_distributor_password
     context_object.customer_email = context_object.session_context.base_customer_email
     context_object.customer_password = context_object.session_context.base_customer_password
+    context_object.checkout_group_email = context_object.session_context.base_checkout_group_email
+    context_object.checkout_group_password = context_object.session_context.base_checkout_group_password
 
     yield context_object
     testrail(request, context_object)

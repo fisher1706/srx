@@ -8,6 +8,8 @@ class SessionContext():
     base_distributor_password = None
     base_customer_email = None
     base_customer_password = None
+    base_checkout_group_email =  None
+    base_checkout_group_password = None
 
     #smoke credentials
     smoke_distributor_email = None
@@ -49,6 +51,8 @@ class Context():
     distributor_password = None
     customer_email = None
     customer_password = None
+    checkout_group_email = None
+    checkout_group_password = None
 
     #tokens
     customer_token = None

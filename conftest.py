@@ -17,24 +17,30 @@ def pytest_addoption(parser):
                     help="If selected, credentials will be retrieved ONLY from the command line")
 
     #credentials
-    parser.addoption('--admin_email', action='store', default=None,
+    parser.addoption('--base_admin_email', action='store', default=None,
                      help="Enter email of admin user")
-    parser.addoption('--admin_password', action='store', default=None,
+    parser.addoption('--base_admin_password', action='store', default=None,
                      help="Enter password of admin user")
-    parser.addoption('--distributor_email', action='store', default=None,
+    parser.addoption('--base_distributor_email', action='store', default=None,
                      help="Enter email of distributor user")
-    parser.addoption('--distributor_password', action='store', default=None,
+    parser.addoption('--base_distributor_password', action='store', default=None,
                      help="Enter password of distributor user")
-    parser.addoption('--customer_email', action='store', default=None,
+    parser.addoption('--base_customer_email', action='store', default=None,
                      help="Enter email of customer user")
-    parser.addoption('--customer_password', action='store', default=None,
+    parser.addoption('--base_customer_password', action='store', default=None,
                      help="Enter password of customer user")
-    parser.addoption('--checkout_group_email', action='store', default=None,
+    parser.addoption('--base_checkout_group_email', action='store', default=None,
                      help="Enter email of checkout group")
-    parser.addoption('--checkout_group_password', action='store', default=None,
+    parser.addoption('--base_checkout_group_password', action='store', default=None,
                      help="Enter password of checkout_group")
+
+    #testrail
     parser.addoption('--testrail_email', action='store', default=None,
                      help="Enter email of testrail account")
+    parser.addoption('--testrail_password', action='store', default=None,
+                     help="Enter password of testrail account")
+
+    #cognito
     parser.addoption('--cognito_user_pool_id', action='store', default=None,
                      help="Enter cognito_user_pool_id")
     parser.addoption('--cognito_client_id', action='store', default=None,
@@ -43,8 +49,6 @@ def pytest_addoption(parser):
                      help="Enter cognito_checkout_client_id")
     parser.addoption('--cognito_client_secret', action='store', default=None,
                      help="Enter cognito_client_secret")
-    parser.addoption('--testrail_password', action='store', default=None,
-                     help="Enter password of testrail account")
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):
