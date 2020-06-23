@@ -150,13 +150,15 @@ class BasePage():
 
     def clear_id(self, id):
         element = self.get_element_by_id(id)
-        element.send_keys(Keys.CONTROL + "a")
-        element.send_keys(Keys.DELETE)
+        length = len(element.get_attribute("value"))
+        for i in range(length):
+            element.send_keys(Keys.BACKSPACE)
 
     def clear_xpath(self, xpath):
         element = self.get_element_by_xpath(xpath)
-        element.send_keys(Keys.CONTROL + "a")
-        element.send_keys(Keys.DELETE)
+        length = len(element.get_attribute("value"))
+        for i in range(length):
+            element.send_keys(Keys.BACKSPACE)
 
     def select_in_dropdown(self, xpath, name):
         if (name is not None):
