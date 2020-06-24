@@ -13,6 +13,11 @@ class API():
         return Cognito(username, password, user_pool_id, client_id, client_secret).id_token
 
     def get_distributor_token(self, username=None, password=None):
+        if ((self.context.session_context.cognito_user_pool_id is None or
+            self.context.session_context.cognito_client_id is None or
+            self.context.session_context.cognito_client_secret is None) and
+            self.context.session_context.smoke_distributor_token is not None):
+            self.context.distributor_token = self.context.session_context.smoke_distributor_token
         if (self.context.distributor_token is None):
             if (username is None):
                 username = self.context.distributor_email

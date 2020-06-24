@@ -80,7 +80,7 @@ class TestAuthorization():
     @pytest.mark.smoke
     @pytest.mark.first
     def test_success_login_distributor_portal_smoke(self, smoke_ui):
-        smoke_ui.session_context.smoke_distributor_token = BaseAuthorization.base_success_login_distributor_portal(smoke_ui)
+        BaseAuthorization.base_success_login_distributor_portal(smoke_ui)
 
     @pytest.mark.regression
     def test_success_login_customer_portal(self, ui):
@@ -114,8 +114,7 @@ class BaseAuthorization():
         dpp.click_id(Locator.id_enter_here, timeout=30)
         dpp.distributor_sidebar_should_contain_email()
         dpp.url_should_contain("distributor")
-        distributor_token = dpp.get_authorization_token()
-        return distributor_token
+        context.session_context.smoke_distributor_token = dpp.get_authorization_token()
 
     @staticmethod
     def base_success_login_customer_portal(context):

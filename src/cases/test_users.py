@@ -3,6 +3,7 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
+from src.api.distributor.user_api import UserApi
 from src.api.setups.setup_customer_user import setup_customer_user
 from src.api.setups.setup_checkout_group import setup_checkout_group
 from src.api.setups.setup_shipto import setup_shipto
@@ -301,3 +302,27 @@ class TestUsers():
         cgp.check_assigned_shipto(response_shipto["shipto"], 1)
         cgp.unassign_shipto(1)
         cgp.get_element_by_xpath(Locator.xpath_no_data_found)
+
+    @pytest.mark.smoke
+    def test_smoke_create_user(self, smoke_api):
+        smoke_api.testrail_case_id = 2002
+
+        ua = UserApi(smoke_api)
+        user_body = {
+            "email": Tools.random_email(20),
+            "firstName": Tools.random_string_l(),
+            "lastName": Tools.random_string_l()
+        }
+
+        user_id = ua.create_distributor_user(user_body)
+        response = ua.get_distributor_super_user_by_email(user_body["email"])
+        count = len(response)
+        assert count == 1, f"Users count is {count}"
+        user = response[0]
+        email = user["email"]
+        name = user["firstName"]
+        last_name = user["lastName"]
+        assert email == user_body["email"], f"User email is {email}, but should be {user_body['email']}"
+        assert name == user_body["firstName"], f"User name is {name}, but should be {user_body['firstName']}"
+        assert last_name == user_body["lastName"], f"User last name is {last_name}, but should be {user_body['lastName']}"
+        ua.delete_user(user_id)

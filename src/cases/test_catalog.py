@@ -5,6 +5,7 @@ from src.pages.distributor.catalog_page import CatalogPage
 from src.pages.admin.universal_catalog_page import UniversalCatalogPage
 from src.pages.general.login_page import LoginPage
 from src.api.admin.universal_catalog_api import UniversalCatalogApi
+from src.api.distributor.product_api import ProductApi
 from src.api.setups.setup_product import setup_product
 
 class TestCatalog():
@@ -56,7 +57,6 @@ class TestCatalog():
         cp.update_last_product(edit_product_body.copy())
         cp.check_last_product(edit_product_body.copy())
 
-    @pytest.mark.current
     @pytest.mark.regression
     def test_product_import(self, ui):
         ui.testrail_case_id = 34
@@ -166,3 +166,15 @@ class TestCatalog():
         assert len(universal_catalog) == 1, "Only 1 element in universal catalog should match to the filter"
         assert universal_catalog[0]["distributorName"] == api.data.distributor_name
         assert universal_catalog[0]["upc"] == product_dto["upc"]
+
+
+    @pytest.mark.smoke
+    def test_smoke_import_prodcut(self, smoke_api):
+        smoke_api.testrail_case_id = 2004
+        pa = ProductApi(smoke_api)
+
+        response = pa.get_upload_url()
+        url = response["url"]
+        filename = response["filename"]
+        pa.file_upload(url)
+        import_status = pa.get_import_status(filename)

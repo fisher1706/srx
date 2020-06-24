@@ -116,17 +116,6 @@ def base_context(context, request):
     testrail(request, context_object)
 
 @pytest.fixture(scope="function")
-def ui(driver, base_context):
-    context_object = base_context
-    context_object.driver = driver
-    return context_object
-
-@pytest.fixture(scope="function")
-def api(base_context):
-    context_object = base_context
-    return context_object
-
-@pytest.fixture(scope="function")
 def smoke_context(context, request):
     context_object = context
     context_object.data = SmokeData(context_object.session_context.environment)
@@ -140,6 +129,17 @@ def smoke_context(context, request):
 
     yield context_object
     testrail(request, context_object)
+
+@pytest.fixture(scope="function")
+def ui(driver, base_context):
+    context_object = base_context
+    context_object.driver = driver
+    return context_object
+
+@pytest.fixture(scope="function")
+def api(base_context):
+    context_object = base_context
+    return context_object
 
 @pytest.fixture(scope="function")
 def smoke_ui(driver, smoke_context):

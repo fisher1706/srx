@@ -10,6 +10,7 @@ from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.settings_api import SettingsApi
+from src.api.distributor.activity_log_api import ActivityLogApi
 
 class TestTransactions():
     @pytest.mark.regression
@@ -120,3 +121,26 @@ class TestTransactions():
         assert len(transaction) == 1, "The number of transactions should be equal to 1"
         assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
         assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
+
+
+    @pytest.mark.smoke
+    def test_smoke_label_transaction_and_activity_log(self, smoke_api):
+        smoke_api.testrail_case_id = 2005
+        ta = TransactionApi(smoke_api)
+        ala = ActivityLogApi(smoke_api)
+
+        activity_log_before = ala.get_activity_log()
+        activity_log_records_before = activity_log_before["totalElements"]
+        # close all Active transactions
+        transactions = ta.get_transaction(status="ACTIVE")
+        if (transactions["totalElements"] != 0):
+            smoke_api.logger.info("There are some active transactions, they will be closed")
+            ta.update_transactions_with_specific_status("ACTIVE", 0, "DO_NOT_REORDER")
+        ta.create_active_item(smoke_api.data.shipto_id, smoke_api.data.ordering_config_id, repeat=6)
+        transactions = ta.get_transaction(status="ACTIVE")
+        transaction_id = transactions["entities"][0]["id"]
+        assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
+        ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
+        activity_log_after = ala.get_activity_log()
+        activity_log_records_after = activity_log_after["totalElements"]
+        assert activity_log_records_before != activity_log_records_after, "There are no new records in activity log"

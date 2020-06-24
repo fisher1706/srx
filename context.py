@@ -1,4 +1,4 @@
-class SessionContext():
+class SessionContext(object):
     #base credentials
     base_admin_email = None
     base_admin_password = None
@@ -41,7 +41,7 @@ class SessionContext():
         else:
             object.__setattr__(self, key, value)
 
-class Context():
+class Context(object):
     #credentials
     admin_email = None
     admin_password = None

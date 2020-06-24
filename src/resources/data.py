@@ -49,6 +49,8 @@ class SmokeData():
             self.staging_environment()
         elif (environment == 'qa'):
             self.qa_environment()
+        elif (environment == 'prod'):
+            self.prod_environment()
 
     def dev_environment(self):
         pass
@@ -68,3 +70,10 @@ class SmokeData():
         self.locker_id = "3869"
         self.ordering_config_id = "2577"
         self.testrail_report_id = 5
+
+    def prod_environment(self):
+        self.testrail_run_id = 45
+        self.customer_id = "120"
+        self.shipto_id = "159"
+        self.ordering_config_id = "24425"
+        self.report_id = 7
