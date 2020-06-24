@@ -34,6 +34,8 @@ class SessionContext(object):
     credentials = None
     environment = None
     url = None
+    base_data = None
+    smoke_data = None
 
     def __setattr__(self, key, value):
         if (not hasattr(self, key)):

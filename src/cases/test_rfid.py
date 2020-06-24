@@ -129,7 +129,7 @@ class TestRfid():
         assert test_label_body["returned"] == True, "'returned' flag of RFID label should be TRUE"
 
     @pytest.mark.regression
-    def test_full_return_rfid_available_flow(self, api, delete_shipto, delete_hardware):
+    def test_full_rfid_available_flow(self, api, delete_shipto, delete_hardware):
         api.testrail_case_id = 1911
 
         ra = RfidApi(api)

@@ -16,6 +16,8 @@ def session_context(request):
     session_context_object.browser_name = request.config.getoption("browser_name")
     session_context_object.environment = request.config.getoption("environment")
     session_context_object.url = URL(session_context_object.environment)
+    session_context_object.base_data = Data(session_context_object.environment)
+    session_context_object.smoke_data = SmokeData(session_context_object.environment)
 
     #credentials
     if (session_context_object.credentials):
@@ -94,13 +96,13 @@ def context(session_context):
     context_object = Context()
     context_object.dynamic_context = defaultdict(list)
     context_object.session_context = session_context
+    context_object.logger = Logger(context_object)
     return context_object
 
 @pytest.fixture(scope="function")
 def base_context(context, request):
     context_object = context
-    context_object.data = Data(context_object.session_context.environment)
-    context_object.logger = Logger(context_object)
+    context_object.data = context_object.session_context.base_data
 
     #credentials
     context_object.admin_email = context_object.session_context.base_admin_email
@@ -116,10 +118,9 @@ def base_context(context, request):
     testrail(request, context_object)
 
 @pytest.fixture(scope="function")
-def smoke_context(context, request):
+def smoke_context(context, request, testrail_smoke_result):
     context_object = context
-    context_object.data = SmokeData(context_object.session_context.environment)
-    context_object.logger = Logger(context_object)
+    context_object.data = context_object.session_context.smoke_data
 
     #credentials
     context_object.distributor_email = context_object.session_context.smoke_distributor_email
@@ -183,3 +184,13 @@ def testrail(request, context):
 
     else:
         context.logger.warning("Testrail is not configured")
+
+@pytest.fixture(scope="session")
+def testrail_smoke_result(session_context):
+    yield
+    testrail_client = Testrail(session_context.testrail_email, session_context.testrail_password)
+    tests = testrail_client.get_tests(session_context.smoke_data.testrail_run_id)
+    for test in tests:
+        if (test["status_id"] == 5):
+            testrail_client.run_report(session_context.smoke_data.report_id)
+            break
