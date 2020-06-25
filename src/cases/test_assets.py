@@ -9,7 +9,6 @@ from src.api.distributor.settings_api import SettingsApi
 from src.api.customer.checkout_group_api import CheckoutGroupApi
 
 class TestAssets():
-    
     @pytest.mark.regression
     def test_issue_return_assets_label(self, ui, delete_shipto):
         ui.testrail_case_id = 1993
@@ -57,6 +56,7 @@ class TestAssets():
         ap.checked_out_tab_should_not_contain(asset)
 
     @pytest.mark.test777
+    @pytest.mark.regression
     def test_ping_to_return_asset(self, ui, delete_shipto):
         ui.testrail_case_id = 1991
 
