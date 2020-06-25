@@ -43,3 +43,14 @@ class ShiptoApi(API):
             self.logger.info("PO number is correct")
         else:
             self.logger.error(f"PO number should be '{expected_po_number}', but now it is '{actual_po_number}'")
+
+    def get_shipto_by_id(self, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/shiptos/{shipto_id}")
+        token = self.get_distributor_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("ShipTo has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]
