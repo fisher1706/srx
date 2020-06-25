@@ -10,7 +10,7 @@ class AssetsPage(CustomerPortalPage):
     xpath_total = "//div[text()='Total']"
     xpath_checked_out = "//div[text()='Checked out']"
     xpath_user = "//div[text()='User']"
-    xpath_sku_input = "//label[text()='SKU']/../div/input"
+    xpath_sku_input = "//label[text()='Distributor SKU']/../div/input"
     #xpath_empty_list = "//div[text()='List of checked out assets is empty.']"
 
     def check_all_assets_tab(self, asset, shipto, avaliable, total, checked_out):
