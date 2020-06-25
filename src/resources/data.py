@@ -40,6 +40,11 @@ class Data():
         self.testrail_run_id = 44
         self.customer_id = "4"
         self.shipto_id = "4"
+        self.checkout_group_id = "10"
+        self.checkout_user_id = "630"
+        self.customer_user_id = "11"
+        self.passcode = "AUTOTEST"
+        self.customer_user_passcode = "PSCD"
 
 class SmokeData():
     def __init__(self, environment):

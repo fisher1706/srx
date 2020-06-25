@@ -476,3 +476,12 @@ class BasePage():
         self.wait_until_page_loaded()
         self.select_in_dropdown(shipto_xpath, shipto_name)
         self.wait_until_page_loaded()
+
+    def element_should_have_text(self, xpath, text):
+        self.get_element_by_xpath(xpath)
+        try:
+            WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.XPATH, xpath), text))
+        except:
+            self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
+        else:
+            self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")

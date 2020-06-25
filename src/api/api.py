@@ -46,7 +46,7 @@ class API():
                 username = self.context.customer_email
             if (password is None):
                 password = self.context.customer_password
-            self.context.checkout_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.checkout_cognito_client_id)
+            self.context.checkout_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_token
 
     def get_checkout_group_token(self, username=None, password=None):
@@ -55,7 +55,7 @@ class API():
                 username = self.context.checkout_group_email
             if (password is None):
                 password = self.context.checkout_group_password
-            self.context.checkout_group_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.checkout_cognito_client_id)
+            self.context.checkout_group_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_group_token
 
     def send_post(self, url, token, data=None, additional_headers=None, line_data=None):
