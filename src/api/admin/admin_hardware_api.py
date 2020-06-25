@@ -43,6 +43,7 @@ class AdminHardwareApi(API):
                 "id": iothub_id
             },
             "distributorId": 4,
+            "hardwareVersion": "v1",
             "lockerType": {
                 "id":"",
                 "doorsQuantity": doorsQuantity,
