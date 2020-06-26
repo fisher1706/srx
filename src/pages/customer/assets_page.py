@@ -5,7 +5,7 @@ import time
 class AssetsPage(CustomerPortalPage):
     xpath_filter = "//span[text()='Filter']"
     xpath_apply = "//span[text()='Apply']"
-    xpath_asset_card = "//div[data-testid='asset-item']"
+    xpath_asset_card = "//div[@data-testid='asset-item']"
     xpath_available = "//div[text()='Available']"
     xpath_total = "//div[text()='Total']"
     xpath_checked_out = "//div[text()='Checked out']"

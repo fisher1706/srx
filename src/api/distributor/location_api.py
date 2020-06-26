@@ -44,3 +44,13 @@ class LocationApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
+
+    def delete_location(self, location_id, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations/delete")
+        token = self.get_distributor_token()
+        location_dto = [{"id": location_id}]
+        response = self.send_post(url, token, location_dto)
+        if (response.status_code == 200):
+            self.logger.info("Location was successfully deleted")
+        else:
+            self.logger.error(str(response.content))
