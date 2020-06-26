@@ -214,7 +214,6 @@ class TestAssets():
         aa.check_asset_in_all_assets_list(asset, should_be=False)
 
     @pytest.mark.regression
-    @pytest.mark.test778
     def test_issue_return_assets_rfid(self, api, delete_shipto, delete_hardware):
         api.testrail_case_id = 1999
 
@@ -262,7 +261,6 @@ class TestAssets():
         assert rfid_labels[0]["state"] == "RETURN_CHECK_IN", f"RFID label has incorrect status {rfid_labels[0]['state']}"
 
     @pytest.mark.regression
-    @pytest.mark.test777
     def test_update_asset_location(self, api, delete_shipto):
         api.testrail_case_id = 2008
 
