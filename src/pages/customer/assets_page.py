@@ -35,7 +35,7 @@ class AssetsPage(CustomerPortalPage):
         self.element_should_have_text(f"{self.xpath_total}/../div[2]", f"{total}")
         self.element_should_have_text(f"{self.xpath_available}/../div[2]", f"{avaliable}")
         text = self.get_element_text(f"{self.xpath_user}/../div[2]/a")
-        self.element_should_have_text(f"{self.xpath_user}/../div[2]/a", f"{self.data.customer_email} {self.data.customer_email} ({self.data.customer_email})")
+        self.element_should_have_text(f"{self.xpath_user}/../div[2]/a", f"{self.context.customer_email} {self.context.customer_email} ({self.context.customer_email})")
 
     def checked_out_tab_should_not_contain(self, asset):
         self.click_tab_by_name("Checked Out")
