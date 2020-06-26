@@ -15,7 +15,6 @@ def setup_location(context, product_dto=None, shipto_dto=None, shipto_id=None, l
         shipto_response = setup_shipto(context, shipto_dto)
         shipto_dto = copy.deepcopy(shipto_response["shipto"])
         shipto_id = shipto_response["shipto_id"]
-        context.dynamic_context["delete_hardware_id"].append(shipto_id)
 
     if (shipto_id is not None):
         shipto_dto = sha.get_shipto_by_id(shipto_id)
