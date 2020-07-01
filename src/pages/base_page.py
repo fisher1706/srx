@@ -169,6 +169,7 @@ class BasePage():
     def manage_shipto(self, shiptos, prefix_path=""):
         if (shiptos is not None):
             self.click_xpath(Locator.xpath_button_by_name("Manage"))
+            self.get_element_by_xpath(Locator.title_select_item)
             for shipto in shiptos:
                 for row in range(1, self.get_element_count(prefix_path+Locator.xpath_table_row)+1):
                     if (shipto == self.driver.find_element_by_xpath(Locator.xpath_table_item_in_dialog(row, 1)).text):
