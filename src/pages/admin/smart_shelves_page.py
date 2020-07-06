@@ -132,18 +132,22 @@ class SmartShelvesPage(AdminPortalPage):
         self.wait_until_page_loaded()
         
     def assign_smart_shelf_locker_planogram(self, locker, smart_shelf):
+        self.get_element_by_xpath(Locator.xpath_table_row)
         self.open_last_page()
+        self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.title_go_to_locker_planogram)
-        self.wait_until_progress_bar_loaded
+        self.get_element_by_xpath(Locator.title_configure_door)
         self.click_xpath(Locator.title_configure_door)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), smart_shelf)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
 
     def check_smart_shelf_unavailable_via_planogram(self, locker, smart_shelf, in_list=False):
+        self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.scan_table(scan_by=locker, column_header="Serial Number")
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.title_go_to_locker_planogram)
+        self.get_element_by_xpath(Locator.title_configure_door)
         self.click_xpath(Locator.title_configure_door)
         self.click_xpath(Locator.xpath_dropdown_in_dialog(1))
         self.input_data_xpath(smart_shelf, f"{Locator.xpath_dropdown_in_dialog(1)}//input")
