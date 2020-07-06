@@ -4,6 +4,7 @@ from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_group_api import CheckoutGroupApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.admin.admin_hardware_api import AdminHardwareApi
+from src.api.admin.smart_shelves_api import SmartShelvesApi
 
 @pytest.fixture(scope="function")
 def delete_customer_user(context): #delete_customer_user_id
@@ -41,3 +42,13 @@ def delete_hardware(context):
     for hardware_id in hardware_id_list:
         time.sleep(5)
         aha.delete_hardware(hardware_id)
+
+@pytest.fixture(scope="function") #delete_smart_shelf_id OR delete_smart_shelf_id_list
+def delete_smart_shelf(context):
+    yield
+    context.is_teardown = True
+    ssa = SmartShelvesApi(context)
+    smart_shelf_id_list = context.dynamic_context["delete_smart_shelf_id"]
+    for smart_shelf_id in smart_shelf_id_list:
+        time.sleep(3)
+        ssa.delete_smart_shelves(smart_shelf_id)

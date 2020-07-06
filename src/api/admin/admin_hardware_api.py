@@ -53,7 +53,7 @@ class AdminHardwareApi(API):
         }
         return self.create_hardware(dto)
     
-    def update_locker(self, locker_id, locker_type_id, iothub_id=None):
+    def update_locker(self, locker_id, locker_type_id, iothub_id=None, version="v1"):
         dto = {
             "id": locker_id,
             "lockerType":{
@@ -62,7 +62,8 @@ class AdminHardwareApi(API):
             "iotHub":{
                 "id": iothub_id
             },
-            "type": "LOCKER"
+            "type": "LOCKER",
+            "hardwareVersion": version
         }
         return self.update_hardware(dto)
 

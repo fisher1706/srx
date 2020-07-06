@@ -22,6 +22,7 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.dialog_should_not_be_visible()
     
     def open_locker_planogram(self, locker, shipto):
+        self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.scan_table(scan_by=locker, column_header="Serial Number", pagination=False)
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.title_switch_locker_planogram)
         self.wait_until_progress_bar_loaded()
@@ -49,7 +50,8 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.wait_until_progress_bar_loaded()
         self.click_xpath(Locator.title_configure_door_number)
         text = self.get_element_text(Locator.xpath_dropdown_in_dialog(2))
-        if (text == smart_shelf):
+        self.logger.info(f"{text}")
+        if (f"{text}" == f"{smart_shelf}"):
             self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
         else:
             self.logger.error(f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected")
