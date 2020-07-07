@@ -130,3 +130,7 @@ class Locator():
             raise TypeError("Cannot create new attribute for class Locator")
         else:
             object.__setattr__(key, value)
+    
+    @staticmethod
+    def xpath_dropdown_sku(sku):
+        return f"{Locator.xpath_dropdown_list_item}//span[text()='{sku}']/../.."

@@ -343,7 +343,6 @@ class TestSmartShelves():
         dss.check_last_smart_shelf(smart_shelves_body)
 
     @pytest.mark.regression
-    @pytest.mark.t
     def test_smart_shelves_merge_cells(self, ui, delete_smart_shelf, delete_hardware):
         ui.testrail_case_id = 1921
 
