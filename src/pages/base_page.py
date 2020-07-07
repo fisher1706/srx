@@ -106,9 +106,17 @@ class BasePage():
         element = self.get_element_by_id(id)
         assert not element.is_enabled(), f"Element with ID = '{id}' is enabled, but should be disabled"
 
-    def should_be_disabled_xpath(self, xpath):
+    # def should_be_disabled_xpath(self, xpath):
+    #     element = self.get_element_by_xpath(xpath)
+    #     assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
+
+    def should_be_disabled_xpath(self, xpath, wait=False):
         element = self.get_element_by_xpath(xpath)
-        assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
+        if (wait == False):
+            assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
+        elif (wait == True):
+            WebDriverWait(self.driver, 7).until(wait_until_disabled(xpath))
+            assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
 
     def should_be_enabled_id(self, id):
         element = self.get_element_by_id(id)
@@ -486,3 +494,7 @@ class BasePage():
             self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")
+
+    def element_text_should_be_empty(self, xpath):
+        text = self.get_element_text(xpath)
+        assert text is None or text == "", f"Element {xpath} contains text: {text}"
