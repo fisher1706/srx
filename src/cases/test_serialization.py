@@ -7,6 +7,6 @@ from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 
 class TestRfid():
-    @pytest.mark.regression
+    #@pytest.mark.regression
     def test_rfid_label_crud(self, ui, delete_shipto):
         ui.testrail_case_id = 1918
