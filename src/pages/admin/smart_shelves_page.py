@@ -18,7 +18,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.sidebar_hardware()
         self.click_tab_by_name("Smart Shelves")
         self.open_last_page()
-        self.wait_until_page_loaded(7)
+        self.get_element_by_xpath(Locator.xpath_table_row)
 
     def create_smart_shelves(self, smart_shelves_body):
         self.click_id(Locator.id_add_button)
