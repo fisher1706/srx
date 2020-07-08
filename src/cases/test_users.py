@@ -265,7 +265,7 @@ class TestUsers():
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Checkout Groups"))
         cgp.wait_until_page_loaded()
         row = cgp.scan_table(response_checkout_group["name"], "Checkout Group Name", pagination=False)
-        cgp.click_xpath(Locator.xpath_by_count(Locator.title_associated_users, row))
+        cgp.click_xpath(Locator.xpath_by_count(Locator.xpath_associated_users, row))
         cgp.assign_user(response_customer_user["customerUser"]["email"])
         cgp.check_assigned_user(response_customer_user["customerUser"], 1)
 
@@ -278,7 +278,7 @@ class TestUsers():
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Checkout Groups"))
         cgp.wait_until_page_loaded()
         row = cgp.scan_table(response_checkout_group["name"], "Checkout Group Name", pagination=False)
-        cgp.click_xpath(Locator.xpath_by_count(Locator.title_associated_users, row))
+        cgp.click_xpath(Locator.xpath_by_count(Locator.xpath_associated_users, row))
         cgp.unassign_user(1)
         cgp.get_element_by_xpath(Locator.xpath_no_data_found)
 
@@ -297,7 +297,7 @@ class TestUsers():
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Checkout Groups"))
         cgp.wait_until_page_loaded()
         row = cgp.scan_table(response_checkout_group["name"], "Checkout Group Name", pagination=False)
-        cgp.click_xpath(Locator.xpath_by_count(Locator.title_associated_shiptos, row))
+        cgp.click_xpath(Locator.xpath_by_count(Locator.xpath_associated_shiptos, row))
         cgp.assign_shipto(response_shipto["shipto"]["number"])
         cgp.check_assigned_shipto(response_shipto["shipto"], 1)
         cgp.unassign_shipto(1)

@@ -42,7 +42,7 @@ class WarehousesPage(DistributorPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
 
     def update_last_warehouse(self, warehouse_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_warehouse, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), warehouse_body.pop("state"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), warehouse_body.pop("timezone"))
         for field in warehouse_body.keys():
@@ -53,7 +53,7 @@ class WarehousesPage(DistributorPortalPage):
 
     def delete_last_warehouse(self):
         warehouse = self.get_last_table_item_text_by_header("Warehouse name")
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_warehouse, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(warehouse)
         self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()

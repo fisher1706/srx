@@ -15,7 +15,7 @@ class SettingsPage(DistributorPortalPage):
 
     def delete_last_document(self):
         start_number_of_rows = self.get_element_count(Locator.xpath_by_count(Locator.xpath_table, 1) + Locator.xpath_table_row)
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_document, start_number_of_rows))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, start_number_of_rows))
         self.click_xpath(Locator.xpath_dialog + Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.elements_count_should_be(Locator.xpath_by_count(Locator.xpath_table, 1) + Locator.xpath_table_row, start_number_of_rows-1)

@@ -54,7 +54,7 @@ class DistributorAdminPage(AdminPortalPage):
         self.elements_count_should_be(f"{Locator.xpath_table}//span/div", check_mark+checked)
 
     def update_last_distributor(self, distributor_body, state, bill_by, checkbox_list, ship_to_level):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_distributor, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         for checkbox in checkbox_list:
             self.unselect_checkbox_in_dialog_by_name(checkbox)
         for field in distributor_body.keys():
@@ -68,7 +68,7 @@ class DistributorAdminPage(AdminPortalPage):
 
     def delete_last_distributor(self):
         full_name = self.get_last_table_item_text_by_header("Name")
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_distributor, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()

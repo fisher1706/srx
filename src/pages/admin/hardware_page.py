@@ -44,7 +44,7 @@ class HardwarePage(AdminPortalPage):
 
     def update_last_iothub(self, distributor):
         self.open_last_page()
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_table_rows_number())+Locator.title_edit_iothub)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_table_rows_number())+Locator.xpath_edit_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(7), distributor)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
@@ -52,11 +52,11 @@ class HardwarePage(AdminPortalPage):
 
     def remove_last_hardware(self, hardware_type, serial_number=None):
         if (hardware_type == "IOTHUB"):
-            type_title = Locator.title_delete_iothub
+            type_title = Locator.xpath_remove_button
         elif (hardware_type == "LOCKER"):
-            type_title = Locator.title_delete_locker
+            type_title = Locator.xpath_remove_button
         elif (hardware_type == "VENDING"):
-            type_title = Locator.title_delete_vending
+            type_title = Locator.xpath_remove_button
         self.open_last_page()
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_table_rows_number())+type_title)
         if (serial_number is not None):
@@ -111,14 +111,14 @@ class HardwarePage(AdminPortalPage):
         self.wait_until_page_loaded()
 
     def configure_locker_door(self, door_number=None, serial_number=None, is_weight=False):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_table_rows_number())+Locator.title_go_to_locker_planogram)
-        self.get_element_by_xpath(Locator.title_configure_door)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_table_rows_number())+Locator.xpath_planogram_button)
+        self.get_element_by_xpath(Locator.xpath_configure_button)
         if (door_number is None):
-            count = self.get_element_count(Locator.title_configure_door)
+            count = self.get_element_count(Locator.xpath_configure_button)
             door_number = random.choice(range(0, count))+1
         if (serial_number is None):
             serial_number = Tools.random_string_u()
-        self.click_xpath(Locator.xpath_by_count(Locator.title_configure_door, door_number))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_configure_button, door_number))
         if (is_weight == False):
             xpath_radio = self.xpath_no_weight_radio
         else:

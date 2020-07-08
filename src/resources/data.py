@@ -11,23 +11,36 @@ class Data():
         self.distributor_name = "QA-distributor"
         self.distributor_id = "73"
         self.sub_distributor_name = "Dev Distributor"
-        self.testrail_run_id = None
+        self.testrail_run_id = 47
         self.customer_name = "Static Customer"
         self.customer_id = "92"
         self.shipto_number = "2048"
         self.shipto_id = "59"
+        self.warehouse_id = 47
+        self.sub_distributor_id = 422
+        self.checkout_group_id = "30"
+        self.checkout_user_id = "199"
+        self.customer_user_id = "2801"
+        self.passcode = "AUTOTEST"
+        self.customer_user_passcode = "PSCD"
 
     def staging_environment(self):
         self.distributor_name = "QA-distributor"
         self.distributor_id = "98"
         self.warehouse_id = "38"
         self.sub_distributor_name = "Static Test"
+        self.sub_distributor_id = None
         self.testrail_run_id = None
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
         self.testrail_run_id = None
         self.customer_id = "54"
         self.shipto_id = "31"
+        self.checkout_group_id = None
+        self.checkout_user_id = None
+        self.customer_user_id = None
+        self.passcode = None
+        self.customer_user_passcode = None
 
     def qa_environment(self):
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"

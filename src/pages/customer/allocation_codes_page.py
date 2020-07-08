@@ -64,7 +64,7 @@ class AllocationCodesPage(CustomerPortalPage):
     def delete_allocation_code(self, current_name):
         current_element_row = self.get_row_of_table_item_by_header(current_name, "Name")
         name = self.get_table_item_text_by_header("Name", current_element_row)
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_allocation_code, current_element_row))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, current_element_row))
         self.delete_dialog_should_be_about(name)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()

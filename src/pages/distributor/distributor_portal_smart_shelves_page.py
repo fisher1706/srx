@@ -15,7 +15,7 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
         self.wait_until_page_loaded(7)
 
     def update_smart_shelves(self, smart_shelves_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves_dist, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.should_be_disabled_xpath("//input[@name='serialNumber']")
         self.should_be_disabled_xpath("//input[@name='cellsQuantity']")
         self.should_be_disabled_xpath(f"{Locator.xpath_dropdown_in_dialog(2)}//input")
@@ -39,7 +39,7 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
 
     def merge_cells(self, number_of_cells, is_planogram=False, door_number=None):
         if (is_planogram == False):
-            self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves_dist, self.get_table_rows_number()))
+            self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
             for x in range(number_of_cells):
                 self.click_xpath(f"//div[@data-cell='{x}']")
             self.click_xpath(self.xpath_merge_cells)
@@ -56,7 +56,7 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
 
     def split_cells(self, position_of_cell, is_planogram=False, door_number=None):
         if (is_planogram == False):
-            self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves_dist, self.get_table_rows_number()))
+            self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
             self.click_xpath(f"//div[@data-cell='{position_of_cell}']")
             self.click_xpath(self.xpath_split_cells)
             self.click_xpath(Locator.xpath_submit_button)
@@ -72,7 +72,7 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
     def check_cells_number(self, number_of_cells, is_planogram=False, door_number=None):
         if (is_planogram == False):
             self.check_last_table_item_by_header("Qnty of Cells", "4")
-            self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves_dist, self.get_table_rows_number()))
+            self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
             self.elements_count_should_be("//div[@data-cell]", number_of_cells)
             self.click_xpath(Locator.xpath_label_cancel)
             self.dialog_should_not_be_visible()
@@ -82,7 +82,7 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
 
     def assign_smart_shelf_to_locker(self, smart_shelf, locker, door_number):
         row_number = self.get_row_of_table_item_by_header(smart_shelf, "Serial Number")
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row_number)+Locator.title_edit_smart_shelves_dist)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row_number)+Locator.xpath_edit_button)
         self.wait_until_progress_bar_loaded()
         # input Assign To and check if Door Number is editable
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), locker)

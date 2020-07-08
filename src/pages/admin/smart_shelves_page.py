@@ -47,7 +47,7 @@ class SmartShelvesPage(AdminPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
     
     def update_smart_shelves(self, smart_shelves_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         # input Serial Number
         self.input_by_name("serialNumber", smart_shelves_body["serialNumber"])
         # change Distributor and check if fields "Assign To" and "Door Number" become empty
@@ -65,14 +65,14 @@ class SmartShelvesPage(AdminPortalPage):
 
     def delete_smart_shelf(self, serial_number):
         shelf_serial_number = self.get_last_table_item_text_by_header("Serial Number")
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_smart_shelves, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(f"{serial_number}")
         self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()
 
     def merge_cells(self, number_of_cells):
-        self.get_element_by_xpath(Locator.title_edit_smart_shelves)
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.get_element_by_xpath(Locator.xpath_edit_button)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         for x in range(number_of_cells):
             self.click_xpath(f"//div[@data-cell='{x}']")
         self.click_xpath(self.xpath_merge_cells)
@@ -82,7 +82,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.wait_until_page_loaded()
 
     def split_cells(self, position_of_cell):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.click_xpath(f"//div[@data-cell='{position_of_cell}']")
         self.click_xpath(self.xpath_split_cells)
         self.click_xpath(Locator.xpath_submit_button)
@@ -93,16 +93,15 @@ class SmartShelvesPage(AdminPortalPage):
     def check_cells_number(self, number_of_cells):
         self.get_element_by_xpath(Locator.xpath_table_row)
         self.check_last_table_item_by_header("Qnty of Cells", "4")
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves, self.get_table_rows_number()))
-        #self.click_xpath(self.locators.xpath_by_count(self.locators.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.elements_count_should_be("//div[@data-cell]", number_of_cells)
-        self.click_xpath(self.locators.xpath_label_cancel)
+        self.click_xpath(Locator.xpath_label_cancel)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
 
     def check_first_door_is_unavaliable(self, locker, create=None): 
         if (create is None):
-            self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves, self.get_table_rows_number()))
+            self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         elif (create is True):
             self.click_id(Locator.id_add_button)
             # input Serial Number
@@ -124,7 +123,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.wait_until_page_loaded()
     
     def clear_fields_smart_shelves(self, distributor=None, locker=None):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_smart_shelves, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.element_should_have_text(Locator.xpath_dropdown_in_dialog(3), "1")
         if (locker is not None):
             self.click_xpath(f"{Locator.xpath_dropdown_in_dialog(2)}/div/div[2]/div")
@@ -139,9 +138,9 @@ class SmartShelvesPage(AdminPortalPage):
         self.open_last_page()
         self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.title_go_to_locker_planogram)
-        self.get_element_by_xpath(Locator.title_configure_door)
-        self.click_xpath(Locator.title_configure_door)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.xpath_planogram_button)
+        self.get_element_by_xpath(Locator.xpath_configure_button)
+        self.click_xpath(Locator.xpath_configure_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), smart_shelf)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
@@ -149,9 +148,9 @@ class SmartShelvesPage(AdminPortalPage):
     def check_smart_shelf_unavailable_via_planogram(self, locker, smart_shelf, in_list=False):
         self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.scan_table(scan_by=locker, column_header="Serial Number")
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.title_go_to_locker_planogram)
-        self.get_element_by_xpath(Locator.title_configure_door)
-        self.click_xpath(Locator.title_configure_door)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.xpath_planogram_button)
+        self.get_element_by_xpath(Locator.xpath_configure_button)
+        self.click_xpath(Locator.xpath_configure_button)
         self.click_xpath(Locator.xpath_dropdown_in_dialog(1))
         self.input_data_xpath(smart_shelf, f"{Locator.xpath_dropdown_in_dialog(1)}//input")
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")

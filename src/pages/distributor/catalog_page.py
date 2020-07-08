@@ -56,7 +56,7 @@ class CatalogPage(DistributorPortalPage):
     def update_last_product(self, product_body):
         self.open_last_page()
         self.wait_until_page_loaded(1)
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_product, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), product_body.pop("lifecycleStatus"))
         for field in product_body.keys():
             self.input_by_name(field, product_body[field])

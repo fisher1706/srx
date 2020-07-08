@@ -47,7 +47,7 @@ class DistributorUsersPage(DistributorPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
 
     def update_last_distributor_user(self, distributor_user_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_user, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), distributor_user_body.pop("role"))
         for checkbox in distributor_user_body.pop("warehouses"):
             self.select_checkbox_in_dialog_by_name(checkbox)
@@ -59,7 +59,7 @@ class DistributorUsersPage(DistributorPortalPage):
     def delete_last_distributor_user(self):
         full_name = self.get_last_table_item_text_by_header("First name")
         full_name += " " + self.get_last_table_item_text_by_header("Last name")
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_user, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()
@@ -86,7 +86,7 @@ class DistributorUsersPage(DistributorPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
 
     def update_last_distributor_super_user(self, distributor_superuser_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_edit_super_user, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         for field in distributor_superuser_body.keys():
             self.input_by_name(field, distributor_superuser_body[field])
         self.click_xpath(Locator.xpath_submit_button)
@@ -95,7 +95,7 @@ class DistributorUsersPage(DistributorPortalPage):
     def delete_last_distributor_super_user(self):
         full_name = self.get_last_table_item_text_by_header("First name")
         full_name += " " + self.get_last_table_item_text_by_header("Last name")
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_super_user, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()

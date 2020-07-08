@@ -47,7 +47,7 @@ class CustomerSecurityGroups(CustomerPortalPage):
         self.wait_until_progress_bar_loaded(7)
 
     def delete_security_group(self, security_group_body, row):
-        self.click_table_title(Locator.title_delete_security_group, row)
+        self.click_table_title(Locator.xpath_remove_button, row)
         self.delete_dialog_should_be_about(security_group_body["name"])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()

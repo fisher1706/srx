@@ -41,7 +41,7 @@ class ShiptoPage(DistributorPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
 
     def update_last_shipto(self, shipto_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_shipto_info, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_shipto_info_button, self.get_table_rows_number()))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), shipto_body.pop("state"))
         for field in shipto_body.keys():
             self.input_by_name(field, shipto_body[field])
@@ -50,7 +50,7 @@ class ShiptoPage(DistributorPortalPage):
     def delete_last_shipto(self):
         start_number_of_rows = self.get_table_rows_number()
         name = self.get_last_table_item_text_by_header("Shipto Number")
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_shipto, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(name)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()

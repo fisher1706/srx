@@ -41,14 +41,14 @@ class CheckoutGroupsPage(CustomerPortalPage):
 
     def delete_new_checkout_group(self, row):
         full_name = self.get_table_item_text_by_header("Checkout Group Name", row)
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.title_delete_checkout_group)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.xpath_remove_button)
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
 
     def assign_shipto(self, shipto_number):
         self.click_id(self.id_associate)
-        self.get_element_by_xpath(Locator.title_select_item)
+        self.get_element_by_xpath(Locator.xpath_select_button)
         for index in range(1, self.get_element_count(Locator.xpath_dialog+Locator.xpath_table_row)+1):
             if(self.get_element_text(Locator.xpath_table_item_in_dialog(index, 1)) == str(shipto_number)):
                 self.click_xpath(Locator.xpath_by_count(Locator.xpath_dialog+Locator.xpath_table_row+Locator.xpath_button_type, index))
@@ -71,14 +71,14 @@ class CheckoutGroupsPage(CustomerPortalPage):
 
     def unassign_shipto(self, row):
         shipto_number = self.get_table_item_text_by_header("Shipto Number", row)
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.title_delete_associated_shipto)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.xpath_remove_button)
         self.delete_dialog_should_be_about(shipto_number)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
 
     def assign_user(self, user_email):
         self.click_id(self.id_associate)
-        self.get_element_by_xpath(Locator.title_select_item)
+        self.get_element_by_xpath(Locator.xpath_select_button)
         for index in range(1, self.get_element_count(Locator.xpath_dialog+Locator.xpath_table_row)+1):
             if(self.get_element_text(Locator.xpath_table_item_in_dialog(index, 4)) == str(user_email)):
                 self.click_xpath(Locator.xpath_by_count(Locator.xpath_dialog+Locator.xpath_table_row+Locator.xpath_button_type, index))
@@ -101,7 +101,7 @@ class CheckoutGroupsPage(CustomerPortalPage):
     def unassign_user(self, row):
         full_name = self.get_last_table_item_text_by_header("First Name")
         full_name += " " + self.get_last_table_item_text_by_header("Last Name")
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.title_delete_associated_user)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.xpath_remove_button)
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()

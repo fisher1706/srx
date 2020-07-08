@@ -29,7 +29,7 @@ class UniversalCatalogPage(AdminPortalPage):
         self.wait_until_page_loaded()
 
     def update_universal_product(self, product_body, row):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_update_utc_and_gtin, row))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, row))
         for field in product_body.keys():
             self.input_by_name(field, product_body[field])
         self.click_xpath(Locator.xpath_submit_button)
@@ -37,7 +37,7 @@ class UniversalCatalogPage(AdminPortalPage):
         self.wait_until_page_loaded()
 
     def delete_universal_product(self, row):
-        self.click_xpath(Locator.xpath_by_count(Locator.title_delete_utc_and_gtin, row))
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, row))
         self.click_xpath(Locator.xpath_dialog+Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
