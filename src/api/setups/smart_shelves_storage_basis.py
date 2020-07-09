@@ -1,9 +1,7 @@
 from src.api.admin.smart_shelves_api import SmartShelvesApi
 from src.resources.tools import Tools
 from src.api.setups.locker_basis import locker_basis
-
 import copy
-import time
 
 def smart_shelves_storage_basis(case, no_weight=False, distributor_id=None, storage_body=None, door_number=None):
     ssa = SmartShelvesApi(case)

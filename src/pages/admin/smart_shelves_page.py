@@ -2,7 +2,6 @@ from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 from src.resources.locator import Locator
 import random
-import time
 
 class SmartShelvesPage(AdminPortalPage):
     smart_shelves_body = {

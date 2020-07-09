@@ -1,6 +1,5 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
-import time
 
 class LockerPlanogramPage(DistributorPortalPage):
     def follow_locker_planogram_url(self, customer_id=None, shipto_id=None):

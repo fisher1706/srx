@@ -1,6 +1,5 @@
 from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.resources.locator import Locator
-import time
 
 class AssetsPage(CustomerPortalPage):
     xpath_filter = "//span[text()='Filter']"

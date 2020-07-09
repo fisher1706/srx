@@ -1,5 +1,4 @@
 from src.api.api import API
-import time
 
 class ActivityLogApi(API):
     def get_activity_log(self):

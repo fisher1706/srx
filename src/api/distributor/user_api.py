@@ -1,5 +1,4 @@
 from src.api.api import API
-import time
 
 class UserApi(API):
     def get_distributor_users(self, shipto_id):
