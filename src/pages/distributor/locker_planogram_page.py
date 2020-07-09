@@ -1,6 +1,5 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
-import time
 
 class LockerPlanogramPage(DistributorPortalPage):
     def follow_locker_planogram_url(self, customer_id=None, shipto_id=None):
@@ -48,12 +47,10 @@ class LockerPlanogramPage(DistributorPortalPage):
     def check_smart_shelf_via_planogram(self, smart_shelf, door_number):
         self.wait_until_progress_bar_loaded()
         self.click_xpath(Locator.xpath_configure_button)
+        self.get_element_by_xpath(Locator.xpath_dropdown_in_dialog(2))
         text = self.get_element_text(Locator.xpath_dropdown_in_dialog(2))
-        self.logger.info(f"{text}")
-        if (f"{text}" == f"{smart_shelf}"):
-            self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
-        else:
-            self.logger.error(f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected")
+        assert f"{text}" == f"{smart_shelf}", f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected"
+        self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
 
     def check_first_door_is_unavaliable_planogram(self):
         self.wait_until_progress_bar_loaded()

@@ -37,7 +37,7 @@ class Locator():
     xpath_type_text = "//input[@type='text']"
     xpath_assign_product_planogram = "//button[@type='button']/span[text()='ASSIGN PRODUCT']"
     xpath_no_data_found = "//div[text()='No data found']"
-    xpath_close_button = "//button[@data-testid='close-btn']"
+    xpath_close_button = "//button[@data-testid='close-button']"
     xpath_role_presentation = "//div[@role='presentation']"
     xpath_label_confirm = "//button[@label='Confirm']"
     xpath_label_cancel = "//button[@label='Cancel']"
@@ -54,6 +54,7 @@ class Locator():
     xpath_associated_users = "//button[@data-testid='associated-users-button']"
     xpath_configure_button = "//button[@data-testid='configure-button']"
     xpath_select_button = "//button[@data-testid='select-button']"
+    xpath_edit_status_button = "//button[@data-testid='edit-status-button']"
 
     @staticmethod
     def xpath_by_count(xpath, count):

@@ -26,7 +26,8 @@ class RfidPage(DistributorPortalPage):
         self.check_last_table_item_by_header("State", status)
 
     def update_last_rfid_label_status(self, status):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
+        self.get_element_by_xpath(Locator.xpath_table_row)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_status_button, self.get_table_rows_number()))
         self.click_xpath(f"{Locator.xpath_dialog}{Locator.xpath_button}//span[text()='{status}']")
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()

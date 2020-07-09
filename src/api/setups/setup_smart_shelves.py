@@ -2,7 +2,6 @@ from src.api.admin.smart_shelves_api import SmartShelvesApi
 from src.resources.tools import Tools
 from src.api.setups.setup_locker import setup_locker
 import copy
-import time
 
 def setup_smart_shelves(context, iothub=True, shipto=None, no_weight=False, distributor_id=None):
     if (shipto is not None):
