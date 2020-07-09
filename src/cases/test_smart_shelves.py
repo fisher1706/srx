@@ -180,6 +180,7 @@ class TestSmartShelves():
         lpp.check_first_door_is_unavaliable_planogram()
 
     @pytest.mark.regression
+    @pytest.mark.t
     def test_smart_shelf_move_locker_to_another_distributor(self, ui, delete_hardware, delete_smart_shelf):
         ui.testrail_case_id = 1969
 
@@ -404,7 +405,6 @@ class TestSmartShelves():
         ss.open_smart_shelves()
 
     @pytest.mark.regression
-    @pytest.mark.r
     def test_smart_shelves_unavailable_door(self, ui, delete_hardware):
         ui.testrail_case_id = 1925
 

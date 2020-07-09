@@ -55,6 +55,7 @@ class Locator():
     xpath_associated_users = "//button[@data-testid='associated-users-button']"
     xpath_configure_button = "//button[@data-testid='configure-button']"
     xpath_select_button = "//button[@data-testid='select-button']"
+    xpath_edit_status_button = "//button[@data-testid='edit-status-button']"
 
     @staticmethod
     def xpath_by_count(xpath, count):
