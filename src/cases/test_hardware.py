@@ -97,6 +97,7 @@ class TestHardware():
         hp.iothub_should_be_available("IP Camera", iothub_name)
 
     @pytest.mark.regression
+    @pytest.mark.t
     def test_iothub_crud(self, ui):
         ui.testrail_case_id = 32
 
