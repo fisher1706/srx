@@ -21,5 +21,7 @@
     "customerSku": null,
     "autoSubmit": false,
     "surplus": false,
-    "onHandInventory": null
+    "onHandInventory": null,
+    "lot": false,
+    "serialized": false
 }

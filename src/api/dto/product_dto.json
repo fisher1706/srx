@@ -23,5 +23,7 @@
     "upc": null,
     "unitName": null,
     "keyword": null,
-    "assetFlag": false
+    "assetFlag": false,
+    "serialized": null,
+    "lot": null
 }
