@@ -36,15 +36,11 @@ class TestSerialization():
     def test_lot_should_be_serializable(self, api):
         api.testrail_case_id = 2029
 
-        la = LocationApi(api)
-
         setup_product(api, is_lot=True, expected_status_code=400)
 
     @pytest.mark.regression
     def test_package_conversion_of_serialized_product(self, api):
         api.testrail_case_id = 2031
-
-        la = LocationApi(api)
 
         setup_product(api, is_serialized=True, package_conversion=2, expected_status_code=400)
 
@@ -103,7 +99,7 @@ class TestSerialization():
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
 
     @pytest.mark.regression
-    def test_ohi_of_created_serialized_product(self, api):
+    def test_ohi_of_created_serialized_product(self, api, delete_shipto):
         api.testrail_case_id = 2035
 
         la = LocationApi(api)
@@ -116,7 +112,7 @@ class TestSerialization():
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
 
     @pytest.mark.regression
-    def test_ohi_of_updated_serialized_product(self, api):
+    def test_ohi_of_updated_serialized_product(self, api, delete_shipto):
         api.testrail_case_id = 2036
 
         la = LocationApi(api)
@@ -136,7 +132,7 @@ class TestSerialization():
 
 
     @pytest.mark.regression
-    def test_ohi_of_serialized_asset(self, api):
+    def test_ohi_of_serialized_asset(self, api, delete_shipto):
         api.testrail_case_id = 2037
 
         la = LocationApi(api)
@@ -149,7 +145,7 @@ class TestSerialization():
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
 
     @pytest.mark.regression
-    def test_ohi_of_updated_serialized_product(self, api):
+    def test_ohi_of_updated_serialized_product(self, api, delete_shipto):
         api.testrail_case_id = 2038
 
         la = LocationApi(api)
