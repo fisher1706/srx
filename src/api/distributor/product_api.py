@@ -71,7 +71,7 @@ class ProductApi(API):
         if (response.status_code == 200):
             self.logger.info(f"Product with SKU = '{dto['partSku']}' has been successfully updated")
         else:
-            self.logger.info(f"Product creation ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Product updating ended with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_product(self, product_sku=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/products?partSku={product_sku}")
