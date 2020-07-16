@@ -99,11 +99,26 @@ class TestSerialization():
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
 
     @pytest.mark.regression
-    def test_ohi_of_created_serialized_product(self, api, delete_shipto):
+    def test_update_package_conversion_of_location_with_serialized_product(self, api, delete_shipto):
+        api.testrail_case_id = 2053
+
+        pa = ProductApi(api)
+
+        response_location = setup_location(api, is_serialized=True)
+
+        response_product = response_location["product"]
+        product_id = response_product.pop("id")
+
+        response_product["packageConversion"] = 2
+
+        pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
+
+
+    @pytest.mark.regression
+    def test_ohi_of_created_serialized_product_location(self, api, delete_shipto):
         api.testrail_case_id = 2035
 
         la = LocationApi(api)
-        pa = ProductApi(api)
 
         response_product = setup_product(api, is_serialized=True)
         response_location = setup_location(api, response_product=response_product, ohi=10)
@@ -112,7 +127,18 @@ class TestSerialization():
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
 
     @pytest.mark.regression
-    def test_ohi_of_updated_serialized_product(self, api, delete_shipto):
+    def test_ohi_of_created_serialized_location(self, api, delete_shipto):
+        api.testrail_case_id = 2049
+
+        la = LocationApi(api)
+
+        response_location = setup_location(api, is_serialized=True, ohi=10)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
+
+    @pytest.mark.regression
+    def test_ohi_location_updated_to_serialized(self, api, delete_shipto):
         api.testrail_case_id = 2036
 
         la = LocationApi(api)
@@ -128,24 +154,56 @@ class TestSerialization():
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["serialized"] == True, "Location should be serialized"
-        assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
-
+        assert locations[0]["onHandInventory"] == 0, "OHI should becomes equal to 0 after updating location to serialized"
 
     @pytest.mark.regression
-    def test_ohi_of_serialized_asset(self, api, delete_shipto):
+    def test_ohi_product_location_updated_to_serialized(self, api, delete_shipto):
+        api.testrail_case_id = 2052
+
+        la = LocationApi(api)
+        pa = ProductApi(api)
+
+        response_location = setup_location(api, ohi=10)
+
+        response_product = response_location["product"]
+        product_id = response_product.pop("id")
+
+        response_product["serialized"] = True
+
+        pa.update_product(dto=response_product, product_id=product_id)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["serialized"] == True, "Location should be serialized"
+        assert locations[0]["onHandInventory"] == 0, "OHI should becomes equal to 0 after updating product to serialized"
+
+    @pytest.mark.regression
+    def test_ohi_of_serialized_asset_product_location(self, api, delete_shipto):
         api.testrail_case_id = 2037
 
         la = LocationApi(api)
         pa = ProductApi(api)
 
         response_product = setup_product(api, is_serialized=True, is_asset=True)
-        response_location = setup_location(api, response_product=response_product)
+        response_location = setup_location(api, response_product=response_product, ohi=10)
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
 
     @pytest.mark.regression
-    def test_ohi_of_updated_serialized_product(self, api, delete_shipto):
+    def test_ohi_of_serialized_asset_location(self, api, delete_shipto):
+        api.testrail_case_id = 2050
+
+        la = LocationApi(api)
+        pa = ProductApi(api)
+
+        response_product = setup_product(api, is_asset=True)
+        response_location = setup_location(api, response_product=response_product, ohi=10, is_serialized=True)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
+
+    @pytest.mark.regression
+    def test_ohi_of_updated_serialized_product_location(self, api, delete_shipto):
         api.testrail_case_id = 2038
 
         la = LocationApi(api)
@@ -162,4 +220,22 @@ class TestSerialization():
         la.update_location(location_list, response_location["shipto_id"], expected_status_code=400)
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
+        assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
+
+    @pytest.mark.regression
+    def test_ohi_of_updated_serialized_location(self, api, delete_shipto):
+        api.testrail_case_id = 2051
+
+        la = LocationApi(api)
+
+        response_location = setup_location(api, is_serialized=True)
+
+        location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
+        location_dto = copy.deepcopy(response_location["location"])
+        location_dto["id"] = location_id
+        location_dto["onHandInventory"] = 10
+        location_list = [copy.deepcopy(location_dto)]
+        la.update_location(location_list, response_location["shipto_id"], expected_status_code=400)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
