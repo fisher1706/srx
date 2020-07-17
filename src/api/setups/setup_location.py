@@ -5,7 +5,7 @@ from src.api.distributor.shipto_api import ShiptoApi
 from src.resources.tools import Tools
 import copy
 
-def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None):
+def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None):
     la = LocationApi(context)
     sha = ShiptoApi(context)
 
@@ -46,6 +46,10 @@ def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_
         }
         if (ohi is not None):
             location_dto["onHandInventory"] = ohi
+        if (is_serialized is not None):
+            location_dto["serialized"] = bool(is_serialized)
+        if (is_lot is not None):
+            location_dto["lot"] = bool(is_lot)
     location_list = [copy.deepcopy(location_dto)]
 
 

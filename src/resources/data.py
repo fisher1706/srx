@@ -29,18 +29,17 @@ class Data():
         self.distributor_id = "98"
         self.warehouse_id = "38"
         self.sub_distributor_name = "Static Test"
-        self.sub_distributor_id = None
-        self.testrail_run_id = None
+        self.sub_distributor_id = 8
+        self.testrail_run_id = 48
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
-        self.testrail_run_id = None
         self.customer_id = "54"
         self.shipto_id = "31"
-        self.checkout_group_id = None
-        self.checkout_user_id = None
-        self.customer_user_id = None
-        self.passcode = None
-        self.customer_user_passcode = None
+        self.checkout_group_id = "24"
+        self.checkout_user_id = "138"
+        self.customer_user_id = "26"
+        self.passcode = "AUTOTEST"
+        self.customer_user_passcode = "PSCD"
 
     def qa_environment(self):
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
