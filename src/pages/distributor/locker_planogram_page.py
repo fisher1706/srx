@@ -12,10 +12,11 @@ class LockerPlanogramPage(DistributorPortalPage):
     def create_location_via_planogram(self, door, cell, sku, min_value, max_value):
         self.click_xpath(Locator.xpath_planogram(door, cell))
         self.click_xpath(Locator.xpath_assign_product_planogram)
-        self.input_data_xpath(sku, f"{Locator.xpath_dialog}{Locator.xpath_select_box}//input")
-        self.click_xpath(Locator.xpath_dropdown_sku(sku))
         self.input_by_name("min", min_value)
         self.input_by_name("max", max_value)
+        self.input_data_xpath(sku, f"{Locator.xpath_dialog}{Locator.xpath_select_box}//input")
+        self.click_xpath(Locator.xpath_dropdown_sku(sku))
+        
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
     
@@ -49,6 +50,7 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.click_xpath(Locator.xpath_configure_button)
         self.get_element_by_xpath(Locator.xpath_dropdown_in_dialog(2))
         text = self.get_element_text(Locator.xpath_dropdown_in_dialog(2))
+        print("text is", text)
         assert f"{text}" == f"{smart_shelf}", f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected"
         self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
 
