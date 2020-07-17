@@ -11,7 +11,6 @@ from src.api.setups.setup_product import setup_product
 
 class TestPlanogram():
     @pytest.mark.regression
-    @pytest.mark.q
     def test_create_noweight_locker_location_via_planogram(self, ui, delete_shipto, delete_hardware):
         ui.testrail_case_id = 1856
 
