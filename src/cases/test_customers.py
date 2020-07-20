@@ -21,7 +21,7 @@ class TestCustomers():
 
         #-------------------
         customer_body["name"] = "Customer Name"
-        customer_body["customerType"] = "Test Customer"
+        customer_body["customerType"] = "Not specified"
         customer_body["marketType"] = "Not specified"
         customer_body["warehouse"] = "A_Warehouse (1138)"
         #-------------------
@@ -76,7 +76,7 @@ class TestCustomers():
         sp.follow_shipto_url()
         sp.create_shipto(shipto_body.copy())
         sp.check_last_shipto(shipto_body.copy())
-        sp.update_last_shipto(edit_shipto_body.copy())
+        sp.should_be_disabled_xpath(Locator.xpath_submit_button)
         sp.follow_shipto_url()
         sp.wait_until_page_loaded()
         sp.check_last_shipto(edit_shipto_body.copy())
