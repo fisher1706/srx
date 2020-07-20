@@ -22,7 +22,7 @@ class TestCustomers():
 
         #-------------------
         customer_body["name"] = "Customer Name"
-        customer_body["customerType"] = "Test Customer"
+        customer_body["customerType"] = "Not specified"
         customer_body["marketType"] = "Not specified"
         customer_body["warehouse"] = "A_Warehouse (1138)"
         #-------------------

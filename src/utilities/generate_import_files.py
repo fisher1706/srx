@@ -4,7 +4,7 @@ locations = []
 pricing = []
 rfids = []
 usage_history = []
-for i in range(2500):
+for i in range(200):
     SKU = Tools.random_string_u(20)
 
     product_row = [SKU, None, None, SKU, None, None, None, None, None, None, None, None, None, 10, None, None, None, None, None, None, None, None, None, None, None, None, None]

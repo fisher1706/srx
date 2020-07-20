@@ -104,6 +104,7 @@ class TestCatalog():
         lp.log_in_admin_portal()
         ucp.sidebar_universal_catalog()
         ucp.create_universal_product(universal_product_body.copy())
+        ucp.open_last_page()
         new_product_row = ucp.scan_table(universal_product_body["upc"], "UPC", table_body.copy())
         ucp.update_universal_product(edit_universal_product_body.copy(), new_product_row)
         new_product_row = ucp.scan_table(edit_universal_product_body["upc"], "UPC", edit_table_body.copy())
@@ -132,6 +133,7 @@ class TestCatalog():
         lp.log_in_admin_portal()
         ucp.sidebar_universal_catalog()
         ucp.import_universal_catalog(universal_catalog_import)
+        ucp.open_last_page()
         new_product_row = ucp.scan_table(universal_product_body["upc"], "UPC", table_body.copy())
         ucp.delete_universal_product(new_product_row)
 
