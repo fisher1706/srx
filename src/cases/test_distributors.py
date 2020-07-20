@@ -47,6 +47,7 @@ class TestDistributors():
         lp.log_in_admin_portal()
         dp.sidebar_distributors()
         dp.wait_until_page_loaded()
+        dp.open_last_page()
         check_mark = dp.create_distributor(distributor_body.copy(), state=state, bill_by=bill_by, checkbox_list=checkbox_list)
         dp.check_last_distributor(distributor_body.copy(), state_short_code="MA", table_cells_checkbox=table_cells_checkbox, check_mark=check_mark)
         dp.update_last_distributor(edit_distributor_body.copy(), state=edit_state, bill_by=edit_bill_by, checkbox_list=edit_checkbox_list, ship_to_level=ship_to_level)
