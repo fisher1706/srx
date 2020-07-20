@@ -8,6 +8,7 @@ from src.pages.distributor.customers_page import CustomersPage
 from src.pages.distributor.shipto_page import ShiptoPage
 from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.pages.customer.allocation_codes_page import AllocationCodesPage
+import time
 
 class TestCustomers():
     @pytest.mark.regression
@@ -77,7 +78,8 @@ class TestCustomers():
         sp.create_shipto(shipto_body.copy())
         sp.check_last_shipto(shipto_body.copy())
         sp.update_last_shipto(edit_shipto_body.copy())
-        sp.follow_shipto_url()
+        sp.should_be_disabled_xpath(Locator.xpath_submit_button)
+        sp.driver.find_element_by_link_text('Shiptos').click()
         sp.wait_until_page_loaded()
         sp.check_last_shipto(edit_shipto_body.copy())
         sp.delete_last_shipto()

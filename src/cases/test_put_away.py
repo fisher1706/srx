@@ -76,7 +76,33 @@ class TestPutAway():
         transaction_count = ta.get_transaction(shipto_id)["totalElements"]
         assert transaction_count == 0, f"There should be 0 transactions for shipto {shipto_response['shipto']['number']}"
 
-    
+    @pytest.mark.regression
+    def test_put_away_for_several_transactions_same_SKU(self, api):
+        api.testrail_case_id = 2042
+
+        ta = TransactionApi(api)
+        pa = PutAwayApi(api)
+        la = LocationApi(api)
+
+        response_put_away = setup_put_away(api, transaction=True)
+        location = la.get_location_by_sku(response_put_away["shipto_id"], response_put_away["product"])[0]
+        ta.create_active_item(response_put_away["shipto_id"], location["id"])
+        transaction_2 = ta.get_transaction(sku=response_put_away["product"], shipto_id=response_put_away["shipto_id"])
+        tarnsaction_2_id = transaction_2["entities"][0]["id"]
+        ta.update_replenishment_item(tarnsaction_2_id, response_put_away["reorderQuantity"], "SHIPPED")
+
+        put_away_dto = {
+            "shipToId": response_put_away["shipto_id"],
+            "partSku": response_put_away["product"],
+            "quantity": response_put_away["reorderQuantity"]
+        }
+
+        pa.put_away([put_away_dto])
+        transaction = ta.get_transaction(sku=response_put_away["product"], shipto_id=response_put_away["shipto_id"])
+        print(transaction["entities"][0]["updatedAt"])
+        print(transaction["entities"][1]["updatedAt"])
+        # assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_put_away['product']} should be in status DELIVERED, but status is {status}"
+
 
         
 
