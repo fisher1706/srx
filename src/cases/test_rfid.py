@@ -44,6 +44,7 @@ class TestRfid():
         ta = TransactionApi(api)
 
         response_rfid_location = setup_rfid_location(api, number_of_labels=3)
+        sta.set_checkout_software_settings_for_shipto(response_rfid_location["shipto_id"], enable_reorder_control=False)
         ra.update_rfid_label(response_rfid_location["location_id"], response_rfid_location["labels"][0]["rfid_id"], "AVAILABLE")
         ra.update_rfid_label(response_rfid_location["location_id"], response_rfid_location["labels"][1]["rfid_id"], "AVAILABLE")
         ra.update_rfid_label(response_rfid_location["location_id"], response_rfid_location["labels"][2]["rfid_id"], "AVAILABLE")
@@ -51,13 +52,14 @@ class TestRfid():
         response_rfid = setup_rfid(api, response_rfid_location["shipto_id"])
 
         sta.set_checkout_software_settings_for_shipto(response_rfid_location["shipto_id"], reorder_controls="ISSUED")
-        
+
         ra.rfid_issue(response_rfid["value"], response_rfid_location["labels"][0]["label"])
 
-        transaction = ta.get_transaction(shipto_id=response_rfid_location["shipto_id"])["entities"]
-        assert len(transaction) == 1, "The number of transactions should be equal to 1"
-        assert transaction[0]["reorderQuantity"] == response_rfid_location["product"]["roundBuy"], f"Reorder quantity of transaction should be equal to {response_rfid_location['product']['roundBuy']}"
-        assert transaction[0]["product"]["partSku"] == response_rfid_location["product"]["partSku"]
+        transaction = ta.get_transaction(shipto_id=response_rfid_location["shipto_id"])
+        transaction_count = transaction["totalElements"]
+        assert transaction_count == 1, "The number of transactions should be equal to 1"
+        assert transaction["entities"][0]["reorderQuantity"] == response_rfid_location["product"]["roundBuy"], f"Reorder quantity of transaction should be equal to {response_rfid_location['product']['roundBuy']}"
+        assert transaction["entities"][0]["product"]["partSku"] == response_rfid_location["product"]["partSku"]
 
     @pytest.mark.regression
     def test_create_rfid_transaction_at_min(self, api, delete_shipto, delete_hardware):
