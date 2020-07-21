@@ -4,12 +4,14 @@ import hmac
 import hashlib
 import base64
 from warrant.aws_srp import AWSSRP
+from src.resources.tools import Tools
 
 class Cognito():
-    def __init__(self, username, password, user_pool_id, client_id, client_secret=None):
+    def __init__(self, username, password, user_pool_id, client_id, credentials, client_secret=None):
         self.USER_POOL_ID = user_pool_id
         self.CLIENT_ID = client_id
         self.CLIENT_SECRET = client_secret
+        self.credentials = credentials
         self.initiate_auth(username, password)
 
     def get_secret_hash(self, username):
@@ -19,8 +21,16 @@ class Cognito():
         return d2
 
     def initiate_auth(self, username, password):
-        #client = boto3.client('cognito-idp', region_name='us-east-1')
-        client = boto3.client('cognito-idp', region_name='us-east-1', aws_access_key_id="ASIAWFDFNE5NEQX3CTBV", aws_secret_access_key="LAL7yS/i/YN8ch7YaZw/ln1rBYhBE5dHVseJgfhW", aws_session_token="FwoGZXIvYXdzEGEaDMcFUv4XeaxTV/COCiKGAWz4bvJVwXrOYqub+G3ovRqd/EYOGMx80GZso+6AJs4+Vz7T+jwHdlKfDIfNLUB+ws/lAmefKXfEukq1jVnI2Adg5ub+dZcFMtbs4Ukw7VTVW3ModtQ+Y6CzLJZLscYWj0Z5GLmmL6ZA8Wu100SURb7JwW9SQos/bbukvkrdxkYyrmTrTtqkKI3nlfgFMih0yKzr2FASaQnvZy4OHotJ2njEAUikVlAEtLC1ZSyMw6ENPkl0wSTX")
+        if (self.credentials):
+            client = boto3.client('cognito-idp', region_name='us-east-1')
+        elif (not self.credentials):
+            creds = Tools.get_dto("creds.json", path="/output/")
+            
+            access_key_id = creds["Credentials"]["AccessKeyId"]
+            secret_access_key = creds["Credentials"]["SecretAccessKey"]
+            session_token = creds["Credentials"]["SessionToken"]
+
+            client = boto3.client('cognito-idp', region_name='us-east-1', aws_access_key_id=access_key_id, aws_secret_access_key=secret_access_key, aws_session_token=session_token)
         if (self.CLIENT_SECRET is not None):
             self.resp = client.admin_initiate_auth(
                 UserPoolId=self.USER_POOL_ID,

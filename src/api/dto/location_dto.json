@@ -19,7 +19,7 @@
     "attributeName4": null,
     "attributeValue4": null,
     "customerSku": null,
-    "autoSubmit": null,
+    "autoSubmit": false,
     "surplus": false,
     "onHandInventory": null,
     "lot": false,

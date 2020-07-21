@@ -70,10 +70,7 @@ class TestAuthorization():
         lp.input_email("example@example.com")
         lp.submit_button_should_be_enabled()
         lp.click_on_submit_button()
-        lp.incorrect_email_message_should_be_present()
-        lp.input_email("example@example.")
-        lp.invalid_email_message_should_be_present()
-        lp.submit_button_should_be_disabled()
+        lp.get_element_by_xpath("//div[text()='Email should arrive within 5 minutes']")
         lp.return_from_forgot_password_page()
         lp.it_should_be_login_page()
 

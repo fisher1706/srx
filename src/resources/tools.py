@@ -25,8 +25,8 @@ class Tools():
         return random_email
 
     @staticmethod
-    def get_dto(filename):
-        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/api/dto/"
+    def get_dto(filename, path="/api/dto/"):
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+path
         with open(path+filename, "r") as read_file:
             return json.load(read_file)
 
