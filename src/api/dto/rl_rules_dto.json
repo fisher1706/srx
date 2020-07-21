@@ -1,0 +1,10 @@
+{
+    "replenishmentListRules":{
+        "settings":{
+            "email":"",
+            "orderSubmitSettings":"ORDERED_AND_QUOTED",
+            "pricingNotAvailableBehavior":"NULL_PRICE"
+        },
+        "useDefault": false
+    }
+}

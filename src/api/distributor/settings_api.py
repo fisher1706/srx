@@ -35,3 +35,19 @@ class SettingsApi(API):
         if (bool(response_json["data"]) is False):
             self.logger.error(f"Checkout software settings of shipto with ID = '{shipto_id}' are empty")
         return response_json["data"]
+
+    def update_autosubmit_settings_shipto(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if (response.status_code == 200):
+            self.logger.info(f"Auto-Submit settings of shipto with ID = '{shipto_id}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
+
+    def set_autosubmit_settings_shipto(self, shipto_id, enabled=False, immediately=False, as_order=False):
+        autosubmit_settings_dto = Tools.get_dto("autosubmit_settings_dto.json")
+        autosubmit_settings_dto["transactionAutoSubmitSettings"]["submitImmediately"] = bool(immediately)
+        autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmit"] = bool(enabled)
+        autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmitAsOrder"] = bool(as_order)
+        self.update_autosubmit_settings_shipto(autosubmit_settings_dto, shipto_id)

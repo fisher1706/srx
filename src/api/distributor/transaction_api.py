@@ -3,12 +3,12 @@ import time
 
 class TransactionApi(API):
     def create_active_item(self, shipto_id, ordering_config_id, repeat=21):
-        transactions_count = self.get_transactions_count(status="ACTIVE", shipto_id=shipto_id)
+        transactions_count = self.get_transactions_count(shipto_id=shipto_id)
         for count in range (1, repeat):
             url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={self.data.customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
             token = self.get_distributor_token()
             response = self.send_post(url, token)
-            new_transactions_count = self.get_transactions_count(status="ACTIVE", shipto_id=shipto_id)
+            new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)
             if (new_transactions_count == transactions_count+1):
                 if (response.status_code == 200):
                     self.logger.info("New transaction has been successfully created")
@@ -39,15 +39,13 @@ class TransactionApi(API):
             self.logger.error(str(response.content))
 
     def get_transaction(self, sku=None, status=None, customer_id=None, shipto_id=None):
-        if (customer_id is None):
-            customer_id = self.data.customer_id
-        if (shipto_id is None):
-            shipto_id = self.data.shipto_id
-        url_string = f"/distributor-portal/distributor/replenishments/list/customers/{customer_id}/shiptos/{shipto_id}/items/pageable?"
+        url_string = f"/distributor-portal/distributor/replenishments/list/items?"
         if (sku is not None):
             url_string += f"productPartSku={sku}&"
         if (status is not None):
             url_string += f"status={status}&"
+        if (shipto_id is not None):
+            url_string += f"shipToIds={shipto_id}"
         url = self.url.get_api_url_for_env(url_string)
         token = self.get_distributor_token()
         response = self.send_get(url, token)

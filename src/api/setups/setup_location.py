@@ -5,21 +5,20 @@ from src.api.distributor.shipto_api import ShiptoApi
 from src.resources.tools import Tools
 import copy
 
-def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None):
+def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None, is_autosubmit=None):
     la = LocationApi(context)
     sha = ShiptoApi(context)
 
     if (response_product is None):
         response_product = setup_product(context, product_dto)
 
-    if (shipto_dto is None):
+    if (shipto_id is not None):
+        shipto_dto = sha.get_shipto_by_id(shipto_id)
+    elif (shipto_dto is None):
         shipto_response = setup_shipto(context, shipto_dto)
         shipto_dto = copy.deepcopy(shipto_response["shipto"])
         shipto_id = shipto_response["shipto_id"]
-
-    if (shipto_id is not None):
-        shipto_dto = sha.get_shipto_by_id(shipto_id)
-
+        
     if (location_dto is None):
         location_dto = Tools.get_dto("location_dto.json")
         if (location_pairs is None):
@@ -50,6 +49,8 @@ def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_
             location_dto["serialized"] = bool(is_serialized)
         if (is_lot is not None):
             location_dto["lot"] = bool(is_lot)
+        if (is_autosubmit is not None):
+            location_dto["autoSubmit"] = bool(is_autosubmit)
     location_list = [copy.deepcopy(location_dto)]
 
 
