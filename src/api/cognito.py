@@ -19,7 +19,8 @@ class Cognito():
         return d2
 
     def initiate_auth(self, username, password):
-        client = boto3.client('cognito-idp', region_name='us-east-1')
+        #client = boto3.client('cognito-idp', region_name='us-east-1')
+        client = boto3.client('cognito-idp', region_name='us-east-1', aws_access_key_id="ASIAWFDFNE5NEQX3CTBV", aws_secret_access_key="LAL7yS/i/YN8ch7YaZw/ln1rBYhBE5dHVseJgfhW", aws_session_token="FwoGZXIvYXdzEGEaDMcFUv4XeaxTV/COCiKGAWz4bvJVwXrOYqub+G3ovRqd/EYOGMx80GZso+6AJs4+Vz7T+jwHdlKfDIfNLUB+ws/lAmefKXfEukq1jVnI2Adg5ub+dZcFMtbs4Ukw7VTVW3ModtQ+Y6CzLJZLscYWj0Z5GLmmL6ZA8Wu100SURb7JwW9SQos/bbukvkrdxkYyrmTrTtqkKI3nlfgFMih0yKzr2FASaQnvZy4OHotJ2njEAUikVlAEtLC1ZSyMw6ENPkl0wSTX")
         if (self.CLIENT_SECRET is not None):
             self.resp = client.admin_initiate_auth(
                 UserPoolId=self.USER_POOL_ID,
