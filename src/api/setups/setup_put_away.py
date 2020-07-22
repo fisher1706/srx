@@ -5,20 +5,21 @@ from src.api.distributor.settings_api import SettingsApi
 from src.resources.tools import Tools
 import copy
 
-def setup_put_away(context, transaction=False, transaction_count=None, bulk_putaway=False):
+def setup_put_away(context, transaction=False, shipto_id=None):
     ta = TransactionApi(context)
     la = LocationApi(context)
     sta = SettingsApi(context)
 
     #create location
-    response_location = setup_location(context)
+    response_location = setup_location(context, shipto_id=shipto_id)
     product = response_location["product"]["partSku"]
     shipto_id = response_location["shipto_id"]
     
 
     response = {
-        "product": product,
-        "shipto_id": shipto_id
+        "partSku": product,
+        "shipToId": shipto_id,
+        "quantity": response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
     }
 
     if (transaction == True):
@@ -31,7 +32,7 @@ def setup_put_away(context, transaction=False, transaction_count=None, bulk_puta
         reorderQuantity = transaction["entities"][0]["reorderQuantity"]
         ta.update_replenishment_item(transaction_id, reorderQuantity, "QUOTED")
 
-        response["reorderQuantity"] = reorderQuantity
+        response["quantity"] = reorderQuantity
         response["transaction_id"] = transaction_id
 
     return copy.deepcopy(response)
