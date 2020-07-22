@@ -16,8 +16,7 @@ class API():
 
     def get_distributor_token(self, username=None, password=None):
         if ((self.context.session_context.cognito_user_pool_id is None or
-            self.context.session_context.cognito_client_id is None or
-            self.context.session_context.cognito_client_secret is None) and
+            self.context.session_context.cognito_client_id is None) and
             self.context.session_context.smoke_distributor_token is not None):
             self.context.distributor_token = self.context.session_context.smoke_distributor_token
         if (self.context.distributor_token is None):
