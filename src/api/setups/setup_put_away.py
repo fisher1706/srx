@@ -14,18 +14,18 @@ def setup_put_away(context, transaction=False, transaction_count=None, bulk_puta
     response_location = setup_location(context)
     product = response_location["product"]["partSku"]
     shipto_id = response_location["shipto_id"]
-    location_id = la.get_location_by_sku(shipto_id, product)[0]["id"]
+    
 
     response = {
         "product": product,
-        "shipto_id": shipto_id,
-        "location_id": location_id
+        "shipto_id": shipto_id
     }
 
     if (transaction == True):
         #get transaction id and make it QUOTED
         sta.set_checkout_software_settings_for_shipto(shipto_id)
-        ta.create_active_item(shipto_id, location_id, repeat=6)
+        ordering_config_id = la.get_ordering_config_by_sku(shipto_id, product)
+        ta.create_active_item(shipto_id, ordering_config_id, repeat=6)
         transaction = ta.get_transaction(sku=product, shipto_id=shipto_id)
         transaction_id = transaction["entities"][0]["id"]
         reorderQuantity = transaction["entities"][0]["reorderQuantity"]
