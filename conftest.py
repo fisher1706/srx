@@ -67,8 +67,6 @@ def pytest_addoption(parser):
                      help="Enter cognito_client_id")
     parser.addoption('--cognito_checkout_client_id', action='store', default=None,
                      help="Enter cognito_checkout_client_id")
-    parser.addoption('--cognito_client_secret', action='store', default=None,
-                     help="Enter cognito_client_secret")
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):

@@ -28,7 +28,6 @@ class SessionContext(object):
     cognito_user_pool_id = None
     cognito_client_id = None
     cognito_checkout_client_id = None
-    cognito_client_secret = None
     testrail_email = None
     testrail_password = None
     credentials = None

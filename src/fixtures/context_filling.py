@@ -51,7 +51,6 @@ def session_context(request):
         session_context_object.cognito_user_pool_id = request.config.getoption("cognito_user_pool_id")
         session_context_object.cognito_client_id = request.config.getoption("cognito_client_id")
         session_context_object.cognito_checkout_client_id = request.config.getoption("cognito_checkout_client_id")
-        session_context_object.cognito_client_secret = request.config.getoption("cognito_client_secret")
 
     elif (not session_context_object.credentials):
         from src.resources.local_credentials import LocalCredentials
@@ -87,7 +86,6 @@ def session_context(request):
         session_context_object.cognito_user_pool_id = creds.USER_POOL_ID
         session_context_object.cognito_client_id = creds.CLIENT_ID
         session_context_object.cognito_checkout_client_id = creds.CHECKOUT_CLIENT_ID
-        session_context_object.cognito_client_secret = creds.CLIENT_SECRET
 
     return session_context_object
 
