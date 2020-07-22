@@ -1,4 +1,4 @@
-from src.api.cognito import Cognito
+from warrant.aws_srp import AWSSRP
 import requests
 import json
 
@@ -9,8 +9,10 @@ class API():
         self.url = context.session_context.url
         self.data = context.data
 
-    def get_token(self, username, password, user_pool_id, client_id, client_secret=None):
-        return Cognito(username, password, user_pool_id, client_id, self.context.session_context.credentials, client_secret=client_secret).id_token
+    def get_token(self, username, password, pool_id, client_id):
+        aws = AWSSRP(username=username, password=password, pool_id=pool_id, client_id=client_id)
+        tokens = aws.authenticate_user()
+        return tokens['AuthenticationResult']['IdToken']
 
     def get_distributor_token(self, username=None, password=None):
         if ((self.context.session_context.cognito_user_pool_id is None or
@@ -23,7 +25,7 @@ class API():
                 username = self.context.distributor_email
             if (password is None):
                 password = self.context.distributor_password
-            self.context.distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id, self.context.session_context.cognito_client_secret)
+            self.context.distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id)
         return self.context.distributor_token
 
     def get_customer_token(self, username=None, password=None):
@@ -32,12 +34,12 @@ class API():
                 username = self.context.customer_email
             if (password is None):
                 password = self.context.customer_password
-            self.context.customer_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id, self.context.session_context.cognito_client_secret)
+            self.context.customer_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id)
         return self.context.customer_token
 
     def get_admin_token(self):
         if (self.context.admin_token is None):
-            self.context.admin_token = self.get_token(self.context.admin_email, self.context.admin_password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id, self.context.session_context.cognito_client_secret)
+            self.context.admin_token = self.get_token(self.context.admin_email, self.context.admin_password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id)
         return self.context.admin_token
 
     def get_checkout_token(self, username=None, password=None):
