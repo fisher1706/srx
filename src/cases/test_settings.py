@@ -13,8 +13,7 @@ class TestSettings():
         sp = SettingsPage(ui)
 
         lp.log_in_distributor_portal()
-        sp.sidebar_account_status()
-        sp.click_tab_by_name("Enterprise pricing")
+        sp.follow_url(ui.session_context.url.get_url_for_env("storeroomlogix.com/profile#pricing", "distributor"), hide_intercom=True)
         sp.import_document()
         sp.delete_last_document()
 

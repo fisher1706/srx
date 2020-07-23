@@ -146,8 +146,7 @@ class BasePage():
     
     def url_should_contain(self, text):
         current_url = self.driver.current_url
-        result = f"{text}" in current_url
-        if (result is True): 
+        if (f"{text}" in current_url): 
             self.logger.info(f"URL contains text '{text}'")
         else: 
             self.logger.error(f"URL does not contain '{text}'")
