@@ -7,8 +7,10 @@ from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.put_away_api import PutAwayApi
 from src.api.distributor.shipto_api import ShiptoApi
+from src.api.distributor.settings_api import SettingsApi
 from src.resources.locator import Locator
 from src.resources.tools import Tools
+import time
 
 class TestPutAway():
     @pytest.mark.regression
@@ -19,19 +21,13 @@ class TestPutAway():
         pa = PutAwayApi(api)
 
         response_put_away = setup_put_away(api, transaction=True)
-
-        put_away_dto = {
-
-            "shipToId": response_put_away["shipto_id"],
-            "partSku": response_put_away["product"],
-            "transactionId": response_put_away["transaction_id"],
-            "quantity": response_put_away["reorderQuantity"]
-        }
-
-        pa.put_away([put_away_dto])
-        transaction = ta.get_transaction(sku=response_put_away["product"], shipto_id=response_put_away["shipto_id"])
+        transaction_id = response_put_away["transaction_id"]
+        del response_put_away["transaction_id"]
+        pa.put_away([response_put_away])
+        transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
         status = transaction["entities"][0]["status"]
-        assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_put_away['product']} should be in status DELIVERED, but status is {status}"
+        assert transaction_id == transaction["entities"][0]["id"], f"Existing transaction should be moved to DELIVERED"
+        assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_put_away['partSku']} should be in status DELIVERED, but status is {status}"
     
     @pytest.mark.regression
     def test_put_away_by_SKU(self, api, delete_shipto):
@@ -39,22 +35,13 @@ class TestPutAway():
 
         ta = TransactionApi(api)
         pa = PutAwayApi(api)
-        la = LocationApi(api)
 
         response_put_away = setup_put_away(api)
-        location = la.get_location_by_sku(response_put_away["shipto_id"], response_put_away["product"])[0]
 
-        put_away_dto = {
-
-            "shipToId": response_put_away["shipto_id"],
-            "partSku": response_put_away["product"],
-            "quantity": location["orderingConfig"]["currentInventoryControls"]["max"]
-        }
-
-        pa.put_away([put_away_dto])
-        transaction = ta.get_transaction(sku=response_put_away["product"], shipto_id=response_put_away["shipto_id"])
+        pa.put_away([response_put_away])
+        transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
         status = transaction["entities"][0]["status"]
-        assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_put_away['product']} should be in status DELIVERED, but status is {status}"
+        assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_put_away['partSku']} should be in status DELIVERED, but status is {status}"
 
     @pytest.mark.regression
     def test_put_away_by_nonexistent_SKU(self, api, delete_shipto):
@@ -64,48 +51,73 @@ class TestPutAway():
         ta = TransactionApi(api)
 
         shipto_response = setup_shipto(api)
-        shipto_id = shipto_response["shipto_id"]
+        shipToId = shipto_response["shipto_id"]
 
         put_away_dto = {
-            "shipToId": shipto_id,
+            "shipToId": shipToId,
             "partSku": Tools.random_string_l(20),
             "quantity": 777
         }
 
         pa.put_away([put_away_dto])
-        transaction_count = ta.get_transaction(shipto_id)["totalElements"]
+        transaction_count = ta.get_transaction(shipToId)["totalElements"]
         assert transaction_count == 0, f"There should be 0 transactions for shipto {shipto_response['shipto']['number']}"
 
     @pytest.mark.regression
-    def test_put_away_for_several_transactions_same_SKU(self, api):
+    def test_put_away_for_several_transactions_same_SKU(self, api, delete_shipto):
         api.testrail_case_id = 2042
+
+        ta = TransactionApi(api)
+        pa = PutAwayApi(api)
+        la = LocationApi(api)
+        sa = SettingsApi(api)
+
+        response_put_away = setup_put_away(api, transaction=True)
+        sa.set_checkout_software_settings_for_shipto(response_put_away["shipToId"], enable_reorder_control=False)
+        ordering_config_id = la.get_ordering_config_by_sku(response_put_away["shipToId"], response_put_away["partSku"])
+        ta.create_active_item(response_put_away["shipToId"], ordering_config_id)
+        transaction_2 = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
+        tarnsaction_2_id = transaction_2["entities"][1]["id"]
+        ta.update_replenishment_item(tarnsaction_2_id, response_put_away["quantity"], "ORDERED")
+
+        pa.put_away([response_put_away])
+        transactions = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
+        status_1 = transactions["entities"][0]["status"]
+        status_2 = transactions["entities"][1]["status"]
+        assert f"{status_1}" == "DELIVERED", f"First transaction for SKU {response_put_away['partSku']} should be in status DELIVERED, but status is {status}"
+        assert f"{status_2}" == "ORDERED", f"Second transaction for SKU {response_put_away['partSku']} should be in status ORDERED, but status is {status}"
+
+    @pytest.mark.regression
+    def test_bulk_put_away(self, api, delete_shipto):
+        api.testrail_case_id = 2043
+
+        ta = TransactionApi(api)
+        pa = PutAwayApi(api)
+        la = LocationApi(api)
+
+        response_put_away_1 = setup_put_away(api, transaction=True)
+        response_put_away_2 = setup_put_away(api, transaction=True, shipto_id=response_put_away_1["shipToId"])
+
+        pa.put_away([response_put_away_1, response_put_away_2])
+
+        transactions = ta.get_transaction(shipto_id=response_put_away_1["shipToId"])
+        status_1 = transactions["entities"][0]["status"]
+        status_2 = transactions["entities"][1]["status"]
+        assert f"{status_1}" == "DELIVERED", f"First transaction for SKU {response_put_away_1['partSku']} should be in status DELIVERED, but status is {status}"
+        assert f"{status_2}" == "DELIVERED", f"Second transaction for SKU {response_put_away_2['partSku']} should be in status DELIVERED, but status is {status}"
+
+    @pytest.mark.regression
+    def test_put_away_qnty_0(self, api, delete_shipto):
+        api.testrail_case_id = 2045
 
         ta = TransactionApi(api)
         pa = PutAwayApi(api)
         la = LocationApi(api)
 
         response_put_away = setup_put_away(api, transaction=True)
-        location = la.get_location_by_sku(response_put_away["shipto_id"], response_put_away["product"])[0]
-        ta.create_active_item(response_put_away["shipto_id"], location["id"])
-        transaction_2 = ta.get_transaction(sku=response_put_away["product"], shipto_id=response_put_away["shipto_id"])
-        tarnsaction_2_id = transaction_2["entities"][0]["id"]
-        ta.update_replenishment_item(tarnsaction_2_id, response_put_away["reorderQuantity"], "SHIPPED")
-
-        put_away_dto = {
-            "shipToId": response_put_away["shipto_id"],
-            "partSku": response_put_away["product"],
-            "quantity": response_put_away["reorderQuantity"]
-        }
-
-        pa.put_away([put_away_dto])
-        transaction = ta.get_transaction(sku=response_put_away["product"], shipto_id=response_put_away["shipto_id"])
-        print(transaction["entities"][0]["updatedAt"])
-        print(transaction["entities"][1]["updatedAt"])
-        # assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_put_away['product']} should be in status DELIVERED, but status is {status}"
-
-
-        
-
-        
-
+        response_put_away["quantity"] = 0
+        pa.put_away([response_put_away])
+        transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
+        status = transaction["entities"][0]["status"]
+        assert f"{status}" == "DO_NOT_REORDER", f"Transaction for SKU {response_put_away['partSku']} should be in status DO_NOT_REORDER, but status is {status}"
 
