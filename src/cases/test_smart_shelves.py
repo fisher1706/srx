@@ -404,7 +404,7 @@ class TestSmartShelves():
         ss.open_smart_shelves()
 
     @pytest.mark.regression
-    def test_smart_shelves_unavailable_door(self, ui, delete_hardware):
+    def test_smart_shelves_unavailable_door(self, ui, delete_smart_shelf, delete_hardware):
         ui.testrail_case_id = 1925
 
         lp = LoginPage(ui)
@@ -422,7 +422,7 @@ class TestSmartShelves():
         ss.check_first_door_is_unavaliable(locker, create=True)
       
     @pytest.mark.regression
-    def test_smart_shelves_without_weights(self, ui, delete_hardware):
+    def test_smart_shelves_without_weights(self, ui, delete_smart_shelf, delete_hardware):
         ui.testrail_case_id = 1922
 
         lp = LoginPage(ui)

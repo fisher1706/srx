@@ -12,9 +12,11 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
     def open_smart_shelves(self):
         self.sidebar_hardware()
         self.click_tab_by_name("Smart shelves")
-        self.wait_until_page_loaded(7)
+        self.wait_until_page_loaded()
 
     def update_smart_shelves(self, smart_shelves_body):
+        self.open_last_page()
+        self.wait_until_page_loaded()
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.should_be_disabled_xpath("//input[@name='serialNumber']")
         self.should_be_disabled_xpath("//input[@name='cellsQuantity']")
@@ -81,6 +83,7 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
             self.elements_count_should_be(f"//div[@data-door={door_number}]//div[@data-cell]", number_of_cells)
 
     def assign_smart_shelf_to_locker(self, smart_shelf, locker, door_number):
+        self.open_last_page()
         row_number = self.get_row_of_table_item_by_header(smart_shelf, "Serial Number")
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row_number)+Locator.xpath_edit_button)
         self.wait_until_progress_bar_loaded()
