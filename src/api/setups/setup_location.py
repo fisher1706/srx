@@ -1,74 +1,90 @@
 from src.api.distributor.location_api import LocationApi
-from src.api.setups.setup_shipto import setup_shipto
-from src.api.setups.setup_product import setup_product
+from src.api.setups.setup_shipto import SetupShipto
+from src.api.setups.setup_product import SetupProduct
+from src.api.setups.base_setup import BaseSetup
 from src.api.distributor.shipto_api import ShiptoApi
-from src.api.distributor.settings_api import SettingsApi
 from src.resources.tools import Tools
 import copy
 
-def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None, is_autosubmit=None, checkout_settings_shipto=None):
-    la = LocationApi(context)
-    sha = ShiptoApi(context)
-    sta = SettingsApi(context)
+class SetupLocation(BaseSetup):
+    setup_name = "Location"
+    options = {
+        "product": None,
+        "shipto_id": None,
+        "location_pairs": None,
+        "type": "LABEL",
+        "serialized": None,
+        "lot": None,
+        "autosubmit": None,
+        "ohi": None
+    }
+    location = Tools.get_dto("location_dto.json")
 
-    if (response_product is None):
-        response_product = setup_product(context, product_dto)
+    def __init__(self, context):
+        super().__init__(context)
+        self.setup_product = SetupProduct(self.context)
+        self.setup_shipto = SetupShipto(self.context)
 
-    if (shipto_id is not None):
-        shipto_dto = sha.get_shipto_by_id(shipto_id)
-    elif (shipto_dto is None):
-        shipto_response = setup_shipto(context, shipto_dto)
-        shipto_dto = copy.deepcopy(shipto_response["shipto"])
-        shipto_id = shipto_response["shipto_id"]
-        
-    if (checkout_settings_shipto is not None):
-        if (checkout_settings_shipto == "DEFAULT"):
-            sta.set_checkout_software_settings_for_shipto(shipto_id)
+    def setup(self):
+        self.set_shipto()
+        self.set_product()
+        self.set_location()
+
+        response = {
+            "product": self.product,
+            "shipto": self.shipto,
+            "location": self.location,
+            "shipto_id": self.shipto_id
+        }
+
+        return copy.deepcopy(response)
+
+    def set_shipto(self):
+        if (self.options["shipto_id"] is None):
+            self.shipto = self.setup_shipto.setup()
+            self.shipto_id = self.shipto["shipto_id"]
         else:
-            context.logger.warning(f"Unknown 'checkout_settings_shipto' option for Location Setup: '{checkout_settings_shipto}'")
+            sha = ShiptoApi(self.context)
+            self.shipto_id = self.options["shipto_id"]
+            self.shipto = sha.get_shipto_by_id(self.shipto_id)
 
-    if (location_dto is None):
-        location_dto = Tools.get_dto("location_dto.json")
-        if (location_pairs is None):
-            location_dto["attributeName1"] = response_product["partSku"]
-            location_dto["attributeValue1"] = response_product["partSku"]
+    def set_product(self):
+        if (self.options["product"] is None):
+            self.product = self.setup_product.setup()
         else:
-            location_dto["attributeName1"] = location_pairs["attributeName1"]
-            location_dto["attributeValue1"] = location_pairs["attributeValue1"]
-            location_dto["attributeName2"] = location_pairs["attributeName2"]
-            location_dto["attributeValue2"] = location_pairs["attributeValue2"]
-            location_dto["attributeName3"] = location_pairs["attributeName3"]
-            location_dto["attributeValue3"] = location_pairs["attributeValue3"]
-            location_dto["attributeName4"] = location_pairs["attributeName4"]
-            location_dto["attributeValue4"] = location_pairs["attributeValue4"]
-        location_dto["orderingConfig"] = {
+            self.product = self.options["product"]
+
+    def set_location(self):
+        la = LocationApi(self.context)
+
+        if (self.options["location_pairs"] is None):
+            self.location["attributeName1"] = self.product["partSku"]
+            self.location["attributeValue1"] = self.product["partSku"]
+        else:
+            self.location["attributeName1"] = self.options["location_pairs"]["attributeName1"]
+            self.location["attributeValue1"] = self.options["location_pairs"]["attributeValue1"]
+            self.location["attributeName2"] = self.options["location_pairs"]["attributeName2"]
+            self.location["attributeValue2"] = self.options["location_pairs"]["attributeValue2"]
+            self.location["attributeName3"] = self.options["location_pairs"]["attributeName3"]
+            self.location["attributeValue3"] = self.options["location_pairs"]["attributeValue3"]
+            self.location["attributeName4"] = self.options["location_pairs"]["attributeName4"]
+            self.location["attributeValue4"] = self.options["location_pairs"]["attributeValue4"]
+
+        self.location["orderingConfig"] = {
             "product": {
-                "partSku": response_product["partSku"]
+                "partSku": self.product["partSku"]
             },
-            "type": location_type,
+            "type": self.options["type"],
             "currentInventoryControls": {
-                "min": response_product["roundBuy"],
-                "max": response_product["roundBuy"]*3
+                "min": self.product["roundBuy"],
+                "max": self.product["roundBuy"]*3
             }
         }
-        if (ohi is not None):
-            location_dto["onHandInventory"] = ohi
-        if (is_serialized is not None):
-            location_dto["serialized"] = bool(is_serialized)
-        if (is_lot is not None):
-            location_dto["lot"] = bool(is_lot)
-        if (is_autosubmit is not None):
-            location_dto["autoSubmit"] = bool(is_autosubmit)
-    location_list = [copy.deepcopy(location_dto)]
-
-
-    la.create_location(copy.deepcopy(location_list), shipto_id)
-
-    response = {
-        "product": response_product,
-        "shipto": shipto_dto,
-        "location": location_dto,
-        "shipto_id": shipto_id
-    }
-
-    return copy.deepcopy(response)
+        self.location["onHandInventory"] = self.options["ohi"]
+        self.location["serialized"] = bool(self.options["serialized"])
+        self.location["lot"] = bool(self.options["lot"])
+        if (self.options["autosubmit"] is not None):
+            self.location["autoSubmit"] = bool(self.options["autosubmit"])
+        
+        location_list = [copy.deepcopy(self.location)]
+        la.create_location(copy.deepcopy(location_list), self.shipto_id)
