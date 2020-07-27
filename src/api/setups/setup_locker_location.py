@@ -6,7 +6,7 @@ from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.resources.tools import Tools
 import copy
 
-def setup_locker_location(context, no_weight=False):
+def setup_locker_location(context, no_weight=False, is_asset=None):
         response_locker = setup_locker(context)
         locker_body = response_locker["locker"]
         iothub_body = response_locker["iothub"]
@@ -26,7 +26,7 @@ def setup_locker_location(context, no_weight=False):
             aha = AdminHardwareApi(context)
             aha.update_locker_configuration(locker_body["id"], True)
 
-        response_location = setup_location(context, location_pairs=location_pairs, location_type="LOCKER")
+        response_location = setup_location(context, location_pairs=location_pairs, location_type="LOCKER", is_asset=is_asset)
         product_body = response_location["product"]
         shipto_body = response_location["shipto"]
         location_body = response_location["location"]

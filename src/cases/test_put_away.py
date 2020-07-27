@@ -121,3 +121,42 @@ class TestPutAway():
         status = transaction["entities"][0]["status"]
         assert f"{status}" == "DO_NOT_REORDER", f"Transaction for SKU {response_put_away['partSku']} should be in status DO_NOT_REORDER, but status is {status}"
 
+    @pytest.mark.regression
+    def test_put_away_asset(self, api, delete_shipto):
+        api.testrail_case_id = 2048
+
+        ta = TransactionApi(api)
+        pa = PutAwayApi(api)
+
+        # create location with asset product
+        response_put_away = setup_put_away(api, is_asset=True)
+
+        pa.put_away([response_put_away])
+        transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
+        assert transaction["totalElements"]==0, f"There should not be transactions for asset product"
+
+    @pytest.mark.regression
+    def test_put_away_locker_location(self, api, delete_shipto, delete_hardware):
+        api.testrail_case_id = 2062
+
+        ta = TransactionApi(api)
+        pa = PutAwayApi(api)
+
+        response_put_away = setup_put_away(api, is_asset=True, trigger_type="LOCKER")
+        pa.put_away([response_put_away])
+        transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
+        assert transaction["totalElements"]==0, f"There should not be transactions for asset product"
+
+    @pytest.mark.regression
+    def test_put_away_active_transaction(self, api, delete_shipto):
+        api.testrail_case_id = 2064
+
+        ta = TransactionApi(api)
+        pa = PutAwayApi(api)
+
+        response_put_away = setup_put_away(api, transaction=True)
+        ta.update_replenishment_item(response_put_away["transaction_id"], response_put_away["quantity"], "ACTIVE")
+        pa.put_away([response_put_away])
+        transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
+        print(transaction)
+        assert transaction["totalElements"]==0, f"Put Away cant be performed for ACTIVE transaction"
