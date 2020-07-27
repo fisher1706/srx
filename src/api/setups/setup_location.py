@@ -2,12 +2,14 @@ from src.api.distributor.location_api import LocationApi
 from src.api.setups.setup_shipto import setup_shipto
 from src.api.setups.setup_product import setup_product
 from src.api.distributor.shipto_api import ShiptoApi
+from src.api.distributor.settings_api import SettingsApi
 from src.resources.tools import Tools
 import copy
 
-def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None, is_autosubmit=None, is_asset=None):
+def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None, is_autosubmit=None, is_asset=None, checkout_settings_shipto=None):
     la = LocationApi(context)
     sha = ShiptoApi(context)
+    sta = SettingsApi(context)
 
     if (response_product is None):
         response_product = setup_product(context, product_dto, is_asset=is_asset)
@@ -19,6 +21,12 @@ def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_
         shipto_dto = copy.deepcopy(shipto_response["shipto"])
         shipto_id = shipto_response["shipto_id"]
         
+    if (checkout_settings_shipto is not None):
+        if (checkout_settings_shipto == "DEFAULT"):
+            sta.set_checkout_software_settings_for_shipto(shipto_id)
+        else:
+            context.logger.warning(f"Unknown 'checkout_settings_shipto' option for Location Setup: '{checkout_settings_shipto}'")
+
     if (location_dto is None):
         location_dto = Tools.get_dto("location_dto.json")
         if (location_pairs is None):

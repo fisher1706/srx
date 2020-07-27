@@ -4,6 +4,7 @@ from src.api.setups.setup_product import setup_product
 from src.api.setups.setup_location import setup_location
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.product_api import ProductApi
+from src.api.distributor.settings_api import SettingsApi
 
 
 class TestSerialization():
@@ -14,7 +15,7 @@ class TestSerialization():
         la = LocationApi(api)
 
         response_product = setup_product(api, is_serialized=True, is_lot=True)
-        response_location = setup_location(api, response_product=response_product)
+        response_location = setup_location(api, response_product=response_product, checkout_settings_shipto="DEFAULT")
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["lot"] == True, "Location of the serialized product should be serialized"
@@ -52,7 +53,7 @@ class TestSerialization():
         pa = ProductApi(api)
 
         response_product = setup_product(api, is_serialized=True)
-        response_location = setup_location(api, response_product=response_product)
+        response_location = setup_location(api, response_product=response_product, checkout_settings_shipto="DEFAULT")
         product_id = response_product.pop("id")
 
         products = pa.get_product(response_product["partSku"])
@@ -104,7 +105,7 @@ class TestSerialization():
 
         pa = ProductApi(api)
 
-        response_location = setup_location(api, is_serialized=True)
+        response_location = setup_location(api, is_serialized=True, checkout_settings_shipto="DEFAULT")
 
         response_product = response_location["product"]
         product_id = response_product.pop("id")
@@ -121,7 +122,7 @@ class TestSerialization():
         la = LocationApi(api)
 
         response_product = setup_product(api, is_serialized=True)
-        response_location = setup_location(api, response_product=response_product, ohi=10)
+        response_location = setup_location(api, response_product=response_product, ohi=10, checkout_settings_shipto="DEFAULT")
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
@@ -132,7 +133,7 @@ class TestSerialization():
 
         la = LocationApi(api)
 
-        response_location = setup_location(api, is_serialized=True, ohi=10)
+        response_location = setup_location(api, is_serialized=True, ohi=10, checkout_settings_shipto="DEFAULT")
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
@@ -143,7 +144,7 @@ class TestSerialization():
 
         la = LocationApi(api)
 
-        response_location = setup_location(api, ohi=10)
+        response_location = setup_location(api, ohi=10, checkout_settings_shipto="DEFAULT")
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
         location_dto = copy.deepcopy(response_location["location"])
@@ -163,7 +164,7 @@ class TestSerialization():
         la = LocationApi(api)
         pa = ProductApi(api)
 
-        response_location = setup_location(api, ohi=10)
+        response_location = setup_location(api, ohi=10, checkout_settings_shipto="DEFAULT")
 
         response_product = response_location["product"]
         product_id = response_product.pop("id")
@@ -184,7 +185,7 @@ class TestSerialization():
         pa = ProductApi(api)
 
         response_product = setup_product(api, is_serialized=True, is_asset=True)
-        response_location = setup_location(api, response_product=response_product, ohi=10)
+        response_location = setup_location(api, response_product=response_product, ohi=10, checkout_settings_shipto="DEFAULT")
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
@@ -197,7 +198,7 @@ class TestSerialization():
         pa = ProductApi(api)
 
         response_product = setup_product(api, is_asset=True)
-        response_location = setup_location(api, response_product=response_product, ohi=10, is_serialized=True)
+        response_location = setup_location(api, response_product=response_product, ohi=10, is_serialized=True, checkout_settings_shipto="DEFAULT")
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
@@ -210,7 +211,7 @@ class TestSerialization():
         pa = ProductApi(api)
 
         response_product = setup_product(api, is_serialized=True)
-        response_location = setup_location(api, response_product=response_product)
+        response_location = setup_location(api, response_product=response_product, checkout_settings_shipto="DEFAULT")
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
         location_dto = copy.deepcopy(response_location["location"])
@@ -228,7 +229,7 @@ class TestSerialization():
 
         la = LocationApi(api)
 
-        response_location = setup_location(api, is_serialized=True)
+        response_location = setup_location(api, is_serialized=True, checkout_settings_shipto="DEFAULT")
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
         location_dto = copy.deepcopy(response_location["location"])

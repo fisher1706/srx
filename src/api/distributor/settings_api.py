@@ -51,3 +51,18 @@ class SettingsApi(API):
         autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmit"] = bool(enabled)
         autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmitAsOrder"] = bool(as_order)
         self.update_autosubmit_settings_shipto(autosubmit_settings_dto, shipto_id)
+
+    def update_rl_rules_settings_shipto(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/customer-settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if (response.status_code == 200):
+            self.logger.info(f"RL Rules settings of shipto with ID = '{shipto_id}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
+
+    def set_rl_rules_settings_shipto(self, shipto_id, order="ORDERED_AND_QUOTED", pricing="NULL_PRICE"):
+        rl_rules_settings_dto = Tools.get_dto("rl_rules_dto.json")
+        rl_rules_settings_dto["replenishmentListRules"]["settings"]["orderSubmitSettings"] = order
+        rl_rules_settings_dto["replenishmentListRules"]["settings"]["pricingNotAvailableBehavior"] = pricing
+        self.update_rl_rules_settings_shipto(rl_rules_settings_dto, shipto_id)
