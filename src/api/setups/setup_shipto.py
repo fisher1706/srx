@@ -51,10 +51,10 @@ class SetupShipto(BaseSetup):
             elif (type(self.options["checkout_settings"]) is dict):
                 sta.set_checkout_software_settings_for_shipto(
                     self.id, 
-                    self.options["checkout_settings"]["reorder_controls"],
-                    self.options["checkout_settings"]["track_ohi"],
-                    self.options["checkout_settings"]["scan_to_order"],
-                    self.options["checkout_settings"]["enable_reorder_control"])
+                    self.options["checkout_settings"].get("reorder_controls"),
+                    self.options["checkout_settings"].get("track_ohi"),
+                    self.options["checkout_settings"].get("scan_to_order"),
+                    self.options["checkout_settings"].get("enable_reorder_control"))
             else:
                 self.context.logger.warning(f"Unknown 'checkout_settings' option: '{checkout_settings_shipto}'")
 
@@ -66,8 +66,8 @@ class SetupShipto(BaseSetup):
             elif (type(self.options["autosubmit_settings"]) is dict):
                 sta.set_autosubmit_settings_shipto(
                     self.id,
-                    self.options["autosubmit_settings"]["enabled"],
-                    self.options["autosubmit_settings"]["immediately"],
-                    self.options["autosubmit_settings"]["as_order"])
+                    self.options["autosubmit_settings"].get("enabled"),
+                    self.options["autosubmit_settings"].get("immediately"),
+                    self.options["autosubmit_settings"].get("as_order"))
             else:
                 self.context.logger.warning(f"Unknown 'autosubmit_settings' option: '{checkout_settings_shipto}'")

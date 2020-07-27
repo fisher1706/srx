@@ -1,68 +1,64 @@
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.distributor.user_api import UserApi
 from src.api.distributor.distributor_hardware_api import DistributorHardwareApi
+from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
 import copy
 import time
 
-def setup_locker(context, iothub=True, shipto=None, no_weight=False, distributor_id=None):
-    aha = AdminHardwareApi(context)
-    if (distributor_id is None):
-        if (iothub == True):
-            iothub_body = aha.create_iothub()
-            iothub_id = iothub_body["id"]
-        else:
-            iothub_body = None
-            iothub_id = None
-    elif (distributor_id is not None):
-        if (iothub == True):
-            iothub_body = aha.create_iothub(distributor_id)
-            iothub_id = iothub_body["id"]
-        else:
-            iothub_body = None
-            iothub_id = None
-    context.dynamic_context["delete_hardware_id"].append(iothub_body["id"])
-    first_locker_type_id = (aha.get_first_locker_type())["id"]
-    time.sleep(5)
-    locker_body = aha.create_locker(locker_type_id=first_locker_type_id, iothub_id=iothub_id)
-    context.dynamic_context["delete_hardware_id"].insert(0, locker_body["id"]) 
-
-    response = {
-        "iothub": iothub_body,
-        "locker": locker_body
+class LockerSetup(BaseSetup):
+    setup_name = "Locker"
+    options = {
+        "iothub": None,
+        "shipto_id": None,
+        "no_weight": None,
+        "distributor_id": None
     }
+    iothub = None
+    locker = None
 
-    if (no_weight == True):
-        aha.update_locker_configuration(locker_body["id"], True)
-
-    if (shipto is not None):
-        ua = UserApi(context)
-        customer_user = ua.get_first_customer_user(shipto)
-        distributor_user = ua.get_first_distributor_user(shipto)
-
-        iothub_dto = {}
-        iothub_dto["id"] = iothub_body["id"]
-        iothub_dto["customerUser"] = {
-            "id": customer_user["id"]
-        }
-        iothub_dto["distributorUser"] = {
-            "id": distributor_user["id"]
-        }
-        iothub_dto["deviceName"] = Tools.random_string_u()
-        iothub_dto["shipToId"] = shipto
-        iothub_dto["distributorId"] = context.data.distributor_id
-        iothub_dto["distributorName"] = context.data.distributor_name
-        iothub_dto["type"] = "IOTHUB"
-        iothub_dto["value"] = iothub_body["value"]
-
-        dha = DistributorHardwareApi(context)
-        dha.update_hardware(iothub_dto)
+    def setup(self):
+        self.set_hardware()
+        self.set_shipto()
 
         response = {
-            "iothub": iothub_body,
-            "locker": locker_body,
-            "shipTo": shipto,
-            "customerUser": customer_user["id"]
+            "iothub": self.iothub,
+            "iothub_id": self.iothub_id,
+            "locker": self.locker,
+            "locker_id": self.locker_id
         }
 
-    return copy.deepcopy(response)
+        return copy.deepcopy(response)
+
+    def set_hardware(self):
+        aha = AdminHardwareApi(self.context)
+        if (self.options["distributor_id"] is None):
+            if (self.options["iothub"]):
+                self.iothub = aha.create_iothub()
+                self.iothub_id = iothub["id"]
+        else:
+            if (self.options["iothub"]):
+                self.iothub = aha.create_iothub(self.options["distributor_id"])
+                self.iothub_id = iothub["id"]
+        self.context.dynamic_context["delete_hardware_id"].append(self.iothub_id)
+        first_locker_type_id = (aha.get_first_locker_type())["id"]
+        time.sleep(5)
+        self.locker = aha.create_locker(locker_type_id=first_locker_type_id, iothub_id=iothub_id)
+        self.locker_id = self.locker["id"]
+        self.context.dynamic_context["delete_hardware_id"].insert(0, self.locker_id)
+        if (self.options["no_weight"]):
+            aha.update_locker_configuration(self.locker_id, True)
+
+    def set_shipto(self):
+        if (self.options["shipto_id"] is not None):
+            iothub_dto = {}
+            iothub_dto["id"] = self.iothub_id
+            iothub_dto["deviceName"] = Tools.random_string_u()
+            iothub_dto["shipToId"] = self.options["shipto_id"]
+            iothub_dto["distributorId"] = self.context.data.distributor_id
+            iothub_dto["distributorName"] = self.context.data.distributor_name
+            iothub_dto["type"] = "IOTHUB"
+            iothub_dto["value"] = self.iothub["value"]
+
+            dha = DistributorHardwareApi(self.context)
+            dha.update_hardware(iothub_dto)

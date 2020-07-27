@@ -8,15 +8,15 @@ class TransactionApi(API):
             url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={self.data.customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
             token = self.get_distributor_token()
             response = self.send_post(url, token)
+            time.sleep(5)
             new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)
-            if (new_transactions_count == transactions_count+1):
+            if (new_transactions_count >= transactions_count+1):
                 if (response.status_code == 200):
                     self.logger.info("New transaction has been successfully created")
                 else:
                     self.logger.error(str(response.content))
-                break
-            elif (new_transactions_count > transactions_count+1):
-                self.logger.error("Unexpected count of transactions")
+                if (new_transactions_count > transactions_count+1):
+                    self.logger.warning("Unexpected count of transactions")
                 break
             self.logger.info("Transaction cannot be created now due to the deduplication mechanism. Next attempt after 5 second")
             time.sleep(5)

@@ -1,10 +1,9 @@
 import pytest
 import copy
-from src.api.setups.setup_location import setup_location
-from src.api.setups.setup_shipto import setup_shipto
+from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
-from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.transaction_api import TransactionApi
+from src.api.distributor.settings_api import SettingsApi
 
 class TestAutosubmit():
     @pytest.mark.parametrize("conditions", [
@@ -20,18 +19,19 @@ class TestAutosubmit():
         }
         ])
     @pytest.mark.regression
-    def test_immediately_autosubmit_by_create_active_item(self, api, delete_shipto, conditions):
+    def test_immediately_autosubmit_by_create_active_item(self, api, conditions, delete_shiptoн):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         la = LocationApi(api)
-        sa = SettingsApi(api)
         ta = TransactionApi(api)
 
-        response_shipto = setup_shipto(api)
-        shipto_id = response_shipto["shipto_id"]
-        sa.set_autosubmit_settings_shipto(shipto_id=shipto_id, enabled=True, immediately=True, as_order=conditions["as_order"])
-        sa.set_checkout_software_settings_for_shipto(shipto_id=shipto_id)
-        response_location = setup_location(api, shipto_id=shipto_id, is_autosubmit=True)
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True, "immediately": True, "as_order": conditions["as_order"]})
+        setup_location.add_option("autosubmit")
+        response_location = setup_location.setup()
+
+        shipto_id = response_location["shipto_id"]
 
         ta.create_active_item(shipto_id, la.get_ordering_config_by_sku(shipto_id, response_location["product"]["partSku"]))
         transactions = ta.get_transaction(shipto_id=shipto_id)
@@ -71,14 +71,13 @@ class TestAutosubmit():
         api.testrail_case_id = conditions["testrail_case_id"]
 
         la = LocationApi(api)
-        sa = SettingsApi(api)
 
-        response_shipto = setup_shipto(api)
-        shipto_id = response_shipto["shipto_id"]
-        sa.set_autosubmit_settings_shipto(shipto_id=shipto_id, enabled=conditions["shipto"])
-        response_location = setup_location(api, shipto_id=shipto_id, is_autosubmit=conditions["location"])
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": conditions["shipto"]})
+        setup_location.add_option("autosubmit", conditions["location"])
+        response_location = setup_location.setup()
 
-        locations = la.get_locations(shipto_id)
+        locations = la.get_locations(response_location["shipto_id"])
 
         assert locations[0]["autoSubmit"] == conditions["result"], f"Auto-Submit location flag should be equal to '{conditions['result']}', now: '{locations[0]['autoSubmit']}'"
 
@@ -87,16 +86,14 @@ class TestAutosubmit():
         api.testrail_case_id = 2057
 
         la = LocationApi(api)
-        sa = SettingsApi(api)
 
-        response_shipto = setup_shipto(api)
-        shipto_id = response_shipto["shipto_id"]
-        sa.set_autosubmit_settings_shipto(shipto_id=shipto_id, enabled=True)
-        response_location = setup_location(api, shipto_id=shipto_id)
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True})
+        response_location = setup_location.setup()
 
-        locations = la.get_locations(shipto_id)
+        locations = la.get_locations(response_location["shipto_id"])
 
-        assert locations[0]["autoSubmit"] == True, "Auto_submit flag of the location should be TRUE"
+        assert locations[0]["autoSubmit"], "Auto_submit flag of the location should be TRUE"
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
         location_dto = copy.deepcopy(response_location["location"])
@@ -105,7 +102,7 @@ class TestAutosubmit():
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
 
-        assert locations[0]["autoSubmit"] == True, "Auto_submit flag of the location should be TRUE"
+        assert locations[0]["autoSubmit"], "Auto_submit flag of the location should be TRUE"
 
     @pytest.mark.parametrize("conditions", [
         {
@@ -124,15 +121,14 @@ class TestAutosubmit():
         la = LocationApi(api)
         sa = SettingsApi(api)
 
-        response_shipto = setup_shipto(api)
-        shipto_id = response_shipto["shipto_id"]
-        sa.set_autosubmit_settings_shipto(shipto_id=shipto_id, enabled=conditions["shipto"])
-        response_location = setup_location(api, shipto_id=shipto_id)
-        locations = la.get_locations(shipto_id)
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": conditions["shipto"]})
+        response_location = setup_location.setup()
+        locations = la.get_locations(response_location["shipto_id"])
 
         assert locations[0]["autoSubmit"] == conditions["shipto"], f"Auto_submit flag of the location should be {conditions['shipto']}"
 
-        sa.set_autosubmit_settings_shipto(shipto_id=shipto_id, enabled=bool(not conditions["shipto"]))
-        locations = la.get_locations(shipto_id)
+        sa.set_autosubmit_settings_shipto(shipto_id=response_location["shipto_id"], enabled=bool(not conditions["shipto"]))
+        locations = la.get_locations(response_location["shipto_id"])
 
         assert locations[0]["autoSubmit"] == bool(not conditions["shipto"]), f"Auto_submit flag of the location should be {bool(not conditions['shipto'])}"

@@ -16,7 +16,8 @@ class SetupLocation(BaseSetup):
         "serialized": None,
         "lot": None,
         "autosubmit": None,
-        "ohi": None
+        "ohi": None,
+        
     }
     location = Tools.get_dto("location_dto.json")
 

@@ -1,37 +1,40 @@
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.distributor.user_api import UserApi
 from src.api.distributor.distributor_hardware_api import DistributorHardwareApi
+from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
 import copy
 
-def setup_rfid(context, shipto=None):
-    aha = AdminHardwareApi(context)
+class SetupRfid(BaseSetup):
+    setup_name = "RFID"
+    options = {
+        "shipto_id": None
+    }
+    rfid = None
 
-    rfid_body = aha.create_rfid()
-    context.dynamic_context["delete_hardware_id"].append(rfid_body["id"])
+    def setup(self):
+        self.set_rfid()
+        self.set_shipto()
 
-    if (shipto is not None):
-        ua = UserApi(context)
-        customer_user = ua.get_first_customer_user(shipto)
-        distributor_user = ua.get_first_distributor_user(shipto)
+        return copy.deepcopy(self.rfid)
 
-        rfid_dto = {
-            "id": rfid_body["id"],
-            "customerUser": {
-                "id": customer_user["id"]
-            },
-            "distributorUser": {
-                "id": distributor_user["id"]
-            },
-            "deviceName": Tools.random_string_u(),
-            "shipToId": shipto,
-            "distributorId": context.data.distributor_id,
-            "distributorName": context.data.distributor_name,
-            "type": "RFID",
-            "value": rfid_body["value"]
-        }
+    def set_rfid(self):
+        aha = AdminHardwareApi(self.context)
 
-        dha = DistributorHardwareApi(context)
-        dha.update_hardware(rfid_dto)
+        rfid = aha.create_rfid()
+        self.context.dynamic_context["delete_hardware_id"].append(rfid["id"])
 
-    return copy.deepcopy(rfid_body)
+    def set_shipto(self):
+        if (self.options["shipto_id"] is not None):
+            rfid_dto = {
+                "id": self.rfid["id"],
+                "deviceName": Tools.random_string_u(),
+                "shipToId": self.options["shipto_id"],
+                "distributorId": self.context.data.distributor_id,
+                "distributorName": self.context.data.distributor_name,
+                "type": "RFID",
+                "value": self.rfid["value"]
+            }
+
+            dha = DistributorHardwareApi(self.context)
+            dha.update_hardware(rfid_dto)

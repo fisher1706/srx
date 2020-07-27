@@ -11,7 +11,16 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_checkout_software_settings_for_shipto(self, shipto_id, reorder_controls="MIN", track_ohi=True, scan_to_order=True, enable_reorder_control=True):
+    def set_checkout_software_settings_for_shipto(self, shipto_id, reorder_controls=None, track_ohi=None, scan_to_order=None, enable_reorder_control=None):
+        if (reorder_controls is None):
+            reorder_controls = "MIN"
+        if (track_ohi is None):
+            track_ohi = True
+        if (scan_to_order is None):
+            scan_to_order = True
+        if (enable_reorder_control is None):
+            enable_reorder_control = True
+
         checkout_settings_dto = Tools.get_dto("checkout_settings_dto.json")
         if (track_ohi == False):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("TRACK_OHI")
@@ -45,7 +54,7 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_autosubmit_settings_shipto(self, shipto_id, enabled=False, immediately=False, as_order=False):
+    def set_autosubmit_settings_shipto(self, shipto_id, enabled=None, immediately=None, as_order=None):
         autosubmit_settings_dto = Tools.get_dto("autosubmit_settings_dto.json")
         autosubmit_settings_dto["transactionAutoSubmitSettings"]["submitImmediately"] = bool(immediately)
         autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmit"] = bool(enabled)
