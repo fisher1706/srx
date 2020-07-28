@@ -186,7 +186,7 @@ class TestAssets():
         # create location with asset product
         response_location = setup_location(api, product_dto=product_dto)
         # check assetFlag 
-        assert response_location["product"]["assetFlag"] == True, f"Location {response_location['product']['partSku']} does not have asset flag = true"
+        assert response_location["product"]["assetFlag"], f"Location {response_location['product']['partSku']} does not have asset flag = true"
         aa.check_asset_in_all_assets_list(response_location["product"]["partSku"])
 
     @pytest.mark.regression

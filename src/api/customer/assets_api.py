@@ -17,14 +17,14 @@ class AssetsApi(API):
         assets_list = []
         for item in response_assets:
             assets_list.append(item["orderingConfig"]["product"]["partSku"])
-        if (should_be == True):
+        if (should_be):
             if asset in assets_list:
                 self.logger.info(f"Assest {asset} is present in all assets list")
                 position = assets_list.index(asset)
                 return response_assets[position]
             else: 
                 self.logger.error(f"Assest {asset} is NOT present in all assets list")
-        elif (should_be == False):
+        else:
             if asset not in assets_list:
                 self.logger.info(f"Assest {asset} is NOT present in all assets list")
             else: 
@@ -57,14 +57,14 @@ class AssetsApi(API):
         assets_list = []
         for item in response_assets:
             assets_list.append(item["partSku"])
-        if (should_be == True):
+        if (should_be):
             if asset in assets_list:
                 self.logger.info(f"Assest {asset} is present in checked out assets list")
                 position = assets_list.index(asset)
                 return response_assets[position]
             else: 
                 self.logger.error(f"Assest {asset} is NOT present in checked out assets list")
-        elif (should_be == False):
+        else:
             if asset not in assets_list:
                 self.logger.info(f"Assest {asset} is NOT present in checked out assets list")
             else: 

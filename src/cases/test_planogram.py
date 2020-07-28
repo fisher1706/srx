@@ -33,7 +33,7 @@ class TestPlanogram():
         lpp.create_location_via_planogram(1, 1, product_sku, round_buy, round_buy*3)
         locations = la.get_location_by_sku(shipto_id, product_sku)
         assert len(locations) == 1, "There should be 1 location with SKU = '{product_sku}'"
-        assert locations[0]["orderingConfig"]["lockerWithNoWeights"] == True, "Locations should be with NoWeight flag"
+        assert locations[0]["orderingConfig"]["lockerWithNoWeights"], "Locations should be with NoWeight flag"
 
     @pytest.mark.regression
     def test_locker_planogram(self, ui, delete_shipto, delete_hardware):

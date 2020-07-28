@@ -21,8 +21,8 @@ class SetupRfid(BaseSetup):
     def set_rfid(self):
         aha = AdminHardwareApi(self.context)
 
-        rfid = aha.create_rfid()
-        self.context.dynamic_context["delete_hardware_id"].append(rfid["id"])
+        self.rfid = aha.create_rfid()
+        self.context.dynamic_context["delete_hardware_id"].append(self.rfid["id"])
 
     def set_shipto(self):
         if (self.options["shipto_id"] is not None):

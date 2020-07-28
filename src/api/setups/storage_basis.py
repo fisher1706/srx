@@ -8,20 +8,20 @@ import time
 def storage_basis(case, doorsQuantity, columnsQuantity, iothub=True, iothub_body=None, shipto=None, distributor_id=None):
     aha = AdminHardwareApi(case)
     if (distributor_id is None):
-        if (iothub == True):
+        if (iothub):
             iothub_body = aha.create_iothub()
             iothub_id = iothub_body["id"]
-        elif (iothub == None):
+        elif (iothub is None):
             iothub_body = None
             iothub_id = None
         else:
             iothub_id = iothub
 
     elif (distributor_id is not None):
-        if (iothub == True):
+        if (iothub):
             iothub_body = aha.create_iothub(distributor_id)
             iothub_id = iothub_body["id"]
-        elif (iothub == None):
+        elif (iothub is None):
             iothub_body = None
             iothub_id = None
         else:

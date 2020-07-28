@@ -33,7 +33,7 @@ class LockerPlanogramPage(DistributorPortalPage):
             self.logger.error(f"Selected Device is {text} but should be {locker}")
         current_url = self.driver.current_url
         result = f"{shipto}" in current_url
-        if (result is True): 
+        if (result): 
             self.logger.info(f"URL contains shipto id {shipto}")
         else: 
             self.logger.error(f"URL contains wrong shipto id {shipto}")

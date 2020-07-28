@@ -16,9 +16,9 @@ class CheckoutApi(API):
                 "epc": epc,
                 "type": location_type
             }]
-        if (issue_product is True):
+        if (issue_product):
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/issue")
-        elif (return_product is True):
+        elif (return_product):
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/return")
         if (passcode is not None):
             token = self.get_checkout_group_token()
@@ -42,9 +42,9 @@ class CheckoutApi(API):
             "epc": epc,
             "type": location_type
         }
-        if (issue_product is True):
+        if (issue_product):
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/issue/item/rfid/validate")
-        elif (return_product is True):
+        elif (return_product):
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/return/item/rfid/validate")
         if (passcode is not None):
             token = self.get_checkout_group_token()

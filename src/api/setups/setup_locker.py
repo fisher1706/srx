@@ -9,13 +9,15 @@ import time
 class SetupLocker(BaseSetup):
     setup_name = "Locker"
     options = {
-        "iothub": None,
+        "iothub": True,
         "shipto_id": None,
         "no_weight": None,
         "distributor_id": None
     }
     iothub = None
     locker = None
+    iothub_id = None
+    locker_id = None
 
     def setup(self):
         self.set_hardware()
@@ -33,17 +35,17 @@ class SetupLocker(BaseSetup):
     def set_hardware(self):
         aha = AdminHardwareApi(self.context)
         if (self.options["distributor_id"] is None):
-            if (not self.options["iothub"]):
+            if (self.options["iothub"]):
                 self.iothub = aha.create_iothub()
-                self.iothub_id = iothub["id"]
+                self.iothub_id = self.iothub["id"]
         else:
-            if (not self.options["iothub"]):
+            if (self.options["iothub"]):
                 self.iothub = aha.create_iothub(self.options["distributor_id"])
-                self.iothub_id = iothub["id"]
+                self.iothub_id = self.iothub["id"]
         self.context.dynamic_context["delete_hardware_id"].append(self.iothub_id)
         first_locker_type_id = (aha.get_first_locker_type())["id"]
         time.sleep(5)
-        self.locker = aha.create_locker(locker_type_id=first_locker_type_id, iothub_id=iothub_id)
+        self.locker = aha.create_locker(locker_type_id=first_locker_type_id, iothub_id=self.iothub_id)
         self.locker_id = self.locker["id"]
         self.context.dynamic_context["delete_hardware_id"].insert(0, self.locker_id)
         if (self.options["no_weight"]):

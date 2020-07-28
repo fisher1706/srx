@@ -1,10 +1,11 @@
 from src.api.distributor.location_api import LocationApi
+from src.api.distributor.shipto_api import ShiptoApi
+from src.api.distributor.rfid_api import RfidApi
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_product import SetupProduct
 from src.api.setups.setup_locker import SetupLocker
 from src.api.setups.setup_rfid import SetupRfid
 from src.api.setups.base_setup import BaseSetup
-from src.api.distributor.shipto_api import ShiptoApi
 from src.resources.tools import Tools
 import copy
 
@@ -20,39 +21,44 @@ class SetupLocation(BaseSetup):
         "autosubmit": None,
         "ohi": None,
         "locker_location": None,
-        "rfid_location": None
+        "rfid_location": None,
+        "rfid_labels": None
     }
     location = Tools.get_dto("location_dto.json")
-
+    location_id = None
     product = None
     shipto = None
-    location = None
     shipto_id = None
     iothub = None
     locker = None
     rfid = None
+    rfid_labels = []
 
     def __init__(self, context):
         super().__init__(context)
         self.setup_product = SetupProduct(self.context)
         self.setup_shipto = SetupShipto(self.context)
         self.setup_locker = SetupLocker(self.context)
-        self.setups_rfid = SetupRfid(self.context)
+        self.setup_rfid = SetupRfid(self.context)
 
     def setup(self):
         self.set_shipto()
         self.set_locker()
+        self.set_rfid()
         self.set_product()
         self.set_location()
+        self.set_rfid_labels()
 
         response = {
             "product": self.product,
-            "shipto": self.shipto,
+            "shipto": self.shipto["shipto"],
             "location": self.location,
+            "location_id": self.location_id,
             "shipto_id": self.shipto_id,
             "iothub": self.iothub,
             "locker": self.locker,
-            "rfid": self.rfid
+            "rfid": self.rfid,
+            "rfid_labels": self.rfid_labels
         }
 
         return copy.deepcopy(response)
@@ -63,6 +69,13 @@ class SetupLocation(BaseSetup):
             response_locker = self.setup_locker.setup()
             self.locker = response_locker["locker"]
             self.iothub = response_locker["iothub"]
+            self.options["type"] = "LOCKER"
+
+    def set_rfid(self):
+        if (self.options["rfid_location"]):
+            self.setup_rfid.add_option("shipto_id", self.shipto_id)
+            self.rfid = self.setup_rfid.setup()
+            self.options["type"] = "RFID"
 
     def set_shipto(self):
         if (self.options["shipto_id"] is None):
@@ -120,3 +133,12 @@ class SetupLocation(BaseSetup):
         
         location_list = [copy.deepcopy(self.location)]
         la.create_location(copy.deepcopy(location_list), self.shipto_id)
+        self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
+
+    def set_rfid_labels(self):
+        if (self.options["rfid_labels"] is not None):
+            ra = RfidApi(self.context)
+            la = LocationApi(self.context)
+            location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[0]["id"]
+            for index in range(self.options["rfid_labels"]):
+                self.rfid_labels.append(ra.create_rfid(location_id))

@@ -27,7 +27,7 @@ def setup_put_away(context, transaction=False, shipto_id=None, is_asset=None, tr
         "quantity": response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
     }
 
-    if (transaction == True):
+    if (transaction):
         #get transaction id and make it QUOTED
         sta.set_checkout_software_settings_for_shipto(shipto_id)
         ordering_config_id = la.get_ordering_config_by_sku(shipto_id, product)

@@ -86,7 +86,7 @@ class SmartShelvesApi(API):
         if (serial_number is not None):
             smart_shelf_dto["serialNumber"] = serial_number
         if (distributor_id is not None):
-            if (distributor_id is False):
+            if (not distributor_id):
                 smart_shelf_dto["distributor"]["id"] = None
                 smart_shelf_dto["doorConfiguration"]["hardware"]["id"] = None
                 smart_shelf_dto["doorConfiguration"]["id"] = None
@@ -95,7 +95,7 @@ class SmartShelvesApi(API):
             if (locker_body_second is None):
                 self.logger.error("You need specify new locker")
         if (locker_body_second is not None):
-            if (locker_body_second is False):
+            if (not locker_body_second):
                 smart_shelf_dto["doorConfiguration"]["hardware"]["id"] = None
                 smart_shelf_dto["doorConfiguration"]["id"] = None
             else:

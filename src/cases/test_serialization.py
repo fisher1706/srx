@@ -21,8 +21,8 @@ class TestSerialization():
         response_location = setup_location.setup()
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["lot"] == True, "Location of the serialized product should be serialized"
-        assert locations[0]["serialized"] == True, "Location of the serialized product should be serialized"
+        assert locations[0]["lot"], "Location of the serialized product should be serialized"
+        assert locations[0]["serialized"], "Location of the serialized product should be serialized"
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
         location_dto = copy.deepcopy(response_location["location"])
@@ -33,8 +33,8 @@ class TestSerialization():
         la.update_location(location_list, response_location["shipto_id"])
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["lot"] == True, "Location of the serialized product should be serialized"
-        assert locations[0]["serialized"] == True, "Location of the serialized product should be serialized"
+        assert locations[0]["lot"], "Location of the serialized product should be serialized"
+        assert locations[0]["serialized"], "Location of the serialized product should be serialized"
 
     @pytest.mark.regression
     def test_lot_should_be_serializable(self, api):
@@ -67,21 +67,21 @@ class TestSerialization():
 
         products = pa.get_product(response_location["product"]["partSku"])
         assert len(products) == 1
-        assert products[0]["serialized"] == True
+        assert products[0]["serialized"]
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["lot"] == False, "Location should not be a lot"
-        assert locations[0]["serialized"] == True, "Location of the serialized product should be serialized"
+        assert not locations[0]["lot"], "Location should not be a lot"
+        assert locations[0]["serialized"], "Location of the serialized product should be serialized"
 
         response_location["product"]["serialized"] = False
         pa.update_product(dto=response_location["product"], product_id=response_location["product"]["id"])
 
         products = pa.get_product(response_location["product"]["partSku"])
-        assert products[0]["serialized"] == False
+        assert not products[0]["serialized"]
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["lot"] == False, "Location should not be a lot"
-        assert locations[0]["serialized"] == True, "Location should be still serialized after disabling a serialization for the product"
+        assert not locations[0]["lot"], "Location should not be a lot"
+        assert locations[0]["serialized"], "Location should be still serialized after disabling a serialization for the product"
 
     @pytest.mark.regression
     def test_serialization_default_values(self, api):
@@ -92,8 +92,8 @@ class TestSerialization():
         response_product = SetupProduct(api).setup()
 
         products = pa.get_product(response_product["partSku"])
-        assert products[0]["serialized"] == False
-        assert products[0]["lot"] == False
+        assert not products[0]["serialized"]
+        assert not products[0]["lot"]
 
     @pytest.mark.regression
     def test_update_package_conversion_of_serialized_product(self, api):

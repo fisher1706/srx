@@ -48,9 +48,9 @@ class DistributorAdminPage(AdminPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
         for cell in table_cells_checkbox.keys():
             column = self.get_header_column(cell)
-            if table_cells_checkbox[cell] == True:
+            if table_cells_checkbox[cell]:
                 self.get_element_by_xpath(f"{Locator.xpath_table_item(row_number, column)}//span/div")
-        checked = sum(1 for value in table_cells_checkbox.values() if value == True)
+        checked = sum(1 for value in table_cells_checkbox.values() if value)
         self.elements_count_should_be(f"{Locator.xpath_table}//span/div", check_mark+checked)
 
     def update_last_distributor(self, distributor_body, state, bill_by, checkbox_list, ship_to_level):

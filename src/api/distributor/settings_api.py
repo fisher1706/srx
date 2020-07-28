@@ -22,11 +22,11 @@ class SettingsApi(API):
             enable_reorder_control = True
 
         checkout_settings_dto = Tools.get_dto("checkout_settings_dto.json")
-        if (track_ohi == False):
+        if (not track_ohi):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("TRACK_OHI")
-        if (scan_to_order == False):
+        if (not scan_to_order):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("ENABLE_SCAN_TO_ORDER")
-        if (enable_reorder_control == False):
+        if (not enable_reorder_control):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("ENABLE_REORDER_CONTROLS")
         if (reorder_controls == "ISSUED"):
             checkout_settings_dto["settings"]["reorderControls"] = "ADD_AS_ISSUED"
@@ -41,7 +41,7 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        if (bool(response_json["data"]) is False):
+        if (not bool(response_json["data"])):
             self.logger.error(f"Checkout software settings of shipto with ID = '{shipto_id}' are empty")
         return response_json["data"]
 

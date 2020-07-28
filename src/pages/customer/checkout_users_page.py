@@ -18,7 +18,7 @@ class CheckoutUsersPage(CustomerPortalPage):
         self.click_id(Locator.id_add_button)
         for field in checkout_user_body.keys():
             self.input_by_name(field, checkout_user_body[field])
-        if (first_group == True):
+        if (first_group):
             self.select_checkbox(Locator.xpath_checkbox)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
@@ -42,7 +42,7 @@ class CheckoutUsersPage(CustomerPortalPage):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row))
         for field in checkout_user_body.keys():
             self.input_by_name(field, checkout_user_body[field])
-        if (first_group == True):
+        if (first_group):
             self.select_checkbox(Locator.xpath_checkbox)
         self.click_xpath(Locator.xpath_submit_button)
 

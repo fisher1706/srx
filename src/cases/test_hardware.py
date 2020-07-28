@@ -20,23 +20,21 @@ class TestHardware():
 
     @pytest.mark.regression
     def test_delete_location_by_change_doortype(self, api, delete_shipto, delete_hardware):
-        # api.testrail_case_id = 1852
+        api.testrail_case_id = 1852
 
-        # sa = ShiptoApi(api)
-        # ha = AdminHardwareApi(api)
-        # la = LocationApi(api)
-
-        # response_location = setup_locker_location(api)
-        # original_location_count = len(la.get_locations(response_location["shipto_id"]))
-        # assert original_location_count == 1, "The number of location should be 1"
-        # ha.update_locker_configuration(response_location["locker"]["id"], True)
-        # new_location_count = len(la.get_locations(response_location["shipto_id"]))
-        # assert new_location_count == 0, "The number of location should be 0"
+        sa = ShiptoApi(api)
+        ha = AdminHardwareApi(api)
+        la = LocationApi(api)
 
         setup_location = SetupLocation(api)
         setup_location.add_option("locker_location")
-        setup_location.setup()
+        response_location = setup_location.setup()
 
+        original_location_count = len(la.get_locations(response_location["shipto_id"]))
+        assert original_location_count == 1, "The number of location should be 1"
+        ha.update_locker_configuration(response_location["locker"]["id"], True)
+        new_location_count = len(la.get_locations(response_location["shipto_id"]))
+        assert new_location_count == 0, "The number of location should be 0"
 
     @pytest.mark.regression
     def test_change_locker_doortype(self, ui, delete_hardware):
@@ -46,7 +44,8 @@ class TestHardware():
         hp = HardwarePage(ui)
         ha = AdminHardwareApi(ui)
 
-        response_locker = setup_locker(ui)
+        setup_locker = SetupLocker(ui)
+        response_locker = setup_locker.setup()
         locker_body = response_locker["locker"]
         iothub_body = response_locker["iothub"]
 
@@ -115,4 +114,3 @@ class TestHardware():
         hp.update_last_iothub(ui.data.sub_distributor_name)
         hp.check_last_hardware(serial_number=serial_number, device_type="IOTHUB", distributor=ui.data.sub_distributor_name)
         hp.remove_last_hardware("IOTHUB")
-

@@ -10,7 +10,7 @@ class UniversalCatalogApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        if (count == True):
+        if (count):
             return response_json["data"]["totalElements"]
         else:
             return response_json["data"]["entities"]
