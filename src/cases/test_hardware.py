@@ -3,8 +3,8 @@ from src.api.distributor.distributor_hardware_api import DistributorHardwareApi
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.shipto_api import ShiptoApi
-from src.api.setups.setup_locker_location import setup_locker_location
-from src.api.setups.setup_locker import setup_locker
+from src.api.setups.setup_locker import SetupLocker
+from src.api.setups.setup_location import SetupLocation
 from src.pages.admin.hardware_page import HardwarePage
 from src.pages.general.login_page import LoginPage
 
@@ -20,18 +20,23 @@ class TestHardware():
 
     @pytest.mark.regression
     def test_delete_location_by_change_doortype(self, api, delete_shipto, delete_hardware):
-        api.testrail_case_id = 1852
+        # api.testrail_case_id = 1852
 
-        sa = ShiptoApi(api)
-        ha = AdminHardwareApi(api)
-        la = LocationApi(api)
+        # sa = ShiptoApi(api)
+        # ha = AdminHardwareApi(api)
+        # la = LocationApi(api)
 
-        response_location = setup_locker_location(api)
-        original_location_count = len(la.get_locations(response_location["shipto_id"]))
-        assert original_location_count == 1, "The number of location should be 1"
-        ha.update_locker_configuration(response_location["locker"]["id"], True)
-        new_location_count = len(la.get_locations(response_location["shipto_id"]))
-        assert new_location_count == 0, "The number of location should be 0"
+        # response_location = setup_locker_location(api)
+        # original_location_count = len(la.get_locations(response_location["shipto_id"]))
+        # assert original_location_count == 1, "The number of location should be 1"
+        # ha.update_locker_configuration(response_location["locker"]["id"], True)
+        # new_location_count = len(la.get_locations(response_location["shipto_id"]))
+        # assert new_location_count == 0, "The number of location should be 0"
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("locker_location")
+        setup_location.setup()
+
 
     @pytest.mark.regression
     def test_change_locker_doortype(self, ui, delete_hardware):

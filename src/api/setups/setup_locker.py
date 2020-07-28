@@ -6,7 +6,7 @@ from src.resources.tools import Tools
 import copy
 import time
 
-class LockerSetup(BaseSetup):
+class SetupLocker(BaseSetup):
     setup_name = "Locker"
     options = {
         "iothub": None,
@@ -33,11 +33,11 @@ class LockerSetup(BaseSetup):
     def set_hardware(self):
         aha = AdminHardwareApi(self.context)
         if (self.options["distributor_id"] is None):
-            if (self.options["iothub"]):
+            if (not self.options["iothub"]):
                 self.iothub = aha.create_iothub()
                 self.iothub_id = iothub["id"]
         else:
-            if (self.options["iothub"]):
+            if (not self.options["iothub"]):
                 self.iothub = aha.create_iothub(self.options["distributor_id"])
                 self.iothub_id = iothub["id"]
         self.context.dynamic_context["delete_hardware_id"].append(self.iothub_id)
