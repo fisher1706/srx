@@ -139,6 +139,6 @@ class SetupLocation(BaseSetup):
         if (self.options["rfid_labels"] is not None):
             ra = RfidApi(self.context)
             la = LocationApi(self.context)
-            location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[0]["id"]
+            location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
             for index in range(self.options["rfid_labels"]):
                 self.rfid_labels.append(ra.create_rfid(location_id))
