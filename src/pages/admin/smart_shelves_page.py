@@ -145,6 +145,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.dialog_should_not_be_visible()
 
     def check_smart_shelf_unavailable_via_planogram(self, locker, smart_shelf, in_list=False):
+        self.wait_until_page_loaded()
         self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.scan_table(scan_by=locker, column_header="Serial Number")
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.xpath_planogram_button)
@@ -152,6 +153,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.click_xpath(Locator.xpath_configure_button)
         self.click_xpath(Locator.xpath_dropdown_in_dialog(1))
         self.input_data_xpath(smart_shelf, f"{Locator.xpath_dropdown_in_dialog(1)}//input")
+        self.get_element_by_xpath(Locator.xpath_dropdown_list_item)
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
         if (in_list is True):
             if (f"{text}" == f"{smart_shelf}"):
