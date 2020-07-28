@@ -499,3 +499,11 @@ class BasePage():
     def element_text_should_be_empty(self, xpath):
         text = self.get_element_text(xpath)
         assert text is None or text == "", f"Element {xpath} contains text: {text}"
+
+    def wait_untill_dropdown_not_empty(self, xpath):
+        try:
+            WebDriverWait(self.driver, time).until(wait_until_dropdown_is_not_empty(xpath))
+        except:
+            pass
+        #WebDriverWait(self.driver, 15).until_not(is_progress_bar_loading())
+
