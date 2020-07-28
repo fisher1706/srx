@@ -505,5 +505,4 @@ class BasePage():
             WebDriverWait(self.driver, time).until(wait_until_dropdown_is_not_empty(xpath))
         except:
             pass
-        #WebDriverWait(self.driver, 15).until_not(is_progress_bar_loading())
 
