@@ -49,8 +49,8 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.wait_until_progress_bar_loaded()
         self.click_xpath(Locator.xpath_configure_button)
         self.get_element_by_xpath(Locator.xpath_dropdown_in_dialog(2))
+        self.wait_untill_dropdown_not_empty(Locator.xpath_dropdown_in_dialog(2))
         text = self.get_element_text(Locator.xpath_dropdown_in_dialog(2))
-        self.logger.info(f"{text}")
         assert f"{text}" == f"{smart_shelf}", f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected"
         self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
 
