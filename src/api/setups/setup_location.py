@@ -6,13 +6,13 @@ from src.api.distributor.settings_api import SettingsApi
 from src.resources.tools import Tools
 import copy
 
-def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None, is_autosubmit=None, checkout_settings_shipto=None):
+def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None, is_autosubmit=None, is_asset=None, checkout_settings_shipto=None):
     la = LocationApi(context)
     sha = ShiptoApi(context)
     sta = SettingsApi(context)
 
     if (response_product is None):
-        response_product = setup_product(context, product_dto)
+        response_product = setup_product(context, product_dto, is_asset=is_asset)
 
     if (shipto_id is not None):
         shipto_dto = sha.get_shipto_by_id(shipto_id)
