@@ -10,30 +10,6 @@ from src.resources.tools import Tools
 import copy
 
 class SetupLocation(BaseSetup):
-    setup_name = "Location"
-    options = {
-        "product": None,
-        "shipto_id": None,
-        "location_pairs": None,
-        "type": "LABEL",
-        "serialized": None,
-        "lot": None,
-        "autosubmit": None,
-        "ohi": None,
-        "locker_location": None,
-        "rfid_location": None,
-        "rfid_labels": None
-    }
-    location = Tools.get_dto("location_dto.json")
-    location_id = None
-    product = None
-    shipto = None
-    shipto_id = None
-    iothub = None
-    locker = None
-    rfid = None
-    rfid_labels = []
-
     def __init__(self, context):
         super().__init__(context)
 
