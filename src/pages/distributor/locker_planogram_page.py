@@ -7,7 +7,7 @@ class LockerPlanogramPage(DistributorPortalPage):
             customer_id = self.data.customer_id
         if (shipto_id is None):
             shipto_id = self.data.shipto_id
-        self.follow_url(self.url.get_url_for_env(f"storeroomlogix.com/customers/{customer_id}/shiptos/{shipto_id}#planogram", "distributor"), hide_intercom=True)
+        self.follow_url(self.url.get_url_for_env(f"storeroomlogix.com/customers/{customer_id}/shiptos/{shipto_id}#planogram", "distributor"))
         
     def create_location_via_planogram(self, door, cell, sku, min_value, max_value):
         self.click_xpath(Locator.xpath_planogram(door, cell))
