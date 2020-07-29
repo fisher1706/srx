@@ -6,11 +6,14 @@ from src.resources.tools import Tools
 import copy
 
 class SetupRfid(BaseSetup):
-    setup_name = "RFID"
-    options = {
-        "shipto_id": None
-    }
-    rfid = None
+    def __init__(self, context):
+        super().__init__(context)
+        
+        self.setup_name = "RFID"
+        self.options = {
+            "shipto_id": None
+        }
+        self.rfid = None
 
     def setup(self):
         self.set_rfid()

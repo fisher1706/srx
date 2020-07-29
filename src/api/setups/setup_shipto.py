@@ -5,12 +5,15 @@ from src.resources.tools import Tools
 import copy
 
 class SetupShipto(BaseSetup):
-    setup_name = "ShipTo"
-    options = {
-        "checkout_settings": None,
-        "autosubmit_settings": None
-    }
-    shipto = Tools.get_dto("shipto_dto.json")
+    def __init__(self, context):
+        super().__init__(context)
+
+        self.setup_name = "ShipTo"
+        self.options = {
+            "checkout_settings": None,
+            "autosubmit_settings": None
+        }
+        self.shipto = Tools.get_dto("shipto_dto.json")
 
     def setup(self):
         self.set_shipto()

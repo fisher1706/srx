@@ -7,17 +7,20 @@ import copy
 import time
 
 class SetupLocker(BaseSetup):
-    setup_name = "Locker"
-    options = {
-        "iothub": True,
-        "shipto_id": None,
-        "no_weight": None,
-        "distributor_id": None
-    }
-    iothub = None
-    locker = None
-    iothub_id = None
-    locker_id = None
+    def __init__(self, context):
+        super().__init__(context)
+        
+        self.setup_name = "Locker"
+        self.options = {
+            "iothub": True,
+            "shipto_id": None,
+            "no_weight": None,
+            "distributor_id": None
+        }
+        self.iothub = None
+        self.locker = None
+        self.iothub_id = None
+        self.locker_id = None
 
     def setup(self):
         self.set_hardware()

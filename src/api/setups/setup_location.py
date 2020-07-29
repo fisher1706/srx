@@ -36,6 +36,30 @@ class SetupLocation(BaseSetup):
 
     def __init__(self, context):
         super().__init__(context)
+
+        self.setup_name = "Location"
+        self.options = {
+            "product": None,
+            "shipto_id": None,
+            "location_pairs": None,
+            "type": "LABEL",
+            "serialized": None,
+            "lot": None,
+            "autosubmit": None,
+            "ohi": None,
+            "locker_location": None,
+            "rfid_location": None,
+            "rfid_labels": None
+        }
+        self.location = Tools.get_dto("location_dto.json")
+        self.location_id = None
+        self.product = None
+        self.shipto = None
+        self.shipto_id = None
+        self.iothub = None
+        self.locker = None
+        self.rfid = None
+        self.rfid_labels = []
         self.setup_product = SetupProduct(self.context)
         self.setup_shipto = SetupShipto(self.context)
         self.setup_locker = SetupLocker(self.context)

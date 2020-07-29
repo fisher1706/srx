@@ -4,7 +4,7 @@ locations = []
 pricing = []
 rfids = []
 usage_history = []
-for i in range(200):
+for i in range(400):
     SKU = Tools.random_string_u(20)
 
     product_row = [SKU, None, None, SKU, None, None, None, None, None, None, None, None, None, 10, None, None, None, None, None, None, None, None, None, None, None, None, None]
@@ -19,7 +19,6 @@ for i in range(200):
     rfids.append(rfid_row)
     usage_history.append(usage_history_row)
 
-    
 Tools.generate_csv("products.csv", products)
 Tools.generate_csv("locations.csv", locations)
 Tools.generate_csv("pricing.csv", pricing)

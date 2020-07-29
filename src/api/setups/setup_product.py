@@ -5,16 +5,19 @@ import random
 import copy
 
 class SetupProduct(BaseSetup):
-    setup_name = "Product"
-    options = {
-        "product": None,
-        "sku": None,
-        "serialized": None,
-        "lot": None,
-        "package_conversion": None,
-        "asset": None
-    }
-    product = Tools.get_dto("product_dto.json")
+    def __init__(self, context):
+        super().__init__(context)
+        
+        self.setup_name = "Product"
+        self.options = {
+            "product": None,
+            "sku": None,
+            "serialized": None,
+            "lot": None,
+            "package_conversion": None,
+            "asset": None
+        }
+        self.product = Tools.get_dto("product_dto.json")
 
     def setup(self, expected_status_code=None):
         self.expected_status_code = expected_status_code
