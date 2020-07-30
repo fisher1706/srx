@@ -31,6 +31,7 @@ class ReorderListPage(CustomerPortalPage):
         self.click_xpath(Locator.xpath_submit_reorder_list_button)
         rows_count = self.get_element_count(self.xpath_po_dialog_row)
         for shipto in po_number_body.keys():
+            self.get_element_by_xpath(f"{Locator.xpath_dialog}//td[text()='{shipto}']")
             for index in range(1, rows_count+1):
                 if (self.get_item_text_in_po_dialog(index, 1) == shipto):
                     po_value = self.get_element_by_xpath(f"{self.get_item_xpath_in_po_dialog(index, 4)}//input[@type='text']").get_attribute("value")
