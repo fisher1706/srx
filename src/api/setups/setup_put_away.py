@@ -1,17 +1,22 @@
 from src.api.setups.setup_location import setup_location
+from src.api.setups.setup_locker_location import setup_locker_location
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.settings_api import SettingsApi
 from src.resources.tools import Tools
 import copy
 
-def setup_put_away(context, transaction=False, shipto_id=None):
+def setup_put_away(context, transaction=False, shipto_id=None, is_asset=None, trigger_type="LABEL"):
     ta = TransactionApi(context)
     la = LocationApi(context)
     sta = SettingsApi(context)
 
     #create location
-    response_location = setup_location(context, shipto_id=shipto_id)
+    if (trigger_type == "LABEL"):
+        response_location = setup_location(context, shipto_id=shipto_id, is_asset=is_asset)
+    elif (trigger_type == "LOCKER"):
+        response_location = setup_locker_location(context, is_asset=is_asset)
+
     product = response_location["product"]["partSku"]
     shipto_id = response_location["shipto_id"]
     

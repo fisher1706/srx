@@ -6,24 +6,13 @@ from src.api.distributor.shipto_api import ShiptoApi
 from src.resources.tools import Tools
 import copy
 
-class SetupLocation(BaseSetup):
-    setup_name = "Location"
-    options = {
-        "product": None,
-        "shipto_id": None,
-        "location_pairs": None,
-        "type": "LABEL",
-        "serialized": None,
-        "lot": None,
-        "autosubmit": None,
-        "ohi": None
-    }
-    location = Tools.get_dto("location_dto.json")
+def setup_location(context, product_dto=None, ohi=None, shipto_dto=None, shipto_id=None, location_dto=None, location_pairs=None, location_type="LABEL", response_product=None, is_serialized=None, is_lot=None, is_autosubmit=None, is_asset=None, checkout_settings_shipto=None):
+    la = LocationApi(context)
+    sha = ShiptoApi(context)
+    sta = SettingsApi(context)
 
-    def __init__(self, context):
-        super().__init__(context)
-        self.setup_product = SetupProduct(self.context)
-        self.setup_shipto = SetupShipto(self.context)
+    if (response_product is None):
+        response_product = setup_product(context, product_dto, is_asset=is_asset)
 
     def setup(self):
         self.set_shipto()

@@ -17,30 +17,13 @@ class BasePage():
         self.logger = context.logger
         self.data = context.data
 
-    def follow_url(self, url, hide_intercom=False):
+    def follow_url(self, url):
         try:
             self.driver.get(url)
         except:
             self.logger.error(f"Error during try to follow URL = '{url}'")
         else:
             self.logger.info(f"URL = '{url}' is followed")
-            if (hide_intercom == True):
-                self.hide_intercom()
-
-    def hide_intercom(self):
-        try:
-            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, Locator.id_intercom_container)))
-            self.driver.execute_script("document.getElementById('intercom-container').style.display = 'None';")
-        except:
-            try:
-                WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'intercom-lightweight-app')))
-                self.driver.execute_script("document.getElementsByClassName('intercom-lightweight-app')[0].style.display = 'None';")
-            except:
-                self.logger.error("Intercom cannot be hide")
-            else:
-                self.logger.info("Intercom is hidden")
-        else:
-            self.logger.info("Intercom is hidden")
 
     def get_element_by_xpath(self, xpath):
         try:
@@ -499,3 +482,10 @@ class BasePage():
     def element_text_should_be_empty(self, xpath):
         text = self.get_element_text(xpath)
         assert text is None or text == "", f"Element {xpath} contains text: {text}"
+
+    def wait_untill_dropdown_not_empty(self, xpath):
+        try:
+            WebDriverWait(self.driver, time).until(wait_until_dropdown_is_not_empty(xpath))
+        except:
+            pass
+
