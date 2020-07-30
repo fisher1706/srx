@@ -486,10 +486,8 @@ class BasePage():
         assert text is None or text == "", f"Element {xpath} contains text: {text}"
 
     def wait_untill_dropdown_not_empty(self, xpath):
-        element = self.get_element_by_xpath(xpath)
         try:
             WebDriverWait(self.driver, 15).until(EC.wait_until_dropdown_is_not_empty(By.XPATH, xpath))
-            element.click()
         except:
             pass
 

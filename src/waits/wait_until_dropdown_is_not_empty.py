@@ -4,7 +4,6 @@ class wait_until_dropdown_is_not_empty(object):
 
     def __call__(self, driver):
         text = self.get_element_text(self.xpath)
-        print(text)
         if (text is ""):
             return False
         else:
