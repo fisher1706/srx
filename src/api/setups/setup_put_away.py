@@ -38,7 +38,7 @@ def setup_put_away(context, transaction=False, shipto_id=None, is_asset=None, tr
         ta.update_replenishment_item(transaction_id, reorderQuantity, "QUOTED")
 
         response["quantity"] = reorderQuantity
-        response["transaction_id"] = transaction_id
+        response["transactionId"] = transaction_id
 
     return copy.deepcopy(response)
 

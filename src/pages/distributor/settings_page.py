@@ -5,6 +5,7 @@ import os
 
 class SettingsPage(DistributorPortalPage):
     def import_document(self):
+        self.wait_until_page_loaded()
         start_number_of_rows = self.get_element_count(Locator.xpath_by_count(Locator.xpath_table, 1) + Locator.xpath_table_row)
         Tools.generate_csv("doc.pdf", [[1, 2]])
         folder = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
