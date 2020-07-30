@@ -6,7 +6,7 @@ from src.pages.admin.universal_catalog_page import UniversalCatalogPage
 from src.pages.general.login_page import LoginPage
 from src.api.admin.universal_catalog_api import UniversalCatalogApi
 from src.api.distributor.product_api import ProductApi
-from src.api.setups.setup_product import setup_product
+from src.api.setups.setup_product import SetupProduct
 
 class TestCatalog():
     @pytest.mark.regression
@@ -144,7 +144,8 @@ class TestCatalog():
         uca = UniversalCatalogApi(api)
 
         start_count = uca.get_universal_catalog(count=True)
-        setup_product(api)
+
+        SetupProduct().setup()
         end_count = uca.get_universal_catalog(count=True)
         assert start_count == end_count, f"Empty products should not be added to the universal catalog ({start_count} != {end_count})"
 

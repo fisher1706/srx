@@ -4,8 +4,7 @@ from src.resources.locator import Locator
 from src.resources.tools import Tools
 from src.pages.general.login_page import LoginPage
 from src.pages.customer.reorder_list_page import ReorderListPage
-from src.api.setups.setup_location import setup_location
-from src.api.setups.setup_locker_location import setup_locker_location
+from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
