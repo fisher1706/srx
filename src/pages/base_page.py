@@ -56,18 +56,20 @@ class BasePage():
         return element.text
 
     def click_id(self, id, timeout=20):
-        self.get_element_by_id(id)
+        element = self.get_element_by_id(id)
         try:
-            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, id))).click()
+            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, id)))
+            element.click()
         except:
             self.logger.error(f"Element with ID = '{id}' is not clickable")
         else:
             self.logger.info(f"Element with ID = '{id}' is clicked")
 
     def click_xpath(self, xpath, timeout=20):
-        self.get_element_by_xpath(xpath)
+        element = self.get_element_by_xpath(xpath)
         try:
-            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath))).click()
+            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath)))
+            element.click()
         except:
             self.logger.error(f"Element with XPATH = '{xpath}' is not clickable")
         else:
@@ -484,8 +486,10 @@ class BasePage():
         assert text is None or text == "", f"Element {xpath} contains text: {text}"
 
     def wait_untill_dropdown_not_empty(self, xpath):
+        element = self.get_element_by_xpath(xpath)
         try:
-            WebDriverWait(self.driver, time).until(wait_until_dropdown_is_not_empty(xpath))
+            WebDriverWait(self.driver, 15).until(EC.wait_until_dropdown_is_not_empty(By.XPATH, xpath))
+            element.click()
         except:
             pass
 
