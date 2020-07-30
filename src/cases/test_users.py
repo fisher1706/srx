@@ -6,7 +6,7 @@ from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.api.distributor.user_api import UserApi
 from src.api.setups.setup_customer_user import setup_customer_user
 from src.api.setups.setup_checkout_group import setup_checkout_group
-from src.api.setups.setup_shipto import setup_shipto
+from src.api.setups.setup_shipto import SetupShipto
 from src.pages.customer.customer_users_page import CustomerUsersPage
 from src.pages.customer.checkout_users_page import CheckoutUsersPage
 from src.pages.customer.customer_security_groups import CustomerSecurityGroups
@@ -290,7 +290,7 @@ class TestUsers():
         cgp = CheckoutGroupsPage(ui)
 
         response_checkout_group = setup_checkout_group(ui)
-        response_shipto = setup_shipto(ui)
+        response_shipto = SetupShipto(ui).setup()
 
         lp.log_in_customer_portal()
         cgp.sidebar_users_and_groups()

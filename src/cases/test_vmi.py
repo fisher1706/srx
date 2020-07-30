@@ -3,12 +3,11 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.vmi_page import VmiPage
-from src.api.setups.setup_product import setup_product
-from src.api.setups.setup_shipto import setup_shipto
+from src.api.setups.setup_product import SetupProduct
 
 class TestVmi():
     @pytest.mark.regression
-    def test_vmi_list_partial_sku_match(self, ui, delete_shipto):
+    def test_vmi_list_partial_sku_match(self, ui):
         ui.testrail_case_id = 1838
 
         lp = LoginPage(ui)
@@ -16,11 +15,11 @@ class TestVmi():
 
         lp.log_in_distributor_portal()
 
-        response_shipto = setup_shipto(ui)
-        
         product_sku = f"{Tools.random_string_u(7)} {Tools.random_string_u(7)}"
-        setup_product(ui, sku=product_sku)
 
+        setup_product = SetupProduct(ui)
+        setup_product.add_option("sku", product_sku)
+        setup_product.setup()
 
         vp.follow_location_url()
         vp.click_id(Locator.id_add_button)

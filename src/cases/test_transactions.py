@@ -23,8 +23,8 @@ class TestTransactions():
         la = LocationApi(ui)
         sta = SettingsApi(ui)
 
-        response_location_1 = setup_location(ui)
-        response_location_2 = setup_location(ui)
+        response_location_1 = SetupLocation(ui).setup()
+        response_location_2 = SetupLocation(ui).setup()
 
         product_1_dto = response_location_1["product"]
         product_2_dto = response_location_2["product"]
@@ -70,8 +70,9 @@ class TestTransactions():
         la = LocationApi(ui)
         sta = SettingsApi(ui)
 
-        response_location_1 = setup_location(ui)
-        response_location_2 = setup_location(ui)
+        response_location_1 = SetupLocation(ui).setup()
+        response_location_2 = SetupLocation(ui).setup()
+
         product_1_dto = response_location_1["product"]
         product_2_dto = response_location_2["product"]
         shipto_1_dto = response_location_1["shipto"]
@@ -105,15 +106,17 @@ class TestTransactions():
         la = LocationApi(api)
         sta = SettingsApi(api)
 
-        response_location = setup_locker_location(api, no_weight=True)
-        sta.set_checkout_software_settings_for_shipto(response_location["shipto_id"])
+        setup_location = SetupLocation(api)
+        setup_location.add_option("locker_location")
+        setup_location.setup_locker.add_option("no_weight")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
-        location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
         location_body = copy.deepcopy(response_location["location"])
         location_dto = copy.deepcopy(location_body)
         location_dto["onHandInventory"] = 1
         location_dto["orderingConfig"]["lockerWithNoWeights"] = True
-        location_dto["id"] = location_id
+        location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]

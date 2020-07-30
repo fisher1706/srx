@@ -5,9 +5,9 @@ from src.pages.general.login_page import LoginPage
 from src.pages.distributor.locker_planogram_page import LockerPlanogramPage
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.shipto_api import ShiptoApi
-from src.api.setups.setup_shipto import setup_shipto
-from src.api.setups.setup_locker import setup_locker
-from src.api.setups.setup_product import setup_product
+from src.api.setups.setup_shipto import SetupShipto
+from src.api.setups.setup_locker import SetupLocker
+from src.api.setups.setup_product import SetupProduct
 
 class TestPlanogram():
     @pytest.mark.regression
@@ -20,14 +20,17 @@ class TestPlanogram():
 
         lp.log_in_distributor_portal()
 
-        response_shipto = setup_shipto(ui)
+        response_shipto = SetupShipto(ui).setup()
         shipto_id = response_shipto["shipto_id"]
         
-        response_product = setup_product(ui)
+        response_product = SetupProduct(ui).setup()
         product_sku = response_product["partSku"]
         round_buy = response_product["roundBuy"]
 
-        response_locker = setup_locker(ui, shipto=shipto_id, no_weight=True)
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("shipto_id", response_shipto["shipto_id"])
+        setup_locker.add_option("no_weight")
+        response_locker = setup_locker.setup()
 
         lpp.follow_locker_planogram_url(shipto_id=shipto_id)
         lpp.create_location_via_planogram(1, 1, product_sku, round_buy, round_buy*3)
@@ -44,10 +47,13 @@ class TestPlanogram():
         sta = ShiptoApi(ui)
 
         #create shipto
-        response_shipto = setup_shipto(ui)
+        response_shipto = SetupShipto(ui).setup()
 
         # create locker with shipto
-        response_locker = setup_locker(ui, shipto=response_shipto["shipto_id"])
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("shipto_id", response_shipto["shipto_id"])
+        response_locker = setup_locker.setup()
+
         locker_body = response_locker["locker"]
         locker = locker_body["value"]
         iothub_body = response_locker["iothub"]
