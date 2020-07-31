@@ -41,7 +41,8 @@ class SetupLocation(BaseSetup):
         self.setup_locker = SetupLocker(self.context)
         self.setup_rfid = SetupRfid(self.context)
 
-    def setup(self):
+    def setup(self, expected_status_code=None):
+        self.expected_status_code = expected_status_code
         self.set_shipto()
         self.set_locker()
         self.set_rfid()
@@ -132,7 +133,7 @@ class SetupLocation(BaseSetup):
             self.location["autoSubmit"] = bool(self.options["autosubmit"])
         
         location_list = [copy.deepcopy(self.location)]
-        la.create_location(copy.deepcopy(location_list), self.shipto_id)
+        la.create_location(copy.deepcopy(location_list), self.shipto_id, expected_status_code=self.expected_status_code)
         self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
 
     def set_rfid_labels(self):

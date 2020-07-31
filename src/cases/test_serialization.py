@@ -37,12 +37,20 @@ class TestSerialization():
         assert locations[0]["serialized"], "Location of the serialized product should be serialized"
 
     @pytest.mark.regression
-    def test_lot_should_be_serializable(self, api):
+    def test_lot_product_should_be_serializable(self, api):
         api.testrail_case_id = 2029
 
         setup_product = SetupProduct(api)
         setup_product.add_option("lot")
         setup_product.setup(expected_status_code=400)
+
+    @pytest.mark.regression
+    def test_lot_location_should_be_serializable(self, api, delete_shipto):
+        api.testrail_case_id = 2082
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("lot")
+        response_location = setup_location.setup(expected_status_code=400)
 
     @pytest.mark.regression
     def test_package_conversion_of_serialized_product(self, api):
@@ -52,6 +60,15 @@ class TestSerialization():
         setup_product.add_option("serialized")
         setup_product.add_option("package_conversion", 2)
         setup_product.setup(expected_status_code=400)
+
+    @pytest.mark.regression
+    def test_package_conversion_of_serialized_location(self, api, delete_shipto):
+        api.testrail_case_id = 2084
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("package_conversion", 2)
+        setup_location.setup(expected_status_code=400)
 
     @pytest.mark.regression
     def test_disable_serialization_for_catalog_and_check_location(self, api, delete_shipto):
@@ -84,7 +101,7 @@ class TestSerialization():
         assert locations[0]["serialized"], "Location should be still serialized after disabling a serialization for the product"
 
     @pytest.mark.regression
-    def test_serialization_default_values(self, api):
+    def test_serialization_default_product_values(self, api):
         api.testrail_case_id = 2033
 
         pa = ProductApi(api)
@@ -94,6 +111,18 @@ class TestSerialization():
         products = pa.get_product(response_product["partSku"])
         assert not products[0]["serialized"]
         assert not products[0]["lot"]
+
+    @pytest.mark.regression
+    def test_serialization_default_location_values(self, api):
+        api.testrail_case_id = 2085
+
+        la = LocationApi(api)
+
+        response_location = SetupLocation(api).setup()
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert not locations[0]["serialized"]
+        assert not locations[0]["lot"]
 
     @pytest.mark.regression
     def test_update_package_conversion_of_serialized_product(self, api):
@@ -276,3 +305,19 @@ class TestSerialization():
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
+
+    def test_update_location_to_serialized_with_package_conversion(self, api, delete_shipto):
+        api.testrail_case_id = 2086
+
+        la = LocationApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_product.add_option("package_conversion", 2)
+        response_location = setup_location.setup()
+
+        location_dto = copy.deepcopy(response_location["location"])
+        location_dto["id"] = response_location["location_id"]
+        location_dto["serialized"] = True
+        location_list = [copy.deepcopy(location_dto)]
+        la.update_location(location_list, response_location["shipto_id"], expected_status_code=400)

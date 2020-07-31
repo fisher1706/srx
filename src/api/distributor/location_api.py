@@ -2,14 +2,16 @@ from src.api.api import API
 from src.fixtures.decorators import Decorator
 
 class LocationApi(API):
-    def create_location(self, dto, shipto_id):
+    @Decorator.default_expected_code(200)
+    def create_location(self, dto, shipto_id, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         if (response.status_code == 200):
             self.logger.info(f"New location '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully created")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(f"Location updating ended with status_code = '{response.status_code}', as expected: {response.content}")
 
     @Decorator.default_expected_code(200)
     def update_location(self, dto, shipto_id, expected_status_code):

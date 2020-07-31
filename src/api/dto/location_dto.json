@@ -22,6 +22,6 @@
     "autoSubmit": null,
     "surplus": false,
     "onHandInventory": null,
-    "lot": false,
-    "serialized": false
+    "lot": null,
+    "serialized": null
 }
