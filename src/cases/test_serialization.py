@@ -4,8 +4,6 @@ from src.api.setups.setup_product import SetupProduct
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.product_api import ProductApi
-from src.api.distributor.settings_api import SettingsApi
-
 
 class TestSerialization():
     @pytest.mark.regression
