@@ -117,7 +117,7 @@ class TestSerialization():
         assert not products[0]["lot"]
 
     @pytest.mark.regression
-    def test_serialization_default_location_values(self, api):
+    def test_serialization_default_location_values(self, api, delete_shipto):
         api.testrail_case_id = 2085
 
         la = LocationApi(api)
