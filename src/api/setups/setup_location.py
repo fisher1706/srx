@@ -134,7 +134,8 @@ class SetupLocation(BaseSetup):
         
         location_list = [copy.deepcopy(self.location)]
         la.create_location(copy.deepcopy(location_list), self.shipto_id, expected_status_code=self.expected_status_code)
-        self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
+        if (self.expected_status_code is None):
+            self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
 
     def set_rfid_labels(self):
         if (self.options["rfid_labels"] is not None):

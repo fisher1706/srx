@@ -48,9 +48,15 @@ class TestSerialization():
     def test_lot_location_should_be_serializable(self, api, delete_shipto):
         api.testrail_case_id = 2082
 
+        la = LocationApi(api)
+
         setup_location = SetupLocation(api)
         setup_location.add_option("lot")
-        response_location = setup_location.setup(expected_status_code=400)
+        response_location = setup_location.setup()
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["lot"], "Location should be a lot"
+        assert locations[0]["serialized"], "Location should be serialized"
 
     @pytest.mark.regression
     def test_package_conversion_of_serialized_product(self, api):
@@ -68,7 +74,7 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
         setup_location.setup_product.add_option("package_conversion", 2)
-        setup_location.setup(expected_status_code=400)
+        setup_location.setup(expected_status_code=409)
 
     @pytest.mark.regression
     def test_disable_serialization_for_catalog_and_check_location(self, api, delete_shipto):
@@ -280,7 +286,7 @@ class TestSerialization():
         location_dto["id"] = location_id
         location_dto["onHandInventory"] = 10
         location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"], expected_status_code=400)
+        la.update_location(location_list, response_location["shipto_id"])
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
@@ -301,7 +307,7 @@ class TestSerialization():
         location_dto["id"] = location_id
         location_dto["onHandInventory"] = 10
         location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"], expected_status_code=400)
+        la.update_location(location_list, response_location["shipto_id"])
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
@@ -320,4 +326,4 @@ class TestSerialization():
         location_dto["id"] = response_location["location_id"]
         location_dto["serialized"] = True
         location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"], expected_status_code=400)
+        la.update_location(location_list, response_location["shipto_id"], expected_status_code=409)
