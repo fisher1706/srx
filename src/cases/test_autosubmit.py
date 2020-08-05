@@ -19,7 +19,7 @@ class TestAutosubmit():
         }
         ])
     @pytest.mark.regression
-    def test_immediately_autosubmit_by_create_active_item(self, api, conditions, delete_shiptoн):
+    def test_immediately_autosubmit_by_create_active_item(self, api, conditions, delete_shipto):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         la = LocationApi(api)
