@@ -11,7 +11,7 @@ class LocationApi(API):
         if (response.status_code == 200):
             self.logger.info(f"New location '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully created")
         else:
-            self.logger.info(f"Location updating ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Location creation ended with status_code = '{response.status_code}', as expected: {response.content}")
 
     @Decorator.default_expected_code(200)
     def update_location(self, dto, shipto_id, expected_status_code):
