@@ -348,7 +348,7 @@ class BasePage():
                 self.logger.info(f"Checkbox with XPATH = '{xpath}' is checked")
             elif (checked is None):
                 self.logger.error(f"Checkbox with XPATH = '{xpath}' should be checked")
-        elif (not conditione):
+        elif (not condition):
             if (checked is None):
                 self.logger.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
             elif (checked == 'true'):
