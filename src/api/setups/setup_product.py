@@ -15,7 +15,8 @@ class SetupProduct(BaseSetup):
             "serialized": None,
             "lot": None,
             "package_conversion": None,
-            "asset": None
+            "asset": None,
+            "round_buy": None
         }
         self.product = Tools.get_dto("product_dto.json")
 
@@ -33,7 +34,7 @@ class SetupProduct(BaseSetup):
             else:
                 self.product["partSku"] = self.options["sku"]
             self.product["shortDescription"] = f"{self.product['partSku']} - short description"
-            self.product["roundBuy"] = random.choice(range(2, 100))
+            self.product["roundBuy"] = random.choice(range(2, 100)) if self.options["round_buy"] is None else self.options["round_buy"]
             self.product["assetFlag"] = bool(self.options["asset"])
             self.product["serialized"] = self.options["serialized"]
             self.product["lot"] = self.options["lot"]
