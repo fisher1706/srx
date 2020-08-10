@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
 from src.waits import *
 from src.resources.locator import Locator
 import csv
@@ -56,20 +57,28 @@ class BasePage():
         return element.text
 
     def click_id(self, id, timeout=20):
-        self.get_element_by_id(id)
+        element = self.get_element_by_id(id)
         try:
-            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, id))).click()
-        except:
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, id)))
+            element.click()
+        except TimeoutException:
             self.logger.error(f"Element with ID = '{id}' is not clickable")
+        except:
+            self.logger.error(f"Element with ID = '{id}' cannot be clicked")
         else:
             self.logger.info(f"Element with ID = '{id}' is clicked")
 
     def click_xpath(self, xpath, timeout=20):
-        self.get_element_by_xpath(xpath)
+        element = self.get_element_by_xpath(xpath)
         try:
-            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath))).click()
-        except:
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath)))
+            element.click()
+        except TimeoutException:
             self.logger.error(f"Element with XPATH = '{xpath}' is not clickable")
+        except:
+            self.logger.error(f"Element with ID = '{xpath}' cannot be clicked")
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' is clicked")
 
@@ -485,7 +494,7 @@ class BasePage():
 
     def wait_untill_dropdown_not_empty(self, xpath):
         try:
-            WebDriverWait(self.driver, time).until(wait_until_dropdown_is_not_empty(xpath))
+            WebDriverWait(self.driver, 15).until(EC.wait_until_dropdown_is_not_empty(By.XPATH, xpath))
         except:
             pass
 

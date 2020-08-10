@@ -158,22 +158,9 @@ class TestPutAway():
         ta.update_replenishment_item(response_put_away["transactionId"], response_put_away["quantity"], "ACTIVE")
         pa.put_away([response_put_away])
         transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
-        print(transaction)
-        assert transaction["totalElements"] == 0, f"Put Away cant be performed for ACTIVE transaction"
-
-    @pytest.mark.regression
-    def test_put_away_by_nonexistent_transaction(self, api, delete_shipto):
-        api.testrail_case_id = 2077
-
-        ta = TransactionApi(api)
-        pa = PutAwayApi(api)
-
-        invalid_transaction_id = random.randint(0, 10000)
-        response_put_away = setup_put_away(api, transaction=True)
-        response_put_away["transactionId"] = invalid_transaction_id
-        pa.put_away([response_put_away])
-        transaction = ta.get_transaction(sku=response_put_away["partSku"], shipto_id=response_put_away["shipToId"])
-        print(transaction)
+        assert transaction["totalElements"] == 1, f"There should be only 1 transaction for {response_put_away['partSku']}"
+        status = transaction["entities"][-1]["status"]
+        assert f"{status}" == "ACTIVE", f"Transaction for SKU {response_put_away['partSku']} should be in status ACTIVE, but status is {status}"
 
     @pytest.mark.regression
     def test_put_away_by_SKU_and_unmatched_transaction(self, api, delete_shipto):
