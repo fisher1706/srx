@@ -122,7 +122,6 @@ class TestTransactions():
         assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
         assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
 
-
     @pytest.mark.smoke
     def test_smoke_label_transaction_and_activity_log(self, smoke_api):
         smoke_api.testrail_case_id = 2005
@@ -141,6 +140,12 @@ class TestTransactions():
         transaction_id = transactions["entities"][0]["id"]
         assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
         ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
-        activity_log_after = ala.get_activity_log()
-        activity_log_records_after = activity_log_after["totalElements"]
+        for i in range(3):
+            activity_log_after = ala.get_activity_log()
+            activity_log_records_after = activity_log_after["totalElements"]
+            if (activity_log_records_after <= activity_log_records_before):
+                time.sleep(10)
+                continue
+            else:
+                break
         assert activity_log_records_before != activity_log_records_after, "There are no new records in activity log"
