@@ -154,15 +154,6 @@ class TestCustomers():
         lp.log_in_customer_portal()
         acp.sidebar_allocation_codes()
         acp.add_allocation_code(allocation_code_body.copy())
-<<<<<<< HEAD
-
-        acp.check_allocation_code(allocation_code_body.copy())
-        allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
-        options["action"] = "ALLOCATION_CODES_CREATE"
-        options["name"] = allocation_code_body["name"]
-        ala.check_event(allocation_code_event, options)
-        
-=======
 
         acp.check_allocation_code(allocation_code_body.copy())
         allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
@@ -170,7 +161,6 @@ class TestCustomers():
         options["name"] = allocation_code_body["name"]
         ala.check_event(allocation_code_event, options)
 
->>>>>>> d2292305dc126107416f52fb3a0d50bd27982a5c
         acp.update_allocation_code(allocation_code_body["name"], edit_allocation_code_body.copy())
         options["action"] = "ALLOCATION_CODES_UPDATE"
         options["name"] = edit_allocation_code_body["name"]
