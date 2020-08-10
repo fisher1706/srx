@@ -114,7 +114,7 @@ class HardwarePage(AdminPortalPage):
         self.get_element_by_xpath(Locator.xpath_configure_button)
         if (door_number is None):
             count = self.get_element_count(Locator.xpath_configure_button)
-            door_number = random.choice(range(0, count))+1
+            door_number = random.choice(range(count))+1
         if (serial_number is None):
             serial_number = Tools.random_string_u()
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_configure_button, door_number))
