@@ -8,6 +8,7 @@ from src.pages.distributor.customers_page import CustomersPage
 from src.pages.distributor.shipto_page import ShiptoPage
 from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.pages.customer.allocation_codes_page import AllocationCodesPage
+from src.api.distributor.activity_log_api import ActivityLogApi
 import time
 
 class TestCustomers():
@@ -116,6 +117,7 @@ class TestCustomers():
         lp = LoginPage(ui)
         acp = AllocationCodesPage(ui)
         alp = ActivityLogPage(ui)
+        ala = ActivityLogApi(ui)
         allocation_code_body = acp.allocation_code_body.copy()
         edit_allocation_code_body = acp.allocation_code_body.copy()
 
@@ -143,31 +145,32 @@ class TestCustomers():
             "name": allocation_code_body["name"]
         }
         #-------------------
+        options = {
+            "action": None,
+            "event_type": "AllocationCodes",
+            "name": None
+        }
 
         lp.log_in_customer_portal()
         acp.sidebar_allocation_codes()
         acp.add_allocation_code(allocation_code_body.copy())
+
         acp.check_allocation_code(allocation_code_body.copy())
-        acp.sidebar_activity_feed()
-        acp.page_refresh()
-        alp.check_last_activity_log(activity_log_main_body.copy(), activity_log_expanded_body.copy())
+        allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
+        options["action"] = "ALLOCATION_CODES_CREATE"
+        options["name"] = allocation_code_body["name"]
+        ala.check_event(allocation_code_event, options)
 
-        acp.sidebar_allocation_codes()
-        acp.wait_until_page_loaded()
         acp.update_allocation_code(allocation_code_body["name"], edit_allocation_code_body.copy())
-
-        acp.sidebar_activity_feed()
-        acp.page_refresh()
-        activity_log_main_body["Action"] = "ALLOCATION_CODES_UPDATE"
-        activity_log_expanded_body["name"] = edit_allocation_code_body["name"]
-        alp.check_last_activity_log(activity_log_main_body.copy(), activity_log_expanded_body.copy())
+        options["action"] = "ALLOCATION_CODES_UPDATE"
+        options["name"] = edit_allocation_code_body["name"]
+        allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
+        ala.check_event(allocation_code_event, options)
 
         acp.sidebar_allocation_codes()
-        acp.wait_until_page_loaded()
         acp.check_allocation_code(edit_allocation_code_body.copy())
         acp.delete_allocation_code(edit_allocation_code_body["name"])
-
-        acp.sidebar_activity_feed()
-        acp.page_refresh()
-        activity_log_main_body["Action"] = "ALLOCATION_CODES_DELETE"
-        alp.check_last_activity_log(activity_log_main_body.copy(), activity_log_expanded_body.copy())
+        allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
+        options["action"] = "ALLOCATION_CODES_DELETE"
+        options["name"] = edit_allocation_code_body["name"]
+        ala.check_event(allocation_code_event, options)
