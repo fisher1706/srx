@@ -122,7 +122,6 @@ class TestTransactions():
         assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
         assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
 
-
     @pytest.mark.smoke
     def test_smoke_label_transaction_and_activity_log(self, smoke_api):
         smoke_api.testrail_case_id = 2005
