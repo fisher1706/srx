@@ -21,7 +21,7 @@ class Tools():
     def random_email(length=10):
         letters = string.ascii_lowercase
         random_string = ''.join(random.choice(letters) for i in range(length))
-        random_email = f"email.{random_string}@example.com"
+        random_email = f"email.{random_string}@agilevision.io"
         return random_email
 
     @staticmethod
