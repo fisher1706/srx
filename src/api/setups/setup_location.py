@@ -1,6 +1,7 @@
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.rfid_api import RfidApi
+from src.api.distributor.transaction_api import TransactionApi
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_product import SetupProduct
 from src.api.setups.setup_locker import SetupLocker
@@ -25,7 +26,8 @@ class SetupLocation(BaseSetup):
             "ohi": None,
             "locker_location": None,
             "rfid_location": None,
-            "rfid_labels": None
+            "rfid_labels": None,
+            "transaction": None
         }
         self.location = Tools.get_dto("location_dto.json")
         self.location_id = None
@@ -35,6 +37,8 @@ class SetupLocation(BaseSetup):
         self.iothub = None
         self.locker = None
         self.rfid = None
+        self.transaction = {}
+        self.put_away = {}
         self.rfid_labels = []
         self.setup_product = SetupProduct(self.context)
         self.setup_shipto = SetupShipto(self.context)
@@ -49,6 +53,7 @@ class SetupLocation(BaseSetup):
         self.set_product()
         self.set_location()
         self.set_rfid_labels()
+        self.set_transaction()
 
         response = {
             "product": self.product,
@@ -59,7 +64,9 @@ class SetupLocation(BaseSetup):
             "iothub": self.iothub,
             "locker": self.locker,
             "rfid": self.rfid,
-            "rfid_labels": self.rfid_labels
+            "rfid_labels": self.rfid_labels,
+            "transaction": self.transaction,
+            "put_away": self.put_away
         }
 
         return copy.deepcopy(response)
@@ -144,3 +151,30 @@ class SetupLocation(BaseSetup):
             location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
             for index in range(self.options["rfid_labels"]):
                 self.rfid_labels.append(ra.create_rfid(location_id))
+
+    def set_transaction(self):
+        ta = TransactionApi(self.context)
+        la = LocationApi(self.context)
+
+        if (self.options["transaction"] is not None):
+            if (self.options["type"] == "LABEL" or self.options["type"] == "BUTTON"):
+                ordering_config_id = la.get_ordering_config_by_sku(self.shipto_id, self.product["partSku"])
+                ta.create_active_item(self.shipto_id, ordering_config_id, repeat=6)
+                transaction = ta.get_transaction(sku=self.product["partSku"], shipto_id=self.shipto_id)
+                transaction_id = transaction["entities"][0]["id"]
+                reorderQuantity = transaction["entities"][0]["reorderQuantity"]
+
+                if (self.options["transaction"] != "ACTIVE"):
+                    ta.update_replenishment_item(transaction_id, reorderQuantity, self.options["transaction"])
+
+                self.transaction = {
+                    "transaction_id": transaction_id,
+                    "reorderQuantity": reorderQuantity
+                }
+
+                self.put_away = {
+                    "shipToId": self.shipto_id,
+                    "partSku": self.product["partSku"],
+                    "quantity": reorderQuantity,
+                    "transactionId": transaction_id
+                }
