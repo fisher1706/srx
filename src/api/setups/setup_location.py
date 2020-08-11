@@ -57,7 +57,7 @@ class SetupLocation(BaseSetup):
 
         response = {
             "product": self.product,
-            "shipto": self.shipto["shipto"],
+            "shipto": self.shipto,
             "location": self.location,
             "location_id": self.location_id,
             "shipto_id": self.shipto_id,
@@ -87,8 +87,9 @@ class SetupLocation(BaseSetup):
 
     def set_shipto(self):
         if (self.options["shipto_id"] is None):
-            self.shipto = self.setup_shipto.setup()
-            self.shipto_id = self.shipto["shipto_id"]
+            shipto_response = self.setup_shipto.setup()
+            self.shipto = shipto_response["shipto"]
+            self.shipto_id = shipto_response["shipto_id"]
         else:
             sha = ShiptoApi(self.context)
             self.shipto_id = self.options["shipto_id"]

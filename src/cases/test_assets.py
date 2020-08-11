@@ -3,10 +3,8 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.pages.general.login_page import LoginPage
 from src.pages.customer.assets_page import AssetsPage
-from src.api.setups.setup_location import setup_location
+from src.api.setups.setup_location import SetupLocation
 from src.api.setups.setup_issue_return import setup_issue_return
-from src.api.setups.setup_rfid_location import setup_rfid_location
-from src.api.setups.setup_rfid import setup_rfid
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.rfid_api import RfidApi
@@ -18,27 +16,21 @@ import copy
 class TestAssets():
     @pytest.mark.regression
     def test_issue_return_assets_label(self, ui, delete_shipto):
-        ui.testrail_case_id = 1993
+        ui.testrail_case_id = 1991
 
         lp = LoginPage(ui)
         ap = AssetsPage(ui)
-        sta = SettingsApi(ui)
 
-        product_dto = Tools.get_dto("product_dto.json")
-        product_dto["partSku"] = Tools.random_string_u(18)
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = "1"
-        product_dto["assetFlag"] = True
+        setup_location = SetupLocation(ui)
+        setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
         #create location with asset product
-        response_location = setup_location(ui, product_dto=product_dto)
         asset = response_location["product"]["partSku"]
         shipto_name = response_location["shipto"]["number"]
         shipto_id = response_location["shipto_id"]
         total = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
-
-        # enable checkout software for shipto
-        sta.set_checkout_software_settings_for_shipto(shipto_id)
         
         lp.log_in_customer_portal()
         ap.sidebar_assets()
@@ -64,28 +56,22 @@ class TestAssets():
 
     @pytest.mark.regression
     def test_ping_to_return_asset(self, ui, delete_shipto):
-        ui.testrail_case_id = 1991
+        ui.testrail_case_id = 1993
 
         lp = LoginPage(ui)
         ap = AssetsPage(ui)
-        sta = SettingsApi(ui)
         cha = CheckoutGroupApi(ui)
 
-        product_dto = Tools.get_dto("product_dto.json")
-        product_dto["partSku"] = Tools.random_string_u(18)
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = 5
-        product_dto["assetFlag"] = True
+        setup_location = SetupLocation(ui)
+        setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
-        #create location with asset product
-        response_location = setup_location(ui, product_dto=product_dto)
         asset = response_location["product"]["partSku"]
         #shipto_name = response_location["shipto"]["number"]
         shipto_id = response_location["shipto_id"]
         total = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
 
-        # enable checkout software for shipto
-        sta.set_checkout_software_settings_for_shipto(shipto_id)
         cha.add_shipto_to_checkout_group(shipto_id=shipto_id)
 
         lp.log_in_customer_portal()
@@ -101,24 +87,18 @@ class TestAssets():
         api.testrail_case_id = 1995
 
         aa = AssetsApi(api)
-        sta = SettingsApi(api)
         cha = CheckoutGroupApi(api)
 
-        product_dto = Tools.get_dto("product_dto.json")
-        product_dto["partSku"] = Tools.random_string_u(18)
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = 5
-        product_dto["assetFlag"] = True
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
-        #create location with asset product
-        response_location = setup_location(api, product_dto=product_dto)
         asset = response_location["product"]["partSku"]
         shipto_name = response_location["shipto"]["number"]
         shipto_id = response_location["shipto_id"]
         total = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
 
-        # enable checkout software for shipto
-        sta.set_checkout_software_settings_for_shipto(shipto_id)
         cha.add_shipto_to_checkout_group(shipto_id=shipto_id)
 
         # issue 5 assets
@@ -133,32 +113,22 @@ class TestAssets():
         api.testrail_case_id = 1995
 
         aa = AssetsApi(api)
-        sta = SettingsApi(api)
         cha = CheckoutGroupApi(api)
 
-        first_product_dto = Tools.get_dto("product_dto.json")
-        first_product_dto["partSku"] = Tools.random_string_u(18)
-        first_product_dto["shortDescription"] = f"{first_product_dto['partSku']} - short description"
-        first_product_dto["roundBuy"] = 5
-        first_product_dto["assetFlag"] = True
-
-        second_product_dto = Tools.get_dto("product_dto.json")
-        second_product_dto["partSku"] = Tools.random_string_u(18)
-        second_product_dto["shortDescription"] = f"{second_product_dto['partSku']} - short description"
-        second_product_dto["roundBuy"] = 5
-        second_product_dto["assetFlag"] = True
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
 
         #create location with asset product
-        first_response_location = setup_location(api, product_dto=first_product_dto)
+        first_response_location = setup_location.setup()
         first_asset = first_response_location["product"]["partSku"]
         shipto_id = first_response_location["shipto_id"]
 
         #create location with asset product
-        second_response_location = setup_location(api, shipto_dto=False, shipto_id=shipto_id, product_dto=second_product_dto)
+        setup_location.add_option("shipto_id", shipto_id)
+        second_response_location = setup_location.setup()
         second_asset = second_response_location["product"]["partSku"]
 
-        # enable checkout software for shipto
-        sta.set_checkout_software_settings_for_shipto(shipto_id)
         cha.add_shipto_to_checkout_group(shipto_id=shipto_id)
 
         setup_issue_return(api, shipto_id, first_asset, quantity=5, issue_product=True)
@@ -177,14 +147,10 @@ class TestAssets():
 
         aa = AssetsApi(api)
 
-        product_dto = Tools.get_dto("product_dto.json")
-        product_dto["partSku"] = Tools.random_string_u(18)
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = 1
-        product_dto["assetFlag"] = True
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("asset")
+        response_location = setup_location.setup()
 
-        # create location with asset product
-        response_location = setup_location(api, product_dto=product_dto)
         # check assetFlag 
         assert response_location["product"]["assetFlag"], f"Location {response_location['product']['partSku']} does not have asset flag = true"
         aa.check_asset_in_all_assets_list(response_location["product"]["partSku"])
@@ -196,14 +162,10 @@ class TestAssets():
         aa = AssetsApi(api)
         la = LocationApi(api)
 
-        product_dto = Tools.get_dto("product_dto.json")
-        product_dto["partSku"] = Tools.random_string_u(18)
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = 5
-        product_dto["assetFlag"] = True
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("asset")
+        response_location = setup_location.setup()
 
-        # create location with asset product
-        response_location = setup_location(api, product_dto=product_dto)
         asset = response_location["product"]["partSku"]
         shipto_id = response_location["shipto_id"]
         location = la.get_location_by_sku(shipto_id, asset)
@@ -221,33 +183,27 @@ class TestAssets():
         ra = RfidApi(api)
         aa = AssetsApi(api)
 
-        product_dto = Tools.get_dto("product_dto.json")
-        product_dto["partSku"] = Tools.random_string_u(18)
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = 5
-        product_dto["assetFlag"] = True
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("asset")
+        setup_location.add_option("rfid_location")
+        setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
-        #create location of type RFID with asset product
-        response_location_rfid = setup_rfid_location(api, number_of_labels=1, product_dto=product_dto)
-        asset = response_location_rfid["location"]["product"]["partSku"]
-        response_rfid = setup_rfid(api, response_location_rfid["shipto_id"])
+        asset = response_location["product"]["partSku"]
 
-        shipto_id = response_location_rfid["shipto_id"]
-        location_id = response_location_rfid["location_id"]
-        rfid_id = response_rfid["id"]
+        shipto_id = response_location["shipto_id"]
+        location_id = response_location["location_id"]
+        rfid_id = response_location["rfid"]["id"]
 
-        rfid_labels = ra.get_rfid_labels(location_id)
-        label_id = rfid_labels[0]["id"]
-        epc = rfid_labels[0]["labelId"]
+        label_id = response_location["rfid_labels"][0]["rfid_id"]
+        epc = response_location["rfid_labels"][0]["label"]
 
         ra.update_rfid_label(location_id, label_id, "AVAILABLE")
 
-        # enable checkout software for shipto
-        sta.set_checkout_software_settings_for_shipto(shipto_id)
-
         setup_issue_return(api, shipto_id, asset, epc=epc, issue_product=True)
         result_checked_out = aa.check_asset_in_checked_out_list(asset)
-        assert result_checked_out["credit"] == product_dto["roundBuy"], f"QTY of cheked out asset is NOT correct"
+        assert result_checked_out["credit"] == response_location["product"]["roundBuy"], f"QTY of cheked out asset is NOT correct"
         assert result_checked_out["location"]["onHandInventory"] == 0, f"OHI of cheked out asset is NOT correct"
         result_all_assets = aa.check_asset_in_all_assets_list(asset)
         assert result_all_assets["onHandInventory"] == 0, f"OHI of cheked out asset is NOT correct"
@@ -265,24 +221,17 @@ class TestAssets():
         api.testrail_case_id = 2008
 
         aa = AssetsApi(api)
-        sta = SettingsApi(api)
         la = LocationApi(api)
         ta = TransactionApi(api)
 
-        product_dto = Tools.get_dto("product_dto.json")
-        product_dto["partSku"] = Tools.random_string_u(18)
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = 5
-        product_dto["assetFlag"] = True
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
-        # create location with asset product
-        response_location = setup_location(api, product_dto=product_dto)
         asset = response_location["product"]["partSku"]
         shipto_id = response_location["shipto_id"]
         max_quantity = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
-
-        # enable checkout software for shipto
-        sta.set_checkout_software_settings_for_shipto(shipto_id)
 
         setup_issue_return(api, shipto_id, asset, quantity=max_quantity, issue_product=True)
         location = la.get_location_by_sku(shipto_id, asset)
