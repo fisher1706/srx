@@ -1,0 +1,12 @@
+{
+    "query": {
+        "bool": {
+            "must":{
+                "match_all":{}
+                }
+            }
+        },
+    "sort": [{"createdAt":{"order":"desc","missing":"_last"}}],
+    "from":0,
+    "size": null
+}

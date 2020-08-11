@@ -27,7 +27,7 @@ class TestCatalog():
         edit_product_body["shortDescription"] = f"{product_body['partSku']} - edit short description"
         edit_product_body["roundBuy"] = "27"
         edit_product_body["lifecycleStatus"] = "OBSOLETE"
-        edit_product_body["image"] = "example.com"
+        edit_product_body["image"] = "agilevision.io"
         edit_product_body["longDescription"] = "long description"
         edit_product_body["weight"] = "100"
         edit_product_body["height"] = "200"
