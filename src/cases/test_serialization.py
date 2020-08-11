@@ -1,7 +1,7 @@
 import pytest
 import copy
-from src.api.setups.setup_product import SetupProduct
-from src.api.setups.setup_location import SetupLocation
+from src.api.setups.setup_product import setup_product
+from src.api.setups.setup_location import setup_location
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.product_api import ProductApi
 
@@ -12,11 +12,8 @@ class TestSerialization():
 
         la = LocationApi(api)
 
-        setup_location = SetupLocation(api)
-        setup_location.setup_product.add_option("serialized")
-        setup_location.setup_product.add_option("lot")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-        response_location = setup_location.setup()
+        response_product = setup_product(api, is_serialized=True, is_lot=True)
+        response_location = setup_location(api, response_product=response_product, checkout_settings_shipto="DEFAULT")
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["lot"], "Location of the serialized product should be serialized"
@@ -38,9 +35,7 @@ class TestSerialization():
     def test_lot_product_should_be_serializable(self, api):
         api.testrail_case_id = 2029
 
-        setup_product = SetupProduct(api)
-        setup_product.add_option("lot")
-        setup_product.setup(expected_status_code=400)
+        setup_product(api, is_lot=True, expected_status_code=400)
 
     @pytest.mark.regression
     def test_lot_location_should_be_serializable(self, api, delete_shipto):
@@ -60,10 +55,7 @@ class TestSerialization():
     def test_package_conversion_of_serialized_product(self, api):
         api.testrail_case_id = 2031
 
-        setup_product = SetupProduct(api)
-        setup_product.add_option("serialized")
-        setup_product.add_option("package_conversion", 2)
-        setup_product.setup(expected_status_code=400)
+        setup_product(api, is_serialized=True, package_conversion=2, expected_status_code=400)
 
     @pytest.mark.regression
     def test_package_conversion_of_serialized_location(self, api, delete_shipto):
@@ -81,12 +73,11 @@ class TestSerialization():
         la = LocationApi(api)
         pa = ProductApi(api)
 
-        setup_location = SetupLocation(api)
-        setup_location.setup_product.add_option("serialized")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-        response_location = setup_location.setup()
+        response_product = setup_product(api, is_serialized=True)
+        response_location = setup_location(api, response_product=response_product, checkout_settings_shipto="DEFAULT")
+        product_id = response_product.pop("id")
 
-        products = pa.get_product(response_location["product"]["partSku"])
+        products = pa.get_product(response_product["partSku"])
         assert len(products) == 1
         assert products[0]["serialized"]
 
@@ -94,8 +85,8 @@ class TestSerialization():
         assert not locations[0]["lot"], "Location should not be a lot"
         assert locations[0]["serialized"], "Location of the serialized product should be serialized"
 
-        response_location["product"]["serialized"] = False
-        pa.update_product(dto=response_location["product"], product_id=response_location["product"]["id"])
+        response_product["serialized"] = False
+        pa.update_product(dto=response_product, product_id=product_id)
 
         products = pa.get_product(response_location["product"]["partSku"])
         assert not products[0]["serialized"]
@@ -110,7 +101,7 @@ class TestSerialization():
 
         pa = ProductApi(api)
 
-        response_product = SetupProduct(api).setup()
+        response_product = setup_product(api)
 
         products = pa.get_product(response_product["partSku"])
         assert not products[0]["serialized"]
@@ -134,9 +125,7 @@ class TestSerialization():
 
         pa = ProductApi(api)
 
-        setup_product = SetupProduct(api)
-        setup_product.add_option("serialized")
-        response_product = setup_product.setup()
+        response_product = setup_product(api, is_serialized=True)
         product_id = response_product.pop("id")
 
         response_product["packageConversion"] = 2
@@ -144,14 +133,12 @@ class TestSerialization():
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
 
     @pytest.mark.regression
-    def test_update_package_conversion_of_product_with_serialized_location(self, api, delete_shipto):
+    def test_update_package_conversion_of_location_with_serialized_product(self, api, delete_shipto):
         api.testrail_case_id = 2053
 
         pa = ProductApi(api)
-        setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-        setup_location.add_option("serialized")
-        response_location = setup_location.setup()
+
+        response_location = setup_location(api, is_serialized=True, checkout_settings_shipto="DEFAULT")
 
         response_product = response_location["product"]
         product_id = response_product.pop("id")
