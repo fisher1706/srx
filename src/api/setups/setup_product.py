@@ -34,8 +34,11 @@ class SetupProduct(BaseSetup):
             else:
                 self.product["partSku"] = self.options["sku"]
             self.product["shortDescription"] = f"{self.product['partSku']} - short description"
-            self.product["roundBuy"] = random.choice(range(2, 100)) if self.options["round_buy"] is None else self.options["round_buy"]
             self.product["assetFlag"] = bool(self.options["asset"])
+            if (bool(self.options["asset"])):
+                self.product["roundBuy"] = 1 if self.options["round_buy"] is None else self.options["round_buy"]
+            else:
+                self.product["roundBuy"] = random.choice(range(2, 100)) if self.options["round_buy"] is None else self.options["round_buy"]
             self.product["serialized"] = self.options["serialized"]
             self.product["lot"] = self.options["lot"]
             self.product["packageConversion"] = self.options["package_conversion"]
