@@ -2,9 +2,8 @@ import pytest
 from src.api.admin.smart_shelves_api import SmartShelvesApi
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.distributor.shipto_api import ShiptoApi
-from src.api.setups.setup_smart_shelves import setup_smart_shelves
-from src.api.setups.setup_locker import setup_locker
-from src.api.setups.setup_shipto import setup_shipto
+from src.api.setups.setup_locker import SetupLocker
+from src.api.setups.setup_shipto import SetupShipto
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.locker_planogram_page import LockerPlanogramPage
 from src.pages.distributor.distributor_portal_smart_shelves_page import DistributorSmartShelvesPage

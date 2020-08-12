@@ -83,32 +83,6 @@ class TestAssets():
         ap.ping_to_return_last_asset()
 
     @pytest.mark.regression
-    def test_check_asstes_of_checkout_user(self, api, delete_shipto):
-        api.testrail_case_id = 1995
-
-        aa = AssetsApi(api)
-        cha = CheckoutGroupApi(api)
-
-        setup_location = SetupLocation(api)
-        setup_location.setup_product.add_option("asset")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-        response_location = setup_location.setup()
-
-        asset = response_location["product"]["partSku"]
-        shipto_name = response_location["shipto"]["number"]
-        shipto_id = response_location["shipto_id"]
-        total = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
-
-        cha.add_shipto_to_checkout_group(shipto_id=shipto_id)
-
-        # issue 5 assets
-        setup_issue_return(api, shipto_id, asset, quantity=5, issue_product=True, passcode=api.data.passcode)
-        # check list of assets of checkout user
-        list_of_assets = aa.get_list_of_assets_by_user(api.data.checkout_user_id)
-        for item in list_of_assets:
-            assert f"{item['user']['id']}" == api.data.checkout_user_id, "There are assets that was issued NOT by checkout user"
-
-    @pytest.mark.regression
     def test_checkout_asset_customer_checkout_user(self, api, delete_shipto):
         api.testrail_case_id = 1995
 
