@@ -290,4 +290,4 @@ class TestSerializationSN():
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["number"] == sn
-        assert sn_dto["lot"] == None
+        assert sn_dto.get("lot") == None
