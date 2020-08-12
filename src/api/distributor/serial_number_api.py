@@ -3,7 +3,7 @@ from src.fixtures.decorators import Decorator
 
 class SerialNumberApi(API):
     @Decorator.default_expected_code(201)
-    def create_serial_number(self, location_id, shipto_id, serial_number, expected_status_code, lot=None):
+    def create_serial_number(self, location_id, shipto_id, serial_number, expected_status_code, additional_options=None, lot=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber/")
         token = self.get_distributor_token()
         dto = {
@@ -16,6 +16,8 @@ class SerialNumberApi(API):
             "number": serial_number,
             "lot": lot
         }
+        if (additional_options is not None):
+            dto.update(additional_options)
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         if (response.status_code == 201):
@@ -41,6 +43,12 @@ class SerialNumberApi(API):
             self.logger.info(f"Serial Number updating ended with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_serial_number(self, shipto_id):
+        return self.get_serial_number_base(shipto_id)["entities"]
+
+    def get_serial_number_count(self, shipto_id):
+        return self.get_serial_number_base(shipto_id)["totalElements"]
+
+    def get_serial_number_base(self, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumbers?shipToId={shipto_id}")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
@@ -49,4 +57,4 @@ class SerialNumberApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        return response_json["data"]["entities"]
+        return response_json["data"]
