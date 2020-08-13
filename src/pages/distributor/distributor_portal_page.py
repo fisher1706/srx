@@ -28,6 +28,9 @@ class DistributorPortalPage(BasePage):
     def sidebar_rfid(self):
         self.click_id("sidebar-rfid")
 
+    def sidebar_serialization(self):
+        self.click_id("sidebar-serial")
+
     def sidebar_hardware(self):
         self.click_id("sidebar-claiming_hardware")
 
