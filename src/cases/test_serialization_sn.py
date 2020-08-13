@@ -5,6 +5,8 @@ from src.resources.tools import Tools
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.serial_number_api import SerialNumberApi
+from src.pages.general.login_page import LoginPage
+from src.pages.distributor.serialization_page import SerializationPage
 
 class TestSerializationSN():
     @pytest.mark.regression
@@ -276,7 +278,7 @@ class TestSerializationSN():
         assert sn_dto["lot"] == lot
 
     @pytest.mark.regression
-    def test_cannot_create_serial_number_with_lot_if_lot_turned_off_for_location(self, api, delete_shipto):
+    def test_cannot_create_sn_with_lot_if_lot_turned_off_for_location(self, api, delete_shipto):
         api.testrail_case_id = 2142
 
         setup_location = SetupLocation(api)
@@ -291,3 +293,53 @@ class TestSerializationSN():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["number"] == sn
         assert sn_dto.get("lot") == None
+
+    @pytest.mark.regression
+    def test_serial_number_crud(self, ui, delete_shipto):
+        ui.testrail_case_id = 2143
+
+        lp = LoginPage(ui)
+        sp = SerializationPage(ui)
+
+        serial_number_body = sp.serial_number_body.copy()
+        edit_serial_number_body = sp.serial_number_body.copy()
+
+        #-------------------
+        serial_number_body["number"] = Tools.random_string_l()
+        serial_number_body["lot"] = Tools.random_string_l()
+        #-------------------
+        edit_serial_number_body["number"] = Tools.random_string_l()
+        edit_serial_number_body["lot"] = Tools.random_string_l()
+        edit_serial_number_body["dateManufacture"] = "08/01/2020"
+        edit_serial_number_body["dateShipment"] = "08/02/2020"
+        edit_serial_number_body["dateExpiration"] = "08/01/2025"
+        edit_serial_number_body["dateWarrantyExpires"] = "08/02/2025"
+        #-------------------
+
+        setup_location = SetupLocation(ui)
+        setup_location.add_option("serialized")
+        setup_location.add_option("lot")
+        response_location = setup_location.setup()
+
+        shipto_text = f"{ui.data.customer_name} - {response_location['shipto']['number']}"
+        product_sku = response_location["product"]["partSku"]
+
+        lp.log_in_distributor_portal()
+        sp.sidebar_serialization()
+        sp.select_shipto_sku(shipto_text, product_sku)
+
+        ohi_path = "//div[text()='OHI']/../div[2]"
+
+        sp.add_serial_number(serial_number_body)
+        serial_number_body["status"] = "ASSIGNED"
+        sp.check_last_serial_number(serial_number_body)
+        assert sp.get_element_text(ohi_path) == "0"
+        sp.update_last_serial_number(edit_serial_number_body)
+        edit_serial_number_body["status"] = "ASSIGNED"
+        sp.check_last_serial_number(edit_serial_number_body)
+        sp.update_last_serial_number_status("AVAILABLE")
+        edit_serial_number_body["status"] = "AVAILABLE"
+        sp.check_last_serial_number(edit_serial_number_body)
+        assert sp.get_element_text(ohi_path) == "1"
+        sp.delete_last_serial_number(edit_serial_number_body["number"])
+        assert sp.get_element_text(ohi_path) == "0"

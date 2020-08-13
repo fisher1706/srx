@@ -498,3 +498,8 @@ class BasePage():
         except:
             pass
 
+    def select_shipto_sku(self, shipto, sku):
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), shipto)
+        self.wait_until_page_loaded()
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), sku)
+        self.wait_until_page_loaded()

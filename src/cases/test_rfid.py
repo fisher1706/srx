@@ -16,7 +16,6 @@ class TestRfid():
         lp = LoginPage(ui)
         rp = RfidPage(ui)
 
-        
         setup_location = SetupLocation(ui)
         setup_location.add_option("type", "RFID")
         response_location = setup_location.setup()
