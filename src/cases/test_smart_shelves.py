@@ -33,7 +33,7 @@ class TestSmartShelves():
 
         ssa.update_smart_shelf(locker_body, locker_body_second=False)
         locker_conf = ha.get_locker_configuration(locker_id)
-        assert (locker_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_smart_shelf['smart_shelves_id']}"
+        assert (locker_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_locker['smart_shelf_id']}"
 
     @pytest.mark.regression
     def test_smart_shelves_change_door(self, api, delete_smart_shelf, delete_hardware):
