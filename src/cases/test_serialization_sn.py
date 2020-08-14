@@ -176,32 +176,6 @@ class TestSerializationSN():
         assert locations[0]["onHandInventory"] == 0
 
     @pytest.mark.regression
-    def test_cannot_update_sn_available_to_assigned(self, api, delete_shipto):
-        api.testrail_case_id = 2113
-
-        setup_location = SetupLocation(api)
-        setup_location.add_option("serialized")
-        response_location = setup_location.setup()
-
-        sna = SerialNumberApi(api)
-        la = LocationApi(api)
-        sn = Tools.random_string_u()
-        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
-
-        locations = la.get_locations(response_location["shipto_id"])
-        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        sn_dto["status"] = "AVAILABLE"
-        sna.update_serial_number(sn_dto)
-
-        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "AVAILABLE"
-        sn_dto["status"] = "ASSIGNED"
-        sna.update_serial_number(sn_dto)
-
-        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "AVAILABLE"
-
-    @pytest.mark.regression
     def test_delete_sn_when_delete_location(self, api, delete_shipto):
         api.testrail_case_id = 2114
 
@@ -305,11 +279,11 @@ class TestSerializationSN():
         edit_serial_number_body = sp.serial_number_body.copy()
 
         #-------------------
-        serial_number_body["number"] = Tools.random_string_l()
-        serial_number_body["lot"] = Tools.random_string_l()
+        serial_number_body["number"] = Tools.random_string_u()
+        serial_number_body["lot"] = Tools.random_string_u()
         #-------------------
-        edit_serial_number_body["number"] = Tools.random_string_l()
-        edit_serial_number_body["lot"] = Tools.random_string_l()
+        edit_serial_number_body["number"] = Tools.random_string_u()
+        edit_serial_number_body["lot"] = Tools.random_string_u()
         edit_serial_number_body["dateManufacture"] = "08/01/2020"
         edit_serial_number_body["dateShipment"] = "08/02/2020"
         edit_serial_number_body["dateExpiration"] = "08/01/2025"
