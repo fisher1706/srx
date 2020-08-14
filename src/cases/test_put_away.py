@@ -163,14 +163,22 @@ class TestPutAway():
         assert transaction["totalElements"] == 0, f"There should not be transactions for asset product"
 
     @pytest.mark.regression
-    def test_put_away_locker_location(self, api, delete_shipto, delete_hardware):
+    def test_bulk_put_away_locker_location(self, api, delete_shipto, delete_hardware):
         api.testrail_case_id = 2062
 
         ta = TransactionApi(api)
         pa = PutAwayApi(api)
 
-        response_put_away = setup_put_away(api, is_asset=True, trigger_type="LOCKER")
-        pa.put_away([response_put_away])
+        setup_location = SetupLocation(api)
+        setup_location.add_option("locker_location")
+        response_location = setup_location.setup()
+
+        dto = {
+            "shipToId": response_location["shipto_id"],
+            "partSku": response_location["product"]["partSku"]
+        }
+        pa.put_away([dto])
+
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
         assert transaction["totalElements"] == 0, f"There should not be transactions for asset product"
 
@@ -181,9 +189,13 @@ class TestPutAway():
         ta = TransactionApi(api)
         pa = PutAwayApi(api)
 
-        response_put_away = setup_put_away(api, transaction=True)
-        ta.update_replenishment_item(response_put_away["transactionId"], response_put_away["quantity"], "ACTIVE")
-        pa.put_away([response_put_away])
+        setup_location = SetupLocation(api)
+        setup_location.add_option("transaction", "ACTIVE")
+        response_location = setup_location.setup()
+
+        dto = response_location["put_away"]
+        pa.put_away([dto])
+
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
         assert transaction["totalElements"] == 1, f"There should be only 1 transaction for {response_location['product']['partSku']}"
         status = transaction["entities"][-1]["status"]
@@ -196,13 +208,17 @@ class TestPutAway():
         ta = TransactionApi(api)
         pa = PutAwayApi(api)
 
-        invalid_transaction_id = 99999
-        response_put_away = setup_put_away(api, transaction=True)
-        response_put_away["transactionId"] = invalid_transaction_id
-        pa.put_away([response_put_away])
+        invalid_transaction_id = 999999
+        setup_location = SetupLocation(api)
+        setup_location.add_option("transaction", "ORDERED")
+        response_location = setup_location.setup()
+
+        dto = response_location["put_away"]
+        dto["transactionId"] = invalid_transaction_id
+        pa.put_away([dto])
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
         status = transaction["entities"][-1]["status"]
-        assert f"{status}" == "QUOTED", f"Transaction for SKU {response_location['product']['partSku']} should be in status QUOTED, but status is {status}"
+        assert f"{status}" == "ORDERED", f"Transaction for SKU {response_location['product']['partSku']} should be in status QUOTED, but status is {status}"
 
     @pytest.mark.regression
     def test_put_away_by_nonexistent_transaction(self, api, delete_shipto):
@@ -211,9 +227,15 @@ class TestPutAway():
         ta = TransactionApi(api)
         pa = PutAwayApi(api)
 
-        invalid_transaction_id = random.randint(0, 10000)
-        response_put_away = setup_put_away(api)
-        response_put_away["transactionId"] = invalid_transaction_id
-        pa.put_away([response_put_away])
+        invalid_transaction_id = 999999
+        setup_location = SetupLocation(api)
+        response_location = setup_location.setup()
+
+        dto = {
+            "shipToId": response_location["shipto_id"],
+            "partSku": response_location["product"]["partSku"],
+            "transactionId": invalid_transaction_id
+        }
+        pa.put_away([dto])
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
         assert transaction["totalElements"] == 0, f"There should not be transaction for {response_location['product']['partSku']}"
