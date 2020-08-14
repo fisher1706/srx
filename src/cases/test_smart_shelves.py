@@ -22,11 +22,14 @@ class TestSmartShelves():
         ha = AdminHardwareApi(api)
 
         # create smart shelf for main distributor
-        response_smart_shelf = setup_smart_shelves(api)
-        locker_body = response_smart_shelf["locker"]
-        locker_id = locker_body["id"]
+        setup_locker = SetupLocker(api)
+        setup_locker.add_option("smart_shelf")
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
+        locker_id = response_locker["locker_id"]
         locker = locker_body["value"]
-        iothub_body = response_smart_shelf["iothub"]
+        iothub_body = response_locker["iothub"]
 
         ssa.update_smart_shelf(locker_body, locker_body_second=False)
         locker_conf = ha.get_locker_configuration(locker_id)
@@ -40,24 +43,30 @@ class TestSmartShelves():
         ha = AdminHardwareApi(api)
 
         # create smart shelf for main distributor
-        response_smart_shelf = setup_smart_shelves(api)
-        locker_body = response_smart_shelf["locker"]
+        setup_locker = SetupLocker(api)
+        setup_locker.add_option("smart_shelf")
+        response_locker_1 = setup_locker.setup()
+
+        locker_body = response_locker_1["locker"]
         locker_id = locker_body["id"]
         locker = locker_body["value"]
-        iothub_body = response_smart_shelf["iothub"]
+        iothub_body = response_locker_1["iothub"]
 
         # create second locker
-        response_locker = setup_locker(api)
-        locker_body_second = response_locker["locker"]
+        setup_locker = SetupLocker(api)
+        setup_locker.add_option("smart_shelf", False)
+        response_locker_2 = setup_locker.setup()
+
+        locker_body_second = response_locker_2["locker"]
         locker_id_second = locker_body_second["id"]
         locker_second = locker_body_second["value"]
-        iothub_body_second = response_locker["iothub"]
+        iothub_body_second = response_locker_2["iothub"]
 
         ssa.update_smart_shelf(locker_body, locker_body_second=locker_body_second)
         locker_1_conf = ha.get_locker_configuration(locker_id)
         locker_2_conf = ha.get_locker_configuration(locker_id_second)
-        assert (locker_1_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_smart_shelf['smart_shelves_id']}"
-        assert (locker_2_conf[0]["smartShelfHardware"]["id"] == response_smart_shelf["smart_shelves_id"]), f"Second locker should have smart shelf with ID {response_smart_shelf['smart_shelves_id']}"
+        assert (locker_1_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_locker_1['smart_shelf_id']}"
+        assert (locker_2_conf[0]["smartShelfHardware"]["id"] == response_locker_1["smart_shelf_id"]), f"Second locker should have smart shelf with ID {response_locker_1['smart_shelf_id']}"
 
     @pytest.mark.regression
     def test_smart_shelves_delete_check_locker(self, api, delete_hardware):
@@ -67,41 +76,18 @@ class TestSmartShelves():
         ha = AdminHardwareApi(api)
 
         # create smart shelf for main distributor
-        response_smart_shelf = setup_smart_shelves(api)
-        locker_body = response_smart_shelf["locker"]
+        setup_locker = SetupLocker(api)
+        setup_locker.add_option("smart_shelf")
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker_id = locker_body["id"]
         locker = locker_body["value"]
-        iothub_body = response_smart_shelf["iothub"]
+        iothub_body = response_locker["iothub"]
 
-        ssa.delete_smart_shelves(response_smart_shelf["smart_shelves_id"])
+        ssa.delete_smart_shelves(response_locker["smart_shelf_id"])
         locker_conf = ha.get_locker_configuration(locker_id)
-        assert (locker_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_smart_shelf['smart_shelves_id']}"
-
-    @pytest.mark.regression
-    def test_planogram_assign_smart_shelf(self, ui, delete_shipto, delete_hardware, delete_smart_shelf):
-        ui.testrail_case_id = 1965
-
-        lp = LoginPage(ui)
-        lpp = LockerPlanogramPage(ui)
-        ha = AdminHardwareApi(ui)
-        ssa = SmartShelvesApi(ui)
-        sta = ShiptoApi(ui)
-
-        #create shipto
-        response_shipto = setup_shipto(ui)
-
-        # create smart shelf for main distributor
-        response_smart_shelf = setup_smart_shelves(ui, shipto=response_shipto["shipto_id"])
-        locker_body = response_smart_shelf["locker"]
-        locker = locker_body["value"]
-        iothub_body = response_smart_shelf["iothub"]
-
-        # remove locker from smart shelf
-        ssa.update_smart_shelf(locker_body, locker_body_second=False)
-
-        lp.log_in_distributor_portal()
-        lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
-        lpp.assign_smart_shelf_to_locker_door(response_smart_shelf["smart_shelf_number"])
+        assert (locker_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_locker['smart_shelf_id']}"
 
     @pytest.mark.regression
     def test_planogram_assign_smart_shelf(self, ui, delete_shipto, delete_hardware, delete_smart_shelf):
@@ -110,22 +96,26 @@ class TestSmartShelves():
         lp = LoginPage(ui)
         lpp = LockerPlanogramPage(ui)
         ssa = SmartShelvesApi(ui)
-        sta = ShiptoApi(ui)
 
         #create shipto
-        response_shipto = setup_shipto(ui)
+        response_shipto = SetupShipto(ui).setup()
 
         # create smart shelf for main distributor
-        response_smart_shelf = setup_smart_shelves(ui, shipto=response_shipto["shipto_id"])
-        locker_body = response_smart_shelf["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        setup_locker.add_option("shipto_id", response_shipto["shipto_id"])
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
+        iothub_body = response_locker["iothub"]
 
         # remove locker from smart shelf
         ssa.update_smart_shelf(locker_body, locker_body_second=False)
 
         lp.log_in_distributor_portal()
         lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
-        lpp.assign_smart_shelf_to_locker_door(response_smart_shelf["smart_shelf_number"])
+        lpp.assign_smart_shelf_to_locker_door(response_locker["smart_shelf_number"])
 
     @pytest.mark.regression
     def test_planogram_merge_split_cells(self, ui, delete_shipto, delete_hardware, delete_smart_shelf):
@@ -136,11 +126,15 @@ class TestSmartShelves():
         ssp = DistributorSmartShelvesPage(ui)
 
         #create shipto
-        response_shipto = setup_shipto(ui)
+        response_shipto = SetupShipto(ui).setup()
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui, shipto=response_shipto["shipto_id"])
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        setup_locker.add_option("shipto_id", response_shipto["shipto_id"])
+        response_locker = setup_locker.setup()
+    
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
 
         lp.log_in_distributor_portal()
@@ -160,13 +154,17 @@ class TestSmartShelves():
         ssa = SmartShelvesApi(ui)
 
         #create shipto
-        response_shipto = setup_shipto(ui)
+        response_shipto = SetupShipto(ui).setup()
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui, shipto=response_shipto["shipto_id"])
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        setup_locker.add_option("shipto_id", response_shipto["shipto_id"])
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
-        iothub_body = response_smart_shelves["iothub"]
+        iothub_body = response_locker["iothub"]
 
         # remove locker from smart shelf
         ssa.update_smart_shelf(locker_body=locker_body, locker_body_second=False)
@@ -188,13 +186,16 @@ class TestSmartShelves():
         ss = SmartShelvesPage(ui)
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui)
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker_1 = setup_locker.setup()
+
+        locker_body = response_locker_1["locker"]
         locker = locker_body["value"]
 
         # create second smart shelf for main distributor
-        response_second_smart_shelves = setup_smart_shelves(ui)
-        locker_body_second = response_second_smart_shelves["locker"]
+        response_locker_2 = setup_locker.setup()
+        locker_body_second = response_locker_2["locker"]
 
         # remove locker from smart shelf
         ssa.update_smart_shelf(locker_body=locker_body_second, locker_body_second=False)
@@ -205,7 +206,7 @@ class TestSmartShelves():
 
         lp.log_in_admin_portal()
         ss.sidebar_hardware()
-        ss.check_smart_shelf_unavailable_via_planogram(locker, response_smart_shelves["smart_shelf_number"], in_list=True)
+        ss.check_smart_shelf_unavailable_via_planogram(locker, response_locker_1["smart_shelf_number"], in_list=True)
 
         # move locker to iothub of second distributor
         first_locker_type_id = (ha.get_first_locker_type())["id"]
@@ -214,7 +215,7 @@ class TestSmartShelves():
         ss.page_refresh()
         ss.wait_until_progress_bar_loaded()
         ss.sidebar_hardware()
-        ss.check_smart_shelf_unavailable_via_planogram(locker, response_second_smart_shelves["smart_shelf_number"])
+        ss.check_smart_shelf_unavailable_via_planogram(locker, response_locker_2["smart_shelf_number"])
 
     @pytest.mark.regression
     def test_smart_shelves_assign_to_several_lockers(self, ui, delete_hardware, delete_smart_shelf):
@@ -224,20 +225,24 @@ class TestSmartShelves():
         ss = SmartShelvesPage(ui)
         hp = HardwarePage(ui)
         ssa = SmartShelvesApi(ui)
-        ha = AdminHardwareApi(ui)
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui)
-        smart_shelf_number = response_smart_shelves["smart_shelf_number"]
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker_1 = setup_locker.setup()
+
+        smart_shelf_number = response_locker_1["smart_shelf_number"]
+        locker_body = response_locker_1["locker"]
         locker = locker_body["value"]
 
         # remove locker from smart shelf
         ssa.update_smart_shelf(locker_body=locker_body, locker_body_second=False)
 
         # create second locker
-        response_second_locker = setup_locker(ui)
-        locker_body_second = response_second_locker["locker"]
+        setup_locker.add_option("smart_shelf", False)
+        response_locker_2 = setup_locker.setup()
+
+        locker_body_second = response_locker_2["locker"]
         locker_second = locker_body_second["value"]
 
         lp.log_in_admin_portal()
@@ -256,11 +261,15 @@ class TestSmartShelves():
         ssa = SmartShelvesApi(ui)
 
         #create shipto
-        response_shipto = setup_shipto(ui)
+        response_shipto = SetupShipto(ui).setup()
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui, shipto=response_shipto["shipto_id"])
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        setup_locker.add_option("shipto_id", response_shipto["shipto_id"])
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
 
         # remove locker from smart shelf
@@ -268,9 +277,9 @@ class TestSmartShelves():
 
         lp.log_in_distributor_portal()
         ssp.open_smart_shelves()
-        ssp.assign_smart_shelf_to_locker(response_smart_shelves["smart_shelf_number"], locker, "1")
+        ssp.assign_smart_shelf_to_locker(response_locker["smart_shelf_number"], locker, "1")
         lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
-        lpp.check_smart_shelf_via_planogram(response_smart_shelves["smart_shelf_number"], "1")
+        lpp.check_smart_shelf_via_planogram(response_locker["smart_shelf_number"], "1")
     
     @pytest.mark.regression
     def test_smart_shelves_crud(self, ui, delete_shipto, delete_hardware):
@@ -281,12 +290,14 @@ class TestSmartShelves():
         ha = AdminHardwareApi(ui)
 
         # create locker for main distributor
-        response_locker = setup_locker(ui)
+        setup_locker = SetupLocker(ui)
+        response_locker = setup_locker.setup()
         locker_body = response_locker["locker"]
         locker = locker_body["value"]
 
         # create locker for second distributor
-        response_second_locker = setup_locker(ui, distributor_id=ui.data.sub_distributor_id)
+        setup_locker.add_option("distributor_id", ui.data.sub_distributor_id)
+        response_second_locker = setup_locker.setup()
         locker_body_second = response_second_locker["locker"]
         edit_locker = locker_body_second["value"]
 
@@ -323,8 +334,11 @@ class TestSmartShelves():
         ssa = SmartShelvesApi(ui)
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui)
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
 
         # remove locker from smart shelf
@@ -332,7 +346,7 @@ class TestSmartShelves():
 
         #--------------------------------
         smart_shelves_body = dss.smart_shelves_body.copy()
-        smart_shelves_body["serialNumber"] = response_smart_shelves["smart_shelf_number"]
+        smart_shelves_body["serialNumber"] = response_locker["smart_shelf_number"]
         smart_shelves_body["assign_to"] = locker
         smart_shelves_body["door_number"] = "1"
 
@@ -350,10 +364,13 @@ class TestSmartShelves():
         ssa = SmartShelvesApi(ui)
 
         # create locker for main distributor
-        response_smart_shelves = setup_smart_shelves(ui)
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
-        iothub_body = response_smart_shelves["iothub"]
+        iothub_body = response_locker["iothub"]
 
         lp.log_in_admin_portal()
         ss.open_smart_shelves()
@@ -371,10 +388,13 @@ class TestSmartShelves():
         ssa = SmartShelvesApi(ui)
 
         # create smart shelf for main distributor
-        response = setup_smart_shelves(ui)
-        locker_body = response["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
-        iothub_body = response["iothub"]
+        iothub_body = response_locker["iothub"]
 
         lp.log_in_distributor_portal()
         dss.open_smart_shelves()
@@ -392,10 +412,13 @@ class TestSmartShelves():
         ssa = SmartShelvesApi(ui)
 
         # create smart shelf for main distributor
-        response = setup_smart_shelves(ui)
-        locker_body = response["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
-        iothub_body = response["iothub"]
+        iothub_body = response_locker["iothub"]
 
         lp.log_in_admin_portal()
         ss.open_smart_shelves()
@@ -411,10 +434,13 @@ class TestSmartShelves():
         ssa = SmartShelvesApi(ui)
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui)
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker = setup_locker.setup()
+
+        locker_body = response_locker["locker"]
         locker = locker_body["value"]
-        iothub_body = response_smart_shelves["iothub"]
+        iothub_body = response_locker["iothub"]
 
         lp.log_in_admin_portal()
         ss.open_smart_shelves()
@@ -426,19 +452,24 @@ class TestSmartShelves():
 
         lp = LoginPage(ui)
         ss = SmartShelvesPage(ui)
-        ssa = SmartShelvesApi(ui)
 
         # create smart shelf for main distributor
-        response_smart_shelves = setup_smart_shelves(ui)
-        locker_body = response_smart_shelves["locker"]
+        setup_locker = SetupLocker(ui)
+        setup_locker.add_option("smart_shelf")
+        response_locker_1 = setup_locker.setup()
+
+        locker_body = response_locker_1["locker"]
         locker = locker_body["value"]
-        iothub_body = response_smart_shelves["iothub"]
+        iothub_body = response_locker_1["iothub"]
 
         # create locker with 'without weights' configuration
-        response_setup_locker = setup_locker(ui, no_weight=True)
-        locker_body_noweights = response_setup_locker["locker"]
+        setup_locker.add_option("smart_shelf", False)
+        setup_locker.add_option("no_weight")
+        response_locker_2 = setup_locker.setup()
+
+        locker_body_noweights = response_locker_2["locker"]
         locker_noweights = locker_body_noweights["value"]
-        iothub_body_second = response_setup_locker["iothub"]
+        iothub_body_second = response_locker_2["iothub"]
 
         lp.log_in_admin_portal()
         ss.open_smart_shelves()
