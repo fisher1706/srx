@@ -1,5 +1,6 @@
 import pytest
 import copy
+import time
 from src.resources.locator import Locator
 from src.resources.tools import Tools
 from src.pages.general.login_page import LoginPage
