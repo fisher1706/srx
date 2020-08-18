@@ -168,6 +168,7 @@ class TestCustomers():
         ala.check_event(allocation_code_event, options)
 
         acp.sidebar_allocation_codes()
+        acp.wait_until_page_loaded()
         acp.check_allocation_code(edit_allocation_code_body.copy())
         acp.delete_allocation_code(edit_allocation_code_body["name"])
         allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)

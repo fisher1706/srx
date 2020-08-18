@@ -22,6 +22,7 @@ class TestVmi():
         setup_product.setup()
 
         vp.follow_location_url()
+        vp.wait_until_page_loaded()
         vp.click_id(Locator.id_add_button)
         vp.input_data_xpath(product_sku, Locator.xpath_dialog+Locator.xpath_select_box+"//input")
         vp.wait_until_dropdown_list_loaded(1)
