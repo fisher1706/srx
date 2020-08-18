@@ -52,6 +52,8 @@ class ReorderListPage(CustomerPortalPage):
         for shipto in po_number_body.keys():
             self.get_element_by_xpath(f"{Locator.xpath_dialog}//td[text()='{shipto}']")
             for index in range(1, rows_count+1):
+                text = self.get_item_text_in_po_dialog(index, 1)
+                self.logger.info(f"shipto: {text}")
                 if (self.get_item_text_in_po_dialog(index, 1) == shipto):
                     self.input_data_xpath(po_number_body[shipto], self.get_item_xpath_in_po_dialog(index, 4)+Locator.xpath_type_text)
                     break
