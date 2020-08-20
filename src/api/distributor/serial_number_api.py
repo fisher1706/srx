@@ -58,3 +58,12 @@ class SerialNumberApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
+
+    def delete_serial_number(self, serial_number_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber/{serial_number_id}")
+        token = self.get_distributor_token()
+        response = self.send_delete(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Serial Number has been successfully deleted")
+        else:
+            self.logger.error(str(response.content))
