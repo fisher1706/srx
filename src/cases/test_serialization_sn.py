@@ -295,11 +295,7 @@ class TestSerializationSN():
         sna = SerialNumberApi(api)
         sn = Tools.random_string_u()
         lot = Tools.random_string_u()
-        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot)
-
-        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["number"] == sn
-        assert sn_dto.get("lot") == None
+        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot, expected_status_code=400)
 
     @pytest.mark.regression
     def test_serial_number_crud(self, ui, delete_shipto):
