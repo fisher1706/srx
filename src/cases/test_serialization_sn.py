@@ -5,6 +5,7 @@ from src.resources.tools import Tools
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.serial_number_api import SerialNumberApi
+from src.api.distributor.product_api import ProductApi
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.serialization_page import SerializationPage
 
@@ -86,6 +87,39 @@ class TestSerializationSN():
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 1
+
+    @pytest.mark.regression
+    def test_ohi_serialized_location_is_not_reseted_when_update_product(self, api, delete_shipto):
+        api.testrail_case_id = 2145
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("serialized")
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        la = LocationApi(api)
+        pa = ProductApi(api)
+        sn = Tools.random_string_u()
+        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 1
+
+        product_dto = response_location["product"]
+        product_id = product_dto.pop("id")
+        product_dto["image"] = sn
+        pa.update_product(product_dto, product_id)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 1
+
 
     @pytest.mark.regression
     def test_sn_created_in_assigned_status_for_serialized_location(self, api, delete_shipto):
@@ -317,3 +351,28 @@ class TestSerializationSN():
         assert sp.get_element_text(ohi_path) == "1"
         sp.delete_last_serial_number(edit_serial_number_body["number"])
         assert sp.get_element_text(ohi_path) == "0"
+
+    @pytest.mark.regression
+    def test_serialized_ohi_decreased_when_delete_location(self, api, delete_shipto):
+        api.testrail_case_id = 2144
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("serialized")
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        la = LocationApi(api)
+        sn = Tools.random_string_u()
+        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto)
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 1
+
+        sna.delete_serial_number(sn_id)
+
+        locations = la.get_locations(response_location["shipto_id"])
+        assert locations[0]["onHandInventory"] == 0
