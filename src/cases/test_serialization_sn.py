@@ -120,7 +120,6 @@ class TestSerializationSN():
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 1
 
-
     @pytest.mark.regression
     def test_sn_created_in_assigned_status_for_serialized_location(self, api, delete_shipto):
         api.testrail_case_id = 2108
