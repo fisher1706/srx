@@ -1,0 +1,10 @@
+{
+    "settings": {
+        "enableAutoExpire": false,
+        "daysUntilAutoExpiration": 0,
+        "enableExpirationAlarm": false,
+        "daysUntilExpirationAlarm": 0,
+        "useDefault": false
+    },
+    "useDefault": false
+}

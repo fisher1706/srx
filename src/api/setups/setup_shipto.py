@@ -11,7 +11,8 @@ class SetupShipto(BaseSetup):
         self.setup_name = "ShipTo"
         self.options = {
             "checkout_settings": None,
-            "autosubmit_settings": None
+            "autosubmit_settings": None,
+            "serialization_settings": None
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
 
@@ -19,6 +20,7 @@ class SetupShipto(BaseSetup):
         self.set_shipto()
         self.set_checkout_settings()
         self.set_autosubmit_settings()
+        self.set_serialization_settings()
 
         response = {
             "shipto": self.shipto,
@@ -59,7 +61,7 @@ class SetupShipto(BaseSetup):
                     self.options["checkout_settings"].get("scan_to_order"),
                     self.options["checkout_settings"].get("enable_reorder_control"))
             else:
-                self.context.logger.warning(f"Unknown 'checkout_settings' option: '{checkout_settings_shipto}'")
+                self.context.logger.warning(f"Unknown 'checkout_settings' option: '{self.options['checkout_settings']}'")
 
     def set_autosubmit_settings(self):
         if (self.options["autosubmit_settings"] is not None):
@@ -73,4 +75,17 @@ class SetupShipto(BaseSetup):
                     self.options["autosubmit_settings"].get("immediately"),
                     self.options["autosubmit_settings"].get("as_order"))
             else:
-                self.context.logger.warning(f"Unknown 'autosubmit_settings' option: '{checkout_settings_shipto}'")
+                self.context.logger.warning(f"Unknown 'autosubmit_settings' option: '{self.options['autosubmit_settings']}'")
+
+    def set_serialization_settings(self):
+        if (self.options["serialization_settings"] is not None):
+            sta = SettingsApi(self.context)
+            if (self.options["serialization_settings"] == "OFF"):
+                sta.set_serialization_settings_shipto(self.id)
+            elif (type(self.options["serialization_settings"]) is dict):
+                sta.set_serialization_settings_shipto(
+                    self.id,
+                    self.options["serialization_settings"].get("expiration"),
+                    self.options["serialization_settings"].get("alarm"))
+            else:
+                self.context.logger.warning(f"Unknown 'serialization_settings' option: '{self.options['serialization_settings']}'")

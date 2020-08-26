@@ -184,6 +184,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -250,21 +251,6 @@ class TestSerializationSN():
 
         serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
         assert serial_number_count == 0, "Serial Numbers should be deleted when you turn off serialization for their location"
-
-    @pytest.mark.regression
-    def test_create_sn_in_expired_status(self, api, delete_shipto):
-        api.testrail_case_id = 2140
-
-        setup_location = SetupLocation(api)
-        setup_location.add_option("serialized")
-        response_location = setup_location.setup()
-
-        sna = SerialNumberApi(api)
-        sn = Tools.random_string_u()
-        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration":time.time()*1000})
-
-        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "EXPIRED"
 
     @pytest.mark.regression
     def test_create_serial_number_with_lot(self, api, delete_shipto):

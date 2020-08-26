@@ -75,3 +75,20 @@ class SettingsApi(API):
         rl_rules_settings_dto["replenishmentListRules"]["settings"]["orderSubmitSettings"] = order
         rl_rules_settings_dto["replenishmentListRules"]["settings"]["pricingNotAvailableBehavior"] = pricing
         self.update_rl_rules_settings_shipto(rl_rules_settings_dto, shipto_id)
+
+    def update_serialization_settings_shipto(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/serialnumber/settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if (response.status_code == 200):
+            self.logger.info(f"Serialization settings of shipto with ID = '{shipto_id}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
+
+    def set_serialization_settings_shipto(self, shipto_id, expiration=None, alarm=None):
+        serialization_settings_dto = Tools.get_dto("serialization_settings_dto.json")
+        serialization_settings_dto["settings"]["enableAutoExpire"] = bool(expiration)
+        serialization_settings_dto["settings"]["daysUntilAutoExpiration"] = 0 if expiration is None else expiration
+        serialization_settings_dto["settings"]["enableExpirationAlarm"] = bool(alarm)
+        serialization_settings_dto["settings"]["daysUntilExpirationAlarm"] = 0 if alarm is None else alarm
+        self.update_serialization_settings_shipto(serialization_settings_dto, shipto_id)
