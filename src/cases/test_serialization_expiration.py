@@ -194,3 +194,59 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "AVAILABLE"
 
+    @pytest.mark.regression
+    def test_no_expiration_alarm_when_update_to_issued(self, api, delete_shipto):
+        api.testrail_case_id = 2162
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("serialized")
+        setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        sn = Tools.random_string_u()
+        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": self.in_3_days_timestamp})
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        assert sn_dto["status"] == "ASSIGNED"
+        assert sn_dto["expirationAlarm"], "Expiration alarm should be present"
+
+        sn_dto["status"] = "ISSUED"
+        sna.update_serial_number(sn_dto)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        assert sn_dto["status"] == "ISSUED"
+        assert not sn_dto["expirationAlarm"], "ISSUED Serial Numbers cannot have expiration alarm"
+
+    @pytest.mark.regression
+    def test_no_expiration_alarm_when_update_doe(self, api, delete_shipto):
+        api.testrail_case_id = 2164
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("serialized")
+        setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        sn = Tools.random_string_u()
+        sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        assert sn_dto["status"] == "ASSIGNED"
+        assert not sn_dto["expirationAlarm"], "Expiration alarm should not be present"
+
+        sn_dto["status"] = "ISSUED"
+        sna.update_serial_number(sn_dto)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        assert sn_dto["status"] == "ISSUED"
+        assert not sn_dto["expirationAlarm"], "Expiration alarm should not be present"
+
+        sn_dto["dateExpiration"] = self.in_3_days_timestamp
+        sna.update_serial_number(sn_dto)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        assert not sn_dto["expirationAlarm"], "ISSUED Serial Numbers cannot have expiration alarm"
+        assert sn_dto["status"] == "ISSUED"
+
+
