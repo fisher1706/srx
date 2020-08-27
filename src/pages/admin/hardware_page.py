@@ -114,11 +114,11 @@ class HardwarePage(AdminPortalPage):
         self.get_element_by_xpath(Locator.xpath_configure_button)
         if (door_number is None):
             count = self.get_element_count(Locator.xpath_configure_button)
-            door_number = random.choice(range(0, count))+1
+            door_number = random.choice(range(count))+1
         if (serial_number is None):
             serial_number = Tools.random_string_u()
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_configure_button, door_number))
-        if (is_weight == False):
+        if (not is_weight):
             xpath_radio = self.xpath_no_weight_radio
         else:
             xpath_radio = self.xpath_weight_radio
@@ -136,6 +136,6 @@ class HardwarePage(AdminPortalPage):
 
     def check_locker_door(self, doors_data):
         assert doors_data["serial_number"] == self.get_element_text(self.xpath_door_serial_number), "The Door SN is incorrect"
-        if (doors_data["weight"] == False):
+        if (not doors_data["weight"]):
             smart_shelves = self.get_element_count(self.xpath_smart_shelf_absence_title)
             assert doors_data["doors_count"] == smart_shelves + 1, "The number of noWeight doors is incorrect"

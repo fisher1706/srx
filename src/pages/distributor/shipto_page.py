@@ -19,6 +19,7 @@ class ShiptoPage(DistributorPortalPage):
         self.follow_url(self.url.get_url_for_env(f"storeroomlogix.com/customers/{self.data.customer_id}#shiptos", "distributor"))
 
     def create_shipto(self, shipto_body):
+        self.wait_until_page_loaded()
         start_number_of_rows = self.get_table_rows_number()
         self.click_id(Locator.id_add_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), shipto_body.pop("state"))

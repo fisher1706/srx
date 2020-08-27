@@ -50,7 +50,7 @@ class RfidApi(API):
                 }
                 return response
             else:
-                if (stop_cycle == True):
+                if (stop_cycle):
                     self.logger.error("Error during getting the delivery manifest")
 
     def create_return_manifest(self):

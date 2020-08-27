@@ -12,7 +12,7 @@ class Logger():
         self.log += f"\n[INFO] {string}"
 
     def error(self, string):
-        if (self.context.is_teardown is True):
+        if (self.context.is_teardown):
             self.warning("\n\nError during teardown")
         trace = traceback.format_exc()
         self.logging.error(string)

@@ -15,7 +15,7 @@ class CheckoutUserApi(API):
     def checkout_user_should_be_present(self, checkout_user_body):
         checkout_users = self.get_checkout_users()
         count = len(checkout_users["data"])
-        for index in range(0, count):
+        for index in range(count):
             if (checkout_user_body["email"] == checkout_users["data"][index]["email"]):
                 if (checkout_user_body["lastName"] == checkout_users["data"][index]["lastName"] and checkout_user_body["firstName"] == checkout_users["data"][index]["firstName"]):
                     self.logger.info(f"There is checkout user with email '{checkout_user_body['email']}'")
@@ -27,7 +27,7 @@ class CheckoutUserApi(API):
     def checkout_user_should_not_be_present(self, checkout_user_body):
         checkout_users = self.get_checkout_users()
         count = len(checkout_users["data"])
-        for index in range(0, count):
+        for index in range(count):
             if (checkout_user_body["firstName"] == checkout_users["data"][index]["firstName"] and checkout_user_body["lastName"] == checkout_users["data"][index]["lastName"]):
                 self.logger.error(f"There is checkout user with email '{checkout_user_body['email']}'")
                 break

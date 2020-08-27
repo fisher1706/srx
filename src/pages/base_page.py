@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
 from src.waits import *
 from src.resources.locator import Locator
 import csv
@@ -56,20 +57,28 @@ class BasePage():
         return element.text
 
     def click_id(self, id, timeout=20):
-        self.get_element_by_id(id)
+        element = self.get_element_by_id(id)
         try:
-            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, id))).click()
-        except:
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, id)))
+            element.click()
+        except TimeoutException:
             self.logger.error(f"Element with ID = '{id}' is not clickable")
+        except:
+            self.logger.error(f"Element with ID = '{id}' cannot be clicked")
         else:
             self.logger.info(f"Element with ID = '{id}' is clicked")
 
     def click_xpath(self, xpath, timeout=20):
-        self.get_element_by_xpath(xpath)
+        element = self.get_element_by_xpath(xpath)
         try:
-            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath))).click()
-        except:
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath)))
+            element.click()
+        except TimeoutException:
             self.logger.error(f"Element with XPATH = '{xpath}' is not clickable")
+        except:
+            self.logger.error(f"Element with ID = '{xpath}' cannot be clicked")
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' is clicked")
 
@@ -95,9 +104,9 @@ class BasePage():
 
     def should_be_disabled_xpath(self, xpath, wait=False):
         element = self.get_element_by_xpath(xpath)
-        if (wait == False):
+        if (not wait):
             assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
-        elif (wait == True):
+        else:
             WebDriverWait(self.driver, 7).until(wait_until_disabled(xpath))
             assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
 
@@ -205,7 +214,7 @@ class BasePage():
     def open_last_page(self):
         pagination_buttons = self.driver.find_elements_by_xpath(f"{Locator.xpath_pagination_bottom}//button")
         if (len(pagination_buttons) > 3):
-            if(pagination_buttons[-2].is_enabled() == True):
+            if(pagination_buttons[-2].is_enabled()):
                 self.wait_until_page_loaded()
                 pagination_buttons[-2].click()
                 self.should_be_last_page()
@@ -263,7 +272,7 @@ class BasePage():
                             self.logger.error(f"{row} element in '{header}' column is incorrect")
                             correctness = False
                             break
-                if (correctness == True):
+                if (correctness):
                     self.logger.info(f"{row} element in '{header}' column is correct")
             else:
                 if (current_text == expected_text):
@@ -334,12 +343,12 @@ class BasePage():
     def checkbox_should_be(self, xpath, condition):
         element = self.get_element_by_xpath(xpath)
         checked = element.get_attribute("checked")
-        if (condition == True):
+        if (condition):
             if (checked == 'true'):
                 self.logger.info(f"Checkbox with XPATH = '{xpath}' is checked")
             elif (checked is None):
                 self.logger.error(f"Checkbox with XPATH = '{xpath}' should be checked")
-        elif (condition == False):
+        elif (not condition):
             if (checked is None):
                 self.logger.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
             elif (checked == 'true'):
@@ -349,7 +358,7 @@ class BasePage():
 
     def scan_table(self, scan_by, column_header, body=None, pagination=True):
         column = self.get_header_column(column_header)
-        if (pagination == True):
+        if (pagination):
             pagination_buttons = self.driver.find_elements_by_xpath(Locator.xpath_pagination_bottom+"//button")
         if (column):
             is_break = False
@@ -366,8 +375,8 @@ class BasePage():
                             return row
                 if (is_break):
                     break
-                if (pagination == True):
-                    if (len(pagination_buttons) > 3 and pagination_buttons[-2].is_enabled() == True):
+                if (pagination):
+                    if (len(pagination_buttons) > 3 and pagination_buttons[-2].is_enabled()):
                             pagination_buttons[-1].click()
                             self.wait_until_page_loaded()
                     else:
@@ -485,7 +494,12 @@ class BasePage():
 
     def wait_untill_dropdown_not_empty(self, xpath):
         try:
-            WebDriverWait(self.driver, time).until(wait_until_dropdown_is_not_empty(xpath))
+            WebDriverWait(self.driver, 15).until(EC.wait_until_dropdown_is_not_empty(By.XPATH, xpath))
         except:
             pass
 
+    def select_shipto_sku(self, shipto, sku):
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), shipto)
+        self.wait_until_page_loaded()
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), sku)
+        self.wait_until_page_loaded()

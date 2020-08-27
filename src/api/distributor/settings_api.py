@@ -11,13 +11,22 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_checkout_software_settings_for_shipto(self, shipto_id, reorder_controls="MIN", track_ohi=True, scan_to_order=True, enable_reorder_control=True):
+    def set_checkout_software_settings_for_shipto(self, shipto_id, reorder_controls=None, track_ohi=None, scan_to_order=None, enable_reorder_control=None):
+        if (reorder_controls is None):
+            reorder_controls = "MIN"
+        if (track_ohi is None):
+            track_ohi = True
+        if (scan_to_order is None):
+            scan_to_order = True
+        if (enable_reorder_control is None):
+            enable_reorder_control = True
+
         checkout_settings_dto = Tools.get_dto("checkout_settings_dto.json")
-        if (track_ohi == False):
+        if (not track_ohi):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("TRACK_OHI")
-        if (scan_to_order == False):
+        if (not scan_to_order):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("ENABLE_SCAN_TO_ORDER")
-        if (enable_reorder_control == False):
+        if (not enable_reorder_control):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("ENABLE_REORDER_CONTROLS")
         if (reorder_controls == "ISSUED"):
             checkout_settings_dto["settings"]["reorderControls"] = "ADD_AS_ISSUED"
@@ -32,7 +41,7 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        if (bool(response_json["data"]) is False):
+        if (not bool(response_json["data"])):
             self.logger.error(f"Checkout software settings of shipto with ID = '{shipto_id}' are empty")
         return response_json["data"]
 
@@ -45,7 +54,7 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_autosubmit_settings_shipto(self, shipto_id, enabled=False, immediately=False, as_order=False):
+    def set_autosubmit_settings_shipto(self, shipto_id, enabled=None, immediately=None, as_order=None):
         autosubmit_settings_dto = Tools.get_dto("autosubmit_settings_dto.json")
         autosubmit_settings_dto["transactionAutoSubmitSettings"]["submitImmediately"] = bool(immediately)
         autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmit"] = bool(enabled)
@@ -66,3 +75,20 @@ class SettingsApi(API):
         rl_rules_settings_dto["replenishmentListRules"]["settings"]["orderSubmitSettings"] = order
         rl_rules_settings_dto["replenishmentListRules"]["settings"]["pricingNotAvailableBehavior"] = pricing
         self.update_rl_rules_settings_shipto(rl_rules_settings_dto, shipto_id)
+
+    def update_serialization_settings_shipto(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/serialnumber/settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if (response.status_code == 200):
+            self.logger.info(f"Serialization settings of shipto with ID = '{shipto_id}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
+
+    def set_serialization_settings_shipto(self, shipto_id, expiration=None, alarm=None):
+        serialization_settings_dto = Tools.get_dto("serialization_settings_dto.json")
+        serialization_settings_dto["settings"]["enableAutoExpire"] = bool(expiration)
+        serialization_settings_dto["settings"]["daysUntilAutoExpiration"] = 0 if expiration is None else expiration
+        serialization_settings_dto["settings"]["enableExpirationAlarm"] = bool(alarm)
+        serialization_settings_dto["settings"]["daysUntilExpirationAlarm"] = 0 if alarm is None else alarm
+        self.update_serialization_settings_shipto(serialization_settings_dto, shipto_id)

@@ -1,29 +1,49 @@
 from src.api.distributor.product_api import ProductApi
+from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
 import random
+import copy
 
+class SetupProduct(BaseSetup):
+    def __init__(self, context):
+        super().__init__(context)
+        
+        self.setup_name = "Product"
+        self.options = {
+            "product": None,
+            "sku": None,
+            "serialized": None,
+            "lot": None,
+            "package_conversion": None,
+            "asset": None,
+            "round_buy": None
+        }
+        self.product = Tools.get_dto("product_dto.json")
 
-def setup_product(context, product_dto=None, is_asset=None, sku=None, is_serialized=None, is_lot=None, package_conversion=None, expected_status_code=None):
-    pa = ProductApi(context)
+    def setup(self, expected_status_code=None):
+        self.expected_status_code = expected_status_code
+        self.set_product()
 
-    if (product_dto is None):
-        product_dto = Tools.get_dto("product_dto.json")
-        if (sku is None):
-            product_dto["partSku"] = Tools.random_string_u(18)
+        return copy.deepcopy(self.product)
+
+    def set_product(self):
+        pa = ProductApi(self.context)
+        if (self.options["product"] is None):
+            if (self.options["sku"] is None):
+                self.product["partSku"] = Tools.random_string_u(18)
+            else:
+                self.product["partSku"] = self.options["sku"]
+            self.product["shortDescription"] = f"{self.product['partSku']} - short description"
+            self.product["assetFlag"] = bool(self.options["asset"])
+            if (bool(self.options["asset"])):
+                self.product["roundBuy"] = 1 if self.options["round_buy"] is None else self.options["round_buy"]
+            else:
+                self.product["roundBuy"] = random.choice(range(2, 100)) if self.options["round_buy"] is None else self.options["round_buy"]
+            self.product["serialized"] = self.options["serialized"]
+            self.product["lot"] = self.options["lot"]
+            self.product["packageConversion"] = self.options["package_conversion"]
         else:
-            product_dto["partSku"] = sku
-        product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
-        product_dto["roundBuy"] = random.choice(range(2, 100))
-        if (is_asset is not None):
-            product_dto["assetFlag"] = bool(is_asset)
-        if (is_serialized is not None):
-            product_dto["serialized"] = bool(is_serialized)
-        if (is_lot is not None):
-            product_dto["lot"] = bool(is_lot)
-        if (package_conversion is not None):
-            product_dto["packageConversion"] = package_conversion
+            self.product = self.options["product"]
 
-    product_id = pa.create_product(product_dto.copy(), expected_status_code=expected_status_code)
-    product_dto["id"] = product_id
-
-    return product_dto.copy()
+        self.id = pa.create_product(copy.deepcopy(self.product), expected_status_code=self.expected_status_code)
+        self.product["id"] = self.id

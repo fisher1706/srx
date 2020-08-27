@@ -5,11 +5,6 @@ from src.resources.locator import Locator
 class RfidPage(DistributorPortalPage):
     xpath_rfid_add = f"{Locator.xpath_submit_button}//span[text()='Add']"
 
-    def select_shipto_sku(self, shipto, sku):
-        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), shipto)
-        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), sku)
-        self.wait_until_page_loaded()
-
     def add_rfid_label(self, label=None):
         if (label is None):
             label = Tools.random_string_u()

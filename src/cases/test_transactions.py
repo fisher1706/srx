@@ -1,11 +1,11 @@
 import pytest
 import copy
+import time
 from src.resources.locator import Locator
 from src.resources.tools import Tools
 from src.pages.general.login_page import LoginPage
 from src.pages.customer.reorder_list_page import ReorderListPage
-from src.api.setups.setup_location import setup_location
-from src.api.setups.setup_locker_location import setup_locker_location
+from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
@@ -24,8 +24,8 @@ class TestTransactions():
         la = LocationApi(ui)
         sta = SettingsApi(ui)
 
-        response_location_1 = setup_location(ui)
-        response_location_2 = setup_location(ui)
+        response_location_1 = SetupLocation(ui).setup()
+        response_location_2 = SetupLocation(ui).setup()
 
         product_1_dto = response_location_1["product"]
         product_2_dto = response_location_2["product"]
@@ -71,8 +71,9 @@ class TestTransactions():
         la = LocationApi(ui)
         sta = SettingsApi(ui)
 
-        response_location_1 = setup_location(ui)
-        response_location_2 = setup_location(ui)
+        response_location_1 = SetupLocation(ui).setup()
+        response_location_2 = SetupLocation(ui).setup()
+
         product_1_dto = response_location_1["product"]
         product_2_dto = response_location_2["product"]
         shipto_1_dto = response_location_1["shipto"]
@@ -106,22 +107,23 @@ class TestTransactions():
         la = LocationApi(api)
         sta = SettingsApi(api)
 
-        response_location = setup_locker_location(api, no_weight=True)
-        sta.set_checkout_software_settings_for_shipto(response_location["shipto_id"])
+        setup_location = SetupLocation(api)
+        setup_location.add_option("locker_location")
+        setup_location.setup_locker.add_option("no_weight")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
-        location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
         location_body = copy.deepcopy(response_location["location"])
         location_dto = copy.deepcopy(location_body)
         location_dto["onHandInventory"] = 1
         location_dto["orderingConfig"]["lockerWithNoWeights"] = True
-        location_dto["id"] = location_id
+        location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert len(transaction) == 1, "The number of transactions should be equal to 1"
         assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
         assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
-
 
     @pytest.mark.smoke
     def test_smoke_label_transaction_and_activity_log(self, smoke_api):
@@ -141,6 +143,12 @@ class TestTransactions():
         transaction_id = transactions["entities"][0]["id"]
         assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
         ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
-        activity_log_after = ala.get_activity_log()
-        activity_log_records_after = activity_log_after["totalElements"]
+        for i in range(3):
+            activity_log_after = ala.get_activity_log()
+            activity_log_records_after = activity_log_after["totalElements"]
+            if (activity_log_records_after <= activity_log_records_before):
+                time.sleep(10)
+                continue
+            else:
+                break
         assert activity_log_records_before != activity_log_records_after, "There are no new records in activity log"

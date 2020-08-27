@@ -101,7 +101,7 @@ class SmartShelvesPage(AdminPortalPage):
     def check_first_door_is_unavaliable(self, locker, create=None): 
         if (create is None):
             self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
-        elif (create is True):
+        elif (create):
             self.click_id(Locator.id_add_button)
             # input Serial Number
             self.input_by_name("serialNumber", Tools.random_string_u())
@@ -155,12 +155,12 @@ class SmartShelvesPage(AdminPortalPage):
         self.input_data_xpath(smart_shelf, f"{Locator.xpath_dropdown_in_dialog(1)}//input")
         self.get_element_by_xpath(Locator.xpath_dropdown_list_item)
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
-        if (in_list is True):
+        if (in_list):
             if (f"{text}" == f"{smart_shelf}"):
                 self.logger.info(f"There is {smart_shelf} as expected")
             else:
                 self.logger.error(f"Smart Shelf {smart_shelf} should be in the list")
-        if (in_list is False):
+        else:
             if (f"{text}" == f"{smart_shelf}"):
                 self.logger.error(f"Smart Shelf {smart_shelf} should not be in the list")
             else:

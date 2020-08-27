@@ -3,8 +3,8 @@ from src.api.distributor.distributor_hardware_api import DistributorHardwareApi
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.shipto_api import ShiptoApi
-from src.api.setups.setup_locker_location import setup_locker_location
-from src.api.setups.setup_locker import setup_locker
+from src.api.setups.setup_locker import SetupLocker
+from src.api.setups.setup_location import SetupLocation
 from src.pages.admin.hardware_page import HardwarePage
 from src.pages.general.login_page import LoginPage
 
@@ -26,7 +26,10 @@ class TestHardware():
         ha = AdminHardwareApi(api)
         la = LocationApi(api)
 
-        response_location = setup_locker_location(api)
+        setup_location = SetupLocation(api)
+        setup_location.add_option("locker_location")
+        response_location = setup_location.setup()
+
         original_location_count = len(la.get_locations(response_location["shipto_id"]))
         assert original_location_count == 1, "The number of location should be 1"
         ha.update_locker_configuration(response_location["locker"]["id"], True)
@@ -41,7 +44,8 @@ class TestHardware():
         hp = HardwarePage(ui)
         ha = AdminHardwareApi(ui)
 
-        response_locker = setup_locker(ui)
+        setup_locker = SetupLocker(ui)
+        response_locker = setup_locker.setup()
         locker_body = response_locker["locker"]
         iothub_body = response_locker["iothub"]
 
@@ -110,4 +114,3 @@ class TestHardware():
         hp.update_last_iothub(ui.data.sub_distributor_name)
         hp.check_last_hardware(serial_number=serial_number, device_type="IOTHUB", distributor=ui.data.sub_distributor_name)
         hp.remove_last_hardware("IOTHUB")
-

@@ -46,7 +46,7 @@ class TestAuthorization():
         lp = LoginPage(ui)
 
         lp.follow_admin_portal()
-        lp.input_email("example@example.com")
+        lp.input_email("example@agilevision.io")
         lp.submit_button_should_be_disabled()
         lp.input_password("example")
         lp.submit_button_should_be_enabled()
@@ -67,7 +67,7 @@ class TestAuthorization():
 
         lp.follow_admin_portal()
         lp.open_forgot_password_page()
-        lp.input_email("example@example.com")
+        lp.input_email("example@agilevision.io")
         lp.submit_button_should_be_enabled()
         lp.click_on_submit_button()
         lp.get_element_by_xpath("//div[text()='Email should arrive within 5 minutes']")

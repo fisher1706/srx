@@ -6,7 +6,7 @@ from src.pages.admin.universal_catalog_page import UniversalCatalogPage
 from src.pages.general.login_page import LoginPage
 from src.api.admin.universal_catalog_api import UniversalCatalogApi
 from src.api.distributor.product_api import ProductApi
-from src.api.setups.setup_product import setup_product
+from src.api.setups.setup_product import SetupProduct
 
 class TestCatalog():
     @pytest.mark.regression
@@ -27,7 +27,7 @@ class TestCatalog():
         edit_product_body["shortDescription"] = f"{product_body['partSku']} - edit short description"
         edit_product_body["roundBuy"] = "27"
         edit_product_body["lifecycleStatus"] = "OBSOLETE"
-        edit_product_body["image"] = "example.com"
+        edit_product_body["image"] = "agilevision.io"
         edit_product_body["longDescription"] = "long description"
         edit_product_body["weight"] = "100"
         edit_product_body["height"] = "200"
@@ -144,7 +144,8 @@ class TestCatalog():
         uca = UniversalCatalogApi(api)
 
         start_count = uca.get_universal_catalog(count=True)
-        setup_product(api)
+
+        SetupProduct(api).setup()
         end_count = uca.get_universal_catalog(count=True)
         assert start_count == end_count, f"Empty products should not be added to the universal catalog ({start_count} != {end_count})"
 
@@ -163,7 +164,10 @@ class TestCatalog():
         product_dto["manufacturer"] = Tools.random_string_u(18)
         product_dto["manufacturerPartNumber"] = Tools.random_string_u(18)
 
-        setup_product(api, product_dto=product_dto)
+        setup_product = SetupProduct(api)
+        setup_product.add_option("product", product_dto)
+        setup_product.setup()
+        
         universal_catalog = uca.get_universal_catalog(upc=product_dto["upc"], gtin=product_dto["gtin"], manufacturer=product_dto["manufacturer"], manufacturer_part_number=product_dto["manufacturerPartNumber"])
         assert len(universal_catalog) == 1, "Only 1 element in universal catalog should match to the filter"
         assert universal_catalog[0]["distributorName"] == api.data.distributor_name

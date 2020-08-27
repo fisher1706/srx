@@ -24,9 +24,9 @@ class CustomerSecurityGroups(CustomerPortalPage):
         text = self.get_element_by_xpath("//input[@name='name']").get_attribute("value")
         assert text == security_group_body["name"], f"Name contains incorrect text: {text}"
         for x in range(1, 4):
-            if (security_group_body["checked"] is True):
+            if (security_group_body["checked"]):
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, x), True)
-            elif (security_group_body["checked"] is False):
+            else:
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, x), False)
         self.click_xpath("//a[@href='/users-and-groups#security-groups']")
     
@@ -37,9 +37,9 @@ class CustomerSecurityGroups(CustomerPortalPage):
         self.click_xpath(Locator.xpath_submit_button)
         self.wait_until_progress_bar_loaded()
         for x in range(1, 4):
-            if (security_group_body["checked"] is True):
+            if (security_group_body["checked"]):
                 self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, x))
-            if (security_group_body["checked"] is False):
+            else:
                 self.unselect_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, x))
         self.click_xpath(f"({Locator.xpath_submit_button})[last()]")
         self.wait_until_progress_bar_loaded()
