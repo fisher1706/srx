@@ -40,6 +40,8 @@ class Data():
         self.customer_user_id = "26"
         self.passcode = "AUTOTEST"
         self.customer_user_passcode = "PSCD"
+        self.customer_user_first_name = "123"
+        self.customer_user_last_name = "32123"
 
     def qa_environment(self):
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
@@ -57,6 +59,8 @@ class Data():
         self.customer_user_id = "11"
         self.passcode = "AUTOTEST"
         self.customer_user_passcode = "PSCD"
+        self.customer_user_first_name = "dprovorov+cust@agilevision.io"
+        self.customer_user_last_name = "dprovorov+cust@agilevision.io"
 
 class SmokeData():
     def __init__(self, environment):

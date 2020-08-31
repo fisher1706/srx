@@ -70,7 +70,7 @@ class TestAuthorization():
         lp.input_email("example@agilevision.io")
         lp.submit_button_should_be_enabled()
         lp.click_on_submit_button()
-        lp.get_element_by_xpath("//div[text()='Email should arrive within 5 minutes']")
+        lp.get_element_by_xpath("//span[text()='Please check if the entered email address is correct and try again.']")
         lp.return_from_forgot_password_page()
         lp.it_should_be_login_page()
 

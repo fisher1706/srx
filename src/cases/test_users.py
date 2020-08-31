@@ -55,7 +55,7 @@ class TestUsers():
         customer_user_body["email"] = Tools.random_email()
         customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
         customer_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        customer_user_body["role"] = "User"
+        customer_user_body["role"] = "Customer User"
         customer_user_body["shiptos"] = [ui.data.shipto_number]
         #-------------------
         edit_customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
