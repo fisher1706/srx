@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.tools import Tools
+import time
 
 class SettingsApi(API):
     def update_checkout_software_settings_shipto(self, dto, shipto_id):
@@ -85,10 +86,12 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_serialization_settings_shipto(self, shipto_id, expiration=None, alarm=None):
+    def set_serialization_settings_shipto(self, shipto_id, expiration=None, alarm=None, sleep=None):
         serialization_settings_dto = Tools.get_dto("serialization_settings_dto.json")
         serialization_settings_dto["settings"]["enableAutoExpire"] = bool(expiration)
         serialization_settings_dto["settings"]["daysUntilAutoExpiration"] = 0 if expiration is None else expiration
         serialization_settings_dto["settings"]["enableExpirationAlarm"] = bool(alarm)
         serialization_settings_dto["settings"]["daysUntilExpirationAlarm"] = 0 if alarm is None else alarm
         self.update_serialization_settings_shipto(serialization_settings_dto, shipto_id)
+        if (sleep is not None):
+            time.sleep(sleep)
