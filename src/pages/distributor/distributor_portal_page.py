@@ -5,7 +5,7 @@ class DistributorPortalPage(BasePage):
         self.click_xpath("//button[@data-testid='status-button']/..")
 
     def sidebar_users(self):
-        self.click_id("sidebar-distributor_users")
+        self.click_id("sidebar-users-groups")
 
     def sidebar_warehouses(self):
         self.click_id("sidebar-warehouses")
