@@ -29,8 +29,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=5)
-
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=5, sleep=3)
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
@@ -330,7 +329,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ISSUED"
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=5)
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=5, sleep=3)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ISSUED"
@@ -410,7 +409,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"])
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], sleep=3)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
@@ -444,7 +443,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"])
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], sleep=3)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "AVAILABLE"
@@ -466,8 +465,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=1)
-        time.sleep(1)
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=1, sleep=3)
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
 
@@ -500,8 +498,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=1)
-        time.sleep(1)
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=1, sleep=3)
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "AVAILABLE"
 
@@ -523,8 +520,7 @@ class TestSerializationExpiration():
         assert sn_dto["dateExpirationAlarmCountDown"] == 4
         assert sn_dto["expirationAlarm"]
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=1, alarm=5)
-        time.sleep(1)
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=1, alarm=5, sleep=3)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["dateExpirationAlarmCountDown"] == 3
@@ -537,8 +533,7 @@ class TestSerializationExpiration():
         assert sn_dto["dateExpirationAlarmCountDown"] == 2
         assert sn_dto["expirationAlarm"]
 
-        sta.set_serialization_settings_shipto(response_location["shipto_id"], alarm=5)
-        time.sleep(1)
+        sta.set_serialization_settings_shipto(response_location["shipto_id"], alarm=5, sleep=3)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["dateExpirationAlarmCountDown"] == 3
@@ -568,7 +563,6 @@ class TestSerializationExpiration():
         assert sn_dto["status"] == "EXPIRED"
 
         sta.set_serialization_settings_shipto(response_location["shipto_id"], alarm=3)
-        time.sleep(1)
 
         sn_dto["dateExpiration"] = self.in_3_days_timestamp
         sna.update_serial_number(sn_dto)
