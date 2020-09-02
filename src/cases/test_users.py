@@ -1,6 +1,7 @@
 import pytest
 from src.resources.tools import Tools
 from src.resources.locator import Locator
+from src.resources.permissions import Permissions
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.api.distributor.user_api import UserApi
@@ -74,9 +75,20 @@ class TestUsers():
         cup.check_last_customer_user(edit_customer_user_body.copy())
         cup.delete_last_customer_user()
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 28
+        },
+        { 
+            "user": Permissions.distributor_users("EDIT"),
+            "testrail_case_id": 2178
+        }
+        ])
     @pytest.mark.regression
-    def test_distributor_user_crud(self, ui):
-        ui.testrail_case_id = 28
+    def test_distributor_user_crud(self, ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        Permissions.set_configured_user(ui, permissions["user"])
 
         lp = LoginPage(ui)
         dup = DistributorUsersPage(ui)
@@ -103,6 +115,8 @@ class TestUsers():
         dup.update_last_distributor_user(edit_distributor_user_body.copy())
         dup.check_last_distributor_user(edit_distributor_user_body.copy())
         dup.delete_last_distributor_user()
+
+    
 
     @pytest.mark.regression
     def test_distributor_superuser_crud(self, ui):
@@ -314,7 +328,7 @@ class TestUsers():
             "lastName": Tools.random_string_l()
         }
 
-        user_id = ua.create_distributor_user(user_body)
+        user_id = ua.create_distributor_superuser(user_body)
         response = ua.get_distributor_super_user_by_email(user_body["email"])
         count = len(response)
         assert count == 1, f"Users count is {count}"
