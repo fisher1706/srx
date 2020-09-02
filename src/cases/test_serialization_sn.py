@@ -148,9 +148,19 @@ class TestSerializationSN():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "status": "ISSUED",
+            "testrail_case_id": 2111
+        },
+        {
+            "status": "DISPOSED",
+            "testrail_case_id": 2189
+        }
+        ])
     @pytest.mark.regression
-    def test_serialized_ohi_decreased_when_available_in_issued(self, api, delete_shipto):
-        api.testrail_case_id = 2111
+    def test_serialized_ohi_decreased_when_available_in_issued(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
@@ -169,11 +179,11 @@ class TestSerializationSN():
         assert locations[0]["onHandInventory"] == 1
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        sn_dto["status"] = "ISSUED"
+        sn_dto["status"] = conditions["status"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0
