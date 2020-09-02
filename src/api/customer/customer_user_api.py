@@ -41,3 +41,4 @@ class CustomerUserApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
+        #test
