@@ -15,6 +15,7 @@ class SetupShipto(BaseSetup):
             "serialization_settings": None
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
+        self.id = None
 
     def setup(self):
         self.set_shipto()

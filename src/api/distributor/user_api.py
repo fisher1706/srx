@@ -1,5 +1,6 @@
 from src.api.api import API
 import urllib.parse
+from src.fixtures.decorators import Decorator
 
 class UserApi(API):
     def get_distributor_users(self, shipto_id):
@@ -37,12 +38,26 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 201):
-            self.logger.info(f"User {dto['email']} has been successfuly created")
+            self.logger.info(f"Distributor Super User {dto['email']} has been successfuly created")
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
         new_user_id = (response_json["data"].split("/"))[-1]
         return new_user_id
+
+    @Decorator.default_expected_code(201)
+    def create_distributor_user(self, dto, expected_status_code):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/create")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        if (response.status_code == 201):
+            self.logger.info(f"Distributor User {dto['email']} has been successfuly created")
+            response_json = response.json()
+            new_user_id = (response_json["data"].split("/"))[-1]
+            return new_user_id
+        else:
+            self.logger.info(f"User creation ended with status_code = '{response.status_code}', as expected: {response.content}")
 
     def update_distributor_user(self, dto, user_id=None):
         if (user_id is None):
@@ -82,12 +97,21 @@ class UserApi(API):
         response_json = response.json()
         return response_json["data"]["entities"]
 
-    def delete_user(self, id):
+    def delete_superuser(self, id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/superusers/{id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
             self.logger.info("Distributor super user has been successfully deleted")
+        else:
+            self.logger.error(str(response.content))
+
+    def delete_distributor_user(self, user_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/{user_id}/delete")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Distributor user has been successfully deleted")
         else:
             self.logger.error(str(response.content))
 

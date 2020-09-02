@@ -8,7 +8,7 @@ from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.admin.smart_shelves_api import SmartShelvesApi
 
 @pytest.fixture(scope="function")
-def delete_customer_user(context): #delete_customer_user_id
+def delete_customer_user(context):
     yield
     context.is_teardown = True
     cua = CustomerUserApi(context)
@@ -17,20 +17,25 @@ def delete_customer_user(context): #delete_customer_user_id
         cua.delete_customer_user(customer_user_id)
 
 @pytest.fixture(scope="function")
-def delete_distributor_security_group(context): #delete_customer_user_id
+def delete_distributor_user(context):
     yield
-    if context.dynamic_context["delete_distributor_security_group_id"] != []:
-        context.distributor_token = context.stored_distributor_token
-        context.distributor_email = context.session_context.base_distributor_email
-        context.distributor_password = context.session_context.base_distributor_password
-        context.is_teardown = True
-        ua = UserApi(context)
-        distributor_security_group_id_list = context.dynamic_context["delete_distributor_security_group_id"]
-        for distributor_security_group_id in distributor_security_group_id_list:
-            ua.delete_security_group(distributor_security_group_id, context.data.default_security_group_id)
+    context.is_teardown = True
+    ua = UserApi(context)
+    distributor_user_id_list = context.dynamic_context["delete_distributor_user_id"]
+    for distributor_user_id in distributor_user_id_list:
+        ua.delete_distributor_user(distributor_user_id)
+
+@pytest.fixture(scope="function")
+def delete_distributor_security_group(context):
+    yield
+    context.is_teardown = True
+    ua = UserApi(context)
+    distributor_security_group_id_list = context.dynamic_context["delete_distributor_security_group_id"]
+    for distributor_security_group_id in distributor_security_group_id_list:
+        ua.delete_security_group(distributor_security_group_id, context.data.default_security_group_id)
     
 @pytest.fixture(scope="function")
-def delete_checkout_group(context): #delete_checkout_group_id
+def delete_checkout_group(context):
     yield
     context.is_teardown = True
     cga = CheckoutGroupApi(context)
@@ -38,7 +43,7 @@ def delete_checkout_group(context): #delete_checkout_group_id
     for checkout_group_id in checkout_group_id_list:
         cga.delete_checkout_group(checkout_group_id)
 
-@pytest.fixture(scope="function") #delete_shipto_id
+@pytest.fixture(scope="function")
 def delete_shipto(context):
     yield
     context.is_teardown = True
@@ -47,7 +52,7 @@ def delete_shipto(context):
     for shipto_id in shipto_id_list:
         sa.delete_shipto(shipto_id)
 
-@pytest.fixture(scope="function") #delete_hardware_id OR delete_hardware_id_list
+@pytest.fixture(scope="function")
 def delete_hardware(context):
     yield
     context.is_teardown = True
@@ -57,7 +62,7 @@ def delete_hardware(context):
         time.sleep(5)
         aha.delete_hardware(hardware_id)
 
-@pytest.fixture(scope="function") #delete_smart_shelf_id OR delete_smart_shelf_id_list
+@pytest.fixture(scope="function")
 def delete_smart_shelf(context):
     yield
     context.is_teardown = True

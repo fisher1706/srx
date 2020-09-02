@@ -6,6 +6,7 @@ from src.resources.data import Data, SmokeData
 from src.resources.logger import Logger
 from src.resources.testrail import Testrail
 import sys
+import copy
 
 @pytest.fixture(scope="session")
 def session_context(request):
@@ -149,6 +150,29 @@ def smoke_ui(driver, smoke_context):
 @pytest.fixture(scope="function")
 def smoke_api(smoke_context):
     context_object = smoke_context
+    return context_object
+
+@pytest.fixture(scope="function")
+def permission_context(context, request):
+    context_object = copy.copy(context)
+    context_object.data = context_object.session_context.base_data
+
+    #credentials
+    context_object.distributor_email = context_object.session_context.permission_distributor_email
+    context_object.distributor_password = context_object.session_context.permission_distributor_password
+    context_object.customer_email = context_object.session_context.permission_customer_email
+    context_object.customer_password = context_object.session_context.permission_customer_password
+    return context_object
+
+@pytest.fixture(scope="function")
+def permission_ui(driver, permission_context):
+    context_object = permission_context
+    context_object.driver = driver
+    return context_object
+
+@pytest.fixture(scope="function")
+def permission_api(permission_context):
+    context_object = permission_context
     return context_object
 
 def testrail(request, context):
