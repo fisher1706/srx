@@ -195,9 +195,20 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "AVAILABLE"
 
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "status": "ISSUED",
+            "testrail_case_id": 2162
+        },
+        {
+            "status": "DISPOSED",
+            "testrail_case_id": 2191
+        }
+        ])
     @pytest.mark.regression
-    def test_no_expiration_alarm_when_update_to_issued(self, api, delete_shipto):
-        api.testrail_case_id = 2162
+    def test_no_expiration_alarm_when_update_to_issued(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
@@ -212,16 +223,26 @@ class TestSerializationExpiration():
         assert sn_dto["status"] == "ASSIGNED"
         assert sn_dto["expirationAlarm"], "Expiration alarm should be present"
 
-        sn_dto["status"] = "ISSUED"
+        sn_dto["status"] = conditions["status"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
-        assert not sn_dto["expirationAlarm"], "ISSUED Serial Numbers cannot have expiration alarm"
+        assert sn_dto["status"] == conditions["status"]
+        assert not sn_dto["expirationAlarm"], f"{conditions['status']} Serial Numbers cannot have expiration alarm"
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "status": "ISSUED",
+            "testrail_case_id": 2164
+        },
+        {
+            "status": "DISPOSED",
+            "testrail_case_id": 2194
+        }
+        ])
     @pytest.mark.regression
-    def test_no_expiration_alarm_when_update_doe(self, api, delete_shipto):
-        api.testrail_case_id = 2164
+    def test_no_expiration_alarm_when_update_doe(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
@@ -236,23 +257,33 @@ class TestSerializationExpiration():
         assert sn_dto["status"] == "ASSIGNED"
         assert not sn_dto["expirationAlarm"], "Expiration alarm should not be present"
 
-        sn_dto["status"] = "ISSUED"
+        sn_dto["status"] = conditions["status"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
         assert not sn_dto["expirationAlarm"], "Expiration alarm should not be present"
 
         sn_dto["dateExpiration"] = self.in_3_days_timestamp
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert not sn_dto["expirationAlarm"], "ISSUED Serial Numbers cannot have expiration alarm"
-        assert sn_dto["status"] == "ISSUED"
+        assert not sn_dto["expirationAlarm"], f"{conditions['status']} Serial Numbers cannot have expiration alarm"
+        assert sn_dto["status"] == conditions["status"]
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "status": "ISSUED",
+            "testrail_case_id": 2165
+        },
+        {
+            "status": "DISPOSED",
+            "testrail_case_id": 2195
+        }
+        ])
     @pytest.mark.regression
-    def test_sn_cannot_be_expired_when_update_doe_without_auto_expire(self, api, delete_shipto):
-        api.testrail_case_id = 2165
+    def test_issued_sn_cannot_be_expired_when_update_doe_without_auto_expire(self, conditions, api, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
@@ -266,21 +297,31 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
 
-        sn_dto["status"] = "ISSUED"
+        sn_dto["status"] = conditions["status"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
 
         sn_dto["dateExpiration"] = self.current_date_timestamp
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "status": "ISSUED",
+            "testrail_case_id": 2166
+        },
+        {
+            "status": "DISPOSED",
+            "testrail_case_id": 2196
+        }
+        ])
     @pytest.mark.regression
-    def test_sn_cannot_be_expired_when_update_doe_with_auto_expire(self, api, delete_shipto):
-        api.testrail_case_id = 2166
+    def test_issued_sn_cannot_be_expired_when_update_doe_with_auto_expire(self, conditions, api, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
@@ -294,21 +335,31 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
 
-        sn_dto["status"] = "ISSUED"
+        sn_dto["status"] = conditions["status"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
 
         sn_dto["dateExpiration"] = self.in_3_days_timestamp
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "status": "ISSUED",
+            "testrail_case_id": 2168
+        },
+        {
+            "status": "DISPOSED",
+            "testrail_case_id": 2197
+        }
+        ])
     @pytest.mark.regression
-    def test_sn_cannot_be_expired_when_turn_on_auto_expire(self, api, delete_shipto):
-        api.testrail_case_id = 2168
+    def test_issued_sn_cannot_be_expired_when_turn_on_auto_expire(self, conditions, api, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
@@ -323,16 +374,16 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
 
-        sn_dto["status"] = "ISSUED"
+        sn_dto["status"] = conditions["status"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
 
         sta.set_serialization_settings_shipto(response_location["shipto_id"], expiration=5, sleep=3)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
-        assert sn_dto["status"] == "ISSUED"
+        assert sn_dto["status"] == conditions["status"]
 
     @pytest.mark.regression
     def test_return_sn_to_assigned_from_expired_when_update_doe_and_enabled_setting(self, api, delete_shipto):
@@ -470,8 +521,8 @@ class TestSerializationExpiration():
         assert sn_dto["status"] == "ASSIGNED"
 
     @pytest.mark.regression
-    def test_return_sn_to_available_from_expired_when_turn_off_settings(self, api, delete_shipto):
-        api.testrail_case_id = 2173
+    def test_return_sn_to_available_from_expired_when_update_days_for_settings(self, api, delete_shipto):
+        api.testrail_case_id = 2175
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
@@ -503,7 +554,7 @@ class TestSerializationExpiration():
         assert sn_dto["status"] == "AVAILABLE"
 
     @pytest.mark.regression
-    def test_no_expiration_alarm_when_update_doe(self, api, delete_shipto):
+    def test_full_expire_in_alarm_flow(self, api, delete_shipto):
         api.testrail_case_id = 2176
 
         setup_location = SetupLocation(api)
