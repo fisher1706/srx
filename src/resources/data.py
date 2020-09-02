@@ -61,6 +61,7 @@ class Data():
         self.customer_user_passcode = "PSCD"
         self.customer_user_first_name = "dprovorov+cust@agilevision.io"
         self.customer_user_last_name = "dprovorov+cust@agilevision.io"
+        self.default_security_group_id = 15
 
 class SmokeData():
     def __init__(self, environment):
