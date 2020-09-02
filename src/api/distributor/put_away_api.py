@@ -15,4 +15,4 @@ class PutAwayApi(API):
             self.logger.info(f"Put Away was performed successfuly")
             response_json = response.json()
         else:
-            self.logger.info(f"Put Away ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Put Away completed with status_code = '{response.status_code}', as expected: {response.content}")

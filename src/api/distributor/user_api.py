@@ -57,18 +57,20 @@ class UserApi(API):
             new_user_id = (response_json["data"].split("/"))[-1]
             return new_user_id
         else:
-            self.logger.info(f"User creation ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"User creation completed with status_code = '{response.status_code}', as expected: {response.content}")
 
-    def update_distributor_user(self, dto, user_id=None):
+    @Decorator.default_expected_code(200)
+    def update_distributor_user(self, dto, expected_status_code, user_id=None):
         if (user_id is None):
-            user_id = dto["id"]
+            user_id = dto.get("id")
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/{user_id}/update")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         if (response.status_code == 200):
             self.logger.info(f"User {dto['email']} has been successfuly updated")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(f"User updating completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_distributor_super_user_by_email(self, email):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/superusers/pageable?email={email}")
@@ -87,7 +89,6 @@ class UserApi(API):
             email = urllib.parse.quote(email)
             url_string += f"email={email}&"
         url = self.url.get_api_url_for_env(url_string)
-        print(f"==========================URL: {url}")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
@@ -106,14 +107,16 @@ class UserApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def delete_distributor_user(self, user_id):
+    @Decorator.default_expected_code(200)
+    def delete_distributor_user(self, user_id, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/{user_id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
+        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         if (response.status_code == 200):
-            self.logger.info("Distributor user has been successfully deleted")
+            self.logger.info(f"Distributor user has been successfully deleted")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(f"User deletion completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_acl_sctructure(self):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/acl-structure")

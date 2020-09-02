@@ -11,7 +11,7 @@ class LocationApi(API):
         if (response.status_code == 200):
             self.logger.info(f"New location '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully created")
         else:
-            self.logger.info(f"Location creation ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Location creation completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     @Decorator.default_expected_code(200)
     def update_location(self, dto, shipto_id, expected_status_code):
@@ -22,7 +22,7 @@ class LocationApi(API):
         if (response.status_code == 200):
             self.logger.info(f"Location with SKU = '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully updated")
         else:
-            self.logger.info(f"Location updating ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Location updating completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_location_by_sku(self, shipto_id, sku):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations?orderingConfig.product.partSku={sku}")
@@ -68,4 +68,4 @@ class LocationApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, ids)
         assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
-        self.logger.info(f"Location bulk update ended with status_code = '{response.status_code}', as expected: {response.content}")
+        self.logger.info(f"Location bulk update completed with status_code = '{response.status_code}', as expected: {response.content}")

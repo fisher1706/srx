@@ -57,7 +57,7 @@ class TestUsers():
         customer_user_body["email"] = Tools.random_email()
         customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
         customer_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        customer_user_body["role"] = "User"
+        customer_user_body["role"] = "Customer User"
         customer_user_body["shiptos"] = [ui.data.shipto_number]
         #-------------------
         edit_customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
@@ -121,13 +121,22 @@ class TestUsers():
     def test_distributor_user_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_distributor_user):
         api.testrail_case_id = 2182
 
-        ua = UserApi(permission_api)
+        Permissions.set_configured_user(api, Permissions.distributor_users("VIEW"))
 
-        response_user = SetupDistributorUser(api).setup()
+        ua = UserApi(permission_api)
 
         failed_setup = SetupDistributorUser(permission_api)
         failed_setup.add_option("expected_status_code", 400)
-        failed_setup.setup()
+        failed_setup.setup() #cannot create user
+
+        response_user = SetupDistributorUser(api).setup()
+        user = ua.get_distributor_user(email=response_user["user"]["email"]) #can read users
+        assert response_user["user"]["firstName"] == user[0]["firstName"] #--//--//--
+        assert response_user["user"]["lastName"] == user[0]["lastName"] #--//--//--
+
+        ua.update_distributor_user(dto=user, user_id=response_user["user_id"], expected_status_code=400) #cannot update user
+        ua.delete_distributor_user(user_id=response_user["user_id"], expected_status_code=400) #cannot delete user
+
 
     @pytest.mark.regression
     def test_distributor_superuser_crud(self, ui):
