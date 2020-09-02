@@ -3,9 +3,9 @@ from src.resources.tools import Tools
 
 class Permissions():
     @staticmethod
-    def set_configured_user(context, permissions):
+    def set_configured_user(base_context, permissions, permission_context=None):
         if (permissions is not None):
-            ua = UserApi(context)
+            ua = UserApi(base_context)
 
             ACL = ua.get_acl_sctructure()
 
@@ -26,18 +26,16 @@ class Permissions():
             security_group["name"] = Tools.random_string_l(10)
 
             security_group_id = ua.create_security_group(security_group)
-            permissions_distributor_users_list = ua.get_distributor_user(email=context.session_context.permission_distributor_email)
+            permissions_distributor_users_list = ua.get_distributor_user(email=base_context.session_context.permission_distributor_email)
             permissions_distributor_user = permissions_distributor_users_list[0]
             permissions_distributor_user["userGroup"]["id"] = security_group_id
-            context.dynamic_context["delete_distributor_security_group_id"].append(security_group_id)
+            base_context.dynamic_context["delete_distributor_security_group_id"].append(security_group_id)
 
             ua.update_distributor_user(permissions_distributor_user)
 
-            context.stored_distributor_token = context.distributor_token
-            context.distributor_token = None
-
-            context.distributor_email = context.session_context.permission_distributor_email
-            context.distributor_password = context.session_context.permission_distributor_password
+            return permission_context
+        else:
+            return base_context
 
     @staticmethod
     def distributor_users(action):

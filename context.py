@@ -56,7 +56,6 @@ class Context(object):
     #tokens
     customer_token = None
     distributor_token = None
-    stored_distributor_token = None
     admin_token = None
     checkout_token = None
     checkout_group_token = None

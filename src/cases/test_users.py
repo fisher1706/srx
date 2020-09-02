@@ -8,6 +8,7 @@ from src.api.distributor.user_api import UserApi
 from src.api.setups.setup_customer_user import setup_customer_user
 from src.api.setups.setup_checkout_group import setup_checkout_group
 from src.api.setups.setup_shipto import SetupShipto
+from src.api.setups.setup_distributor_user import SetupDistributorUser
 from src.pages.customer.customer_users_page import CustomerUsersPage
 from src.pages.customer.checkout_users_page import CheckoutUsersPage
 from src.pages.customer.customer_security_groups import CustomerSecurityGroups
@@ -56,7 +57,7 @@ class TestUsers():
         customer_user_body["email"] = Tools.random_email()
         customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
         customer_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        customer_user_body["role"] = "User"
+        customer_user_body["role"] = "Customer User"
         customer_user_body["shiptos"] = [ui.data.shipto_number]
         #-------------------
         edit_customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
@@ -86,12 +87,12 @@ class TestUsers():
         }
         ])
     @pytest.mark.regression
-    def test_distributor_user_crud(self, ui, permissions, delete_distributor_security_group):
+    def test_distributor_user_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]
-        Permissions.set_configured_user(ui, permissions["user"])
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        dup = DistributorUsersPage(ui)
+        lp = LoginPage(context)
+        dup = DistributorUsersPage(context)
         distributor_user_body = dup.distributor_user_body.copy()
         edit_distributor_user_body = dup.distributor_user_body.copy()
 
@@ -116,7 +117,26 @@ class TestUsers():
         dup.check_last_distributor_user(edit_distributor_user_body.copy())
         dup.delete_last_distributor_user()
 
-    
+    @pytest.mark.regression
+    def test_distributor_user_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_distributor_user):
+        api.testrail_case_id = 2182
+
+        Permissions.set_configured_user(api, Permissions.distributor_users("VIEW"))
+
+        ua = UserApi(permission_api)
+
+        failed_setup = SetupDistributorUser(permission_api)
+        failed_setup.add_option("expected_status_code", 400)
+        failed_setup.setup() #cannot create user
+
+        response_user = SetupDistributorUser(api).setup()
+        user = ua.get_distributor_user(email=response_user["user"]["email"]) #can read users
+        assert response_user["user"]["firstName"] == user[0]["firstName"] #--//--//--
+        assert response_user["user"]["lastName"] == user[0]["lastName"] #--//--//--
+
+        ua.update_distributor_user(dto=user, user_id=response_user["user_id"], expected_status_code=400) #cannot update user
+        ua.delete_distributor_user(user_id=response_user["user_id"], expected_status_code=400) #cannot delete user
+
 
     @pytest.mark.regression
     def test_distributor_superuser_crud(self, ui):
@@ -339,4 +359,4 @@ class TestUsers():
         assert email == user_body["email"], f"User email is {email}, but should be {user_body['email']}"
         assert name == user_body["firstName"], f"User name is {name}, but should be {user_body['firstName']}"
         assert last_name == user_body["lastName"], f"User last name is {last_name}, but should be {user_body['lastName']}"
-        ua.delete_user(user_id)
+        ua.delete_superuser(user_id)

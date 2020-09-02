@@ -26,7 +26,7 @@ class SerialNumberApi(API):
             self.logger.info(f"New Serial Number with ID = '{sn_id}' has been successfully created")
             return sn_id
         else:
-            self.logger.info(f"Serial Number creation ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Serial Number creation completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     @Decorator.default_expected_code(200)
     def update_serial_number(self, dto, expected_status_code):
@@ -40,7 +40,7 @@ class SerialNumberApi(API):
             self.logger.info(f"Serial Number '{dto['number']}' has been successfully updated")
             return sn_id
         else:
-            self.logger.info(f"Serial Number updating ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Serial Number updating completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_serial_number(self, shipto_id):
         return self.get_serial_number_base(shipto_id)["entities"]
