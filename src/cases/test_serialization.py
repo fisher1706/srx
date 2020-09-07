@@ -15,6 +15,7 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
         setup_location.setup_product.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -40,6 +41,7 @@ class TestSerialization():
 
         setup_product = SetupProduct(api)
         setup_product.add_option("lot")
+        setup_product.add_option("round_buy", 1)
         setup_product.setup(expected_status_code=400)
 
     @pytest.mark.regression
@@ -50,6 +52,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         locations = la.get_locations(response_location["shipto_id"])
@@ -63,6 +66,7 @@ class TestSerialization():
         setup_product = SetupProduct(api)
         setup_product.add_option("serialized")
         setup_product.add_option("package_conversion", 2)
+        setup_product.add_option("round_buy", 1)
         setup_product.setup(expected_status_code=400)
 
     @pytest.mark.regression
@@ -72,6 +76,7 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
         setup_location.setup_product.add_option("package_conversion", 2)
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup(expected_status_code=409)
 
     @pytest.mark.regression
@@ -83,6 +88,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -136,6 +142,7 @@ class TestSerialization():
 
         setup_product = SetupProduct(api)
         setup_product.add_option("serialized")
+        setup_product.add_option("round_buy", 1)
         response_product = setup_product.setup()
         product_id = response_product.pop("id")
 
@@ -150,6 +157,7 @@ class TestSerialization():
         pa = ProductApi(api)
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("serialized")
         response_location = setup_location.setup()
 
@@ -168,6 +176,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         setup_location.add_option("ohi", 10)
         response_location = setup_location.setup()
@@ -184,6 +193,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("ohi", 10)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
@@ -198,6 +208,7 @@ class TestSerialization():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("ohi", 10)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
@@ -223,6 +234,7 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.add_option("ohi", 10)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         response_product = response_location["product"]
@@ -278,6 +290,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -299,6 +312,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -319,6 +333,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_product.add_option("package_conversion", 2)
         response_location = setup_location.setup()
 
