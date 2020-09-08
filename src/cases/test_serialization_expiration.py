@@ -18,6 +18,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -39,6 +40,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -55,6 +57,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -78,6 +81,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -94,6 +98,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -117,6 +122,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -139,6 +145,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -167,6 +174,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -212,6 +220,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
         response_location = setup_location.setup()
 
@@ -246,6 +255,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
         response_location = setup_location.setup()
 
@@ -287,6 +297,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -325,6 +336,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -363,6 +375,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -391,6 +404,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -414,6 +428,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -449,6 +464,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -471,6 +487,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -505,6 +522,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -526,6 +544,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -559,6 +578,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
         response_location = setup_location.setup()
 
@@ -596,6 +616,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
