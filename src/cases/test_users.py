@@ -142,10 +142,10 @@ class TestUsers():
             "user": None,
             "testrail_case_id": 2206
         },
-        # { 
-        #     "user": Permissions.distributor_users("EDIT"),
-        #     "testrail_case_id": 2207
-        # }
+        { 
+            "user": Permissions.distributor_users("EDIT"),
+            "testrail_case_id": 2207
+        }
         ])
     @pytest.mark.regression
     def test_distributor_user_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
