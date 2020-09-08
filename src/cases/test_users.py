@@ -137,47 +137,6 @@ class TestUsers():
         ua.update_distributor_user(dto=user, user_id=response_user["user_id"], expected_status_code=400) #cannot update user
         ua.delete_distributor_user(user_id=response_user["user_id"], expected_status_code=400) #cannot delete user
 
-@pytest.mark.parametrize("permissions", [
-        {
-            "user": None,
-            "testrail_case_id": 2206
-        },
-        { 
-            "user": Permissions.distributor_users("EDIT"),
-            "testrail_case_id": 2207
-        }
-        ])
-    @pytest.mark.regression
-    def test_distributor_user_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
-        ui.testrail_case_id = permissions["testrail_case_id"]
-        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
-
-        lp = LoginPage(context)
-        dup = DistributorUsersPage(context)
-        distributor_user_body = dup.distributor_user_body.copy()
-        edit_distributor_user_body = dup.distributor_user_body.copy()
-
-        #-------------------
-        distributor_user_body["email"] = Tools.random_email()
-        distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
-        distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        distributor_user_body["role"] = "User"
-        distributor_user_body["warehouses"] = ["Z_Warehouse (9999)", "A_Warehouse (1138)"]
-        #-------------------
-        edit_distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
-        edit_distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        edit_distributor_user_body["role"] = "Static Group"
-        edit_distributor_user_body["warehouses"] = ["Z_Warehouse (9999)"]
-        #-------------------
-
-        lp.log_in_distributor_portal()
-        dup.sidebar_users()
-        dup.create_distributor_user(distributor_user_body.copy())
-        dup.check_last_distributor_user(distributor_user_body.copy())
-        dup.update_last_distributor_user(edit_distributor_user_body.copy())
-        dup.check_last_distributor_user(edit_distributor_user_body.copy())
-        dup.delete_last_distributor_user()
-
     @pytest.mark.regression
     def test_distributor_superuser_crud(self, ui):
         ui.testrail_case_id = 30
