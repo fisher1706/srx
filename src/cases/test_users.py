@@ -64,7 +64,7 @@ class TestUsers():
         edit_customer_user_body["lastName"] = f"User {Tools.random_string_l()}"
         edit_customer_user_body["role"] = "Customer Super User"
         #-------------------
-
+        
         lp.log_in_customer_portal()
         cup.sidebar_users_and_groups()
         cup.click_xpath(Locator.xpath_button_tab_by_name("Users"))
@@ -136,7 +136,6 @@ class TestUsers():
 
         ua.update_distributor_user(dto=user, user_id=response_user["user_id"], expected_status_code=400) #cannot update user
         ua.delete_distributor_user(user_id=response_user["user_id"], expected_status_code=400) #cannot delete user
-
 
     @pytest.mark.regression
     def test_distributor_superuser_crud(self, ui):

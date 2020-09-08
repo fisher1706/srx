@@ -27,6 +27,15 @@ class API():
             self.context.distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id)
         return self.context.distributor_token
 
+    def get_mobile_distributor_token(self, username=None, password=None):
+        if (self.context.mobile_distributor_token is None):
+            if (username is None):
+                username = self.context.distributor_email
+            if (password is None):
+                password = self.context.distributor_password
+            self.context.mobile_distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_mobile_client_id)
+        return self.context.mobile_distributor_token
+
     def get_customer_token(self, username=None, password=None):
         if (self.context.customer_token is None):
             if (username is None):

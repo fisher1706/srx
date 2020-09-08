@@ -51,6 +51,7 @@ def session_context(request):
         #cognito credentials
         session_context_object.cognito_user_pool_id = request.config.getoption("cognito_user_pool_id")
         session_context_object.cognito_client_id = request.config.getoption("cognito_client_id")
+        session_context_object.cognito_mobile_client_id = request.config.getoption("cognito_mobile_client_id")
         session_context_object.cognito_checkout_client_id = request.config.getoption("cognito_checkout_client_id")
 
     elif (not session_context_object.credentials):
@@ -86,6 +87,7 @@ def session_context(request):
         #cognito credentials
         session_context_object.cognito_user_pool_id = creds.USER_POOL_ID
         session_context_object.cognito_client_id = creds.CLIENT_ID
+        session_context_object.cognito_mobile_client_id = creds.MOBILE_CLIENT_ID
         session_context_object.cognito_checkout_client_id = creds.CHECKOUT_CLIENT_ID
 
     return session_context_object
