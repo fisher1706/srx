@@ -12,11 +12,11 @@ class TestAutosubmit():
             "result": "QUOTED",
             "testrail_case_id": 2058
         },
-        {
-            "as_order": True,
-            "result": "ORDERED",
-            "testrail_case_id": 2046
-        }
+        # {
+        #     "as_order": True,
+        #     "result": "ORDERED",
+        #     "testrail_case_id": 2046
+        # }
         ])
     @pytest.mark.regression
     def test_immediately_autosubmit_by_create_active_item(self, api, conditions, delete_shipto):

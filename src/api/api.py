@@ -33,6 +33,11 @@ class API():
                 username = self.context.distributor_email
             if (password is None):
                 password = self.context.distributor_password
+                print(f"{username}")
+                print(f"{password}")
+                print(f"{self.context.session_context.cognito_user_pool_id}")
+                print(f"{self.context.session_context.cognito_mobile_client_id}")
+                
             self.context.mobile_distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_mobile_client_id)
         return self.context.mobile_distributor_token
 
