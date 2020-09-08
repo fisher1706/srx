@@ -59,24 +59,48 @@ class TestSerialization():
         assert locations[0]["lot"], "Location should be a lot"
         assert locations[0]["serialized"], "Location should be serialized"
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "package_conversion": 2,
+            "round_buy": 1,
+            "testrail_case_id": 2031
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 2,
+            "testrail_case_id": 2209
+        }
+        ])
     @pytest.mark.regression
-    def test_package_conversion_of_serialized_product(self, api):
-        api.testrail_case_id = 2031
+    def test_package_conversion_and_round_buy_of_serialized_product(self, api, conditions):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_product = SetupProduct(api)
         setup_product.add_option("serialized")
-        setup_product.add_option("package_conversion", 2)
-        setup_product.add_option("round_buy", 1)
+        setup_product.add_option("package_conversion", conditions["package_conversion"])
+        setup_product.add_option("round_buy", conditions["round_buy"])
         setup_product.setup(expected_status_code=400)
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "package_conversion": 2,
+            "round_buy": 1,
+            "testrail_case_id": 2084
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 2,
+            "testrail_case_id": 2211
+        }
+        ])
     @pytest.mark.regression
-    def test_package_conversion_of_serialized_location(self, api, delete_shipto):
-        api.testrail_case_id = 2084
+    def test_package_conversion_and_round_buy_of_serialized_location(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
-        setup_location.setup_product.add_option("package_conversion", 2)
-        setup_location.setup_product.add_option("round_buy", 1)
+        setup_location.setup_product.add_option("package_conversion", conditions["package_conversion"])
+        setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         setup_location.setup(expected_status_code=409)
 
     @pytest.mark.regression
