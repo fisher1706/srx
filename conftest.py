@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 
 pytest_plugins = [
    "src.fixtures.context_filling",
+   "src.fixtures.high_level_contexts",
    "src.fixtures.api_teardowns"
 ]
 
