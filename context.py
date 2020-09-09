@@ -62,17 +62,21 @@ class Context(object):
     checkout_token = None
     checkout_group_token = None
 
+    #testrail
+    testrail_run_id = None
+    testrail_case_id = None
+    testrail_status_id = None
+    testrail_comment = None
+
     #main
     session_context = None
     dynamic_context = None
     is_teardown = False
     driver = None
-    testrail_case_id = None
-    testrail_status_id = None
-    testrail_comment = None
     data = None
     logger = None
     warnings_counter = 0
+
 
     def __setattr__(self, key, value):
         if (not hasattr(self, key)):
