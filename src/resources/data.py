@@ -12,6 +12,7 @@ class Data():
         self.distributor_id = "73"
         self.sub_distributor_name = "Dev Distributor"
         self.testrail_run_id = 47
+        self.mobile_testrail_run_id = 55
         self.customer_name = "Static Customer"
         self.customer_id = "92"
         self.shipto_number = "2048"
@@ -31,6 +32,7 @@ class Data():
         self.sub_distributor_name = "Static Test"
         self.sub_distributor_id = 8
         self.testrail_run_id = 48
+        self.mobile_testrail_run_id = 53
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
         self.customer_id = "54"
@@ -52,6 +54,7 @@ class Data():
         self.customer_name = "Static Customer"
         self.shipto_number = "FIRST-QA-SHIPTO"
         self.testrail_run_id = 44
+        self.mobile_testrail_run_id = 54
         self.customer_id = "4"
         self.shipto_id = "4"
         self.checkout_group_id = "10"
@@ -77,23 +80,22 @@ class SmokeData():
         pass
 
     def staging_environment(self):
-        self.testrail_run_id = 43
+        self.smoke_testrail_run_id = 43
         self.customer_id = "187"
         self.shipto_id = "189"
         self.ordering_config_id = "1516"
-        self.testrail_report_id = 6
-
+        self.report_id = 6
 
     def qa_environment(self):
-        self.testrail_run_id = 46
+        self.smoke_testrail_run_id = 46
         self.customer_id = "191"
         self.shipto_id = "2192"
         self.locker_id = "3869"
         self.ordering_config_id = "2577"
-        self.testrail_report_id = 5
+        self.report_id = 5
 
     def prod_environment(self):
-        self.testrail_run_id = 45
+        self.smoke_testrail_run_id = 45
         self.customer_id = "120"
         self.shipto_id = "159"
         self.ordering_config_id = "24425"
