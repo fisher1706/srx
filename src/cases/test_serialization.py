@@ -391,7 +391,7 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
-        setup_location.setup_product.add_option("package_conversion", conditions["round_buy"])
+        setup_location.setup_product.add_option("package_conversion", conditions["package_conversion"])
         response_location = setup_location.setup()
 
         location_dto = copy.deepcopy(response_location["location"])
