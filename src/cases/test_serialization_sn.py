@@ -25,6 +25,7 @@ class TestSerializationSN():
         
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location_1 = setup_location.setup()
 
         setup_location.add_option("product", response_location_1["product"])
@@ -42,6 +43,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -68,6 +70,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -94,6 +97,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -126,6 +130,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -140,6 +145,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -164,6 +170,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -194,6 +201,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -225,6 +233,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -244,6 +253,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -269,6 +279,7 @@ class TestSerializationSN():
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
         setup_location.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -286,6 +297,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
@@ -318,6 +330,7 @@ class TestSerializationSN():
         setup_location = SetupLocation(ui)
         setup_location.add_option("serialized")
         setup_location.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         shipto_text = f"{ui.data.customer_name} - {response_location['shipto']['number']}"
@@ -349,6 +362,7 @@ class TestSerializationSN():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         sna = SerialNumberApi(api)
