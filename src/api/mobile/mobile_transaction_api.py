@@ -3,7 +3,9 @@ from src.api.distributor.transaction_api import TransactionApi
 import time
 
 class MobileTransactionApi(API):
-    def bulk_create(self, shipto_id, customer_id, dto, repeat=5):
+    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=5):
+        if customer_id is None:
+            customer_id = self.data.customer_id
         ta = TransactionApi(self.context)
         len_of_dto = len(dto)
         transactions_count = ta.get_transactions_count(shipto_id=shipto_id,status="ACTIVE")
