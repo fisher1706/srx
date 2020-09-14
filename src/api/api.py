@@ -59,7 +59,7 @@ class API():
             self.context.checkout_group_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_group_token
 
-    def send_post(self, url, token, data=None, additional_headers=None, line_data=None):
+    def send_post(self, url, token, data=None, additional_headers=None, line_data=None, params=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -67,12 +67,16 @@ class API():
         }
         if (additional_headers is not None):
             headers.update(additional_headers)
-        if (line_data is not None):
+        if (line_data is not None and params is None):
             return requests.post(url, headers=headers, data=line_data)
-        elif (line_data is None and data is not None):
+        elif (line_data is None and data is not None and params is None):
             return requests.post(url, headers=headers, data=json.dumps(data))
-        elif (line_data is None and data is None):
+        elif (line_data is None and data is None and params is None):
             return requests.post(url, headers=headers)
+        elif (data is not None and params is not None):
+            return requests.post(url, headers=headers, params=params, data=json.dumps(data))
+        elif (data is None and params is not None):
+            return requests.post(url, headers=headers, params=params)
 
     def send_get(self, url, token, additional_headers=None):
         headers = {
