@@ -2,20 +2,20 @@ from src.api.mobile.mobile_transaction_api import MobileTransactionApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.setups.setup_location import SetupLocation
 import pytest
-import json
 
 
 class TestScanToOrder():
     @pytest.mark.regression
     def test_bulk_create_transaction(self, mobile_api, delete_shipto):
         mobile_api.testrail_case_id = 2215
+        mta = MobileTransactionApi(mobile_api)
+        ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
-
 
         data = [
             {
@@ -28,10 +28,8 @@ class TestScanToOrder():
             }
         ]
 
-        mta = MobileTransactionApi(mobile_api)
         mta.bulk_create(response_location_1["shipto_id"], data)
 
-        ta = TransactionApi(mobile_api)
         transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
 
         assert len(transactions) == 2, "There should be 2 transactions"
