@@ -1,4 +1,5 @@
 from src.api.mobile.mobile_transaction_api import MobileTransactionApi
+from src.api.distributor.transaction_api import TransactionApi
 from src.api.setups.setup_location import SetupLocation
 import pytest
 import json
@@ -30,14 +31,11 @@ class TestScanToOrder():
         mta = MobileTransactionApi(mobile_api)
         mta.bulk_create(response_location_1["shipto_id"], data)
 
-        url = "https://api-staging.storeroomlogix.com/distributor-portal/distributor/replenishments/list/items?status=ACTIVE"
-        token = mta.get_distributor_token()
+        ta = TransactionApi(mobile_api)
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
 
-        response = mta.send_get(url, token)
-        list_active_transaction = response.json()['data']['entities']
-        list_active_transaction_sku = []
-        for sku in list_active_transaction:
-            list_active_transaction_sku.append(sku['product']['partSku'])
-        
-        assert response_location_1["product"]["partSku"] in list_active_transaction_sku and response_location_2["product"]["partSku"] in list_active_transaction_sku , "Transactions not created"
-         
+        assert len(transactions) == 2, "There should be 2 transactions"
+        assert transactions[0]["product"]["partSku"] == response_location_1["product"]["partSku"], f"Sku of product should be equal to {response_location_1['product']['partSku']}"
+        assert transactions[0]["reorderQuantity"] == (response_location_1["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location_1['product']['roundBuy']*3}"
+        assert transactions[1]["product"]["partSku"] == response_location_2["product"]["partSku"], f"Sku of product should be equal to {response_location_2['product']['partSku']}"
+        assert transactions[1]["reorderQuantity"] == (response_location_2["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location_2['product']['roundBuy']*3}"
