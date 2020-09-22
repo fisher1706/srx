@@ -271,10 +271,7 @@ class BasePage():
                 if (correctness):
                     self.logger.info(f"{row} element in '{header}' column is correct")
             else:
-                if (current_text == expected_text):
-                    self.logger.info(f"{row} element in '{header}' column is correct")
-                else:
-                    self.logger.error(f"{row} element in '{header}' column is '{current_text}', but should be '{expected_text}'")
+                self.element_should_have_text(Locator.xpath_table_item(row, column), expected_text) 
 
     def delete_dialog_should_be_about(self, expected_text):
         self.wait_until_page_loaded(1)
