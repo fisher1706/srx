@@ -2,6 +2,7 @@ import pytest
 import random
 from src.resources.tools import Tools
 from src.resources.locator import Locator
+from src.resources.permissions import Permissions
 from src.pages.general.login_page import LoginPage
 from src.pages.general.activity_log_page import ActivityLogPage
 from src.pages.distributor.customers_page import CustomersPage
@@ -12,12 +13,23 @@ from src.api.distributor.activity_log_api import ActivityLogApi
 import time
 
 class TestCustomers():
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 31
+        },
+        { 
+            "user": Permissions.customers("EDIT"),
+            "testrail_case_id": 2241
+        }
+        ])
     @pytest.mark.regression
-    def test_customer_crud(self, ui):
-        ui.testrail_case_id = 31
+    def test_customer_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        cp = CustomersPage(ui)
+        lp = LoginPage(context)
+        cp = CustomersPage(context)
         customer_body = cp.customer_body.copy()
         edit_customer_body = cp.customer_body.copy()
 
