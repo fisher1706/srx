@@ -98,10 +98,6 @@ class BasePage():
         element = self.get_element_by_id(id)
         assert not element.is_enabled(), f"Element with ID = '{id}' is enabled, but should be disabled"
 
-    # def should_be_disabled_xpath(self, xpath):
-    #     element = self.get_element_by_xpath(xpath)
-    #     assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
-
     def should_be_disabled_xpath(self, xpath, wait=False):
         element = self.get_element_by_xpath(xpath)
         if (not wait):

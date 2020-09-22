@@ -51,6 +51,7 @@ def session_context(request):
         #cognito credentials
         session_context_object.cognito_user_pool_id = request.config.getoption("cognito_user_pool_id")
         session_context_object.cognito_client_id = request.config.getoption("cognito_client_id")
+        session_context_object.cognito_mobile_client_id = request.config.getoption("cognito_mobile_client_id")
         session_context_object.cognito_checkout_client_id = request.config.getoption("cognito_checkout_client_id")
 
     elif (not session_context_object.credentials):
@@ -86,6 +87,7 @@ def session_context(request):
         #cognito credentials
         session_context_object.cognito_user_pool_id = creds.USER_POOL_ID
         session_context_object.cognito_client_id = creds.CLIENT_ID
+        session_context_object.cognito_mobile_client_id = creds.MOBILE_CLIENT_ID
         session_context_object.cognito_checkout_client_id = creds.CHECKOUT_CLIENT_ID
 
     return session_context_object
@@ -134,22 +136,32 @@ def smoke_context(context, request, testrail_smoke_result):
 def ui(driver, base_context):
     context_object = base_context
     context_object.driver = driver
+    context_object.testrail_run_id = context_object.data.testrail_run_id
     return context_object
 
 @pytest.fixture(scope="function")
 def api(base_context):
     context_object = base_context
+    context_object.testrail_run_id = context_object.data.testrail_run_id
+    return context_object
+
+@pytest.fixture(scope="function")
+def mobile_api(base_context):
+    context_object = base_context
+    context_object.testrail_run_id = context_object.data.mobile_testrail_run_id
     return context_object
 
 @pytest.fixture(scope="function")
 def smoke_ui(driver, smoke_context):
     context_object = smoke_context
     context_object.driver = driver
+    context_object.testrail_run_id = context_object.data.smoke_testrail_run_id
     return context_object
 
 @pytest.fixture(scope="function")
 def smoke_api(smoke_context):
     context_object = smoke_context
+    context_object.testrail_run_id = context_object.data.smoke_testrail_run_id
     return context_object
 
 @pytest.fixture(scope="function")
@@ -162,17 +174,6 @@ def permission_context(context, request):
     context_object.distributor_password = context_object.session_context.permission_distributor_password
     context_object.customer_email = context_object.session_context.permission_customer_email
     context_object.customer_password = context_object.session_context.permission_customer_password
-    return context_object
-
-@pytest.fixture(scope="function")
-def permission_ui(driver, permission_context):
-    context_object = permission_context
-    context_object.driver = driver
-    return context_object
-
-@pytest.fixture(scope="function")
-def permission_api(permission_context):
-    context_object = permission_context
     return context_object
 
 def testrail(request, context):
@@ -199,11 +200,10 @@ def testrail(request, context):
             raise Exception(f"Failed setup: {request.node.rep_setup.failed}; Passed setup: {request.node.rep_setup.passed}")
 
         testrail = Testrail(context.session_context.testrail_email, context.session_context.testrail_password)
-        testrail.add_result_for_case(context.data.testrail_run_id,
+        testrail.add_result_for_case(context.testrail_run_id,
                                     context.testrail_case_id,
                                     context.testrail_status_id,
                                     context.testrail_comment)
-
     else:
         context.logger.warning("Testrail is not configured")
 
@@ -211,7 +211,7 @@ def testrail(request, context):
 def testrail_smoke_result(session_context):
     yield
     testrail_client = Testrail(session_context.testrail_email, session_context.testrail_password)
-    tests = testrail_client.get_tests(session_context.smoke_data.testrail_run_id)
+    tests = testrail_client.get_tests(session_context.smoke_data.smoke_testrail_run_id)
     for test in tests:
         if (test["status_id"] == 5):
             testrail_client.run_report(session_context.smoke_data.report_id)

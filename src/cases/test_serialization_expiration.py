@@ -18,6 +18,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -39,6 +40,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -55,6 +57,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -78,6 +81,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -94,6 +98,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -111,12 +116,23 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "doe": in_3_days_timestamp,
+            "testrail_case_id": 2155
+        },
+        {
+            "doe": None,
+            "testrail_case_id": 2216
+        }
+        ])
     @pytest.mark.regression
-    def test_return_sn_to_assigned_from_expired_when_create_in_expired_and_disabled_setting(self, api, delete_shipto):
-        api.testrail_case_id = 2155
+    def test_return_sn_to_assigned_from_expired_when_create_in_expired_and_disabled_setting(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -127,7 +143,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
-        sn_dto["dateExpiration"] = self.in_3_days_timestamp
+        sn_dto["dateExpiration"] = conditions["doe"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
@@ -139,6 +155,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -161,12 +178,23 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "doe": in_3_days_timestamp,
+            "testrail_case_id": 2158
+        },
+        {
+            "doe": None,
+            "testrail_case_id": 2217
+        }
+        ])
     @pytest.mark.regression
-    def test_return_sn_to_available_from_expired_when_disabled_setting(self, api, delete_shipto):
-        api.testrail_case_id = 2158
+    def test_return_sn_to_available_from_expired_when_disabled_setting(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -189,12 +217,11 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
-        sn_dto["dateExpiration"] = self.in_3_days_timestamp
+        sn_dto["dateExpiration"] = conditions["doe"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "AVAILABLE"
-
 
     @pytest.mark.parametrize("conditions", [
         {
@@ -212,6 +239,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
         response_location = setup_location.setup()
 
@@ -246,6 +274,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
         response_location = setup_location.setup()
 
@@ -287,6 +316,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -325,6 +355,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -363,6 +394,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 
@@ -385,12 +417,23 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == conditions["status"]
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "doe": in_7_days_timestamp,
+            "testrail_case_id": 2170
+        },
+        {
+            "doe": None,
+            "testrail_case_id": 2218
+        }
+        ])
     @pytest.mark.regression
-    def test_return_sn_to_assigned_from_expired_when_update_doe_and_enabled_setting(self, api, delete_shipto):
-        api.testrail_case_id = 2170
+    def test_return_sn_to_assigned_from_expired_when_update_doe_and_enabled_setting(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -402,7 +445,7 @@ class TestSerializationExpiration():
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "EXPIRED"
 
-        sn_dto["dateExpiration"] = self.in_7_days_timestamp
+        sn_dto["dateExpiration"] = conditions["doe"]
         sna.update_serial_number(sn_dto)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
@@ -414,6 +457,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -449,6 +493,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -471,6 +516,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -505,6 +551,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -526,6 +573,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"expiration": 5})
         response_location = setup_location.setup()
 
@@ -559,6 +607,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", {"alarm": 5})
         response_location = setup_location.setup()
 
@@ -596,6 +645,7 @@ class TestSerializationExpiration():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("serialization_settings", "OFF")
         response_location = setup_location.setup()
 

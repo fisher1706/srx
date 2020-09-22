@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 
 pytest_plugins = [
    "src.fixtures.context_filling",
+   "src.fixtures.high_level_contexts",
    "src.fixtures.api_teardowns"
 ]
 
@@ -67,6 +68,8 @@ def pytest_addoption(parser):
                      help="Enter cognito_client_id")
     parser.addoption('--cognito_checkout_client_id', action='store', default=None,
                      help="Enter cognito_checkout_client_id")
+    parser.addoption('--cognito_mobile_client_id', action='store', default=None,
+                     help="Enter cognito_mobile_client_id")
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):

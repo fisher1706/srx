@@ -15,6 +15,7 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
         setup_location.setup_product.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -40,6 +41,7 @@ class TestSerialization():
 
         setup_product = SetupProduct(api)
         setup_product.add_option("lot")
+        setup_product.add_option("round_buy", 1)
         setup_product.setup(expected_status_code=400)
 
     @pytest.mark.regression
@@ -50,28 +52,55 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["lot"], "Location should be a lot"
         assert locations[0]["serialized"], "Location should be serialized"
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "package_conversion": 2,
+            "round_buy": 1,
+            "testrail_case_id": 2031
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 2,
+            "testrail_case_id": 2209
+        }
+        ])
     @pytest.mark.regression
-    def test_package_conversion_of_serialized_product(self, api):
-        api.testrail_case_id = 2031
+    def test_package_conversion_and_round_buy_of_serialized_product(self, api, conditions):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_product = SetupProduct(api)
         setup_product.add_option("serialized")
-        setup_product.add_option("package_conversion", 2)
+        setup_product.add_option("package_conversion", conditions["package_conversion"])
+        setup_product.add_option("round_buy", conditions["round_buy"])
         setup_product.setup(expected_status_code=400)
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "package_conversion": 2,
+            "round_buy": 1,
+            "testrail_case_id": 2084
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 2,
+            "testrail_case_id": 2211
+        }
+        ])
     @pytest.mark.regression
-    def test_package_conversion_of_serialized_location(self, api, delete_shipto):
-        api.testrail_case_id = 2084
+    def test_package_conversion_and_round_buy_of_serialized_location(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
-        setup_location.setup_product.add_option("package_conversion", 2)
+        setup_location.setup_product.add_option("package_conversion", conditions["package_conversion"])
+        setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         setup_location.setup(expected_status_code=409)
 
     @pytest.mark.regression
@@ -83,6 +112,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -128,35 +158,57 @@ class TestSerialization():
         assert not locations[0]["serialized"]
         assert not locations[0]["lot"]
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "field": "packageConversion",
+            "testrail_case_id": 2034
+        },
+        {
+            "field": "roundBuy",
+            "testrail_case_id": 2212
+        }
+        ])
     @pytest.mark.regression
-    def test_update_package_conversion_of_serialized_product(self, api):
-        api.testrail_case_id = 2034
+    def test_update_package_conversion_and_round_buy_of_serialized_product(self, conditions, api):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         pa = ProductApi(api)
 
         setup_product = SetupProduct(api)
         setup_product.add_option("serialized")
+        setup_product.add_option("round_buy", 1)
         response_product = setup_product.setup()
         product_id = response_product.pop("id")
 
-        response_product["packageConversion"] = 2
+        response_product[conditions["field"]] = 2
 
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "field": "packageConversion",
+            "testrail_case_id": 2053
+        },
+        {
+            "field": "roundBuy",
+            "testrail_case_id": 2213
+        }
+        ])
     @pytest.mark.regression
-    def test_update_package_conversion_of_product_with_serialized_location(self, api, delete_shipto):
-        api.testrail_case_id = 2053
+    def test_update_package_conversion_and_round_buy_of_product_with_serialized_location(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         pa = ProductApi(api)
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("serialized")
         response_location = setup_location.setup()
 
         response_product = response_location["product"]
         product_id = response_product.pop("id")
 
-        response_product["packageConversion"] = 2
+        response_product[conditions["field"]] = 2
 
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
 
@@ -168,6 +220,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         setup_location.add_option("ohi", 10)
         response_location = setup_location.setup()
@@ -184,6 +237,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("ohi", 10)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
@@ -198,6 +252,7 @@ class TestSerialization():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("ohi", 10)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
@@ -223,6 +278,7 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.add_option("ohi", 10)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
         response_product = response_location["product"]
@@ -278,6 +334,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -299,6 +356,7 @@ class TestSerialization():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -312,14 +370,28 @@ class TestSerialization():
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
 
-    def test_update_location_to_serialized_with_package_conversion(self, api, delete_shipto):
-        api.testrail_case_id = 2086
+    @pytest.mark.parametrize("conditions", [
+        {
+            "package_conversion": 2,
+            "round_buy": 1,
+            "testrail_case_id": 2214
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 2,
+            "testrail_case_id": 2086
+        }
+        ])
+    @pytest.mark.regression
+    def test_update_location_to_serialized_with_package_conversion_and_round_buy(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-        setup_location.setup_product.add_option("package_conversion", 2)
+        setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
+        setup_location.setup_product.add_option("package_conversion", conditions["package_conversion"])
         response_location = setup_location.setup()
 
         location_dto = copy.deepcopy(response_location["location"])
