@@ -11,10 +11,10 @@ class TestButtons():
             "user": None,
             "testrail_case_id": None
         },
-        # { 
-        #     "user": Permissions.distributor_users("EDIT"),
-        #     "testrail_case_id": None
-        # }
+        { 
+            "user": Permissions.mobile_buttons("ENABLE", True),
+            "testrail_case_id": None
+        }
         ])
     @pytest.mark.regression
     def test_assign_dsn_to_button(self, mobile_api, permission_api, permissions, delete_shipto):
@@ -22,7 +22,7 @@ class TestButtons():
         context = Permissions.set_configured_user(mobile_api, permissions["user"], permission_context=permission_api)
         la = LocationApi(context)
 
-        setup_location = SetupLocation(context)
+        setup_location = SetupLocation(mobile_api)
         setup_location.add_option("type", "BUTTON")
         response_location = setup_location.setup()
         dsn = Tools.random_string_u()

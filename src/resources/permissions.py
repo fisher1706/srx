@@ -14,12 +14,14 @@ class Permissions():
                     if (item["feature"] == permission["feature"]):
                         actions = item["actions"]
                         for action in actions:
-                            if (action["action"]["value"] == "VIEW" and (permission["action"] == "VIEW" or permission["action"] == "EDIT" or permission["action"] == "CONFIGURE")):
+                            if (action["action"]["value"] == "VIEW" and (c["action"] == "VIEW" or permission["action"] == "EDIT" or permission["action"] == "CONFIGURE")):
                                 action["permission"] = True
                             if (action["action"]["value"] == "EDIT" and (permission["action"] == "EDIT" or permission["action"] == "CONFIGURE")):
                                 action["permission"] = True
                             if (action["action"]["value"] == "CONFIGURE" and permission["action"] == "CONFIGURE"):
                                 action["permission"] = True
+                            if (action["action"]["value"] == "ENABLE" and permission["action"] == "ENABLE"):
+                                action["permission"] = permission["value"]
                         break
                 else:
                     base_context.logger.error(f"No permission '{permission['feature']}' found")
@@ -55,3 +57,13 @@ class Permissions():
             "action": action
         }]
         return response
+
+    @staticmethod
+    def mobile_buttons(action, value):
+        response = [{
+            "feature": "distributor.mobile.buttons",
+            "action": action,
+            "value": value
+        }]
+        return response
+        
