@@ -20,6 +20,9 @@ class Permissions():
                                 action["permission"] = True
                             if (action["action"]["value"] == "CONFIGURE" and permission["action"] == "CONFIGURE"):
                                 action["permission"] = True
+                        break
+                else:
+                    base_context.logger.error(f"No permission '{permission['feature']}' found")
 
             security_group = Tools.get_dto("security_group_dto.json")
             security_group["entries"] = ACL
@@ -40,12 +43,15 @@ class Permissions():
     @staticmethod
     def distributor_users(action):
         response = [{
-            "feature": "distributor.general.users.and.groups.distributor.users",
-            "action": action
-        },
-        {
             "feature": "distributor.general.users.and.groups",
-            "action": "VIEW"
+            "action": action
         }]
         return response
 
+    @staticmethod
+    def customers(action):
+        response = [{
+            "feature": "distributor.general.customers",
+            "action": action
+        }]
+        return response
