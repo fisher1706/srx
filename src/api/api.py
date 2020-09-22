@@ -68,6 +68,12 @@ class API():
             self.context.checkout_group_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_group_token
 
+    def get_mobile_or_base_token(self, mobile):
+        if mobile:
+            return self.get_mobile_distributor_token()
+        else:
+            return self.get_distributor_token()
+
     def send_post(self, url, token, data=None, additional_headers=None, line_data=None, params=None):
         headers = {
             "Authorization": token,
