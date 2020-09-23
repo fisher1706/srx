@@ -219,19 +219,40 @@ class TestScanToOrder():
 
     @pytest.mark.parametrize("conditions", [
         {
+            "quantity": 2,
+            "round_buy": 5,
+            "result": 5
+        },
+        {
+            "quantity": 1,
+            "round_buy": 5,
+            "result": 5
+        },
+        {
+            "quantity": 6,
+            "round_buy": 5,
+            "result": 10
+        },
+        {
             "quantity": 11,
-            "testrail_case_id": 2187
+            "round_buy": 10,
+            "result": 20
+        },
+        {
+            "quantity": 17,
+            "round_buy": 10,
+            "result": 20
         }
         ])
     @pytest.mark.regression
-    def test_bulk_create_with_qnty_not_alligned_roundBuy(self, mobile_api, conditions):
+    def test_bulk_create_with_qnty_not_alligned_roundBuy(self, mobile_api, conditions, delete_shipto):
         mobile_api.testrail_case_id = 2187
         mta = MobileTransactionApi(mobile_api)
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-        setup_location.setup_product.add_option("round_buy", 5)
+        setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -248,3 +269,9 @@ class TestScanToOrder():
         ]
 
         mta.bulk_create(response_location_1["shipto_id"], data)
+
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
+        
+        assert transactions[0]["reorderQuantity"] == conditions["result"] and transactions[1]["reorderQuantity"] == conditions["result"], f"Reorder quantity of  each transaction should be equal to {conditions['result']}"
+
+        
