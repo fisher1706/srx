@@ -242,6 +242,11 @@ class TestScanToOrder():
             "quantity": 17,
             "round_buy": 10,
             "result": 20
+        },
+        {
+            "quantity": 10,
+            "round_buy": 5,
+            "result": 10
         }
         ])
     @pytest.mark.regression
