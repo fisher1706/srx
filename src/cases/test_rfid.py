@@ -1,5 +1,6 @@
 import pytest
 from src.resources.locator import Locator
+from src.resources.tools import Tools
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.rfid_page import RfidPage
 from src.api.setups.setup_location import SetupLocation
@@ -36,6 +37,29 @@ class TestRfid():
         rp.update_last_rfid_label_status(new_status)
         rp.check_last_rfid_label(rfid_label, new_status)
         rp.unassign_last_rfid_label()
+
+    @pytest.mark.regression
+    def test_rfid_label_import_as_available(self, ui, delete_shipto):
+        ui.testrail_case_id = 2243
+
+        lp = LoginPage(ui)
+        rp = RfidPage(ui)
+
+        setup_location = SetupLocation(ui)
+        setup_location.add_option("type", "RFID")
+        response_location = setup_location.setup()
+
+        shipto_text = f"{ui.data.customer_name} - {response_location['shipto']['number']}"
+        product_sku = response_location["product"]["partSku"]
+        rfid = Tools.random_string_u()
+        rfids = [
+            [rfid, product_sku, None]
+        ]
+        lp.log_in_distributor_portal()
+        rp.sidebar_rfid()
+        rp.select_shipto_sku(shipto_text, product_sku)
+        rp.import_rfid_as_available(rfids)
+        rp.check_last_rfid_label(rfid, "AVAILABLE")
 
     @pytest.mark.regression
     def test_create_rfid_transaction_as_issued(self, api, delete_shipto, delete_hardware):
