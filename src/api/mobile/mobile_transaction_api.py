@@ -3,7 +3,7 @@ from src.api.distributor.transaction_api import TransactionApi
 import time
 
 class MobileTransactionApi(API):
-    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=5):
+    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed = False):
         if customer_id is None:
             customer_id = self.data.customer_id
         ta = TransactionApi(self.context)
@@ -30,5 +30,8 @@ class MobileTransactionApi(API):
             self.logger.info("Transactions cannot be created now due to the deduplication mechanism. Next attempt after 5 second")
             time.sleep(5)
         else:
-            self.logger.error("New transactions have not been created")
-            self.logger.error(str(response.content))
+            if failed:
+                self.logger.info("New transactions have not been created as expected")
+            else:
+                self.logger.error("New transactions have not been created")
+                self.logger.error(str(response.content))
