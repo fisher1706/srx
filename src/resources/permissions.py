@@ -55,3 +55,11 @@ class Permissions():
             "action": action
         }]
         return response
+
+    @staticmethod
+    def rfids(action):
+        response = [{
+            "feature": "distributor.general.rfid.tagging",
+            "action": action
+        }]
+        return response

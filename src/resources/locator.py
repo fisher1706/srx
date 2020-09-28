@@ -5,6 +5,8 @@ class Locator():
     id_enter_here = "redirectButton"
     id_add_button = "item-action-add"
     id_file_upload = "file-upload"
+    id_upload_rfid_csv = "upload-rfid-csv"
+    id_upload_rfid_available = "upload-rfid-available"
     id_intercom_container = "intercom-container"
     id_drop_down_button = "dropDownButton"
 

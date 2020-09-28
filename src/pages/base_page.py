@@ -9,6 +9,7 @@ from src.resources.locator import Locator
 import csv
 import os
 import pytest
+import time
 
 class BasePage():
     def __init__(self, context):
@@ -159,7 +160,7 @@ class BasePage():
         if (name is not None):
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
-            self.click_xpath(f"{xpath}/..//div[text()='{name}']")
+            self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
 
     def manage_shipto(self, shiptos, prefix_path=""):
         if (shiptos is not None):
@@ -450,7 +451,9 @@ class BasePage():
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.input_data_xpath(name, f"{xpath}//input")
-            self.get_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
+            #self.get_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
+            self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
+            
 
     def input_inline_xpath(self, data, xpath):
         if (data is not None):
@@ -492,7 +495,7 @@ class BasePage():
             pass
 
     def select_shipto_sku(self, shipto, sku):
-        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), shipto)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), shipto)
         self.wait_until_page_loaded()
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), sku)
         self.wait_until_page_loaded()
