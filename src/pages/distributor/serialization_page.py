@@ -13,7 +13,8 @@ class SerializationPage(DistributorPortalPage):
     xpath_save_serial_number = f"{Locator.xpath_button_type}/span[text()='Save']"
 
     def add_serial_number(self, serial_number_body):
-        self.click_id(Locator.id_add_button)
+        self.click_id(Locator.id_drop_down_button)
+        self.click_xpath(Locator.xpath_role_menu+Locator.xpath_role_menuitem)
         for field in serial_number_body.keys():
             self.input_by_name(field, serial_number_body[field])
         self.click_xpath(self.xpath_save_serial_number)

@@ -29,7 +29,7 @@ class DistributorPortalPage(BasePage):
         self.click_id("sidebar-rfid")
 
     def sidebar_serialization(self):
-        self.click_id("sidebar-serial")
+        self.click_id("sidebar-lot-serialization")
 
     def sidebar_hardware(self):
         self.click_id("sidebar-claiming_hardware")
