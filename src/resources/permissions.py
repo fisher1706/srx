@@ -63,3 +63,11 @@ class Permissions():
             "action": action
         }]
         return response
+
+    @staticmethod
+    def serialization(action):
+        response = [{
+            "feature": "distributor.general.lot.and.serialization",
+            "action": action
+        }]
+        return response
