@@ -2,6 +2,7 @@ import pytest
 import copy
 import time
 from src.resources.tools import Tools
+from src.resources.permissions import Permissions
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.serial_number_api import SerialNumberApi
@@ -305,12 +306,23 @@ class TestSerializationSN():
         lot = Tools.random_string_u()
         sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot, expected_status_code=400)
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2143
+        },
+        { 
+            "user": Permissions.serialization("EDIT"),
+            "testrail_case_id": 2256
+        }
+        ])
     @pytest.mark.regression
-    def test_serial_number_crud(self, ui, delete_shipto):
+    def test_serial_number_crud(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
         ui.testrail_case_id = 2143
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        sp = SerializationPage(ui)
+        lp = LoginPage(context)
+        sp = SerializationPage(context)
 
         serial_number_body = sp.serial_number_body.copy()
         edit_serial_number_body = sp.serial_number_body.copy()
@@ -333,7 +345,7 @@ class TestSerializationSN():
         setup_location.setup_product.add_option("round_buy", 1)
         response_location = setup_location.setup()
 
-        shipto_text = f"{ui.data.customer_name} - {response_location['shipto']['number']}"
+        shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
         product_sku = response_location["product"]["partSku"]
 
         lp.log_in_distributor_portal()
