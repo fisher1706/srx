@@ -444,3 +444,33 @@ class TestSerializationSN():
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2259
+        },
+        { 
+            "user": Permissions.serialization("EDIT"),
+            "testrail_case_id": 2260
+        }
+        ])
+    def test_create_serial_numbers_by_lot(self, api, permission_api, permissions, delete_shipto, delete_distributor_security_group):
+        api.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(api, permissions["user"], permission_context=permission_api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("serialized")
+        setup_location.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(context)
+
+        sn_dto = Tools.get_dto("lot_generate_dto.json")
+        sn_dto["locationId"] = response_location["location_id"]
+        sn_dto["lot"] = Tools.random_string_l()
+        sn_dto["numberQuantity"] = 3
+
+        sna.create_serial_numbers_by_lot(sn_dto)
+        assert len(sna.get_serial_number(shipto_id=response_location["shipto_id"])) == 3

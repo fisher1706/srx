@@ -28,6 +28,17 @@ class SerialNumberApi(API):
         else:
             self.logger.info(f"Serial Number creation completed with status_code = '{response.status_code}', as expected: {response.content}")
 
+    @Decorator.default_expected_code(201)
+    def create_serial_numbers_by_lot(self, dto, expected_status_code):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber/lot/generate")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        if (response.status_code == 201):
+            self.logger.info(f"{dto['numberQuantity']} Serial Numbers have been created with lot = {dto['lot']}")
+        else:
+            self.logger.info(f"Serial Number creation completed with status_code = '{response.status_code}', as expected: {response.content}")
+
     @Decorator.default_expected_code(200)
     def update_serial_number(self, dto, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber/")
