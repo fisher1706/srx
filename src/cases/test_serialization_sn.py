@@ -318,7 +318,7 @@ class TestSerializationSN():
         ])
     @pytest.mark.regression
     def test_serial_number_crud(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
-        ui.testrail_case_id = 2143
+        ui.testrail_case_id = permissions["testrail_case_id"]
         context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
         lp = LoginPage(context)
@@ -368,6 +368,57 @@ class TestSerializationSN():
         sp.delete_last_serial_number(edit_serial_number_body["number"])
         assert sp.get_element_text(ohi_path) == "0"
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2257
+        },
+        { 
+            "user": Permissions.serialization("EDIT"),
+            "testrail_case_id": 2258
+        }
+        ])
+    @pytest.mark.regression
+    def test_serial_number_import(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
+
+        lp = LoginPage(context)
+        sp = SerializationPage(context)
+
+        serial_number_body = sp.serial_number_body.copy()
+
+        #-------------------
+        serial_number_body["number"] = Tools.random_string_u()
+        serial_number_body["lot"] = Tools.random_string_u()
+        serial_number_body["dateManufacture"] = "08/01/2020"
+        serial_number_body["dateShipment"] = "08/02/2020"
+        serial_number_body["dateExpiration"] = "08/01/2025"
+        serial_number_body["dateWarrantyExpires"] = "08/02/2025"
+        #-------------------
+
+        setup_location = SetupLocation(ui)
+        setup_location.add_option("serialized")
+        setup_location.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        product_sku = response_location["product"]["partSku"]
+        shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
+
+        serial_numbers = [
+            [serial_number_body["number"], serial_number_body["lot"], product_sku, None, serial_number_body["dateShipment"], serial_number_body["dateManufacture"], serial_number_body["dateExpiration"], serial_number_body["dateWarrantyExpires"], None]
+        ]
+
+        lp.log_in_distributor_portal()
+        sp.sidebar_serialization()
+        sp.select_shipto_sku(shipto_text)
+
+        sp.import_serial_numbers(serial_numbers)
+        serial_number_body["status"] = "ASSIGNED"
+        sp.select_shipto_sku(shipto_text, product_sku)
+        sp.check_last_serial_number(serial_number_body)
+
     @pytest.mark.regression
     def test_serialized_ohi_decreased_when_delete_location(self, api, delete_shipto):
         api.testrail_case_id = 2144
@@ -393,3 +444,33 @@ class TestSerializationSN():
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2259
+        },
+        { 
+            "user": Permissions.serialization("EDIT"),
+            "testrail_case_id": 2260
+        }
+        ])
+    def test_create_serial_numbers_by_lot(self, api, permission_api, permissions, delete_shipto, delete_distributor_security_group):
+        api.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(api, permissions["user"], permission_context=permission_api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("serialized")
+        setup_location.add_option("lot")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(context)
+
+        sn_dto = Tools.get_dto("lot_generate_dto.json")
+        sn_dto["locationId"] = response_location["location_id"]
+        sn_dto["lot"] = Tools.random_string_l()
+        sn_dto["numberQuantity"] = 3
+
+        sna.create_serial_numbers_by_lot(sn_dto)
+        assert len(sna.get_serial_number(shipto_id=response_location["shipto_id"])) == 3
