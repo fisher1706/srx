@@ -23,6 +23,7 @@ class TestCustomers():
             "testrail_case_id": 2241
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_customer_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]

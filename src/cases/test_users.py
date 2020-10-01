@@ -86,6 +86,7 @@ class TestUsers():
             "testrail_case_id": 2178
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_distributor_user_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]
@@ -117,6 +118,7 @@ class TestUsers():
         dup.check_last_distributor_user(edit_distributor_user_body.copy())
         dup.delete_last_distributor_user()
 
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_distributor_user_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_distributor_user):
         api.testrail_case_id = 2182

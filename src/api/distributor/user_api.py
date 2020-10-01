@@ -151,3 +151,10 @@ class UserApi(API):
             self.logger.info(f"Security Group with ID = '{security_group_id}' has been successfuly deleted")
         else:
             self.logger.error(str(response.content))
+
+    def clear_acl_cache(self):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/clear-acl-cache")
+        token = self.get_distributor_token()
+        response = self.send_get(url, token)
+        if response.status_code != 200:
+            self.logger.error(str(response.content))
