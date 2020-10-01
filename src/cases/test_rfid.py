@@ -21,6 +21,7 @@ class TestRfid():
             "testrail_case_id": 2245
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_rfid_label_crud(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]
@@ -60,6 +61,7 @@ class TestRfid():
             "testrail_case_id": 2244
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_rfid_label_import_as_available(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]
@@ -94,6 +96,7 @@ class TestRfid():
             "testrail_case_id": 2255
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_rfid_label_import_csv(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]

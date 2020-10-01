@@ -8,6 +8,7 @@ class Permissions():
             ua = UserApi(base_context)
 
             ACL = ua.get_acl_sctructure()
+            ua.clear_acl_cache()
 
             for permission in permissions:
                 for item in ACL:

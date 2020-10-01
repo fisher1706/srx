@@ -316,6 +316,7 @@ class TestSerializationSN():
             "testrail_case_id": 2256
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_serial_number_crud(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]
@@ -378,6 +379,7 @@ class TestSerializationSN():
             "testrail_case_id": 2258
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_serial_number_import(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]
@@ -455,6 +457,8 @@ class TestSerializationSN():
             "testrail_case_id": 2260
         }
         ])
+    @pytest.mark.acl
+    @pytest.mark.regression
     def test_create_serial_numbers_by_lot(self, api, permission_api, permissions, delete_shipto, delete_distributor_security_group):
         api.testrail_case_id = permissions["testrail_case_id"]
         context = Permissions.set_configured_user(api, permissions["user"], permission_context=permission_api)
