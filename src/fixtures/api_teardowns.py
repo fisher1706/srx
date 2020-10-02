@@ -4,6 +4,7 @@ from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_group_api import CheckoutGroupApi
 from src.api.distributor.user_api import UserApi
 from src.api.distributor.shipto_api import ShiptoApi
+from src.api.distributor.customer_api import CustomerApi
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.admin.smart_shelves_api import SmartShelvesApi
 
@@ -51,6 +52,15 @@ def delete_shipto(context):
     shipto_id_list = context.dynamic_context["delete_shipto_id"]
     for shipto_id in shipto_id_list:
         sa.delete_shipto(shipto_id)
+
+@pytest.fixture(scope="function")
+def delete_customer(context):
+    yield
+    context.is_teardown = True
+    ca = CustomerApi(context)
+    customer_id_list = context.dynamic_context["delete_customer_id"]
+    for customer_id in customer_id_list:
+        ca.delete_customer(customer_id)
 
 @pytest.fixture(scope="function")
 def delete_hardware(context):

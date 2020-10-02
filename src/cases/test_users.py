@@ -132,10 +132,11 @@ class TestUsers():
         failed_setup.setup() #cannot create user
 
         response_user = SetupDistributorUser(api).setup()
-        user = ua.get_distributor_user(email=response_user["user"]["email"]) #can read users
-        assert response_user["user"]["firstName"] == user[0]["firstName"] #--//--//--
-        assert response_user["user"]["lastName"] == user[0]["lastName"] #--//--//--
+        user = ua.get_distributor_user(email=response_user["user"]["email"])[0] #can read users
+        assert response_user["user"]["firstName"] == user["firstName"] #--//--//--
+        assert response_user["user"]["lastName"] == user["lastName"] #--//--//--
 
+        user["id"] = response_user["user_id"]
         ua.update_distributor_user(dto=user, user_id=response_user["user_id"], expected_status_code=400) #cannot update user
         ua.delete_distributor_user(user_id=response_user["user_id"], expected_status_code=400) #cannot delete user
 
