@@ -369,6 +369,32 @@ class TestSerializationSN():
         sp.delete_last_serial_number(edit_serial_number_body["number"])
         assert sp.get_element_text(ohi_path) == "0"
 
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_serial_number_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_shipto):
+        api.testrail_case_id = 2262
+
+        Permissions.set_configured_user(api, Permissions.serialization("VIEW"))
+
+        sna = SerialNumberApi(permission_api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        sn_failed = Tools.random_string_u()
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn_failed, expected_status_code=400) #cannot create Serial Number
+
+        sn = Tools.random_string_u()
+        sn_id = SerialNumberApi(api).create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0] #can read Serial Number
+        assert sn_dto["number"] == sn #--//--//--
+
+        sna.update_serial_number(sn_dto, expected_status_code=400) #cannot update Serial Number
+        sna.delete_serial_number(sn_id, expected_status_code=400) #cannot delete Serial Number
+
     @pytest.mark.parametrize("permissions", [
         {
             "user": None,

@@ -51,6 +51,28 @@ class TestRfid():
         rp.check_last_rfid_label(rfid_label, new_status)
         rp.unassign_last_rfid_label()
 
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_rfid_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_shipto):
+        api.testrail_case_id = 2261
+
+        Permissions.set_configured_user(api, Permissions.rfids("VIEW"))
+
+        ra = RfidApi(permission_api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("type", "RFID")
+        response_location = setup_location.setup()
+
+        ra.create_rfid(response_location["location_id"], expected_status_code=400) #cannot create RFID label
+
+        rfid_info = RfidApi(api).create_rfid(response_location["location_id"])
+        rfid = ra.get_rfid_labels(response_location["location_id"])[0] #can read RFID labels
+        assert rfid_info["label"] == rfid["labelId"] #--//--//--
+
+        ra.update_rfid_label(response_location["location_id"], rfid_info["rfid_id"], "AVAILABLE", expected_status_code=400) #cannot update RFID label
+        ra.delete_rfid_label(response_location["location_id"], rfid_info["rfid_id"], expected_status_code=400) #cannot delete RFID label
+
     @pytest.mark.parametrize("permissions", [
         {
             "user": None,
