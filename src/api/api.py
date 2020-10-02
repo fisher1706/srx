@@ -68,26 +68,21 @@ class API():
             self.context.checkout_group_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_group_token
 
-    def send_post(self, url, token, data=None, additional_headers=None, line_data=None, params=None):
+    def send_post(self, url, token, data=None, additional_headers=None, params=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
             "Accept":"application/json"
         }
-        if (additional_headers is not None):
+        if additional_headers is not None:
             headers.update(additional_headers)
-        if (line_data is not None and params is None):
-            return requests.post(url, headers=headers, data=line_data)
-        elif (line_data is None and data is not None and params is None):
-            return requests.post(url, headers=headers, data=json.dumps(data))
-        elif (line_data is None and data is None and params is None):
-            return requests.post(url, headers=headers)
-        elif (data is not None and params is not None):
-            return requests.post(url, headers=headers, params=params, data=json.dumps(data))
-        elif (data is None and params is not None):
-            return requests.post(url, headers=headers, params=params)
+        if (isinstance(data, dict) or isinstance(data, list)):
+            post_data = json.dumps(data)
+        else:
+            post_data = data
+        return requests.post(url, headers=headers, params=params, data=post_data)
 
-    def send_get(self, url, token, additional_headers=None):
+    def send_get(self, url, token, params=None, additional_headers=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -95,7 +90,7 @@ class API():
         }
         if (additional_headers is not None):
             headers.update(additional_headers)
-        return requests.get(url, headers=headers)
+        return requests.get(url, headers=headers, params=params)
 
     def send_delete(self, url, token, additional_headers=None):
         headers = {
@@ -115,4 +110,8 @@ class API():
         }
         if (additional_headers is not None):
             headers.update(additional_headers)
-        return requests.put(url, headers=headers, data=json.dumps(data))
+        if (isinstance(data, dict) or isinstance(data, list)):
+            post_data = json.dumps(data)
+        else:
+            post_data = data
+        return requests.put(url, headers=headers, data=post_data)

@@ -26,8 +26,8 @@ class RfidApi(API):
 
     def get_manifest(self, device_id):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/manifest")
-        token = self.get_distributor_token()
-        response = self.send_post(url, token, line_data=device_id)
+        token = self.get_mobile_distributor_token()
+        response = self.send_post(url, token, data=device_id)
         if (response.status_code == 200):
             response_json = response.json()
             self.logger.info(f"Manifest with ID = '{response_json['data']['id']}' has been successfully got")
@@ -56,7 +56,7 @@ class RfidApi(API):
     def create_return_manifest(self):
         device_id = Tools.random_string_u(20)
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/return")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         additional_header = {
             "deviceId": device_id
         }
@@ -74,7 +74,7 @@ class RfidApi(API):
 
     def close_manifest(self, manifest_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/close")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
             self.logger.info(f"Manifest with ID = '{manifest_id}' has been successfully closed")
@@ -83,7 +83,7 @@ class RfidApi(API):
 
     def add_to_manifest(self, label, manifest_id, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/shiptos/{shipto_id}/items/add")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         dto = {
             "epc": str(label)
         }
@@ -95,7 +95,7 @@ class RfidApi(API):
 
     def submit_manifest(self, manifest_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/submit")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
             self.logger.info(f"Manifest with ID = '{manifest_id}' has been successfully submitted")
@@ -121,7 +121,7 @@ class RfidApi(API):
 
     def rfid_put_away(self, shipto_id, rfid_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/putaway/shiptos/{shipto_id}/rfids/{rfid_id}/available")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
             self.logger.info(f"RFID label with ID = '{rfid_id}' has been put away")

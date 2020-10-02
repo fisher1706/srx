@@ -10,6 +10,8 @@ from src.pages.distributor.shipto_page import ShiptoPage
 from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.pages.customer.allocation_codes_page import AllocationCodesPage
 from src.api.distributor.activity_log_api import ActivityLogApi
+from src.api.distributor.customer_api import CustomerApi
+from src.api.setups.setup_customer import SetupCustomer
 import time
 
 class TestCustomers():
@@ -57,6 +59,27 @@ class TestCustomers():
         cp.wait_until_page_loaded()
         cp.check_last_customer(edit_customer_body.copy())
         cp.delete_last_customer()
+
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_customer_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_customer):
+        api.testrail_case_id = 2242
+
+        Permissions.set_configured_user(api, Permissions.customers("VIEW"))
+
+        ca = CustomerApi(permission_api)
+
+        failed_setup = SetupCustomer(permission_api)
+        failed_setup.add_option("expected_status_code", 400)
+        failed_setup.setup() #cannot create customer
+
+        response_customer = SetupCustomer(api).setup()
+        customer = ca.get_customers(name=response_customer["customer"]["name"])[0] #can read users
+        assert response_customer["customer"]["number"] == customer["number"] #--//--//--
+
+        customer["id"] = response_customer["customer_id"]
+        ca.update_customer(dto=customer, customer_id=response_customer["customer_id"], expected_status_code=400) #cannot update user
+        ca.delete_customer(customer_id=response_customer["customer_id"], expected_status_code=400) #cannot delete user
 
     @pytest.mark.regression
     def test_shipto_crud(self, ui):
