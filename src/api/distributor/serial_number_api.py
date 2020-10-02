@@ -78,6 +78,6 @@ class SerialNumberApi(API):
         response = self.send_delete(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"{dto['numberQuantity']} Serial Numbers have been created with lot = {dto['lot']}")
+            self.logger.info(f"Serial Number with ID = '{serial_number_id}' has been successfully deleted")
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="deletion", status_code=response.status_code, content=response.content))
