@@ -72,3 +72,31 @@ class Permissions():
             "action": action
         }]
         return response
+
+    @staticmethod
+    def catalog(action):
+        response = [{
+            "feature": "distributor.general.catalog",
+            "action": action
+        }]
+        return response
+    
+    @staticmethod
+    def usage_history(action):
+        response = [{
+            "feature": "distributor.general.customers.usage.history",
+            "action": action
+        },
+        {
+            "feature": "distributor.general.customers",
+            "action": "VIEW"
+        }]
+        return response
+    
+    @staticmethod
+    def warehouses(action):
+        response = [{
+            "feature": "distributor.general.warehouses",
+            "action": action
+        }]
+        return response
