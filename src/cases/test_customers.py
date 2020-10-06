@@ -121,12 +121,24 @@ class TestCustomers():
         sp.check_last_shipto(edit_shipto_body.copy())
         sp.delete_last_shipto()
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 1842
+        },
+        { 
+            "user": Permissions.usage_history("EDIT"),
+            "testrail_case_id": 2268
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_usage_history_import(self, ui):
-        ui.testrail_case_id = 1842
+    def test_usage_history_import(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        uhp = UsageHistoryPage(ui)
+        lp = LoginPage(context)
+        uhp = UsageHistoryPage(context)
         usage_history_body = uhp.usage_history_body.copy()
 
         #-------------------
