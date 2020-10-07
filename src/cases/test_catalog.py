@@ -173,6 +173,27 @@ class TestCatalog():
         assert universal_catalog[0]["distributorName"] == api.data.distributor_name
         assert universal_catalog[0]["upc"] == product_dto["upc"]
 
+    @pytest.mark.smoke
+    def test_smoke_ui_import_prodcut(self, smoke_ui):
+        smoke_ui.testrail_case_id = 2270
+
+        lp = LoginPage(smoke_ui)
+        cp = CatalogPage(smoke_ui)
+        product_body = cp.product_body.copy()
+
+        #-------------------
+        product_body["partSku"] = Tools.random_string_u(18)
+        product_body["shortDescription"] = f"{product_body['partSku']} - short description"
+        product_body["roundBuy"] = "39"
+        #-------------------
+        products = [
+            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None]
+        ]
+        #-------------------
+
+        lp.log_in_distributor_portal()
+        cp.sidebar_catalog()
+        cp.import_product(products)
 
     @pytest.mark.smoke
     def test_smoke_import_prodcut(self, smoke_api):
