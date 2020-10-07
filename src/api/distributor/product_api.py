@@ -41,7 +41,7 @@ class ProductApi(API):
         if (response.status_code == 200):
             self.logger.info(f"File has been successfuly upload")
         else:
-            self.logger.error(f"CONTENT: {str(response.content)}\nHEADERS: {str(response.headers)}")
+            self.logger.error(str(response.content))
 
     def get_import_status(self, filename):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/import-status/Products/{filename}?type=PARSE_AND_VALIDATE")
