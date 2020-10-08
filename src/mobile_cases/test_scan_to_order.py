@@ -62,7 +62,7 @@ class TestScanToOrder():
             }
         ]
 
-        mta.bulk_create(response_location_1["shipto_id"], data, repeat=2, failed=True)
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
 
         transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
 
@@ -91,7 +91,7 @@ class TestScanToOrder():
             }
         ]
 
-        mta.bulk_create(response_location_1["shipto_id"], data, repeat=2, failed=True)
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
 
         transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
 
@@ -122,7 +122,7 @@ class TestScanToOrder():
             }
         ]
 
-        mta.bulk_create(response_location_1["shipto_id"], data, repeat=2, failed=True)
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
 
         transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
 
@@ -154,7 +154,7 @@ class TestScanToOrder():
         mta.bulk_create(response_location_1["shipto_id"], data)
 
         transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
-        mta.bulk_create(response_location_1["shipto_id"], data, failed = True)
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed = True)
         transactions_after_re_request = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
         
         assert len(transactions_after_re_request) == len(transactions), "Transactions already exist in Active status"
