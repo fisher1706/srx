@@ -173,6 +173,7 @@ class TestCatalog():
         assert universal_catalog[0]["distributorName"] == api.data.distributor_name
         assert universal_catalog[0]["upc"] == product_dto["upc"]
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_smoke_ui_import_prodcut(self, smoke_ui):
         smoke_ui.testrail_case_id = 2270

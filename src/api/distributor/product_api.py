@@ -37,7 +37,18 @@ class ProductApi(API):
     def file_upload(self, url):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/dto/smoke-product-template.csv"
         files = {"file": (path, open(path, "rb"))}
-        response = requests.put(url, files=files)
+        timeout = 200
+        for i in range(4):
+            try:
+                response = requests.put(url, files=files)
+            except:
+                time.sleep(timeout)
+                timeout *= 2
+                continue
+            else:
+                break
+        else:
+            self.logger.error("Max retries exceeded")
         if (response.status_code == 200):
             self.logger.info(f"File has been successfuly upload")
         else:
