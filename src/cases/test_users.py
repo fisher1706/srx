@@ -253,6 +253,7 @@ class TestUsers():
         row = csg.get_row_of_table_item_by_column(security_group_body["name"], 1)
         csg.check_security_group(security_group_body, row)
         csg.update_security_group(edit_security_group_body, row)
+        csg.element_should_have_text(Locator.xpath_table_item(row, 1), edit_security_group_body["name"])
         csg.check_security_group(edit_security_group_body, row)
         csg.delete_security_group(edit_security_group_body, row)
 

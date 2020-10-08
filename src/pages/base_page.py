@@ -406,9 +406,6 @@ class BasePage():
             if (scan_by == self.driver.find_element_by_xpath(prefix_path+Locator.xpath_table_item(row, column)).text):
                 return index+1
 
-    def click_table_title(self, title, row):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+title)
-
     def set_slider(self, xpath, condition):
         if (condition is not None):
             element = self.get_element_by_xpath(xpath)
