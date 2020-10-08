@@ -96,7 +96,7 @@ class TestCatalog():
         product_body["roundBuy"] = "39"
         #-------------------
         products = [
-            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None]
+            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None]
         ]
         #-------------------
 
@@ -213,7 +213,7 @@ class TestCatalog():
         product_body["roundBuy"] = "39"
         #-------------------
         products = [
-            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None]
+            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None]
         ]
         #-------------------
 
