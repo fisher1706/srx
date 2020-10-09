@@ -81,12 +81,24 @@ class TestCustomers():
         ca.update_customer(dto=customer, customer_id=response_customer["customer_id"], expected_status_code=400) #cannot update user
         ca.delete_customer(customer_id=response_customer["customer_id"], expected_status_code=400) #cannot delete user
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 241
+        },
+        { 
+            "user": Permissions.shiptos("EDIT"),
+            "testrail_case_id": 2274
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_shipto_crud(self, ui):
-        ui.testrail_case_id = 241
+    def test_shipto_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        sp = ShiptoPage(ui)
+        lp = LoginPage(context)
+        sp = ShiptoPage(context)
         shipto_body = sp.shipto_body.copy()
         edit_shipto_body = sp.shipto_body.copy()
 
