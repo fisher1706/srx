@@ -11,6 +11,8 @@ from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.pages.customer.allocation_codes_page import AllocationCodesPage
 from src.api.distributor.activity_log_api import ActivityLogApi
 from src.api.distributor.customer_api import CustomerApi
+from src.api.distributor.shipto_api import ShiptoApi
+from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_customer import SetupCustomer
 import time
 
@@ -74,19 +76,31 @@ class TestCustomers():
         failed_setup.setup() #cannot create customer
 
         response_customer = SetupCustomer(api).setup()
-        customer = ca.get_customers(name=response_customer["customer"]["name"])[0] #can read users
+        customer = ca.get_customers(name=response_customer["customer"]["name"])[0] #can read customer
         assert response_customer["customer"]["number"] == customer["number"] #--//--//--
 
         customer["id"] = response_customer["customer_id"]
-        ca.update_customer(dto=customer, customer_id=response_customer["customer_id"], expected_status_code=400) #cannot update user
-        ca.delete_customer(customer_id=response_customer["customer_id"], expected_status_code=400) #cannot delete user
+        ca.update_customer(dto=customer, customer_id=response_customer["customer_id"], expected_status_code=400) #cannot update customer
+        ca.delete_customer(customer_id=response_customer["customer_id"], expected_status_code=400) #cannot delete customer
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 241
+        },
+        { 
+            "user": Permissions.shiptos("EDIT"),
+            "testrail_case_id": 2274
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_shipto_crud(self, ui):
-        ui.testrail_case_id = 241
+    def test_shipto_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        sp = ShiptoPage(ui)
+        lp = LoginPage(context)
+        sp = ShiptoPage(context)
         shipto_body = sp.shipto_body.copy()
         edit_shipto_body = sp.shipto_body.copy()
 
@@ -120,6 +134,25 @@ class TestCustomers():
         sp.wait_until_page_loaded()
         sp.check_last_shipto(edit_shipto_body.copy())
         sp.delete_last_shipto()
+
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_shipto_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_shipto):
+        api.testrail_case_id = 2276
+
+        Permissions.set_configured_user(api, Permissions.shiptos("VIEW"))
+
+        sa = ShiptoApi(permission_api)
+
+        failed_setup = SetupShipto(permission_api)
+        failed_setup.add_option("expected_status_code", 400)
+        failed_setup.setup() #cannot create shipto
+
+        response_shipto = SetupShipto(api).setup()
+        shipto = sa.get_shipto_by_id(response_shipto["shipto_id"]) #can read shipto
+        assert response_shipto["shipto"]["number"] == shipto["number"] #--//--//--
+        sa.update_shipto(shipto, response_shipto["shipto_id"], expected_status_code=400) #cannot update shipto
+        sa.delete_shipto(response_shipto["shipto_id"], expected_status_code=400) #cannot delete shipto
 
     @pytest.mark.parametrize("permissions", [
         {
