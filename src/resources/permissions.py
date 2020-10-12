@@ -100,6 +100,14 @@ class Permissions():
             "action": action
         }]
         return response
+
+    @staticmethod
+    def pricing(action):
+        response = [{
+            "feature": "distributor.general.pricing",
+            "action": action
+        }]
+        return response
     
     @staticmethod
     def shiptos(action):
