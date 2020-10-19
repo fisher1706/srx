@@ -17,7 +17,7 @@ class ProductApi(API):
             product_id = (response_json["data"].split("/"))[-1]
             return product_id
         else:
-            self.logger.info(f"Product creation ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Product creation completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_upload_url(self):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/products/upload-url")
@@ -34,10 +34,21 @@ class ProductApi(API):
         }
         return return_response
 
-    def file_upload(self, url):
+    def file_upload(self, url, retries=3):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/dto/smoke-product-template.csv"
         files = {"file": (path, open(path, "rb"))}
-        response = requests.put(url, files=files)
+        timeout = 200
+        for i in range(retries+1):
+            try:
+                response = requests.put(url, files=files)
+            except:
+                time.sleep(timeout)
+                timeout *= 2
+                continue
+            else:
+                break
+        else:
+            self.logger.error("Max retries exceeded")
         if (response.status_code == 200):
             self.logger.info(f"File has been successfuly upload")
         else:
@@ -71,7 +82,7 @@ class ProductApi(API):
         if (response.status_code == 200):
             self.logger.info(f"Product with SKU = '{dto['partSku']}' has been successfully updated")
         else:
-            self.logger.info(f"Product updating ended with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(f"Product updating completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_product(self, product_sku=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/products?partSku={product_sku}")

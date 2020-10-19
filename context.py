@@ -27,6 +27,7 @@ class SessionContext(object):
     browser_name = None
     cognito_user_pool_id = None
     cognito_client_id = None
+    cognito_mobile_client_id = None
     cognito_checkout_client_id = None
     testrail_email = None
     testrail_password = None
@@ -56,6 +57,7 @@ class Context(object):
     #tokens
     customer_token = None
     distributor_token = None
+    mobile_distributor_token = None
     admin_token = None
     checkout_token = None
     checkout_group_token = None

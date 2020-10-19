@@ -6,7 +6,7 @@ class TransactionApi(API):
         transactions_count = self.get_transactions_count(shipto_id=shipto_id)
         for count in range (1, repeat):
             url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={self.data.customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
-            token = self.get_distributor_token()
+            token = self.get_mobile_distributor_token()
             response = self.send_post(url, token)
             time.sleep(5)
             new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)

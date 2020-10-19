@@ -1,5 +1,6 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
+from src.resources.tools import Tools
 
 class SerializationPage(DistributorPortalPage):
     serial_number_body = {
@@ -50,4 +51,10 @@ class SerializationPage(DistributorPortalPage):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
+
+    def import_serial_numbers(self, serial_numbers):
+        Tools.generate_csv("serial_numbers.csv", serial_numbers)
+        self.import_csv(Locator.id_file_upload, "serial_numbers.csv")
+        self.get_element_by_xpath(Locator.xpath_successfully_imported_msg)
         self.wait_until_page_loaded()

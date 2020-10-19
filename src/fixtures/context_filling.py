@@ -6,6 +6,7 @@ from src.resources.data import Data, SmokeData
 from src.resources.logger import Logger
 from src.resources.testrail import Testrail
 import sys
+import copy
 
 @pytest.fixture(scope="session")
 def session_context(request):
@@ -50,6 +51,7 @@ def session_context(request):
         #cognito credentials
         session_context_object.cognito_user_pool_id = request.config.getoption("cognito_user_pool_id")
         session_context_object.cognito_client_id = request.config.getoption("cognito_client_id")
+        session_context_object.cognito_mobile_client_id = request.config.getoption("cognito_mobile_client_id")
         session_context_object.cognito_checkout_client_id = request.config.getoption("cognito_checkout_client_id")
 
     elif (not session_context_object.credentials):
@@ -85,6 +87,7 @@ def session_context(request):
         #cognito credentials
         session_context_object.cognito_user_pool_id = creds.USER_POOL_ID
         session_context_object.cognito_client_id = creds.CLIENT_ID
+        session_context_object.cognito_mobile_client_id = creds.MOBILE_CLIENT_ID
         session_context_object.cognito_checkout_client_id = creds.CHECKOUT_CLIENT_ID
 
     return session_context_object
@@ -159,6 +162,18 @@ def smoke_ui(driver, smoke_context):
 def smoke_api(smoke_context):
     context_object = smoke_context
     context_object.testrail_run_id = context_object.data.smoke_testrail_run_id
+    return context_object
+
+@pytest.fixture(scope="function")
+def permission_context(context, request):
+    context_object = copy.copy(context)
+    context_object.data = context_object.session_context.base_data
+
+    #credentials
+    context_object.distributor_email = context_object.session_context.permission_distributor_email
+    context_object.distributor_password = context_object.session_context.permission_distributor_password
+    context_object.customer_email = context_object.session_context.permission_customer_email
+    context_object.customer_password = context_object.session_context.permission_customer_password
     return context_object
 
 def testrail(request, context):

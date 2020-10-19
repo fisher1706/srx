@@ -9,6 +9,7 @@ from src.resources.locator import Locator
 import csv
 import os
 import pytest
+import time
 
 class BasePage():
     def __init__(self, context):
@@ -98,10 +99,6 @@ class BasePage():
         element = self.get_element_by_id(id)
         assert not element.is_enabled(), f"Element with ID = '{id}' is enabled, but should be disabled"
 
-    # def should_be_disabled_xpath(self, xpath):
-    #     element = self.get_element_by_xpath(xpath)
-    #     assert not element.is_enabled(), f"Element with XPATH = '{xpath}' is enabled, but should be disabled"
-
     def should_be_disabled_xpath(self, xpath, wait=False):
         element = self.get_element_by_xpath(xpath)
         if (not wait):
@@ -163,7 +160,7 @@ class BasePage():
         if (name is not None):
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
-            self.click_xpath(f"{xpath}/..//div[text()='{name}']")
+            self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
 
     def manage_shipto(self, shiptos, prefix_path=""):
         if (shiptos is not None):
@@ -275,10 +272,7 @@ class BasePage():
                 if (correctness):
                     self.logger.info(f"{row} element in '{header}' column is correct")
             else:
-                if (current_text == expected_text):
-                    self.logger.info(f"{row} element in '{header}' column is correct")
-                else:
-                    self.logger.error(f"{row} element in '{header}' column is '{current_text}', but should be '{expected_text}'")
+                self.element_should_have_text(Locator.xpath_table_item(row, column), expected_text) 
 
     def delete_dialog_should_be_about(self, expected_text):
         self.wait_until_page_loaded(1)
@@ -412,9 +406,6 @@ class BasePage():
             if (scan_by == self.driver.find_element_by_xpath(prefix_path+Locator.xpath_table_item(row, column)).text):
                 return index+1
 
-    def click_table_title(self, title, row):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+title)
-
     def set_slider(self, xpath, condition):
         if (condition is not None):
             element = self.get_element_by_xpath(xpath)
@@ -457,7 +448,9 @@ class BasePage():
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.input_data_xpath(name, f"{xpath}//input")
-            self.get_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
+            #self.get_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
+            self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
+            
 
     def input_inline_xpath(self, data, xpath):
         if (data is not None):
@@ -498,8 +491,10 @@ class BasePage():
         except:
             pass
 
-    def select_shipto_sku(self, shipto, sku):
-        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), shipto)
-        self.wait_until_page_loaded()
-        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), sku)
-        self.wait_until_page_loaded()
+    def select_shipto_sku(self, shipto=None, sku=None):
+        if shipto is not None:
+            self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), shipto)
+            self.wait_until_page_loaded()
+        if sku is not None:
+            self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), sku)
+            self.wait_until_page_loaded()

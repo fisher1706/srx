@@ -5,6 +5,8 @@ class Locator():
     id_enter_here = "redirectButton"
     id_add_button = "item-action-add"
     id_file_upload = "file-upload"
+    id_upload_rfid_csv = "upload-rfid-csv"
+    id_upload_rfid_available = "upload-rfid-available"
     id_intercom_container = "intercom-container"
     id_drop_down_button = "dropDownButton"
 
@@ -54,6 +56,7 @@ class Locator():
     xpath_associated_shiptos = "//button[@data-testid='associated-shiptos-button']"
     xpath_associated_users = "//button[@data-testid='associated-users-button']"
     xpath_configure_button = "//button[@data-testid='configure-button']"
+    xpath_view_button = "//button[@data-testid='view-button']"
     xpath_select_button = "//button[@data-testid='select-button']"
     xpath_edit_status_button = "//button[@data-testid='edit-status-button']"
     xpath_role_menu = "//ul[@role='menu']"

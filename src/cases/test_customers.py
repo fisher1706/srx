@@ -2,6 +2,7 @@ import pytest
 import random
 from src.resources.tools import Tools
 from src.resources.locator import Locator
+from src.resources.permissions import Permissions
 from src.pages.general.login_page import LoginPage
 from src.pages.general.activity_log_page import ActivityLogPage
 from src.pages.distributor.customers_page import CustomersPage
@@ -9,15 +10,31 @@ from src.pages.distributor.shipto_page import ShiptoPage
 from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.pages.customer.allocation_codes_page import AllocationCodesPage
 from src.api.distributor.activity_log_api import ActivityLogApi
+from src.api.distributor.customer_api import CustomerApi
+from src.api.distributor.shipto_api import ShiptoApi
+from src.api.setups.setup_shipto import SetupShipto
+from src.api.setups.setup_customer import SetupCustomer
 import time
 
 class TestCustomers():
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 31
+        },
+        { 
+            "user": Permissions.customers("EDIT"),
+            "testrail_case_id": 2241
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_customer_crud(self, ui):
-        ui.testrail_case_id = 31
+    def test_customer_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        cp = CustomersPage(ui)
+        lp = LoginPage(context)
+        cp = CustomersPage(context)
         customer_body = cp.customer_body.copy()
         edit_customer_body = cp.customer_body.copy()
 
@@ -45,12 +62,45 @@ class TestCustomers():
         cp.check_last_customer(edit_customer_body.copy())
         cp.delete_last_customer()
 
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_shipto_crud(self, ui):
-        ui.testrail_case_id = 241
+    def test_customer_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_customer):
+        api.testrail_case_id = 2242
 
-        lp = LoginPage(ui)
-        sp = ShiptoPage(ui)
+        Permissions.set_configured_user(api, Permissions.customers("VIEW"))
+
+        ca = CustomerApi(permission_api)
+
+        failed_setup = SetupCustomer(permission_api)
+        failed_setup.add_option("expected_status_code", 400)
+        failed_setup.setup() #cannot create customer
+
+        response_customer = SetupCustomer(api).setup()
+        customer = ca.get_customers(name=response_customer["customer"]["name"])[0] #can read customer
+        assert response_customer["customer"]["number"] == customer["number"] #--//--//--
+
+        customer["id"] = response_customer["customer_id"]
+        ca.update_customer(dto=customer, customer_id=response_customer["customer_id"], expected_status_code=400) #cannot update customer
+        ca.delete_customer(customer_id=response_customer["customer_id"], expected_status_code=400) #cannot delete customer
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 241
+        },
+        { 
+            "user": Permissions.shiptos("EDIT"),
+            "testrail_case_id": 2274
+        }
+        ])
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_shipto_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
+
+        lp = LoginPage(context)
+        sp = ShiptoPage(context)
         shipto_body = sp.shipto_body.copy()
         edit_shipto_body = sp.shipto_body.copy()
 
@@ -85,12 +135,43 @@ class TestCustomers():
         sp.check_last_shipto(edit_shipto_body.copy())
         sp.delete_last_shipto()
 
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_usage_history_import(self, ui):
-        ui.testrail_case_id = 1842
+    def test_shipto_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_shipto):
+        api.testrail_case_id = 2276
 
-        lp = LoginPage(ui)
-        uhp = UsageHistoryPage(ui)
+        Permissions.set_configured_user(api, Permissions.shiptos("VIEW"))
+
+        sa = ShiptoApi(permission_api)
+
+        failed_setup = SetupShipto(permission_api)
+        failed_setup.add_option("expected_status_code", 400)
+        failed_setup.setup() #cannot create shipto
+
+        response_shipto = SetupShipto(api).setup()
+        shipto = sa.get_shipto_by_id(response_shipto["shipto_id"]) #can read shipto
+        assert response_shipto["shipto"]["number"] == shipto["number"] #--//--//--
+        sa.update_shipto(shipto, response_shipto["shipto_id"], expected_status_code=400) #cannot update shipto
+        sa.delete_shipto(response_shipto["shipto_id"], expected_status_code=400) #cannot delete shipto
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 1842
+        },
+        { 
+            "user": Permissions.usage_history("EDIT"),
+            "testrail_case_id": 2268
+        }
+        ])
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_usage_history_import(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
+
+        lp = LoginPage(context)
+        uhp = UsageHistoryPage(context)
         usage_history_body = uhp.usage_history_body.copy()
 
         #-------------------

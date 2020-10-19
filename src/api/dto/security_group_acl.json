@@ -1,0 +1,899 @@
+[
+    {
+        "name": "PutAway",
+        "feature": "distributor.mobile.rfid.put.away",
+        "parentFeature": "distributor.mobile.rfid",
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Pricing & Documents",
+        "feature": "distributor.general.company.account.pricing.and.documents",
+        "parentFeature": "distributor.general.company.account",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Catalog",
+        "feature": "distributor.general.catalog",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Operational & VMI Data",
+        "feature": "distributor.general.customers.operational.vmi.data",
+        "parentFeature": "distributor.general.customers",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Planogram",
+        "feature": "distributor.general.shiptos.planogram",
+        "parentFeature": "distributor.general.shiptos",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Configure",
+                    "value": "CONFIGURE"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "ERP Integration",
+        "feature": "distributor.general.settings.erp.integration",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB_SETTINGS",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "RFID",
+        "feature": "distributor.mobile.rfid",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "ShipTos",
+        "feature": "distributor.general.shiptos",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Configure",
+                    "value": "CONFIGURE"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "CribCrawl",
+        "feature": "distributor.general.shiptos.crib.crawl",
+        "parentFeature": "distributor.general.shiptos",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Security Groups",
+        "feature": "distributor.general.users.and.groups.security.groups",
+        "parentFeature": "distributor.general.users.and.groups",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Reports",
+        "feature": "distributor.general.reports",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Configure",
+                    "value": "CONFIGURE"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Dashboards",
+        "feature": "distributor.general.dashboards",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Workflow",
+        "feature": "distributor.general.settings.workflow",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB_SETTINGS",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "RFID Tagging",
+        "feature": "distributor.general.rfid.tagging",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Hardware",
+        "feature": "distributor.general.hardware",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Configure",
+                    "value": "CONFIGURE"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Labels",
+        "feature": "distributor.mobile.labels",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Customer Users",
+        "feature": "distributor.general.customers.customer.users",
+        "parentFeature": "distributor.general.customers",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Buttons",
+        "feature": "distributor.mobile.buttons",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Warehouses",
+        "feature": "distributor.general.warehouses",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Put Away",
+        "feature": "distributor.mobile.put.away",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Lot & Serialization",
+        "feature": "distributor.general.lot.and.serialization",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Usage History",
+        "feature": "distributor.general.customers.usage.history",
+        "parentFeature": "distributor.general.customers",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Billing Info & Account Management",
+        "feature": "distributor.general.company.account.billing.info.and.account.management",
+        "parentFeature": "distributor.general.company.account",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Lifecycle Status",
+        "feature": "distributor.general.catalog.lifecycle.status",
+        "parentFeature": "distributor.general.catalog",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Manifest",
+        "feature": "distributor.mobile.rfid.manifest",
+        "parentFeature": "distributor.mobile.rfid",
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Operational & VMI Data",
+        "feature": "distributor.general.settings.operational.and.vmi.data",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB_SETTINGS",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Users & Groups",
+        "feature": "distributor.general.users.and.groups",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Hardware",
+        "feature": "distributor.mobile.hardware",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "VMI List (Locations)",
+        "feature": "distributor.general.shiptos.vmi.list.locations",
+        "parentFeature": "distributor.general.shiptos",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Configure",
+                    "value": "CONFIGURE"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Pricing",
+        "feature": "distributor.general.pricing",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "CribCrawl",
+        "feature": "distributor.mobile.crib.crawl",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Company Account",
+        "feature": "distributor.general.company.account",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Search",
+        "feature": "distributor.mobile.rfid.search",
+        "parentFeature": "distributor.mobile.rfid",
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Orders",
+        "feature": "distributor.general.orders",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Lead Time",
+        "feature": "distributor.general.catalog.lead.time",
+        "parentFeature": "distributor.general.catalog",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Operational & VMI Data",
+        "feature": "distributor.general.shiptos.operational.and.vmi.data",
+        "parentFeature": "distributor.general.shiptos",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Activity Feed",
+        "feature": "distributor.general.activity.feed",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Cycle Count",
+        "feature": "distributor.mobile.cycle.count",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Event Subscription",
+        "feature": "distributor.general.activity.feed.event.subscription",
+        "parentFeature": "distributor.general.activity.feed",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Customers",
+        "feature": "distributor.general.customers",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Configure",
+                    "value": "CONFIGURE"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "VMI Agreement",
+        "feature": "distributor.general.shiptos.vmi.agreement",
+        "parentFeature": "distributor.general.shiptos",
+        "type": "DISTRIBUTOR_WEB",
+        "actions": [
+            {
+                "action": {
+                    "label": "Configure",
+                    "value": "CONFIGURE"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "API Keys",
+        "feature": "distributor.general.settings.api.keys",
+        "parentFeature": null,
+        "type": "DISTRIBUTOR_WEB_SETTINGS",
+        "actions": [
+            {
+                "action": {
+                    "label": "Edit",
+                    "value": "EDIT"
+                },
+                "permission": true
+            },
+            {
+                "action": {
+                    "label": "View",
+                    "value": "VIEW"
+                },
+                "permission": true
+            }
+        ]
+    },
+    {
+        "name": "Manage RFID Tags",
+        "feature": "distributor.mobile.rfid.manage.rfid.tags",
+        "parentFeature": "distributor.mobile.rfid",
+        "type": "DISTRIBUTOR_MOBILE",
+        "actions": [
+            {
+                "action": {
+                    "label": "Enable",
+                    "value": "ENABLE"
+                },
+                "permission": true
+            }
+        ]
+    }
+]
