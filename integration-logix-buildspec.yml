@@ -9,5 +9,5 @@ phases:
   build:
     commands:
       - export PYTHONPATH=$PYTHONPATH:.
-      - pip3 install requests boto3 warrant pytest
+      - pip3 install requests boto3 selenium warrant pytest
       - pytest --environment=dev --smoke_distributor_email=$SMOKE_DISTRIBUTOR_EMAIL --smoke_distributor_password=$SMOKE_DISTRIBUTOR_PASSWORD --smoke_customer_email=$SMOKE_CUSTOMER_EMAIL --smoke_customer_password=$SMOKE_CUSTOMER_PASSWORD --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD --cognito_user_pool_id=$USER_POOL_ID --cognito_client_id=$CLIENT_ID --cognito_checkout_client_id=$CHECKOUT_CLIENT_ID --cognito_mobile_client_id=$MOBILE_CLIENT_ID --credentials -m smoke_integration_logix .
