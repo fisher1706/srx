@@ -83,16 +83,20 @@ class BasePage():
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' is clicked")
 
-    def input_data_id(self, data, id):
+    def input_data_id(self, data, id, hide_log=False):
         self.clear_id(id)
         element = self.get_element_by_id(id)
         element.send_keys(data)
+        if hide_log:
+            data = "***"
         self.logger.info(f"Data '{data}' inputed into element with ID = '{id}'")
 
-    def input_data_xpath(self, data, xpath):
+    def input_data_xpath(self, data, xpath, hide_log=False):
         self.clear_xpath(xpath)
         element = self.get_element_by_xpath(xpath)
         element.send_keys(data)
+        if hide_log:
+            data = "***"
         self.logger.info(f"Data '{data}' inputed into element with XPATH = '{xpath}'")
 
     def should_be_disabled_id(self, id):
@@ -140,9 +144,9 @@ class BasePage():
         else: 
             self.logger.error(f"URL does not contain '{text}'")
 
-    def input_by_name(self, name, data):
+    def input_by_name(self, name, data, hide_log=None):
         if (data is not None):
-            self.input_data_xpath(data, f"//input[@name='{name}']")
+            self.input_data_xpath(data, f"//input[@name='{name}']", hide_log=hide_log)
 
     def clear_id(self, id):
         element = self.get_element_by_id(id)
