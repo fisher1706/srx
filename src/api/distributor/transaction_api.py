@@ -1,4 +1,6 @@
 from src.api.api import API
+from src.resources.messages import Message
+from src.fixtures.decorators import Decorator
 import time
 
 class TransactionApi(API):
@@ -76,3 +78,15 @@ class TransactionApi(API):
         for item in range(transactions_response["totalElements"]):
             transaction_id = tranactions_list[item]["id"]
             self.update_replenishment_item(transaction_id, quantity, status_after)
+
+    @Decorator.default_expected_code(200)
+    def submit_transaction(self, dto, expected_status_code):
+        url = self.url.get_api_url_for_env(f"/customer-portal/customer/replenishment/list")
+        token = self.get_customer_token()
+        response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        if (response.status_code == 200):
+            self.logger.info(f"Transaction has been successfully submitted")
+        else:
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))
+
