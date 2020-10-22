@@ -125,6 +125,78 @@ class TestTransactions():
         assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
         assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
 
+    @pytest.mark.smoke_integration_logix
+    def test_integration_submit_transaction_to_quote(self, smoke_api):
+        smoke_api.testrail_case_id = 2281
+        ta = TransactionApi(smoke_api)
+
+        transactions = ta.get_transaction(status="ACTIVE")
+        if (transactions["totalElements"] != 0):
+            smoke_api.logger.info("There are some active transactions, they will be closed")
+            ta.update_transactions_with_specific_status("ACTIVE", 0, "DO_NOT_REORDER")
+        
+        transactions = ta.get_transaction(status="QUOTED")
+        if (transactions["totalElements"] != 0):
+            smoke_api.logger.info("There are some quoted transactions, they will be closed")
+            ta.update_transactions_with_specific_status("QUOTED", 0, "DO_NOT_REORDER")
+
+        transactions = ta.get_transaction(status="ORDERED")
+        if (transactions["totalElements"] != 0):
+            smoke_api.logger.info("There are some ordered transactions, they will be closed")
+            ta.update_transactions_with_specific_status("ORDERED", 0, "DO_NOT_REORDER")
+
+        ta.create_active_item(smoke_api.data.shipto_id, smoke_api.data.ordering_config_id, repeat=6)
+        transactions = ta.get_transaction(status="ACTIVE")
+        transaction_id = transactions["entities"][0]["id"]
+        assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
+        
+        post_data = {
+            "poNumber": {
+                "poNumber": "TEST DO NOT PROCESS",
+                "useForAllShipTo": True,
+                "distributors": [
+                    {
+                        "name": "SMOKE INTEGRATION LOGIX DISTRIBUTOR",
+                        "total": "N/A",
+                        "logo": None,
+                        "shipTos": [
+                            {
+                                "id": smoke_api.data.shipto_id,
+                                "number": "ShipTo",
+                                "name": None,
+                                "address": {
+                                    "line1": "address",
+                                    "line2": None,
+                                    "city": "CN",
+                                    "state": "AL",
+                                    "zipCode": "00000"
+                                },
+                                "poNumber": "TEST DO NOT PROCESS",
+                                "total": "N/A",
+                                "submitType": "QUOTED",
+                                "existQuotedItem": True
+                            }
+                        ]
+                    }
+                ]
+            },
+            "items": [
+                {
+                    "id": transaction_id,
+                    "reorderQuantity": 100,
+                    "status": "QUOTED"
+                }
+            ]
+        }
+        ta.submit_transaction(post_data)
+        transactions = ta.get_transaction(status="QUOTED")
+        assert transactions["totalElements"] == 1
+
+        ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
+        
+        transactions = ta.get_transaction(status="QUOTED")
+        assert transactions["totalElements"] == 0
+
     @pytest.mark.smoke
     def test_smoke_label_transaction_and_activity_log(self, smoke_api):
         smoke_api.testrail_case_id = 2005

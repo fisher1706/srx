@@ -79,7 +79,11 @@ class SmokeData():
             self.prod_environment()
 
     def dev_environment(self):
-        pass
+        self.smoke_testrail_run_id = 56
+        self.customer_id = "1288"
+        self.shipto_id = "1653"
+        self.ordering_config_id = "17334"
+        self.report_id = 8
 
     def staging_environment(self):
         self.smoke_testrail_run_id = 43
