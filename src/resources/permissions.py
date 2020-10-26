@@ -15,7 +15,7 @@ class Permissions():
                     if (item["feature"] == permission["feature"]):
                         actions = item["actions"]
                         for action in actions:
-                            if (action["action"]["value"] == "VIEW" and (c["action"] == "VIEW" or permission["action"] == "EDIT" or permission["action"] == "CONFIGURE")):
+                            if (action["action"]["value"] == "VIEW" and (permission["action"] == "VIEW" or permission["action"] == "EDIT" or permission["action"] == "CONFIGURE")):
                                 action["permission"] = True
                             if (action["action"]["value"] == "EDIT" and (permission["action"] == "EDIT" or permission["action"] == "CONFIGURE")):
                                 action["permission"] = True
