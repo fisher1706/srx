@@ -27,7 +27,8 @@ class SetupLocation(BaseSetup):
             "locker_location": None,
             "rfid_location": None,
             "rfid_labels": None,
-            "transaction": None
+            "transaction": None,
+            "dsn": None
         }
         self.location = Tools.get_dto("location_dto.json")
         self.location_id = None
@@ -44,6 +45,7 @@ class SetupLocation(BaseSetup):
         self.setup_shipto = SetupShipto(self.context)
         self.setup_locker = SetupLocker(self.context)
         self.setup_rfid = SetupRfid(self.context)
+        self.dsn = None
 
     def setup(self, expected_status_code=None):
         self.expected_status_code = expected_status_code
@@ -66,7 +68,8 @@ class SetupLocation(BaseSetup):
             "rfid": self.rfid,
             "rfid_labels": self.rfid_labels,
             "transaction": self.transaction,
-            "put_away": self.put_away
+            "put_away": self.put_away,
+            "dsn": self.dsn
         }
 
         return copy.deepcopy(response)
@@ -132,7 +135,8 @@ class SetupLocation(BaseSetup):
             "currentInventoryControls": {
                 "min": self.product["roundBuy"],
                 "max": self.product["roundBuy"]*3
-            }
+            },
+            "dsn": self.options["dsn"]
         }
         self.location["onHandInventory"] = self.options["ohi"]
         self.location["serialized"] = bool(self.options["serialized"])
