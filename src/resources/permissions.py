@@ -8,6 +8,7 @@ class Permissions():
             ua = UserApi(base_context)
 
             ACL = ua.get_acl_sctructure()
+            ua.clear_acl_cache()
 
             for permission in permissions:
                 for item in ACL:
@@ -67,3 +68,65 @@ class Permissions():
         }]
         return response
         
+    def rfids(action):
+        response = [{
+            "feature": "distributor.general.rfid.tagging",
+            "action": action
+        }]
+        return response
+
+    @staticmethod
+    def serialization(action):
+        response = [{
+            "feature": "distributor.general.lot.and.serialization",
+            "action": action
+        }]
+        return response
+
+    @staticmethod
+    def catalog(action):
+        response = [{
+            "feature": "distributor.general.catalog",
+            "action": action
+        }]
+        return response
+    
+    @staticmethod
+    def usage_history(action):
+        response = [{
+            "feature": "distributor.general.customers.usage.history",
+            "action": action
+        },
+        {
+            "feature": "distributor.general.customers",
+            "action": "VIEW"
+        }]
+        return response
+    
+    @staticmethod
+    def warehouses(action):
+        response = [{
+            "feature": "distributor.general.warehouses",
+            "action": action
+        }]
+        return response
+
+    @staticmethod
+    def pricing(action):
+        response = [{
+            "feature": "distributor.general.pricing",
+            "action": action
+        }]
+        return response
+    
+    @staticmethod
+    def shiptos(action):
+        response = [{
+            "feature": "distributor.general.shiptos",
+            "action": action
+        },
+        {
+            "feature": "distributor.general.customers",
+            "action": "VIEW"
+        }]
+        return response

@@ -14,6 +14,7 @@ class AssetsPage(CustomerPortalPage):
     #xpath_empty_list = "//div[text()='List of checked out assets is empty.']"
 
     def check_all_assets_tab(self, asset, shipto, avaliable, total, checked_out):
+        self.get_element_by_xpath("//span[text()='All assets']")
         self.click_tab_by_name("All assets")
         self.click_xpath(self.xpath_filter)
         self.select_in_dropdown(Locator.xpath_select_box, shipto)
