@@ -12,7 +12,8 @@ class SetupShipto(BaseSetup):
         self.options = {
             "checkout_settings": None,
             "autosubmit_settings": None,
-            "serialization_settings": None
+            "serialization_settings": None,
+            "expected_status_code": None
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
         self.id = None
@@ -46,8 +47,9 @@ class SetupShipto(BaseSetup):
             "id": self.context.data.warehouse_id
         }
 
-        self.id = sa.create_shipto(copy.deepcopy(self.shipto))
-        self.context.dynamic_context["delete_shipto_id"].append(self.id)
+        self.id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"])
+        if self.id is not None:
+            self.context.dynamic_context["delete_shipto_id"].append(self.id)
 
     def set_checkout_settings(self):
         if (self.options["checkout_settings"] is not None):

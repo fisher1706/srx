@@ -47,6 +47,7 @@ class ShiptoPage(DistributorPortalPage):
         for field in shipto_body.keys():
             self.input_by_name(field, shipto_body[field])
         self.click_xpath(Locator.xpath_submit_button)
+        self.wait_until_page_loaded()
 
     def delete_last_shipto(self):
         start_number_of_rows = self.get_table_rows_number()

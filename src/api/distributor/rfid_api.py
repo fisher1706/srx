@@ -1,8 +1,11 @@
 from src.api.api import API
 from src.resources.tools import Tools
+from src.resources.messages import Message
+from src.fixtures.decorators import Decorator
 
 class RfidApi(API):
-    def create_rfid(self, location_id, label=None):
+    @Decorator.default_expected_code(200)
+    def create_rfid(self, location_id, expected_status_code, label=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/locations/{location_id}/rfids/create")
         token = self.get_distributor_token()
         if (label is None):
@@ -12,22 +15,24 @@ class RfidApi(API):
             "locationId": location_id
         }
         response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"New RFID label '{dto['labelId']}' has been successfully created")
+            response_json = response.json()
+            new_rfid_id = (response_json["data"].split("/"))[-1]
+            return_response = {
+                "rfid_id": new_rfid_id,
+                "label": label
+            }
+            return return_response
         else:
-            self.logger.error(str(response.content))
-        response_json = response.json()
-        new_rfid_id = (response_json["data"].split("/"))[-1]
-        return_response = {
-            "rfid_id": new_rfid_id,
-            "label": label
-        }
-        return return_response
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="RFID label", operation="creation", status_code=response.status_code, content=response.content))
+
 
     def get_manifest(self, device_id):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/manifest")
-        token = self.get_distributor_token()
-        response = self.send_post(url, token, line_data=device_id)
+        token = self.get_mobile_distributor_token()
+        response = self.send_post(url, token, data=device_id)
         if (response.status_code == 200):
             response_json = response.json()
             self.logger.info(f"Manifest with ID = '{response_json['data']['id']}' has been successfully got")
@@ -56,7 +61,7 @@ class RfidApi(API):
     def create_return_manifest(self):
         device_id = Tools.random_string_u(20)
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/return")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         additional_header = {
             "deviceId": device_id
         }
@@ -74,7 +79,7 @@ class RfidApi(API):
 
     def close_manifest(self, manifest_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/close")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
             self.logger.info(f"Manifest with ID = '{manifest_id}' has been successfully closed")
@@ -83,7 +88,7 @@ class RfidApi(API):
 
     def add_to_manifest(self, label, manifest_id, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/shiptos/{shipto_id}/items/add")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         dto = {
             "epc": str(label)
         }
@@ -95,7 +100,7 @@ class RfidApi(API):
 
     def submit_manifest(self, manifest_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/submit")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
             self.logger.info(f"Manifest with ID = '{manifest_id}' has been successfully submitted")
@@ -121,7 +126,7 @@ class RfidApi(API):
 
     def rfid_put_away(self, shipto_id, rfid_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/putaway/shiptos/{shipto_id}/rfids/{rfid_id}/available")
-        token = self.get_distributor_token()
+        token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
             self.logger.info(f"RFID label with ID = '{rfid_id}' has been put away")
@@ -139,14 +144,27 @@ class RfidApi(API):
         response_json = response.json()
         return response_json["data"]["entities"]
 
-    def update_rfid_label(self, location_id, rfid_id, status):
+    @Decorator.default_expected_code(200)
+    def update_rfid_label(self, location_id, rfid_id, status, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/locations/{location_id}/rfids/{rfid_id}/status-update")
         token = self.get_distributor_token()
         dto = {
             "state": status
         }
         response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"RFID label with ID = '{rfid_id}' has been successfully updated")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="RFID label", operation="creation", status_code=response.status_code, content=response.content))
+
+    @Decorator.default_expected_code(200)
+    def delete_rfid_label(self, location_id, rfid_id, expected_status_code):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/locations/{location_id}/rfids/{rfid_id}/delete")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        if (response.status_code == 200):
+            self.logger.info(f"RFID label with ID = '{rfid_id}' has been successfully deleted")
+        else:
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="RFID label", operation="deletion", status_code=response.status_code, content=response.content))

@@ -1,5 +1,7 @@
 import pytest
 from src.resources.locator import Locator
+from src.resources.tools import Tools
+from src.resources.permissions import Permissions
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.rfid_page import RfidPage
 from src.api.setups.setup_location import SetupLocation
@@ -9,18 +11,30 @@ from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 
 class TestRfid():
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 1918
+        },
+        { 
+            "user": Permissions.rfids("EDIT"),
+            "testrail_case_id": 2245
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_rfid_label_crud(self, ui, delete_shipto):
-        ui.testrail_case_id = 1918
+    def test_rfid_label_crud(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        rp = RfidPage(ui)
+        lp = LoginPage(context)
+        rp = RfidPage(context)
 
         setup_location = SetupLocation(ui)
         setup_location.add_option("type", "RFID")
         response_location = setup_location.setup()
 
-        shipto_text = f"{ui.data.customer_name} - {response_location['shipto']['number']}"
+        shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
         product_sku = response_location["product"]["partSku"]
 
         lp.log_in_distributor_portal()
@@ -36,6 +50,98 @@ class TestRfid():
         rp.update_last_rfid_label_status(new_status)
         rp.check_last_rfid_label(rfid_label, new_status)
         rp.unassign_last_rfid_label()
+
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_rfid_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_shipto):
+        api.testrail_case_id = 2261
+
+        Permissions.set_configured_user(api, Permissions.rfids("VIEW"))
+
+        ra = RfidApi(permission_api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("type", "RFID")
+        response_location = setup_location.setup()
+
+        ra.create_rfid(response_location["location_id"], expected_status_code=400) #cannot create RFID label
+
+        rfid_info = RfidApi(api).create_rfid(response_location["location_id"])
+        rfid = ra.get_rfid_labels(response_location["location_id"])[0] #can read RFID labels
+        assert rfid_info["label"] == rfid["labelId"] #--//--//--
+
+        ra.update_rfid_label(response_location["location_id"], rfid_info["rfid_id"], "AVAILABLE", expected_status_code=400) #cannot update RFID label
+        ra.delete_rfid_label(response_location["location_id"], rfid_info["rfid_id"], expected_status_code=400) #cannot delete RFID label
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2243
+        },
+        { 
+            "user": Permissions.rfids("EDIT"),
+            "testrail_case_id": 2244
+        }
+        ])
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_rfid_label_import_as_available(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
+
+        lp = LoginPage(context)
+        rp = RfidPage(context)
+
+        setup_location = SetupLocation(ui)
+        setup_location.add_option("type", "RFID")
+        response_location = setup_location.setup()
+
+        shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
+        product_sku = response_location["product"]["partSku"]
+        rfid = Tools.random_string_u()
+        rfids = [
+            [rfid, product_sku, None]
+        ]
+        lp.log_in_distributor_portal()
+        rp.sidebar_rfid()
+        rp.select_shipto_sku(shipto_text, product_sku)
+        rp.import_rfid_as_available(rfids)
+        rp.check_last_rfid_label(rfid, "AVAILABLE")
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2254
+        },
+        { 
+            "user": Permissions.rfids("EDIT"),
+            "testrail_case_id": 2255
+        }
+        ])
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_rfid_label_import_csv(self, ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
+
+        lp = LoginPage(context)
+        rp = RfidPage(context)
+
+        setup_location = SetupLocation(ui)
+        setup_location.add_option("type", "RFID")
+        response_location = setup_location.setup()
+
+        shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
+        product_sku = response_location["product"]["partSku"]
+        rfid = Tools.random_string_u()
+        rfids = [
+            [rfid]
+        ]
+        lp.log_in_distributor_portal()
+        rp.sidebar_rfid()
+        rp.select_shipto_sku(shipto_text, product_sku)
+        rp.import_rfid(rfids)
+        rp.check_last_rfid_label(rfid, "ASSIGNED")
 
     @pytest.mark.regression
     def test_create_rfid_transaction_as_issued(self, api, delete_shipto, delete_hardware):

@@ -67,10 +67,10 @@ class TestAuthorization():
 
         lp.follow_admin_portal()
         lp.open_forgot_password_page()
-        lp.input_email("example@agilevision.io")
+        lp.input_email("example.test-reset-password-@agilevision.io")
         lp.submit_button_should_be_enabled()
         lp.click_on_submit_button()
-        lp.get_element_by_xpath("//span[text()='Please check if the entered email address is correct and try again.']")
+        lp.get_element_by_xpath("//h2[text()='Please check your inbox']")
         lp.return_from_forgot_password_page()
         lp.it_should_be_login_page()
 

@@ -86,6 +86,7 @@ class TestUsers():
             "testrail_case_id": 2178
         }
         ])
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_distributor_user_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
         ui.testrail_case_id = permissions["testrail_case_id"]
@@ -117,6 +118,7 @@ class TestUsers():
         dup.check_last_distributor_user(edit_distributor_user_body.copy())
         dup.delete_last_distributor_user()
 
+    @pytest.mark.acl
     @pytest.mark.regression
     def test_distributor_user_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_distributor_user):
         api.testrail_case_id = 2182
@@ -130,10 +132,11 @@ class TestUsers():
         failed_setup.setup() #cannot create user
 
         response_user = SetupDistributorUser(api).setup()
-        user = ua.get_distributor_user(email=response_user["user"]["email"]) #can read users
-        assert response_user["user"]["firstName"] == user[0]["firstName"] #--//--//--
-        assert response_user["user"]["lastName"] == user[0]["lastName"] #--//--//--
+        user = ua.get_distributor_user(email=response_user["user"]["email"])[0] #can read users
+        assert response_user["user"]["firstName"] == user["firstName"] #--//--//--
+        assert response_user["user"]["lastName"] == user["lastName"] #--//--//--
 
+        user["id"] = response_user["user_id"]
         ua.update_distributor_user(dto=user, user_id=response_user["user_id"], expected_status_code=400) #cannot update user
         ua.delete_distributor_user(user_id=response_user["user_id"], expected_status_code=400) #cannot delete user
 
@@ -250,6 +253,7 @@ class TestUsers():
         row = csg.get_row_of_table_item_by_column(security_group_body["name"], 1)
         csg.check_security_group(security_group_body, row)
         csg.update_security_group(edit_security_group_body, row)
+        csg.element_should_have_text(Locator.xpath_table_item(row, 1), edit_security_group_body["name"])
         csg.check_security_group(edit_security_group_body, row)
         csg.delete_security_group(edit_security_group_body, row)
 

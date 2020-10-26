@@ -11,7 +11,7 @@ class MobileTransactionApi(API):
         transactions_count = ta.get_transactions_count(shipto_id=shipto_id,status="ACTIVE")
         for count in range (1, repeat):
             url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/bulkCreate")
-            token = self.get_distributor_token()
+            token = self.get_mobile_distributor_token()
             params = {
                 "customerId" : customer_id,
                 'shipToId' : shipto_id

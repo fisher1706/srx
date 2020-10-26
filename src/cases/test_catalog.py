@@ -1,6 +1,7 @@
 import pytest
 from src.resources.tools import Tools
 from src.resources.locator import Locator
+from src.resources.permissions import Permissions
 from src.pages.distributor.catalog_page import CatalogPage
 from src.pages.admin.universal_catalog_page import UniversalCatalogPage
 from src.pages.general.login_page import LoginPage
@@ -9,12 +10,24 @@ from src.api.distributor.product_api import ProductApi
 from src.api.setups.setup_product import SetupProduct
 
 class TestCatalog():
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 33
+        },
+        { 
+            "user": Permissions.catalog("EDIT"),
+            "testrail_case_id": 2266
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_product_crud(self, ui):
-        ui.testrail_case_id = 33
+    def test_product_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        cp = CatalogPage(ui)
+        lp = LoginPage(context)
+        cp = CatalogPage(context)
         product_body = cp.product_body.copy()
         edit_product_body = cp.product_body.copy()
 
@@ -57,12 +70,24 @@ class TestCatalog():
         cp.update_last_product(edit_product_body.copy())
         cp.check_last_product(edit_product_body.copy())
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 34
+        },
+        { 
+            "user": Permissions.catalog("EDIT"),
+            "testrail_case_id": 2267
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_product_import(self, ui):
-        ui.testrail_case_id = 34
+    def test_product_import(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        cp = CatalogPage(ui)
+        lp = LoginPage(context)
+        cp = CatalogPage(context)
         product_body = cp.product_body.copy()
 
         #-------------------
@@ -71,7 +96,7 @@ class TestCatalog():
         product_body["roundBuy"] = "39"
         #-------------------
         products = [
-            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None]
+            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None]
         ]
         #-------------------
 
@@ -173,6 +198,28 @@ class TestCatalog():
         assert universal_catalog[0]["distributorName"] == api.data.distributor_name
         assert universal_catalog[0]["upc"] == product_dto["upc"]
 
+    @pytest.mark.skip
+    @pytest.mark.smoke
+    def test_smoke_ui_import_prodcut(self, smoke_ui):
+        smoke_ui.testrail_case_id = 2270
+
+        lp = LoginPage(smoke_ui)
+        cp = CatalogPage(smoke_ui)
+        product_body = cp.product_body.copy()
+
+        #-------------------
+        product_body["partSku"] = Tools.random_string_u(18)
+        product_body["shortDescription"] = f"{product_body['partSku']} - short description"
+        product_body["roundBuy"] = "39"
+        #-------------------
+        products = [
+            [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        ]
+        #-------------------
+
+        lp.log_in_distributor_portal()
+        cp.sidebar_catalog()
+        cp.import_product(products)
 
     @pytest.mark.smoke
     def test_smoke_import_prodcut(self, smoke_api):
