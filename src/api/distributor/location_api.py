@@ -53,15 +53,17 @@ class LocationApi(API):
         response_json = response.json()
         return response_json["data"]["entities"]
 
-    def delete_location(self, location_id, shipto_id):
+    @Decorator.default_expected_code(200)
+    def delete_location(self, location_id, shipto_id, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations/delete")
         token = self.get_distributor_token()
         location_dto = [{"id": location_id}]
         response = self.send_post(url, token, location_dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info("Location was successfully deleted")
+            self.logger.info(f"Location with ID = '{location_id}' has been successfully deleted")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="deletion", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
     def location_bulk_update(self, action, shipto_id, expected_status_code, all=False, customer_id=None, ids=None):

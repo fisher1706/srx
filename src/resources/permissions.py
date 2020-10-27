@@ -130,3 +130,19 @@ class Permissions():
             "action": "VIEW"
         }]
         return response
+
+    @staticmethod
+    def locations(action):
+        response = [{
+            "feature": "distributor.general.shiptos",
+            "action": "VIEW"
+        },
+        {
+            "feature": "distributor.general.customers",
+            "action": "VIEW"
+        },
+        {
+            "feature": "distributor.general.shiptos.vmi.list.locations",
+            "action": action
+        }]
+        return response
