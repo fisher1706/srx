@@ -74,7 +74,7 @@ class API():
         else:
             return self.get_distributor_token()
 
-    def send_post(self, url, token, data=None, additional_headers=None, line_data=None, params=None):
+    def send_post(self, url, token, data=None, additional_headers=None, params=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",

@@ -12,7 +12,7 @@ class LocationApi(API):
         if (response.status_code == 200):
             self.logger.info(f"New location '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully created")
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="create", status_code=response.status_code, content=response.content))
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="creation", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
     def update_location(self, dto, shipto_id, expected_status_code, mobile=False):
@@ -23,7 +23,7 @@ class LocationApi(API):
         if (response.status_code == 200):
             self.logger.info(f"Location with SKU = '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully updated")
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="writing", status_code=response.status_code, content=response.content))
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="updating", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
     def get_location_by_sku(self, shipto_id, sku, expected_status_code, mobile=False):

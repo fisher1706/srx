@@ -45,7 +45,6 @@ class SetupLocation(BaseSetup):
         self.setup_shipto = SetupShipto(self.context)
         self.setup_locker = SetupLocker(self.context)
         self.setup_rfid = SetupRfid(self.context)
-        self.dsn = None
 
     def setup(self, expected_status_code=None):
         self.expected_status_code = expected_status_code
@@ -69,7 +68,6 @@ class SetupLocation(BaseSetup):
             "rfid_labels": self.rfid_labels,
             "transaction": self.transaction,
             "put_away": self.put_away,
-            "dsn": self.dsn
         }
 
         return copy.deepcopy(response)
