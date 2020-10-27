@@ -7,7 +7,8 @@
         "currentInventoryControls": {
             "min": null,
             "max": null
-        }
+        },
+        "dsn": null
     },
     "inventoryOwned": "CUSTOMER",
     "attributeName1": null,

@@ -21,6 +21,8 @@ class Permissions():
                                 action["permission"] = True
                             if (action["action"]["value"] == "CONFIGURE" and permission["action"] == "CONFIGURE"):
                                 action["permission"] = True
+                            if (action["action"]["value"] == "ENABLE" and permission["action"] == "ENABLE"):
+                                action["permission"] = permission["value"]
                         break
                 else:
                     base_context.logger.error(f"No permission '{permission['feature']}' found")
@@ -58,6 +60,14 @@ class Permissions():
         return response
 
     @staticmethod
+    def mobile_buttons(action, value):
+        response = [{
+            "feature": "distributor.mobile.buttons",
+            "action": action,
+            "value": value
+        }]
+        return response
+        
     def rfids(action):
         response = [{
             "feature": "distributor.general.rfid.tagging",
