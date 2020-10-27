@@ -447,14 +447,16 @@ class BasePage():
         else:
             self.logger.error(f"The number of dropdown list elements = '{number}'")
 
-    def select_in_dropdown_via_input(self, xpath, name):
+    def select_in_dropdown_via_input(self, xpath, name, span=None):
         if (name is not None):
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.input_data_xpath(name, f"{xpath}//input")
             #self.get_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
-            self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
-            
+            if span:
+                self.click_xpath(f"{xpath}/..//div[@tabindex='-1']//span[text()='{name}']")
+            else:
+                self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
 
     def input_inline_xpath(self, data, xpath):
         if (data is not None):

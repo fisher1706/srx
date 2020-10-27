@@ -101,12 +101,12 @@ class TestUsers():
         distributor_user_body["email"] = Tools.random_email()
         distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
         distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        distributor_user_body["role"] = "User"
+        distributor_user_body["role"] = "Office User"
         distributor_user_body["warehouses"] = ["Z_Warehouse (9999)", "A_Warehouse (1138)"]
         #-------------------
         edit_distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
         edit_distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        edit_distributor_user_body["role"] = "Static Group"
+        edit_distributor_user_body["role"] = "Branch Manager"
         edit_distributor_user_body["warehouses"] = ["Z_Warehouse (9999)"]
         #-------------------
 
