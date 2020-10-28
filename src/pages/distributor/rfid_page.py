@@ -3,7 +3,7 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 
 class RfidPage(DistributorPortalPage):
-    xpath_rfid_add = f"{Locator.xpath_submit_button}//span[text()='Add']"
+    xpath_rfid_add = f"{Locator.xpath_dialog+Locator.xpath_button_type}//span[text()='Add']"
 
     def add_rfid_label(self, label=None):
         if (label is None):
