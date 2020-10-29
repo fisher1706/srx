@@ -118,6 +118,14 @@ class Permissions():
             "action": action
         }]
         return response
+
+    @staticmethod
+    def orders(action):
+        response = [{
+            "feature": "distributor.general.orders",
+            "action": action
+        }]
+        return response
     
     @staticmethod
     def shiptos(action):

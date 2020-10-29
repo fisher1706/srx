@@ -59,6 +59,7 @@ class Locator():
     xpath_view_button = "//button[@data-testid='view-button']"
     xpath_select_button = "//button[@data-testid='select-button']"
     xpath_edit_status_button = "//button[@data-testid='edit-status-button']"
+    xpath_split_button = "//button[@data-testid='split-button']"
     xpath_role_menu = "//ul[@role='menu']"
     xpath_role_menuitem = "//li[@role='menuitem']"
     xpath_check_mark = "//span[text()='✓']"
