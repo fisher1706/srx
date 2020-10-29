@@ -3,7 +3,9 @@ import copy
 import time
 from src.resources.locator import Locator
 from src.resources.tools import Tools
+from src.resources.permissions import Permissions
 from src.pages.general.login_page import LoginPage
+from src.pages.distributor.order_status_page import OrderStatusPage
 from src.pages.customer.reorder_list_page import ReorderListPage
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.shipto_api import ShiptoApi
@@ -224,3 +226,57 @@ class TestTransactions():
             else:
                 break
         assert activity_log_records_before != activity_log_records_after, "There are no new records in activity log"
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2299
+        },
+        { 
+            "user": Permissions.orders("EDIT"),
+            "testrail_case_id": 2300
+        }
+        ])
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_transaction_crud_and_split(self, ui, permission_ui, permissions, delete_shipto):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
+
+        ta = TransactionApi(context)
+        la = LocationApi(ui)
+
+        lp = LoginPage(context)
+        osp = OrderStatusPage(context)
+
+        setup_location = SetupLocation(ui)
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
+
+        distributor_sku = response_location["product"]["partSku"]
+        round_buy = response_location["product"]["roundBuy"]
+
+        TransactionApi(ui).create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
+        lp.log_in_distributor_portal()
+        osp.sidebar_order_status()
+        osp.wait_until_page_loaded()
+        new_transaction_row = osp.scan_table(distributor_sku, "Distributor SKU")
+        quantity = osp.get_table_item_text_by_header("Quantity", new_transaction_row)
+        assert osp.get_table_item_text_by_header("Status", new_transaction_row) == "ACTIVE"
+        new_quantity = int(quantity) + int(round_buy)
+        osp.update_transaction(new_transaction_row, quantity=new_quantity, status="SHIPPED")
+
+        assert osp.get_table_item_text_by_header("Status", new_transaction_row) == "SHIPPED"
+        assert osp.get_table_item_text_by_header("Quantity", new_transaction_row) == str(new_quantity)
+
+        osp.split_transaction(new_transaction_row, round_buy)
+
+        transactions = ta.get_transaction(sku=distributor_sku)
+        assert transactions["totalElements"] == 2
+
+        if str(transactions["entities"][0]["reorderQuantity"]) == str(round_buy):
+            assert str(transactions["entities"][1]["reorderQuantity"]) == str(quantity)
+        elif str(transactions["entities"][0]["reorderQuantity"]) == str(quantity):
+            assert str(transactions["entities"][1]["reorderQuantity"]) == str(round_buy)
+        else:
+            ui.logger.error(f"Incorrect quantity of transactions: '{transactions['entities'][0]['reorderQuantity']}' and {transactions['entities'][1]['reorderQuantity']}, when RoundBuy = '{round_buy}'")
