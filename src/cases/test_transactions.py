@@ -239,7 +239,7 @@ class TestTransactions():
         ])
     @pytest.mark.acl
     @pytest.mark.regression
-    def test_transaction_crud_and_split(self, ui, permission_ui, permissions, delete_shipto):
+    def test_transaction_crud_and_split(self, ui, permission_ui, permissions, delete_distributor_security_group, delete_shipto):
         ui.testrail_case_id = permissions["testrail_case_id"]
         context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
