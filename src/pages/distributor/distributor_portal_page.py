@@ -5,7 +5,7 @@ class DistributorPortalPage(BasePage):
         self.click_xpath("//button[@data-testid='status-button']/..")
 
     def sidebar_users(self):
-        self.click_id("sidebar-distributor_users")
+        self.click_id("sidebar-users-groups")
 
     def sidebar_warehouses(self):
         self.click_id("sidebar-warehouses")
@@ -20,7 +20,7 @@ class DistributorPortalPage(BasePage):
         self.click_id("sidebar-pricing")
 
     def sidebar_settings(self):
-        self.click_id("sidebar--settings")
+        self.click_id("sidebar-settings")
 
     def sign_out(self):
         self.click_id("sidebar-sign_out")
@@ -29,10 +29,13 @@ class DistributorPortalPage(BasePage):
         self.click_id("sidebar-rfid")
 
     def sidebar_serialization(self):
-        self.click_id("sidebar-serial")
+        self.click_id("sidebar-lot-serialization")
 
     def sidebar_hardware(self):
-        self.click_id("sidebar-claiming_hardware")
+        self.click_id("sidebar-hardware")
+
+    def sidebar_order_status(self):
+        self.click_id("sidebar-order-status")
 
     def distributor_sidebar_should_contain_email(self):
         self.get_element_by_xpath(f"//span[text()='{self.context.distributor_email}']")

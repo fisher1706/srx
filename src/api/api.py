@@ -27,6 +27,15 @@ class API():
             self.context.distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id)
         return self.context.distributor_token
 
+    def get_mobile_distributor_token(self, username=None, password=None):
+        if (self.context.mobile_distributor_token is None):
+            if (username is None):
+                username = self.context.distributor_email
+            if (password is None):
+                password = self.context.distributor_password
+            self.context.mobile_distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_mobile_client_id)
+        return self.context.mobile_distributor_token
+
     def get_customer_token(self, username=None, password=None):
         if (self.context.customer_token is None):
             if (username is None):
@@ -59,22 +68,27 @@ class API():
             self.context.checkout_group_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_group_token
 
-    def send_post(self, url, token, data=None, additional_headers=None, line_data=None):
-        headers = {
-            "Authorization": token,
-            "Content-Type": "application/json",
-            "Accept":"application/json"
-        }
-        if (additional_headers is not None):
-            headers.update(additional_headers)
-        if (line_data is not None):
-            return requests.post(url, headers=headers, data=line_data)
-        elif (line_data is None and data is not None):
-            return requests.post(url, headers=headers, data=json.dumps(data))
-        elif (line_data is None and data is None):
-            return requests.post(url, headers=headers)
+    def get_mobile_or_base_token(self, mobile):
+        if mobile:
+            return self.get_mobile_distributor_token()
+        else:
+            return self.get_distributor_token()
 
-    def send_get(self, url, token, additional_headers=None):
+    def send_post(self, url, token, data=None, additional_headers=None, params=None):
+        headers = {
+            "Authorization": token,
+            "Content-Type": "application/json",
+            "Accept":"application/json"
+        }
+        if additional_headers is not None:
+            headers.update(additional_headers)
+        if (isinstance(data, dict) or isinstance(data, list)):
+            post_data = json.dumps(data)
+        else:
+            post_data = data
+        return requests.post(url, headers=headers, params=params, data=post_data)
+
+    def send_get(self, url, token, params=None, additional_headers=None):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -82,7 +96,7 @@ class API():
         }
         if (additional_headers is not None):
             headers.update(additional_headers)
-        return requests.get(url, headers=headers)
+        return requests.get(url, headers=headers, params=params)
 
     def send_delete(self, url, token, additional_headers=None):
         headers = {
@@ -102,4 +116,8 @@ class API():
         }
         if (additional_headers is not None):
             headers.update(additional_headers)
-        return requests.put(url, headers=headers, data=json.dumps(data))
+        if (isinstance(data, dict) or isinstance(data, list)):
+            post_data = json.dumps(data)
+        else:
+            post_data = data
+        return requests.put(url, headers=headers, data=post_data)

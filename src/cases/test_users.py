@@ -1,12 +1,14 @@
 import pytest
 from src.resources.tools import Tools
 from src.resources.locator import Locator
+from src.resources.permissions import Permissions
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.api.distributor.user_api import UserApi
 from src.api.setups.setup_customer_user import setup_customer_user
 from src.api.setups.setup_checkout_group import setup_checkout_group
 from src.api.setups.setup_shipto import SetupShipto
+from src.api.setups.setup_distributor_user import SetupDistributorUser
 from src.pages.customer.customer_users_page import CustomerUsersPage
 from src.pages.customer.checkout_users_page import CheckoutUsersPage
 from src.pages.customer.customer_security_groups import CustomerSecurityGroups
@@ -55,14 +57,14 @@ class TestUsers():
         customer_user_body["email"] = Tools.random_email()
         customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
         customer_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        customer_user_body["role"] = "User"
+        customer_user_body["role"] = "Customer User"
         customer_user_body["shiptos"] = [ui.data.shipto_number]
         #-------------------
         edit_customer_user_body["firstName"] = f"User {Tools.random_string_l()}"
         edit_customer_user_body["lastName"] = f"User {Tools.random_string_l()}"
         edit_customer_user_body["role"] = "Customer Super User"
         #-------------------
-
+        
         lp.log_in_customer_portal()
         cup.sidebar_users_and_groups()
         cup.click_xpath(Locator.xpath_button_tab_by_name("Users"))
@@ -74,12 +76,24 @@ class TestUsers():
         cup.check_last_customer_user(edit_customer_user_body.copy())
         cup.delete_last_customer_user()
 
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 28
+        },
+        { 
+            "user": Permissions.distributor_users("EDIT"),
+            "testrail_case_id": 2178
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_distributor_user_crud(self, ui):
-        ui.testrail_case_id = 28
+    def test_distributor_user_crud(self, ui, permission_ui, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
-        lp = LoginPage(ui)
-        dup = DistributorUsersPage(ui)
+        lp = LoginPage(context)
+        dup = DistributorUsersPage(context)
         distributor_user_body = dup.distributor_user_body.copy()
         edit_distributor_user_body = dup.distributor_user_body.copy()
 
@@ -87,12 +101,12 @@ class TestUsers():
         distributor_user_body["email"] = Tools.random_email()
         distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
         distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        distributor_user_body["role"] = "User"
+        distributor_user_body["role"] = "Office User"
         distributor_user_body["warehouses"] = ["Z_Warehouse (9999)", "A_Warehouse (1138)"]
         #-------------------
         edit_distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
         edit_distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
-        edit_distributor_user_body["role"] = "Static Group"
+        edit_distributor_user_body["role"] = "Branch Manager"
         edit_distributor_user_body["warehouses"] = ["Z_Warehouse (9999)"]
         #-------------------
 
@@ -103,6 +117,28 @@ class TestUsers():
         dup.update_last_distributor_user(edit_distributor_user_body.copy())
         dup.check_last_distributor_user(edit_distributor_user_body.copy())
         dup.delete_last_distributor_user()
+
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_distributor_user_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_distributor_user):
+        api.testrail_case_id = 2182
+
+        Permissions.set_configured_user(api, Permissions.distributor_users("VIEW"))
+
+        ua = UserApi(permission_api)
+
+        failed_setup = SetupDistributorUser(permission_api)
+        failed_setup.add_option("expected_status_code", 400)
+        failed_setup.setup() #cannot create user
+
+        response_user = SetupDistributorUser(api).setup()
+        user = ua.get_distributor_user(email=response_user["user"]["email"])[0] #can read users
+        assert response_user["user"]["firstName"] == user["firstName"] #--//--//--
+        assert response_user["user"]["lastName"] == user["lastName"] #--//--//--
+
+        user["id"] = response_user["user_id"]
+        ua.update_distributor_user(dto=user, user_id=response_user["user_id"], expected_status_code=400) #cannot update user
+        ua.delete_distributor_user(user_id=response_user["user_id"], expected_status_code=400) #cannot delete user
 
     @pytest.mark.regression
     def test_distributor_superuser_crud(self, ui):
@@ -217,6 +253,7 @@ class TestUsers():
         row = csg.get_row_of_table_item_by_column(security_group_body["name"], 1)
         csg.check_security_group(security_group_body, row)
         csg.update_security_group(edit_security_group_body, row)
+        csg.element_should_have_text(Locator.xpath_table_item(row, 1), edit_security_group_body["name"])
         csg.check_security_group(edit_security_group_body, row)
         csg.delete_security_group(edit_security_group_body, row)
 
@@ -314,7 +351,7 @@ class TestUsers():
             "lastName": Tools.random_string_l()
         }
 
-        user_id = ua.create_distributor_user(user_body)
+        user_id = ua.create_distributor_superuser(user_body)
         response = ua.get_distributor_super_user_by_email(user_body["email"])
         count = len(response)
         assert count == 1, f"Users count is {count}"
@@ -325,4 +362,4 @@ class TestUsers():
         assert email == user_body["email"], f"User email is {email}, but should be {user_body['email']}"
         assert name == user_body["firstName"], f"User name is {name}, but should be {user_body['firstName']}"
         assert last_name == user_body["lastName"], f"User last name is {last_name}, but should be {user_body['lastName']}"
-        ua.delete_user(user_id)
+        ua.delete_superuser(user_id)

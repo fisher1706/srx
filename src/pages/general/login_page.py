@@ -15,7 +15,7 @@ class LoginPage(BasePage):
         self.input_data_id(email, Locator.id_email)
 
     def input_password(self, password):
-        self.input_data_id(password, Locator.id_password)
+        self.input_data_id(password, Locator.id_password, hide_log=True)
 
     def submit_button_should_be_disabled(self):
         self.should_be_disabled_xpath(Locator.xpath_submit_button)

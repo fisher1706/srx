@@ -1,0 +1,13 @@
+{
+    "email": null,
+    "firstName": null,
+    "lastName": null,
+    "userGroup": {
+        "id": null
+    },
+    "warehouses": [
+        {
+            "id": null
+        }
+    ]
+}

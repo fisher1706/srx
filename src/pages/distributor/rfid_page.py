@@ -3,7 +3,7 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 
 class RfidPage(DistributorPortalPage):
-    xpath_rfid_add = f"{Locator.xpath_submit_button}//span[text()='Add']"
+    xpath_rfid_add = f"{Locator.xpath_dialog+Locator.xpath_button_type}//span[text()='Add']"
 
     def add_rfid_label(self, label=None):
         if (label is None):
@@ -31,4 +31,16 @@ class RfidPage(DistributorPortalPage):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_unassign_button, self.get_table_rows_number()))
         self.click_xpath(Locator.xpath_button_by_name("Yes, unassign EPC"))
         self.dialog_should_not_be_visible()
+        self.wait_until_page_loaded()
+
+    def import_rfid_as_available(self, rfids):
+        Tools.generate_csv("rfids_as_available.csv", rfids)
+        self.import_csv(Locator.id_upload_rfid_available, "rfids_as_available.csv")
+        self.get_element_by_xpath(Locator.xpath_successfully_imported_msg)
+        self.wait_until_page_loaded()
+
+    def import_rfid(self, rfids):
+        Tools.generate_csv("rfids.csv", rfids)
+        self.import_csv(Locator.id_upload_rfid_csv, "rfids.csv")
+        self.get_element_by_xpath(Locator.xpath_successfully_imported_msg)
         self.wait_until_page_loaded()

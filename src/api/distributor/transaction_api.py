@@ -1,4 +1,6 @@
 from src.api.api import API
+from src.resources.messages import Message
+from src.fixtures.decorators import Decorator
 import time
 
 class TransactionApi(API):
@@ -6,7 +8,7 @@ class TransactionApi(API):
         transactions_count = self.get_transactions_count(shipto_id=shipto_id)
         for count in range (1, repeat):
             url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={self.data.customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
-            token = self.get_distributor_token()
+            token = self.get_mobile_distributor_token()
             response = self.send_post(url, token)
             time.sleep(5)
             new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)
@@ -76,3 +78,15 @@ class TransactionApi(API):
         for item in range(transactions_response["totalElements"]):
             transaction_id = tranactions_list[item]["id"]
             self.update_replenishment_item(transaction_id, quantity, status_after)
+
+    @Decorator.default_expected_code(200)
+    def submit_transaction(self, dto, expected_status_code):
+        url = self.url.get_api_url_for_env(f"/customer-portal/customer/replenishment/list")
+        token = self.get_customer_token()
+        response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        if (response.status_code == 200):
+            self.logger.info(f"Transaction has been successfully submitted")
+        else:
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))
+

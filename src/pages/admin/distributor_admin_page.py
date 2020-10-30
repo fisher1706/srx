@@ -22,7 +22,7 @@ class DistributorAdminPage(AdminPortalPage):
     }
 
     def create_distributor(self, distributor_body, state, bill_by, checkbox_list):
-        check_mark = self.get_element_count(f"{Locator.xpath_table}//span/div")
+        check_mark = self.get_element_count(Locator.xpath_check_mark)
         self.click_id(Locator.id_add_button)
         for checkbox in checkbox_list:
             self.select_checkbox_in_dialog_by_name(checkbox)
@@ -49,9 +49,9 @@ class DistributorAdminPage(AdminPortalPage):
         for cell in table_cells_checkbox.keys():
             column = self.get_header_column(cell)
             if table_cells_checkbox[cell]:
-                self.get_element_by_xpath(f"{Locator.xpath_table_item(row_number, column)}//span/div")
+                self.get_element_by_xpath(Locator.xpath_check_mark)
         checked = sum(1 for value in table_cells_checkbox.values() if value)
-        self.elements_count_should_be(f"{Locator.xpath_table}//span/div", check_mark+checked)
+        self.elements_count_should_be(Locator.xpath_check_mark, check_mark+checked)
 
     def update_last_distributor(self, distributor_body, state, bill_by, checkbox_list, ship_to_level):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))

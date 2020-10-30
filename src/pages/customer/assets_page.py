@@ -14,11 +14,12 @@ class AssetsPage(CustomerPortalPage):
     #xpath_empty_list = "//div[text()='List of checked out assets is empty.']"
 
     def check_all_assets_tab(self, asset, shipto, avaliable, total, checked_out):
+        self.get_element_by_xpath("//span[text()='All assets']")
         self.click_tab_by_name("All assets")
         self.click_xpath(self.xpath_filter)
         self.select_in_dropdown(Locator.xpath_select_box, shipto)
         self.click_xpath(self.xpath_apply)
-        self.element_should_have_text(f"{self.xpath_available}/../div[2]", f"{avaliable} items")
+        self.element_should_have_text(f"{self.xpath_available}/../div[2]", f"{avaliable}")
         self.element_should_have_text(f"{self.xpath_total}/../div[2]", f"{total}")
         self.element_should_have_text(f"{self.xpath_checked_out}/../div[2]", f"{checked_out}")
     
@@ -33,8 +34,7 @@ class AssetsPage(CustomerPortalPage):
             self.element_should_have_text(f"{self.xpath_checked_out}/../div[2]", f"{checked_out} items")
         self.element_should_have_text(f"{self.xpath_total}/../div[2]", f"{total}")
         self.element_should_have_text(f"{self.xpath_available}/../div[2]", f"{avaliable}")
-        text = self.get_element_text(f"{self.xpath_user}/../div[2]/a")
-        self.element_should_have_text(f"{self.xpath_user}/../div[2]/a", f"{self.context.customer_email} {self.context.customer_email} ({self.context.customer_email})")
+        self.element_should_have_text(f"{self.xpath_user}/../div[2]/a", f"{self.data.customer_user_first_name} {self.data.customer_user_last_name} ({self.context.customer_email})")
 
     def checked_out_tab_should_not_contain(self, asset):
         self.click_tab_by_name("Checked Out")
