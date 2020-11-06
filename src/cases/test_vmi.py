@@ -177,7 +177,7 @@ class TestVmi():
         ])
     @pytest.mark.acl
     @pytest.mark.regression
-    def test_product_import(self, ui, permission_ui, permissions, delete_distributor_security_group, delete_shipto):
+    def test_location_import(self, ui, permission_ui, permissions, delete_distributor_security_group, delete_shipto):
         ui.testrail_case_id = permissions["testrail_case_id"]
         context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 

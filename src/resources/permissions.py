@@ -154,3 +154,19 @@ class Permissions():
             "action": action
         }]
         return response
+
+    @staticmethod
+    def cribcrawls(action):
+        response = [{
+            "feature": "distributor.general.shiptos",
+            "action": "VIEW"
+        },
+        {
+            "feature": "distributor.general.customers",
+            "action": "VIEW"
+        },
+        {
+            "feature": "distributor.general.shiptos.crib.crawl",
+            "action": action
+        }]
+        return response
