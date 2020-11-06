@@ -487,6 +487,15 @@ class BasePage():
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")
 
+    def element_should_have_text_id(self, id, text):
+        self.get_element_by_id(id)
+        try:
+            WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, id), text))
+        except:
+            self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
+        else:
+            self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")
+
     def element_text_should_be_empty(self, xpath):
         text = self.get_element_text(xpath)
         assert text is None or text == "", f"Element {xpath} contains text: {text}"
