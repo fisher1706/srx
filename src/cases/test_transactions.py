@@ -199,22 +199,43 @@ class TestTransactions():
         transactions = ta.get_transaction(status="QUOTED")
         assert transactions["totalElements"] == 0
 
-    @pytest.mark.skip
     @pytest.mark.smoke
     def test_smoke_label_transaction_and_activity_log(self, smoke_api):
         smoke_api.testrail_case_id = 2005
+
         ta = TransactionApi(smoke_api)
         ala = ActivityLogApi(smoke_api)
+        la = LocationApi(smoke_api)
 
         activity_log_before = ala.get_activity_log()
         activity_log_records_before = activity_log_before["totalElements"]
+        location = la.get_locations(smoke_api.data.shipto_id)[0]
+        location["onHandInventory"] = 50
+        location_list = [copy.deepcopy(location)]
+        la.update_location(location_list, smoke_api.data.shipto_id)
         # close all Active transactions
         transactions = ta.get_transaction(status="ACTIVE")
-        if (transactions["totalElements"] != 0):
+        if transactions["totalElements"] != 0:
             smoke_api.logger.info("There are some active transactions, they will be closed")
             ta.update_transactions_with_specific_status("ACTIVE", 0, "DO_NOT_REORDER")
-        ta.create_active_item(smoke_api.data.shipto_id, smoke_api.data.ordering_config_id, repeat=6)
         transactions = ta.get_transaction(status="ACTIVE")
+        assert transactions["totalElements"] == 0
+        location["onHandInventory"] = 0
+        location_list = [copy.deepcopy(location)]
+        la.update_location(location_list, smoke_api.data.shipto_id)
+        for i in range(6):
+            transactions = ta.get_transaction(status="ACTIVE")
+            transactions_qty = transactions["totalElements"]
+            if transactions_qty == 0:
+                time.sleep(5)
+                continue
+            elif transactions_qty == 1:
+                break
+            else:
+                smoke_api.logger.error(f"Incorrect QTY of transactions: '{transactions_qty}'")
+        else:
+            smoke_api.logger.error(f"New transaction has not been created")
+
         transaction_id = transactions["entities"][0]["id"]
         assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
         ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
