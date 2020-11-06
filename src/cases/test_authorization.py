@@ -23,20 +23,8 @@ class TestAuthorization():
         app.sign_out()
         lp.it_should_be_login_page()
 
-    # @pytest.mark.parametrize("permissions", [
-    #     {
-    #         "user": None,
-    #         "testrail_case_id": 1971
-    #     },
-    #     { 
-    #         "user": Permissions.catalog_only,
-    #         "testrail_case_id": None
-    #     }
-    #     ])
     @pytest.mark.regression
     def test_success_login_distributor_portal(self, ui):
-        #ui.testrail_case_id = permissions["testrail_case_id"]
-        #Permissions.set_configured_user(ui, permissions)
         BaseAuthorization.base_success_login_distributor_portal(ui)
 
     @pytest.mark.regression
@@ -94,6 +82,22 @@ class TestAuthorization():
     @pytest.mark.smoke
     def test_success_login_checkout_portal_smoke(self, smoke_ui):
         BaseAuthorization.base_success_login_checkout_portal(smoke_ui)
+
+    @pytest.mark.skip
+    @pytest.mark.smoke
+    def test_open_zendesk(self, smoke_ui):
+        smoke_ui.testrail_case_id = 2303
+
+        lp = LoginPage(smoke_ui)
+        dpp = DistributorPortalPage(smoke_ui)
+
+        lp.log_in_distributor_portal()
+        dpp.get_element_by_xpath("//*[@href='https://storeroomlogix.zendesk.com']")
+        dpp.follow_url("https://storeroomlogix.zendesk.com")
+        lp.input_email(smoke_ui.distributor_email)
+        lp.input_password(smoke_ui.distributor_password)
+        lp.click_on_submit_button()
+        dpp.get_element_by_id("user-name")
 
 class BaseAuthorization():
 
