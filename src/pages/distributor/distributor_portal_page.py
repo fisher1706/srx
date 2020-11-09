@@ -34,5 +34,11 @@ class DistributorPortalPage(BasePage):
     def sidebar_hardware(self):
         self.click_id("sidebar-hardware")
 
+    def sidebar_order_status(self):
+        self.click_id("sidebar-order-status")
+
+    def sidebar_support(self):
+        self.click_id("sidebar-support")
+
     def distributor_sidebar_should_contain_email(self):
         self.get_element_by_xpath(f"//span[text()='{self.context.distributor_email}']")

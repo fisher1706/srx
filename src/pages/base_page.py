@@ -447,14 +447,16 @@ class BasePage():
         else:
             self.logger.error(f"The number of dropdown list elements = '{number}'")
 
-    def select_in_dropdown_via_input(self, xpath, name):
+    def select_in_dropdown_via_input(self, xpath, name, span=None):
         if (name is not None):
             self.click_xpath(xpath)
             self.logger.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.input_data_xpath(name, f"{xpath}//input")
             #self.get_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
-            self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
-            
+            if span:
+                self.click_xpath(f"{xpath}/..//div[@tabindex='-1']//span[text()='{name}']")
+            else:
+                self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
 
     def input_inline_xpath(self, data, xpath):
         if (data is not None):
@@ -480,6 +482,15 @@ class BasePage():
         self.get_element_by_xpath(xpath)
         try:
             WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.XPATH, xpath), text))
+        except:
+            self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
+        else:
+            self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")
+
+    def element_should_have_text_id(self, id, text):
+        self.get_element_by_id(id)
+        try:
+            WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, id), text))
         except:
             self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
         else:
