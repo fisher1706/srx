@@ -242,11 +242,6 @@ class TestScanToOrder():
             "quantity": 17,
             "round_buy": 10,
             "result": 20
-        },
-        {
-            "quantity": 10,
-            "round_buy": 5,
-            "result": 10
         }
         ])
     @pytest.mark.regression
@@ -278,5 +273,3 @@ class TestScanToOrder():
         transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"],status="ACTIVE")["entities"]
         
         assert transactions[0]["reorderQuantity"] == conditions["result"] and transactions[1]["reorderQuantity"] == conditions["result"], f"Reorder quantity of  each transaction should be equal to {conditions['result']}"
-
-        

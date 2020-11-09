@@ -4,7 +4,6 @@ from src.api.distributor.location_api import LocationApi
 from src.api.setups.setup_location import SetupLocation
 import pytest
 
-
 class TestMobileCycleCountLabels():
     @pytest.mark.parametrize("conditions", [
         {
@@ -22,31 +21,31 @@ class TestMobileCycleCountLabels():
         {
             "ohi": 0,
             "result": 0,
-            "testrail_case_id": 2279,
+            "testrail_case_id": 2304,
             "excepted_code": 200
         },
         {
             "ohi": 1,
             "result": 1,
-            "testrail_case_id": 2279,
+            "testrail_case_id": 2307,
             "excepted_code": 200
         },
         {
             "ohi": 76.4,
             "result": 76,
-            "testrail_case_id": 2279,
+            "testrail_case_id": 2305,
             "excepted_code": 200
         },
         {
             "ohi": 79.99,
             "result": 79,
-            "testrail_case_id": 2279,
+            "testrail_case_id": 2306,
             "excepted_code": 200
         },
         {
             "ohi": -55,
             "result": 0,
-            "testrail_case_id": 2279,
+            "testrail_case_id": 2308,
             "excepted_code": 400
         }
     ])
@@ -78,7 +77,6 @@ class TestMobileCycleCountLabels():
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == conditions["result"], f"OHI of location should be equal to {conditions['result']}"
 
-    
     @pytest.mark.regression
     def test_update_ohi_with_disabled_track_ohi_option(self, mobile_api, delete_shipto):
         mobile_api.testrail_case_id = 2280
@@ -108,16 +106,18 @@ class TestMobileCycleCountLabels():
     @pytest.mark.parametrize("conditions", [
         {
             "ohi": 30,
-            "reorder_quantity": 20
+            "reorder_quantity": 20,
+            "testrail_case_id": 2298
         },
         {
             "ohi": 21,
-            "reorder_quantity": 30
+            "reorder_quantity": 30,
+            "testrail_case_id": 2309
         }
     ])
     @pytest.mark.regression
     def test_update_ohi_with_qty_less_or_equal_min(self, mobile_api, conditions, delete_shipto):
-        mobile_api.testrail_case_id = 2298
+        mobile_api.testrail_case_id = conditions["testrail_case_id"]
         mca = MobileCycleCountApi(mobile_api)
         la = LocationApi(mobile_api)
         ta = TransactionApi(mobile_api)
@@ -144,7 +144,3 @@ class TestMobileCycleCountLabels():
         transactions_active = ta.get_transaction(shipto_id=response_location["shipto_id"],status="ACTIVE")["entities"]
         
         assert len(transactions_active) == 1 and transactions_active[0]["reorderQuantity"] == conditions["reorder_quantity"], f"Transactions quantity in Active status should be 1 and reorder quantity should be{conditions['reorder_quantity']}"
-
-
-
-        
