@@ -50,7 +50,7 @@ class TestMobileCycleCountLabels():
         }
     ])
     @pytest.mark.regression
-    def test_update_ohi_with_qty_multiple_and_not_multiple_issueqty(self, mobile_api, conditions, delete_shipto):
+    def test_update_ohi(self, mobile_api, conditions, delete_shipto):
         mobile_api.testrail_case_id = conditions["testrail_case_id"]
         mca = MobileCycleCountApi(mobile_api)
         la = LocationApi(mobile_api)
