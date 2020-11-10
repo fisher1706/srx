@@ -4,6 +4,7 @@ from src.api.distributor.location_api import LocationApi
 from src.api.setups.setup_location import SetupLocation
 import pytest
 
+
 class TestMobileCycleCountLabels():
     @pytest.mark.parametrize("conditions", [
         {
@@ -56,7 +57,8 @@ class TestMobileCycleCountLabels():
         la = LocationApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False, "track_ohi" : True})
+        setup_location.setup_shipto.add_option(
+            "checkout_settings", {"enable_reorder_control": False, "track_ohi": True})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 5)
@@ -66,16 +68,17 @@ class TestMobileCycleCountLabels():
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "OHI of location should be equal to 0"
 
-
-        data =  { 
+        data = {
             "id": response_location["location_id"],
             "onHandInventory": conditions["ohi"]
         }
 
-        mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"], expected_status_code=conditions["excepted_code"])
+        mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"],
+                       expected_status_code=conditions["excepted_code"])
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["onHandInventory"] == conditions["result"], f"OHI of location should be equal to {conditions['result']}"
+        assert locations[0]["onHandInventory"] == conditions[
+            "result"], f"OHI of location should be equal to {conditions['result']}"
 
     @pytest.mark.regression
     def test_update_ohi_with_disabled_track_ohi_option(self, mobile_api, delete_shipto):
@@ -85,20 +88,21 @@ class TestMobileCycleCountLabels():
         ohi = 56
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False, "track_ohi" : False})
+        setup_location.setup_shipto.add_option(
+            "checkout_settings", {"enable_reorder_control": False, "track_ohi": False})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 5)
         setup_location.add_option("ohi", 0)
         response_location = setup_location.setup()
 
-
-        data =  { 
+        data = {
             "id": response_location["location_id"],
             "onHandInventory": ohi
         }
 
-        mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"], expected_status_code=400)
+        mca.update_ohi(data, response_location["shipto_id"],
+                       response_location["location_id"], expected_status_code=400)
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] is None, f"OHI of location should be null"
@@ -123,24 +127,28 @@ class TestMobileCycleCountLabels():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True, "track_ohi" : True})
+        setup_location.setup_shipto.add_option(
+            "checkout_settings", {"enable_reorder_control": True, "track_ohi": True})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 10)
         setup_location.add_option("ohi", 0)
         response_location = setup_location.setup()
 
-
-        data =  { 
+        data = {
             "id": response_location["location_id"],
             "onHandInventory": conditions["ohi"]
         }
 
-        mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"])
+        mca.update_ohi(
+            data, response_location["shipto_id"], response_location["location_id"])
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["onHandInventory"] == conditions["ohi"], f"OHI of location should be {conditions['ohi']}"
+        assert locations[0]["onHandInventory"] == conditions[
+            "ohi"], f"OHI of location should be {conditions['ohi']}"
 
-        transactions_active = ta.get_transaction(shipto_id=response_location["shipto_id"],status="ACTIVE")["entities"]
-        
-        assert len(transactions_active) == 1 and transactions_active[0]["reorderQuantity"] == conditions["reorder_quantity"], f"Transactions quantity in Active status should be 1 and reorder quantity should be{conditions['reorder_quantity']}"
+        transactions_active = ta.get_transaction(
+            shipto_id=response_location["shipto_id"], status="ACTIVE")["entities"]
+
+        assert len(transactions_active) == 1 and transactions_active[0]["reorderQuantity"] == conditions[
+            "reorder_quantity"], f"Transactions quantity in Active status should be 1 and reorder quantity should be{conditions['reorder_quantity']}"
