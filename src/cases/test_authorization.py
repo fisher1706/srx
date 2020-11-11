@@ -99,6 +99,34 @@ class TestAuthorization():
         lp.click_on_submit_button()
         dpp.get_element_by_id("user-name")
 
+    @pytest.mark.smoke
+    def test_redirect_distributor(self, smoke_ui):
+        smoke_ui.testrail_case_id = 2335
+
+        lp = LoginPage(smoke_ui)
+        dpp = DistributorPortalPage(smoke_ui)
+
+        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "distributor"))
+        lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/sign-in", "auth"))
+        lp.input_email(smoke_ui.distributor_email)
+        lp.input_password(smoke_ui.distributor_password)
+        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "customer"))
+        lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/sign-in", "auth"))
+        lp.input_email(smoke_ui.distributor_email)
+        lp.input_password(smoke_ui.distributor_password)
+        lp.click_on_submit_button()
+        lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/marketing", "distributor"))
+        lp.get_element_by_id(Locator.id_enter_here)
+
+        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "distributor"))
+        lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
+        dpp.distributor_sidebar_should_contain_email()
+        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "customer"))
+        lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
+        dpp.distributor_sidebar_should_contain_email()
+
+
+
 class BaseAuthorization():
 
     @staticmethod
