@@ -16,7 +16,8 @@ class SetupProduct(BaseSetup):
             "lot": None,
             "package_conversion": None,
             "asset": None,
-            "round_buy": None
+            "round_buy": None, 
+            "issue_quantity": None
         }
         self.product = Tools.get_dto("product_dto.json")
 
@@ -42,6 +43,7 @@ class SetupProduct(BaseSetup):
             self.product["serialized"] = self.options["serialized"]
             self.product["lot"] = self.options["lot"]
             self.product["packageConversion"] = self.options["package_conversion"]
+            self.product["issueQuantity"] = self.options["issue_quantity"]
         else:
             self.product = self.options["product"]
 
