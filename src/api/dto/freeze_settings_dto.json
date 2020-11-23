@@ -1,0 +1,8 @@
+{
+    "monthsUntilSlow": 1,
+    "monthsUntilFrozen": 2,
+    "percentOfSlowCost": 75,
+    "frozenFee": 0.33,
+    "wakeUpFee": 2.77,
+    "minButtonFee": 0.35
+}

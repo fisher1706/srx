@@ -50,7 +50,7 @@ class SettingsApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(f"Auto-Submit settings of shipto with ID = '{shipto_id}' has been successfully updated")
         else:
             self.logger.error(str(response.content))
@@ -66,7 +66,7 @@ class SettingsApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/customer-settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(f"RL Rules settings of shipto with ID = '{shipto_id}' has been successfully updated")
         else:
             self.logger.error(str(response.content))
@@ -81,17 +81,50 @@ class SettingsApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/serialnumber/settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(f"Serialization settings of shipto with ID = '{shipto_id}' has been successfully updated")
         else:
             self.logger.error(str(response.content))
 
-    def set_serialization_settings_shipto(self, shipto_id, expiration=None, alarm=None, sleep=None):
+    def set_serialization_settings_shipto(self, shipto_id, expiration=None, alarm=None, sleep=0):
         serialization_settings_dto = Tools.get_dto("serialization_settings_dto.json")
         serialization_settings_dto["settings"]["enableAutoExpire"] = bool(expiration)
         serialization_settings_dto["settings"]["daysUntilAutoExpiration"] = 0 if expiration is None else expiration
         serialization_settings_dto["settings"]["enableExpirationAlarm"] = bool(alarm)
         serialization_settings_dto["settings"]["daysUntilExpirationAlarm"] = 0 if alarm is None else alarm
         self.update_serialization_settings_shipto(serialization_settings_dto, shipto_id)
-        if (sleep is not None):
-            time.sleep(sleep)
+        time.sleep(sleep)
+
+    def update_adjustment_settings(self, dto, shipto_id, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/settings/inventory-adjustment")
+        token = self.get_distributor_token()
+        response = self.send_put(url, token, dto)
+        if response.status_code == 200:
+            self.logger.info(f"Adjustment settings of shipto with ID = '{shipto_id}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
+
+    def save_and_adjust_moving_status(self, enabled, shipto_id, customer_id=None, current_shiptos=[], use_all=False, sleep=0):
+        time.sleep(sleep)
+        dto = {
+            "currentShipTos": current_shiptos,
+            "enabled": enabled,
+            "useAll": use_all
+        }
+        self.update_adjustment_settings(dto, shipto_id, customer_id)
+        time.sleep(sleep)
+
+    def get_adjustment_settings(self, shipto_id, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/settings/inventory-adjustment")
+        token = self.get_distributor_token()
+        response = self.send_get(url, token)
+        if response.status_code == 200:
+            self.logger.info(f"Adjustment settings of shipto with ID = '{shipto_id}' has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]
