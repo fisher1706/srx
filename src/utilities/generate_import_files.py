@@ -5,7 +5,8 @@ pricing = []
 rfids = []
 usage_history = []
 crib_crawl = []
-for i in range(2000):
+body = []
+for i in range(500):
     SKU = Tools.random_string_u(20)
 
     product_row = [SKU, None, None, SKU, None, None, None, None, None, None, None, None, None, 10, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
@@ -21,6 +22,9 @@ for i in range(2000):
     rfids.append(rfid_row)
     usage_history.append(usage_history_row)
     crib_crawl.append(crib_crawl_row)
+    body.append({"partSku": SKU, "quantity": 100})
+
+print(body)
 
 Tools.generate_csv("products.csv", products)
 Tools.generate_csv("locations.csv", locations)
