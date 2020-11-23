@@ -90,7 +90,7 @@ def driver(request, session_context):
         driver = webdriver.Chrome(options=chrome_options)
     else:
         raise pytest.UsageError("--browser_name should be 'chrome' or 'firefox'")
-    driver.set_page_load_timeout(20)
+    driver.set_page_load_timeout(30)
     yield driver
     driver.quit()
 
