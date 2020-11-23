@@ -3,6 +3,7 @@ import random
 import os
 import json
 import csv
+import time
 
 class Tools():
     @staticmethod
@@ -44,3 +45,7 @@ class Tools():
         with open(folder, "w", newline="") as file:
             writer = csv.writer(file)
             writer.writerows(table)
+
+    @staticmethod
+    def ymd_dateformat(months):
+        return time.strftime("%Y/%m/%d", time.localtime(time.time() + 3600*24*30*months))
