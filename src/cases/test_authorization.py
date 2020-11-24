@@ -125,8 +125,6 @@ class TestAuthorization():
         lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         dpp.distributor_sidebar_should_contain_email()
 
-
-
 class BaseAuthorization():
 
     @staticmethod
