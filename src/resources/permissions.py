@@ -67,6 +67,15 @@ class Permissions():
             "value": value
         }]
         return response
+
+    @staticmethod
+    def mobile_cycle_count(action, value):
+        response = [{
+            "feature": "distributor.mobile.cycle.count",
+            "action": action,
+            "value": value
+        }]
+        return response
         
     def rfids(action):
         response = [{

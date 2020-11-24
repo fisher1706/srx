@@ -42,16 +42,18 @@ class LocationApi(API):
         response = self.get_location_by_sku(shipto_id, sku)
         return response[0]["orderingConfig"]["id"]
 
-    def get_locations(self, shipto_id, mobile=False):
+    @Decorator.default_expected_code(200)
+    def get_locations(self, shipto_id, expected_status_code, mobile=False):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations")
         token = self.get_mobile_or_base_token(mobile)
         response = self.send_get(url, token)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info("Locations was successfully got")
+            response_json = response.json()
+            return response_json["data"]["entities"]
         else:
-            self.logger.error(str(response.content))
-        response_json = response.json()
-        return response_json["data"]["entities"]
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="reading", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
     def delete_location(self, location_id, shipto_id, expected_status_code):
