@@ -16,6 +16,8 @@ def pytest_addoption(parser):
                      help="Choose environment: 'dev', 'qa', 'staging', 'prod'")
     parser.addoption('--credentials', action='store', nargs='?', const=True, default=False,
                     help="If selected, credentials will be retrieved ONLY from the command line")
+    parser.addoption('--screenshot', action='store', nargs='?', const=True, default=False,
+                    help="If selected, screenshot will be created when error occurs")
 
     #base credentials
     parser.addoption('--base_admin_email', action='store', default=None,
