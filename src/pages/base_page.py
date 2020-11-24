@@ -31,9 +31,6 @@ class BasePage():
         try:
             element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH, xpath)))
         except:
-            self.logger.info("EXCEPTION")
-            self.logger.info(f"URL: {self.driver.current_url}")
-            self.logger.info(f"TEXT: \n{self.get_element_text('//body')}")
             self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
             return element
@@ -42,9 +39,6 @@ class BasePage():
         try:
             element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, id)))
         except:
-            self.logger.info("EXCEPTION")
-            self.logger.info(f"URL: {self.driver.current_url}")
-            self.logger.info(f"TEXT: \n{self.get_element_text('//body')}")
             self.logger.error(f"Element with ID = '{id}' not found")
         else:
             return element
