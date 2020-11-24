@@ -1,5 +1,8 @@
 import logging
 import traceback
+import time
+import os
+from selenium.webdriver.common.by import By
 
 class Logger():
     def __init__(self, context):
@@ -12,11 +15,25 @@ class Logger():
         self.log += f"\n[INFO] {string}"
 
     def error(self, string):
-        if (self.context.is_teardown):
+        if self.context.screenshot:
+            path = f"{os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))}/screenshots/"
+            if not os.path.exists(path):
+                try:
+                    os.mkdir(path)
+                except OSError:
+                    self.info(f"Creation of Screenshots directory is failed")
+            self.context.driver.save_screenshot(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.png")
+            self.info("EXCEPTION")
+            self.info(f"URL: {self.context.driver.current_url}")
+            try:
+                self.info(f"TEXT: \n{self.context.driver.find_element(By.XPATH, '//body').text}")
+            except:
+                self.info(f"TEXT NOT FOUND")
+        if self.context.is_teardown:
             self.warning("\n\nError during teardown")
         trace = traceback.format_exc()
         self.logging.error(string)
-        if (trace != 'NoneType: None\n'):
+        if trace != 'NoneType: None\n':
             self.log += f"\n[ERROR] {string}\n\n{traceback.format_exc()}"
         else:
             self.log += f"\n[ERROR] {string}\n"

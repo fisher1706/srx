@@ -32,6 +32,7 @@ class SessionContext(object):
     testrail_email = None
     testrail_password = None
     credentials = None
+    screenshot = None
     environment = None
     url = None
     base_data = None
@@ -75,6 +76,7 @@ class Context(object):
     driver = None
     data = None
     logger = None
+    screenshot = None
     warnings_counter = 0
 
 
