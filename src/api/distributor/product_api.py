@@ -37,7 +37,7 @@ class ProductApi(API):
     def file_upload(self, url, retries=3):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/dto/smoke-product-template.csv"
         files = {"file": (path, open(path, "rb"))}
-        timeout = 200
+        timeout = 0.2
         for i in range(retries+1):
             try:
                 response = requests.put(url, files=files)
