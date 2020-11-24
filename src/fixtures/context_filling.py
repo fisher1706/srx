@@ -14,6 +14,7 @@ def session_context(request):
 
     #main args
     session_context_object.credentials = request.config.getoption("credentials")
+    session_context_object.screenshot = request.config.getoption("screenshot")
     session_context_object.browser_name = request.config.getoption("browser_name")
     session_context_object.environment = request.config.getoption("environment")
     session_context_object.url = URL(session_context_object.environment)
@@ -131,38 +132,6 @@ def smoke_context(context, request, testrail_smoke_result):
 
     yield context_object
     testrail(request, context_object)
-
-@pytest.fixture(scope="function")
-def ui(driver, base_context):
-    context_object = base_context
-    context_object.driver = driver
-    context_object.testrail_run_id = context_object.data.testrail_run_id
-    return context_object
-
-@pytest.fixture(scope="function")
-def api(base_context):
-    context_object = base_context
-    context_object.testrail_run_id = context_object.data.testrail_run_id
-    return context_object
-
-@pytest.fixture(scope="function")
-def mobile_api(base_context):
-    context_object = base_context
-    context_object.testrail_run_id = context_object.data.mobile_testrail_run_id
-    return context_object
-
-@pytest.fixture(scope="function")
-def smoke_ui(driver, smoke_context):
-    context_object = smoke_context
-    context_object.driver = driver
-    context_object.testrail_run_id = context_object.data.smoke_testrail_run_id
-    return context_object
-
-@pytest.fixture(scope="function")
-def smoke_api(smoke_context):
-    context_object = smoke_context
-    context_object.testrail_run_id = context_object.data.smoke_testrail_run_id
-    return context_object
 
 @pytest.fixture(scope="function")
 def permission_context(context, request):

@@ -5,4 +5,4 @@ phases:
     commands:
       - export PATH=$PATH:/usr/bin/chromium-browser
       - export PYTHONPATH=$PYTHONPATH:.
-      - pytest --browser_name=chrome-headless --environment=prod --smoke_distributor_email=$SMOKE_DISTRIBUTOR_EMAIL --smoke_distributor_password=$SMOKE_DISTRIBUTOR_PASSWORD --smoke_customer_email=$SMOKE_CUSTOMER_EMAIL --smoke_customer_password=$SMOKE_CUSTOMER_PASSWORD --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD --credentials -m smoke .
+      - pytest --browser_name=chrome-headless --environment=prod --smoke_distributor_email=$SMOKE_DISTRIBUTOR_EMAIL --smoke_distributor_password=$SMOKE_DISTRIBUTOR_PASSWORD --smoke_customer_email=$SMOKE_CUSTOMER_EMAIL --smoke_customer_password=$SMOKE_CUSTOMER_PASSWORD --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD --credentials --screenshot -m smoke .
