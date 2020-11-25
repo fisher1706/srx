@@ -4,10 +4,13 @@ import time
 
 
 class MobileTransactionApi(API):
-    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False):
+    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None):
         if customer_id is None:
             customer_id = self.data.customer_id
-        ta = TransactionApi(self.context)
+        if admin_context is not None:
+            ta = TransactionApi(admin_context)
+        else:
+            ta = TransactionApi(self.context)
         len_of_dto = len(dto)
         transactions_count = ta.get_transactions_count(
             shipto_id=shipto_id, status="ACTIVE")
