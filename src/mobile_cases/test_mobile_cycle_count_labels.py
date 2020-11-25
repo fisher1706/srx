@@ -11,7 +11,6 @@ class TestMobileCycleCountLabels():
         {
             "user": None,
             "testrail_case_id": 2278,
-            "excepted_code": 200,
             "ohi": 35,
             "result": 35
 
@@ -19,7 +18,6 @@ class TestMobileCycleCountLabels():
         {
             "user": Permissions.mobile_cycle_count("ENABLE", True),
             "testrail_case_id": 2458,
-            "excepted_code": 200,
             "ohi": 42,
             "result": 42
         }
@@ -51,13 +49,11 @@ class TestMobileCycleCountLabels():
             "onHandInventory": permissions["ohi"]
         }
 
-        mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"],
-                       expected_status_code=permissions["excepted_code"])
+        mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"])
 
         locations = la.get_locations(
             response_location["shipto_id"], mobile=True)
-        assert locations[0]["onHandInventory"] == permissions[
-            "result"], f"OHI of location should be equal to {permissions['result']}"
+        assert locations[0]["onHandInventory"] == permissions["result"], f"OHI of location should be equal to {permissions['result']}"
 
     @pytest.mark.acl
     @pytest.mark.regression
@@ -92,37 +88,37 @@ class TestMobileCycleCountLabels():
             "ohi": 34,
             "result": 34,
             "testrail_case_id": 2279,
-            "excepted_code": 200
+            "expected_code": 200
         },
         {
             "ohi": 0,
             "result": 0,
             "testrail_case_id": 2304,
-            "excepted_code": 200
+            "expected_code": 200
         },
         {
             "ohi": 1,
             "result": 1,
             "testrail_case_id": 2307,
-            "excepted_code": 200
+            "expected_code": 200
         },
         {
             "ohi": 76.4,
             "result": 76,
             "testrail_case_id": 2305,
-            "excepted_code": 200
+            "expected_code": 200
         },
         {
             "ohi": 79.99,
             "result": 79,
             "testrail_case_id": 2306,
-            "excepted_code": 200
+            "expected_code": 200
         },
         {
             "ohi": -55,
             "result": 0,
             "testrail_case_id": 2308,
-            "excepted_code": 400
+            "expected_code": 400
         }
     ])
     @pytest.mark.regression
@@ -149,11 +145,10 @@ class TestMobileCycleCountLabels():
         }
 
         mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"],
-                       expected_status_code=conditions["excepted_code"])
+                       expected_status_code=conditions["expected_code"])
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["onHandInventory"] == conditions[
-            "result"], f"OHI of location should be equal to {conditions['result']}"
+        assert locations[0]["onHandInventory"] == conditions["result"], f"OHI of location should be equal to {conditions['result']}"
 
     @pytest.mark.regression
     def test_update_ohi_with_disabled_track_ohi_option(self, mobile_api, delete_shipto):
@@ -219,8 +214,7 @@ class TestMobileCycleCountLabels():
             data, response_location["shipto_id"], response_location["location_id"])
 
         locations = la.get_locations(response_location["shipto_id"])
-        assert locations[0]["onHandInventory"] == conditions[
-            "ohi"], f"OHI of location should be {conditions['ohi']}"
+        assert locations[0]["onHandInventory"] == conditions["ohi"], f"OHI of location should be {conditions['ohi']}"
 
         transactions_active = ta.get_transaction(
             shipto_id=response_location["shipto_id"], status="ACTIVE")["entities"]
