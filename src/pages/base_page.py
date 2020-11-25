@@ -131,7 +131,7 @@ class BasePage():
 
     def url_should_be(self, url):
         try:
-            WebDriverWait(self.driver, 15).until(page_url_is(url))
+            WebDriverWait(self.driver, 20).until(page_url_is(url))
         except:
             self.logger.error("Incorrect page url")
         else:
