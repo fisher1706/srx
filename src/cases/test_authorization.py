@@ -154,6 +154,7 @@ class BaseAuthorization():
         lp.input_email(context.customer_email)
         lp.input_password(context.customer_password)
         lp.click_on_submit_button()
+        assert False
         cpp.click_id(Locator.id_enter_here, timeout=30)
         cpp.customer_sidebar_should_contain_email()
         cpp.url_should_contain("customer")
