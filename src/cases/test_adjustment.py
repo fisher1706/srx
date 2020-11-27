@@ -38,7 +38,7 @@ class TestAdjustment():
         }
         ])
     @pytest.mark.regression
-    def test_inventory_status_with_1_usage_history_record(self, api, conditions):
+    def test_inventory_status_with_1_usage_history_record(self, api, conditions, delete_shipto):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         dsa = DistributorSettingsApi(api)
@@ -87,7 +87,7 @@ class TestAdjustment():
         }
         ])
     @pytest.mark.regression
-    def test_inventory_status_with_2_usage_history_records(self, api, conditions):
+    def test_inventory_status_with_2_usage_history_records(self, api, conditions, delete_shipto):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         dsa = DistributorSettingsApi(api)
