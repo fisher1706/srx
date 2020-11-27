@@ -13,7 +13,7 @@ class MobileCycleCountApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         if (response.status_code == 200):
-            self.logger.info(f"OHI updated successfuly")
+            self.logger.info(f"OHI updated successfully")
             response_json = response.json()
         else:
             self.logger.info(
