@@ -1,0 +1,26 @@
+{
+    "settings": {
+        "autoSubmit": null,
+        "createdOn": null,
+        "surplus": null,
+        "manufacturerSku": null,
+        "enableVmiList": true,
+        "inventoryStatus": null,
+        "ohi": null,
+        "asset": null,
+        "serialization": null,
+        "lot": null,
+        "triggerType": null,
+        "suggestedMinMax": null,
+        "location": null,
+        "distributorSku": null,
+        "limits": null,
+        "useDefault": false,
+        "weights": null,
+        "ownedBy": null,
+        "packageConversion": null,
+        "lifecycleStatus": null,
+        "customerSku": null
+    },
+    "useDefault": false
+}
