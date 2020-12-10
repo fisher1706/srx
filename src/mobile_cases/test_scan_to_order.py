@@ -1,14 +1,27 @@
 from src.api.mobile.mobile_transaction_api import MobileTransactionApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.setups.setup_location import SetupLocation
+from src.resources.permissions import Permissions
 import pytest
 
 
 class TestScanToOrder():
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2215
+        },
+        { 
+            "user": Permissions.mobile_labels("ENABLE", True),
+            "testrail_case_id": 2462
+        }
+        ])
+    @pytest.mark.acl
     @pytest.mark.regression
-    def test_bulk_create_transaction(self, mobile_api, delete_shipto):
-        mobile_api.testrail_case_id = 2215
-        mta = MobileTransactionApi(mobile_api)
+    def test_bulk_create_transaction(self, mobile_api, permission_api, permissions, delete_shipto, delete_distributor_security_group):
+        mobile_api.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(mobile_api, permissions["user"], permission_context=permission_api)
+        mta = MobileTransactionApi(context)
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
@@ -29,10 +42,10 @@ class TestScanToOrder():
             }
         ]
 
-        mta.bulk_create(response_location_1["shipto_id"], data)
+        mta.bulk_create(response_location_1["shipto_id"], data, admin_context=mobile_api)
 
         transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+            shipto_id=response_location_1["shipto_id"], status="ACTIVE", )["entities"]
 
         assert len(transactions) == 2, "There should be 2 transactions"
         assert transactions[0]["product"]["partSku"] == response_location_1["product"][
@@ -43,6 +56,34 @@ class TestScanToOrder():
             "partSku"], f"Sku of product should be equal to {response_location_2['product']['partSku']}"
         assert transactions[1]["reorderQuantity"] == (
             response_location_2["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location_2['product']['roundBuy']*3}"
+
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_bulk_create_transaction_without_permission(self, mobile_api, permission_api, delete_shipto, delete_distributor_security_group):
+        mobile_api.testrail_case_id = 2463
+        Permissions.set_configured_user(mobile_api, Permissions.mobile_labels("ENABLE", False))
+        mta = MobileTransactionApi(permission_api)
+        ta = TransactionApi(mobile_api)
+
+        setup_location = SetupLocation(mobile_api)
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location_1 = setup_location.setup()
+        setup_location.add_option(
+            "shipto_id", response_location_1["shipto_id"])
+        response_location_2 = setup_location.setup()
+
+        data = [
+            {
+                "partSku": response_location_1["product"]["partSku"],
+                "quantity": response_location_1["product"]["roundBuy"] * 3
+            },
+            {
+                "partSku": response_location_2["product"]["partSku"],
+                "quantity": response_location_2["product"]["roundBuy"] * 3
+            }
+        ]
+
+        mta.bulk_create(response_location_1["shipto_id"], data, failed=True, admin_context=mobile_api)
 
     @pytest.mark.regression
     def test_bulk_create_transaction_for_non_exist_sku(self, mobile_api, delete_shipto):

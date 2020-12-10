@@ -94,6 +94,7 @@ class TestButtons():
         assert locations[0]["orderingConfig"]["dsn"] == None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
 
     @pytest.mark.acl
+    @pytest.mark.regression
     def test_unassign_dsn_from_button_without_permissions(self, mobile_api, permission_api, delete_shipto, delete_distributor_security_group):
         mobile_api.testrail_case_id = 2291
         Permissions.set_configured_user(mobile_api, Permissions.mobile_buttons("ENABLE", False))
