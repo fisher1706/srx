@@ -7,6 +7,7 @@ from src.resources.logger import Logger
 from src.resources.testrail import Testrail
 import sys
 import copy
+import time
 
 @pytest.fixture(scope="session")
 def session_context(request):
@@ -169,10 +170,27 @@ def testrail(request, context):
             raise Exception(f"Failed setup: {request.node.rep_setup.failed}; Passed setup: {request.node.rep_setup.passed}")
 
         testrail = Testrail(context.session_context.testrail_email, context.session_context.testrail_password)
-        testrail.add_result_for_case(context.testrail_run_id,
-                                    context.testrail_case_id,
-                                    context.testrail_status_id,
-                                    context.testrail_comment)
+        retries = 3
+        for iteration in range (retries):
+            time.sleep(iteration)
+            response = testrail.add_result_for_case(context.testrail_run_id,
+                                                    context.testrail_case_id,
+                                                    context.testrail_status_id,
+                                                    context.testrail_comment)
+            if response.status_code == 500:
+                if iteration + 1 == retries:
+                    continue
+                else:
+                    context.logger.warning(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
+                    continue
+            elif response.status_code > 201 and response.status_code != 500:
+                error = str(response.content)
+                context.logger.error(f"TestRail API returned HTTP {response.status_code} ({error})")
+                break
+            else:
+                break
+        else:
+            context.logger.error("The result of the test has not been added to the TestRail")
     else:
         context.logger.warning("Testrail is not configured")
 
