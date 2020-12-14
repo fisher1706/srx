@@ -178,11 +178,9 @@ def testrail(request, context):
                                                     context.testrail_status_id,
                                                     context.testrail_comment)
             if response.status_code == 500:
-                if iteration + 1 == retries:
-                    continue
-                else:
+                if iteration + 1 < retries:
                     context.logger.warning(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
-                    continue
+                continue
             elif response.status_code > 201 and response.status_code != 500:
                 error = str(response.content)
                 context.logger.error(f"TestRail API returned HTTP {response.status_code} ({error})")
