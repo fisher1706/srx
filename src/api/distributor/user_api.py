@@ -158,3 +158,14 @@ class UserApi(API):
         response = self.send_get(url, token)
         if response.status_code != 200:
             self.logger.error(str(response.content))
+
+    def get_current_user(self):
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/users/current")
+        token = self.get_distributor_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Current User has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]

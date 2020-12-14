@@ -1,7 +1,6 @@
 {
-    "transactionAutoSubmitSettings": {
-        "submitImmediately": null,
-        "autoSubmit": null,
+    "settings": {
+        "useDefault": false,
         "time": "00:00",
         "freqDays": [
             "THURSDAY",
@@ -12,19 +11,9 @@
             "SATURDAY",
             "WEDNESDAY"
         ],
-        "autoSubmitAsOrder": null
+        "autoSubmitAsOrder": null,
+        "submitImmediately": null,
+        "autoSubmit": null
     },
-    "rfidAutoTransitSettings": {
-        "enabled": true,
-        "freqDays": [
-            "THURSDAY",
-            "FRIDAY",
-            "SUNDAY",
-            "MONDAY",
-            "TUESDAY",
-            "SATURDAY",
-            "WEDNESDAY"
-        ],
-        "time": "00:00"
-    }
+    "useDefault": false
 }
