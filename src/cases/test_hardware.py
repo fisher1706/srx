@@ -66,6 +66,7 @@ class TestHardware():
         lp.log_in_admin_portal()
 
         iothub_dto = ha.create_iothub() #create IoT Hub via rest api
+        ui.dynamic_context["delete_hardware_id"].append(iothub_dto["id"])
         iothub_name = f"{iothub_dto['id']} ({iothub_dto['value']}) / {ui.data.distributor_name}"
         
         hp.sidebar_hardware()
