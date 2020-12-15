@@ -27,8 +27,7 @@ class TestScanToOrder():
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -44,18 +43,13 @@ class TestScanToOrder():
 
         mta.bulk_create(response_location_1["shipto_id"], data, admin_context=mobile_api)
 
-        transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE", )["entities"]
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE", )["entities"]
 
         assert len(transactions) == 2, "There should be 2 transactions"
-        assert transactions[0]["product"]["partSku"] == response_location_1["product"][
-            "partSku"], f"Sku of product should be equal to {response_location_1['product']['partSku']}"
-        assert transactions[0]["reorderQuantity"] == (
-            response_location_1["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location_1['product']['roundBuy']*3}"
-        assert transactions[1]["product"]["partSku"] == response_location_2["product"][
-            "partSku"], f"Sku of product should be equal to {response_location_2['product']['partSku']}"
-        assert transactions[1]["reorderQuantity"] == (
-            response_location_2["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location_2['product']['roundBuy']*3}"
+        assert transactions[0]["product"]["partSku"] == response_location_1["product"]["partSku"], f"Sku of product should be equal to {response_location_1['product']['partSku']}"
+        assert transactions[0]["reorderQuantity"] == (response_location_1["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location_1['product']['roundBuy']*3}"
+        assert transactions[1]["product"]["partSku"] == response_location_2["product"]["partSku"], f"Sku of product should be equal to {response_location_2['product']['partSku']}"
+        assert transactions[1]["reorderQuantity"] == (response_location_2["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location_2['product']['roundBuy']*3}"
 
     @pytest.mark.acl
     @pytest.mark.regression
@@ -68,8 +62,7 @@ class TestScanToOrder():
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -94,8 +87,7 @@ class TestScanToOrder():
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -109,14 +101,11 @@ class TestScanToOrder():
             }
         ]
 
-        mta.bulk_create(
-            response_location_1["shipto_id"], data, repeat=3, failed=True)
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
 
-        transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        assert len(
-            transactions) == 0, "There should be 0 transactions, SKU's don't exist in the given ShipTo"
+        assert len(transactions) == 0, "There should be 0 transactions, SKU's don't exist in the given ShipTo"
 
     @pytest.mark.regression
     def test_bulk_create_transaction_with_zero_quantity(self, mobile_api, delete_shipto):
@@ -127,8 +116,7 @@ class TestScanToOrder():
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -142,14 +130,11 @@ class TestScanToOrder():
             }
         ]
 
-        mta.bulk_create(
-            response_location_1["shipto_id"], data, repeat=3, failed=True)
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
 
-        transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        assert len(
-            transactions) == 0, "There should be 0 transactions, the Quantity parameters are missing."
+        assert len(transactions) == 0, "There should be 0 transactions, the Quantity parameters are missing."
 
     @pytest.mark.regression
     def test_bulk_create_transaction_with_asset_flag(self, mobile_api, delete_shipto):
@@ -162,8 +147,7 @@ class TestScanToOrder():
         setup_location.setup_product.add_option("asset")
 
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -177,14 +161,11 @@ class TestScanToOrder():
             }
         ]
 
-        mta.bulk_create(
-            response_location_1["shipto_id"], data, repeat=3, failed=True)
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
 
-        transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        assert len(
-            transactions) == 0, "There should be 0 transactions, products cannot be ordered, these products with asset flag"
+        assert len(transactions) == 0, "There should be 0 transactions, products cannot be ordered, these products with asset flag"
 
     @pytest.mark.regression
     def test_bulk_create_for_exist_transactions_in_active(self, mobile_api, delete_shipto):
@@ -195,8 +176,7 @@ class TestScanToOrder():
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -212,15 +192,11 @@ class TestScanToOrder():
 
         mta.bulk_create(response_location_1["shipto_id"], data)
 
-        transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
-        mta.bulk_create(
-            response_location_1["shipto_id"], data, repeat=3, failed=True)
-        transactions_after_re_request = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
+        transactions_after_re_request = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        assert len(transactions_after_re_request) == len(
-            transactions), "Transactions already exist in Active status"
+        assert len(transactions_after_re_request) == len(transactions), "Transactions already exist in Active status"
 
     @pytest.mark.parametrize("conditions", [
         {
@@ -245,8 +221,7 @@ class TestScanToOrder():
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -262,32 +237,25 @@ class TestScanToOrder():
 
         mta.bulk_create(response_location_1["shipto_id"], data)
 
-        transactions_in_active = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transactions_in_active = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        ta.update_replenishment_item(
-            transactions_in_active[0]["id"], response_location_1['product']['roundBuy']*3, conditions["status"])
-        ta.update_replenishment_item(
-            transactions_in_active[1]["id"], response_location_2['product']['roundBuy']*3, conditions["status"])
+        ta.update_replenishment_item(transactions_in_active[0]["id"], response_location_1['product']['roundBuy']*3, conditions["status"])
+        ta.update_replenishment_item(transactions_in_active[1]["id"], response_location_2['product']['roundBuy']*3, conditions["status"])
 
-        transactions_after_update = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"])["entities"]
+        transactions_after_update = ta.get_transaction(shipto_id=response_location_1["shipto_id"])["entities"]
 
-        assert transactions_after_update[0]["status"] == conditions["status"] and transactions_after_update[
-            1]["status"] == conditions["status"], "Status of each transaction should be equal condition status"
+        assert transactions_after_update[0]["status"] == conditions["status"], f"Status of {transactions_after_update[0]['productPartSku']} should be equal condition status"
+        assert transactions_after_update[1]["status"] == conditions["status"], f"Status of {transactions_after_update[1]['productPartSku']} should be equal condition status"
 
         mta.bulk_create(response_location_1["shipto_id"], data)
-        transactions_in_active = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transactions_in_active = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        assert transactions_in_active[0]["reorderQuantity"] == 0 and transactions_in_active[1][
-            "reorderQuantity"] == 0, "Reorder quantity of each transactions should be equal to 0"
+        assert transactions_in_active[0]["reorderQuantity"] == 0, f"Reorder quantity of {transactions_in_active[0]['productPartSku']} should be equal to 0"
+        assert transactions_in_active[1]["reorderQuantity"] == 0, f"Reorder quantity of {transactions_in_active[1]['productPartSku']} should be equal to 0"
 
-        transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"])["entities"]
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"])["entities"]
 
-        assert len(
-            transactions) == 4, "There are should be 4 transactions in the given ShipTo "
+        assert len(transactions) == 4, "There are should be 4 transactions in the given ShipTo "
 
     @pytest.mark.parametrize("conditions", [
         {
@@ -317,11 +285,9 @@ class TestScanToOrder():
 
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-        setup_location.setup_product.add_option(
-            "round_buy", conditions["round_buy"])
+        setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         response_location_1 = setup_location.setup()
-        setup_location.add_option(
-            "shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
 
         data = [
@@ -337,8 +303,7 @@ class TestScanToOrder():
 
         mta.bulk_create(response_location_1["shipto_id"], data)
 
-        transactions = ta.get_transaction(
-            shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        assert transactions[0]["reorderQuantity"] == conditions["result"] and transactions[1]["reorderQuantity"] == conditions[
-            "result"], f"Reorder quantity of  each transaction should be equal to {conditions['result']}"
+        assert transactions[0]["reorderQuantity"] == conditions["result"], f"Reorder quantity of  {transactions[0]['productPartSku']} should be equal to {conditions['result']}"
+        assert transactions[1]["reorderQuantity"] == conditions["result"], f"Reorder quantity of  {transactions[1]['productPartSku']} should be equal to {conditions['result']}"
