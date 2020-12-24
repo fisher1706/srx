@@ -340,6 +340,7 @@ class TestUsers():
         cgp.unassign_shipto(1)
         cgp.get_element_by_xpath(Locator.xpath_no_data_found)
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_smoke_create_user(self, smoke_api):
         smoke_api.testrail_case_id = 2002
