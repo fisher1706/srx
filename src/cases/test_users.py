@@ -404,9 +404,10 @@ class TestUsers():
             "firstName": Tools.random_string_l(),
             "lastName": Tools.random_string_l()
         }
-
-        user_id = ua.create_distributor_superuser(user_body)
-        response = ua.get_distributor_super_user_by_email(user_body["email"])
+        user_body["userGroup"] = dict()
+        user_body["userGroup"]["id"] = smoke_api.data.group_id
+        user_id = ua.create_distributor_user(user_body)
+        response = ua.get_distributor_user(email=user_body["email"])
         count = len(response)
         assert count == 1, f"Users count is {count}"
         user = response[0]
@@ -416,4 +417,4 @@ class TestUsers():
         assert email == user_body["email"], f"User email is {email}, but should be {user_body['email']}"
         assert name == user_body["firstName"], f"User name is {name}, but should be {user_body['firstName']}"
         assert last_name == user_body["lastName"], f"User last name is {last_name}, but should be {user_body['lastName']}"
-        ua.delete_superuser(user_id)
+        ua.delete_distributor_user(user_id)
