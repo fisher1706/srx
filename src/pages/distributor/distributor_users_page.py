@@ -68,6 +68,7 @@ class DistributorUsersPage(DistributorPortalPage):
         self.wait_until_page_loaded()
         start_number_of_rows = self.get_table_rows_number()
         self.click_id(Locator.id_add_button)
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), distributor_superuser_body.pop("role"))
         for field in distributor_superuser_body.keys():
             self.input_by_name(field, distributor_superuser_body[field])
         self.click_xpath(Locator.xpath_submit_button)
@@ -99,3 +100,4 @@ class DistributorUsersPage(DistributorPortalPage):
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()
+

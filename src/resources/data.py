@@ -58,7 +58,7 @@ class Data():
         self.mobile_testrail_run_id = 54
         self.customer_id = "4"
         self.shipto_id = "4"
-        self.checkout_group_id = "10"
+        self.checkout_group_id = "816"
         self.checkout_user_id = "630"
         self.customer_user_id = "11"
         self.passcode = "AUTOTEST"
