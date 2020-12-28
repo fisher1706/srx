@@ -2,6 +2,7 @@ import pytest
 from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.resources.permissions import Permissions
+from src.api.admin.admin_user_api import AdminUserApi
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.api.distributor.user_api import UserApi
@@ -75,7 +76,7 @@ class TestUsers():
         cup.wait_until_page_loaded()
         cup.check_last_customer_user(edit_customer_user_body.copy())
         cup.delete_last_customer_user()
-
+    
     @pytest.mark.parametrize("permissions", [
         {
             "user": None,
@@ -153,6 +154,7 @@ class TestUsers():
         distributor_superuser_body["email"] = Tools.random_email()
         distributor_superuser_body["firstName"] = f"User {Tools.random_string_l()}"
         distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"
+        distributor_superuser_body["role"] = "Super User (Admin)"
         #-------------------
         edit_distributor_superuser_body["firstName"] = f"User {Tools.random_string_l()}"
         edit_distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"
@@ -160,7 +162,7 @@ class TestUsers():
 
         lp.log_in_distributor_portal()
         dup.sidebar_users()
-        dup.click_xpath(Locator.xpath_button_tab_by_name("Super Users"))
+        dup.click_xpath(Locator.xpath_button_tab_by_name("Users"))
         dup.create_distributor_super_user(distributor_superuser_body.copy())
         dup.check_last_distributor_super_user(distributor_superuser_body.copy())
         dup.update_last_distributor_super_user(edit_distributor_superuser_body.copy())
@@ -339,6 +341,57 @@ class TestUsers():
         cgp.check_assigned_shipto(response_shipto["shipto"], 1)
         cgp.unassign_shipto(1)
         cgp.get_element_by_xpath(Locator.xpath_no_data_found)
+
+    @pytest.mark.parametrize("case", [
+        {
+            "case": 1, #CRD on Admin portal
+            "testrail_case_id": 2580
+        },
+        { 
+            "case": 2, #Create on admin portal, Read and Delete on distributor portal
+            "testrail_case_id": 2578
+        },
+        { 
+            "case": 3, #Create on distributor portal, Read and Delete on admin portal
+            "testrail_case_id": 2579
+        }
+        ])
+    @pytest.mark.regression
+    def test_crud_user_on_admin_and_distributor_portal(self, api, case):
+        api.testrail_case_id = case["testrail_case_id"]
+
+        aua = AdminUserApi(api)
+        ua =UserApi(api)
+
+        user = {
+            "email": Tools.random_email(),
+            "firstName": Tools.random_string_l(),
+            "lastName": Tools.random_string_l()
+        }
+        if case["case"] == 1:
+            user_id = aua.create_distributor_user(user)
+            response_user = aua.get_distributor_user(email=user["email"])[0]
+            assert int(user_id) == response_user["id"]
+            aua.delete_distributor_user(user_id)
+            response_users = aua.get_distributor_user(email=user["email"])
+            assert response_users == []
+        elif case["case"] == 2:
+            user_id = aua.create_distributor_user(user)
+            response_user = ua.get_distributor_user(email=user["email"])[0]
+            assert int(user_id) == response_user["id"]
+            ua.delete_distributor_user(user_id)
+            response_users = ua.get_distributor_user(email=user["email"])
+            assert response_users == []
+        elif case["case"] == 3:
+            current_user = ua.get_current_user()
+            user["userGroup"] = dict()
+            user["userGroup"]["id"] = current_user["userGroup"]["id"]
+            user_id = ua.create_distributor_user(user)
+            response_user = aua.get_distributor_user(email=user["email"])[0]
+            assert int(user_id) == response_user["id"]
+            aua.delete_distributor_user(user_id)
+            response_users = aua.get_distributor_user(email=user["email"])
+            assert response_users == []
 
     @pytest.mark.smoke
     def test_smoke_create_user(self, smoke_api):

@@ -47,7 +47,7 @@ class SettingsApi(API):
         return response_json["data"]
 
     def update_autosubmit_settings_shipto(self, dto, shipto_id):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/settings/save")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/autosubmit/settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
@@ -57,9 +57,9 @@ class SettingsApi(API):
 
     def set_autosubmit_settings_shipto(self, shipto_id, enabled=None, immediately=None, as_order=None):
         autosubmit_settings_dto = Tools.get_dto("autosubmit_settings_dto.json")
-        autosubmit_settings_dto["transactionAutoSubmitSettings"]["submitImmediately"] = bool(immediately)
-        autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmit"] = bool(enabled)
-        autosubmit_settings_dto["transactionAutoSubmitSettings"]["autoSubmitAsOrder"] = bool(as_order)
+        autosubmit_settings_dto["settings"]["submitImmediately"] = bool(immediately)
+        autosubmit_settings_dto["settings"]["autoSubmit"] = bool(enabled)
+        autosubmit_settings_dto["settings"]["autoSubmitAsOrder"] = bool(as_order)
         self.update_autosubmit_settings_shipto(autosubmit_settings_dto, shipto_id)
 
     def update_rl_rules_settings_shipto(self, dto, shipto_id):
