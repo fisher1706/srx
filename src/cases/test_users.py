@@ -393,6 +393,7 @@ class TestUsers():
             response_users = aua.get_distributor_user(email=user["email"])
             assert response_users == []
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_smoke_create_user(self, smoke_api):
         smoke_api.testrail_case_id = 2002
