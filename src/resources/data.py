@@ -91,6 +91,7 @@ class SmokeData():
         self.shipto_id = "189"
         self.ordering_config_id = "1516"
         self.report_id = 6
+        self.group_id = 431
 
     def qa_environment(self):
         self.smoke_testrail_run_id = 40
@@ -98,6 +99,7 @@ class SmokeData():
         self.shipto_id = "2192"
         self.ordering_config_id = "2577"
         self.report_id = 5
+        self.group_id = 623
 
     def prod_environment(self):
         self.smoke_testrail_run_id = 45
@@ -105,3 +107,4 @@ class SmokeData():
         self.shipto_id = "159"
         self.ordering_config_id = "24425"
         self.report_id = 7
+        self.group_id = 145
