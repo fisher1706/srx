@@ -3,8 +3,10 @@ import urllib.parse
 from src.fixtures.decorators import Decorator
 
 class AdminUserApi(API):
-    def get_distributor_user(self, email=None):
-        url_string = "/admin-portal/admin/distributors/4/users/pageable?"
+    def get_distributor_user(self, email=None, distributor_id=None):
+        if distributor_id is None:
+            distributor_id = self.data.distributor_id
+        url_string = f"/admin-portal/admin/distributors/{distributor_id}/users/pageable?"
         if email is not None:
             email = urllib.parse.quote(email)
             url_string += f"email={email}"
