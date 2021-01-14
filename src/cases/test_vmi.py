@@ -258,3 +258,51 @@ class TestVmi():
                     assert mapping[condition], f"{condition} should be TRUE, but it FALSE"
                 else:
                     assert not mapping[condition], f"{condition} should be FALSE, but it TRUE"
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "value": "EDIT",
+            "result": "OK",
+            "testrail_case_id": 3194
+        },
+        { 
+            "value": "VIEW",
+            "result": "FAIL",
+            "testrail_case_id": 3195
+        }
+        ])
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_vmi_list_edit_min_max_customer_portal(self, api, conditions):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        sa = SettingsApi(api)
+        cvla = CustomerVmiListApi(api)
+
+        response_location = SetupLocation(api).setup()
+
+        dto = Tools.get_dto("vmi_settings_dto.json")
+        fields = copy.deepcopy(dto["settings"])
+        fields.pop("useDefault")
+        fields.pop("enableVmiList")
+        fields.pop("limits")
+        for field in fields.keys():
+            dto["settings"][field] = "VIEW"
+        dto["settings"]["limits"] = conditions["value"]
+        sa.update_vmi_settings(dto, response_location["shipto_id"])
+        
+        location = cvla.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["orderingConfig"]["currentInventoryControls"]["min"] *= 2
+        location["orderingConfig"]["currentInventoryControls"]["max"] *= 2
+
+        cvla.update_location([location])
+
+        updated_location = cvla.get_locations(shipto_id=response_location["shipto_id"])[0]
+        if conditions["result"] is "OK":
+            assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"] * 2
+            assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"] * 2
+        elif conditions["result"] is "FAIL":
+            assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
+            assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
+        else:
+            api.logger.error("Unexpected result")
