@@ -240,10 +240,10 @@ class TestTransactions():
         assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
         ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
         for i in range(3):
+            time.sleep(10)
             activity_log_after = ala.get_activity_log()
             activity_log_records_after = activity_log_after["totalElements"]
-            if (activity_log_records_after <= activity_log_records_before):
-                time.sleep(10)
+            if activity_log_records_after <= activity_log_records_before:
                 continue
             else:
                 break
