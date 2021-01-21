@@ -199,6 +199,7 @@ class TestTransactions():
         transactions = ta.get_transaction(status="QUOTED")
         assert transactions["totalElements"] == 0
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_smoke_label_transaction_and_activity_log(self, smoke_api):
         smoke_api.testrail_case_id = 2005
