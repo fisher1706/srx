@@ -30,7 +30,7 @@ class TestReorderControls():
         }
         ])
     @pytest.mark.regression
-    def test_create_transaction_at_min(self, api, conditions, delete_shipto):
+    def test_create_transaction_at_min_by_ohi_update(self, api, conditions, delete_shipto):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -38,16 +38,13 @@ class TestReorderControls():
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.add_option("ohi","MAX")
         response_location = setup_location.setup()
 
-        #update OHi to Max
+        #update OHi
         location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
+        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions["coefficient"]
         location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
-        #update OHI
-        location_dto["onHandInventory"] = response_location["product"]["roundBuy"]*conditions["coefficient"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
@@ -55,6 +52,7 @@ class TestReorderControls():
         if conditions["transaction_qty"] != 0:
             assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*conditions["reorder_qty_coefficient"]), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*conditions['reorder_qty_coefficient']}"
             assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
+
 
     @pytest.mark.parametrize("conditions_issued", [
         {
@@ -71,7 +69,7 @@ class TestReorderControls():
         }
         ])
     @pytest.mark.regression
-    def test_create_transaction_as_issued(self, api, conditions_issued, delete_shipto):
+    def test_create_transaction_as_issued_by_ohi_update(self, api, conditions_issued, delete_shipto):
         api.testrail_case_id = conditions_issued["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -95,7 +93,6 @@ class TestReorderControls():
              
     @pytest.mark.parametrize("conditions_close", [
         {
-            "coefficient": 0,
             "close_transaction_cofficient":2, # MAX > OHI > MIN
             "transaction_qty": 1,
             "close_transaction_qty": 0,
@@ -103,7 +100,6 @@ class TestReorderControls():
             "testrail_case_id": 3199
         },
         {
-            "coefficient": 0.5,
             "close_transaction_cofficient":4,
             "transaction_qty": 1,
             "close_transaction_qty": 0,
@@ -112,7 +108,7 @@ class TestReorderControls():
         }
         ])
     @pytest.mark.regression
-    def test_close_transaction(self, api, conditions_close, delete_shipto):
+    def test_close_transaction_by_ohi_update(self, api, conditions_close, delete_shipto):
         api.testrail_case_id = conditions_close["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -120,17 +116,11 @@ class TestReorderControls():
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close['reorder_controls']})
+        setup_location.add_option("transaction",'ACTIVE')
         response_location = setup_location.setup()
 
-        #transaction create 
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]*conditions_close["coefficient"]
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
-        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
-        assert transaction[0]["status"] == "ACTIVE"
         #close transaction
+        location_dto = copy.deepcopy(response_location["location"])
         location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions_close["close_transaction_cofficient"]
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
@@ -147,17 +137,14 @@ class TestReorderControls():
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'MIN'})
+        setup_location.add_option("transaction","ACTIVE")
         response_location = setup_location.setup()
 
-        #transaction create 
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        #check quantity
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity_old = transaction[0]["reorderQuantity"]
         #change OHI
+        location_dto = copy.deepcopy(response_location["location"])
         location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*0
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
@@ -174,17 +161,15 @@ class TestReorderControls():
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'ISSUED'})
+        setup_location.add_option("ohi","MAX")
+        setup_location.add_option("transaction","ACTIVE")
         response_location = setup_location.setup()
 
-        #transaction create 
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]*0.5
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        #check quantity
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity_old = transaction[0]["reorderQuantity"]
         #change OHI
+        location_dto = copy.deepcopy(response_location["location"])
         location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]-1
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
