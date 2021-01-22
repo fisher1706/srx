@@ -273,7 +273,7 @@ class TestVmi():
         ])
     @pytest.mark.acl
     @pytest.mark.regression
-    def test_vmi_list_edit_min_max_customer_portal(self, api, conditions):
+    def test_vmi_list_edit_min_max_customer_portal(self, api, conditions, delete_shipto):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         sa = SettingsApi(api)
@@ -298,10 +298,10 @@ class TestVmi():
         cvla.update_location([location])
 
         updated_location = cvla.get_locations(shipto_id=response_location["shipto_id"])[0]
-        if conditions["result"] is "OK":
+        if conditions["result"] == "OK":
             assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"] * 2
             assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"] * 2
-        elif conditions["result"] is "FAIL":
+        elif conditions["result"] == "FAIL":
             assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
             assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
         else:
