@@ -199,7 +199,6 @@ class TestTransactions():
         transactions = ta.get_transaction(status="QUOTED")
         assert transactions["totalElements"] == 0
 
-    @pytest.mark.skip
     @pytest.mark.smoke
     def test_smoke_label_transaction_and_activity_log(self, smoke_api):
         smoke_api.testrail_case_id = 2005
@@ -209,7 +208,7 @@ class TestTransactions():
         la = LocationApi(smoke_api)
 
         activity_log_before = ala.get_activity_log()
-        activity_log_records_before = activity_log_before["totalElements"]
+        last_activity_log_id_before = activity_log_before["entities"][0]["id"]
         location = la.get_locations(smoke_api.data.shipto_id)[0]
         location["onHandInventory"] = 50
         location_list = [copy.deepcopy(location)]
@@ -243,12 +242,12 @@ class TestTransactions():
         for i in range(3):
             time.sleep(10)
             activity_log_after = ala.get_activity_log()
-            activity_log_records_after = activity_log_after["totalElements"]
-            if activity_log_records_after <= activity_log_records_before:
+            last_activity_log_id_after = activity_log_after["entities"][0]["id"]
+            if last_activity_log_id_after <= last_activity_log_id_before:
                 continue
             else:
                 break
-        assert activity_log_records_before != activity_log_records_after, "There are no new records in activity log"
+        assert last_activity_log_id_before < last_activity_log_id_after, "There are no new records in activity log"
 
     @pytest.mark.parametrize("permissions", [
         {
