@@ -136,9 +136,12 @@ class SetupLocation(BaseSetup):
             },
             "dsn": self.options["dsn"]
         }
-        self.location["onHandInventory"] = self.options["ohi"]
-        self.location["serialized"] = bool(self.options["serialized"])
-        self.location["lot"] = bool(self.options["lot"])
+        if (self.options["ohi"] == "MAX"):
+            self.location["onHandInventory"] = self.product["roundBuy"]*3
+        else:
+            self.location["onHandInventory"] = self.options["ohi"]
+            self.location["serialized"] = bool(self.options["serialized"])
+            self.location["lot"] = bool(self.options["lot"])
         if (self.options["autosubmit"] is not None):
             self.location["autoSubmit"] = bool(self.options["autosubmit"])
         
