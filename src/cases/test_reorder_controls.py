@@ -4,7 +4,6 @@ from src.resources.locator import Locator
 from src.resources.tools import Tools
 from src.pages.distributor.order_status_page import OrderStatusPage
 from src.api.setups.setup_location import SetupLocation
-from src.api.setups.setup_product import SetupProduct
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
@@ -17,7 +16,6 @@ class TestReorderControls():
             "transaction_qty": 1,
             "reorder_qty_coefficient": 3,
             "testrail_case_id": 2581
-
         },
         { 
             "coefficient": 1,
