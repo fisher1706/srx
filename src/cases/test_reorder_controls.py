@@ -179,13 +179,11 @@ class TestReorderControls():
 
     @pytest.mark.parametrize("conditions_close_by_pack", [
             {
-                "close_pack_conv":1, 
                 "pack_conv": 10,
                 "reorder_controls": "MIN",
                 "testrail_case_id": 3206
             },
             {
-                "close_pack_conv":1,
                 "pack_conv": 2,
                 "reorder_controls": "ISSUED",
                 "testrail_case_id": 3207
@@ -207,7 +205,7 @@ class TestReorderControls():
         response_location = setup_location.setup()
 
         product_dto = copy.deepcopy(response_location["product"])
-        product_dto["packageConversion"] = conditions_close_by_pack["close_pack_conv"]
+        product_dto["packageConversion"] = "1"
         pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])       
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["status"] == "DO_NOT_REORDER"
@@ -215,13 +213,11 @@ class TestReorderControls():
     @pytest.mark.parametrize("conditions_create_by_pack", [
             {
                 "create_pack_conv":10, 
-                "pack_conv": 1,
                 "reorder_controls": "MIN",
                 "testrail_case_id": 3204
             },
             {
                 "create_pack_conv":2,
-                "pack_conv": 1,
                 "reorder_controls": "ISSUED",
                 "testrail_case_id": 3205
             }
@@ -237,7 +233,7 @@ class TestReorderControls():
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_create_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
-        setup_location.setup_product.add_option("package_conversion", conditions_create_by_pack["pack_conv"])
+        setup_location.setup_product.add_option("package_conversion", "1")
         response_location = setup_location.setup()
 
         product_dto = copy.deepcopy(response_location["product"])
@@ -251,7 +247,7 @@ class TestReorderControls():
                 "update_pack_conv":6, 
                 "pack_conv": 3,
                 "reorder_controls": "MIN",
-                "testrail_case_id": 3209
+                "testrail_case_id": 3208
             },
             {
                 "update_pack_conv":5,
