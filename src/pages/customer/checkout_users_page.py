@@ -35,7 +35,6 @@ class CheckoutUsersPage(CustomerPortalPage):
             "Role": "Checkout User",
             "Phone": checkout_user_body["phone"]
         }
-
         for cell in table_cells.keys():
             self.check_table_item_by_header(row, cell, table_cells[cell])
 
