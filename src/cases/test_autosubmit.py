@@ -26,7 +26,7 @@ class TestAutosubmit():
         ta = TransactionApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True, "immediately": True, "as_order": conditions["as_order"]})
         setup_location.add_option("autosubmit")
         response_location = setup_location.setup()

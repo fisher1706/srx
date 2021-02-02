@@ -36,8 +36,8 @@ class TestTransactions():
         new_shipto_1 = response_location_1["shipto_id"]
         new_shipto_2 = response_location_2["shipto_id"]
         
-        sta.set_checkout_software_settings_for_shipto(new_shipto_1)
-        sta.set_checkout_software_settings_for_shipto(new_shipto_2)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_1)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_2)
 
         ta.create_active_item(new_shipto_1, la.get_ordering_config_by_sku(new_shipto_1, product_1_dto["partSku"]))
         ta.create_active_item(new_shipto_2, la.get_ordering_config_by_sku(new_shipto_2, product_2_dto["partSku"]))
@@ -83,8 +83,8 @@ class TestTransactions():
         new_shipto_1 = response_location_1["shipto_id"]
         new_shipto_2 = response_location_2["shipto_id"]
         
-        sta.set_checkout_software_settings_for_shipto(new_shipto_1)
-        sta.set_checkout_software_settings_for_shipto(new_shipto_2)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_1)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_2)
 
         ta.create_active_item(new_shipto_1, la.get_ordering_config_by_sku(new_shipto_1, product_1_dto["partSku"]))
         ta.create_active_item(new_shipto_2, la.get_ordering_config_by_sku(new_shipto_2, product_2_dto["partSku"]))
@@ -112,7 +112,7 @@ class TestTransactions():
         setup_location = SetupLocation(api)
         setup_location.add_option("locker_location")
         setup_location.setup_locker.add_option("no_weight")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         location_body = copy.deepcopy(response_location["location"])
@@ -272,7 +272,7 @@ class TestTransactions():
         osp = OrderStatusPage(context)
 
         setup_location = SetupLocation(ui)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         distributor_sku = response_location["product"]["partSku"]
