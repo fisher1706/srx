@@ -23,6 +23,7 @@ class TestAssets():
 
         setup_location = SetupLocation(ui)
         setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -64,7 +65,7 @@ class TestAssets():
 
         setup_location = SetupLocation(ui)
         setup_location.setup_product.add_option("asset")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         asset = response_location["product"]["partSku"]
@@ -91,7 +92,7 @@ class TestAssets():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("asset")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
 
         #create location with asset product
         first_response_location = setup_location.setup()
@@ -161,7 +162,7 @@ class TestAssets():
         setup_location.setup_product.add_option("asset")
         setup_location.add_option("rfid_location")
         setup_location.add_option("rfid_labels", 1)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         asset = response_location["product"]["partSku"]
@@ -200,7 +201,7 @@ class TestAssets():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("asset")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         asset = response_location["product"]["partSku"]

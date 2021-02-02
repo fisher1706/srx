@@ -23,4 +23,4 @@ class TestSettings():
 
         sa = SettingsApi(smoke_api)
 
-        sa.get_checkout_software_settings_for_shipto(smoke_api.data.shipto_id)
+        sa.get_reorder_controls_settings_for_shipto(smoke_api.data.shipto_id)
