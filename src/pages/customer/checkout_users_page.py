@@ -35,6 +35,7 @@ class CheckoutUsersPage(CustomerPortalPage):
             "Role": "Checkout User",
             "Phone": checkout_user_body["phone"]
         }
+
         for cell in table_cells.keys():
             self.check_table_item_by_header(row, cell, table_cells[cell])
 
@@ -49,7 +50,8 @@ class CheckoutUsersPage(CustomerPortalPage):
     def delete_new_checkout_user(self, row):
         full_name = self.get_table_item_text_by_header("First Name", row)
         full_name += " " + self.get_table_item_text_by_header("Last Name", row)
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.xpath_remove_button)
+        self.wait_until_page_loaded()
+        self.get_element_by_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row)+Locator.xpath_remove_button).click()
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()

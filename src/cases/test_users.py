@@ -198,6 +198,7 @@ class TestUsers():
         cup.check_new_checkout_user(checkout_user_body.copy(), row)
         cup.delete_new_checkout_user(row)
 
+
     @pytest.mark.regression
     def test_checkout_user_crud(self, ui):
         ui.testrail_case_id = 1848
