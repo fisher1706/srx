@@ -170,7 +170,7 @@ class TestUsers():
         dup.delete_last_distributor_super_user()
 
     @pytest.mark.regression
-    de(self, ui):
+    def test_checkout_user_import_without_group(self, ui):
         ui.testrail_case_id = 1849
 
         lp = LoginPage(ui)
