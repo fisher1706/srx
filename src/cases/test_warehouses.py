@@ -11,10 +11,10 @@ class TestWarehouses():
             "user": None,
             "testrail_case_id": 29
         },
-        { 
-            "user": Permissions.warehouses("EDIT"),
-            "testrail_case_id": 2269
-        }
+        # { 
+        #     "user": Permissions.warehouses("EDIT"),
+        #     "testrail_case_id": 2269
+        # }
         ])
     @pytest.mark.acl
     @pytest.mark.regression
