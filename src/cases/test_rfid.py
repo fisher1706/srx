@@ -161,7 +161,7 @@ class TestRfid():
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][1]["rfid_id"], "AVAILABLE")
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][2]["rfid_id"], "AVAILABLE")
 
-        sta.set_checkout_software_settings_for_shipto(response_location["shipto_id"], reorder_controls="ISSUED")
+        sta.set_reorder_controls_settings_for_shipto(response_location["shipto_id"], reorder_controls="ISSUED")
 
         ra.rfid_issue(response_location["rfid"]["value"], response_location["rfid_labels"][0]["label"])
 
@@ -188,7 +188,7 @@ class TestRfid():
         test_label = response_location["rfid_labels"][0]["label"]
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
 
-        sta.set_checkout_software_settings_for_shipto(response_location["shipto_id"])
+        sta.set_reorder_controls_settings_for_shipto(response_location["shipto_id"])
         
         ra.rfid_issue(response_location["rfid"]["value"], test_label)
         rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])

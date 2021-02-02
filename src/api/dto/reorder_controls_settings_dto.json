@@ -1,6 +1,5 @@
 {
     "settings": {
-        "enableCheckoutSoftware": true,
         "reorderControls": "ADD_AT_MIN",
         "labelOptions": [
             "TRACK_OHI",

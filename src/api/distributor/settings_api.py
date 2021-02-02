@@ -3,7 +3,7 @@ from src.resources.tools import Tools
 import time
 
 class SettingsApi(API):
-    def update_checkout_software_settings_shipto(self, dto, shipto_id):
+    def update_reorder_controls_settings_shipto(self, dto, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/checkout-software/settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
@@ -12,7 +12,7 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_checkout_software_settings_for_shipto(self, shipto_id, reorder_controls=None, track_ohi=None, scan_to_order=None, enable_reorder_control=None):
+    def set_reorder_controls_settings_for_shipto(self, shipto_id, reorder_controls=None, track_ohi=None, scan_to_order=None, enable_reorder_control=None):
         if (reorder_controls is None):
             reorder_controls = "MIN"
         if (track_ohi is None):
@@ -22,7 +22,7 @@ class SettingsApi(API):
         if (enable_reorder_control is None):
             enable_reorder_control = True
 
-        checkout_settings_dto = Tools.get_dto("checkout_settings_dto.json")
+        checkout_settings_dto = Tools.get_dto("reorder_controls_settings_dto.json")
         if (not track_ohi):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("TRACK_OHI")
         if (not scan_to_order):
@@ -31,9 +31,9 @@ class SettingsApi(API):
             (checkout_settings_dto["settings"]["labelOptions"]).remove("ENABLE_REORDER_CONTROLS")
         if (reorder_controls == "ISSUED"):
             checkout_settings_dto["settings"]["reorderControls"] = "ADD_AS_ISSUED"
-        self.update_checkout_software_settings_shipto(checkout_settings_dto, shipto_id)
+        self.update_reorder_controls_settings_shipto(checkout_settings_dto, shipto_id)
 
-    def get_checkout_software_settings_for_shipto(self, shipto_id):
+    def get_reorder_controls_settings_for_shipto(self, shipto_id):
         token = self.get_distributor_token()
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/checkout-software/settings")
         response = self.send_get(url, token)

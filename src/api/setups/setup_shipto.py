@@ -55,9 +55,9 @@ class SetupShipto(BaseSetup):
         if (self.options["checkout_settings"] is not None):
             sta = SettingsApi(self.context)
             if (self.options["checkout_settings"] == "DEFAULT"):
-                sta.set_checkout_software_settings_for_shipto(self.id)
+                sta.set_reorder_controls_settings_for_shipto(self.id)
             elif (type(self.options["checkout_settings"]) is dict):
-                sta.set_checkout_software_settings_for_shipto(
+                sta.set_reorder_controls_settings_for_shipto(
                     self.id, 
                     self.options["checkout_settings"].get("reorder_controls"),
                     self.options["checkout_settings"].get("track_ohi"),

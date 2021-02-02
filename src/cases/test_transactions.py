@@ -36,8 +36,8 @@ class TestTransactions():
         new_shipto_1 = response_location_1["shipto_id"]
         new_shipto_2 = response_location_2["shipto_id"]
         
-        sta.set_checkout_software_settings_for_shipto(new_shipto_1)
-        sta.set_checkout_software_settings_for_shipto(new_shipto_2)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_1)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_2)
 
         ta.create_active_item(new_shipto_1, la.get_ordering_config_by_sku(new_shipto_1, product_1_dto["partSku"]))
         ta.create_active_item(new_shipto_2, la.get_ordering_config_by_sku(new_shipto_2, product_2_dto["partSku"]))
@@ -83,8 +83,8 @@ class TestTransactions():
         new_shipto_1 = response_location_1["shipto_id"]
         new_shipto_2 = response_location_2["shipto_id"]
         
-        sta.set_checkout_software_settings_for_shipto(new_shipto_1)
-        sta.set_checkout_software_settings_for_shipto(new_shipto_2)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_1)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_2)
 
         ta.create_active_item(new_shipto_1, la.get_ordering_config_by_sku(new_shipto_1, product_1_dto["partSku"]))
         ta.create_active_item(new_shipto_2, la.get_ordering_config_by_sku(new_shipto_2, product_2_dto["partSku"]))
