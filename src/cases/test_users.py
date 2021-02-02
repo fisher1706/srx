@@ -170,7 +170,7 @@ class TestUsers():
         dup.delete_last_distributor_super_user()
 
     @pytest.mark.regression
-    def test_checkout_user_import_without_group(self, ui):
+    de(self, ui):
         ui.testrail_case_id = 1849
 
         lp = LoginPage(ui)
@@ -197,7 +197,6 @@ class TestUsers():
         row = cup.scan_table(checkout_user_body["firstName"], "First Name", pagination=False)
         cup.check_new_checkout_user(checkout_user_body.copy(), row)
         cup.delete_new_checkout_user(row)
-
 
     @pytest.mark.regression
     def test_checkout_user_crud(self, ui):
