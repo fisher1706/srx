@@ -31,7 +31,7 @@ class TestMobileCycleCountLabels():
         la = LocationApi(context)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False, "track_ohi": True})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False, "track_ohi": True})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 5)
@@ -60,7 +60,7 @@ class TestMobileCycleCountLabels():
         la = LocationApi(permission_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False, "track_ohi": True})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False, "track_ohi": True})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 5)
@@ -121,7 +121,7 @@ class TestMobileCycleCountLabels():
         la = LocationApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False, "track_ohi": True})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False, "track_ohi": True})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 5)
@@ -149,7 +149,7 @@ class TestMobileCycleCountLabels():
         ohi = 56
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False, "track_ohi": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False, "track_ohi": False})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 5)
@@ -186,7 +186,7 @@ class TestMobileCycleCountLabels():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True, "track_ohi": True})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True, "track_ohi": True})
         setup_location.setup_product.add_option("package_conversion", 3)
         setup_location.setup_product.add_option("issue_quantity", 7)
         setup_location.setup_product.add_option("round_buy", 10)

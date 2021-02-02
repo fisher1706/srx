@@ -13,6 +13,7 @@ class SetupShipto(BaseSetup):
             "checkout_settings": None,
             "autosubmit_settings": None,
             "serialization_settings": None,
+            "reorder_controls_settings": None,
             "expected_status_code": None
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
@@ -23,6 +24,7 @@ class SetupShipto(BaseSetup):
         self.set_checkout_settings()
         self.set_autosubmit_settings()
         self.set_serialization_settings()
+        self.set_reorder_controls_settings()
 
         response = {
             "shipto": self.shipto,
@@ -55,16 +57,29 @@ class SetupShipto(BaseSetup):
         if (self.options["checkout_settings"] is not None):
             sta = SettingsApi(self.context)
             if (self.options["checkout_settings"] == "DEFAULT"):
-                sta.set_reorder_controls_settings_for_shipto(self.id)
+                sta.set_checkout_settings(self.id)
             elif (type(self.options["checkout_settings"]) is dict):
-                sta.set_reorder_controls_settings_for_shipto(
+                sta.set_checkout_settings(
                     self.id, 
-                    self.options["checkout_settings"].get("reorder_controls"),
-                    self.options["checkout_settings"].get("track_ohi"),
-                    self.options["checkout_settings"].get("scan_to_order"),
-                    self.options["checkout_settings"].get("enable_reorder_control"))
+                    self.options["checkout_settings"].get("checkout_software"),
+                    self.options["checkout_settings"].get("qr_code_kit"))
             else:
                 self.context.logger.warning(f"Unknown 'checkout_settings' option: '{self.options['checkout_settings']}'")
+
+    def set_reorder_controls_settings(self):
+        if (self.options["reorder_controls_settings"] is not None):
+            sta = SettingsApi(self.context)
+            if (self.options["reorder_controls_settings"] == "DEFAULT"):
+                sta.set_reorder_controls_settings_for_shipto(self.id)
+            elif (type(self.options["reorder_controls_settings"]) is dict):
+                sta.set_reorder_controls_settings_for_shipto(
+                    self.id, 
+                    self.options["reorder_controls_settings"].get("reorder_controls"),
+                    self.options["reorder_controls_settings"].get("track_ohi"),
+                    self.options["reorder_controls_settings"].get("scan_to_order"),
+                    self.options["reorder_controls_settings"].get("enable_reorder_control"))
+            else:
+                self.context.logger.warning(f"Unknown 'reorder_controls_settings' option: '{self.options['reorder_controls_settings']}'")
 
     def set_autosubmit_settings(self):
         if (self.options["autosubmit_settings"] is not None):

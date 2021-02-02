@@ -25,7 +25,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -60,7 +60,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -85,7 +85,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -114,7 +114,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -143,7 +143,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_product.add_option("asset")
 
         response_location_1 = setup_location.setup()
@@ -174,7 +174,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -219,7 +219,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -284,7 +284,7 @@ class TestScanToOrder():
         ta = TransactionApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])

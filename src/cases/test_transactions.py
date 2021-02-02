@@ -112,7 +112,7 @@ class TestTransactions():
         setup_location = SetupLocation(api)
         setup_location.add_option("locker_location")
         setup_location.setup_locker.add_option("no_weight")
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         location_body = copy.deepcopy(response_location["location"])
@@ -272,7 +272,7 @@ class TestTransactions():
         osp = OrderStatusPage(context)
 
         setup_location = SetupLocation(ui)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         distributor_sku = response_location["product"]["partSku"]

@@ -154,7 +154,7 @@ class TestRfid():
         setup_location = SetupLocation(api)
         setup_location.add_option("rfid_location")
         setup_location.add_option("rfid_labels", 3)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
         response_location = setup_location.setup()
         
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
@@ -182,7 +182,7 @@ class TestRfid():
         setup_location = SetupLocation(api)
         setup_location.add_option("rfid_location")
         setup_location.add_option("rfid_labels", 1)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
         response_location = setup_location.setup()
 
         test_label = response_location["rfid_labels"][0]["label"]

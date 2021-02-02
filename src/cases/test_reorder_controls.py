@@ -37,7 +37,7 @@ class TestReorderControls():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.add_option("ohi","MAX")
         response_location = setup_location.setup()
 
@@ -76,7 +76,7 @@ class TestReorderControls():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls": "ISSUED"})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls": "ISSUED"})
         response_location = setup_location.setup()
 
         #update OHi
@@ -115,7 +115,7 @@ class TestReorderControls():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close['reorder_controls']})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close['reorder_controls']})
         setup_location.add_option("transaction",'ACTIVE')
         response_location = setup_location.setup()
 
@@ -136,7 +136,7 @@ class TestReorderControls():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'MIN'})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'MIN'})
         setup_location.add_option("transaction","ACTIVE")
         response_location = setup_location.setup()
 
@@ -160,7 +160,7 @@ class TestReorderControls():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'ISSUED'})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'ISSUED'})
         setup_location.add_option("ohi","MAX")
         setup_location.add_option("transaction","ACTIVE")
         response_location = setup_location.setup()
