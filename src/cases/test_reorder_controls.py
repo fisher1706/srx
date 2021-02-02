@@ -379,7 +379,3 @@ class TestReorderControls():
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity = transaction_updated[0]["reorderQuantity"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old*2
-
-
-      
- 
