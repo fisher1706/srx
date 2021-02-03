@@ -199,7 +199,7 @@ class TestReorderControls():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close_by_pack['reorder_controls']})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
         setup_location.setup_product.add_option("package_conversion", conditions_close_by_pack["pack_conv"])
         setup_location.add_option("transaction",'ACTIVE')
@@ -232,7 +232,7 @@ class TestReorderControls():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_create_by_pack['reorder_controls']})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_create_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
         setup_location.setup_product.add_option("package_conversion", "1")
         response_location = setup_location.setup()
@@ -266,7 +266,7 @@ class TestReorderControls():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_update_by_pack['reorder_controls']})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_update_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
         setup_location.setup_product.add_option("package_conversion", conditions_update_by_pack["pack_conv"])
         setup_location.add_option("transaction",'ACTIVE')
