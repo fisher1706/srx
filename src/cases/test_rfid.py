@@ -154,14 +154,14 @@ class TestRfid():
         setup_location = SetupLocation(api)
         setup_location.add_option("rfid_location")
         setup_location.add_option("rfid_labels", 3)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
         response_location = setup_location.setup()
         
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][1]["rfid_id"], "AVAILABLE")
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][2]["rfid_id"], "AVAILABLE")
 
-        sta.set_checkout_software_settings_for_shipto(response_location["shipto_id"], reorder_controls="ISSUED")
+        sta.set_reorder_controls_settings_for_shipto(response_location["shipto_id"], reorder_controls="ISSUED")
 
         ra.rfid_issue(response_location["rfid"]["value"], response_location["rfid_labels"][0]["label"])
 
@@ -182,13 +182,13 @@ class TestRfid():
         setup_location = SetupLocation(api)
         setup_location.add_option("rfid_location")
         setup_location.add_option("rfid_labels", 1)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
         response_location = setup_location.setup()
 
         test_label = response_location["rfid_labels"][0]["label"]
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
 
-        sta.set_checkout_software_settings_for_shipto(response_location["shipto_id"])
+        sta.set_reorder_controls_settings_for_shipto(response_location["shipto_id"])
         
         ra.rfid_issue(response_location["rfid"]["value"], test_label)
         rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])

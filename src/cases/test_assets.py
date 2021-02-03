@@ -23,6 +23,7 @@ class TestAssets():
 
         setup_location = SetupLocation(ui)
         setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -64,6 +65,7 @@ class TestAssets():
 
         setup_location = SetupLocation(ui)
         setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -91,6 +93,7 @@ class TestAssets():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
 
         #create location with asset product
@@ -161,6 +164,7 @@ class TestAssets():
         setup_location.setup_product.add_option("asset")
         setup_location.add_option("rfid_location")
         setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -200,6 +204,7 @@ class TestAssets():
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
         response_location = setup_location.setup()
 
@@ -216,16 +221,3 @@ class TestAssets():
         location = la.get_location_by_sku(shipto_id, asset)
         transaction = ta.get_transaction(sku=asset, shipto_id=shipto_id)
         assert transaction["totalElements"] == 0, f"There should not be transactions with SKU: {asset}"
-
-    def test_asset_locker(self, api):
-        location_pairs = {
-            "attributeName1": "string",
-            "attributeValue1": "string",
-            "attributeName2": "string",
-            "attributeValue2": 1,
-            "attributeName3": "string",
-            "attributeValue3": 1,
-            "attributeName4": "",
-            "attributeValue4": ""
-        }
-        response_location = setup_location(api, location_type="LOCKER", location_pairs=location_pairs)
