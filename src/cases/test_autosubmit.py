@@ -134,7 +134,7 @@ class TestAutosubmit():
         assert locations[0]["autoSubmit"] == bool(not conditions["shipto"]), f"Auto_submit flag of the location should be {bool(not conditions['shipto'])}"
 
     @pytest.mark.regression
-    def test_immediately_autosubmit_by_reorder_control_order(self, api, delete_shipto):
+    def test_immediately_autosubmit_for_reorder_control_transaction(self, api, delete_shipto):
         api.testrail_case_id = 2059
         la = LocationApi(api)
         ta = TransactionApi(api)
