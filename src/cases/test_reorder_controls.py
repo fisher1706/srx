@@ -8,6 +8,7 @@ from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.product_api import ProductApi
+from src.api.distributor.rfid_api import RfidApi
 
 class TestReorderControls():
     @pytest.mark.parametrize("conditions", [
@@ -198,7 +199,7 @@ class TestReorderControls():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close_by_pack['reorder_controls']})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
         setup_location.setup_product.add_option("package_conversion", conditions_close_by_pack["pack_conv"])
         setup_location.add_option("transaction",'ACTIVE')
@@ -231,7 +232,7 @@ class TestReorderControls():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_create_by_pack['reorder_controls']})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_create_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
         setup_location.setup_product.add_option("package_conversion", "1")
         response_location = setup_location.setup()
@@ -265,7 +266,7 @@ class TestReorderControls():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_update_by_pack['reorder_controls']})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_update_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
         setup_location.setup_product.add_option("package_conversion", conditions_update_by_pack["pack_conv"])
         setup_location.add_option("transaction",'ACTIVE')
@@ -379,3 +380,109 @@ class TestReorderControls():
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity = transaction_updated[0]["reorderQuantity"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old*2
+
+    @pytest.mark.parametrize("conditions_rfid_create", [
+        {
+            "reorder_controls": "MIN",
+            "created_coeff": 300,
+            "testrail_case_id": 3642
+        }, 
+        {
+            "reorder_controls": "ISSUED",
+            "created_coeff": 50,
+            "testrail_case_id": 3643
+        }
+        ])
+    @pytest.mark.regression
+    def test_create_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_create, delete_shipto, delete_hardware):
+        api.testrail_case_id = conditions_rfid_create["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        pa = ProductApi(api)
+        ra = RfidApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("rfid_location")
+        setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_product.add_option("issue_quantity",300)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_rfid_create["reorder_controls"]})
+        response_location = setup_location.setup()
+
+        ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
+
+        product_dto = copy.deepcopy(response_location["product"])
+        product_dto["issueQuantity"] /= conditions_rfid_create["created_coeff"]
+        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
+        quantity = transaction_updated[0]["reorderQuantity"]
+        assert transaction_updated[0]["status"] == "ACTIVE"
+
+    @pytest.mark.parametrize("conditions_rfid_update", [
+        {
+            "reorder_controls": "MIN",
+            "testrail_case_id": 3644
+        }, 
+        {
+            "reorder_controls": "ISSUED",
+            "testrail_case_id": 3645
+        }
+        ])
+    @pytest.mark.regression
+    def test_update_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_update, delete_shipto, delete_hardware):
+        api.testrail_case_id = conditions_rfid_update["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        pa = ProductApi(api)
+        ra = RfidApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("rfid_location")
+        setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_product.add_option("issue_quantity",1)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_rfid_update["reorder_controls"]})
+        response_location = setup_location.setup()
+
+        ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
+        quantity_old = transaction[0]["reorderQuantity"]
+
+        product_dto = copy.deepcopy(response_location["product"])
+        product_dto["issueQuantity"] *=  product_dto["roundBuy"]
+        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
+        quantity = transaction_updated[0]["reorderQuantity"]
+        assert quantity_old-quantity == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
+
+    @pytest.mark.parametrize("conditions_rfid_close", [
+        {
+            "reorder_controls": "MIN",
+            "testrail_case_id": 3646
+        }, 
+        {
+            "reorder_controls": "ISSUED",
+            "testrail_case_id": 3647
+        }
+        ])
+    @pytest.mark.regression
+    def test_close_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_close, delete_shipto, delete_hardware):
+        api.testrail_case_id = conditions_rfid_close["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        pa = ProductApi(api)
+        ra = RfidApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("rfid_location")
+        setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_product.add_option("issue_quantity",1)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_rfid_close["reorder_controls"]})
+        response_location = setup_location.setup()
+
+        ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
+
+        product_dto = copy.deepcopy(response_location["product"])
+        product_dto["issueQuantity"] *= response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
+        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
+        quantity = transaction_updated[0]["reorderQuantity"]
+        assert transaction_updated[0]["status"] == "DO_NOT_REORDER"
