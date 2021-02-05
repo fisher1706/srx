@@ -26,7 +26,7 @@ class TestAutosubmit():
         ta = TransactionApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True, "immediately": True, "as_order": conditions["as_order"]})
         setup_location.add_option("autosubmit")
         response_location = setup_location.setup()
@@ -132,3 +132,23 @@ class TestAutosubmit():
         locations = la.get_locations(response_location["shipto_id"])
 
         assert locations[0]["autoSubmit"] == bool(not conditions["shipto"]), f"Auto_submit flag of the location should be {bool(not conditions['shipto'])}"
+
+    @pytest.mark.regression
+    def test_immediately_autosubmit_for_reorder_control_transaction(self, api, delete_shipto):
+        api.testrail_case_id = 2059
+        la = LocationApi(api)
+        ta = TransactionApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True, "immediately": True, "as_order": True})
+        setup_location.add_option("autosubmit")
+        response_location = setup_location.setup()
+
+        location_dto = copy.deepcopy(response_location["location"])
+        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*0.5
+        location_dto["id"] = response_location["location_id"]
+        location_list = [copy.deepcopy(location_dto)]
+        la.update_location(location_list, response_location["shipto_id"])
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
+        assert transaction[0]["status"]== "ORDERED"
