@@ -42,7 +42,7 @@ class ProductApi(API):
             try:
                 response = requests.put(url, files=files)
             except:
-                self.logger.info(f"Usuccessful attempt tu put a file. Retry in {timeout} sec")
+                self.logger.info(f"Usuccessful attempt to put a file. Retry in {timeout} sec")
                 time.sleep(timeout)
                 timeout *= 2
                 continue
