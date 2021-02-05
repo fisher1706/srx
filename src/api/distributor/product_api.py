@@ -42,6 +42,7 @@ class ProductApi(API):
             try:
                 response = requests.put(url, files=files)
             except:
+                self.logger.info(f"Usuccessful attempt tu put a file. Retry in {timeout} sec")
                 time.sleep(timeout)
                 timeout *= 2
                 continue
@@ -57,7 +58,7 @@ class ProductApi(API):
     def get_import_status(self, filename):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/import-status/Products/{filename}?type=PARSE_AND_VALIDATE")
         token = self.get_distributor_token()
-        for i in range(6):
+        for i in range(30):
             response = self.send_get(url, token)
             if (response.status_code == 404):
                 self.logger.info(f"File not found. Next attempt after 5 seconds")
