@@ -304,52 +304,46 @@ class TestTransactions():
             ui.logger.error(f"Incorrect quantity of transactions: '{transactions['entities'][0]['reorderQuantity']}' and {transactions['entities'][1]['reorderQuantity']}, when RoundBuy = '{round_buy}'")
    
     @pytest.mark.regression
-    def test_zero_quantity_of_new_transaction(self, api, ui, delete_shipto):
-        ui.testrail_case_id = 1841
-        ta = TransactionApi(ui)
+    def test_zero_quantity_of_new_transaction(self, api, delete_shipto):
+        api.testrail_case_id = 1841
+        ta = TransactionApi(api)
         la = LocationApi(api)
-        lp = LoginPage(ui)
-        osp = OrderStatusPage(ui)
+        lp = LoginPage(api)
+        osp = OrderStatusPage(api)
         
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.add_option("transaction",'ACTIVE')
         response_location = setup_location.setup()
 
-        lp.log_in_distributor_portal()
-        osp.sidebar_order_status()
-        osp.wait_until_page_loaded()
-
         distributor_sku = response_location["product"]["partSku"]
-        quantity = response_location["product"]["issueQuantity"]
+        quantity = response_location["transaction"]["reorderQuantity"]
         round_buy = response_location["product"]["roundBuy"]
-  
-        new_transaction_row = osp.scan_table(distributor_sku, "Distributor SKU")
-        osp.update_transaction(new_transaction_row, quantity=quantity, status="QUOTED")
+        new_quantity = quantity + round_buy
 
-        TransactionApi(ui).create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
+        transaction_first = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")
+        transaction_id=transaction_first["entities"][-1]["id"]
+        ta.update_replenishment_item(transaction_id, quantity, "QUOTED")
+        ta.create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
         second_transaction = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")["entities"]
         assert second_transaction[0]["reorderQuantity"] == 0
-
-        quantity = osp.get_table_item_text_by_header("Quantity", new_transaction_row)
-        new_quantity = int(quantity) + int(round_buy)
-
-        osp.page_refresh()
-        osp.wait_until_page_loaded()
-        transaction_first_row = osp.scan_table("QUOTED", "Status")
-        osp.update_transaction(transaction_first_row, status="ORDERED")
-        second_transaction_row = new_transaction_row+1       
-        osp.update_transaction(second_transaction_row, quantity=new_quantity,status="DELIVERED")
-        TransactionApi(ui).create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
+       
+        transaction_first = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="QUOTED")
+        transaction_id_changed=transaction_first["entities"][-1]["id"]
+        ta.update_replenishment_item(transaction_id_changed, quantity, "ORDERED")
+        transaction_second = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")
+        transaction_id_second=transaction_second["entities"][-1]["id"]
+        ta.update_replenishment_item(transaction_id_second, new_quantity, "DELIVERED")
+        ta.create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
         third_transaction = ta.get_transaction(distributor_sku,status="ACTIVE")["entities"]
         assert third_transaction[0]["reorderQuantity"] == 0
 
-        osp.page_refresh()
-        osp.wait_until_page_loaded()
-        transaction_first_row = osp.scan_table("ORDERED", "Status")
-        osp.update_transaction(transaction_first_row, status="SHIPPED")
-        third_transaction_row = new_transaction_row+1       
-        osp.update_transaction(third_transaction_row, quantity=new_quantity,status="DELIVERED")
-        TransactionApi(ui).create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
+        transaction_first = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ORDERED")
+        transaction_id_changed=transaction_first["entities"][-1]["id"]
+        ta.update_replenishment_item(transaction_id_changed, quantity, "SHIPPED")
+        transaction_third = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")
+        transaction_id_third=transaction_third["entities"][-1]["id"]
+        ta.update_replenishment_item(transaction_id_third, new_quantity, "DELIVERED")
+        ta.create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
         fourth_transaction = ta.get_transaction(distributor_sku,status="ACTIVE")["entities"]
         assert fourth_transaction[0]["reorderQuantity"] == 0
