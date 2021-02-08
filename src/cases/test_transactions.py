@@ -308,8 +308,6 @@ class TestTransactions():
         api.testrail_case_id = 1841
         ta = TransactionApi(api)
         la = LocationApi(api)
-        lp = LoginPage(api)
-        osp = OrderStatusPage(api)
         
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
