@@ -15,6 +15,7 @@ from src.pages.customer.checkout_users_page import CheckoutUsersPage
 from src.pages.customer.customer_security_groups import CustomerSecurityGroups
 from src.pages.customer.checkout_groups_page import CheckoutGroupsPage
 from src.pages.distributor.distributor_users_page import DistributorUsersPage
+from src.pages.distributor.distributor_security_groups import DistributorSecurityGroups
 from src.pages.general.login_page import LoginPage
 
 class TestUsers():
@@ -417,3 +418,38 @@ class TestUsers():
         assert name == user_body["firstName"], f"User name is {name}, but should be {user_body['firstName']}"
         assert last_name == user_body["lastName"], f"User last name is {last_name}, but should be {user_body['lastName']}"
         ua.delete_distributor_user(user_id)
+  
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 2206
+        },
+        { 
+            "user": Permissions.distributor_users("EDIT"),
+             "testrail_case_id": 2207
+        }
+        ])
+    @pytest.mark.regression
+    def test_distrubutor_security_group_crud(self, ui, permissions, permission_ui, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
+        lp = LoginPage(context)
+        dsg = DistributorSecurityGroups(context)
+        distributor_security_group_body = dsg.distributor_security_group_body.copy()
+        edit_security_group_body = dsg.distributor_security_group_body.copy()
+
+        distributor_security_group_body["name"] = Tools.random_string_l(10)
+        distributor_security_group_body["checked"] = True
+
+        edit_security_group_body["name"] = Tools.random_string_l(10)
+        edit_security_group_body["checked"] = False
+
+        lp.log_in_distributor_portal()
+        dsg.open_security_groups()
+        dsg.create_security_group(distributor_security_group_body)
+        row = dsg.get_row_of_table_item_by_column(distributor_security_group_body["name"], 1)
+        dsg.check_security_group(distributor_security_group_body, row)
+        dsg.update_security_group(edit_security_group_body, row)
+        dsg.element_should_have_text(Locator.xpath_table_item(row, 1), edit_security_group_body["name"])
+        dsg.check_security_group(edit_security_group_body, row)
+        dsg.delete_security_group(edit_security_group_body, row)

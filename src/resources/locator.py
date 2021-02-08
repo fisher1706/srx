@@ -36,6 +36,7 @@ class Locator():
     xpath_replenishment_item = "//div[@data-testid='replenishment-item']"
     xpath_replenishment_item_sku = "//div[@data-testid='part-sku']"
     xpath_submit_reorder_list_button = "//button/span[text()='Submit']"
+    xpath_save_button = "//button/span[text()='Save']"
     xpath_cancel_button = "//button[@label='Cancel']"
     xpath_type_text = "//input[@type='text']"
     xpath_assign_product_planogram = "//button[@type='button']/span[text()='ASSIGN PRODUCT']"
