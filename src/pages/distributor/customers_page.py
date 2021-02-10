@@ -15,7 +15,7 @@ class CustomersPage(DistributorPortalPage):
     def create_customer(self, customer_body):
         self.get_element_by_xpath(Locator.xpath_table_row)
         start_number_of_rows = self.get_table_rows_number()
-        self.click_id(Locator.id_add_button)
+        self.click_id(Locator.id_item_action_customer_add)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(3), customer_body.pop("warehouse"))

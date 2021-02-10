@@ -92,7 +92,7 @@ def driver(request, session_context):
         chrome_options.add_argument("--enable-automation")
         driver = webdriver.Chrome(options=chrome_options)
     else:
-        raise pytest.UsageError("--browser_name should be 'chrome' or 'firefox'")
+        raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
     driver.set_page_load_timeout(30)
     yield driver
     driver.quit()
