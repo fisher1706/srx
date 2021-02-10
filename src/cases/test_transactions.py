@@ -11,6 +11,7 @@ from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
+from src.api.distributor.product_api import ProductApi
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.activity_log_api import ActivityLogApi
 
@@ -345,3 +346,66 @@ class TestTransactions():
         ta.create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
         fourth_transaction = ta.get_transaction(distributor_sku,status="ACTIVE")["entities"]
         assert fourth_transaction[0]["reorderQuantity"] == 0
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "transaction_status": "ACTIVE",
+            "updated_to_status": "DO_NOT_REORDER",
+            "testrail_case_id": 2466
+        },
+        {
+            "transaction_status": "QUOTED",
+            "updated_to_status": "DO_NOT_REORDER",
+            "testrail_case_id": 3801
+        },
+        {
+            "transaction_status": "ORDERED",
+            "updated_to_status": "DO_NOT_REORDER",
+            "testrail_case_id": 3800
+        },
+        {
+            "transaction_status": "SHIPPED",
+            "updated_to_status": "DO_NOT_REORDER",
+            "testrail_case_id": 3802
+        },
+        {
+            "transaction_status": "DELIVERED",
+            "updated_to_status": "DELIVERED",
+            "testrail_case_id": 3803
+        },
+        {
+            "transaction_status": "DO_NOT_REORDER",
+            "updated_to_status": "DO_NOT_REORDER",
+            "testrail_case_id": 3804
+        },
+        ])
+    @pytest.mark.regression
+    def test_close_transactions_when_update_to_assets(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        pa = ProductApi(api)
+        
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
+        setup_location.setup_product.add_option("round_buy", 1)
+        setup_location.add_option("transaction", conditions["transaction_status"])
+        response_location = setup_location.setup()
+
+        response_product = response_location["product"]
+        product_id = response_product.pop("id")
+        product_sku = response_product["partSku"]
+
+        transactions = ta.get_transaction(product_sku, status=conditions["transaction_status"])
+        assert transactions["totalElements"] == 1
+        assert transactions["entities"][0]["status"] == conditions["transaction_status"]
+        transaction_id = transactions["entities"][0]["id"]
+
+        #Update product with ASSET = True
+        response_product["assetFlag"] = True
+        pa.update_product(dto=response_product, product_id=product_id)
+
+        #Checking whether transactions have been updated or not
+        transactions = ta.get_transaction(ids=transaction_id)
+        assert transactions["totalElements"] == 1
+        assert transactions["entities"][0]["status"] == conditions["updated_to_status"]
