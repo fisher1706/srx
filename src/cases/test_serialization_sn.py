@@ -245,6 +245,7 @@ class TestSerializationSN():
         assert serial_number_count == 1
 
         la.location_bulk_update("REMOVE_ALL", response_location["shipto_id"], ids=[response_location["location_id"]])
+        time.sleep(5)
         serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
         assert serial_number_count == 0, "Serial Numbers should be deleted when you delete their location"
 
