@@ -38,11 +38,15 @@ class AssetsPage(CustomerPortalPage):
 
     def checked_out_tab_should_not_contain(self, asset):
         self.click_tab_by_name("Checked Out")
-        self.click_xpath(self.xpath_filter)
-        self.input_data_xpath(asset, self.xpath_sku_input)
-        self.click_xpath(self.xpath_apply)
-        self.elements_count_should_be(self.xpath_asset_card, 0, time=5)
-
+        elements =  self.get_element_count(self.xpath_asset_card)
+        if(elements == 0):
+             self.logger.info(f"Checked out list is empty")
+        else:
+            self.click_xpath(self.xpath_filter)
+            self.input_data_xpath(asset, self.xpath_sku_input)
+            self.click_xpath(self.xpath_apply)
+            self.elements_count_should_be(self.xpath_asset_card, 0, time=5)
+        
     def ping_to_return_last_asset(self):
         self.click_tab_by_name("Checked Out")
         self.click_xpath(f"{Locator.xpath_ping_to_return}")

@@ -1,5 +1,6 @@
 import pytest
 import copy
+import time
 from src.resources.locator import Locator
 from src.resources.tools import Tools
 from src.pages.distributor.order_status_page import OrderStatusPage
@@ -49,6 +50,7 @@ class TestReorderControls():
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
+        time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert len(transaction) == conditions["transaction_qty"], f"The number of transactions should be equal to {conditions['transaction_qty']}"
         if conditions["transaction_qty"] != 0:
@@ -86,6 +88,7 @@ class TestReorderControls():
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
+        time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert len(transaction) == conditions_issued["transaction_qty"], f"The number of transactions should be equal to {conditions_issued['transaction_qty']}"
         if conditions_issued["transaction_qty"] != 0:
@@ -126,6 +129,7 @@ class TestReorderControls():
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
+        time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction[0]["status"] == "DO_NOT_REORDER"
 
@@ -150,6 +154,7 @@ class TestReorderControls():
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
+        time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old + (response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"] - location_dto["onHandInventory"])
        
@@ -175,6 +180,7 @@ class TestReorderControls():
         location_dto["id"] = response_location["location_id"]
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"])
+        time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old/2
 
@@ -207,7 +213,8 @@ class TestReorderControls():
 
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["packageConversion"] = "1"
-        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])       
+        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["status"] == "DO_NOT_REORDER"
 
@@ -239,7 +246,8 @@ class TestReorderControls():
 
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["packageConversion"] = conditions_create_by_pack["create_pack_conv"]
-        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])       
+        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["status"] == "ACTIVE"
 
@@ -277,7 +285,8 @@ class TestReorderControls():
 
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["packageConversion"] = conditions_update_by_pack["update_pack_conv"]
-        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])       
+        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old*1.5
     
@@ -308,6 +317,7 @@ class TestReorderControls():
         location["orderingConfig"]["currentInventoryControls"]["min"] *= 4
         location["orderingConfig"]["currentInventoryControls"]["max"] *= 4
         la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction[0]["status"] == "ACTIVE"
 
@@ -343,6 +353,7 @@ class TestReorderControls():
         location["orderingConfig"]["currentInventoryControls"]["min"] *=conditions_close["close_coeff_min"]
         location["orderingConfig"]["currentInventoryControls"]["max"] /=conditions_close["close_coeff_max"]
         la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction[0]["status"] == "DO_NOT_REORDER"
  
@@ -377,6 +388,7 @@ class TestReorderControls():
         location["orderingConfig"]["currentInventoryControls"]["min"] +=1
         location["orderingConfig"]["currentInventoryControls"]["max"] +=1
         la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity = transaction_updated[0]["reorderQuantity"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old*2
@@ -413,6 +425,7 @@ class TestReorderControls():
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["issueQuantity"] /= conditions_rfid_create["created_coeff"]
         pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        time.sleep(5)
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity = transaction_updated[0]["reorderQuantity"]
         assert transaction_updated[0]["status"] == "ACTIVE"
@@ -449,6 +462,7 @@ class TestReorderControls():
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["issueQuantity"] *=  product_dto["roundBuy"]
         pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        time.sleep(5)
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity = transaction_updated[0]["reorderQuantity"]
         assert quantity_old-quantity == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
@@ -483,6 +497,7 @@ class TestReorderControls():
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["issueQuantity"] *= response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
         pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        time.sleep(5)
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity = transaction_updated[0]["reorderQuantity"]
         assert transaction_updated[0]["status"] == "DO_NOT_REORDER"

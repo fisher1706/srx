@@ -40,7 +40,7 @@ class TransactionApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def get_transaction(self, sku=None, status=None, customer_id=None, shipto_id=None):
+    def get_transaction(self, sku=None, status=None, customer_id=None, shipto_id=None, ids=None):
         url_string = f"/distributor-portal/distributor/replenishments/list/items?"
         if (sku is not None):
             url_string += f"productPartSku={sku}&"
@@ -48,6 +48,16 @@ class TransactionApi(API):
             url_string += f"status={status}&"
         if (shipto_id is not None):
             url_string += f"shipToIds={shipto_id}"
+        if (ids is not None):
+            ids_string = ""
+            if isinstance(ids, list):
+                for id in ids:
+                    ids_string += f"{id},"
+            elif isinstance(ids, str) or isinstance(ids, int):
+                ids_string = ids
+            else:
+                self.logger.error(f"Incorrect type 'ids' parameter. Expected 'str', 'int' or 'list'. Now '{type(ids)}'")
+            url_string += f"replenishmentIds={ids}"
         url = self.url.get_api_url_for_env(url_string)
         token = self.get_distributor_token()
         response = self.send_get(url, token)
