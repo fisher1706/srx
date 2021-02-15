@@ -118,10 +118,10 @@ class TestAuthorization():
         lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/marketing", "distributor"))
         lp.get_element_by_id(Locator.id_enter_here)
 
-        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "distributor"))
+        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "distributor"), smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         dpp.distributor_sidebar_should_contain_email()
-        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "customer"))
+        lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "customer"), smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         dpp.distributor_sidebar_should_contain_email()
 
