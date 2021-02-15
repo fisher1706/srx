@@ -19,11 +19,16 @@ class BasePage():
         self.logger = context.logger
         self.data = context.data
 
-    def follow_url(self, url):
+    def follow_url(self, url, expected_url=None):
         try:
             self.driver.get(url)
         except:
-            self.logger.error(f"Error during try to follow URL = '{url}'")
+            expected_url = url if expected_url is None else expected_url
+            current_url = self.driver.current_url
+            if current_url != expected_url:
+                self.logger.error(f"Error during try to follow URL = '{url}'. Current: {current_url}; Expected: {expected_url}")
+            else:
+                self.logger.info(f"URL = '{url}' is followed")
         else:
             self.logger.info(f"URL = '{url}' is followed")
 
