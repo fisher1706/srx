@@ -59,7 +59,7 @@ class CustomersPage(DistributorPortalPage):
             self.logger.error(f"Create setup wizard button is enabled for user")
             
     def select_warehouse(self):
-        self.click_xpath("/html/body/div/main/div/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div/div[5]/div/button") 
+        self.click_xpath(f"{Locator.xpath_table_item(1, 5)}//button")
         self.click_xpath(Locator.xpath_next)
     
     def add_customer_info(self,customer_body):

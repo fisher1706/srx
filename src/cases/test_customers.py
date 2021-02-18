@@ -15,7 +15,6 @@ from src.api.distributor.shipto_api import ShiptoApi
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_customer import SetupCustomer
 from src.pages.distributor.distributor_customer_users_page  import DistributorCustomerUsersPage
-import time
 
 class TestCustomers():
     @pytest.mark.parametrize("permissions", [
