@@ -7,6 +7,7 @@ from src.pages.distributor.rfid_page import RfidPage
 from src.api.setups.setup_location import SetupLocation
 from src.api.setups.setup_rfid import SetupRfid
 from src.api.distributor.rfid_api import RfidApi
+from src.api.mobile.mobile_rfid_api import MobileRfidApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.settings_api import SettingsApi
 
@@ -206,6 +207,7 @@ class TestRfid():
         api.testrail_case_id = 1912
 
         ra = RfidApi(api)
+        mra = MobileRfidApi(api)
 
         setup_location = SetupLocation(api)
         setup_location.add_option("rfid_location")
@@ -215,27 +217,27 @@ class TestRfid():
         test_label = response_location["rfid_labels"][0]["label"]
         ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "ISSUED")
 
-        initial_manifest_body = ra.create_return_manifest()
-        ra.add_to_manifest(test_label, initial_manifest_body["data"]["id"], response_location["shipto_id"])
-        manifest_body_1 = ra.get_manifest(initial_manifest_body["device_id"])
+        initial_manifest_body = mra.create_return_manifest()
+        mra.add_to_manifest(test_label, initial_manifest_body["data"]["id"], response_location["shipto_id"])
+        manifest_body_1 = mra.get_manifest(initial_manifest_body["device_id"])
 
         assert len(manifest_body_1["items"]) == 1, f"Only 1 RFID label should being in the manifest, now {len(manifest_body_1['items'])}"
         assert str(manifest_body_1["items"][0]["rfidLabel"]["id"]) == str(response_location["rfid_labels"][0]["rfid_id"])
         assert manifest_body_1["items"][0]["rfidLabel"]["labelId"] == test_label
         assert manifest_body_1["items"][0]["rfidLabel"]["state"] == "ISSUED", f"RFID label should be in ISSUED status, now {manifest_body_1['items'][0]['rfidLabel']['state']}"
 
-        ra.submit_manifest(initial_manifest_body["data"]["id"])
-        manifest_body_2 = ra.get_manifest(initial_manifest_body["device_id"])
+        mra.submit_manifest(initial_manifest_body["data"]["id"])
+        manifest_body_2 = mra.get_manifest(initial_manifest_body["device_id"])
 
         assert manifest_body_2["items"][0]["rfidLabel"]["state"] == "RETURN_MANIFEST", f"RFID label should be in RETURN_MANIFEST status, now {manifest_body_2['items'][0]['rfidLabel']['state']}"
 
         ra.rfid_issue(response_location["rfid"]["value"], test_label)
-        manifest_body_3 = ra.get_manifest(initial_manifest_body["device_id"])
+        manifest_body_3 = mra.get_manifest(initial_manifest_body["device_id"])
 
         assert manifest_body_3["items"][0]["rfidLabel"]["state"] == "RETURN_CHECK_IN", f"RFID label should be in RETURN_CHECK_IN status, now {manifest_body_3['items'][0]['rfidLabel']['state']}"
 
-        ra.close_manifest(initial_manifest_body["data"]["id"])
-        ra.rfid_put_away(response_location["shipto_id"], response_location["rfid_labels"][0]["rfid_id"])
+        mra.close_manifest(initial_manifest_body["data"]["id"])
+        mra.rfid_put_away(response_location["shipto_id"], response_location["rfid_labels"][0]["rfid_id"])
         rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])
 
         assert len(rfid_labels_response) == 1, f"Location with ID = '{response_location['location_id']}' should contain only 1 RFID label, now {len(rfid_labels_response)}"
@@ -250,6 +252,7 @@ class TestRfid():
         api.testrail_case_id = 1911
 
         ra = RfidApi(api)
+        mra = MobileRfidApi(api)
 
         setup_location = SetupLocation(api)
         setup_location.add_option("rfid_location")
@@ -257,27 +260,27 @@ class TestRfid():
         response_location = setup_location.setup()
         test_label = response_location["rfid_labels"][0]["label"]
 
-        initial_manifest_body = ra.get_new_delivery_manifest()
-        ra.add_to_manifest(test_label, initial_manifest_body["data"]["id"], response_location["shipto_id"])
-        manifest_body_1 = ra.get_manifest(initial_manifest_body["device_id"])
+        initial_manifest_body = mra.get_new_delivery_manifest()
+        mra.add_to_manifest(test_label, initial_manifest_body["data"]["id"], response_location["shipto_id"])
+        manifest_body_1 = mra.get_manifest(initial_manifest_body["device_id"])
 
         assert len(manifest_body_1["items"]) == 1, "Only 1 RFID label should being in the manifest"
         assert str(manifest_body_1["items"][0]["rfidLabel"]["id"]) == str(response_location["rfid_labels"][0]["rfid_id"])
         assert manifest_body_1["items"][0]["rfidLabel"]["labelId"] == test_label
         assert manifest_body_1["items"][0]["rfidLabel"]["state"] == "ASSIGNED", f"RFID label should be in ASSIGNED status, now {manifest_body_1['items'][0]['rfidLabel']['state']}"
 
-        ra.submit_manifest(initial_manifest_body["data"]["id"])
-        manifest_body_2 = ra.get_manifest(initial_manifest_body["device_id"])
+        mra.submit_manifest(initial_manifest_body["data"]["id"])
+        manifest_body_2 = mra.get_manifest(initial_manifest_body["device_id"])
 
         assert manifest_body_2["items"][0]["rfidLabel"]["state"] == "MANIFEST", f"RFID label should be in MANIFEST status, now {manifest_body_2['items'][0]['rfidLabel']['state']}"
 
         ra.rfid_issue(response_location["rfid"]["value"], test_label)
-        manifest_body_3 = ra.get_manifest(initial_manifest_body["device_id"])
+        manifest_body_3 = mra.get_manifest(initial_manifest_body["device_id"])
 
         assert manifest_body_3["items"][0]["rfidLabel"]["state"] == "CHECK_IN", f"RFID label should be in CHECK_IN status, now {manifest_body_3['items'][0]['rfidLabel']['state']}"
 
-        ra.close_manifest(initial_manifest_body["data"]["id"])
-        ra.rfid_put_away(response_location["shipto_id"], response_location["rfid_labels"][0]["rfid_id"])
+        mra.close_manifest(initial_manifest_body["data"]["id"])
+        mra.rfid_put_away(response_location["shipto_id"], response_location["rfid_labels"][0]["rfid_id"])
         rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])
 
         assert len(rfid_labels_response) == 1, f"Location with ID = '{response_location['location_id']}' should contain only 1 RFID label, now {len(rfid_labels_response)}"
