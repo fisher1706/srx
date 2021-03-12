@@ -90,30 +90,15 @@ class CustomersPage(DistributorPortalPage):
         self.wait_until_page_loaded()
         self.click_xpath("//span[text()='Replenishment list rules']")
         self.get_element_by_xpath("//input[@name='email']").get_attribute("value")  == expected_email 
-    
-    def check_settings(self,expected_text):
-        self.click_xpath("//span[text()='Lot & Serialization Settings']")
-        self.get_element_by_xpath("//input[@name='daysUntilExpirationAlarm']").get_attribute("value") == expected_text
 
-    def change_automation_settings(self):
+    def change_automation_settings(self,email):
         self.click_xpath("//span[text()='Submit Immediately']")
         self.click_xpath("//span[text()='Auto-submit as Order']")
-        self.click_xpath(Locator.xpath_next)
-        self.wait_until_page_loaded()
-
-    def change_reorder_list_settings(self,email):
         self.wait_until_page_loaded()
         self.click_xpath("//span[text()='Use defaults']")
         self.clear_xpath("//input[@name='email']")
         self.get_element_by_xpath("//input[@name='email']").send_keys(email)
-        self.click_xpath(Locator.xpath_next)
         self.wait_until_page_loaded()
-
-    def change_reorder_lot_serialization_settings(self,number):
-        self.wait_until_page_loaded()
-        self.click_xpath("//span[text()='Expiration Alarm']")
-        self.clear_xpath("//input[@name='daysUntilExpirationAlarm']")
-        self.get_element_by_xpath("//input[@name='daysUntilExpirationAlarm']").send_keys(number)
         self.click_xpath(Locator.xpath_complete_button)
         self.wait_until_page_loaded()
 
