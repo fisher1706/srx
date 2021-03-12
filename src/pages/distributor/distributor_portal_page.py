@@ -40,5 +40,7 @@ class DistributorPortalPage(BasePage):
     def sidebar_support(self):
         self.click_id("sidebar-support")
 
-    def distributor_sidebar_should_contain_email(self):
-        self.get_element_by_xpath(f"//span[text()='{self.context.distributor_email}']")
+    def distributor_sidebar_should_contain_email(self, email=None):
+        if email is None:
+            email = self.context.distributor_email
+        self.get_element_by_xpath(f"//span[text()='{email}']")

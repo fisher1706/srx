@@ -10,6 +10,8 @@ class Locator():
     id_upload_rfid_available = "upload-rfid-available"
     id_intercom_container = "intercom-container"
     id_drop_down_button = "dropDownButton"
+    id_new_password = "newPassword"
+    id_confirm_password = "confirmPassword"
 
     #XPATHs
     xpath_forgot_password = "//a[@href='/forgot-password']"
