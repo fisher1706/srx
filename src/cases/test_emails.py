@@ -19,7 +19,6 @@ class TestEmails():
         s3.clear_bucket(ui.data.email_data_bucket)
         objects = s3.get_objects_in_bucket(ui.data.email_data_bucket)
         objects_count = len(objects)
-        print(f"\nCOUNT: {objects_count}\n")
 
         setup_user = SetupDistributorUser(ui)
         user_email = ui.data.ses_email.format(suffix=Tools.random_string_l())
@@ -33,8 +32,6 @@ class TestEmails():
         s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
         temporary_password = Tools.get_password_from_email(email_filename)
         new_password = Tools.random_string_l()
-
-        print(f"\nPASSWORD: {temporary_password}")
 
         lp.follow_auth_portal()
         lp.input_email(user_email)
