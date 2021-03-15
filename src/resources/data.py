@@ -45,6 +45,8 @@ class Data():
         self.customer_user_first_name = "123"
         self.customer_user_last_name = "32123"
         self.default_security_group_id = 1266
+        self.email_data_bucket = "srx-email-testing-vjrm1-staging"
+        self.ses_email = "automation_testing_email+{suffix}@mail.staging.storeroomlogix.com"
 
     def qa_environment(self):
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
@@ -66,6 +68,8 @@ class Data():
         self.customer_user_first_name = "dprovorov+cust@agilevision.io"
         self.customer_user_last_name = "dprovorov+cust@agilevision.io"
         self.default_security_group_id = 2160
+        self.email_data_bucket = "srx-email-testing-0641q-qa"
+        self.ses_email = "automation_testing_email+{suffix}@mail.qa.storeroomlogix.com"
 
 class SmokeData():
     def __init__(self, environment):

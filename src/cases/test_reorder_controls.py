@@ -10,6 +10,7 @@ from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.product_api import ProductApi
 from src.api.distributor.rfid_api import RfidApi
+from src.api.distributor.serial_number_api import SerialNumberApi
 
 class TestReorderControls():
     @pytest.mark.parametrize("conditions", [
@@ -45,11 +46,10 @@ class TestReorderControls():
         response_location = setup_location.setup()
 
         #update OHi
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions["coefficient"]
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions["coefficient"]
+        la.update_location([location],response_location["shipto_id"])
+    
         time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert len(transaction) == conditions["transaction_qty"], f"The number of transactions should be equal to {conditions['transaction_qty']}"
@@ -80,14 +80,13 @@ class TestReorderControls():
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls": "ISSUED"})
+        setup_location.setup_product.add_option("issue_quantity", 1)
         response_location = setup_location.setup()
 
         #update OHi
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]*conditions_issued["coefficient"]
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]*conditions_issued["coefficient"]
+        la.update_location([location],response_location["shipto_id"])
         time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert len(transaction) == conditions_issued["transaction_qty"], f"The number of transactions should be equal to {conditions_issued['transaction_qty']}"
@@ -124,11 +123,9 @@ class TestReorderControls():
         response_location = setup_location.setup()
 
         #close transaction
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions_close["close_transaction_cofficient"]
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions_close["close_transaction_cofficient"]
+        la.update_location([location],response_location["shipto_id"])
         time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction[0]["status"] == "DO_NOT_REORDER"
@@ -142,6 +139,7 @@ class TestReorderControls():
 
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'MIN'})
+        setup_location.setup_product.add_option("issue_quantity", 1)
         setup_location.add_option("transaction","ACTIVE")
         response_location = setup_location.setup()
 
@@ -149,14 +147,12 @@ class TestReorderControls():
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity_old = transaction[0]["reorderQuantity"]
         #change OHI
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*0
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*0
+        la.update_location([location],response_location["shipto_id"])        
         time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
-        assert transaction_updated[0]["reorderQuantity"] == quantity_old + (response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"] - location_dto["onHandInventory"])
+        assert transaction_updated[0]["reorderQuantity"] == quantity_old + (response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"] - location["onHandInventory"])
        
     @pytest.mark.regression
     def test_update_reorder_quantity_as_issued(self, api, delete_shipto):
@@ -169,17 +165,16 @@ class TestReorderControls():
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls":'ISSUED'})
         setup_location.add_option("ohi","MAX")
         setup_location.add_option("transaction","ACTIVE")
+        setup_location.setup_product.add_option("issue_quantity", 1)
         response_location = setup_location.setup()
 
         #check quantity
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity_old = transaction[0]["reorderQuantity"]
         #change OHI
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]-1
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]-1
+        la.update_location([location],response_location["shipto_id"])
         time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old/2
@@ -501,3 +496,208 @@ class TestReorderControls():
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         quantity = transaction_updated[0]["reorderQuantity"]
         assert transaction_updated[0]["status"] == "DO_NOT_REORDER"
+
+    @pytest.mark.regression
+    def test_create_transaction_by_sn_status_update_at_min(self, api, delete_shipto):
+        api.testrail_case_id = 3794
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+        
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :"MIN"})
+        setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        la = LocationApi(api)
+        sn = Tools.random_string_u()
+        sn1 = Tools.random_string_u()
+        sn2 = Tools.random_string_u()
+
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn1)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn2)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto)
+        sn_dto1 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[1]
+        sn_dto1["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto1)
+        sn_dto2 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[2]
+        sn_dto2["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto2) 
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "ASSIGNED"
+        sna.update_serial_number(sn_dto)
+        sn_dto1 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto1["status"] = "ASSIGNED"
+        sna.update_serial_number(sn_dto1)
+        sn_dto2 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[2]
+        sn_dto2["status"] = "ASSIGNED"
+        sna.update_serial_number(sn_dto2)
+        time.sleep(5)
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"][-1]
+        assert transaction["status"] == "ACTIVE"
+
+    @pytest.mark.regression
+    def test_create_transaction_by_sn_status_update_as_issued(self, api, delete_shipto):
+        api.testrail_case_id = 3795
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+        
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :"ISSUED"})
+        setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        la = LocationApi(api)
+        sn = Tools.random_string_u()
+        sn1 = Tools.random_string_u()
+        sn2 = Tools.random_string_u()
+
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn1)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn2)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto)
+        sn_dto1 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[1]
+        sn_dto1["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto1)
+        sn_dto2 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[2]
+        sn_dto2["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto2) 
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "ASSIGNED"
+        sna.update_serial_number(sn_dto)
+        time.sleep(5)
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"][-1]
+        assert transaction["status"] == "ACTIVE"
+
+    @pytest.mark.regression
+    def test_close_transaction_by_sn_status_update_at_min(self, api, delete_shipto):
+        api.testrail_case_id = 3796
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+        
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :"MIN"})
+        setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        la = LocationApi(api)
+        sn = Tools.random_string_u()
+        sn1 = Tools.random_string_u()
+        sn2 = Tools.random_string_u()
+
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn1)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn2)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto)
+        sn_dto1 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[1]
+        sn_dto1["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto1)
+        time.sleep(5)
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"][-1]
+        assert transaction["status"] == "DO_NOT_REORDER"
+
+    @pytest.mark.regression
+    def test_close_transaction_by_sn_status_update_as_issued(self, api, delete_shipto):
+        api.testrail_case_id = 3797
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+        
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :"ISSUED"})
+        setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        la = LocationApi(api)
+        sn = Tools.random_string_u()
+        sn1 = Tools.random_string_u()
+        sn2 = Tools.random_string_u()
+
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn1)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn2)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto)
+        sn_dto1 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[1]
+        sn_dto1["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto1)
+        sn_dto2 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[2]
+        sn_dto2["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto2) 
+        time.sleep(5)
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"][-1]
+        assert transaction["status"] == "DO_NOT_REORDER"
+
+    @pytest.mark.parametrize("conditions_sn_updated", [
+        {
+            "reorder_controls": "MIN",
+            "coef":0,
+            "testrail_case_id": 3798
+        }, 
+        {
+            "reorder_controls": "ISSUED",
+            "coef":0.5,
+            "testrail_case_id": 3799
+        }
+        ])
+    @pytest.mark.regression
+    def test_update_transaction_by_sn_status_update_as_issued(self, conditions_sn_updated, api, delete_shipto):
+        api.testrail_case_id = conditions_sn_updated["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+        
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_sn_updated["reorder_controls"]})
+        setup_location.add_option("serialized")
+        setup_location.setup_product.add_option("round_buy",1)
+        response_location = setup_location.setup()
+
+        sna = SerialNumberApi(api)
+        la = LocationApi(api)
+        sn = Tools.random_string_u()
+        sn1 = Tools.random_string_u()
+        sn2 = Tools.random_string_u()
+
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn1)
+        sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn2)
+
+        sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+        sn_dto["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto)
+        time.sleep(5)
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"][-1]
+        quantity = transaction["reorderQuantity"]
+        
+        sn_dto1 = sna.get_serial_number(shipto_id=response_location["shipto_id"])[1]
+        sn_dto1["status"] = "AVAILABLE"
+        sna.update_serial_number(sn_dto1)
+        time.sleep(5)
+        transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"][-1]
+        quantity_updated = transaction_updated["reorderQuantity"]
+        assert quantity_updated == quantity*conditions_sn_updated["coef"]

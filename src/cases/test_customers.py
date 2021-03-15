@@ -14,6 +14,7 @@ from src.api.distributor.customer_api import CustomerApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_customer import SetupCustomer
+from src.pages.distributor.distributor_customer_users_page  import DistributorCustomerUsersPage
 import time
 
 class TestCustomers():
@@ -256,3 +257,95 @@ class TestCustomers():
         options["action"] = "ALLOCATION_CODES_DELETE"
         options["name"] = edit_allocation_code_body["name"]
         ala.check_event(allocation_code_event, options)
+
+
+    @pytest.mark.parametrize("permissions", [
+        {
+            "user": None,
+            "testrail_case_id": 3790
+        }
+        # { 
+        #     "user": Permissions.customers("EDIT"),
+        #     # "testrail_case_id": 3791
+        # }
+        ])
+    @pytest.mark.regression
+    def test_customer_setup_wizard_required_steps(self, ui, permission_ui, api, permissions, delete_distributor_security_group):
+        ui.testrail_case_id = permissions["testrail_case_id"]
+        context = Permissions.set_configured_user(ui, permissions["user"],permission_context=permission_ui)
+
+        lp = LoginPage(context)
+        cp = CustomersPage(context)
+        ca = CustomerApi(api)
+        dcp = DistributorCustomerUsersPage(context)
+        customer_body = cp.customer_body.copy()
+       
+        customer_body["name"] = Tools.random_string_l(10)
+        customer_body["customerType"] = "Not specified"
+        customer_body["marketType"] = "Not specified"
+        email = Tools.random_string_l(10)+ "@agilevision.io"
+
+       
+        lp.log_in_distributor_portal()
+        cp.sidebar_customers()
+        cp.click_on_customer_setup_wizard_button()
+        cp.select_warehouse()
+        cp.add_customer_info(customer_body.copy())
+        cp.add_customer_portal_user(email)
+        cp.click_complete()
+        cp.check_last_customer(customer_body.copy())
+        response_customer = ca.get_customers(name=customer_body["name"])[-1]
+        dcp.follow_customer_users_url(customer_id=response_customer["id"])
+        cp.check_customer_portal_user(email)
+        cp.sidebar_customers()
+        cp.wait_until_page_loaded()
+        cp.delete_last_customer()
+
+    @pytest.mark.regression
+    def test_customer_setup_wizard_view_permission(self, ui, permission_ui, delete_distributor_security_group):
+        ui.testrail_case_id = 3792
+        context = Permissions.set_configured_user(ui, Permissions.customers("VIEW"), permission_context=permission_ui)
+
+        lp = LoginPage(context)
+        cp = CustomersPage(context)
+       
+        lp.log_in_distributor_portal()
+        cp.check_customer_setup_wizard_button()    
+   
+    # @pytest.mark.regression
+    # def test_customer_setup_wizard_all_steps(self, ui, api, delete_distributor_security_group):
+    #     ui.testrail_case_id = 3793
+
+    #     lp = LoginPage(ui)
+    #     cp = CustomersPage(ui)
+    #     ca = CustomerApi(api)
+    #     dcp = DistributorCustomerUsersPage(ui)
+    #     customer_body = cp.customer_body.copy()
+       
+    #     customer_body["name"] = Tools.random_string_l(10)
+    #     customer_body["customerType"] = "Not specified"
+    #     customer_body["marketType"] = "Not specified"
+    #     email = Tools.random_string_l(10)+ "@agilevision.io"
+
+    #     lp.log_in_distributor_portal()
+    #     cp.sidebar_customers()
+    #     cp.click_on_customer_setup_wizard_button()
+    #     cp.select_warehouse()
+    #     cp.add_customer_info(customer_body.copy())
+    #     cp.add_customer_portal_user(email)
+    #     cp.click_next()
+    #     cp.click_next()
+    #     cp.change_automation_settings()
+    #     cp.change_reorder_list_settings(email)
+    #     cp.change_reorder_lot_serialization_settings(1)
+    #     cp.wait_until_page_loaded()
+    #     cp.check_last_customer(customer_body.copy())
+    #     response_customer = ca.get_customers(name=customer_body["name"])[-1]
+    #     dcp.follow_customer_users_url(customer_id=response_customer["id"])
+    #     cp.check_customer_portal_user(email)
+    #     dcp.follow_customer_settings_url(customer_id=response_customer["id"])
+    #     cp.check_settings_list_rules(email)
+    #     cp.check_settings(1)
+    #     cp.sidebar_customers()
+    #     cp.wait_until_page_loaded()
+    #     cp.delete_last_customer()

@@ -142,13 +142,12 @@ class TestAutosubmit():
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True, "immediately": True, "as_order": True})
+        setup_location.setup_product.add_option("issue_quantity", 1)
         setup_location.add_option("autosubmit")
         response_location = setup_location.setup()
 
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*0.5
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*0.5
+        la.update_location([location],response_location["shipto_id"])
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction[0]["status"]== "ORDERED"
