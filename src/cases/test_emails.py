@@ -20,7 +20,7 @@ class TestEmails():
         ])
     @pytest.mark.regression
     def test_accept_distributor_user_invitation(self, ui, conditions, delete_distributor_user):
-        #ui.testrail_case_id = conditions["testrail_case_id"]
+        ui.testrail_case_id = conditions["testrail_case_id"]
 
         s3 = S3(ui)
         lp = LoginPage(ui)
