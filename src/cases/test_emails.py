@@ -8,9 +8,19 @@ from src.pages.general.login_page import LoginPage
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 
 class TestEmails():
+    @pytest.mark.parametrize("conditions", [
+        {
+            "user": "SUPER",
+            "testrail_case_id": 4095
+        },
+        {
+            "user": None,
+            "testrail_case_id": 4400
+        }
+        ])
     @pytest.mark.regression
-    def test_accept_distributor_user_invitation(self, ui, delete_distributor_user):
-        ui.testrail_case_id = 4095
+    def test_accept_distributor_user_invitation(self, ui, conditions, delete_distributor_user):
+        ui.testrail_case_id = conditions["testrail_case_id"]
 
         s3 = S3(ui)
         lp = LoginPage(ui)
@@ -23,6 +33,7 @@ class TestEmails():
         setup_user = SetupDistributorUser(ui)
         user_email = ui.data.ses_email.format(suffix=Tools.random_string_l())
         setup_user.add_option("email", user_email)
+        setup_user.add_option("group", conditions["user"])
         setup_user.setup()
 
         s3.wait_for_new_object(ui.data.email_data_bucket, objects_count)
@@ -44,5 +55,5 @@ class TestEmails():
         lp.follow_url(lp.url.distributor_portal)
         dpp.distributor_sidebar_should_contain_email(user_email)
         dpp.sign_out()
-        lp.log_in_distributor_portal()
+        lp.log_in_distributor_portal(user_email, new_password)
 
