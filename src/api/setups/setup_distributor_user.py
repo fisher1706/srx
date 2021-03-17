@@ -9,7 +9,9 @@ class SetupDistributorUser(BaseSetup):
 
         self.setup_name = "Distributor User"
         self.options = {
-            "expected_status_code": None
+            "expected_status_code": None,
+            "email": None,
+            "group": None
         }
         self.user = Tools.get_dto("distributor_user_dto.json")
         self.user_id = None
@@ -27,15 +29,28 @@ class SetupDistributorUser(BaseSetup):
     def set_user(self):
         ua = UserApi(self.context)
 
-        self.user["email"] = Tools.random_email()
+        self.user["email"] = Tools.random_email() if self.options["email"] is None else self.options["email"]
         self.user["firstName"] = Tools.random_string_l()
         self.user["lastName"] = Tools.random_string_l()
-        self.user["userGroup"] = {
-            "id": self.context.data.default_security_group_id
-        }
-        self.user["warehouses"] = [{
-            "id": self.context.data.warehouse_id
-        }]
+        if self.options["group"] != "SUPER":
+            if self.options["group"] is None:
+                self.user["userGroup"] = {
+                    "id": self.context.data.default_security_group_id
+                }
+            else:
+                self.user["userGroup"] = {
+                    "id": self.options["group"]
+                }
+            self.user["warehouses"] = [{
+                    "id": self.context.data.warehouse_id
+            }]
+
+        else:
+            current_user = ua.get_current_user()
+            self.user["userGroup"] = {
+                "id": current_user["userGroup"]["id"]
+            }
+            self.user["warehouses"] = []
 
         self.user_id = ua.create_distributor_user(copy.deepcopy(self.user), expected_status_code=self.options["expected_status_code"])
         if (self.user_id is not None):
