@@ -86,19 +86,18 @@ class CustomersPage(DistributorPortalPage):
         self.wait_until_page_loaded()
         self.check_last_table_item_by_header("Email",expected_email)
 
-    def check_settings_list_rules(self,expected_email):
+    def check_settings_reorder_list_settings(self,expected_email):
         self.wait_until_page_loaded()
-        self.click_xpath("//span[text()='Replenishment list rules']")
+        self.click_xpath("//span[text()='Reorder List Settings']")
         self.get_element_by_xpath("//input[@name='email']").get_attribute("value")  == expected_email 
 
     def change_automation_settings(self,email):
-        self.click_xpath("//span[text()='Submit Immediately']")
-        self.click_xpath("//span[text()='Auto-submit as Order']")
         self.wait_until_page_loaded()
         self.click_xpath("//span[text()='Use defaults']")
         self.clear_xpath("//input[@name='email']")
         self.get_element_by_xpath("//input[@name='email']").send_keys(email)
-        self.wait_until_page_loaded()
+        self.click_xpath("//span[text()='Submit Immediately']")
+        self.click_xpath("//span[text()='Auto-submit as Order']")
         self.click_xpath(Locator.xpath_complete_button)
         self.wait_until_page_loaded()
 
