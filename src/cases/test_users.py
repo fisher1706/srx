@@ -98,7 +98,6 @@ class TestUsers():
         dup = DistributorUsersPage(context)
         distributor_user_body = dup.distributor_user_body.copy()
         edit_distributor_user_body = dup.distributor_user_body.copy()
-        
         #-------------------
         distributor_user_body["email"] = Tools.random_email()
         distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"

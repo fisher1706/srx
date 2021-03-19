@@ -7,7 +7,6 @@ from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.location_api import LocationApi
 from src.api.setups.setup_location import SetupLocation
 
-
 class TestAdjustment():
     @pytest.mark.regression
     def test_location_created_with_frozen_status(self, api, delete_shipto):
