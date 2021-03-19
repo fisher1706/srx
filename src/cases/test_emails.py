@@ -4,6 +4,7 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.aws.s3 import S3
 from src.api.setups.setup_distributor_user import SetupDistributorUser
+from src.api.setups.setup_customer_user import se
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 
@@ -56,4 +57,10 @@ class TestEmails():
         dpp.distributor_sidebar_should_contain_email(user_email)
         dpp.sign_out()
         lp.log_in_distributor_portal(user_email, new_password)
+
+    def accept_new_customer_user_invitation(self, ui, delete_customer, delete_customer_user):
+        ui.testrail_case_id = 4549
+
+        response_customer = 
+
 
