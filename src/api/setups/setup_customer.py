@@ -1,5 +1,5 @@
 from src.api.distributor.customer_api import CustomerApi
-from src.api.distributor.warehouse_api import WarehouseApi
+from src.api.distributor.user_api import UserApi
 from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
 import copy
@@ -10,17 +10,21 @@ class SetupCustomer(BaseSetup):
 
         self.setup_name = "Customer"
         self.options = {
-            "expected_status_code": None
+            "expected_status_code": None,
+            "user": False
         }
         self.customer = Tools.get_dto("customer_dto.json")
         self.customer_id = None
 
     def setup(self):
         self.set_customer()
+        self.set_user()
 
         response = {
             "customer": self.customer,
-            "customer_id": self.customer_id
+            "customer_id": self.customer_id,
+            "user_email": self.user_email,
+            "user_id": self.user_id
         }
 
         return copy.deepcopy(response)
@@ -34,3 +38,11 @@ class SetupCustomer(BaseSetup):
         self.customer_id = ca.create_customer(copy.deepcopy(self.customer), expected_status_code=self.options["expected_status_code"])
         if (self.customer_id is not None):
             self.context.dynamic_context["delete_customer_id"].append(self.customer_id)
+
+    def set_user(self):
+        if (self.options["user"] != False):
+            ua = UserApi(self.context)
+
+            self.user_email = self.options["user"] if isinstance(self.options["user"], str) else Tools.random_email()
+            self.user_id = ua.create_customer_user(self.customer_id, self.user_email)
+

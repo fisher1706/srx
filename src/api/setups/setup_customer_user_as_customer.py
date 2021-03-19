@@ -3,7 +3,7 @@ from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
 import copy
 
-class SetupCustomerUser(BaseSetup):
+class SetupCustomerUserAsCustomer(BaseSetup):
     def __init__(self, context):
         super().__init__(context)
 

@@ -6,7 +6,7 @@ from src.api.admin.admin_user_api import AdminUserApi
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.api.distributor.user_api import UserApi
-from src.api.setups.setup_customer_user import SetupCustomerUser
+from src.api.setups.setup_customer_user_as_customer import SetupCustomerUserAsCustomer
 from src.api.setups.setup_checkout_group import setup_checkout_group
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_distributor_user import SetupDistributorUser
@@ -25,7 +25,7 @@ class TestUsers():
 
         cua = CustomerUserApi(api)
         chua = CheckoutUserApi(api)
-        setup_customer_user = SetupCustomerUser(api)
+        setup_customer_user = SetupCustomerUserAsCustomer(api)
         setup_customer_user.add_option("group", "SUPER")
         response_customer_user = setup_customer_user.setup()
         customer_user_body = response_customer_user["user"]
@@ -299,7 +299,7 @@ class TestUsers():
         cgp = CheckoutGroupsPage(ui)
 
         response_checkout_group = setup_checkout_group(ui)
-        setup_customer_user = SetupCustomerUser(ui)
+        setup_customer_user = SetupCustomerUserAsCustomer(ui)
         setup_customer_user.add_option("group", "SUPER")
         response_customer_user = setup_customer_user.setup()
 
