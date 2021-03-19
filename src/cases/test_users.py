@@ -157,7 +157,6 @@ class TestUsers():
         distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"
         distributor_superuser_body["role"] = "Super User (Admin)"
         distributor_superuser_body["position"] = "Admin"
-
         #-------------------
         edit_distributor_superuser_body["firstName"] = f"User {Tools.random_string_l()}"
         edit_distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"

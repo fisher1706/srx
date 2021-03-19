@@ -58,7 +58,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), smart_shelves_body["assign_to"])
         self.should_be_enabled_xpath(Locator.xpath_dropdown_in_dialog(3))
         # input Door Number
-        time.sleep(3)
+        time.sleep(3)#need to use wait 
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(3), smart_shelves_body["door_number"])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
@@ -113,7 +113,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), locker)
         # check Door Number
         self.click_xpath(Locator.xpath_dropdown_in_dialog(3))
-        time.sleep(3)
+        time.sleep(3)#need to use wait 
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
         if (f"{text}" == "2"):
             self.logger.info("First door is unavailable as expected")

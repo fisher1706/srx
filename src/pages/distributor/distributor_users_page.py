@@ -17,7 +17,6 @@ class DistributorUsersPage(DistributorPortalPage):
         "lastName": None,
         "email": None,
         "position": None
-
     }
 
     def create_distributor_user(self, distributor_user_body):
