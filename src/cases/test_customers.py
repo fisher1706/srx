@@ -258,7 +258,6 @@ class TestCustomers():
         options["name"] = edit_allocation_code_body["name"]
         ala.check_event(allocation_code_event, options)
 
-
     @pytest.mark.parametrize("permissions", [
         {
             "user": None,
@@ -314,7 +313,7 @@ class TestCustomers():
    
     @pytest.mark.regression
     def test_customer_setup_wizard_all_steps(self, ui, api, delete_distributor_security_group):
-        ui.testrail_case_id = 3790
+        ui.testrail_case_id= 3793
 
         lp = LoginPage(ui)
         cp = CustomersPage(ui)
@@ -335,17 +334,14 @@ class TestCustomers():
         cp.add_customer_portal_user(email)
         cp.click_next()
         cp.click_next()
-        cp.change_automation_settings()
-        cp.change_reorder_list_settings(email)
-        cp.change_reorder_lot_serialization_settings(1)
+        cp.change_automation_settings(email)
         cp.wait_until_page_loaded()
         cp.check_last_customer(customer_body.copy())
         response_customer = ca.get_customers(name=customer_body["name"])[-1]
         dcp.follow_customer_users_url(customer_id=response_customer["id"])
         cp.check_customer_portal_user(email)
         dcp.follow_customer_settings_url(customer_id=response_customer["id"])
-        cp.check_settings_list_rules(email)
-        cp.check_settings(1)
+        cp.check_settings_reorder_list_settings(email)
         cp.sidebar_customers()
         cp.wait_until_page_loaded()
         cp.delete_last_customer()
