@@ -258,7 +258,6 @@ class TestCustomers():
         options["name"] = edit_allocation_code_body["name"]
         ala.check_event(allocation_code_event, options)
 
-
     @pytest.mark.parametrize("permissions", [
         {
             "user": None,
@@ -312,40 +311,37 @@ class TestCustomers():
         lp.log_in_distributor_portal()
         cp.check_customer_setup_wizard_button()    
    
-    # @pytest.mark.regression
-    # def test_customer_setup_wizard_all_steps(self, ui, api, delete_distributor_security_group):
-    #     ui.testrail_case_id = 3793
+    @pytest.mark.regression
+    def test_customer_setup_wizard_all_steps(self, ui, api, delete_distributor_security_group):
+        ui.testrail_case_id= 3793
 
-    #     lp = LoginPage(ui)
-    #     cp = CustomersPage(ui)
-    #     ca = CustomerApi(api)
-    #     dcp = DistributorCustomerUsersPage(ui)
-    #     customer_body = cp.customer_body.copy()
+        lp = LoginPage(ui)
+        cp = CustomersPage(ui)
+        ca = CustomerApi(api)
+        dcp = DistributorCustomerUsersPage(ui)
+        customer_body = cp.customer_body.copy()
        
-    #     customer_body["name"] = Tools.random_string_l(10)
-    #     customer_body["customerType"] = "Not specified"
-    #     customer_body["marketType"] = "Not specified"
-    #     email = Tools.random_string_l(10)+ "@agilevision.io"
+        customer_body["name"] = Tools.random_string_l(10)
+        customer_body["customerType"] = "Not specified"
+        customer_body["marketType"] = "Not specified"
+        email = Tools.random_string_l(10)+ "@agilevision.io"
 
-    #     lp.log_in_distributor_portal()
-    #     cp.sidebar_customers()
-    #     cp.click_on_customer_setup_wizard_button()
-    #     cp.select_warehouse()
-    #     cp.add_customer_info(customer_body.copy())
-    #     cp.add_customer_portal_user(email)
-    #     cp.click_next()
-    #     cp.click_next()
-    #     cp.change_automation_settings()
-    #     cp.change_reorder_list_settings(email)
-    #     cp.change_reorder_lot_serialization_settings(1)
-    #     cp.wait_until_page_loaded()
-    #     cp.check_last_customer(customer_body.copy())
-    #     response_customer = ca.get_customers(name=customer_body["name"])[-1]
-    #     dcp.follow_customer_users_url(customer_id=response_customer["id"])
-    #     cp.check_customer_portal_user(email)
-    #     dcp.follow_customer_settings_url(customer_id=response_customer["id"])
-    #     cp.check_settings_list_rules(email)
-    #     cp.check_settings(1)
-    #     cp.sidebar_customers()
-    #     cp.wait_until_page_loaded()
-    #     cp.delete_last_customer()
+        lp.log_in_distributor_portal()
+        cp.sidebar_customers()
+        cp.click_on_customer_setup_wizard_button()
+        cp.select_warehouse()
+        cp.add_customer_info(customer_body.copy())
+        cp.add_customer_portal_user(email)
+        cp.click_next()
+        cp.click_next()
+        cp.change_automation_settings(email)
+        cp.wait_until_page_loaded()
+        cp.check_last_customer(customer_body.copy())
+        response_customer = ca.get_customers(name=customer_body["name"])[-1]
+        dcp.follow_customer_users_url(customer_id=response_customer["id"])
+        cp.check_customer_portal_user(email)
+        dcp.follow_customer_settings_url(customer_id=response_customer["id"])
+        cp.check_settings_reorder_list_settings(email)
+        cp.sidebar_customers()
+        cp.wait_until_page_loaded()
+        cp.delete_last_customer()
