@@ -12,6 +12,7 @@ from src.pages.admin.hardware_page import HardwarePage
 from src.resources.locator import Locator
 from src.resources.tools import Tools
 import random
+import time
 
 class TestSmartShelves():
     @pytest.mark.regression

@@ -1,10 +1,12 @@
 import pytest
+import time
 from src.resources.tools import Tools
 from src.api.import_api import ImportApi
 from src.api.admin.distributor_settings_api import DistributorSettingsApi
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.location_api import LocationApi
 from src.api.setups.setup_location import SetupLocation
+
 
 class TestAdjustment():
     @pytest.mark.regression
@@ -112,6 +114,7 @@ class TestAdjustment():
         
         ia.full_import_usage_history(usage_history)
         sa.save_and_adjust_moving_status(True, response_location["shipto_id"], sleep=5)
+        time.sleep(5)
         location = la.get_locations(shipto_id=response_location["shipto_id"])
 
         assert len(location) == 1
