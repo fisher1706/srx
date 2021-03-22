@@ -73,15 +73,15 @@ class APIClient:
         if method == 'POST':
             if uri[:14] == 'add_attachment':    # add_attachment API method
                 files = {'attachment': (open(data, 'rb'))}
-                response = requests.post(url, headers=headers, files=files)
+                response = requests.post(url, headers=headers, files=files, timeout=60)
                 files['attachment'].close()
             else:
                 headers['Content-Type'] = 'application/json'
                 payload = bytes(json.dumps(data), 'utf-8')
-                response = requests.post(url, headers=headers, data=payload)
+                response = requests.post(url, headers=headers, data=payload, timeout=60)
         else:
             headers['Content-Type'] = 'application/json'
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=60)
 
         return response
 
