@@ -5,6 +5,7 @@ from src.resources.locator import Locator
 from src.aws.s3 import S3
 from src.api.setups.setup_distributor_user import SetupDistributorUser
 from src.api.setups.setup_customer import SetupCustomer
+from src.api.setups.setup_customer_user_as_customer import SetupCustomerUserAsCustomer
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.pages.customer.customer_portal_page import CustomerPortalPage
@@ -101,7 +102,45 @@ class TestEmails():
         lp.input_data_id(new_password, Locator.id_confirm_password)
         lp.click_on_submit_button()
         lp.title_should_be("SRX User Dashboard")
-        lp.follow_url(lp.url.distributor_portal)
+        lp.follow_url(lp.url.customer_portal)
+        cpp.customer_sidebar_should_contain_email(user_email)
+        cpp.sign_out()
+        lp.log_in_customer_portal(user_email, new_password)
+
+    @pytest.mark.regression
+    def test_accept_customer_user_invitation(self, ui, delete_customer_user):
+        #ui.testrail_case_id = 4581
+
+        s3 = S3(ui)
+        lp = LoginPage(ui)
+        cpp = CustomerPortalPage(ui)
+
+        s3.clear_bucket(ui.data.email_data_bucket)
+        objects = s3.get_objects_in_bucket(ui.data.email_data_bucket)
+        objects_count = len(objects)
+
+        setup_user = SetupCustomerUserAsCustomer(ui)
+        user_email = ui.data.ses_email.format(suffix=Tools.random_string_l(15))
+        setup_user.add_option("email", user_email)
+        setup_user.setup()
+
+        s3.wait_for_new_object(ui.data.email_data_bucket, objects_count)
+
+        last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
+        email_filename = "customer_user_invitation"
+        s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
+        temporary_password = Tools.get_password_from_email(email_filename)
+        new_password = Tools.random_string_l()
+
+        lp.follow_auth_portal()
+        lp.input_email(user_email)
+        lp.input_password(temporary_password)
+        lp.click_on_submit_button()
+        lp.input_data_id(new_password, Locator.id_new_password)
+        lp.input_data_id(new_password, Locator.id_confirm_password)
+        lp.click_on_submit_button()
+        lp.title_should_be("SRX User Dashboard")
+        lp.follow_url(lp.url.customer_portal)
         cpp.customer_sidebar_should_contain_email(user_email)
         cpp.sign_out()
         lp.log_in_customer_portal(user_email, new_password)
