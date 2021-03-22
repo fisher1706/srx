@@ -18,6 +18,21 @@ class UserApi(API):
         distributor_users = self.get_distributor_users(shipto_id)
         return distributor_users[0]
 
+    def create_customer_user(self, customer_id, email):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/users")
+        token = self.get_distributor_token()
+        dto = {
+            "email": email
+        }
+        response = self.send_put(url, token, dto)
+        if (response.status_code == 201):
+            self.logger.info(f"Customer Super User {email} has been successfuly created")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        new_user_id = (response_json["data"].split("/"))[-1]
+        return new_user_id
+
     def get_customer_users(self, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/shiptos/{shipto_id}/customer-users")
         token = self.get_distributor_token()
