@@ -2,6 +2,7 @@ from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 from src.resources.locator import Locator
 import random
+import time
 
 class SmartShelvesPage(AdminPortalPage):
     smart_shelves_body = {
@@ -57,6 +58,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), smart_shelves_body["assign_to"])
         self.should_be_enabled_xpath(Locator.xpath_dropdown_in_dialog(3))
         # input Door Number
+        time.sleep(3)#need to use wait 
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(3), smart_shelves_body["door_number"])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
@@ -111,6 +113,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), locker)
         # check Door Number
         self.click_xpath(Locator.xpath_dropdown_in_dialog(3))
+        time.sleep(3)#need to use wait 
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
         if (f"{text}" == "2"):
             self.logger.info("First door is unavailable as expected")
@@ -137,7 +140,8 @@ class SmartShelvesPage(AdminPortalPage):
         self.open_last_page()
         self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.xpath_planogram_button)
+        self.wait_until_page_loaded()
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, 1)+Locator.xpath_planogram_button)
         self.get_element_by_xpath(Locator.xpath_configure_button)
         self.click_xpath(Locator.xpath_configure_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), smart_shelf)
@@ -152,8 +156,8 @@ class SmartShelvesPage(AdminPortalPage):
         self.get_element_by_xpath(Locator.xpath_configure_button)
         self.click_xpath(Locator.xpath_configure_button)
         self.click_xpath(Locator.xpath_dropdown_in_dialog(1))
-        self.input_data_xpath(smart_shelf, f"{Locator.xpath_dropdown_in_dialog(1)}//input")
         self.get_element_by_xpath(Locator.xpath_dropdown_list_item)
+        self.input_data_xpath(smart_shelf, f"{Locator.xpath_dropdown_in_dialog(1)}//input")
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
         if (in_list):
             if (f"{text}" == f"{smart_shelf}"):

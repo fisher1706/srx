@@ -258,12 +258,11 @@ class TestSerialization():
         response_location = setup_location.setup()
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
-        location_dto = copy.deepcopy(response_location["location"])
-        location_dto["id"] = location_id
+        location_dto = la.get_locations(shipto_id=response_location["shipto_id"])[0]
         location_dto["serialized"] = True
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
-
+        location_dto["id"] = location_id
+        la.update_location([location_dto],response_location["shipto_id"])           
+      
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["serialized"], "Location should be serialized"
         assert locations[0]["onHandInventory"] == 0, "OHI should becomes equal to 0 after updating location to serialized"
@@ -339,11 +338,10 @@ class TestSerialization():
         response_location = setup_location.setup()
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
-        location_dto = copy.deepcopy(response_location["location"])
+        location_dto = la.get_locations(shipto_id=response_location["shipto_id"])[0]
         location_dto["id"] = location_id
         location_dto["onHandInventory"] = 10
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        la.update_location([location_dto],response_location["shipto_id"])           
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
@@ -361,11 +359,10 @@ class TestSerialization():
         response_location = setup_location.setup()
 
         location_id = la.get_location_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])[0]["id"]
-        location_dto = copy.deepcopy(response_location["location"])
+        location_dto = la.get_locations(shipto_id=response_location["shipto_id"])[0]
         location_dto["id"] = location_id
         location_dto["onHandInventory"] = 10
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        la.update_location([location_dto],response_location["shipto_id"])
 
         locations = la.get_locations(response_location["shipto_id"])
         assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"

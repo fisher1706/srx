@@ -7,6 +7,7 @@ from src.pages.general.login_page import LoginPage
 from src.pages.distributor.vmi_page import VmiPage
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.settings_api import SettingsApi
+from src.api.distributor.transaction_api import TransactionApi
 from src.api.customer.customer_vmi_list_api import CustomerVmiListApi
 from src.api.setups.setup_product import SetupProduct
 from src.api.setups.setup_shipto import SetupShipto
@@ -306,3 +307,71 @@ class TestVmi():
             assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
         else:
             api.logger.error("Unexpected result")
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "asset": True,
+            "testrail_case_id": 2026
+        },
+        { 
+            "asset": False,
+            "testrail_case_id": 2024
+        }
+        ])
+    @pytest.mark.acl
+    @pytest.mark.regression
+    def test_vmi_analysis_read(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        la = LocationApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("round_buy", 1)
+        setup_location.setup_product.add_option("asset", conditions["asset"])
+        response_location = setup_location.setup()
+
+        location = la.get_locations(response_location["shipto_id"])
+        assert len(location) == 1
+
+        vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])
+        if conditions["asset"]:
+            assert len(vmi_analysis) == 0
+        else:
+            assert len(vmi_analysis) == 1
+            assert vmi_analysis[0]["partSku"] == response_location["product"]["partSku"]
+
+    @pytest.mark.regression
+    def test_vmi_analysis_total_qty_ordered_last_year(self, api, delete_shipto):
+        api.testrail_case_id = 2025
+
+        la = LocationApi(api)
+        ta = TransactionApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("transaction", "ACTIVE")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
+        response_location = setup_location.setup()
+
+        vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]
+        assert vmi_analysis["quantityOrderedLastYear"] == 0 or vmi_analysis["quantityOrderedLastYear"] == None
+
+        ta.update_replenishment_item(response_location["transaction"]["transaction_id"], response_location["transaction"]["reorderQuantity"], "SHIPPED")
+        vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]
+        assert vmi_analysis["quantityOrderedLastYear"] == 0 or vmi_analysis["quantityOrderedLastYear"] == None
+
+        ta.update_replenishment_item(response_location["transaction"]["transaction_id"], response_location["transaction"]["reorderQuantity"], "DELIVERED")
+        vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]
+        assert vmi_analysis["quantityOrderedLastYear"] == response_location["transaction"]["reorderQuantity"]
+
+        ordering_config_id = la.get_ordering_config_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])
+        ta.create_active_item(response_location["shipto_id"], ordering_config_id, repeat=10)
+        vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]
+        assert vmi_analysis["quantityOrderedLastYear"] == response_location["transaction"]["reorderQuantity"]
+
+        new_transactions = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        assert new_transactions["totalElements"] == 1
+        new_transaction = new_transactions["entities"][0]
+
+        ta.update_replenishment_item(new_transaction["id"], response_location["transaction"]["reorderQuantity"], "DELIVERED")
+        vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]
+        assert vmi_analysis["quantityOrderedLastYear"] == response_location["transaction"]["reorderQuantity"] * 2

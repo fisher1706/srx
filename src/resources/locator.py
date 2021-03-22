@@ -10,6 +10,8 @@ class Locator():
     id_upload_rfid_available = "upload-rfid-available"
     id_intercom_container = "intercom-container"
     id_drop_down_button = "dropDownButton"
+    id_new_password = "newPassword"
+    id_confirm_password = "confirmPassword"
 
     #XPATHs
     xpath_forgot_password = "//a[@href='/forgot-password']"
@@ -65,6 +67,8 @@ class Locator():
     xpath_role_menu = "//ul[@role='menu']"
     xpath_role_menuitem = "//li[@role='menuitem']"
     xpath_check_mark = "//span[text()='✓']"
+    xpath_next=  "//button/span[text()='Next']"
+    xpath_complete_button = "//button/span[text()='Complete']"
 
     @staticmethod
     def xpath_by_count(xpath, count):

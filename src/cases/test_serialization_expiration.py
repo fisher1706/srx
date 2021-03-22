@@ -667,6 +667,7 @@ class TestSerializationExpiration():
 
         sn_dto["dateExpiration"] = self.in_3_days_timestamp
         sna.update_serial_number(sn_dto)
+        time.sleep(5)
 
         sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
         assert sn_dto["status"] == "ASSIGNED"

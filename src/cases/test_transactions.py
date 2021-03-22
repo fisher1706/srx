@@ -113,16 +113,17 @@ class TestTransactions():
         setup_location = SetupLocation(api)
         setup_location.add_option("locker_location")
         setup_location.setup_locker.add_option("no_weight")
+        setup_location.setup_product.add_option("issue_quantity", 1)
         setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+
         response_location = setup_location.setup()
 
-        location_body = copy.deepcopy(response_location["location"])
-        location_dto = copy.deepcopy(location_body)
-        location_dto["onHandInventory"] = 1
-        location_dto["orderingConfig"]["lockerWithNoWeights"] = True
-        location_dto["id"] = response_location["location_id"]
-        location_list = [copy.deepcopy(location_dto)]
-        la.update_location(location_list, response_location["shipto_id"])
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = 1
+        location["orderingConfig"]["lockerWithNoWeights"] = True
+        location["id"] = response_location["location_id"]
+        la.update_location([location],response_location["shipto_id"])        
+        time.sleep(5)
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert len(transaction) == 1, "The number of transactions should be equal to 1"
         assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"

@@ -76,3 +76,16 @@ class LocationApi(API):
         response = self.send_post(url, token, ids)
         assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         self.logger.info(f"Location bulk update completed with status_code = '{response.status_code}', as expected: {response.content}")
+
+    @Decorator.default_expected_code(200)
+    def get_vmi_analysis(self, shipto_id, expected_status_code, mobile=False):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/vmi-analysis")
+        token = self.get_mobile_or_base_token(mobile)
+        response = self.send_get(url, token)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        if (response.status_code == 200):
+            self.logger.info("VMI Analysis has been successfully got")
+            response_json = response.json()
+            return response_json["data"]["entities"]
+        else:
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="VMI Analysis", operation="reading", status_code=response.status_code, content=response.content))

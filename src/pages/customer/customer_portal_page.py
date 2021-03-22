@@ -19,5 +19,7 @@ class CustomerPortalPage(BasePage):
     def sidebar_assets(self):
         self.click_id("sidebar-assets")
     
-    def customer_sidebar_should_contain_email(self):
-        self.get_element_by_xpath(f"//span[text()='{self.context.customer_email}']")
+    def customer_sidebar_should_contain_email(self, email=None):
+        if email is None:
+            email = self.context.customer_email
+        self.get_element_by_xpath(f"//span[text()='{email}']")
