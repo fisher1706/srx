@@ -6,6 +6,7 @@ import csv
 import time
 import mailparser
 from bs4 import BeautifulSoup
+from lxml.html import fromstring
 
 class Tools():
     @staticmethod
@@ -71,3 +72,11 @@ class Tools():
                 return substring
             if substring == "Password":
                 next_substring = True
+
+    @staticmethod
+    def get_acception_link_from_email(filename):
+        folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        folder += "/output/"+filename
+        mail = mailparser.parse_from_file(folder)
+        root = fromstring(mail.body)
+        return root.xpath("//b[text()='Accept Invite']/../@href")

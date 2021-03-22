@@ -6,7 +6,7 @@ from src.api.admin.admin_user_api import AdminUserApi
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.api.distributor.user_api import UserApi
-from src.api.setups.setup_customer_user import setup_customer_user
+from src.api.setups.setup_customer_user_as_customer import SetupCustomerUserAsCustomer
 from src.api.setups.setup_checkout_group import setup_checkout_group
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_distributor_user import SetupDistributorUser
@@ -25,10 +25,11 @@ class TestUsers():
 
         cua = CustomerUserApi(api)
         chua = CheckoutUserApi(api)
-
-        response_customer_user = setup_customer_user(api)
-        customer_user_body = response_customer_user["customerUser"]
-        customer_user_id = response_customer_user["customerUserId"]
+        setup_customer_user = SetupCustomerUserAsCustomer(api)
+        setup_customer_user.add_option("group", "SUPER")
+        response_customer_user = setup_customer_user.setup()
+        customer_user_body = response_customer_user["user"]
+        customer_user_id = response_customer_user["user_id"]
 
         edit_customer_user_body = Tools.get_dto("customer_user_dto.json")
         edit_customer_user_body["firstName"] = customer_user_body["firstName"]+"edit"
@@ -98,12 +99,12 @@ class TestUsers():
         dup = DistributorUsersPage(context)
         distributor_user_body = dup.distributor_user_body.copy()
         edit_distributor_user_body = dup.distributor_user_body.copy()
-
         #-------------------
         distributor_user_body["email"] = Tools.random_email()
         distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
         distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
         distributor_user_body["role"] = "Office User"
+        distributor_user_body["position"] = "Admin"
         distributor_user_body["warehouses"] = ["Z_Warehouse (9999)", "A_Warehouse (1138)"]
         #-------------------
         edit_distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
@@ -156,6 +157,7 @@ class TestUsers():
         distributor_superuser_body["firstName"] = f"User {Tools.random_string_l()}"
         distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"
         distributor_superuser_body["role"] = "Super User (Admin)"
+        distributor_superuser_body["position"] = "Admin"
         #-------------------
         edit_distributor_superuser_body["firstName"] = f"User {Tools.random_string_l()}"
         edit_distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"
@@ -298,7 +300,9 @@ class TestUsers():
         cgp = CheckoutGroupsPage(ui)
 
         response_checkout_group = setup_checkout_group(ui)
-        response_customer_user = setup_customer_user(ui)
+        setup_customer_user = SetupCustomerUserAsCustomer(ui)
+        setup_customer_user.add_option("group", "SUPER")
+        response_customer_user = setup_customer_user.setup()
 
         lp.log_in_customer_portal()
         cgp.sidebar_users_and_groups()
@@ -306,13 +310,13 @@ class TestUsers():
         cgp.wait_until_page_loaded()
         row = cgp.scan_table(response_checkout_group["name"], "Checkout Group Name", pagination=False)
         cgp.click_xpath(Locator.xpath_by_count(Locator.xpath_associated_users, row))
-        cgp.assign_user(response_customer_user["customerUser"]["email"])
-        cgp.check_assigned_user(response_customer_user["customerUser"], 1)
+        cgp.assign_user(response_customer_user["user"]["email"])
+        cgp.check_assigned_user(response_customer_user["user"], 1)
 
         cgp.sidebar_users_and_groups()
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Fobs & Passcodes"))
         cgp.wait_until_page_loaded()
-        row = cgp.scan_table(response_customer_user["customerUser"]["email"], "Email", pagination=False)
+        row = cgp.scan_table(response_customer_user["user"]["email"], "Email", pagination=False)
         cgp.check_table_item_by_header(row, "Checkout Group", response_checkout_group["name"])
 
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Checkout Groups"))

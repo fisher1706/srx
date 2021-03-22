@@ -111,7 +111,7 @@ class TestAdjustment():
         ]
         
         ia.full_import_usage_history(usage_history)
-        sa.save_and_adjust_moving_status(True, response_location["shipto_id"], sleep=5)
+        sa.save_and_adjust_moving_status(True, response_location["shipto_id"], sleep=10)
         location = la.get_locations(shipto_id=response_location["shipto_id"])
 
         assert len(location) == 1
