@@ -8,13 +8,15 @@ class DistributorUsersPage(DistributorPortalPage):
         "lastName": None,
         "email": None,
         "role": None,
-        "warehouses": None
+        "warehouses": None,
+        "position": None
     }
 
     distributor_superuser_body = {
         "firstName": None,
         "lastName": None,
-        "email": None
+        "email": None,
+        "position": None
     }
 
     def create_distributor_user(self, distributor_user_body):
@@ -22,6 +24,7 @@ class DistributorUsersPage(DistributorPortalPage):
         start_number_of_rows = self.get_table_rows_number()
         self.click_id(Locator.id_add_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), distributor_user_body.pop("role"))
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), distributor_user_body.pop("position"))
         for checkbox in distributor_user_body.pop("warehouses"):
             self.select_checkbox_in_dialog_by_name(checkbox)
         for field in distributor_user_body.keys():
@@ -69,6 +72,7 @@ class DistributorUsersPage(DistributorPortalPage):
         start_number_of_rows = self.get_table_rows_number()
         self.click_id(Locator.id_add_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), distributor_superuser_body.pop("role"))
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), distributor_superuser_body.pop("position"))
         for field in distributor_superuser_body.keys():
             self.input_by_name(field, distributor_superuser_body[field])
         self.click_xpath(Locator.xpath_submit_button)

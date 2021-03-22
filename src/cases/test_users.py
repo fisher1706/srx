@@ -98,12 +98,12 @@ class TestUsers():
         dup = DistributorUsersPage(context)
         distributor_user_body = dup.distributor_user_body.copy()
         edit_distributor_user_body = dup.distributor_user_body.copy()
-
         #-------------------
         distributor_user_body["email"] = Tools.random_email()
         distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
         distributor_user_body["lastName"] = f"User {Tools.random_string_l()}"
         distributor_user_body["role"] = "Office User"
+        distributor_user_body["position"] = "Admin"
         distributor_user_body["warehouses"] = ["Z_Warehouse (9999)", "A_Warehouse (1138)"]
         #-------------------
         edit_distributor_user_body["firstName"] = f"User {Tools.random_string_l()}"
@@ -156,6 +156,7 @@ class TestUsers():
         distributor_superuser_body["firstName"] = f"User {Tools.random_string_l()}"
         distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"
         distributor_superuser_body["role"] = "Super User (Admin)"
+        distributor_superuser_body["position"] = "Admin"
         #-------------------
         edit_distributor_superuser_body["firstName"] = f"User {Tools.random_string_l()}"
         edit_distributor_superuser_body["lastName"] = f"User {Tools.random_string_l()}"
