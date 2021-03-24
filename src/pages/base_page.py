@@ -84,7 +84,7 @@ class BasePage():
         except TimeoutException:
             self.logger.error(f"Element with XPATH = '{xpath}' is not clickable")
         except:
-            self.logger.error(f"Element with ID = '{xpath}' cannot be clicked")
+            self.logger.error(f"Element with XPATH = '{xpath}' cannot be clicked")
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' is clicked")
 
