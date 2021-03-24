@@ -7,7 +7,7 @@ from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
 from src.api.distributor.user_api import UserApi
 from src.api.setups.setup_customer_user_as_customer import SetupCustomerUserAsCustomer
-from src.api.setups.setup_checkout_group import setup_checkout_group
+from src.api.setups.setup_checkout_group import SetupCheckoutGroup
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_distributor_user import SetupDistributorUser
 from src.pages.customer.customer_users_page import CustomerUsersPage
@@ -299,7 +299,7 @@ class TestUsers():
         lp = LoginPage(ui)
         cgp = CheckoutGroupsPage(ui)
 
-        response_checkout_group = setup_checkout_group(ui)
+        response_checkout_group = SetupCheckoutGroup(ui).setup()
         setup_customer_user = SetupCustomerUserAsCustomer(ui)
         setup_customer_user.add_option("group", "SUPER")
         response_customer_user = setup_customer_user.setup()
@@ -308,7 +308,7 @@ class TestUsers():
         cgp.sidebar_users_and_groups()
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Checkout Groups"))
         cgp.wait_until_page_loaded()
-        row = cgp.scan_table(response_checkout_group["name"], "Checkout Group Name", pagination=False)
+        row = cgp.scan_table(response_checkout_group["group"]["name"], "Checkout Group Name", pagination=False)
         cgp.click_xpath(Locator.xpath_by_count(Locator.xpath_associated_users, row))
         cgp.assign_user(response_customer_user["user"]["email"])
         cgp.check_assigned_user(response_customer_user["user"], 1)
@@ -317,11 +317,11 @@ class TestUsers():
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Fobs & Passcodes"))
         cgp.wait_until_page_loaded()
         row = cgp.scan_table(response_customer_user["user"]["email"], "Email", pagination=False)
-        cgp.check_table_item_by_header(row, "Checkout Group", response_checkout_group["name"])
+        cgp.check_table_item_by_header(row, "Checkout Group", response_checkout_group["group"]["name"])
 
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Checkout Groups"))
         cgp.wait_until_page_loaded()
-        row = cgp.scan_table(response_checkout_group["name"], "Checkout Group Name", pagination=False)
+        row = cgp.scan_table(response_checkout_group["group"]["name"], "Checkout Group Name", pagination=False)
         cgp.click_xpath(Locator.xpath_by_count(Locator.xpath_associated_users, row))
         cgp.unassign_user(1)
         cgp.get_element_by_xpath(Locator.xpath_no_data_found)
@@ -333,14 +333,14 @@ class TestUsers():
         lp = LoginPage(ui)
         cgp = CheckoutGroupsPage(ui)
 
-        response_checkout_group = setup_checkout_group(ui)
+        response_checkout_group = SetupCheckoutGroup(ui).setup()
         response_shipto = SetupShipto(ui).setup()
 
         lp.log_in_customer_portal()
         cgp.sidebar_users_and_groups()
         cgp.click_xpath(Locator.xpath_button_tab_by_name("Checkout Groups"))
         cgp.wait_until_page_loaded()
-        row = cgp.scan_table(response_checkout_group["name"], "Checkout Group Name", pagination=False)
+        row = cgp.scan_table(response_checkout_group["group"]["name"], "Checkout Group Name", pagination=False)
         cgp.click_xpath(Locator.xpath_by_count(Locator.xpath_associated_shiptos, row))
         cgp.assign_shipto(response_shipto["shipto"]["number"])
         cgp.check_assigned_shipto(response_shipto["shipto"], 1)
