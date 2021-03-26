@@ -391,6 +391,7 @@ class TestUsers():
             current_user = ua.get_current_user()
             user["userGroup"] = dict()
             user["userGroup"]["id"] = current_user["userGroup"]["id"]
+            user["position"] = "OTHER"
             user_id = ua.create_distributor_user(user)
             response_user = aua.get_distributor_user(email=user["email"])[0]
             assert int(user_id) == response_user["id"]
