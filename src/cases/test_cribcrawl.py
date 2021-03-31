@@ -34,7 +34,7 @@ class TestCribcrawl():
         cribcrawl_body["sku"] = Tools.random_string_u()
         #-------------------
         cribcrawls = [
-            [cribcrawl_body["sku"], None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+            [cribcrawl_body["sku"], None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
         ]
         #-------------------
 

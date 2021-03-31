@@ -5,6 +5,7 @@
     "userGroup": {
         "id": null
     },
+    "position": "OTHER",
     "warehouses": [
         {
             "id": null
