@@ -15,6 +15,8 @@ class SetupCustomer(BaseSetup):
         }
         self.customer = Tools.get_dto("customer_dto.json")
         self.customer_id = None
+        self.user_email = None
+        self.user_id = None
 
     def setup(self):
         self.set_customer()
