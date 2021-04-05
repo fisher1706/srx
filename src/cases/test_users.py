@@ -407,7 +407,8 @@ class TestUsers():
         user_body = {
             "email": Tools.random_email(20),
             "firstName": Tools.random_string_l(),
-            "lastName": Tools.random_string_l()
+            "lastName": Tools.random_string_l(),
+            "position": "OTHER"
         }
         user_body["userGroup"] = dict()
         user_body["userGroup"]["id"] = smoke_api.data.group_id
