@@ -9,5 +9,6 @@ phases:
       - LOCAL_DIR_NAME=screenshots
       - mkdir -p $LOCAL_DIR_NAME
       - pytest --browser_name=chrome-headless --environment=prod --smoke_distributor_email=$SMOKE_DISTRIBUTOR_EMAIL --smoke_distributor_password=$SMOKE_DISTRIBUTOR_PASSWORD --smoke_customer_email=$SMOKE_CUSTOMER_EMAIL --smoke_customer_password=$SMOKE_CUSTOMER_PASSWORD --testrail_email=$TESTRAIL_EMAIL --testrail_password=$TESTRAIL_PASSWORD --credentials --screenshot -m smoke .
+      - python3 --version
     finally:
       - aws s3 cp $LOCAL_DIR_NAME s3://$RESULT_BUCKET_NAME/$BUCKET_DIR_NAME --recursive
