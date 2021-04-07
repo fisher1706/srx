@@ -64,7 +64,7 @@ class LoginPage(BasePage):
         self.input_password(self.context.admin_password)
         self.click_on_submit_button()
 
-    def log_in_distributor_portal(self, email=None, password=None):
+    def log_in_distributor_portal(self, email=None, password=None, expected_url=None):
         self.follow_auth_portal()
         if (email is None):
             email = self.context.distributor_email
@@ -74,7 +74,7 @@ class LoginPage(BasePage):
         self.input_password(password)
         self.click_on_submit_button()
         self.title_should_be("SRX Distributor Portal")
-        self.follow_url(self.url.distributor_portal)
+        self.follow_url(self.url.distributor_portal, expected_url=expected_url)
 
     def log_in_customer_portal(self, email=None, password=None):
         self.follow_auth_portal()

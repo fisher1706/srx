@@ -90,7 +90,7 @@ class TestAuthorization():
         lp = LoginPage(smoke_ui)
         dpp = DistributorPortalPage(smoke_ui)
 
-        lp.log_in_distributor_portal()
+        lp.log_in_distributor_portal(expected_url=smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         dpp.get_element_by_xpath("//*[@href='https://storeroomlogix.zendesk.com']")
         dpp.follow_url("https://storeroomlogix.zendesk.com")
         dpp.get_element_by_id("user-name")
