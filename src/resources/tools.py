@@ -80,3 +80,11 @@ class Tools():
         mail = mailparser.parse_from_file(folder)
         root = fromstring(mail.body)
         return root.xpath("//b[text()='Accept Invite']/../@href")
+
+    @staticmethod
+    def get_reset_password_link_from_email(filename):
+        folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        folder += "/output/"+filename
+        mail = mailparser.parse_from_file(folder)
+        root = fromstring(mail.body)
+        return root.xpath("//b[text()='Reset password']/../@href")
