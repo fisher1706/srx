@@ -140,7 +140,7 @@ class TestEmails():
         lp.log_in_customer_portal(user_email, new_password)
 
     @pytest.mark.regression
-    def test_accept_customer_user_invitation(self, ui, delete_customer_user):
+    def test_accept_customer_user_invitationand_and_reset_password(self, ui, delete_customer_user):
         ui.testrail_case_id = 4581
 
         s3 = S3(ui)
@@ -176,6 +176,31 @@ class TestEmails():
         cpp.customer_sidebar_should_contain_email(user_email)
         cpp.sign_out()
         lp.log_in_customer_portal(user_email, new_password)
+
+        #sigh out and reset password
+        cpp.sign_out()
+        lp.open_forgot_password_page()
+        lp.input_email(user_email)
+        lp.click_on_submit_button()
+        lp.get_element_by_xpath("//h2[text()='Please check your inbox']")
+
+        #waiting for email with reset password confirmation
+        s3.wait_for_new_object(ui.data.email_data_bucket, objects_count+1)
+
+        #confirm reset password from email
+        last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
+        email_filename = "customer_user_reset"
+        s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
+        acception_link = Tools.get_reset_password_link_from_email(email_filename)[0]
+        lp.follow_url(acception_link)
+
+        #set a new password
+        new_reset_password = Tools.random_string_l()
+        
+        lp.input_data_id(new_reset_password, Locator.id_new_password)
+        lp.input_data_id(new_reset_password, Locator.id_confirm_password)
+        lp.click_on_submit_button()
+        lp.log_in_customer_portal(user_email, new_reset_password)
 
     @pytest.mark.regression
     def test_accept_checkout_group_invitation(self, ui, delete_checkout_group):
