@@ -183,7 +183,7 @@ class TestPutAway():
         pa.put_away([dto])
 
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
-        assert transaction["totalElements"] == 0, f"There should not be transactions for asset product"
+        assert transaction["totalElements"] == 1
 
     @pytest.mark.regression
     def test_put_away_active_transaction(self, api, delete_shipto):
