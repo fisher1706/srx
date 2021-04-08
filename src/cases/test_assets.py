@@ -55,34 +55,34 @@ class TestAssets():
         ap.check_all_assets_tab(asset, shipto_name, total, total, 0)
         ap.checked_out_tab_should_not_contain(asset)
 
-    # @pytest.mark.regression
-    # def test_ping_to_return_asset(self, ui, delete_shipto):
-    #     ui.testrail_case_id = 1993
+    @pytest.mark.regression
+    def test_ping_to_return_asset(self, ui, delete_shipto):
+        ui.testrail_case_id = 1993
 
-    #     lp = LoginPage(ui)
-    #     ap = AssetsPage(ui)
-    #     cha = CheckoutGroupApi(ui)
+        lp = LoginPage(ui)
+        ap = AssetsPage(ui)
+        cha = CheckoutGroupApi(ui)
 
-    #     setup_location = SetupLocation(ui)
-    #     setup_location.setup_product.add_option("asset")
-    #     setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
-    #     setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
-    #     response_location = setup_location.setup()
+        setup_location = SetupLocation(ui)
+        setup_location.setup_product.add_option("asset")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("checkout_settings", "DEFAULT")
+        response_location = setup_location.setup()
 
-    #     asset = response_location["product"]["partSku"]
-    #     #shipto_name = response_location["shipto"]["number"]
-    #     shipto_id = response_location["shipto_id"]
-    #     total = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
+        asset = response_location["product"]["partSku"]
+        #shipto_name = response_location["shipto"]["number"]
+        shipto_id = response_location["shipto_id"]
+        total = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
 
-    #     cha.add_shipto_to_checkout_group(shipto_id=shipto_id)
+        cha.add_shipto_to_checkout_group(shipto_id=shipto_id)
 
-    #     lp.log_in_customer_portal()
-    #     ap.sidebar_assets()
-    #     # issue 2 assets
-    #     setup_issue_return(ui, shipto_id, asset, quantity=5, issue_product=True, passcode=ui.data.passcode)
-    #     lp.page_refresh()
-    #     lp.wait_until_progress_bar_loaded()
-    #     ap.ping_to_return_last_asset()
+        lp.log_in_customer_portal()
+        ap.sidebar_assets()
+        # issue 2 assets
+        setup_issue_return(ui, shipto_id, asset, quantity=5, issue_product=True, passcode=ui.data.passcode)
+        lp.page_refresh()
+        lp.wait_until_progress_bar_loaded()
+        ap.ping_to_return_last_asset()
 
     @pytest.mark.regression
     def test_checkout_asset_customer_checkout_user(self, api, delete_shipto):
