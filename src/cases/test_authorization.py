@@ -84,16 +84,28 @@ class TestAuthorization():
         BaseAuthorization.base_success_login_checkout_portal(smoke_ui)
 
     @pytest.mark.smoke
-    def test_open_zendesk(self, smoke_ui):
+    def test_open_zendesk_from_distributor(self, smoke_ui):
         smoke_ui.testrail_case_id = 2303
 
         lp = LoginPage(smoke_ui)
         dpp = DistributorPortalPage(smoke_ui)
 
-        lp.log_in_distributor_portal()
+        lp.log_in_distributor_portal(expected_url=smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         dpp.get_element_by_xpath("//*[@href='https://storeroomlogix.zendesk.com']")
         dpp.follow_url("https://storeroomlogix.zendesk.com")
         dpp.get_element_by_id("user-name")
+
+    @pytest.mark.smoke
+    def test_open_zendesk_from_customer(self, smoke_ui):
+        smoke_ui.testrail_case_id = 4739
+
+        lp = LoginPage(smoke_ui)
+        cpp = CustomerPortalPage(smoke_ui)
+
+        lp.log_in_customer_portal()
+        cpp.get_element_by_xpath("//*[@href='https://storeroomlogix.zendesk.com']")
+        cpp.follow_url("https://storeroomlogix.zendesk.com")
+        cpp.get_element_by_id("user-name")
 
     @pytest.mark.smoke
     def test_redirect_distributor(self, smoke_ui):
