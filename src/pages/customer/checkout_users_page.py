@@ -39,6 +39,7 @@ class CheckoutUsersPage(CustomerPortalPage):
             self.check_table_item_by_header(row, cell, table_cells[cell])
 
     def update_new_checkout_user(self, checkout_user_body, row, first_group=False):
+        self.wait_until_page_loaded()
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row))
         for field in checkout_user_body.keys():
             self.input_by_name(field, checkout_user_body[field])
