@@ -302,7 +302,7 @@ class BasePage():
 
     def title_should_be(self, title):
         try:
-            element = WebDriverWait(self.driver, 15).until(EC.title_is(title))
+            element = WebDriverWait(self.driver, 20).until(EC.title_is(title))
         except:
             self.logger.error(f"Title should be '{title}', but now it is '{self.driver.title}'")
         else:
