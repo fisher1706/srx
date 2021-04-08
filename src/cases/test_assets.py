@@ -86,7 +86,7 @@ class TestAssets():
 
     @pytest.mark.regression
     def test_checkout_asset_customer_checkout_user(self, api, delete_shipto):
-        # api.testrail_case_id = 1995
+        api.testrail_case_id = 1995
 
         aa = AssetsApi(api)
         cha = CheckoutGroupApi(api)
