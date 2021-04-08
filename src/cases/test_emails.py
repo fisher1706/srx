@@ -140,7 +140,7 @@ class TestEmails():
         lp.log_in_customer_portal(user_email, new_password)
 
     @pytest.mark.regression
-    def test_accept_customer_user_invitationand_and_reset_password(self, ui, delete_customer_user):
+    def test_accept_customer_user_invitation_and_reset_password(self, ui, delete_customer_user):
         ui.testrail_case_id = 4581
 
         s3 = S3(ui)
@@ -203,7 +203,7 @@ class TestEmails():
         lp.log_in_customer_portal(user_email, new_reset_password)
 
     @pytest.mark.regression
-    def test_accept_checkout_group_invitation(self, ui, delete_checkout_group):
+    def test_accept_checkout_group_invitation_and_reset_password(self, ui, delete_checkout_group):
         ui.testrail_case_id = 4588
 
         s3 = S3(ui)
@@ -233,6 +233,35 @@ class TestEmails():
         cpp.sign_in_checkout_portal()
         cpp.input_data_id(new_password, "mat-input-2")
         cpp.input_data_id(new_password, "mat-input-3")
+        cpp.click_xpath(Locator.xpath_button_type)
+        cpp.input_email_checkout_portal(user_email)
+        cpp.input_password_checkout_portal(new_password)
+        cpp.sign_in_checkout_portal()
+        cpp.get_element_by_xpath(f"//div[text()='{user_email}']")
+        assert "Passcode" in ui.driver.page_source
+
+        #sigh out and reset password
+        lp.click_xpath("//img")
+        lp.click_xpath(Locator.xpath_sign_out)
+        lp.click_xpath(Locator.xpath_reset_password)
+        lp.input_by_name("login", user_email)
+        lp.click_xpath(Locator.xpath_button_type)
+
+        #waiting for email with reset password confirmation
+        s3.wait_for_new_object(ui.data.email_data_bucket, objects_count+1)
+
+        #confirm reset password from email
+        last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
+        email_filename = "checkout_group_reset"
+        s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
+        acception_link = Tools.get_reset_password_link_from_email(email_filename)[0]
+        lp.follow_url(acception_link)
+
+        #set a new password
+        new_reset_password = Tools.random_string_l()
+        
+        cpp.input_data_id(new_password, "mat-input-0")
+        cpp.input_data_id(new_password, "mat-input-1")
         cpp.click_xpath(Locator.xpath_button_type)
         cpp.input_email_checkout_portal(user_email)
         cpp.input_password_checkout_portal(new_password)
