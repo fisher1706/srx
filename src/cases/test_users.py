@@ -371,7 +371,8 @@ class TestUsers():
         user = {
             "email": Tools.random_email(),
             "firstName": Tools.random_string_l(),
-            "lastName": Tools.random_string_l()
+            "lastName": Tools.random_string_l(),
+            "position": "OTHER"
         }
         if case["case"] == 1:
             user_id = aua.create_distributor_user(user)
