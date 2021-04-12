@@ -1,6 +1,5 @@
 from src.pages.base_page import BasePage
 
-
 class NewCheckoutPortalPage(BasePage):
     def input_email_checkout_portal(self, email):
         self.input_by_name("email", email)
