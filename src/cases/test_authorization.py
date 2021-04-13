@@ -163,7 +163,6 @@ class TestAuthorization():
         lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         dpp.distributor_sidebar_should_contain_email()
 
-
     @pytest.mark.regression
     def test_log_out_checkout_portal(self, ui):
         ui.testrail_case_id = 4558
@@ -193,7 +192,6 @@ class TestAuthorization():
         cpp.input_passcode(ui.data.passcode)
         cpp.sign_in_checkout_portal()
         lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/actions")
-
 
     @pytest.mark.regression
     def test_log_out_checkout_passcode(self,ui):
