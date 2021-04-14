@@ -105,7 +105,7 @@ class TestAuthorization():
     def test_success_login_checkout_portal_smoke(self, smoke_ui):
         BaseAuthorization.base_success_login_checkout_portal(smoke_ui)
 
-    @pytest.mark.smoke
+    @pytest.mark.regression
     def test_success_login_new_checkout_portal(self, ui):
         BaseAuthorization.base_success_login_new_checkout(ui)
 
