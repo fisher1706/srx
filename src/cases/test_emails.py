@@ -11,7 +11,6 @@ from src.pages.general.login_page import LoginPage
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.pages.checkout.checkout_portal_page import CheckoutPortalPage
-from src.pages.checkout.new_checkout_portal_page import NewCheckoutPortalPage
 
 
 class TestEmails():
