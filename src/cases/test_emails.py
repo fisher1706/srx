@@ -12,7 +12,6 @@ from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.pages.checkout.checkout_portal_page import CheckoutPortalPage
 
-
 class TestEmails():
     @pytest.mark.parametrize("conditions", [
         {
