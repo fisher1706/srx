@@ -11,6 +11,9 @@ class LoginPage(BasePage):
     def follow_checkout_portal(self):
         self.follow_url(self.url.checkout_portal)
 
+    def follow_new_checkout_portal(self):
+        self.follow_url(self.url.new_checkout_portal)
+
     def input_email(self, email):
         self.input_data_id(email, Locator.id_email)
 

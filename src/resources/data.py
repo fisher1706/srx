@@ -99,9 +99,9 @@ class SmokeData():
 
     def qa_environment(self):
         self.smoke_testrail_run_id = 40
-        self.customer_id = "191"
-        self.shipto_id = "2192"
-        self.ordering_config_id = "2577"
+        self.customer_id = "1115"
+        self.shipto_id = "35529"
+        self.ordering_config_id = "53740"
         self.report_id = 5
         self.group_id = 623
 
