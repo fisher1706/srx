@@ -141,7 +141,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.get_row_of_table_item_by_header(locker, "Serial Number")
         self.wait_until_page_loaded()
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, 1)+Locator.xpath_planogram_button)
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.xpath_planogram_button)
         self.get_element_by_xpath(Locator.xpath_configure_button)
         self.click_xpath(Locator.xpath_configure_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), smart_shelf)
