@@ -97,7 +97,7 @@ class CustomersPage(DistributorPortalPage):
         self.clear_xpath("//input[@name='email']")
         self.get_element_by_xpath("//input[@name='email']").send_keys(email)
         self.click_xpath("//span[text()='Submit Immediately']")
-        self.click_xpath("//span[text()='Auto-submit as Order']")
+        self.click_xpath("//span[text()='Auto-submit as ORDER']")
         self.click_xpath(Locator.xpath_complete_button)
         self.wait_until_page_loaded()
 
