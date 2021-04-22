@@ -701,3 +701,42 @@ class TestReorderControls():
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"][-1]
         quantity_updated = transaction_updated["reorderQuantity"]
         assert quantity_updated == quantity*conditions_sn_updated["coef"]
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "reorder_controls": "MIN",
+            "min": 2,
+            "max": 10,
+            "ohi": 0,
+            "SHIPPED": 1,
+            "ORDERED": 0,
+            "QUOTED": 0,
+            "result": 9,
+            "testrail_case_id": 5156
+        }
+        ])
+    @pytest.mark.regression
+    def test_reorder_controls_with_quantity_on_reorder(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+        
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions["reorder_controls"]})
+        setup_location.setup_product.add_option("round_buy", 1)
+        setup_location.setup_product.add_option("package_conversion", 2)
+        setup_location.add_option("min", conditions["min"])
+        setup_location.add_option("max", conditions["max"])
+        setup_location.add_option("ohi", "MAX")
+        response_location = setup_location.setup()
+
+        # ordering_config_id = la.get_ordering_config_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])
+        # statuses = ["SHIPPED", "ORDERED", "QUOTED"]
+        # for status in statuses:
+        #     if (conditions[status] > 0):
+        #         ta.create_active_item(response_location["shipto_id"], ordering_config_id, repeat=15)
+        #         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        #         tarnsaction_id = transaction["entities"][-1]["id"]
+        #         ta.update_replenishment_item(tarnsaction_id, conditions[status], status)
+        

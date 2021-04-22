@@ -28,7 +28,9 @@ class SetupLocation(BaseSetup):
             "rfid_location": None,
             "rfid_labels": None,
             "transaction": None,
-            "dsn": None
+            "dsn": None,
+            "min": None,
+            "max": None
         }
         self.location = Tools.get_dto("location_dto.json")
         self.location_id = None
@@ -125,19 +127,21 @@ class SetupLocation(BaseSetup):
             self.location["attributeName4"] = self.options["location_pairs"]["attributeName4"]
             self.location["attributeValue4"] = self.options["location_pairs"]["attributeValue4"]
 
+        location_min = self.product["roundBuy"] if self.options["min"] is None else self.options["min"]
+        location_max = self.product["roundBuy"]*3 if self.options["max"] is None else self.options["max"]
         self.location["orderingConfig"] = {
             "product": {
                 "partSku": self.product["partSku"]
             },
             "type": self.options["type"],
             "currentInventoryControls": {
-                "min": self.product["roundBuy"],
-                "max": self.product["roundBuy"]*3
+                "min": location_min,
+                "max": location_max
             },
             "dsn": self.options["dsn"]
         }
         if (self.options["ohi"] == "MAX"):
-            self.location["onHandInventory"] = self.product["roundBuy"]*3
+            self.location["onHandInventory"] = location_max*self.product["packageConversion"]
         else:
             self.location["onHandInventory"] = self.options["ohi"]
             self.location["serialized"] = bool(self.options["serialized"])
