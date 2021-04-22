@@ -248,14 +248,14 @@ class TestReorderControls():
 
     @pytest.mark.parametrize("conditions_update_by_pack", [
             {
-                "update_pack_conv":6, 
-                "pack_conv": 3,
+                "update_pack_conv":10, 
+                "pack_conv": 2,
                 "reorder_controls": "MIN",
                 "testrail_case_id": 3208
             },
             {
-                "update_pack_conv":5,
-                "pack_conv": 10,
+                "update_pack_conv":4,
+                "pack_conv": 1,
                 "reorder_controls": "ISSUED",
                 "testrail_case_id": 3209
             }
