@@ -882,7 +882,7 @@ class TestReorderControls():
         ta = TransactionApi(api)
         la = LocationApi(api)
 
-        LOCATION_MIN = 0
+        LOCATION_MIN = 4
         LOCATION_MAX = 10
         LOCATION_PACKAGE_CONVERSION = 3
         ROUND_BUY = 1
