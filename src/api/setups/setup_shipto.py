@@ -10,10 +10,12 @@ class SetupShipto(BaseSetup):
 
         self.setup_name = "ShipTo"
         self.options = {
+            "number": None,
             "checkout_settings": None,
             "autosubmit_settings": None,
             "serialization_settings": None,
             "reorder_controls_settings": None,
+            "delete": True,
             "expected_status_code": None
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
@@ -36,7 +38,7 @@ class SetupShipto(BaseSetup):
     def set_shipto(self):
         sa = ShiptoApi(self.context)
 
-        self.shipto["number"] = Tools.random_string_l(10)
+        self.shipto["number"] = self.options["number"] if self.options["number"] is not None else Tools.random_string_l(10)
         self.shipto["address"] = {
             "zipCode": "12345",
             "line1": "addressLn1",
@@ -50,7 +52,7 @@ class SetupShipto(BaseSetup):
         }
 
         self.id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"])
-        if self.id is not None:
+        if self.id is not None and self.options["delete"]:
             self.context.dynamic_context["delete_shipto_id"].append(self.id)
 
     def set_checkout_settings(self):
