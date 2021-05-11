@@ -488,7 +488,7 @@ class BasePage():
         try:
             WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.XPATH, xpath), text))
         except:
-            self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
+            self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different: '{self.get_element_text(xpath)}' != '{text}'")
         else:
             self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")
 
