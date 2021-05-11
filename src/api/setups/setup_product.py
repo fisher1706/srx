@@ -48,4 +48,6 @@ class SetupProduct(BaseSetup):
             self.product = self.options["product"]
 
         self.id = pa.create_product(copy.deepcopy(self.product), expected_status_code=self.expected_status_code)
+        if (self.expected_status_code is None):
+            self.product["packageConversion"] = pa.get_product(self.product["partSku"])[0]["calculatedPackageConversion"]
         self.product["id"] = self.id
