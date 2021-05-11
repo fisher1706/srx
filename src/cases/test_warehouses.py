@@ -35,7 +35,7 @@ class TestWarehouses():
         warehouse_body["address.line1"] = "test_address 1"
         warehouse_body["address.city"] = "test city"
         warehouse_body["state"] = "Georgia"
-        warehouse_body["timezone"] = "America/Halifax (-03:00)"
+        warehouse_body["timezone"] = "America/Adak (-09:00)"
         warehouse_body["contactEmail"] = Tools.random_email()
         warehouse_body["invoiceEmail"] = Tools.random_email()
         #-------------------

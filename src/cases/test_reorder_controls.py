@@ -925,24 +925,30 @@ class TestReorderControls():
         {
             "reorder_controls": "MIN",
             "SHIPPED": 2,
-            "result": 7,
+            "result": 6,
             "testrail_case_id": 5595
         },
         {
-            "reorder_controls": "ISSUED",
-            "SHIPPED": 9,
-            "result": None,
-            "testrail_case_id": 5595
+            "reorder_controls": "MIN",
+            "SHIPPED": 1,
+            "result": 7,
+            "testrail_case_id": 5603
         },
         {
             "reorder_controls": "ISSUED",
             "SHIPPED": 8,
+            "result": None,
+            "testrail_case_id": 5596
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "SHIPPED": 7,
             "result": 1,
             "testrail_case_id": 5597
         },
         ])
     @pytest.mark.regression
-    def test_reorder_controls_update_with_quantity_on_reorder(self, api, conditions, delete_shipto):
+    def test_reorder_controls_update_quantity_on_reorder_with_existing_active(self, api, conditions, delete_shipto):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -972,17 +978,15 @@ class TestReorderControls():
 
         #update location ohi
         location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
-        location["onHandInventory"] = 3
+        location["onHandInventory"] = 6
         la.update_location([location],response_location["shipto_id"])
         time.sleep(5)
 
         #check new ACTIVE transaction
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
-        assert transaction["entities"][0]["reorderQuantity"] == 8
+        assert transaction["entities"][0]["reorderQuantity"] == 7
 
         #update quantityOnReorder
-        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="SHIPPED")
-        tarnsaction_id = transaction["entities"][-1]["id"]
         ta.update_replenishment_item(tarnsaction_id, conditions["SHIPPED"], "SHIPPED")
 
         #check new ACTIVE transaction

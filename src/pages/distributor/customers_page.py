@@ -93,7 +93,7 @@ class CustomersPage(DistributorPortalPage):
 
     def change_automation_settings(self,email):
         self.wait_until_page_loaded()
-        self.click_xpath("//span[text()='Use defaults']")
+        self.click_xpath("//span[text()='Use Defaults']")
         self.clear_xpath("//input[@name='email']")
         self.get_element_by_xpath("//input[@name='email']").send_keys(email)
         self.click_xpath("//span[text()='Submit Immediately']")
