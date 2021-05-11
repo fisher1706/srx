@@ -305,7 +305,7 @@ class TestTransactions():
         else:
             ui.logger.error(f"Incorrect quantity of transactions: '{transactions['entities'][0]['reorderQuantity']}' and {transactions['entities'][1]['reorderQuantity']}, when RoundBuy = '{round_buy}'")
    
-    @pytest.mark.regression
+    #deprecated
     def test_zero_quantity_of_new_transaction(self, api, delete_shipto):
         api.testrail_case_id = 1841
         ta = TransactionApi(api)
