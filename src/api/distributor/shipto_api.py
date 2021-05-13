@@ -40,7 +40,10 @@ class ShiptoApi(API):
             self.logger.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_shipto_by_number(self, number):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable?number={number}")
+        if number is None:
+            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable")
+        else:
+            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable?number={number}")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
