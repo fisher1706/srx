@@ -1118,8 +1118,7 @@ class TestReorderControls():
         la.update_location([location],response_location["shipto_id"])
 
         #there is no ACTIVE transactions
-        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
-        print(transaction)
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
         assert transaction["entities"] == []
 
         #update qntyOfReorder qnty
@@ -1132,3 +1131,134 @@ class TestReorderControls():
             assert transaction["entities"][0]["reorderQuantity"] == result
         else:
             assert transaction["entities"] == []
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "reorder_controls": "MIN",
+            "updated_quantity": 9,
+            "updated_status": "ACTIVE",
+            "start_result_quantity": 10,
+            "start_result_status": "ACTIVE",
+            "new_result_quantity": None,
+            "new_result_status": None,
+            "testrail_case_id": 5609
+        },
+        {
+            "reorder_controls": "MIN",
+            "updated_quantity": 10,
+            "updated_status": "DO_NOT_REORDER",
+            "start_result_quantity": 10,
+            "start_result_status": "DO_NOT_REORDER",
+            "new_result_quantity": 10,
+            "new_result_status": "ACTIVE",
+            "testrail_case_id": 5610
+        },
+        {
+            "reorder_controls": "MIN",
+            "updated_quantity": 4,
+            "updated_status": "SHIPPED",
+            "start_result_quantity": 4,
+            "start_result_status": "SHIPPED",
+            "new_result_quantity": 6,
+            "new_result_status": "ACTIVE",
+            "testrail_case_id": 5611
+        },        
+        {
+            "reorder_controls": "MIN",
+            "updated_quantity": 4,
+            "updated_status": "DELIVERED",
+            "start_result_quantity": 4,
+            "start_result_status": "DELIVERED",
+            "new_result_quantity": 6,
+            "new_result_status": "ACTIVE",
+            "testrail_case_id": 5612
+        },
+        {
+            "reorder_controls": "MIN",
+            "updated_quantity": 5,
+            "updated_status": "DELIVERED",
+            "start_result_quantity": 5,
+            "start_result_status": "DELIVERED",
+            "new_result_quantity": None,
+            "new_result_status": None,
+            "testrail_case_id": 5613
+        },
+        {
+            "reorder_controls": "MIN",
+            "updated_quantity": 5,
+            "updated_status": "SHIPPED",
+            "start_result_quantity": 5,
+            "start_result_status": "SHIPPED",
+            "new_result_quantity": None,
+            "new_result_status": None,
+            "testrail_case_id": 5614
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "updated_quantity": 9,
+            "updated_status": "SHIPPED",
+            "start_result_quantity": 9,
+            "start_result_status": "SHIPPED",
+            "new_result_quantity": 1,
+            "new_result_status": "ACTIVE",
+            "testrail_case_id": 5615
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "updated_quantity": 10,
+            "updated_status": "SHIPPED",
+            "start_result_quantity": 10,
+            "start_result_status": "SHIPPED",
+            "new_result_quantity": None,
+            "new_result_status": None,
+            "testrail_case_id": 5616
+        },
+        ])
+    @pytest.mark.regression
+    def test_reorder_controls_update_active_transaction(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+
+        LOCATION_MIN = 4
+        LOCATION_MAX = 10
+        LOCATION_PACKAGE_CONVERSION = 3
+        ROUND_BUY = 1
+        
+        #setup
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True, "enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions["reorder_controls"]})
+        setup_location.setup_product.add_option("round_buy", ROUND_BUY)
+        setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
+        setup_location.add_option("min", LOCATION_MIN)
+        setup_location.add_option("max", LOCATION_MAX)
+        setup_location.add_option("ohi", "MAX")
+        response_location = setup_location.setup()
+
+        #create ACTIVE transaction
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = 0
+        la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        tarnsaction_id = transaction["entities"][-1]["id"]
+        assert transaction["entities"][-1]["reorderQuantity"] == LOCATION_MAX
+
+        #update ACTIVE transaction
+        ta.update_replenishment_item(tarnsaction_id, conditions["updated_quantity"], conditions["updated_status"])
+        time.sleep(5)
+
+        #check start transaction result
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status=conditions["start_result_status"])
+        assert transaction["entities"][-1]["reorderQuantity"] == conditions["start_result_quantity"]
+
+        #check new transaction result
+        if conditions["new_result_status"] is not None:
+            transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status=conditions["new_result_status"])
+            assert transaction["entities"][0]["reorderQuantity"] == conditions["new_result_quantity"]
+            transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
+            assert transaction["totalElements"] == 2
+        else:
+            transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
+            assert transaction["totalElements"] == 1
