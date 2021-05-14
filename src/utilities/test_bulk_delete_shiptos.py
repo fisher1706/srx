@@ -1,7 +1,7 @@
 import pytest
 from src.api.distributor.shipto_api import ShiptoApi
 
-def test_create_shipto_with_deleted_number(api):
+def test_bulk_delete_shiptos(api):
     sa = ShiptoApi(api)
 
     shiptos = sa.get_shipto_by_number(None)["data"]["entities"]
