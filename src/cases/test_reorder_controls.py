@@ -1052,7 +1052,7 @@ class TestReorderControls():
 
         #check new ACTIVE transaction
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
-        assert transaction["entities"][0]["reorderQuantity"] == LOCATION_MAX - (start_ohi - LOCATION_PACKAGE_CONVERSION)
+        assert transaction["entities"][0]["reorderQuantity"] == LOCATION_MAX - (start_ohi - LOCATION_PACKAGE_CONVERSION)/LOCATION_PACKAGE_CONVERSION
 
     @pytest.mark.parametrize("conditions", [
         {
