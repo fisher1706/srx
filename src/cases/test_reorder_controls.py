@@ -795,11 +795,11 @@ class TestReorderControls():
         },
         {
             "reorder_controls": "ISSUED",
-            "ohi": 12,
-            "SHIPPED": 3,
+            "ohi": 11,
+            "SHIPPED": 6,
             "ORDERED": 0,
             "QUOTED": 0,
-            "result": 3,
+            "result": 1,
             "testrail_case_id": 5166
         },
         {
