@@ -345,3 +345,21 @@ class TestCustomers():
         cp.sidebar_customers()
         cp.wait_until_page_loaded()
         cp.delete_last_customer()
+
+    @pytest.mark.regression
+    def test_create_shipto_with_deleted_number(self, api, delete_shipto):
+        api.testrail_case_id = 5598
+
+        sa = ShiptoApi(api)
+
+        shipto_name = Tools.random_string_l(21)
+        setup_shipto = SetupShipto(api)
+        setup_shipto.add_option("number", shipto_name)
+        setup_shipto.add_option("delete", False)
+        response_shipto = setup_shipto.setup()
+
+        sa.delete_shipto(response_shipto["shipto_id"])
+
+        setup_shipto = SetupShipto(api)
+        setup_shipto.add_option("number", shipto_name)
+        response_shipto = setup_shipto.setup()
