@@ -1477,3 +1477,164 @@ class TestReorderControls():
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
         assert transaction["entities"][-1]["reorderQuantity"] == conditions["new_active_quantity"]
         assert transaction["entities"][-1]["id"] != transaction_id
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "reorder_controls": "MIN",
+            "start_qnty_on_reorder": 5,
+            "new_min": 5,
+            "new_max": 10,
+            "new_active_quantity": 5,
+            "testrail_case_id": 5627
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "start_qnty_on_reorder": 10,
+            "new_min": 4,
+            "new_max": 11,
+            "new_active_quantity": 1,
+            "testrail_case_id": 5628
+        }
+        ])
+    @pytest.mark.regression
+    def test_reorder_controls_with_quantity_on_reorder_update_min_and_max_for_create(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+
+        LOCATION_MIN = 4
+        LOCATION_MAX = 10
+        LOCATION_PACKAGE_CONVERSION = 3
+        ROUND_BUY = 1
+        
+        #setup
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True, "enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions["reorder_controls"]})
+        setup_location.setup_product.add_option("round_buy", ROUND_BUY)
+        setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
+        setup_location.add_option("min", LOCATION_MIN)
+        setup_location.add_option("max", LOCATION_MAX)
+        setup_location.add_option("ohi", "MAX")
+        response_location = setup_location.setup()
+
+        #create ACTIVE transaction
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = 0
+        la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        transaction_id = transaction["entities"][-1]["id"]
+        assert transaction["entities"][-1]["reorderQuantity"] == LOCATION_MAX
+
+        #update ACTIVE -> qntyOnReorder
+        ta.update_replenishment_item(transaction_id, conditions["start_qnty_on_reorder"], "ORDERED")
+
+        #check there is no ACTIVE
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        assert transaction["entities"] == []
+
+        #update MIN/MAX
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["orderingConfig"]["currentInventoryControls"]["min"] = conditions["new_min"]
+        location["orderingConfig"]["currentInventoryControls"]["max"] = conditions["new_max"]
+        la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
+
+        #check new ACTIVE transaction
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        assert transaction["entities"][-1]["reorderQuantity"] == conditions["new_active_quantity"]
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "reorder_controls": "MIN",
+            "start_qnty_on_reorder": 3,
+            "new_min": 4,
+            "new_max": 11,
+            "new_active_quantity": 8,
+            "testrail_case_id": 5629
+        },
+        {
+            "reorder_controls": "MIN",
+            "start_qnty_on_reorder": 4,
+            "new_min": 3,
+            "new_max": 10,
+            "new_active_quantity": None,
+            "testrail_case_id": 5630
+        },
+        {
+            "reorder_controls": "MIN",
+            "start_qnty_on_reorder": 3,
+            "new_min": 3,
+            "new_max": 10,
+            "new_active_quantity": 7,
+            "testrail_case_id": 5633
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "start_qnty_on_reorder": 9,
+            "new_min": 4,
+            "new_max": 11,
+            "new_active_quantity": 2,
+            "testrail_case_id": 5631
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "start_qnty_on_reorder": 9,
+            "new_min": 4,
+            "new_max": 9,
+            "new_active_quantity": None,
+            "testrail_case_id": 5632
+        }
+        ])
+    @pytest.mark.regression
+    def test_reorder_controls_with_quantity_on_reorder_update_min_and_max_for_update(self, api, conditions, delete_shipto):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+
+        LOCATION_MIN = 4
+        LOCATION_MAX = 10
+        LOCATION_PACKAGE_CONVERSION = 3
+        ROUND_BUY = 1
+        
+        #setup
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True, "enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions["reorder_controls"]})
+        setup_location.setup_product.add_option("round_buy", ROUND_BUY)
+        setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
+        setup_location.add_option("min", LOCATION_MIN)
+        setup_location.add_option("max", LOCATION_MAX)
+        setup_location.add_option("ohi", "MAX")
+        response_location = setup_location.setup()
+
+        #create ACTIVE transaction
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = 0
+        la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        transaction_id = transaction["entities"][-1]["id"]
+        assert transaction["entities"][-1]["reorderQuantity"] == LOCATION_MAX
+
+        #update ACTIVE -> qntyOnReorder
+        ta.update_replenishment_item(transaction_id, conditions["start_qnty_on_reorder"], "ORDERED")
+
+        #check ACTIVE
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        assert transaction["entities"][-1]["reorderQuantity"] == LOCATION_MAX - conditions["start_qnty_on_reorder"]
+
+        #update MIN/MAX
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["orderingConfig"]["currentInventoryControls"]["min"] = conditions["new_min"]
+        location["orderingConfig"]["currentInventoryControls"]["max"] = conditions["new_max"]
+        la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
+
+        #check new ACTIVE transaction
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        if conditions["new_active_quantity"] is not None:
+            assert transaction["entities"][0]["reorderQuantity"] == conditions["new_active_quantity"]
+        else:
+            assert transaction["entities"] == []
