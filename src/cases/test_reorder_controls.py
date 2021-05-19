@@ -1714,7 +1714,7 @@ class TestReorderControls():
         },
         ])
     @pytest.mark.regression
-    def test_reorder_controls_rounding(self, api, conditions):
+    def test_reorder_controls_rounding(self, api, conditions, delete_shipto):
         api.testrail_case_id = conditions["testrail_case_id"]
 
         ta = TransactionApi(api)
