@@ -1638,3 +1638,113 @@ class TestReorderControls():
             assert transaction["entities"][0]["reorderQuantity"] == conditions["new_active_quantity"]
         else:
             assert transaction["entities"] == []
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "reorder_controls": "MIN",
+            "min": 3,
+            "max": 12,
+            "ohi": 1,
+            "qnty_on_reorder": 0,
+            "active": 12,
+            "testrail_case_id": 5634
+        },
+        {
+            "reorder_controls": "MIN",
+            "min": 3,
+            "max": 12,
+            "ohi": 8,
+            "qnty_on_reorder": 0,
+            "active": 12,
+            "testrail_case_id": 5635
+        },
+        {
+            "reorder_controls": "MIN",
+            "min": 3,
+            "max": 12,
+            "ohi": 9,
+            "qnty_on_reorder": 0,
+            "active": 9,
+            "testrail_case_id": 5636
+        },
+        {
+            "reorder_controls": "MIN",
+            "min": 4,
+            "max": 10,
+            "ohi": 9,
+            "qnty_on_reorder": 0,
+            "active": 9,
+            "testrail_case_id": 5637
+        },
+        {
+            "reorder_controls": "MIN",
+            "min": 4,
+            "max": 10,
+            "ohi": 2,
+            "qnty_on_reorder": 3,
+            "active": 9,
+            "testrail_case_id": 5638
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "min": 4,
+            "max": 10,
+            "ohi": 29,
+            "qnty_on_reorder": 0,
+            "active": 3,
+            "testrail_case_id": 5639
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "min": 4,
+            "max": 10,
+            "ohi": 20,
+            "qnty_on_reorder": 3,
+            "active": 3,
+            "testrail_case_id": 5640
+        },
+        {
+            "reorder_controls": "ISSUED",
+            "min": 3,
+            "max": 12,
+            "ohi": 20,
+            "qnty_on_reorder": 3,
+            "active": 3,
+            "testrail_case_id": 5641
+        },
+        ])
+    @pytest.mark.regression
+    def test_reorder_controls_rounding(self, api, conditions):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        ta = TransactionApi(api)
+        la = LocationApi(api)
+
+        LOCATION_PACKAGE_CONVERSION = 3
+        ROUND_BUY = 3
+        
+        #setup
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True, "enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions["reorder_controls"]})
+        setup_location.setup_product.add_option("round_buy", ROUND_BUY)
+        setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
+        setup_location.setup_product.add_option("issue_quantity", 1)
+        setup_location.add_option("min", conditions["min"])
+        setup_location.add_option("max", conditions["max"])
+        setup_location.add_option("ohi", "MAX")
+        response_location = setup_location.setup()
+
+        #create ACTIVE transaction
+        location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+        location["onHandInventory"] = conditions["ohi"]
+        la.update_location([location],response_location["shipto_id"])
+        time.sleep(5)
+        transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+        transaction_id = transaction["entities"][-1]["id"]
+        assert transaction["entities"][-1]["reorderQuantity"] == conditions["qnty_on_reorder"] + conditions["active"]
+
+        #update ACTIVE -> qntyOnReorder
+        if conditions["qnty_on_reorder"] > 0:
+            ta.update_replenishment_item(transaction_id, conditions["qnty_on_reorder"], "SHIPPED")
+            transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
+            assert transaction["entities"][-1]["reorderQuantity"] == conditions["active"]
