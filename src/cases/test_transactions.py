@@ -60,8 +60,8 @@ class TestTransactions():
         rlp.submit_replenishment_list_different_po(new_po_number_body)
 
 
-        sa.check_po_number_by_number(shipto_1_dto["number"], new_po_number_body[shipto_1_dto["number"]])
-        sa.check_po_number_by_number(shipto_2_dto["number"], new_po_number_body[shipto_2_dto["number"]])
+        sa.check_po_number_by_number(shipto_1_dto["number"], po_number_body[shipto_1_dto["number"]])
+        sa.check_po_number_by_number(shipto_2_dto["number"], po_number_body[shipto_2_dto["number"]])
 
     @pytest.mark.regression
     def test_general_multiple_po_number(self, ui, delete_shipto):
@@ -99,8 +99,8 @@ class TestTransactions():
         new_po_number = Tools.random_string_l(10)
         rlp.submit_replenishment_list_general_po(new_po_number)
 
-        sa.check_po_number_by_number(shipto_1_dto["number"], new_po_number)
-        sa.check_po_number_by_number(shipto_2_dto["number"], new_po_number)
+        sa.check_po_number_by_number(shipto_1_dto["number"], shipto_1_dto["poNumber"])
+        sa.check_po_number_by_number(shipto_2_dto["number"], shipto_2_dto["poNumber"])
 
     @pytest.mark.regression
     def test_create_transaction_for_noweight_locker(self, api, delete_shipto, delete_hardware):
