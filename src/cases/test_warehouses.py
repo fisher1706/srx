@@ -30,7 +30,7 @@ class TestWarehouses():
 
         #-------------------
         warehouse_body["name"] = "Warehouse Name"
-        warehouse_body["number"] = "Warehouse Number"
+        warehouse_body["number"] = f"NUMBER {Tools.random_string_u()}"
         warehouse_body["address.zipCode"] = "77777"
         warehouse_body["address.line1"] = "test_address 1"
         warehouse_body["address.city"] = "test city"
@@ -40,7 +40,7 @@ class TestWarehouses():
         warehouse_body["invoiceEmail"] = Tools.random_email()
         #-------------------
         edit_warehouse_body["name"] = "Warehouse Edit Name"
-        edit_warehouse_body["number"] = "Warehouse Edit Number"
+        edit_warehouse_body["number"] = f"EDIT NUMBER {Tools.random_string_u()}"
         edit_warehouse_body["address.zipCode"] = "EDIT 77777"
         edit_warehouse_body["address.line1"] = "edit test_address 1"
         edit_warehouse_body["address.line2"] = "edit test_address 1"
