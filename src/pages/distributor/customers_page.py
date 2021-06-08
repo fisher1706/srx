@@ -64,9 +64,10 @@ class CustomersPage(DistributorPortalPage):
     
     def add_customer_info(self,customer_body):
         self.wait_until_page_loaded()
-        self.get_element_by_xpath("//input[@name='name']").send_keys(customer_body.pop("name"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
+        for field in customer_body.keys():
+            self.input_by_name(field, customer_body[field])
         self.click_xpath(Locator.xpath_next)
 
     def add_customer_portal_user(self,email):
