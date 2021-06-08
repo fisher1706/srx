@@ -41,12 +41,13 @@ class TestCustomers():
 
         #-------------------
         customer_body["name"] = "Customer Name"
+        customer_body["number"] = f"NUMBER {Tools.random_string_u()}"
         customer_body["customerType"] = "Not specified"
         customer_body["marketType"] = "Not specified"
         customer_body["warehouse"] = "A_Warehouse (1138)"
         #-------------------
         edit_customer_body["name"] = "Customer Edit Name"
-        edit_customer_body["number"] = "Customer Edit Number"
+        edit_customer_body["number"] = f"EDIT NUMBER {Tools.random_string_u()}"
         edit_customer_body["customerType"] = "Not specified"
         edit_customer_body["marketType"] = "Not specified"
         edit_customer_body["notes"] = "any note"
@@ -280,6 +281,7 @@ class TestCustomers():
         customer_body = cp.customer_body.copy()
        
         customer_body["name"] = Tools.random_string_l(10)
+        customer_body["number"] = Tools.random_string_u(10)
         customer_body["customerType"] = "Not specified"
         customer_body["marketType"] = "Not specified"
         email = Tools.random_string_l(10)+ "@agilevision.io"
@@ -322,6 +324,7 @@ class TestCustomers():
         customer_body = cp.customer_body.copy()
        
         customer_body["name"] = Tools.random_string_l(10)
+        customer_body["number"] = Tools.random_string_u(10)
         customer_body["customerType"] = "Not specified"
         customer_body["marketType"] = "Not specified"
         email = Tools.random_string_l(10)+ "@agilevision.io"
