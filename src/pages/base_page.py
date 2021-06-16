@@ -217,6 +217,11 @@ class BasePage():
             pass
         WebDriverWait(self.driver, 15).until_not(is_page_loading())
 
+    def wait_for_complete_ready_state(self, incomplete_before=False):
+        if incomplete_before:
+            WebDriverWait(self.driver, 15).until_not(lambda x: x.execute_script("return document.readyState === 'complete'"))
+        WebDriverWait(self.driver, 15).until(lambda x: x.execute_script("return document.readyState === 'complete'"))
+
     def open_last_page(self):
         pagination_buttons = self.driver.find_elements_by_xpath(f"{Locator.xpath_pagination_bottom}//button")
         if (len(pagination_buttons) > 3):
