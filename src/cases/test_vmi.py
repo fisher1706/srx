@@ -48,7 +48,7 @@ class TestVmi():
         ])
     @pytest.mark.acl
     @pytest.mark.regression
-    def test_location_crud(self, ui, permission_ui, permissions, delete_distributor_security_group, delete_shipto):
+    def test_location_crud(self, ui, permission_ui, permissions, delete_distributor_security_group, delete_customer):
         ui.testrail_case_id = permissions["testrail_case_id"]
         context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
@@ -58,7 +58,9 @@ class TestVmi():
         edit_location_body = vp.location_body.copy()
 
         response_product = SetupProduct(ui).setup()
-        response_shipto = SetupShipto(ui).setup()
+        setup_shipto = SetupShipto(ui)
+        setup_shipto.add_option("customer")
+        response_shipto = setup_shipto.setup()
 
         #-------------------
         location_body["sku"] = response_product["partSku"]
@@ -72,7 +74,7 @@ class TestVmi():
         #-------------------
 
         lp.log_in_distributor_portal()
-        vp.follow_location_url(shipto_id=response_shipto["shipto_id"])
+        vp.follow_location_url(customer_id=response_shipto["customer_id"], shipto_id=response_shipto["shipto_id"])
         vp.wait_until_page_loaded()
         vp.create_location(location_body.copy())
         vp.check_last_location(location_body.copy())
