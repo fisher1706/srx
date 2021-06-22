@@ -64,6 +64,43 @@ class TestCustomers():
         cp.check_last_customer(edit_customer_body.copy())
         cp.delete_last_customer()
 
+
+    @pytest.mark.regression
+    def test_customer_unique_number(self, ui, delete_distributor_security_group):
+
+        ui.testrail_case_id = "6544"
+       
+        lp = LoginPage(ui)
+        cp = CustomersPage(ui)
+        customer_body = cp.customer_body.copy()
+        edit_customer_body = cp.customer_body.copy()
+        customer_number =  f"NUMBER {Tools.random_string_u()}"
+
+        #-------------------
+        customer_body["name"] = "Customer Name"
+        customer_body["number"] = customer_number
+        customer_body["customerType"] = "Not specified"
+        customer_body["marketType"] = "Not specified"
+        customer_body["warehouse"] = "A_Warehouse (1138)"
+        #-------------------
+        edit_customer_body["name"] = "Customer Edit Name"
+        edit_customer_body["customerType"] = "Not specified"
+        edit_customer_body["marketType"] = "Not specified"
+        edit_customer_body["notes"] = "any note"
+        edit_customer_body["supplyForce"] = "true"
+        #-------------------
+
+        lp.log_in_distributor_portal()
+        cp.sidebar_customers()
+        cp.create_customer(customer_body.copy())
+        cp.check_last_customer(customer_body.copy())
+        cp.update_last_customer(edit_customer_body.copy())
+        cp.sidebar_customers()
+        cp.wait_until_page_loaded()
+        cp.check_last_customer(edit_customer_body.copy())
+        cp.create_customer_with_exists_number(customer_body.copy())
+        cp.delete_last_customer()
+
     @pytest.mark.acl
     @pytest.mark.regression
     def test_customer_crud_view_permission(self, api, permission_api, delete_distributor_security_group, delete_customer):
