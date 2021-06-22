@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
-from src.waits import *
+from src.waits import wait_until_disabled, page_url_is, dialog_is_not_present, elements_count_should_be, is_page_loading, last_page, is_progress_bar_loading, wait_until_dropdown_list_loaded
 from src.resources.locator import Locator
 import csv
 import os
@@ -216,6 +216,11 @@ class BasePage():
         except:
             pass
         WebDriverWait(self.driver, 15).until_not(is_page_loading())
+
+    def wait_for_complete_ready_state(self, incomplete_before=False):
+        if incomplete_before:
+            WebDriverWait(self.driver, 15).until_not(lambda x: x.execute_script("return document.readyState === 'complete'"))
+        WebDriverWait(self.driver, 15).until(lambda x: x.execute_script("return document.readyState === 'complete'"))
 
     def open_last_page(self):
         pagination_buttons = self.driver.find_elements_by_xpath(f"{Locator.xpath_pagination_bottom}//button")
@@ -497,9 +502,9 @@ class BasePage():
         try:
             WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, id), text))
         except:
-            self.logger.error(f"Element with XPATH = '{xpath}' was found but text is different")
+            self.logger.error(f"Element with XPATH = '{id}' was found but text is different")
         else:
-            self.logger.info(f"Element with XPATH = '{xpath}' contains correct text")
+            self.logger.info(f"Element with XPATH = '{id}' contains correct text")
 
     def element_text_should_be_empty(self, xpath):
         text = self.get_element_text(xpath)

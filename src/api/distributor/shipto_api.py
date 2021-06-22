@@ -4,8 +4,10 @@ from src.fixtures.decorators import Decorator
 
 class ShiptoApi(API):
     @Decorator.default_expected_code(201)
-    def create_shipto(self, dto, expected_status_code):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shipto/create")
+    def create_shipto(self, dto, expected_status_code, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shipto/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
