@@ -113,6 +113,7 @@ class TestAuthorization():
     def test_success_login_new_checkout_portal(self, smoke_ui):
         BaseAuthorization.base_success_login_new_checkout(smoke_ui)
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_open_zendesk_from_distributor(self, smoke_ui):
         smoke_ui.testrail_case_id = 2303
@@ -125,6 +126,7 @@ class TestAuthorization():
         dpp.follow_url("https://storeroomlogix.zendesk.com")
         dpp.get_element_by_id("user-name")
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_open_zendesk_from_customer(self, smoke_ui):
         smoke_ui.testrail_case_id = 4739
