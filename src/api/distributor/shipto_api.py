@@ -4,8 +4,10 @@ from src.fixtures.decorators import Decorator
 
 class ShiptoApi(API):
     @Decorator.default_expected_code(201)
-    def create_shipto(self, dto, expected_status_code):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shipto/create")
+    def create_shipto(self, dto, expected_status_code, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shipto/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
@@ -40,7 +42,10 @@ class ShiptoApi(API):
             self.logger.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_shipto_by_number(self, number):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable?number={number}")
+        if number is None:
+            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable")
+        else:
+            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable?number={number}")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):

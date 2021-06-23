@@ -27,6 +27,21 @@ class CustomersPage(DistributorPortalPage):
         self.wait_until_page_loaded()
         self.elements_count_should_be(Locator.xpath_table_row, start_number_of_rows+1)
 
+    def create_customer_with_exists_number(self, customer_body):
+        self.get_element_by_xpath(Locator.xpath_table_row)
+        start_number_of_rows = self.get_table_rows_number()
+        self.click_id(Locator.id_item_action_customer_add)
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
+        self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(3), customer_body.pop("warehouse"))
+        self.set_slider(Locator.xpath_dialog+Locator.xpath_checkbox, customer_body.pop("supplyForce"))
+        for field in customer_body.keys():
+            self.input_by_name(field, customer_body[field])
+        self.click_xpath(Locator.xpath_submit_button)
+        self.click_xpath(Locator.xpath_close_button)
+        self.wait_until_page_loaded()
+        self.elements_count_should_be(Locator.xpath_table_row, start_number_of_rows)
+
     def check_last_customer(self, customer_body):
         self.open_last_page()
         table_cells = {
@@ -64,9 +79,10 @@ class CustomersPage(DistributorPortalPage):
     
     def add_customer_info(self,customer_body):
         self.wait_until_page_loaded()
-        self.get_element_by_xpath("//input[@name='name']").send_keys(customer_body.pop("name"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
+        for field in customer_body.keys():
+            self.input_by_name(field, customer_body[field])
         self.click_xpath(Locator.xpath_next)
 
     def add_customer_portal_user(self,email):
@@ -93,11 +109,11 @@ class CustomersPage(DistributorPortalPage):
 
     def change_automation_settings(self,email):
         self.wait_until_page_loaded()
-        self.click_xpath("//span[text()='Use defaults']")
+        self.click_xpath("//span[text()='Use Defaults']")
         self.clear_xpath("//input[@name='email']")
         self.get_element_by_xpath("//input[@name='email']").send_keys(email)
         self.click_xpath("//span[text()='Submit Immediately']")
-        self.click_xpath("//span[text()='Auto-submit as Order']")
+        self.click_xpath("//span[text()='Auto-submit as ORDER']")
         self.click_xpath(Locator.xpath_complete_button)
         self.wait_until_page_loaded()
 

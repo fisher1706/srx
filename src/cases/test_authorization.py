@@ -4,8 +4,11 @@ from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.pages.checkout.checkout_portal_page import CheckoutPortalPage
+from src.pages.checkout.new_checkout_portal_page import NewCheckoutPortalPage
 from src.resources.locator import Locator
 from src.resources.permissions import Permissions
+from src.resources.tools import Tools
+
 
 class TestAuthorization():
     @pytest.mark.regression
@@ -48,6 +51,25 @@ class TestAuthorization():
         lp.required_password_message_should_be_present()
 
     @pytest.mark.regression
+    def test_invalid_login_new_checkout_portal(self, ui):
+        ui.testrail_case_id = 4555
+
+        lp = LoginPage(ui)
+        cpp = NewCheckoutPortalPage(ui)
+
+        lp.follow_new_checkout_portal()
+        cpp.input_email_checkout_portal("example@agilevision.io")
+        cpp.input_password_checkout_portal("example")
+        cpp.sign_in_checkout_portal()
+        cpp.wrong_user_error_should_be_present()
+        cpp.clear_email()
+        cpp.clear_password()
+        cpp.input_email_checkout_portal(ui.customer_email)
+        cpp.input_password_checkout_portal("example")
+        cpp.sign_in_checkout_portal()
+        cpp.wrong_password_error_should_be_present()
+
+    @pytest.mark.regression
     def test_reset_password_admin_portal(self, ui):
         ui.testrail_case_id = 8
 
@@ -83,6 +105,15 @@ class TestAuthorization():
     def test_success_login_checkout_portal_smoke(self, smoke_ui):
         BaseAuthorization.base_success_login_checkout_portal(smoke_ui)
 
+    @pytest.mark.regression
+    def test_success_login_new_checkout_portal(self, ui):
+        BaseAuthorization.base_success_login_new_checkout(ui)
+
+    @pytest.mark.smoke
+    def test_success_login_new_checkout_portal(self, smoke_ui):
+        BaseAuthorization.base_success_login_new_checkout(smoke_ui)
+
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_open_zendesk_from_distributor(self, smoke_ui):
         smoke_ui.testrail_case_id = 2303
@@ -95,6 +126,7 @@ class TestAuthorization():
         dpp.follow_url("https://storeroomlogix.zendesk.com")
         dpp.get_element_by_id("user-name")
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_open_zendesk_from_customer(self, smoke_ui):
         smoke_ui.testrail_case_id = 4739
@@ -132,6 +164,69 @@ class TestAuthorization():
         lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "customer"), smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
         dpp.distributor_sidebar_should_contain_email()
+
+    @pytest.mark.regression
+    def test_log_out_checkout_portal(self, ui):
+        ui.testrail_case_id = 4558
+
+        lp = LoginPage(ui)
+        cpp = NewCheckoutPortalPage(ui)
+
+        lp.follow_new_checkout_portal()
+        cpp.input_email_checkout_portal(ui.customer_email)
+        cpp.input_password_checkout_portal(ui.customer_password)
+        cpp.sign_in_checkout_portal()
+        cpp.open_hide_menu()
+        cpp.log_out_checkout_portal()
+        lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/auth")
+
+    @pytest.mark.regression
+    def test_log_in_checkout_passcode(self,ui):
+        ui.testrail_case_id = 4556
+
+        lp = LoginPage(ui)
+        cpp = NewCheckoutPortalPage(ui)
+
+        lp.follow_new_checkout_portal()
+        cpp.input_email_checkout_portal(ui.checkout_group_email)
+        cpp.input_password_checkout_portal(ui.checkout_group_password)
+        cpp.sign_in_checkout_portal()
+        cpp.input_passcode(ui.data.passcode)
+        cpp.sign_in_checkout_portal()
+        lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/actions")
+
+    @pytest.mark.regression
+    def test_log_out_checkout_passcode(self,ui):
+        ui.testrail_case_id = 4559
+
+        lp = LoginPage(ui)
+        cpp = NewCheckoutPortalPage(ui)
+
+        lp.follow_new_checkout_portal()
+        cpp.input_email_checkout_portal(ui.checkout_group_email)
+        cpp.input_password_checkout_portal(ui.checkout_group_password)
+        cpp.sign_in_checkout_portal()
+        cpp.input_passcode(ui.data.passcode)
+        cpp.sign_in_checkout_portal()
+        cpp.open_hide_menu()
+        cpp.log_out_checkout_portal()
+        lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/auth")
+        cpp.log_out_checkout_groupe()
+
+    @pytest.mark.regression
+    def test_invalid_log_in_passcode(self,ui):
+        ui.testrail_case_id = 4557
+
+        lp = LoginPage(ui)
+        cpp = NewCheckoutPortalPage(ui)
+
+        lp.follow_new_checkout_portal()
+        cpp.input_email_checkout_portal(ui.checkout_group_email)
+        cpp.input_password_checkout_portal(ui.checkout_group_password)
+        cpp.sign_in_checkout_portal()
+        cpp.input_passcode(Tools.random_string_l(3))
+        cpp.sign_in_checkout_portal()
+        cpp.wrong_passcode_error_should_be_present()
 
 class BaseAuthorization():
 
@@ -178,3 +273,16 @@ class BaseAuthorization():
         cpp.input_password_checkout_portal(context.customer_password)
         cpp.sign_in_checkout_portal()
         lp.url_should_be(f"{context.session_context.url.checkout_portal}/actions")
+
+    @staticmethod
+    def base_success_login_new_checkout(context):
+        context.testrail_case_id = 4554
+
+        lp = LoginPage(context)
+        cpp = NewCheckoutPortalPage(context)
+
+        lp.follow_new_checkout_portal()
+        cpp.input_email_checkout_portal(context.customer_email)
+        cpp.input_password_checkout_portal(context.customer_password)
+        cpp.sign_in_checkout_portal()
+        lp.url_should_be(f"{context.session_context.url.new_checkout_portal}/actions")

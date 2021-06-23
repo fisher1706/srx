@@ -97,8 +97,8 @@ class TestPutAway():
         transactions = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
         status_1 = transactions["entities"][0]["status"]
         status_2 = transactions["entities"][1]["status"]
-        assert f"{status_1}" == "DELIVERED", f"First transaction for SKU {response_location['product']['partSku']} should be in status DELIVERED, but status is {status}"
-        assert f"{status_2}" == "ORDERED", f"Second transaction for SKU {response_location['product']['partSku']} should be in status ORDERED, but status is {status}"
+        assert f"{status_1}" == "DELIVERED", f"First transaction for SKU {response_location['product']['partSku']} should be in status DELIVERED, but status is {status_1}"
+        assert f"{status_2}" == "ORDERED", f"Second transaction for SKU {response_location['product']['partSku']} should be in status ORDERED, but status is {status_2}"
 
     @pytest.mark.regression
     def test_bulk_put_away(self, api, delete_shipto):
@@ -122,8 +122,8 @@ class TestPutAway():
         transactions = ta.get_transaction(shipto_id=response_location["shipto_id"])
         status_1 = transactions["entities"][0]["status"]
         status_2 = transactions["entities"][1]["status"]
-        assert f"{status_1}" == "DELIVERED", f"First transaction for SKU {response_location['product']['partSku']} should be in status DELIVERED, but status is {status}"
-        assert f"{status_2}" == "DELIVERED", f"Second transaction for SKU {response_location_2['product']['partSku']} should be in status DELIVERED, but status is {status}"
+        assert f"{status_1}" == "DELIVERED", f"First transaction for SKU {response_location['product']['partSku']} should be in status DELIVERED, but status is {status_1}"
+        assert f"{status_2}" == "DELIVERED", f"Second transaction for SKU {response_location_2['product']['partSku']} should be in status DELIVERED, but status is {status_2}"
 
     @pytest.mark.regression
     def test_put_away_qnty_0(self, api, delete_shipto):
@@ -183,7 +183,7 @@ class TestPutAway():
         pa.put_away([dto])
 
         transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
-        assert transaction["totalElements"] == 0, f"There should not be transactions for asset product"
+        assert transaction["totalElements"] == 1
 
     @pytest.mark.regression
     def test_put_away_active_transaction(self, api, delete_shipto):

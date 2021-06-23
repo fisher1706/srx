@@ -1,6 +1,7 @@
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.settings_api import SettingsApi
 from src.api.setups.base_setup import BaseSetup
+from src.api.setups.setup_customer import SetupCustomer
 from src.resources.tools import Tools
 import copy
 
@@ -10,16 +11,22 @@ class SetupShipto(BaseSetup):
 
         self.setup_name = "ShipTo"
         self.options = {
+            "number": None,
             "checkout_settings": None,
             "autosubmit_settings": None,
             "serialization_settings": None,
             "reorder_controls_settings": None,
+            "delete": True,
+            "customer": False,
             "expected_status_code": None
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
         self.id = None
+        self.customer_id = None
+        self.setup_customer = SetupCustomer(self.context)
 
     def setup(self):
+        self.set_customer()
         self.set_shipto()
         self.set_checkout_settings()
         self.set_autosubmit_settings()
@@ -28,15 +35,20 @@ class SetupShipto(BaseSetup):
 
         response = {
             "shipto": self.shipto,
-            "shipto_id": self.id
+            "shipto_id": self.id,
+            "customer_id": self.customer_id
         }
 
         return copy.deepcopy(response)
 
+    def set_customer(self):
+        if (self.options["customer"]):
+            self.customer_id = self.setup_customer.setup()["customer_id"]
+
     def set_shipto(self):
         sa = ShiptoApi(self.context)
 
-        self.shipto["number"] = Tools.random_string_l(10)
+        self.shipto["number"] = self.options["number"] if self.options["number"] is not None else Tools.random_string_l(10)
         self.shipto["address"] = {
             "zipCode": "12345",
             "line1": "addressLn1",
@@ -49,8 +61,8 @@ class SetupShipto(BaseSetup):
             "id": self.context.data.warehouse_id
         }
 
-        self.id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"])
-        if self.id is not None:
+        self.id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"], customer_id=self.customer_id)
+        if self.id is not None and self.options["delete"]:
             self.context.dynamic_context["delete_shipto_id"].append(self.id)
 
     def set_checkout_settings(self):

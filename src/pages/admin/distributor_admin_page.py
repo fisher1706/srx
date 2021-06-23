@@ -9,7 +9,8 @@ class DistributorAdminPage(AdminPortalPage):
         "address.line2": None,
         "address.city": None,
         "address.zipCode": None,
-        "billingDelay": None
+        "billingDelay": None,
+        "country": None
     }
     table_cells_checkbox = {
         "Process.Fee": True,
@@ -26,10 +27,11 @@ class DistributorAdminPage(AdminPortalPage):
         self.click_id(Locator.id_add_button)
         for checkbox in checkbox_list:
             self.select_checkbox_in_dialog_by_name(checkbox)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), distributor_body.pop("country"))
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), state)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(3), bill_by)
         for field in distributor_body.keys():
             self.input_by_name(field, distributor_body[field])
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), state)
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), bill_by)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
@@ -43,6 +45,7 @@ class DistributorAdminPage(AdminPortalPage):
             "Invoice Email": distributor_body["invoiceEmail"],
             "Primary Address": primary_address,
             "Billing Delay": distributor_body["billingDelay"],
+            "Country": distributor_body["country"]
         }
         for cell in table_cells.keys():
             self.check_last_table_item_by_header(cell, table_cells[cell])
@@ -57,11 +60,12 @@ class DistributorAdminPage(AdminPortalPage):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         for checkbox in checkbox_list:
             self.unselect_checkbox_in_dialog_by_name(checkbox)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), distributor_body.pop("country"))
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), state)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(3), bill_by)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(4), ship_to_level)
         for field in distributor_body.keys():
             self.input_by_name(field, distributor_body[field])
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), state)
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), bill_by)
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(3), ship_to_level)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
