@@ -31,6 +31,7 @@ class BasePage():
                 self.logger.info(f"URL = '{url}' is followed")
         else:
             self.logger.info(f"URL = '{url}' is followed")
+            self.wait_for_complete_ready_state()
 
     def get_element_by_xpath(self, xpath):
         try:
