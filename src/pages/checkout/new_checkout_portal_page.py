@@ -15,7 +15,7 @@ class NewCheckoutPortalPage(BasePage):
         self.wait_until_page_loaded()
 
     def log_out_checkout_portal(self):
-        self.click_xpath("//*[@class='item md item-lines-none in-list ion-activatable ion-focusable hydrated']")
+        self.click_xpath("//ion-item[@class='menu-item item md item-lines-none in-list ion-activatable ion-focusable hydrated']")
 
     def log_out_checkout_groupe(self):
         self.click_xpath("//*[@class='sc-ion-buttons-md-h sc-ion-buttons-md-s md hydrated']")

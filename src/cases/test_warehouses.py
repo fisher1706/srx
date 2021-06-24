@@ -100,5 +100,5 @@ class TestWarehouses():
         wp.check_last_warehouse(warehouse_body.copy())
         wp.update_last_warehouse(edit_warehouse_body.copy())
         wp.check_last_warehouse(edit_warehouse_body.copy())
-        wp.create_warehouse_with_exists_wn(warehouse_body.copy())
+        wp.create_warehouse_with_exists_number(warehouse_body.copy())
         wp.delete_last_warehouse()
