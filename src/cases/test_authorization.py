@@ -193,7 +193,7 @@ class TestAuthorization():
         cpp.sign_in_checkout_portal()
         cpp.input_passcode(ui.data.passcode)
         cpp.sign_in_checkout_portal()
-        lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/actions")
+        lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/dashboard")
 
     @pytest.mark.regression
     def test_log_out_checkout_passcode(self,ui):
@@ -285,4 +285,4 @@ class BaseAuthorization():
         cpp.input_email_checkout_portal(context.customer_email)
         cpp.input_password_checkout_portal(context.customer_password)
         cpp.sign_in_checkout_portal()
-        lp.url_should_be(f"{context.session_context.url.new_checkout_portal}/actions")
+        lp.url_should_be(f"{context.session_context.url.new_checkout_portal}/dashboard")
