@@ -189,6 +189,7 @@ class TestCustomers():
 
         response_shipto = SetupShipto(api).setup()
         shipto = sa.get_shipto_by_id(response_shipto["shipto_id"]) #can read shipto
+        sa.get_shipto_by_number(response_shipto["shipto"]["number"])
         assert response_shipto["shipto"]["number"] == shipto["number"] #--//--//--
         sa.update_shipto(shipto, response_shipto["shipto_id"], expected_status_code=400) #cannot update shipto
         sa.delete_shipto(response_shipto["shipto_id"], expected_status_code=400) #cannot delete shipto
