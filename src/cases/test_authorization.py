@@ -113,6 +113,7 @@ class TestAuthorization():
     def test_success_login_new_checkout_portal(self, smoke_ui):
         BaseAuthorization.base_success_login_new_checkout(smoke_ui)
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_open_zendesk_from_distributor(self, smoke_ui):
         smoke_ui.testrail_case_id = 2303
@@ -125,6 +126,7 @@ class TestAuthorization():
         dpp.follow_url("https://storeroomlogix.zendesk.com")
         dpp.get_element_by_id("user-name")
 
+    @pytest.mark.skip
     @pytest.mark.smoke
     def test_open_zendesk_from_customer(self, smoke_ui):
         smoke_ui.testrail_case_id = 4739
@@ -191,7 +193,7 @@ class TestAuthorization():
         cpp.sign_in_checkout_portal()
         cpp.input_passcode(ui.data.passcode)
         cpp.sign_in_checkout_portal()
-        lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/actions")
+        lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/dashboard")
 
     @pytest.mark.regression
     def test_log_out_checkout_passcode(self,ui):
@@ -283,4 +285,4 @@ class BaseAuthorization():
         cpp.input_email_checkout_portal(context.customer_email)
         cpp.input_password_checkout_portal(context.customer_password)
         cpp.sign_in_checkout_portal()
-        lp.url_should_be(f"{context.session_context.url.new_checkout_portal}/actions")
+        lp.url_should_be(f"{context.session_context.url.new_checkout_portal}/dashboard")
