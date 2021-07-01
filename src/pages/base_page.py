@@ -92,18 +92,26 @@ class BasePage():
     def input_data_id(self, data, id, hide_log=False):
         self.clear_id(id)
         element = self.get_element_by_id(id)
-        element.send_keys(data)
-        if hide_log:
-            data = "***"
-        self.logger.info(f"Data '{data}' inputed into element with ID = '{id}'")
+        try:
+            element.send_keys(data)
+        except:
+            self.logger.error(f"Cannot input '{data}' into element with ID = '{id}'")
+        else:
+            if hide_log:
+                data = "***"
+            self.logger.info(f"Data '{data}' inputed into element with ID = '{id}'")
 
     def input_data_xpath(self, data, xpath, hide_log=False):
         self.clear_xpath(xpath)
         element = self.get_element_by_xpath(xpath)
-        element.send_keys(data)
-        if hide_log:
-            data = "***"
-        self.logger.info(f"Data '{data}' inputed into element with XPATH = '{xpath}'")
+        try:
+            element.send_keys(data)
+        except:
+            self.logger.error(f"Cannot input '{data}' into element with XPATH = '{xpath}'")
+        else:
+            if hide_log:
+                data = "***"
+            self.logger.info(f"Data '{data}' inputed into element with XPATH = '{xpath}'")
 
     def should_be_disabled_id(self, id):
         element = self.get_element_by_id(id)
@@ -164,7 +172,10 @@ class BasePage():
         element = self.get_element_by_xpath(xpath)
         length = len(element.get_attribute("value"))
         for i in range(length):
-            element.send_keys(Keys.BACKSPACE)
+            try:
+                element.send_keys(Keys.BACKSPACE)
+            except:
+                self.logger.error(f"Cannot complete BACKSPACE for element {xpath}")
 
     def select_in_dropdown(self, xpath, name):
         if (name is not None):
