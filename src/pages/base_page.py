@@ -33,17 +33,21 @@ class BasePage():
             self.logger.info(f"URL = '{url}' is followed")
             self.wait_for_complete_ready_state()
 
-    def get_element_by_xpath(self, xpath):
+    def get_element_by_xpath(self, xpath, clickable=False):
         try:
             element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH, xpath)))
+            if clickable:
+                element = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, xpath)))
         except:
             self.logger.error(f"Element with XPATH = '{xpath}' not found")
         else:
             return element
 
-    def get_element_by_id(self, id):
+    def get_element_by_id(self, id, clickable=False):
         try:
             element = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, id)))
+            if clickable:
+                element = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.ID, id)))
         except:
             self.logger.error(f"Element with ID = '{id}' not found")
         else:
@@ -91,7 +95,7 @@ class BasePage():
 
     def input_data_id(self, data, id, hide_log=False):
         self.clear_id(id)
-        element = self.get_element_by_id(id)
+        element = self.get_element_by_id(id, clickable=True)
         try:
             element.send_keys(data)
         except:
@@ -103,7 +107,7 @@ class BasePage():
 
     def input_data_xpath(self, data, xpath, hide_log=False):
         self.clear_xpath(xpath)
-        element = self.get_element_by_xpath(xpath)
+        element = self.get_element_by_xpath(xpath, clickable=True)
         try:
             element.send_keys(data)
         except:
@@ -163,13 +167,13 @@ class BasePage():
             self.input_data_xpath(data, f"//input[@name='{name}']", hide_log=hide_log)
 
     def clear_id(self, id):
-        element = self.get_element_by_id(id)
+        element = self.get_element_by_id(id, clickable=True)
         length = len(element.get_attribute("value"))
         for i in range(length):
             element.send_keys(Keys.BACKSPACE)
 
     def clear_xpath(self, xpath):
-        element = self.get_element_by_xpath(xpath)
+        element = self.get_element_by_xpath(xpath, clickable=True)
         length = len(element.get_attribute("value"))
         for i in range(length):
             try:
