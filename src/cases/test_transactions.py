@@ -210,7 +210,7 @@ class TestTransactions():
         la = LocationApi(smoke_api)
 
         activity_log_before = ala.get_activity_log()
-        last_activity_log_id_before = activity_log_before["entities"][0]["id"]
+        last_activity_log_id_before = activity_log_before["content"]["entities"][0]["id"]
         location = la.get_locations(smoke_api.data.shipto_id)[0]
         location["onHandInventory"] = 50
         location_list = [copy.deepcopy(location)]
@@ -244,7 +244,7 @@ class TestTransactions():
         for i in range(3):
             time.sleep(10)
             activity_log_after = ala.get_activity_log()
-            last_activity_log_id_after = activity_log_after["entities"][0]["id"]
+            last_activity_log_id_after = activity_log_after["content"]["entities"][0]["id"]
             if last_activity_log_id_after <= last_activity_log_id_before:
                 continue
             else:
