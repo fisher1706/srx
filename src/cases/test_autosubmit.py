@@ -155,7 +155,7 @@ class TestAutosubmit():
         assert transaction[0]["status"]== "ORDERED"
 
     @pytest.mark.regression
-    def test_same_order_id_after_bulk_create_with_autosubmit_immediately(self, api):
+    def test_same_order_id_after_bulk_create_with_autosubmit_immediately(self, api, delete_shipto):
         api.testrail_case_id = 6995
 
         ta = TransactionApi(api)
