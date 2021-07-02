@@ -274,7 +274,7 @@ class TestTransactions():
         osp = OrderStatusPage(context)
 
         setup_location = SetupLocation(ui)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         response_location = setup_location.setup()
 
         distributor_sku = response_location["product"]["partSku"]
@@ -312,7 +312,7 @@ class TestTransactions():
         la = LocationApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.add_option("transaction",'ACTIVE')
         response_location = setup_location.setup()
 

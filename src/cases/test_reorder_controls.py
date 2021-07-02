@@ -1,3 +1,4 @@
+from src.api.distributor.settings_api import SettingsApi
 import pytest
 import copy
 import time
@@ -882,6 +883,7 @@ class TestReorderControls():
 
         ta = TransactionApi(api)
         la = LocationApi(api)
+        sa = SettingsApi(api)
 
         LOCATION_MIN = 4
         LOCATION_MAX = 10
@@ -890,7 +892,7 @@ class TestReorderControls():
         
         #setup
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.setup_product.add_option("round_buy", ROUND_BUY)
         setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
         setup_location.add_option("min", LOCATION_MIN)
@@ -906,6 +908,7 @@ class TestReorderControls():
             transaction_id = transaction["entities"][-1]["id"]
             ta.update_replenishment_item(transaction_id, 1, "QUOTED")
 
+        sa.set_reorder_controls_settings_for_shipto(response_location["shipto_id"], reorder_controls="MIN", track_ohi=True, enable_reorder_control=True)
         #update location ohi
         location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
         location["onHandInventory"] = 0

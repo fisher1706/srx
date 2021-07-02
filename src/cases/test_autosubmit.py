@@ -26,7 +26,7 @@ class TestAutosubmit():
         ta = TransactionApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True, "immediately": True, "as_order": conditions["as_order"]})
         setup_location.add_option("autosubmit")
         response_location = setup_location.setup()
@@ -136,6 +136,7 @@ class TestAutosubmit():
     @pytest.mark.regression
     def test_immediately_autosubmit_for_reorder_control_transaction(self, api, delete_shipto):
         api.testrail_case_id = 2059
+
         la = LocationApi(api)
         ta = TransactionApi(api)
 
@@ -151,3 +152,28 @@ class TestAutosubmit():
         la.update_location([location],response_location["shipto_id"])
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction[0]["status"]== "ORDERED"
+
+    # @pytest.mark.regression
+    # def test_create_transaction_for_noweight_locker(self, api, delete_shipto):
+    #     api.testrail_case_id = 6995
+
+    #     ta = TransactionApi(api)
+
+    #     setup_location = SetupLocation(api)
+    #     setup_location.add_option("locker_location")
+    #     setup_location.setup_locker.add_option("no_weight")
+    #     setup_location.setup_product.add_option("issue_quantity", 1)
+    #     setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+
+    #     response_location = setup_location.setup()
+
+    #     location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+    #     location["onHandInventory"] = 1
+    #     location["orderingConfig"]["lockerWithNoWeights"] = True
+    #     location["id"] = response_location["location_id"]
+    #     la.update_location([location],response_location["shipto_id"])        
+    #     time.sleep(5)
+    #     transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
+    #     assert len(transaction) == 1, "The number of transactions should be equal to 1"
+    #     assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
+    #     assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
