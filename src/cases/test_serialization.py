@@ -16,7 +16,6 @@ class TestSerialization():
         setup_location.setup_product.add_option("serialized")
         setup_location.setup_product.add_option("lot")
         setup_location.setup_product.add_option("round_buy", 1)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         locations = la.get_locations(response_location["shipto_id"])
@@ -113,7 +112,6 @@ class TestSerialization():
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("serialized")
         setup_location.setup_product.add_option("round_buy", 1)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         response_location = setup_location.setup()
 
         products = pa.get_product(response_location["product"]["partSku"])
@@ -200,7 +198,6 @@ class TestSerialization():
 
         pa = ProductApi(api)
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("serialized")
         response_location = setup_location.setup()
@@ -386,7 +383,6 @@ class TestSerialization():
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
         setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         setup_location.setup_product.add_option("package_conversion", conditions["package_conversion"])
         response_location = setup_location.setup()

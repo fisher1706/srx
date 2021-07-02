@@ -13,12 +13,13 @@ class SettingsApi(API):
             self.logger.error(str(response.content))
 
     def set_reorder_controls_settings_for_shipto(self, shipto_id, reorder_controls=None, track_ohi=None, scan_to_order=None, enable_reorder_control=None):
+        #DEFAULT configuration is enabled Reorder Controls at MIN and enabled Track OHI. Scan to order is disabled
         if (reorder_controls is None):
             reorder_controls = "MIN"
         if (track_ohi is None):
             track_ohi = True
         if (scan_to_order is None):
-            scan_to_order = True
+            scan_to_order = False
         if (enable_reorder_control is None):
             enable_reorder_control = True
 

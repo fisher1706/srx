@@ -21,7 +21,7 @@ class TestPutAway():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("transaction", "ORDERED")
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         response_location = setup_location.setup()
 
         dto = response_location["put_away"]
@@ -110,7 +110,7 @@ class TestPutAway():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("transaction", "ORDERED")
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         response_location = setup_location.setup()
 
         setup_location.add_option("shipto_id", response_location["shipto_id"])
@@ -135,7 +135,7 @@ class TestPutAway():
 
         setup_location = SetupLocation(api)
         setup_location.add_option("transaction", "ORDERED")
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         response_location = setup_location.setup()
 
         dto = response_location["put_away"]
@@ -193,7 +193,7 @@ class TestPutAway():
         pa = PutAwayApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.add_option("transaction", "ACTIVE")
         response_location = setup_location.setup()
 
@@ -214,7 +214,7 @@ class TestPutAway():
 
         invalid_transaction_id = 999999
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.add_option("transaction", "ORDERED")
         response_location = setup_location.setup()
 
