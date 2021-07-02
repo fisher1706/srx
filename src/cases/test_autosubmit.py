@@ -1,5 +1,6 @@
 import pytest
 import copy
+from src.api.mobile.mobile_transaction_api import MobileTransactionApi
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.transaction_api import TransactionApi
@@ -153,27 +154,38 @@ class TestAutosubmit():
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction[0]["status"]== "ORDERED"
 
-    # @pytest.mark.regression
-    # def test_create_transaction_for_noweight_locker(self, api, delete_shipto):
-    #     api.testrail_case_id = 6995
+    @pytest.mark.regression
+    def test_same_order_id_after_bulk_create_with_autosubmit_immediately(self, api):
+        api.testrail_case_id = 6995
 
-    #     ta = TransactionApi(api)
+        ta = TransactionApi(api)
+        mta = MobileTransactionApi(api)
 
-    #     setup_location = SetupLocation(api)
-    #     setup_location.add_option("locker_location")
-    #     setup_location.setup_locker.add_option("no_weight")
-    #     setup_location.setup_product.add_option("issue_quantity", 1)
-    #     setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
+        setup_location.setup_shipto.add_option("autosubmit_settings", {"enabled": True, "immediately": True, "as_order": False})
+        setup_location.add_option("autosubmit")
+        response_location_1 = setup_location.setup()
 
-    #     response_location = setup_location.setup()
+        setup_location = SetupLocation(api)
+        setup_location.add_option("shipto_id", response_location_1["shipto_id"])
+        setup_location.add_option("autosubmit")
+        response_location_2 = setup_location.setup()
 
-    #     location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
-    #     location["onHandInventory"] = 1
-    #     location["orderingConfig"]["lockerWithNoWeights"] = True
-    #     location["id"] = response_location["location_id"]
-    #     la.update_location([location],response_location["shipto_id"])        
-    #     time.sleep(5)
-    #     transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
-    #     assert len(transaction) == 1, "The number of transactions should be equal to 1"
-    #     assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
-    #     assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
+        data = [
+            {
+                "partSku": response_location_1["product"]["partSku"],
+                "quantity": response_location_1["product"]["roundBuy"]
+            },
+            {
+                "partSku": response_location_2["product"]["partSku"],
+                "quantity": response_location_2["product"]["roundBuy"]
+            }
+        ]
+
+        mta.bulk_create(response_location_1["shipto_id"], data, status="QUOTED")
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"])["entities"]
+
+        assert len(transactions) == 2, "The number of transactions should be equal to 2"
+        order_id = f"SIQTE-{response_location_1['shipto']['number']}-{min(transactions[0]['id'], transactions[1]['id'])}-001"
+        assert transactions[0]["orderId"] == transactions[1]["orderId"] == order_id, "Incorrect Order ID"
