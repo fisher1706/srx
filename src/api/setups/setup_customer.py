@@ -1,3 +1,4 @@
+from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.customer_api import CustomerApi
 from src.api.distributor.user_api import UserApi
 from src.api.setups.base_setup import BaseSetup
@@ -11,7 +12,8 @@ class SetupCustomer(BaseSetup):
         self.setup_name = "Customer"
         self.options = {
             "expected_status_code": None,
-            "user": False
+            "user": False,
+            "clc": None
         }
         self.customer = Tools.get_dto("customer_dto.json")
         self.customer_id = None
@@ -21,6 +23,7 @@ class SetupCustomer(BaseSetup):
     def setup(self):
         self.set_customer()
         self.set_user()
+        self.set_clc()
 
         response = {
             "customer": self.customer,
@@ -48,3 +51,8 @@ class SetupCustomer(BaseSetup):
             self.user_email = self.options["user"] if isinstance(self.options["user"], str) else Tools.random_email()
             self.user_id = ua.create_customer_user(self.customer_id, self.user_email)
 
+    def set_clc(self):
+        if (self.options["clc"] is not None):
+            sa = SettingsApi(self.context)
+
+            sa.set_customer_level_catalog_flag(self.options["clc"], self.customer_id)

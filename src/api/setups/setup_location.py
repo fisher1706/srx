@@ -37,6 +37,7 @@ class SetupLocation(BaseSetup):
         self.product = None
         self.shipto = None
         self.shipto_id = None
+        self.customer_id = None
         self.iothub = None
         self.locker = None
         self.rfid = None
@@ -64,6 +65,7 @@ class SetupLocation(BaseSetup):
             "location": self.location,
             "location_id": self.location_id,
             "shipto_id": self.shipto_id,
+            "customer_id": self.customer_id,
             "iothub": self.iothub,
             "locker": self.locker,
             "rfid": self.rfid,
@@ -93,6 +95,7 @@ class SetupLocation(BaseSetup):
             shipto_response = self.setup_shipto.setup()
             self.shipto = shipto_response["shipto"]
             self.shipto_id = shipto_response["shipto_id"]
+            self.customer_id = shipto_response["customer_id"]
         else:
             sha = ShiptoApi(self.context)
             self.shipto_id = self.options["shipto_id"]
@@ -150,9 +153,9 @@ class SetupLocation(BaseSetup):
             self.location["autoSubmit"] = bool(self.options["autosubmit"])
         
         location_list = [copy.deepcopy(self.location)]
-        la.create_location(copy.deepcopy(location_list), self.shipto_id, expected_status_code=self.expected_status_code)
+        la.create_location(copy.deepcopy(location_list), self.shipto_id, expected_status_code=self.expected_status_code, customer_id=self.customer_id)
         if (self.expected_status_code is None):
-            self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
+            self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"], customer_id=self.customer_id)[-1]["id"]
 
     def set_rfid_labels(self):
         if (self.options["rfid_labels"] is not None):

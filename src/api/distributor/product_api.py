@@ -91,7 +91,31 @@ class ProductApi(API):
         response = self.send_get(url, token)
         if (response.status_code == 200):
             self.logger.info("Product has been successfully got")
+            response_json = response.json()
+            return response_json["data"]["entities"]
         else:
             self.logger.error(str(response.content))
-        response_json = response.json()
-        return response_json["data"]["entities"]
+
+    def get_customer_product(self, customer_id=None, product_sku=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/products?partSku={product_sku}")
+        token = self.get_distributor_token()
+        response = self.send_get(url, token)
+        if (response.status_code == 200):
+            self.logger.info("Customer product has been successfully got")
+            response_json = response.json()
+            return response_json["data"]["entities"]
+        else:
+            self.logger.error(str(response.content))
+
+    @Decorator.default_expected_code(200)
+    def update_customer_product(self, dto, product_id, customer_id, expected_status_code):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/products/{product_id}")
+        token = self.get_distributor_token()
+        response = self.send_put(url, token, dto)
+        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        if (response.status_code == 200):
+            self.logger.info(f"Customer product with SKU = '{dto['partSku']}' has been successfully updated")
+        else:
+            self.logger.info(f"Customer product updating completed with status_code = '{response.status_code}', as expected: {response.content}")
