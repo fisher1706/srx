@@ -17,8 +17,10 @@ class LocationApi(API):
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="creation", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
-    def update_location(self, dto, shipto_id, expected_status_code, mobile=False):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations/update")
+    def update_location(self, dto, shipto_id, expected_status_code, mobile=False, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations/update")
         token = self.get_mobile_or_base_token(mobile)
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)

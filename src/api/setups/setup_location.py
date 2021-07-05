@@ -65,6 +65,7 @@ class SetupLocation(BaseSetup):
             "location": self.location,
             "location_id": self.location_id,
             "shipto_id": self.shipto_id,
+            "customer_id": self.customer_id,
             "iothub": self.iothub,
             "locker": self.locker,
             "rfid": self.rfid,
