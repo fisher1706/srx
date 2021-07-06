@@ -388,7 +388,7 @@ class TestTransactions():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("transaction", conditions["transaction_status"])
         response_location = setup_location.setup()
