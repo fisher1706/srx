@@ -20,7 +20,7 @@ class SettingsApi(API):
             track_ohi = True
         if (scan_to_order is None):
             scan_to_order = False
-        if (enable_reorder_control is None):
+        if (enable_reorder_control is None and not scan_to_order):
             enable_reorder_control = True
 
         checkout_settings_dto = Tools.get_dto("reorder_controls_settings_dto.json")
