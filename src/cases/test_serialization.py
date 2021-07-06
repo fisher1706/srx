@@ -182,6 +182,32 @@ class TestSerialization():
 
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
 
+    # @pytest.mark.parametrize("conditions", [
+    #     {
+    #         "field": "packageConversion",
+    #         "testrail_case_id": 6997
+    #     },
+    #     {
+    #         "field": "roundBuy",
+    #         "testrail_case_id": 6998
+    #     }
+    #     ])
+    # @pytest.mark.regression
+    # def test_update_package_conversion_and_round_buy_of_serialized_product_with_clc(self, conditions, api):
+    #     api.testrail_case_id = conditions["testrail_case_id"]
+
+    #     pa = ProductApi(api)
+
+    #     setup_product = SetupProduct(api)
+    #     setup_product.add_option("serialized")
+    #     setup_product.add_option("round_buy", 1)
+    #     response_product = setup_product.setup()
+    #     product_id = response_product.pop("id")
+
+    #     response_product[conditions["field"]] = 2
+
+    #     pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
+
     @pytest.mark.parametrize("conditions", [
         {
             "field": "packageConversion",
@@ -208,6 +234,35 @@ class TestSerialization():
         response_product[conditions["field"]] = 2
 
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "field": "packageConversion",
+            "testrail_case_id": 7001
+        },
+        {
+            "field": "roundBuy",
+            "testrail_case_id": 7003
+        }
+        ])
+    @pytest.mark.regression
+    def test_update_package_conversion_and_round_buy_of_product_with_serialized_location_with_clc(self, api, conditions, delete_customer):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        pa = ProductApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.setup_customer.add_option("clc", True)
+        setup_location.setup_shipto.add_option("customer")
+        setup_location.setup_product.add_option("round_buy", 1)
+        setup_location.add_option("serialized")
+        response_location = setup_location.setup()
+
+        customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+        product_id = customer_product.pop("id")
+        customer_product[conditions["field"]] = 2
+
+        pa.update_customer_product(dto=customer_product, product_id=product_id, customer_id=response_location["customer_id"], expected_status_code=400)
 
     @pytest.mark.regression
     def test_ohi_of_created_serialized_product_location(self, api, delete_shipto):
@@ -392,3 +447,40 @@ class TestSerialization():
         location_dto["serialized"] = True
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"], expected_status_code=409)
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "package_conversion": 2,
+            "round_buy": 1,
+            "testrail_case_id": 6999
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 2,
+            "testrail_case_id": 7000
+        }
+        ])
+    @pytest.mark.regression
+    def test_update_location_to_serialized_with_package_conversion_and_round_buy_with_clc(self, api, conditions, delete_customer):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        la = LocationApi(api)
+        pa = ProductApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.setup_customer.add_option("clc", True)
+        setup_location.setup_shipto.add_option("customer")
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location = setup_location.setup()
+
+        customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+        product_id = customer_product.pop("id")
+        customer_product["packageConversion"] = conditions["package_conversion"]
+        customer_product["roundBuy"] = conditions["round_buy"]
+        pa.update_customer_product(dto=customer_product, product_id=product_id, customer_id=response_location["customer_id"])
+
+        location_dto = copy.deepcopy(response_location["location"])
+        location_dto["id"] = response_location["location_id"]
+        location_dto["serialized"] = True
+        location_list = [copy.deepcopy(location_dto)]
+        la.update_location(location_list, response_location["shipto_id"], expected_status_code=409, customer_id=response_location["customer_id"])

@@ -20,7 +20,7 @@ class SettingsApi(API):
             track_ohi = True
         if (scan_to_order is None):
             scan_to_order = False
-        if (enable_reorder_control is None):
+        if (enable_reorder_control is None and not scan_to_order):
             enable_reorder_control = True
 
         checkout_settings_dto = Tools.get_dto("reorder_controls_settings_dto.json")
@@ -153,3 +153,18 @@ class SettingsApi(API):
         checkout_settings_dto["settings"]["enableCheckoutSoftware"] = bool(checkout_software)
         checkout_settings_dto["settings"]["enableQrCodeKit"] = bool(qr_code_kit)
         self.update_checkout_settings(checkout_settings_dto, shipto_id)
+
+    def update_customer_level_catalog_flag(self, dto, customer_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/catalog/settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if response.status_code == 200:
+            self.logger.info(f"CLC flag of customer = '{customer_id}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
+
+    def set_customer_level_catalog_flag(self, flag, customer_id):
+        dto = {
+            "customerCatalogEnabled": flag
+        }
+        self.update_customer_level_catalog_flag(dto, customer_id)
