@@ -96,7 +96,7 @@ class TestWarehouses():
         edit_warehouse_body["invoiceEmail"] = Tools.random_email()
         #-------------------
     
-        wa.create_warehouse(dto = warehouse_body, expected_status_code=200)
-        wa.update__warehouse(dto = edit_warehouse_body, warehouese_id = wa.get_last_warehouse_id(), expected_status_code = 200)
-        wa.create_warehouse(dto=edit_warehouse_body,expected_status_code=400)#cannot create warhouse with exists number
-        wa.delete_warehouse(warehouese_id = wa.get_last_warehouse_id(),expected_status_code = 200)
+        response_body = wa.create_warehouse(dto=warehouse_body)
+        wa.update__warehouse(dto=edit_warehouse_body, warehouese_id=response_body["data"])
+        wa.create_warehouse(dto=edit_warehouse_body, expected_status_code=400) #cannot create warhouse with exists number
+        wa.delete_warehouse(warehouese_id=response_body["data"])

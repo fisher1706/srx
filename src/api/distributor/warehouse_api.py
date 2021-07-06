@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
+from src.fixtures.decorators import Decorator
 
 class WarehouseApi(API):
 
@@ -18,6 +19,7 @@ class WarehouseApi(API):
         "invoiceEmail": None
     }
 
+    @Decorator.default_expected_code(200)
     def create_warehouse(self,dto,expected_status_code):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/warehouses/create")
         token = self.get_distributor_token()
@@ -29,7 +31,8 @@ class WarehouseApi(API):
             return response_json
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Warehouses", operation="creation", status_code=response.status_code, content=response.content))
-       
+
+    @Decorator.default_expected_code(200)
     def update__warehouse(self, dto, warehouese_id, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{warehouese_id}/update")
         token = self.get_distributor_token()
@@ -40,6 +43,7 @@ class WarehouseApi(API):
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Warehouse", operation="updating", status_code=response.status_code, content=response.content))
   
+    @Decorator.default_expected_code(200)
     def delete_warehouse(self, warehouese_id, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{warehouese_id}/delete")
         token = self.get_distributor_token()
@@ -64,7 +68,3 @@ class WarehouseApi(API):
     def get_first_warehouse_id(self):
         response = self.get_warehouses()
         return response["data"]["entities"][0]["id"]
-
-    def get_last_warehouse_id(self):
-        response = self.get_warehouses()
-        return response["data"]["entities"][-1]["id"]

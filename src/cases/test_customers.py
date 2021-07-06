@@ -66,7 +66,7 @@ class TestCustomers():
 
 
     @pytest.mark.regression
-    def test_customer_unique_number(self, api,delete_customer ):
+    def test_customer_unique_number(self, api, delete_customer):
         api.testrail_case_id = "6544"
        
         ca = CustomerApi(api)
@@ -77,7 +77,7 @@ class TestCustomers():
         customer["name"] = "Customer Edit name"
         customer["number"] = response_customer["customer"]["number"]
 
-        ca.update_customer(dto=customer, customer_id=response_customer["customer_id"], expected_status_code=201)
+        ca.update_customer(dto=customer, customer_id=response_customer["customer_id"])
  
         not_unique_data = customer.copy()
         not_unique_data["name"] = "Name"
