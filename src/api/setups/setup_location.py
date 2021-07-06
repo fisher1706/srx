@@ -1,3 +1,4 @@
+from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.rfid_api import RfidApi
@@ -37,6 +38,7 @@ class SetupLocation(BaseSetup):
         self.product = None
         self.shipto = None
         self.shipto_id = None
+        self.customer_id = None
         self.iothub = None
         self.locker = None
         self.rfid = None
@@ -64,6 +66,7 @@ class SetupLocation(BaseSetup):
             "location": self.location,
             "location_id": self.location_id,
             "shipto_id": self.shipto_id,
+            "customer_id": self.customer_id,
             "iothub": self.iothub,
             "locker": self.locker,
             "rfid": self.rfid,
@@ -93,6 +96,7 @@ class SetupLocation(BaseSetup):
             shipto_response = self.setup_shipto.setup()
             self.shipto = shipto_response["shipto"]
             self.shipto_id = shipto_response["shipto_id"]
+            self.customer_id = shipto_response["customer_id"]
         else:
             sha = ShiptoApi(self.context)
             self.shipto_id = self.options["shipto_id"]
@@ -150,9 +154,9 @@ class SetupLocation(BaseSetup):
             self.location["autoSubmit"] = bool(self.options["autosubmit"])
         
         location_list = [copy.deepcopy(self.location)]
-        la.create_location(copy.deepcopy(location_list), self.shipto_id, expected_status_code=self.expected_status_code)
+        la.create_location(copy.deepcopy(location_list), self.shipto_id, expected_status_code=self.expected_status_code, customer_id=self.customer_id)
         if (self.expected_status_code is None):
-            self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
+            self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"], customer_id=self.customer_id)[-1]["id"]
 
     def set_rfid_labels(self):
         if (self.options["rfid_labels"] is not None):
@@ -165,11 +169,16 @@ class SetupLocation(BaseSetup):
     def set_transaction(self):
         ta = TransactionApi(self.context)
         la = LocationApi(self.context)
+        sa = SettingsApi(self.context)
 
         if (self.options["transaction"] is not None):
             if (self.options["type"] == "LABEL" or self.options["type"] == "BUTTON"):
                 ordering_config_id = la.get_ordering_config_by_sku(self.shipto_id, self.product["partSku"])
+                settings = sa.get_reorder_controls_settings_for_shipto(self.shipto_id)
+                if ("ENABLE_SCAN_TO_ORDER" not in settings["settings"]["labelOptions"]):
+                    sa.set_reorder_controls_settings_for_shipto(self.shipto_id, scan_to_order=True, enable_reorder_control=False)
                 ta.create_active_item(self.shipto_id, ordering_config_id, repeat=6)
+                sa.update_reorder_controls_settings_shipto(settings, self.shipto_id)
                 transaction = ta.get_transaction(sku=self.product["partSku"], shipto_id=self.shipto_id)
                 transaction_id = transaction["entities"][0]["id"]
                 reorderQuantity = transaction["entities"][0]["reorderQuantity"]

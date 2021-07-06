@@ -1,7 +1,5 @@
 import pytest
-import copy
 from src.resources.tools import Tools
-from src.resources.locator import Locator
 from src.resources.permissions import Permissions
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.cribcrawl_page import CribcrawlPage
