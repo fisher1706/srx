@@ -1,3 +1,4 @@
+from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.rfid_api import RfidApi
@@ -168,11 +169,16 @@ class SetupLocation(BaseSetup):
     def set_transaction(self):
         ta = TransactionApi(self.context)
         la = LocationApi(self.context)
+        sa = SettingsApi(self.context)
 
         if (self.options["transaction"] is not None):
             if (self.options["type"] == "LABEL" or self.options["type"] == "BUTTON"):
                 ordering_config_id = la.get_ordering_config_by_sku(self.shipto_id, self.product["partSku"])
+                settings = sa.get_reorder_controls_settings_for_shipto(self.shipto_id)
+                if ("ENABLE_SCAN_TO_ORDER" not in settings["settings"]["labelOptions"]):
+                    sa.set_reorder_controls_settings_for_shipto(self.shipto_id, scan_to_order=True, enable_reorder_control=False)
                 ta.create_active_item(self.shipto_id, ordering_config_id, repeat=6)
+                sa.update_reorder_controls_settings_shipto(settings, self.shipto_id)
                 transaction = ta.get_transaction(sku=self.product["partSku"], shipto_id=self.shipto_id)
                 transaction_id = transaction["entities"][0]["id"]
                 reorderQuantity = transaction["entities"][0]["reorderQuantity"]
