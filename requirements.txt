@@ -1,0 +1,8 @@
+selenium 
+requests
+boto3 
+warrant 
+pytest 
+mail-parser 
+beautifulsoup4 
+lxml
