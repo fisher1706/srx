@@ -20,7 +20,7 @@ class WarehouseApi(API):
     }
 
     @Decorator.default_expected_code(200)
-    def create_warehouse(self,dto,expected_status_code):
+    def create_warehouse(self, dto, expected_status_code):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/warehouses/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
@@ -33,7 +33,7 @@ class WarehouseApi(API):
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Warehouses", operation="creation", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
-    def update__warehouse(self, dto, warehouese_id, expected_status_code):
+    def update_warehouse(self, dto, warehouese_id, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{warehouese_id}/update")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
