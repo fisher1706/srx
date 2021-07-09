@@ -85,6 +85,33 @@ class Permissions():
             "value": value
         }]
         return response
+
+    @staticmethod
+    def mobile_rfid(action, value):
+        response = [{
+            "feature": "distributor.mobile.rfid",
+            "action": action,
+            "value": value
+        }]
+        return response
+
+    @staticmethod
+    def mobile_rfid_manage(action, value):
+        response = [{
+            "feature": "distributor.mobile.rfid.manage.rfid.tags",
+            "action": action,
+            "value": value
+        }]
+        return response
+
+    @staticmethod
+    def mobile_rfid_manifest(action, value):
+        response = [{
+            "feature": "distributor.mobile.rfid.manifest",
+            "action": action,
+            "value": value
+        }]
+        return response
         
     def rfids(action):
         response = [{

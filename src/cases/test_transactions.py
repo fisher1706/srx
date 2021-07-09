@@ -37,8 +37,8 @@ class TestTransactions():
         new_shipto_1 = response_location_1["shipto_id"]
         new_shipto_2 = response_location_2["shipto_id"]
         
-        sta.set_reorder_controls_settings_for_shipto(new_shipto_1)
-        sta.set_reorder_controls_settings_for_shipto(new_shipto_2)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_1, scan_to_order=True)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_2, scan_to_order=True)
 
         ta.create_active_item(new_shipto_1, la.get_ordering_config_by_sku(new_shipto_1, product_1_dto["partSku"]))
         ta.create_active_item(new_shipto_2, la.get_ordering_config_by_sku(new_shipto_2, product_2_dto["partSku"]))
@@ -84,8 +84,8 @@ class TestTransactions():
         new_shipto_1 = response_location_1["shipto_id"]
         new_shipto_2 = response_location_2["shipto_id"]
         
-        sta.set_reorder_controls_settings_for_shipto(new_shipto_1)
-        sta.set_reorder_controls_settings_for_shipto(new_shipto_2)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_1, scan_to_order=True)
+        sta.set_reorder_controls_settings_for_shipto(new_shipto_2, scan_to_order=True)
 
         ta.create_active_item(new_shipto_1, la.get_ordering_config_by_sku(new_shipto_1, product_1_dto["partSku"]))
         ta.create_active_item(new_shipto_2, la.get_ordering_config_by_sku(new_shipto_2, product_2_dto["partSku"]))
@@ -274,7 +274,7 @@ class TestTransactions():
         osp = OrderStatusPage(context)
 
         setup_location = SetupLocation(ui)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         response_location = setup_location.setup()
 
         distributor_sku = response_location["product"]["partSku"]
@@ -312,7 +312,7 @@ class TestTransactions():
         la = LocationApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.add_option("transaction",'ACTIVE')
         response_location = setup_location.setup()
 
@@ -388,7 +388,7 @@ class TestTransactions():
         pa = ProductApi(api)
         
         setup_location = SetupLocation(api)
-        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         setup_location.setup_product.add_option("round_buy", 1)
         setup_location.add_option("transaction", conditions["transaction_status"])
         response_location = setup_location.setup()

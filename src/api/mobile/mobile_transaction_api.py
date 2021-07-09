@@ -4,15 +4,17 @@ import time
 
 
 class MobileTransactionApi(API):
-    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None):
+    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None, status=None):
         if customer_id is None:
             customer_id = self.data.customer_id
         if admin_context is not None:
             ta = TransactionApi(admin_context)
         else:
             ta = TransactionApi(self.context)
+        if status is None:
+            status = "ACTIVE"
         len_of_dto = len(dto)
-        transactions_count = ta.get_transactions_count(shipto_id=shipto_id, status="ACTIVE")
+        transactions_count = ta.get_transactions_count(shipto_id=shipto_id, status=status)
         for count in range(1, repeat):
             url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/bulkCreate")
             token = self.get_mobile_distributor_token()
@@ -22,7 +24,7 @@ class MobileTransactionApi(API):
             }
             response = self.send_post(url, token, dto, params=params)
             time.sleep(5)
-            new_transactions_count = ta.get_transactions_count(shipto_id=shipto_id, status="ACTIVE")
+            new_transactions_count = ta.get_transactions_count(shipto_id=shipto_id, status=status)
             if (new_transactions_count >= transactions_count+len_of_dto):
                 if (response.status_code == 200):
                     self.logger.info("New transactions have been successfully created")
