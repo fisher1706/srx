@@ -79,11 +79,10 @@ class TestPutAway():
         ta = TransactionApi(api)
         pa = PutAwayApi(api)
         la = LocationApi(api)
-        sa = SettingsApi(api)
 
         setup_location = SetupLocation(api)
         setup_location.add_option("transaction", "ORDERED")
-        setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
         response_location = setup_location.setup()
 
         ordering_config_id = la.get_ordering_config_by_sku(response_location["shipto_id"], response_location["product"]["partSku"])
