@@ -471,6 +471,7 @@ class TestSerialization():
         setup_location.setup_shipto.setup_customer.add_option("clc", True)
         setup_location.setup_shipto.add_option("customer")
         setup_location.setup_product.add_option("round_buy", 1)
+        setup_location.setup_product.add_option("package_conversion", 1)
         response_location = setup_location.setup()
 
         customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
@@ -479,8 +480,16 @@ class TestSerialization():
         customer_product["roundBuy"] = conditions["round_buy"]
         pa.update_customer_product(dto=customer_product, product_id=product_id, customer_id=response_location["customer_id"])
 
+        product = pa.get_product(response_location["product"]["partSku"])[0]
+        customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+        assert product["packageConversion"] == 1
+        assert product["roundBuy"] == 1
+        assert customer_product["packageConversion"] == conditions["package_conversion"]
+        assert customer_product["roundBuy"] == conditions["round_buy"]
+
         location_dto = copy.deepcopy(response_location["location"])
         location_dto["id"] = response_location["location_id"]
         location_dto["serialized"] = True
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"], expected_status_code=409, customer_id=response_location["customer_id"])
+
