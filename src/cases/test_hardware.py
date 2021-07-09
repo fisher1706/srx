@@ -16,7 +16,7 @@ class TestHardware():
         ha = DistributorHardwareApi(smoke_api)
         response = ha.get_device_list()
         count = len(response)
-        assert count != 0, "Device list is empty"
+        assert count != 0, f"Device list is empty\nResponse: {response}"
 
     @pytest.mark.regression
     def test_delete_location_by_change_doortype(self, api, delete_shipto, delete_hardware):
