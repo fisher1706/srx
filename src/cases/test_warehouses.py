@@ -60,7 +60,6 @@ class TestWarehouses():
         wp.check_last_warehouse(edit_warehouse_body.copy())
         wp.delete_last_warehouse()
 
-    @pytest.mark.acl
     @pytest.mark.regression
     def test_warehouses_unique_number(self, api):
         
@@ -97,6 +96,6 @@ class TestWarehouses():
         #-------------------
     
         response_body = wa.create_warehouse(dto=warehouse_body)
-        wa.update__warehouse(dto=edit_warehouse_body, warehouese_id=response_body["data"])
+        wa.update_warehouse(dto=edit_warehouse_body, warehouese_id=response_body["data"])
         wa.create_warehouse(dto=edit_warehouse_body, expected_status_code=400) #cannot create warhouse with exists number
         wa.delete_warehouse(warehouese_id=response_body["data"])
