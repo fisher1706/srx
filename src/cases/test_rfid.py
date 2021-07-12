@@ -1,3 +1,4 @@
+from src.api.distributor.location_api import LocationApi
 import pytest
 from src.resources.locator import Locator
 from src.resources.tools import Tools
@@ -168,7 +169,7 @@ class TestRfid():
 
         transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])
         transaction_count = transaction["totalElements"]
-        assert transaction_count == 1, "The number of transactions should be equal to 1"
+        assert transaction_count == 1, f"The number of transactions should be equal to 1, but now it is {transaction_count}"
         assert transaction["entities"][0]["reorderQuantity"] == response_location["product"]["roundBuy"], f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']}"
         assert transaction["entities"][0]["product"]["partSku"] == response_location["product"]["partSku"]
 
@@ -195,12 +196,55 @@ class TestRfid():
         rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])
         test_label_body = rfid_labels_response[0]
 
-        assert test_label_body["state"] == "ISSUED", f"RFID label should be in AVAILABLE status, now {test_label_body['state']}"
+        assert test_label_body["state"] == "ISSUED", f"RFID label should be in ISSUED status, now {test_label_body['state']}"
 
-        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
-        assert len(transaction) == 1, "The number of transactions should be equal to 1"
-        assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
-        assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
+        transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])
+        transaction_count = transaction["totalElements"]
+        assert transaction_count == 1, f"The number of transactions should be equal to 1, but now it is {transaction_count}"
+        assert transaction["entities"][0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
+        assert transaction["entities"][0]["product"]["partSku"] == response_location["product"]["partSku"]
+
+    @pytest.mark.regression
+    def test_can_read_rfid_label_only_from_correct_shipto(self, api, delete_shipto, delete_hardware):
+        api.testrail_case_id = 7008
+
+        ra = RfidApi(api)
+        la = LocationApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("rfid_location")
+        setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location_1 = setup_location.setup()
+
+        setup_location = SetupLocation(api)
+        setup_location.add_option("type", "RFID")
+        setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_product.add_option("round_buy", 1)
+        response_location_2 = setup_location.setup()
+
+        location_1 = la.get_locations(shipto_id=response_location_1["shipto_id"])[0]
+        assert location_1["onHandInventory"] == 0
+        location_2 = la.get_locations(shipto_id=response_location_2["shipto_id"])[0]
+        assert location_2["onHandInventory"] == 0
+
+        test_label_1 = response_location_1["rfid_labels"][0]["label"]
+        ra.update_rfid_label(response_location_1["location_id"], response_location_1["rfid_labels"][0]["rfid_id"], "AVAILABLE")
+        test_label_2 = response_location_2["rfid_labels"][0]["label"]
+        ra.update_rfid_label(response_location_2["location_id"], response_location_2["rfid_labels"][0]["rfid_id"], "AVAILABLE")
+
+        location_1 = la.get_locations(shipto_id=response_location_1["shipto_id"])[0]
+        assert location_1["onHandInventory"] == 1
+        location_2 = la.get_locations(shipto_id=response_location_2["shipto_id"])[0]
+        assert location_2["onHandInventory"] == 1
+
+        ra.rfid_issue(response_location_1["rfid"]["value"], test_label_1)
+        rfid_labels_response = ra.get_rfid_labels(response_location_1["location_id"])
+        assert rfid_labels_response[0]["state"] == "ISSUED", f"RFID label should be in ISSUED status, now {rfid_labels_response[0]['state']}"
+
+        ra.rfid_issue(response_location_1["rfid"]["value"], test_label_2)
+        rfid_labels_response = ra.get_rfid_labels(response_location_2["location_id"])
+        assert rfid_labels_response[0]["state"] == "AVAILABLE", f"RFID label should be in AVAILABLE status, now {rfid_labels_response[0]['state']}"
 
     @pytest.mark.regression
     def test_full_return_rfid_available_flow(self, api, delete_shipto, delete_hardware):
