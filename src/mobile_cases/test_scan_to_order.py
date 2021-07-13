@@ -1,6 +1,7 @@
 from src.api.mobile.mobile_transaction_api import MobileTransactionApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.setups.setup_location import SetupLocation
+from src.api.distributor.location_api import LocationApi
 from src.resources.permissions import Permissions
 import pytest
 
@@ -167,14 +168,40 @@ class TestScanToOrder():
 
         assert len(transactions) == 0, "There should be 0 transactions, products cannot be ordered, these products with asset flag"
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            
+            "testrail_case_id": 2188,
+            "round_buy": 10,
+            "reorder_qty_exist_1": 30,
+            "reorder_qty_exist_2": 50,
+            "reorder_qty_new_1": 30,
+            "reorder_qty_new_2": 50,
+            "result_reorder_qty_1": 30,
+            "result_reorder_qty_2": 50
+
+        },
+        {
+            "testrail_case_id": 7007,
+            "round_buy": 4,
+            "reorder_qty_exist_1": 16,
+            "reorder_qty_exist_2": 28,
+            "reorder_qty_new_1": 24,
+            "reorder_qty_new_2": 56,
+            "result_reorder_qty_1": 24,
+            "result_reorder_qty_2": 56
+        }
+    ])
     @pytest.mark.regression
-    def test_bulk_create_for_exist_transactions_in_active(self, mobile_api, delete_shipto):
-        mobile_api.testrail_case_id = 2188
+    def test_bulk_create_for_exist_transactions_in_active(self, mobile_api, conditions, delete_shipto):
+        mobile_api.testrail_case_id = conditions["testrail_case_id"]
         mta = MobileTransactionApi(mobile_api)
         ta = TransactionApi(mobile_api)
+        la = LocationApi(mobile_api)
 
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
+        setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -182,34 +209,78 @@ class TestScanToOrder():
         data = [
             {
                 "partSku": response_location_1["product"]["partSku"],
-                "quantity": response_location_1["product"]["roundBuy"] * 3
+                "quantity": conditions["reorder_qty_exist_1"]
             },
             {
                 "partSku": response_location_2["product"]["partSku"],
-                "quantity": response_location_2["product"]["roundBuy"] * 3
+                "quantity": conditions["reorder_qty_exist_2"]
             }
         ]
 
         mta.bulk_create(response_location_1["shipto_id"], data)
 
-        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
-        mta.bulk_create(response_location_1["shipto_id"], data, repeat=3, failed=True)
-        transactions_after_re_request = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        order_config_id_1 = la.get_ordering_config_by_sku(response_location_1["shipto_id"], response_location_1["product"]["partSku"])
+        order_config_id_2 = la.get_ordering_config_by_sku(response_location_2["shipto_id"], response_location_2["product"]["partSku"])
 
-        assert len(transactions_after_re_request) == len(transactions), "Transactions already exist in Active status"
+        exist_transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        transaction_id_1 = exist_transactions[0]["id"]
+        transaction_id_2 = exist_transactions[1]["id"]
+
+        new_data = [
+            {
+                "partSku": response_location_1["product"]["partSku"],
+                "locationId": response_location_1["location_id"],
+                "orderingConfigId": order_config_id_1,
+                "quantity": conditions["reorder_qty_new_1"],
+                "transactionId": transaction_id_1
+            },
+            {
+                "partSku": response_location_2["product"]["partSku"],
+                "locationId": response_location_2["location_id"],
+                "orderingConfigId": order_config_id_2,
+                "quantity": conditions["reorder_qty_new_2"],
+                "transactionId": transaction_id_2
+            }
+        ]
+        
+        mta.bulk_create(response_location_1["shipto_id"], new_data, repeat=2, failed=True)
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        assert len(transactions) == 2, "Transactions already exist in Active status and new transaction has been not created"
+        total_transactions_count = ta.get_transactions_count(shipto_id = response_location_1["shipto_id"])
+        assert total_transactions_count == 2, "The total transactions count should be equal 2"
+        assert transactions[0]["reorderQuantity"] == conditions["result_reorder_qty_1"], f"Reorder quantity of {transactions[0]['productPartSku']} should be equal to {conditions['result_reorder_qty_1']}"
+        assert transactions[1]["reorderQuantity"] == conditions["result_reorder_qty_2"], f"Reorder quantity of {transactions[1]['productPartSku']} should be equal to {conditions['result_reorder_qty_2']}"
 
     @pytest.mark.parametrize("conditions", [
         {
             "status": "ORDERED",
-            "testrail_case_id": 2190
+            "testrail_case_id": 2190,
+            "round_buy": 10,
+            "reorder_qty_exist_1": 30,
+            "reorder_qty_exist_2": 50,
+            "reorder_qty_new_1": 40,
+            "reorder_qty_new_2": 20
+
+
         },
         {
             "status": "SHIPPED",
-            "testrail_case_id": 2192
+            "testrail_case_id": 2192,
+            "round_buy": 8,
+            "reorder_qty_exist_1": 32,
+            "reorder_qty_exist_2": 64,
+            "reorder_qty_new_1": 40,
+            "reorder_qty_new_2": 56
         },
         {
             "status": "QUOTED",
-            "testrail_case_id": 2193
+            "testrail_case_id": 2193,
+            "round_buy": 3,
+            "reorder_qty_exist_1": 27,
+            "reorder_qty_exist_2": 54,
+            "reorder_qty_new_1": 36,
+            "reorder_qty_new_2": 42
+
         }
     ])
     @pytest.mark.regression
@@ -220,6 +291,7 @@ class TestScanToOrder():
 
         setup_location = SetupLocation(mobile_api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
+        setup_location.setup_product.add_option("round_buy", conditions["round_buy"])
         response_location_1 = setup_location.setup()
         setup_location.add_option("shipto_id", response_location_1["shipto_id"])
         response_location_2 = setup_location.setup()
@@ -227,11 +299,11 @@ class TestScanToOrder():
         data = [
             {
                 "partSku": response_location_1["product"]["partSku"],
-                "quantity": response_location_1["product"]["roundBuy"] * 3
+                "quantity": conditions["reorder_qty_exist_1"]
             },
             {
                 "partSku": response_location_2["product"]["partSku"],
-                "quantity": response_location_2["product"]["roundBuy"] * 3
+                "quantity": conditions["reorder_qty_exist_2"]
             }
         ]
 
@@ -239,23 +311,39 @@ class TestScanToOrder():
 
         transactions_in_active = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
 
-        ta.update_replenishment_item(transactions_in_active[0]["id"], response_location_1['product']['roundBuy']*3, conditions["status"])
-        ta.update_replenishment_item(transactions_in_active[1]["id"], response_location_2['product']['roundBuy']*3, conditions["status"])
+        ta.update_replenishment_item(transactions_in_active[0]["id"], conditions["reorder_qty_exist_1"], conditions["status"])
+        ta.update_replenishment_item(transactions_in_active[1]["id"], conditions["reorder_qty_exist_2"], conditions["status"])
 
         transactions_after_update = ta.get_transaction(shipto_id=response_location_1["shipto_id"])["entities"]
 
-        assert transactions_after_update[0]["status"] == conditions["status"], f"Status of {transactions_after_update[0]['productPartSku']} should be equal condition status"
-        assert transactions_after_update[1]["status"] == conditions["status"], f"Status of {transactions_after_update[1]['productPartSku']} should be equal condition status"
+        assert len(transactions_after_update) == 2, f"There are should be 2 transactions in {conditions['status']} status"
+        assert transactions_after_update[0]["status"] == conditions["status"], f"Status of {transactions_after_update[0]['productPartSku']} should be equal {conditions['status']} status"
+        assert transactions_after_update[1]["status"] == conditions["status"], f"Status of {transactions_after_update[1]['productPartSku']} should be equal {conditions['status']} status"
 
-        mta.bulk_create(response_location_1["shipto_id"], data)
-        transactions_in_active = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        data_for_new_transactions = [
+            {
+                "partSku": response_location_1["product"]["partSku"],
+                "quantity": conditions["reorder_qty_new_1"]
+            },
+            {
+                "partSku": response_location_2["product"]["partSku"],
+                "quantity": conditions["reorder_qty_new_2"]
+            }
+        ]
 
-        assert transactions_in_active[0]["reorderQuantity"] == 0, f"Reorder quantity of {transactions_in_active[0]['productPartSku']} should be equal to 0"
-        assert transactions_in_active[1]["reorderQuantity"] == 0, f"Reorder quantity of {transactions_in_active[1]['productPartSku']} should be equal to 0"
+        mta.bulk_create(response_location_1["shipto_id"], data_for_new_transactions)
 
-        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"])["entities"]
+        new_transactions_in_active = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
+        assert len(new_transactions_in_active) == 2, f"There are should be 2 transactions in ACTIVE status"
+        assert new_transactions_in_active[0]["reorderQuantity"] == conditions["reorder_qty_new_1"], f"Reorder quantity of {new_transactions_in_active[0]['productPartSku']} should be equal to {conditions['reorder_qty_new_1']}"
+        assert new_transactions_in_active[1]["reorderQuantity"] == conditions["reorder_qty_new_2"], f"Reorder quantity of {new_transactions_in_active[1]['productPartSku']} should be equal to {conditions['reorder_qty_new_2']}"
 
-        assert len(transactions) == 4, "There are should be 4 transactions in the given ShipTo "
+        transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status = conditions["status"])["entities"]
+        assert transactions[0]["reorderQuantity"] == conditions["reorder_qty_exist_1"], f"Reorder quantity of {transactions[0]['productPartSku']} should be equal to {conditions['reorder_qty_exist_1']}"
+        assert transactions[1]["reorderQuantity"] == conditions["reorder_qty_exist_2"], f"Reorder quantity of {transactions[1]['productPartSku']} should be equal to {conditions['reorder_qty_exist_2']}"
+        
+        total_transactions_count = ta.get_transactions_count(shipto_id = response_location_1["shipto_id"])
+        assert total_transactions_count == 4, "The total transactions count should be equal 4"
 
     @pytest.mark.parametrize("conditions", [
         {
