@@ -44,8 +44,8 @@ class LocationApi(API):
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="reading", status_code=response.status_code, content=response.content))
 
-    def get_ordering_config_by_sku(self, shipto_id, sku):
-        response = self.get_location_by_sku(shipto_id, sku)
+    def get_ordering_config_by_sku(self, shipto_id, sku, customer_id=None):
+        response = self.get_location_by_sku(shipto_id, sku, customer_id=customer_id)
         return response[0]["orderingConfig"]["id"]
 
     @Decorator.default_expected_code(200)

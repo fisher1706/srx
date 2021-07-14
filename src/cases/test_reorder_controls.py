@@ -403,7 +403,7 @@ class TestReorderControls():
         }
         ])
     @pytest.mark.regression
-    def test_create_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_create, delete_shipto, delete_hardware):
+    def test_create_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_create, delete_shipto):
         api.testrail_case_id = conditions_rfid_create["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -411,9 +411,10 @@ class TestReorderControls():
         ra = RfidApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.add_option("rfid_location")
+        setup_location.add_option("type", "RFID")
         setup_location.add_option("rfid_labels", 1)
-        setup_location.setup_product.add_option("issue_quantity",300)
+        setup_location.setup_shipto.add_option("customer.clc", False)
+        setup_location.setup_product.add_option("issue_quantity", 300)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_rfid_create["reorder_controls"]})
         response_location = setup_location.setup()
 
@@ -421,10 +422,9 @@ class TestReorderControls():
 
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["issueQuantity"] /= conditions_rfid_create["created_coeff"]
-        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        pa.update_product(dto=product_dto, product_id=response_location["product"]["id"])
         time.sleep(5)
         transaction_updated = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
-        quantity = transaction_updated[0]["reorderQuantity"]
         assert transaction_updated[0]["status"] == "ACTIVE"
 
     @pytest.mark.parametrize("conditions_rfid_update", [
@@ -438,7 +438,7 @@ class TestReorderControls():
         }
         ])
     @pytest.mark.regression
-    def test_update_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_update, delete_shipto, delete_hardware):
+    def test_update_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_update, delete_shipto):
         api.testrail_case_id = conditions_rfid_update["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -446,9 +446,10 @@ class TestReorderControls():
         ra = RfidApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.add_option("rfid_location")
+        setup_location.add_option("type", 'RFID')
         setup_location.add_option("rfid_labels", 1)
-        setup_location.setup_product.add_option("issue_quantity",1)
+        setup_location.setup_shipto.add_option("customer.clc", False)
+        setup_location.setup_product.add_option("issue_quantity", 1)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_rfid_update["reorder_controls"]})
         response_location = setup_location.setup()
 
@@ -475,7 +476,7 @@ class TestReorderControls():
         }
         ])
     @pytest.mark.regression
-    def test_close_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_close, delete_shipto, delete_hardware):
+    def test_close_transaction_rfid_by_updated_issue_qnt(self, api, conditions_rfid_close, delete_shipto):
         api.testrail_case_id = conditions_rfid_close["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -483,8 +484,9 @@ class TestReorderControls():
         ra = RfidApi(api)
 
         setup_location = SetupLocation(api)
-        setup_location.add_option("rfid_location")
+        setup_location.add_option("type", "RFID")
         setup_location.add_option("rfid_labels", 1)
+        setup_location.setup_shipto.add_option("customer.clc", False)
         setup_location.setup_product.add_option("issue_quantity",1)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_rfid_close["reorder_controls"]})
         response_location = setup_location.setup()
