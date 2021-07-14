@@ -418,7 +418,7 @@ class TestReorderControls():
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_rfid_create["reorder_controls"]})
         response_location = setup_location.setup()
 
-        ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE", )
+        ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
 
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["issueQuantity"] /= conditions_rfid_create["created_coeff"]
