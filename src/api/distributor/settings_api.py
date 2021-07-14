@@ -154,7 +154,9 @@ class SettingsApi(API):
         checkout_settings_dto["settings"]["enableQrCodeKit"] = bool(qr_code_kit)
         self.update_checkout_settings(checkout_settings_dto, shipto_id)
 
-    def update_customer_level_catalog_flag(self, dto, customer_id):
+    def update_customer_level_catalog_flag(self, dto, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/catalog/settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
@@ -163,7 +165,9 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_customer_level_catalog_flag(self, flag, customer_id):
+    def set_customer_level_catalog_flag(self, flag, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
         dto = {
             "customerCatalogEnabled": flag
         }
