@@ -18,7 +18,8 @@ class SetupShipto(BaseSetup):
             "reorder_controls_settings": None,
             "delete": True,
             "customer": False,
-            "expected_status_code": None
+            "expected_status_code": None,
+            "customer.clc": None, #update current customer's settings
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
         self.id = None
@@ -32,6 +33,7 @@ class SetupShipto(BaseSetup):
         self.set_autosubmit_settings()
         self.set_serialization_settings()
         self.set_reorder_controls_settings()
+        self.set_customer_clc_settings()
 
         response = {
             "shipto": self.shipto,
@@ -119,3 +121,8 @@ class SetupShipto(BaseSetup):
                     self.options["serialization_settings"].get("alarm"))
             else:
                 self.context.logger.warning(f"Unknown 'serialization_settings' option: '{self.options['serialization_settings']}'")
+
+    def set_customer_clc_settings(self):
+        if (self.options["customer.clc"] is not None):
+            sa = SettingsApi(self.context)
+            sa.set_customer_level_catalog_flag(self.options["customer.clc"], self.customer_id)
