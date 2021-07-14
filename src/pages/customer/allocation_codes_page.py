@@ -28,15 +28,15 @@ class AllocationCodesPage(CustomerPortalPage):
     def enter_values(self, values):
         if (values is not None):
             for value in values:
-                element = self.get_element_by_xpath("//div[@name='values']//input")
+                element = self.get_element_by_xpath("//label[text()='Values']/..//input")
                 element.send_keys(value)
                 element.send_keys(Keys.ENTER)
 
     def is_required(self, condition):
         if (condition is not None):
-            if (condition):
+            if condition:
                 return "Yes"
-            elif (not condition):
+            elif not condition:
                 return "No"
             else:
                 return None
@@ -45,7 +45,6 @@ class AllocationCodesPage(CustomerPortalPage):
         table_cells = {
             "Name": allocation_code_body["name"],
             "Type": allocation_code_body["type"],
-            "Required": self.is_required(allocation_code_body["isRequired"]),
             "Values": allocation_code_body["values"],
         }
         for cell in table_cells.keys():
