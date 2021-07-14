@@ -22,8 +22,8 @@ class ActivityLogApi(API):
 
     def check_event(self, event, options):
         if (options.get("action") is not None):
-            assert event["entities"][0]["action"] == options["action"], f"Action should be: {options['action']}, but it is {event['entities'][0]['action']}"
+            assert event["content"]["entities"][0]["action"] == options["action"], f"Action should be: {options['action']}, but it is {event['content']['entities'][0]['action']}"
         if (options.get("event_type") is not None):
-            assert event["entities"][0]["type"] == options["event_type"], f"Type should be: {options['event_type']}, but it is {event['entities'][0]['type']}" 
+            assert event["content"]["entities"][0]["type"] == options["event_type"], f"Type should be: {options['event_type']}, but it is {event['content']['entities'][0]['type']}" 
         if (options.get("name") is not None):
-            assert event["entities"][0]["eventContent"]["name"] == options["name"], f"Name should be: {options['name']}, but it is {event['entities'][0]['eventContent']['name']}"
+            assert event["content"]["entities"][0]["eventContent"]["name"] == options["name"], f"Name should be: {options['name']}, but it is {event['content']['entities'][0]['eventContent']['name']}"
