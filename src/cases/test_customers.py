@@ -221,7 +221,6 @@ class TestCustomers():
 
         lp = LoginPage(ui)
         acp = AllocationCodesPage(ui)
-        alp = ActivityLogPage(ui)
         ala = ActivityLogApi(ui)
         allocation_code_body = acp.allocation_code_body.copy()
         edit_allocation_code_body = acp.allocation_code_body.copy()
@@ -236,19 +235,6 @@ class TestCustomers():
         edit_allocation_code_body["name"] = Tools.random_string_u(10)
         edit_allocation_code_body["values"] = [Tools.random_string_u(7)]
         edit_allocation_code_body["isRequired"] = False
-        #-------------------
-        activity_log_main_body = {
-            "Type": "AllocationCodes",
-            "Action": "ALLOCATION_CODES_CREATE",
-            "User": ui.customer_email,
-            "User Type": "USER",
-            "Result": "SUCCESS"
-        }
-        #-------------------
-        activity_log_expanded_body = {
-            "codeType": "DROP_DOWN",
-            "name": allocation_code_body["name"]
-        }
         #-------------------
         options = {
             "action": None,
