@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
 from src.waits import wait_until_disabled, page_url_is, dialog_is_not_present, elements_count_should_be, is_page_loading, last_page, is_progress_bar_loading, wait_until_dropdown_list_loaded
 from src.resources.locator import Locator
 import csv
@@ -70,7 +71,8 @@ class BasePage():
     def click_id(self, id, timeout=20):
         element = self.get_element_by_id(id)
         try:
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            actions = ActionChains(self.driver)
+            actions.move_to_element(element).perform()
             WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, id)))
             element.click()
         except TimeoutException:
@@ -83,7 +85,8 @@ class BasePage():
     def click_xpath(self, xpath, timeout=20):
         element = self.get_element_by_xpath(xpath)
         try:
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            actions = ActionChains(self.driver)
+            actions.move_to_element(element).perform()
             WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath)))
             element.click()
         except TimeoutException:
