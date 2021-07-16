@@ -1,3 +1,5 @@
+from src.api.distributor.product_api import ProductApi
+from src.api.setups.setup_product import SetupProduct
 import pytest
 from src.resources.tools import Tools
 from src.resources.locator import Locator
@@ -221,3 +223,64 @@ class TestAssets():
         location = la.get_location_by_sku(shipto_id, asset)
         transaction = ta.get_transaction(sku=asset, shipto_id=shipto_id)
         assert transaction["totalElements"] == 0, f"There should not be transactions with SKU: {asset}"
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "package_conversion": 2,
+            "round_buy": 1,
+            "issue_quantity": 1,
+            "testrail_case_id": 7497
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 2,
+            "issue_quantity": 1,
+            "testrail_case_id": 7495
+        },
+        {
+            "package_conversion": 1,
+            "round_buy": 1,
+            "issue_quantity": 2,
+            "testrail_case_id": 7496
+        }
+        ])
+    @pytest.mark.regression
+    def test_create_asset_product_with_package_conversion_and_round_buy_and_issue_quantity(self, api, conditions):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        setup_product = SetupProduct(api)
+        setup_product.add_option("asset")
+        setup_product.add_option("package_conversion", conditions["package_conversion"])
+        setup_product.add_option("round_buy", conditions["round_buy"])
+        setup_product.add_option("issue_quantity", conditions["issue_quantity"])
+        setup_product.setup(expected_status_code=400)
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "field": "packageConversion",
+            "testrail_case_id": 7500
+        },
+        {
+            "field": "roundBuy",
+            "testrail_case_id": 7498
+        },
+        {
+            "field": "issueQuantity",
+            "testrail_case_id": 7499
+        },
+        ])
+    @pytest.mark.regression
+    def test_update_asset_product_with_package_conversion_and_round_buy_and_issue_quantity(self, conditions, api):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        pa = ProductApi(api)
+
+        setup_product = SetupProduct(api)
+        setup_product.add_option("asset")
+        setup_product.add_option("round_buy", 1)
+        response_product = setup_product.setup()
+        product_id = response_product.pop("id")
+
+        response_product[conditions["field"]] = 2
+
+        pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
