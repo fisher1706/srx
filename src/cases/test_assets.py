@@ -284,3 +284,36 @@ class TestAssets():
         response_product[conditions["field"]] = 2
 
         pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)
+
+    @pytest.mark.parametrize("conditions", [
+        {
+            "field": "packageConversion",
+            "testrail_case_id": 7503
+        },
+        {
+            "field": "roundBuy",
+            "testrail_case_id": 7501
+        },
+        {
+            "field": "issueQuantity",
+            "testrail_case_id": 7502
+        }
+        ])
+    @pytest.mark.regression
+    def test_update_asset_product_with_package_conversion_and_round_buy_and_issue_quantity_with_clc(self, api, conditions, delete_customer):
+        api.testrail_case_id = conditions["testrail_case_id"]
+
+        pa = ProductApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_shipto.setup_customer.add_option("clc", True)
+        setup_location.setup_shipto.add_option("customer")
+        setup_location.setup_product.add_option("round_buy", 1)
+        setup_location.setup_product.add_option("asset")
+        response_location = setup_location.setup()
+
+        customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+        product_id = customer_product.pop("id")
+        customer_product[conditions["field"]] = 2
+
+        pa.update_customer_product(dto=customer_product, product_id=product_id, customer_id=response_location["customer_id"], expected_status_code=400)
