@@ -1,4 +1,7 @@
+from src.api.distributor.location_api import LocationApi
 import pytest
+import copy
+from src.api.setups.setup_location import SetupLocation
 from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.resources.permissions import Permissions
@@ -231,3 +234,33 @@ class TestCatalog():
         filename = response["filename"]
         pa.file_upload(url)
         import_status = pa.get_import_status(filename)
+
+    @pytest.mark.regression
+    def test_cannot_create_location_with_incorrect_min_max(self, api, delete_customer):
+        api.testrail_case_id = 7518
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("round_buy", 10)
+        setup_location.setup_shipto.add_option("customer")
+        setup_location.add_option("min", 1)
+        setup_location.add_option("max", 10)
+        setup_location.setup(expected_status_code=409)
+
+    @pytest.mark.regression
+    def test_cannot_update_location_with_incorrect_min_max(self, api, delete_customer):
+        api.testrail_case_id = 7519
+
+        la = LocationApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("round_buy", 10)
+        setup_location.setup_shipto.add_option("customer")
+        setup_location.add_option("min", 1)
+        setup_location.add_option("max", 11)
+        response_location = setup_location.setup()
+
+        location_dto = copy.deepcopy(response_location["location"])
+        location_dto["id"] = response_location["location_id"]
+        location_dto["orderingConfig"]["currentInventoryControls"]["max"] = 10
+        location_list = [copy.deepcopy(location_dto)]
+        la.update_location(location_list, response_location["shipto_id"], customer_id=response_location["customer_id"], expected_status_code=409)
