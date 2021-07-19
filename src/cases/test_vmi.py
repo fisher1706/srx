@@ -34,7 +34,7 @@ class TestVmi():
         vp.click_id(Locator.id_add_button)
         vp.input_data_xpath(product_sku, Locator.xpath_dialog+Locator.xpath_select_box+"//input")
         vp.wait_until_dropdown_list_loaded(1)
-        vp.check_found_dropdown_list_item(Locator.xpath_dropdown_list_item, product_sku)
+        vp.check_found_dropdown_list_item(Locator.xpath_dropdown_list_item, f"DSKU: {product_sku}")
 
     @pytest.mark.parametrize("permissions", [
         {

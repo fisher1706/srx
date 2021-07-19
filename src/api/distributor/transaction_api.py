@@ -4,10 +4,12 @@ from src.fixtures.decorators import Decorator
 import time
 
 class TransactionApi(API):
-    def create_active_item(self, shipto_id, ordering_config_id, repeat=21):
+    def create_active_item(self, shipto_id, ordering_config_id, repeat=21, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
         transactions_count = self.get_transactions_count(shipto_id=shipto_id)
         for count in range (1, repeat):
-            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={self.data.customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
+            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
             token = self.get_mobile_distributor_token()
             response = self.send_post(url, token)
             time.sleep(5)
@@ -40,7 +42,7 @@ class TransactionApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def get_transaction(self, sku=None, status=None, customer_id=None, shipto_id=None, ids=None):
+    def get_transaction(self, sku=None, status=None, shipto_id=None, ids=None):
         url_string = f"/distributor-portal/distributor/replenishments/list/items?"
         if (sku is not None):
             url_string += f"productPartSku={sku}&"
@@ -69,7 +71,7 @@ class TransactionApi(API):
         return response_json["data"]
 
     def get_transactions_count(self, sku=None, status=None, customer_id=None, shipto_id=None):
-        response = self.get_transaction(sku=sku, status=status, customer_id=customer_id, shipto_id=shipto_id)
+        response = self.get_transaction(sku=sku, status=status, shipto_id=shipto_id)
         return response["totalElements"]
 
     def get_transaction_id(self, sku=None, status=None, customer_id=None, shipto_id=None):
