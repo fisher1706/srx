@@ -194,7 +194,7 @@ class TestReorderControls():
             }
             ])
     @pytest.mark.regression
-    def test_close_transaction_by_pack_conversion_update(self, api, conditions_close_by_pack, delete_shipto):
+    def test_close_transaction_by_pack_conversion_update(self, api, conditions_close_by_pack, delete_customer):
         api.testrail_case_id = conditions_close_by_pack["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -204,6 +204,7 @@ class TestReorderControls():
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_close_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
+        setup_location.setup_shipto.add_option("customer")
         setup_location.setup_product.add_option("package_conversion", conditions_close_by_pack["pack_conv"])
         setup_location.add_option("transaction",'ACTIVE')
         response_location = setup_location.setup()
@@ -228,7 +229,7 @@ class TestReorderControls():
             }
             ])
     @pytest.mark.regression
-    def test_create_transaction_by_pack_conversion_update(self, api, conditions_create_by_pack, delete_shipto):
+    def test_create_transaction_by_pack_conversion_update(self, api, conditions_create_by_pack, delete_customer):
         api.testrail_case_id = conditions_create_by_pack["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -237,6 +238,7 @@ class TestReorderControls():
         
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_create_by_pack['reorder_controls']})
+        setup_location.setup_shipto.add_option("customer")
         setup_location.add_option("ohi","MAX")
         setup_location.setup_product.add_option("package_conversion", "1")
         response_location = setup_location.setup()
@@ -263,7 +265,7 @@ class TestReorderControls():
             }
             ])
     @pytest.mark.regression
-    def test_update_transaction_quantity_by_pack_conversion_update(self, api, conditions_update_by_pack, delete_shipto):
+    def test_update_transaction_quantity_by_pack_conversion_update(self, api, conditions_update_by_pack, delete_customer):
         api.testrail_case_id = conditions_update_by_pack["testrail_case_id"]
 
         ta = TransactionApi(api)
@@ -273,6 +275,7 @@ class TestReorderControls():
         setup_location = SetupLocation(api)
         setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": True,"track_ohi":True, "reorder_controls" :conditions_update_by_pack['reorder_controls']})
         setup_location.add_option("ohi","MAX")
+        setup_location.setup_shipto.add_option("customer")
         setup_location.setup_product.add_option("package_conversion", conditions_update_by_pack["pack_conv"])
         setup_location.add_option("transaction",'ACTIVE')
         response_location = setup_location.setup()
@@ -282,7 +285,7 @@ class TestReorderControls():
 
         product_dto = copy.deepcopy(response_location["product"])
         product_dto["packageConversion"] = conditions_update_by_pack["update_pack_conv"]
-        pa.update_product(dto = product_dto, product_id  =response_location["product"]["id"])
+        pa.update_product(dto = product_dto, product_id=response_location["product"]["id"])
         time.sleep(5)
         transaction_updated= ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
         assert transaction_updated[0]["reorderQuantity"] == quantity_old*1.5
