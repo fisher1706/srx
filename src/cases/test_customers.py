@@ -67,7 +67,7 @@ class TestCustomers():
 
     @pytest.mark.regression
     def test_customer_unique_number(self, api, delete_customer):
-        api.testrail_case_id = "6544"
+        api.testrail_case_id = 6544
        
         ca = CustomerApi(api)
 

@@ -62,8 +62,7 @@ class TestWarehouses():
 
     @pytest.mark.regression
     def test_warehouses_unique_number(self, api):
-        
-        api.testrail_case_id = "6545"
+        api.testrail_case_id = 6545
 
         wa = WarehouseApi(api) 
 
