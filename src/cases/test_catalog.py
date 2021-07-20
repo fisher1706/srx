@@ -253,7 +253,7 @@ class TestCatalog():
         },
         { 
             "clc": True,
-            "testrail_case_id": 2267
+            "testrail_case_id": 7522
         }
         ])
     @pytest.mark.regression
