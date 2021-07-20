@@ -110,7 +110,9 @@ class ProductApi(API):
             self.logger.error(str(response.content))
 
     @Decorator.default_expected_code(200)
-    def update_customer_product(self, dto, product_id, customer_id, expected_status_code):
+    def update_customer_product(self, dto, product_id, expected_status_code, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/products/{product_id}")
         token = self.get_distributor_token()
         response = self.send_put(url, token, dto)

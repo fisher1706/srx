@@ -49,6 +49,11 @@ class Tools():
             writer = csv.writer(file)
             writer.writerows(table)
 
+    def generate_log(folder, data):
+        with open(folder, 'a') as f:
+            for entry in data:
+                f.write(str(entry) + '\n')
+
     @staticmethod
     def ymd_dateformat(months):
         return time.strftime("%Y/%m/%d", time.localtime(time.time() + 3600*24*30*months))

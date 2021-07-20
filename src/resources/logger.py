@@ -1,4 +1,5 @@
 import logging
+from src.resources.tools import Tools
 import traceback
 import time
 import os
@@ -23,6 +24,7 @@ class Logger():
                 except OSError:
                     self.info(f"Creation of Screenshots directory is failed")
             self.context.driver.save_screenshot(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.png")
+            Tools.generate_log(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.log", self.context.driver.get_log("performance"))
             self.info("EXCEPTION")
             self.info(f"URL: {self.context.driver.current_url}")
             try:
