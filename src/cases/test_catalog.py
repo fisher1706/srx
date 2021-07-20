@@ -246,15 +246,26 @@ class TestCatalog():
         setup_location.add_option("max", 10)
         setup_location.setup(expected_status_code=409)
 
+    @pytest.mark.parametrize("conditions", [
+        {
+            "clc": None,
+            "testrail_case_id": 7519
+        },
+        { 
+            "clc": True,
+            "testrail_case_id": 7522
+        }
+        ])
     @pytest.mark.regression
-    def test_cannot_update_location_with_incorrect_min_max(self, api, delete_customer):
-        api.testrail_case_id = 7519
+    def test_cannot_update_location_with_incorrect_min_max(self, api, conditions, delete_customer):
+        api.testrail_case_id = conditions["testrail_case_id"]
 
         la = LocationApi(api)
 
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("round_buy", 10)
         setup_location.setup_shipto.add_option("customer")
+        setup_location.setup_shipto.setup_customer.add_option("clc", conditions["clc"])
         setup_location.add_option("min", 1)
         setup_location.add_option("max", 11)
         response_location = setup_location.setup()
@@ -264,3 +275,22 @@ class TestCatalog():
         location_dto["orderingConfig"]["currentInventoryControls"]["max"] = 10
         location_list = [copy.deepcopy(location_dto)]
         la.update_location(location_list, response_location["shipto_id"], customer_id=response_location["customer_id"], expected_status_code=409)
+
+    @pytest.mark.regression
+    def test_cannot_update_product_round_buy_with_incorrect_min_max(self, api, delete_customer):
+        api.testrail_case_id = 7520
+
+        pa = ProductApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("round_buy", 10)
+        setup_location.setup_shipto.add_option("customer")
+        setup_location.add_option("min", 1)
+        setup_location.add_option("max", 11)
+        response_location = setup_location.setup()
+
+        response_product = response_location["product"]
+        product_id = response_product.pop("id")
+        response_product["roundBuy"] = 11
+
+        pa.update_product(dto=response_product, product_id=product_id, expected_status_code=400)

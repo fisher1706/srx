@@ -62,8 +62,10 @@ class LocationApi(API):
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="reading", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
-    def delete_location(self, location_id, shipto_id, expected_status_code):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations/delete")
+    def delete_location(self, location_id, shipto_id, expected_status_code, customer_id=None):
+        if (customer_id is None):
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations/delete")
         token = self.get_distributor_token()
         location_dto = [{"id": location_id}]
         response = self.send_post(url, token, location_dto)
