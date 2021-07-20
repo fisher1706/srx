@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 pytest_plugins = [
    "src.fixtures.context_filling",
@@ -80,7 +81,9 @@ def driver(request, session_context):
     if browser_name == "chrome":
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1300,1000")
-        driver = webdriver.Chrome(options=chrome_options)
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        driver = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
     elif browser_name == "firefox":
         driver = webdriver.Firefox()
     elif browser_name == "chrome-headless":
@@ -90,7 +93,9 @@ def driver(request, session_context):
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--enable-automation")
-        driver = webdriver.Chrome(options=chrome_options)
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        driver = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
     else:
         raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
     driver.set_page_load_timeout(30)
