@@ -101,3 +101,31 @@ class TestCustomerCatalog():
         response_product["roundBuy"] = 2
 
         pa.update_product(dto=response_product, product_id=product_id)
+
+    @pytest.mark.regression
+    def test_create_variant_when_update_clc(self, api, delete_customer):
+        api.testrail_case_id = 7529
+
+        pa = ProductApi(api)
+
+        setup_location = SetupLocation(api)
+        setup_location.setup_product.add_option("round_buy", 10)
+        setup_location.setup_shipto.add_option("customer")
+        setup_location.setup_shipto.setup_customer.add_option("clc")
+        response_location = setup_location.setup()
+
+        customer_product =  pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+        assert customer_product["variant"] == False
+        assert customer_product["roundBuy"] == 10
+
+        customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+        product_id = customer_product.pop("id")
+        customer_product["roundBuy"] = 1
+        pa.update_customer_product(customer_product, product_id, customer_id=response_location["customer_id"])
+
+        customer_product =  pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+        assert customer_product["variant"] == True
+        assert customer_product["roundBuy"] == 1
+
+        distributor_product = pa.get_product(response_location["product"]["partSku"])[0]
+        assert distributor_product["roundBuy"] == 10
