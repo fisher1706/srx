@@ -86,9 +86,12 @@ class ProductApi(API):
             self.logger.info(f"Product updating completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     def get_product(self, product_sku=None):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/products?partSku={product_sku}")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/products")
+        params = {
+            "partSku": product_sku
+        }
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info("Product has been successfully got")
             response_json = response.json()
@@ -99,9 +102,12 @@ class ProductApi(API):
     def get_customer_product(self, customer_id=None, product_sku=None):
         if customer_id is None:
             customer_id = self.data.customer_id
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/products?partSku={product_sku}")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/products")
+        params = {
+            "partSku": product_sku
+        }
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info("Customer product has been successfully got")
             response_json = response.json()
