@@ -88,6 +88,7 @@ class TestCustomerCatalog():
         api.testrail_case_id = 7524
 
         pa = ProductApi(api)
+
         setup_location = SetupLocation(api)
         setup_location.setup_product.add_option("round_buy", 10)
         setup_location.setup_shipto.add_option("customer")
