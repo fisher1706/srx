@@ -1,4 +1,3 @@
-from re import T
 from src.api.api import API
 from src.fixtures.decorators import Decorator
 from src.resources.tools import Tools
