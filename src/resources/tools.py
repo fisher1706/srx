@@ -49,6 +49,7 @@ class Tools():
             writer = csv.writer(file)
             writer.writerows(table)
 
+    @staticmethod
     def generate_log(folder, data):
         with open(folder, 'a') as f:
             for entry in data:
@@ -93,3 +94,8 @@ class Tools():
         mail = mailparser.parse_from_file(folder)
         root = fromstring(mail.body)
         return root.xpath("//b[text()='Reset password']/../@href")
+
+    @staticmethod
+    def add_to_dict_if_not_none(dict, key, value):
+        if value is not None:
+            dict[key] = value

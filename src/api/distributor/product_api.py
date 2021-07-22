@@ -55,11 +55,14 @@ class ProductApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def get_import_status(self, filename):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/import-status/Products/{filename}?type=PARSE_AND_VALIDATE")
+    def get_import_status(self, filename, type="PARSE_AND_VALIDATE"):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/import-status/Products/{filename}")
+        params = {
+            "type": type
+        }
         token = self.get_distributor_token()
         for i in range(30):
-            response = self.send_get(url, token)
+            response = self.send_get(url, token, params=params)
             if (response.status_code == 404):
                 self.logger.info(f"File not found. Next attempt after 5 seconds")
                 time.sleep(5)
