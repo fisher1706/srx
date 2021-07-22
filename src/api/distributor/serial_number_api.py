@@ -5,7 +5,7 @@ from src.resources.messages import Message
 class SerialNumberApi(API):
     @Decorator.default_expected_code(201)
     def create_serial_number(self, location_id, shipto_id, serial_number, expected_status_code, additional_options=None, lot=None):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber/")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber")
         token = self.get_distributor_token()
         dto = {
             "location":{
@@ -61,9 +61,12 @@ class SerialNumberApi(API):
         return self.get_serial_number_base(shipto_id)["totalElements"]
 
     def get_serial_number_base(self, shipto_id):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumbers?shipToId={shipto_id}")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumbers")
+        params = {
+            "shipToId": shipto_id
+        }
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params)
         if (response.status_code == 200):
             self.logger.info("Serial Number has been successfully got")
         else:

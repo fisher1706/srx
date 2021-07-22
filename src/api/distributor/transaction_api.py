@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
+from src.resources.tools import Tools
 from src.fixtures.decorators import Decorator
 import time
 
@@ -8,10 +9,15 @@ class TransactionApi(API):
         if customer_id is None:
             customer_id = self.data.customer_id
         transactions_count = self.get_transactions_count(shipto_id=shipto_id)
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem")
+        params = {
+            "customerId": customer_id,
+            "shipToId": shipto_id,
+            "orderingConfigId": ordering_config_id
+        }
+        token = self.get_mobile_distributor_token()
         for count in range (1, repeat):
-            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
-            token = self.get_mobile_distributor_token()
-            response = self.send_post(url, token)
+            response = self.send_post(url, token, params=params)
             time.sleep(5)
             new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)
             if (new_transactions_count >= transactions_count+1):
@@ -45,12 +51,9 @@ class TransactionApi(API):
     def get_transaction(self, sku=None, status=None, shipto_id=None, ids=None):
         url_string = f"/distributor-portal/distributor/replenishments/list/items"
         params = dict()
-        if sku is not None:
-            params["productPartSku"] = sku
-        if status is not None:
-            params["status"] = status
-        if shipto_id is not None:
-            params["shipToIds"] = shipto_id
+        Tools.add_to_dict_if_not_none(params, "productPartSku", sku)
+        Tools.add_to_dict_if_not_none(params, "status", status)
+        Tools.add_to_dict_if_not_none(params, "shipToIds", shipto_id)
         if ids is not None:
             ids_string = ""
             if isinstance(ids, list):
@@ -102,4 +105,3 @@ class TransactionApi(API):
             self.logger.info(f"Transaction has been successfully submitted")
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))
-

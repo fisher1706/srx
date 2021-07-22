@@ -33,9 +33,12 @@ class LocationApi(API):
     def get_location_by_sku(self, shipto_id, sku, expected_status_code, mobile=False, customer_id=None):
         if customer_id is None:
             customer_id = self.data.customer_id
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations?orderingConfig.product.partSku={sku}")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations")
+        params = {
+            "orderingConfig.product.partSku": sku
+        }
         token = self.get_mobile_or_base_token(mobile)
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info("Location has been successfully got")
@@ -79,9 +82,13 @@ class LocationApi(API):
     def location_bulk_update(self, action, shipto_id, expected_status_code, all=False, customer_id=None, ids=None):
         if (customer_id is None):
             customer_id = self.data.customer_id
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations/bulkUpdate?action={action}&all={all}")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations/bulkUpdate")
+        params = {
+            "action": action,
+            "all": all
+        }
         token = self.get_distributor_token()
-        response = self.send_post(url, token, ids)
+        response = self.send_post(url, token, ids, params=params)
         assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         self.logger.info(f"Location bulk update completed with status_code = '{response.status_code}', as expected: {response.content}")
 
