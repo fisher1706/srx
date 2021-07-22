@@ -22,7 +22,7 @@ class TransactionApi(API):
             new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)
             if (new_transactions_count >= transactions_count+1):
                 if (response.status_code == 200):
-                    self.logger.info("New transaction has been successfully created")
+                    self.logger.info(Message.entity_operation_done.format(entity="Transaction", operation="created"))
                 else:
                     self.logger.error(str(response.content))
                 if (new_transactions_count > transactions_count+1):
@@ -102,6 +102,6 @@ class TransactionApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"Transaction has been successfully submitted")
+            self.logger.info(Message.entity_operation_done.format(entity="Transaction", operation="submitted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))

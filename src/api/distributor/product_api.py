@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.fixtures.decorators import Decorator
+from src.resources.messages import Message
 import requests
 import os
 import time
@@ -10,21 +11,21 @@ class ProductApi(API):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/products/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 201):
             self.logger.info(f"New product '{dto['partSku']}' has been successfully created")
             response_json = response.json()
             product_id = (response_json["data"].split("/"))[-1]
             return product_id
         else:
-            self.logger.info(f"Product creation completed with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Product", operation="creation", status_code=response.status_code, content=response.content))
 
     def get_upload_url(self):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/products/upload-url")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info(f"Upload URL has been successfully created")
+            self.logger.info(Message.entity_operation_done.format(entity="Upload URL", operation="created"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -51,7 +52,7 @@ class ProductApi(API):
         else:
             self.logger.error("Max retries exceeded")
         if (response.status_code == 200):
-            self.logger.info(f"File has been successfuly upload")
+            self.logger.info(Message.entity_operation_done.format(entity="File", operation="upload"))
         else:
             self.logger.error(str(response.content))
 
@@ -68,7 +69,7 @@ class ProductApi(API):
                 time.sleep(5)
                 continue
             elif (response.status_code == 200):
-                self.logger.info(f"File status successfuly got")
+                self.logger.info(Message.entity_operation_done.format(entity="File status", operation="got"))
                 break
             else:
                 self.logger.error(str(response.content))
@@ -82,11 +83,11 @@ class ProductApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/products/{product_id}/update")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"Product with SKU = '{dto['partSku']}' has been successfully updated")
         else:
-            self.logger.info(f"Product updating completed with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Product", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_product(self, product_sku=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/products")
@@ -96,7 +97,7 @@ class ProductApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Product has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Product", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
         else:
@@ -112,7 +113,7 @@ class ProductApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Customer product has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Customer product", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
         else:
@@ -125,8 +126,8 @@ class ProductApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/products/{product_id}")
         token = self.get_distributor_token()
         response = self.send_put(url, token, dto)
-        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"Customer product with SKU = '{dto['partSku']}' has been successfully updated")
         else:
-            self.logger.info(f"Customer product updating completed with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer product", operation="updating", status_code=response.status_code, content=response.content))

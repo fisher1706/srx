@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.tools import Tools
+from src.resources.messages import Message
 import time
 
 class SettingsApi(API):
@@ -8,7 +9,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info(f"Reorder Controls settings of shipto with ID = '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Reorder Controls settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -39,7 +40,7 @@ class SettingsApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/checkout-software/settings")
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info(f"Checkout software settings of shipto with ID = '{shipto_id}' has been successfully got")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Checkout Software settings of shipto", id=shipto_id, operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -52,7 +53,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"Auto-Submit settings of shipto with ID = '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Auto-Submit settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -68,7 +69,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"RL Rules settings of shipto with ID = '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="RL Rules settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -83,7 +84,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"Serialization settings of shipto with ID = '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Serialization settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -103,7 +104,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_put(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"Adjustment settings of shipto with ID = '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Adjustment settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -124,7 +125,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(f"Adjustment settings of shipto with ID = '{shipto_id}' has been successfully got")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Adjustment settings of shipto", id=shipto_id, operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -135,7 +136,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"VMI List settings of shipto with ID = '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="VMI List settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -144,7 +145,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"QR Code Kit & Checkout Portal settings of shipto with ID = '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="QR Code Kit & Checkout Portal settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -161,7 +162,7 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"CLC flag of customer = '{customer_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="CLC flag of customer", id=customer_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
