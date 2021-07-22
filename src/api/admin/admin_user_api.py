@@ -1,18 +1,17 @@
+from re import T
 from src.api.api import API
-import urllib.parse
 from src.fixtures.decorators import Decorator
+from src.resources.tools import Tools
 
 class AdminUserApi(API):
     def get_distributor_user(self, email=None, distributor_id=None):
         if distributor_id is None:
             distributor_id = self.data.distributor_id
-        url_string = f"/admin-portal/admin/distributors/{distributor_id}/users/pageable?"
-        if email is not None:
-            email = urllib.parse.quote(email)
-            url_string += f"email={email}"
-        url = self.url.get_api_url_for_env(url_string)
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/{distributor_id}/users/pageable")
+        params = dict()
+        Tools.add_to_dict_if_not_none(params, "email", email)
         token = self.get_admin_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params)
         if response.status_code == 200:
             self.logger.info("Distributor user has been successfully got")
         else:
