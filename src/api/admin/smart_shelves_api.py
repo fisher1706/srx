@@ -3,7 +3,7 @@ from src.resources.tools import Tools
 
 class SmartShelvesApi(API):
     def create_smart_shelf(self, dto):
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/smart-shelves/")
+        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/smart-shelves")
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
@@ -34,9 +34,12 @@ class SmartShelvesApi(API):
         return response_json["data"]
 
     def get_smart_shelves_id(self, locker_name):
-        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves?&lockerSerial={locker_name}")
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves")
+        params = {
+            "lockerSerial": locker_name
+        }
         token = self.get_admin_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info("Smart Shelf id has been successfully got")
         else:
@@ -45,9 +48,12 @@ class SmartShelvesApi(API):
         return response_json["data"]["entities"][0]["id"]
 
     def get_smart_shelves_id_assigned_to_hardware(self, hardware_name):
-        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves?&lockerSerial={hardware_name}")
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves")
+        params = {
+            "lockerSerial": hardware_name
+        }
         token = self.get_admin_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info("Smart Shelf id has been successfully got")
         else:
@@ -102,7 +108,7 @@ class SmartShelvesApi(API):
                 smart_shelf_dto["doorConfiguration"]["hardware"]["id"] = locker_body_second["id"]
                 first_door_configuration = self.get_door_configuration(locker_body_second["id"])[0]
                 smart_shelf_dto["doorConfiguration"]["id"] = first_door_configuration["id"]
-        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves/")
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves")
         token = self.get_admin_token()
         response = self.send_put(url, token, smart_shelf_dto)
         if (response.status_code == 200):
@@ -111,9 +117,12 @@ class SmartShelvesApi(API):
             self.logger.error(str(response.content))
 
     def get_smart_shelf(self, locker_name):
-        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves?&lockerSerial={locker_name}")
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/smart-shelves")
+        params = {
+            "lockerSerial": locker_name
+        }
         token = self.get_admin_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info("Smart Shelf has been successfully got")
         else:

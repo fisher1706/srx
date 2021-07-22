@@ -1,5 +1,5 @@
+from src.resources.tools import Tools
 from src.api.api import API
-import urllib.parse
 from src.fixtures.decorators import Decorator
 
 class UserApi(API):
@@ -87,25 +87,12 @@ class UserApi(API):
         else:
             self.logger.info(f"User updating completed with status_code = '{response.status_code}', as expected: {response.content}")
 
-    def get_distributor_super_user_by_email(self, email):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/superusers/pageable?email={email}")
-        token = self.get_distributor_token()
-        response = self.send_get(url, token)
-        if (response.status_code == 200):
-            self.logger.info("Distributor super user has been successfully got")
-        else:
-            self.logger.error(str(response.content))
-        response_json = response.json()
-        return response_json["data"]["entities"]
-
     def get_distributor_user(self, email):
-        url_string = "/distributor-portal/distributor/users/pageable?"
-        if (email is not None):
-            email = urllib.parse.quote(email)
-            url_string += f"email={email}&"
-        url = self.url.get_api_url_for_env(url_string)
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/users/pageable")
+        params = dict()
+        Tools.add_to_dict_if_not_none(params, "email", email)
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info("Distributor user has been successfully got")
         else:

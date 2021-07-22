@@ -147,7 +147,7 @@ class AdminHardwareApi(API):
         return response_json["data"]
 
     def update_hardware(self, dto):
-        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware/")
+        url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware")
         token = self.get_admin_token()
         response = self.send_put(url, token, dto)
         if (response.status_code == 200):

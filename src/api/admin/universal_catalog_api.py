@@ -2,9 +2,15 @@ from src.api.api import API
 
 class UniversalCatalogApi(API):
     def get_universal_catalog(self, upc="", gtin="", manufacturer="", manufacturer_part_number="", count=False):
-        url = self.url.get_api_url_for_env(f"/admin-portal/admin/upc-gtin-catalog?upc={upc}&gtin={gtin}&manufacturer={manufacturer}&manufacturerPartNumber={manufacturer_part_number}")
+        url = self.url.get_api_url_for_env(f"/admin-portal/admin/upc-gtin-catalog")
+        params = {
+            "upc": upc,
+            "gtin": gtin,
+            "manufacturer": manufacturer,
+            "manufacturerPartNumber": manufacturer_part_number
+        }
         token = self.get_admin_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info("Universal catalog has been successfully got")
         else:
