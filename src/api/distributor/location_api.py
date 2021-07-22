@@ -41,7 +41,7 @@ class LocationApi(API):
         response = self.send_get(url, token, params=params)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info("Location has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Location", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
         else:
@@ -58,7 +58,7 @@ class LocationApi(API):
         response = self.send_get(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info("Locations was successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Location", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
         else:
@@ -74,7 +74,7 @@ class LocationApi(API):
         response = self.send_post(url, token, location_dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"Location with ID = '{location_id}' has been successfully deleted")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Location", id=location_id, operation="deleted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Location", operation="deletion", status_code=response.status_code, content=response.content))
 
@@ -99,7 +99,7 @@ class LocationApi(API):
         response = self.send_get(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info("VMI Analysis has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="VMI Analysis", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
         else:
