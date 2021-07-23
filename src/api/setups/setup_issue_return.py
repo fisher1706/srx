@@ -1,7 +1,5 @@
 from src.api.checkout.checkout_api import CheckoutApi
 from src.api.distributor.location_api import LocationApi
-from src.resources.tools import Tools
-import copy
 
 def setup_issue_return(context, shipto_id, product, quantity=None, epc=None, issue_product=None, return_product=None, passcode=None):
     ca = CheckoutApi(context)

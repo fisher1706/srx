@@ -1,6 +1,5 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
-import time
 
 class DistributorSecurityGroups(DistributorPortalPage):
     distributor_security_group_body = {
