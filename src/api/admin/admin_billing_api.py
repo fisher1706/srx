@@ -1,4 +1,5 @@
 from src.api.api import API
+from src.resources.messages import Message
 
 class AdminBillingApi(API):
     def billing_calculate(self, timestamp):
@@ -9,7 +10,7 @@ class AdminBillingApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Billing calculation has been completed")
+            self.logger.info(Message.entity_operation_done.format(entity="Billing calculation", operation="completed"))
         else:
             self.logger.error(str(response.content))
 
@@ -21,6 +22,6 @@ class AdminBillingApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Billing transition has been completed")
+            self.logger.info(Message.entity_operation_done.format(entity="Billing transition", operation="completed"))
         else:
             self.logger.error(str(response.content))

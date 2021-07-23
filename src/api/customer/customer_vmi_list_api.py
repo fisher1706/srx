@@ -15,7 +15,7 @@ class CustomerVmiListApi(API):
         response = self.send_get(url, token, params=params)
 
         if (response.status_code == 200):
-            self.logger.info("Locations has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Location", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()

@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.tools import Tools
+from src.resources.messages import Message
 
 class SubmitApi(API):
     def update_replenishment_item(self, shipto_id, replenishment_item_id, reorder_quantity):
@@ -10,7 +11,7 @@ class SubmitApi(API):
         }
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info(f"Replenishment item quantity has been successfully updated")
+            self.logger.info(Message.entity_operation_done.format(entity="Replenishment item quantity", operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -21,6 +22,6 @@ class SubmitApi(API):
         replenishment_list_dto["items"] = items 
         response = self.send_post(url, token, replenishment_list_dto)
         if (response.status_code == 200):
-            self.logger.info(f"Replenishment list has been successfully submitted")
+            self.logger.info(Message.entity_operation_done.format(entity="Replenishment list", operation="updated"))
         else:
             self.logger.error(str(response.content))

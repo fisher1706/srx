@@ -1,4 +1,5 @@
 from src.api.api import API
+from src.resources.messages import Message
 
 class CheckoutUserApi(API):
     def get_checkout_users(self):
@@ -6,7 +7,7 @@ class CheckoutUserApi(API):
         token = self.get_customer_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("Checkout users have been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Checkout User", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()

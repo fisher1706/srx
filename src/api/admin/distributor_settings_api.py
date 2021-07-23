@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.tools import Tools
+from src.resources.messages import Message
 
 class DistributorSettingsApi(API):
     def update_freeze_settings(self, dto, distributor_id=None):
@@ -9,7 +10,7 @@ class DistributorSettingsApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info(f"Freeze settings of distributor with ID = '{distributor_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Freeze settings of distributor", id=distributor_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
