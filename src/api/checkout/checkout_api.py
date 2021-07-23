@@ -1,5 +1,5 @@
 from src.api.api import API
-from src.api.distributor.location_api import LocationApi
+from src.resources.messages import Message
 import hashlib
 
 class CheckoutApi(API):
@@ -32,7 +32,7 @@ class CheckoutApi(API):
             response = self.send_post(url, token, cart)
         response_json = response.json()
         if (response.status_code == 200):
-            self.logger.info(f"Cart checkout has been successfully processed")
+            self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="processed"))
         else:
             self.logger.error(str(response.content))
 
@@ -76,7 +76,7 @@ class CheckoutApi(API):
             response = self.send_get(url, token)
 
         if (response.status_code == 200):
-            self.logger.info(f"Cart has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -148,7 +148,7 @@ class CheckoutApi(API):
         }
         response = self.send_post(url, token, additional_headers=additional_header)
         if (response.status_code == 200):
-            self.logger.info(f"Sub-Authorization token for checkout user has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Sub-Authorization token for checkout user", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()

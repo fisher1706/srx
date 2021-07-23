@@ -1,4 +1,5 @@
 from src.api.api import API
+from src.resources.messages import Message
 
 class UniversalCatalogApi(API):
     def get_universal_catalog(self, upc="", gtin="", manufacturer="", manufacturer_part_number="", count=False):
@@ -12,7 +13,7 @@ class UniversalCatalogApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Universal catalog has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Universal Catalog", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()

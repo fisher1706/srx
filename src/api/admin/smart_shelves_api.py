@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.tools import Tools
+from src.resources.messages import Message
 
 class SmartShelvesApi(API):
     def create_smart_shelf(self, dto):
@@ -7,7 +8,7 @@ class SmartShelvesApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info(f"New smart shelf has been created successfully ")
+            self.logger.info(Message.entity_operation_done.format(entity="Smart Shelf", operation="created"))
         else:
             self.logger.error(str(response.content))
     
@@ -16,7 +17,7 @@ class SmartShelvesApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("Locker door configuration has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Locker Door configuration", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -27,7 +28,7 @@ class SmartShelvesApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("Storage door configuration has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Storage Door configuration", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -41,7 +42,7 @@ class SmartShelvesApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Smart Shelf id has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Smart Shelf ID", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -55,7 +56,7 @@ class SmartShelvesApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Smart Shelf id has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Smart Shelf ID", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -70,7 +71,7 @@ class SmartShelvesApi(API):
         for count in range (1, 5):
             response = self.send_delete(url, token)
             if (response.status_code == 200):
-                self.logger.info(f"Smart shelf with ID = '{smart_shelves_id}' has been successfully deleted")
+                self.logger.info(Message.entity_with_id_operation_done.format(entity="Smart Shelf", id=smart_shelves_id, operation="deleted"))
                 break
             elif (response.status_code == 400):
                 self.logger.info(f"Smart shelf with ID = '{smart_shelves_id}' cannot be deleted now")
@@ -112,7 +113,7 @@ class SmartShelvesApi(API):
         token = self.get_admin_token()
         response = self.send_put(url, token, smart_shelf_dto)
         if (response.status_code == 200):
-            self.logger.info(f"Smart Shelf with ID = '{smart_shelf_dto['id']}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Smart Shelf", id=smart_shelf_dto['id'], operation="updated"))
         else:
             self.logger.error(str(response.content))
 
@@ -124,7 +125,7 @@ class SmartShelvesApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Smart Shelf has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Smart Shelf", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
