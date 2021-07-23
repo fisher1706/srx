@@ -1,14 +1,6 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
-from src.resources.locator import Locator
 
 class DistributorCustomerUsersPage(DistributorPortalPage):
-    def create_customer_user(self, email):
-        self.click_id(Locator.id_add_button)
-        self.input_by_name(field, email)
-        self.click_xpath(Locator.xpath_submit_button)
-        self.dialog_should_not_be_visible()
-        self.wait_until_page_loaded()
-
     def check_last_customer_user(self, customer_user_body):
         self.open_last_page()
         for cell in customer_user_body.keys():

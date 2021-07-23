@@ -1,5 +1,4 @@
 from src.aws.aws import AWS
-import boto3
 import os
 import time
 
