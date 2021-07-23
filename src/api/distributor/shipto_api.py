@@ -47,7 +47,7 @@ class ShiptoApi(API):
         params = dict()
         Tools.add_to_dict_if_not_none(params, "number", number)
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             self.logger.info(Message.entity_operation_done.format(entity="ShipTo", operation="got"))
         else:
