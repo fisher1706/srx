@@ -50,7 +50,7 @@ class RfidApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info(f"RFID labels of location with ID = '{location_id}' has been successfully got")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="RFID labels of location", id=location_id, operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -66,7 +66,7 @@ class RfidApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"RFID label with ID = '{rfid_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="RFID label", id=rfid_id, operation="updated"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="RFID label", operation="creation", status_code=response.status_code, content=response.content))
 
@@ -77,6 +77,6 @@ class RfidApi(API):
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"RFID label with ID = '{rfid_id}' has been successfully deleted")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="RFID label", id=rfid_id, operation="deleted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="RFID label", operation="deletion", status_code=response.status_code, content=response.content))

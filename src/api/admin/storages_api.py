@@ -1,5 +1,5 @@
 from src.api.api import API
-from src.resources.tools import Tools
+from src.resources.messages import Message
 
 class StoragesApi(API):
     def get_storage_door_configuration(self, storage_id):
@@ -7,7 +7,7 @@ class StoragesApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("Storage door configuration has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Storage Door configuration", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()

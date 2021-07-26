@@ -1,5 +1,6 @@
+from src.resources.tools import Tools
+from src.resources.messages import Message
 from src.api.api import API
-import urllib.parse
 from src.fixtures.decorators import Decorator
 
 class UserApi(API):
@@ -8,7 +9,7 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("Distributor users have been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Distributor User", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -38,7 +39,7 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("Customer users have been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Customer User", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -65,14 +66,14 @@ class UserApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 201):
             self.logger.info(f"Distributor User {dto['email']} has been successfuly created")
             response_json = response.json()
             new_user_id = (response_json["data"].split("/"))[-1]
             return new_user_id
         else:
-            self.logger.info(f"User creation completed with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="creation", status_code=response.status_code, content=response.content))
 
     @Decorator.default_expected_code(200)
     def update_distributor_user(self, dto, expected_status_code, user_id=None):
@@ -81,64 +82,42 @@ class UserApi(API):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/{user_id}/update")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"User {dto['email']} has been successfuly updated")
         else:
-            self.logger.info(f"User updating completed with status_code = '{response.status_code}', as expected: {response.content}")
-
-    def get_distributor_super_user_by_email(self, email):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/superusers/pageable?email={email}")
-        token = self.get_distributor_token()
-        response = self.send_get(url, token)
-        if (response.status_code == 200):
-            self.logger.info("Distributor super user has been successfully got")
-        else:
-            self.logger.error(str(response.content))
-        response_json = response.json()
-        return response_json["data"]["entities"]
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_distributor_user(self, email):
-        url_string = "/distributor-portal/distributor/users/pageable?"
-        if (email is not None):
-            email = urllib.parse.quote(email)
-            url_string += f"email={email}&"
-        url = self.url.get_api_url_for_env(url_string)
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/users/pageable")
+        params = dict()
+        Tools.add_to_dict_if_not_none(params, "email", email)
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
-            self.logger.info("Distributor user has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Distributor User", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
-
-    def delete_superuser(self, id):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/superusers/{id}/delete")
-        token = self.get_distributor_token()
-        response = self.send_post(url, token)
-        if (response.status_code == 200):
-            self.logger.info("Distributor super user has been successfully deleted")
-        else:
-            self.logger.error(str(response.content))
 
     @Decorator.default_expected_code(200)
     def delete_distributor_user(self, user_id, expected_status_code):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/{user_id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
-        assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"Distributor user has been successfully deleted")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Distributor User", id=user_id, operation="deleted"))
         else:
-            self.logger.info(f"User deletion completed with status_code = '{response.status_code}', as expected: {response.content}")
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="deletion", status_code=response.status_code, content=response.content))
 
     def get_acl_sctructure(self):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/acl-structure")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("ACL structure has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="ACL Structure", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -163,7 +142,7 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         if (response.status_code == 200):
-            self.logger.info(f"Security Group with ID = '{security_group_id}' has been successfuly deleted")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Security Group", id=security_group_id, operation="deleted"))
         else:
             self.logger.error(str(response.content))
 
@@ -179,7 +158,7 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if (response.status_code == 200):
-            self.logger.info("Current User has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Current User", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()

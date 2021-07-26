@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.tools import Tools
+from src.resources.messages import Message
 import time
 
 class ActivityLogApi(API):
@@ -14,7 +15,7 @@ class ActivityLogApi(API):
             dto["query"]["bool"]["must"] = [{"match_all":{}},{"terms":{"eventContent.shipToId":shiptos}}]
         response = self.send_post(url, token, dto)
         if (response.status_code == 200):
-            self.logger.info(f"Activity log has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Activity Log", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()

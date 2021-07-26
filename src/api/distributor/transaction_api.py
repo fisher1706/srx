@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
+from src.resources.tools import Tools
 from src.fixtures.decorators import Decorator
 import time
 
@@ -8,15 +9,20 @@ class TransactionApi(API):
         if customer_id is None:
             customer_id = self.data.customer_id
         transactions_count = self.get_transactions_count(shipto_id=shipto_id)
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem")
+        params = {
+            "customerId": customer_id,
+            "shipToId": shipto_id,
+            "orderingConfigId": ordering_config_id
+        }
+        token = self.get_mobile_distributor_token()
         for count in range (1, repeat):
-            url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/replenishments/list/items/createActiveItem?customerId={customer_id}&shipToId={shipto_id}&orderingConfigId={ordering_config_id}")
-            token = self.get_mobile_distributor_token()
-            response = self.send_post(url, token)
+            response = self.send_post(url, token, params=params)
             time.sleep(5)
             new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)
             if (new_transactions_count >= transactions_count+1):
                 if (response.status_code == 200):
-                    self.logger.info("New transaction has been successfully created")
+                    self.logger.info(Message.entity_operation_done.format(entity="Transaction", operation="created"))
                 else:
                     self.logger.error(str(response.content))
                 if (new_transactions_count > transactions_count+1):
@@ -43,14 +49,12 @@ class TransactionApi(API):
             self.logger.error(str(response.content))
 
     def get_transaction(self, sku=None, status=None, shipto_id=None, ids=None):
-        url_string = f"/distributor-portal/distributor/replenishments/list/items?"
-        if (sku is not None):
-            url_string += f"productPartSku={sku}&"
-        if (status is not None):
-            url_string += f"status={status}&"
-        if (shipto_id is not None):
-            url_string += f"shipToIds={shipto_id}"
-        if (ids is not None):
+        url_string = f"/distributor-portal/distributor/replenishments/list/items"
+        params = dict()
+        Tools.add_to_dict_if_not_none(params, "productPartSku", sku)
+        Tools.add_to_dict_if_not_none(params, "status", status)
+        Tools.add_to_dict_if_not_none(params, "shipToIds", shipto_id)
+        if ids is not None:
             ids_string = ""
             if isinstance(ids, list):
                 for id in ids:
@@ -59,10 +63,10 @@ class TransactionApi(API):
                 ids_string = ids
             else:
                 self.logger.error(f"Incorrect type 'ids' parameter. Expected 'str', 'int' or 'list'. Now '{type(ids)}'")
-            url_string += f"replenishmentIds={ids}"
+            params["replenishmentIds"] = ids
         url = self.url.get_api_url_for_env(url_string)
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params=params)
         if (response.status_code == 200):
             pass
         else:
@@ -98,7 +102,6 @@ class TransactionApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"Transaction has been successfully submitted")
+            self.logger.info(Message.entity_operation_done.format(entity="Transaction", operation="submitted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))
-

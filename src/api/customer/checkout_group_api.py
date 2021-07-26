@@ -1,4 +1,5 @@
 from src.api.api import API
+from src.resources.messages import Message
 
 class CheckoutGroupApi(API):
     def create_checkout_group(self, dto):
@@ -12,12 +13,12 @@ class CheckoutGroupApi(API):
         response_json = response.json()
         return response_json["data"]
 
-    def delete_checkout_group(self, checkout_group_id, teardown=False):
+    def delete_checkout_group(self, checkout_group_id):
         url = self.url.get_api_url_for_env(f"/customer-portal/customer/pass-code/checkout-groups/{checkout_group_id}")
         token = self.get_customer_token()
         response = self.send_delete(url, token)
         if (response.status_code == 200):
-            self.logger.info(f"Checkout group with ID = '{checkout_group_id}' has been successfully deleted")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Checkout Group", id=checkout_group_id, operation="deleted"))
         else:
             self.logger.error(str(response.content))
 

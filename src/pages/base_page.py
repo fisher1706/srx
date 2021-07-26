@@ -7,10 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from src.waits import wait_until_disabled, page_url_is, dialog_is_not_present, elements_count_should_be, is_page_loading, last_page, is_progress_bar_loading, wait_until_dropdown_list_loaded
 from src.resources.locator import Locator
-import csv
 import os
-import pytest
-import time
 
 class BasePage():
     def __init__(self, context):
