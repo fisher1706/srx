@@ -5,7 +5,7 @@ from src.resources.messages import Message
 class SerialNumberApi(API):
     @Decorator.default_expected_code(201)
     def create_serial_number(self, location_id, shipto_id, serial_number, expected_status_code, additional_options=None, lot=None):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber/")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumber")
         token = self.get_distributor_token()
         dto = {
             "location":{
@@ -24,7 +24,7 @@ class SerialNumberApi(API):
         if (response.status_code == 201):
             response_json = response.json()
             sn_id = (response_json["data"].split("/"))[-1]
-            self.logger.info(f"New Serial Number with ID = '{sn_id}' has been successfully created")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Serial Number", id=sn_id, operation="created"))
             return sn_id
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="creation", status_code=response.status_code, content=response.content))
@@ -61,11 +61,14 @@ class SerialNumberApi(API):
         return self.get_serial_number_base(shipto_id)["totalElements"]
 
     def get_serial_number_base(self, shipto_id):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumbers?shipToId={shipto_id}")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/serialnumbers")
+        params = {
+            "shipToId": shipto_id
+        }
         token = self.get_distributor_token()
-        response = self.send_get(url, token)
+        response = self.send_get(url, token, params)
         if (response.status_code == 200):
-            self.logger.info("Serial Number has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Serial Number", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
@@ -78,6 +81,6 @@ class SerialNumberApi(API):
         response = self.send_delete(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"Serial Number with ID = '{serial_number_id}' has been successfully deleted")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Serial Number", id=serial_number_id, operation="deleted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="deletion", status_code=response.status_code, content=response.content))

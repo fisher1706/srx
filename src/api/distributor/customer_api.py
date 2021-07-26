@@ -24,7 +24,7 @@ class CustomerApi(API):
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 200):
-            self.logger.info(f"Customer with ID = '{customer_id}' has been successfully deleted")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="deleted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="deletion", status_code=response.status_code, content=response.content))
 
@@ -35,7 +35,7 @@ class CustomerApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
         if (response.status_code == 201):
-            self.logger.info(f"Customer with ID = '{customer_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="updated"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="updating", status_code=response.status_code, content=response.content))
 
@@ -47,9 +47,8 @@ class CustomerApi(API):
             "number": number
         }
         response = self.send_get(url, token, params=params)
-
         if (response.status_code == 200):
-            self.logger.info("Customers has been successfully got")
+            self.logger.info(Message.entity_operation_done.format(entity="Customers", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
