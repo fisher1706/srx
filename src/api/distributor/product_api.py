@@ -62,9 +62,9 @@ class ProductApi(API):
             "type": type
         }
         token = self.get_distributor_token()
-        for i in range(30):
+        for i in range(20):
             response = self.send_get(url, token, params=params)
-            if (response.status_code == 404):
+            if (response.status_code == 404 or response.status_code == 502):
                 self.logger.info(f"File not found. Next attempt after 5 seconds")
                 time.sleep(5)
                 continue
