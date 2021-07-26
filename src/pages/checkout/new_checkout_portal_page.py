@@ -32,7 +32,7 @@ class NewCheckoutPortalPage(BasePage):
 
     def open_hide_menu(self):
         self.wait_until_page_loaded()
-        self.click_xpath("//*[@class='md button in-toolbar ion-activatable ion-focusable hydrated']")
+        self.click_xpath("//*[@id='content']/srx-dashboard/ion-header/ion-toolbar/ion-menu-button")
 
     def clear_email(self):
         self.clear_xpath("//input[@name='email']")
