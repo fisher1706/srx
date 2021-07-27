@@ -2,17 +2,19 @@ from src.api.distributor.user_api import UserApi
 from src.resources.tools import Tools
 
 class Permissions():
+    'The class contains the methods for working with permissions and predefined permission sets'
+
     @staticmethod
     def set_configured_user(base_context, permissions, permission_context=None):
-        if (permissions is not None):
+        if permissions is not None:
             ua = UserApi(base_context)
 
-            ACL = ua.get_acl_sctructure()
+            acl = ua.get_acl_sctructure()
             ua.clear_acl_cache()
 
             for permission in permissions:
-                for item in ACL:
-                    if (item["feature"] == permission["feature"]):
+                for item in acl:
+                    if item["feature"] == permission["feature"]:
                         actions = item["actions"]
                         for action in actions:
                             if (action["action"]["value"] == "VIEW" and (permission["action"] == "VIEW" or permission["action"] == "EDIT" or permission["action"] == "CONFIGURE")):
@@ -28,7 +30,7 @@ class Permissions():
                     base_context.logger.error(f"No permission '{permission['feature']}' found")
 
             security_group = Tools.get_dto("security_group_dto.json")
-            security_group["entries"] = ACL
+            security_group["entries"] = acl
             security_group["name"] = Tools.random_string_l(10)
 
             security_group_id = ua.create_security_group(security_group)
@@ -40,8 +42,7 @@ class Permissions():
             ua.update_distributor_user(permissions_distributor_user)
 
             return permission_context
-        else:
-            return base_context
+        return base_context
 
     @staticmethod
     def distributor_users(action):
@@ -112,7 +113,8 @@ class Permissions():
             "value": value
         }]
         return response
-        
+
+    @staticmethod
     def rfids(action):
         response = [{
             "feature": "distributor.general.rfid.tagging",
@@ -135,19 +137,21 @@ class Permissions():
             "action": action
         }]
         return response
-    
+
     @staticmethod
     def usage_history(action):
-        response = [{
-            "feature": "distributor.general.customers.usage.history",
-            "action": action
-        },
-        {
-            "feature": "distributor.general.customers",
-            "action": "VIEW"
-        }]
+        response = [
+            {
+                "feature": "distributor.general.customers.usage.history",
+                "action": action
+            },
+            {
+                "feature": "distributor.general.customers",
+                "action": "VIEW"
+            }
+        ]
         return response
-    
+
     @staticmethod
     def warehouses(action):
         response = [{
@@ -171,47 +175,53 @@ class Permissions():
             "action": action
         }]
         return response
-    
+
     @staticmethod
     def shiptos(action):
-        response = [{
-            "feature": "distributor.general.shiptos",
-            "action": action
-        },
-        {
-            "feature": "distributor.general.customers",
-            "action": "VIEW"
-        }]
+        response = [
+            {
+                "feature": "distributor.general.shiptos",
+                "action": action
+            },
+            {
+                "feature": "distributor.general.customers",
+                "action": "VIEW"
+            }
+        ]
         return response
 
     @staticmethod
     def locations(action):
-        response = [{
-            "feature": "distributor.general.shiptos",
-            "action": "VIEW"
-        },
-        {
-            "feature": "distributor.general.customers",
-            "action": "VIEW"
-        },
-        {
-            "feature": "distributor.general.shiptos.vmi.list.locations",
-            "action": action
-        }]
+        response = [
+            {
+                "feature": "distributor.general.shiptos",
+                "action": "VIEW"
+            },
+            {
+                "feature": "distributor.general.customers",
+                "action": "VIEW"
+            },
+            {
+                "feature": "distributor.general.shiptos.vmi.list.locations",
+                "action": action
+            }
+        ]
         return response
 
     @staticmethod
     def cribcrawls(action):
-        response = [{
-            "feature": "distributor.general.shiptos",
-            "action": "VIEW"
-        },
-        {
-            "feature": "distributor.general.customers",
-            "action": "VIEW"
-        },
-        {
-            "feature": "distributor.general.shiptos.crib.crawl",
-            "action": action
-        }]
+        response = [
+            {
+                "feature": "distributor.general.shiptos",
+                "action": "VIEW"
+            },
+            {
+                "feature": "distributor.general.customers",
+                "action": "VIEW"
+            },
+            {
+                "feature": "distributor.general.shiptos.crib.crawl",
+                "action": action
+            }
+        ]
         return response

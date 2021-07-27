@@ -6,3 +6,4 @@ pytest
 mail-parser 
 beautifulsoup4 
 lxml
+pylint

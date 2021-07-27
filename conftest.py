@@ -4,9 +4,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 pytest_plugins = [
-   "src.fixtures.context_filling",
-   "src.fixtures.high_level_contexts",
-   "src.fixtures.api_teardowns"
+    "src.fixtures.context_filling",
+    "src.fixtures.high_level_contexts",
+    "src.fixtures.api_teardowns"
 ]
 
 def pytest_addoption(parser):
@@ -16,9 +16,9 @@ def pytest_addoption(parser):
     parser.addoption('--environment', action='store', default='qa',
                      help="Choose environment: 'dev', 'qa', 'staging', 'prod'")
     parser.addoption('--credentials', action='store', nargs='?', const=True, default=False,
-                    help="If selected, credentials will be retrieved ONLY from the command line")
+                     help="If selected, credentials will be retrieved ONLY from the command line")
     parser.addoption('--screenshot', action='store', nargs='?', const=True, default=False,
-                    help="If selected, screenshot will be created when error occurs")
+                     help="If selected, screenshot will be created when error occurs")
 
     #base credentials
     parser.addoption('--base_admin_email', action='store', default=None,
@@ -77,15 +77,15 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="function")
 def driver(request, session_context):
     browser_name = session_context.browser_name
-    driver = None
+    browser = None
     if browser_name == "chrome":
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1300,1000")
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
-        driver = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
     elif browser_name == "firefox":
-        driver = webdriver.Firefox()
+        browser = webdriver.Firefox()
     elif browser_name == "chrome-headless":
         chrome_options = Options()
         chrome_options.add_argument("--window-size=1920,1080")
@@ -95,12 +95,12 @@ def driver(request, session_context):
         chrome_options.add_argument("--enable-automation")
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
-        driver = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
     else:
         raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
-    driver.set_page_load_timeout(30)
-    yield driver
-    driver.quit()
+    browser.set_page_load_timeout(30)
+    yield browser
+    browser.quit()
 
 @pytest.mark.tryfirst
 def pytest_runtest_makereport(item, call, __multicall__):

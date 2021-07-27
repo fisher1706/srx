@@ -1,0 +1,39 @@
+[MASTER]
+disable=
+    C0114, #missing-module-docstring
+    C0115, #missing-class-docstring
+    C0116, #missing-function-docstring
+    W0613, #unused-argument
+    R1723, #no-else-break
+    C0415, #import-outside-toplevel
+    W0621, #redefined-outer-name
+    R0912, #too-many-branches
+    W0702, #bare-except
+    R1702, #too-many-nested-blocks
+    R1710, #inconsistent-return-statements
+    R0201, #no-self-use
+
+ignore=
+    utilities,
+    local_credentials.py,
+    output,
+    waits,
+    dto
+
+[FORMAT]
+max-line-length=205
+max-statements=100
+max-attributes=30
+min-public-methods=1
+max-args=8
+min-similarity-lines=8
+
+[BASIC]
+good-names=
+    ua,
+    sa,
+    ca,
+    ui
+
+[TYPECHECK]
+ignored-modules=sys

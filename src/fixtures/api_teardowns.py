@@ -1,5 +1,5 @@
-import pytest
 import time
+import pytest
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_group_api import CheckoutGroupApi
 from src.api.distributor.user_api import UserApi
@@ -34,7 +34,7 @@ def delete_distributor_security_group(context):
     distributor_security_group_id_list = context.dynamic_context["delete_distributor_security_group_id"]
     for distributor_security_group_id in distributor_security_group_id_list:
         ua.delete_security_group(distributor_security_group_id, context.data.default_security_group_id)
-    
+
 @pytest.fixture(scope="function")
 def delete_checkout_group(context):
     yield

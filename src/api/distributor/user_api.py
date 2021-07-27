@@ -1,7 +1,7 @@
 from src.resources.tools import Tools
 from src.resources.messages import Message
 from src.api.api import API
-from src.fixtures.decorators import Decorator
+from src.fixtures.decorators import default_expected_code
 
 class UserApi(API):
     def get_distributor_users(self, shipto_id):
@@ -61,12 +61,12 @@ class UserApi(API):
         new_user_id = (response_json["data"].split("/"))[-1]
         return new_user_id
 
-    @Decorator.default_expected_code(201)
-    def create_distributor_user(self, dto, expected_status_code):
+    @default_expected_code(201)
+    def create_distributor_user(self, dto, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 201):
             self.logger.info(f"Distributor User {dto['email']} has been successfuly created")
             response_json = response.json()
@@ -75,14 +75,14 @@ class UserApi(API):
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="creation", status_code=response.status_code, content=response.content))
 
-    @Decorator.default_expected_code(200)
-    def update_distributor_user(self, dto, expected_status_code, user_id=None):
+    @default_expected_code(200)
+    def update_distributor_user(self, dto, expected_status_code=None, user_id=None):
         if (user_id is None):
             user_id = dto.get("id")
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/{user_id}/update")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"User {dto['email']} has been successfuly updated")
         else:
@@ -101,12 +101,12 @@ class UserApi(API):
         response_json = response.json()
         return response_json["data"]["entities"]
 
-    @Decorator.default_expected_code(200)
-    def delete_distributor_user(self, user_id, expected_status_code):
+    @default_expected_code(200)
+    def delete_distributor_user(self, user_id, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/users/{user_id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Distributor User", id=user_id, operation="deleted"))
         else:

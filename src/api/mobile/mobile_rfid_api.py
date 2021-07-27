@@ -1,6 +1,6 @@
 from src.api.api import API
 from src.resources.tools import Tools
-from src.fixtures.decorators import Decorator
+from src.fixtures.decorators import default_expected_code
 from src.resources.messages import Message
 
 class MobileRfidApi(API):
@@ -91,8 +91,8 @@ class MobileRfidApi(API):
         else:
             self.logger.error(str(response.content))
 
-    @Decorator.default_expected_code(200)
-    def create_rfid_label(self, location_id, shipto_id, product_sku, expected_status_code, label = None):
+    @default_expected_code(200)
+    def create_rfid_label(self, location_id, shipto_id, product_sku, expected_status_code=None, label = None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/locations/{location_id}/rfids/create")
         token = self.get_mobile_distributor_token()
         if (label is None):
@@ -103,18 +103,18 @@ class MobileRfidApi(API):
             "product_sku": product_sku
         }
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"RFID label for location with ID = '{location_id}' has been created")
         else:
             self.logger.info(f"Create RFID label completed with status_code = '{response.status_code}', as expected: {response.content}")
 
-    @Decorator.default_expected_code(200)
-    def delete_rfid_label(self, location_id, label_id, expected_status_code):
+    @default_expected_code(200)
+    def delete_rfid_label(self, location_id, label_id, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/locations/{location_id}/labels/{label_id}/delete")
         token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"RFID label = '{label_id}' has been deleted")
         else:

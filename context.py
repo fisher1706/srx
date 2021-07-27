@@ -1,4 +1,6 @@
-class SessionContext(object):
+class SessionContext():
+    'The class contains attributes that do not change throughout the session'
+
     #base credentials
     base_admin_email = None
     base_admin_password = None
@@ -6,7 +8,7 @@ class SessionContext(object):
     base_distributor_password = None
     base_customer_email = None
     base_customer_password = None
-    base_checkout_group_email =  None
+    base_checkout_group_email = None
     base_checkout_group_password = None
 
     #smoke credentials
@@ -39,12 +41,14 @@ class SessionContext(object):
     smoke_data = None
 
     def __setattr__(self, key, value):
-        if (not hasattr(self, key)):
-            raise TypeError("Cannot create new attribute for class SessionContext")
-        else:
+        if hasattr(self, key):
             object.__setattr__(self, key, value)
+        else:
+            raise TypeError("Cannot create new attribute for class Context")
 
-class Context(object):
+class Context():
+    'The class contains attributes that are overridden during each test'
+
     #credentials
     admin_email = None
     admin_password = None
@@ -79,9 +83,8 @@ class Context(object):
     screenshot = None
     warnings_counter = 0
 
-
     def __setattr__(self, key, value):
-        if (not hasattr(self, key)):
-            raise TypeError("Cannot create new attribute for class Context")
-        else:
+        if hasattr(self, key):
             object.__setattr__(self, key, value)
+        else:
+            raise TypeError("Cannot create new attribute for class Context")

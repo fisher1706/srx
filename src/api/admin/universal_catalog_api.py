@@ -3,7 +3,7 @@ from src.resources.messages import Message
 
 class UniversalCatalogApi(API):
     def get_universal_catalog(self, upc="", gtin="", manufacturer="", manufacturer_part_number="", count=False):
-        url = self.url.get_api_url_for_env(f"/admin-portal/admin/upc-gtin-catalog")
+        url = self.url.get_api_url_for_env("/admin-portal/admin/upc-gtin-catalog")
         params = {
             "upc": upc,
             "gtin": gtin,
@@ -12,12 +12,11 @@ class UniversalCatalogApi(API):
         }
         token = self.get_admin_token()
         response = self.send_get(url, token, params=params)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="Universal Catalog", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        if (count):
+        if count:
             return response_json["data"]["totalElements"]
-        else:
-            return response_json["data"]["entities"]
+        return response_json["data"]["entities"]
