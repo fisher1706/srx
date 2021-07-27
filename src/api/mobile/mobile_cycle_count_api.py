@@ -1,10 +1,10 @@
 from src.api.api import API
-from src.fixtures.decorators import Decorator
+from src.fixtures.decorators import default_expected_code
 
 
 class MobileCycleCountApi(API):
-    @Decorator.default_expected_code(200)
-    def update_ohi(self, dto, shipto_id, location_id, expected_status_code, customer_id=None):
+    @default_expected_code(200)
+    def update_ohi(self, dto, shipto_id, location_id, expected_status_code=None, customer_id=None):
         if customer_id is None:
             customer_id = self.data.customer_id
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations/{location_id}/updateOhi")

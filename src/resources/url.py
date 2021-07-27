@@ -1,7 +1,7 @@
 class URL():
     def __init__(self, environment):
         self.environment = environment
-        if (self.environment is None):
+        if self.environment is None:
             self.environment = 'qa'
         if (self.environment == 'dev' or self.environment == 'staging' or self.environment == 'prod' or self.environment == 'qa'):
             self.admin_portal = self.get_url_for_env("storeroomlogix.com", "admin")
@@ -30,7 +30,7 @@ class URL():
             'qa': f"https://api-qa.storeroomlogix.com{url}"
         }
         return switcher.get(self.environment)
-    
+
     def get_iothub_api_url_for_env(self, url):
         switcher = {
             'dev': f"https://iothub-api.storeroomlogix.com/dev{url}",

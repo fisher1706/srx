@@ -1,10 +1,12 @@
 class Data():
+    'The class contains the predefined data using in regression tests'
+
     def __init__(self, environment):
-        if (environment == 'dev'):
+        if environment == 'dev':
             self.dev_environment()
-        elif (environment == 'staging'):
+        elif environment == 'staging':
             self.staging_environment()
-        elif (environment == 'qa'):
+        elif environment == 'qa':
             self.qa_environment()
 
     def dev_environment(self):
@@ -72,14 +74,16 @@ class Data():
         self.ses_email = "automation_testing_email+{suffix}@mail.qa.storeroomlogix.com"
 
 class SmokeData():
+    'The class contains the predefined data using in smoke tests'
+
     def __init__(self, environment):
-        if (environment == 'dev'):
+        if environment == 'dev':
             self.dev_environment()
-        elif (environment == 'staging'):
+        elif environment == 'staging':
             self.staging_environment()
-        elif (environment == 'qa'):
+        elif environment == 'qa':
             self.qa_environment()
-        elif (environment == 'prod'):
+        elif environment == 'prod':
             self.prod_environment()
 
     def dev_environment(self):

@@ -1,13 +1,14 @@
+import sys
+import copy
+import time
+from collections import defaultdict
 import pytest
 from context import Context, SessionContext
-from collections import defaultdict
 from src.resources.url import URL
 from src.resources.data import Data, SmokeData
 from src.resources.logger import Logger
 from src.resources.testrail import Testrail
-import sys
-import copy
-import time
+
 
 @pytest.fixture(scope="session")
 def session_context(request):
@@ -23,7 +24,7 @@ def session_context(request):
     session_context_object.smoke_data = SmokeData(session_context_object.environment)
 
     #credentials
-    if (session_context_object.credentials):
+    if session_context_object.credentials:
         #base credentials
         session_context_object.base_admin_email = request.config.getoption("base_admin_email")
         session_context_object.base_admin_password = request.config.getoption("base_admin_password")
@@ -56,7 +57,7 @@ def session_context(request):
         session_context_object.cognito_mobile_client_id = request.config.getoption("cognito_mobile_client_id")
         session_context_object.cognito_checkout_client_id = request.config.getoption("cognito_checkout_client_id")
 
-    elif (not session_context_object.credentials):
+    elif not session_context_object.credentials:
         from src.resources.local_credentials import LocalCredentials
         creds = LocalCredentials(session_context_object.environment)
 
@@ -147,19 +148,19 @@ def permission_context(context, request):
     return context_object
 
 def testrail(request, context):
-    if (context.testrail_case_id is not None):
-        if (request.node.rep_setup.failed):
+    if context.testrail_case_id is not None:
+        if request.node.rep_setup.failed:
             context.testrail_status_id = 3
             context.testrail_comment = "[PYTEST] Unsuccessful attempt to run a test"
-        elif (request.node.rep_setup.passed):
-            if (request.node.rep_call.failed):
+        elif request.node.rep_setup.passed:
+            if request.node.rep_call.failed:
                 context.testrail_status_id = 5
                 context.testrail_comment = f"[PYTEST] Test failed \n{context.logger}\n{sys.last_value}"
-            elif (request.node.rep_call.passed):
-                if (context.warnings_counter == 0):
+            elif request.node.rep_call.passed:
+                if context.warnings_counter == 0:
                     context.testrail_status_id = 1
                     context.testrail_comment = "[PYTEST] Test passed"
-                elif (context.warnings_counter > 0):
+                elif context.warnings_counter > 0:
                     context.testrail_status_id = 6
                     context.testrail_comment = f"[PYTEST] Test passed with '{context.warnings_counter}' warnings\n{context.logger}"
                 else:
@@ -171,7 +172,7 @@ def testrail(request, context):
 
         testrail = Testrail(context.session_context.testrail_email, context.session_context.testrail_password)
         retries = 3
-        for iteration in range (retries):
+        for iteration in range(retries):
             time.sleep(iteration)
             response = testrail.add_result_for_case(context.testrail_run_id,
                                                     context.testrail_case_id,
@@ -181,7 +182,7 @@ def testrail(request, context):
                 if iteration + 1 < retries:
                     context.logger.warning(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
                 continue
-            elif response.status_code > 201 and response.status_code != 500:
+            if response.status_code > 201 and response.status_code != 500:
                 error = str(response.content)
                 context.logger.error(f"TestRail API returned HTTP {response.status_code} ({error})")
                 break
@@ -198,6 +199,6 @@ def testrail_smoke_result(session_context):
     testrail_client = Testrail(session_context.testrail_email, session_context.testrail_password)
     tests = testrail_client.get_tests(session_context.smoke_data.smoke_testrail_run_id).json()
     for test in tests:
-        if (test["status_id"] == 5):
+        if test["status_id"] == 5:
             testrail_client.run_report(session_context.smoke_data.report_id)
             break

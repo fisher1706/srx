@@ -1,17 +1,17 @@
 from src.api.api import API
-from src.fixtures.decorators import Decorator
+from src.fixtures.decorators import default_expected_code
 from src.resources.messages import Message
 import requests
 import os
 import time
 
 class ProductApi(API):
-    @Decorator.default_expected_code(201)
-    def create_product(self, dto, expected_status_code):
+    @default_expected_code(201)
+    def create_product(self, dto, expected_status_code=None):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/products/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 201):
             self.logger.info(f"New product '{dto['partSku']}' has been successfully created")
             response_json = response.json()
@@ -78,12 +78,12 @@ class ProductApi(API):
         response_json = response.json()
         return response_json["data"]
 
-    @Decorator.default_expected_code(200)
-    def update_product(self, dto, product_id, expected_status_code):
+    @default_expected_code(200)
+    def update_product(self, dto, product_id, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/products/{product_id}/update")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"Product with SKU = '{dto['partSku']}' has been successfully updated")
         else:
@@ -119,14 +119,14 @@ class ProductApi(API):
         else:
             self.logger.error(str(response.content))
 
-    @Decorator.default_expected_code(200)
-    def update_customer_product(self, dto, product_id, expected_status_code, customer_id=None):
+    @default_expected_code(200)
+    def update_customer_product(self, dto, product_id, expected_status_code=None, customer_id=None):
         if customer_id is None:
             customer_id = self.data.customer_id
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/products/{product_id}")
         token = self.get_distributor_token()
         response = self.send_put(url, token, dto)
-        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected_status_code=expected_status_code, actual_status_code=response.status_code, content=response.content)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if (response.status_code == 200):
             self.logger.info(f"Customer product with SKU = '{dto['partSku']}' has been successfully updated")
         else:

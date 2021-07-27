@@ -1,4 +1,6 @@
 class Locator():
+    'The class contains all base locators'
+
     #IDs
     id_email = "email"
     id_password = "password"
@@ -107,13 +109,13 @@ class Locator():
     @staticmethod
     def xpath_planogram(door, cell):
         return f"//div[@data-door='{door}']//div[@data-cell='{cell}']"
-    
+
     @staticmethod
     def xpath_dropdown_sku(sku):
         return f"{Locator.xpath_dropdown_list_item}//span[text()='{sku}']/../.."
 
     def __setattr__(self, key, value):
-        if (not hasattr(key)):
-            raise TypeError("Cannot create new attribute for class Locator")
-        else:
+        if hasattr(key):
             object.__setattr__(key, value)
+        else:
+            raise TypeError("Cannot create new attribute for class Locator")
