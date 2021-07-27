@@ -35,5 +35,14 @@ good-names=
     ca,
     ui
 
+bad-names=
+    i,
+    k,
+    n,
+    var,
+    test,
+    my_var,
+    foo,
+
 [TYPECHECK]
 ignored-modules=sys
