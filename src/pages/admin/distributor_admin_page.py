@@ -39,7 +39,6 @@ class DistributorAdminPage(AdminPortalPage):
 
     def check_last_distributor(self, distributor_body, state_short_code, table_cells_checkbox, check_mark):
         primary_address = " ".join([distributor_body["address.line1"], distributor_body["address.line2"], distributor_body["address.city"], state_short_code, distributor_body["address.zipCode"]])
-        row_number = self.get_table_rows_number()
         table_cells = {
             "Name": distributor_body["name"],
             "Invoice Email": distributor_body["invoiceEmail"],
@@ -50,7 +49,6 @@ class DistributorAdminPage(AdminPortalPage):
         for cell in table_cells.keys():
             self.check_last_table_item_by_header(cell, table_cells[cell])
         for cell in table_cells_checkbox.keys():
-            column = self.get_header_column(cell)
             if table_cells_checkbox[cell]:
                 self.get_element_by_xpath(Locator.xpath_check_mark)
         checked = sum(1 for value in table_cells_checkbox.values() if value)
