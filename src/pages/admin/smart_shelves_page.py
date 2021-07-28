@@ -1,7 +1,7 @@
+import time
 from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 from src.resources.locator import Locator
-import time
 
 class SmartShelvesPage(AdminPortalPage):
     smart_shelves_body = {
@@ -34,7 +34,7 @@ class SmartShelvesPage(AdminPortalPage):
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
-    
+
     def check_last_smart_shelf(self, smart_shelves_body):
         table_cells = {
             "Serial Number": smart_shelves_body["serialNumber"],
@@ -44,7 +44,7 @@ class SmartShelvesPage(AdminPortalPage):
         }
         for cell in table_cells.keys():
             self.check_last_table_item_by_header(cell, table_cells[cell])
-    
+
     def update_smart_shelves(self, smart_shelves_body):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         # input Serial Number
@@ -57,14 +57,14 @@ class SmartShelvesPage(AdminPortalPage):
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), smart_shelves_body["assign_to"])
         self.should_be_enabled_xpath(Locator.xpath_dropdown_in_dialog(3))
         # input Door Number
-        time.sleep(3)#need to use wait 
+        time.sleep(3)#need to use wait
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(3), smart_shelves_body["door_number"])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
 
     def delete_smart_shelf(self, serial_number):
-        shelf_serial_number = self.get_last_table_item_text_by_header("Serial Number")
+        self.get_last_table_item_text_by_header("Serial Number")
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(f"{serial_number}")
         self.click_xpath(Locator.xpath_confirm_button)
@@ -73,8 +73,8 @@ class SmartShelvesPage(AdminPortalPage):
     def merge_cells(self, number_of_cells):
         self.get_element_by_xpath(Locator.xpath_edit_button)
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
-        for x in range(number_of_cells):
-            self.click_xpath(f"//div[@data-cell='{x}']")
+        for cell in range(number_of_cells):
+            self.click_xpath(f"//div[@data-cell='{cell}']")
         self.click_xpath(self.xpath_merge_cells)
         self.click_xpath(Locator.xpath_submit_button)
         self.click_xpath(Locator.xpath_label_confirm)
@@ -99,10 +99,10 @@ class SmartShelvesPage(AdminPortalPage):
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
 
-    def check_first_door_is_unavaliable(self, locker, create=None): 
-        if (create is None):
+    def check_first_door_is_unavaliable(self, locker, create=None):
+        if create is None:
             self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
-        elif (create):
+        elif create:
             self.click_id(Locator.id_add_button)
             # input Serial Number
             self.input_by_name("serialNumber", Tools.random_string_u())
@@ -112,9 +112,9 @@ class SmartShelvesPage(AdminPortalPage):
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), locker)
         # check Door Number
         self.click_xpath(Locator.xpath_dropdown_in_dialog(3))
-        time.sleep(3)#need to use wait 
+        time.sleep(3)#need to use wait
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
-        if (f"{text}" == "2"):
+        if f"{text}" == "2":
             self.logger.info("First door is unavailable as expected")
         else:
             self.logger.error("First door shoud not be avaliable")
@@ -122,18 +122,18 @@ class SmartShelvesPage(AdminPortalPage):
         self.click_xpath(Locator.xpath_label_cancel)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
-    
+
     def clear_fields_smart_shelves(self, distributor=None, locker=None):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         self.element_should_have_text(Locator.xpath_dropdown_in_dialog(3), "1")
-        if (locker is not None):
+        if locker is not None:
             self.click_xpath(f"{Locator.xpath_dropdown_in_dialog(2)}/div/div[2]/div")
-        if (distributor is not None):
+        if distributor is not None:
             self.click_xpath(f"{Locator.xpath_dropdown_in_dialog(1)}/div/div[2]/div")
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
-        
+
     def assign_smart_shelf_locker_planogram(self, locker, smart_shelf):
         self.get_element_by_xpath(Locator.xpath_table_row)
         self.open_last_page()
@@ -158,16 +158,15 @@ class SmartShelvesPage(AdminPortalPage):
         self.get_element_by_xpath(Locator.xpath_dropdown_list_item)
         self.input_data_xpath(smart_shelf, f"{Locator.xpath_dropdown_in_dialog(1)}//input")
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
-        if (in_list):
-            if (f"{text}" == f"{smart_shelf}"):
+        if in_list:
+            if f"{text}" == f"{smart_shelf}":
                 self.logger.info(f"There is {smart_shelf} as expected")
             else:
                 self.logger.error(f"Smart Shelf {smart_shelf} should be in the list")
         else:
-            if (f"{text}" == f"{smart_shelf}"):
+            if f"{text}" == f"{smart_shelf}":
                 self.logger.error(f"Smart Shelf {smart_shelf} should not be in the list")
             else:
                 self.logger.info(f"There is no {smart_shelf} as expected")
         self.click_xpath(Locator.xpath_close_button)
         self.dialog_should_not_be_visible()
-

@@ -84,7 +84,7 @@ def test_common_set_of_hubs_for_locker_and_vending(ui, delete_hardware):
     hp.iothub_should_be_available("Vending", iothub_name)
     hp.iothub_should_be_available("IP Camera", iothub_name)
 
-    hp.create_vending(ui.data.distributor_name, iothub_name) #create vending
+    hp.create_vending(iothub_name) #create vending
     hp.check_last_hardware(device_type="VENDING", distributor=ui.data.distributor_name)
 
     hp.iothub_should_not_be_available("Locker", iothub_name)
