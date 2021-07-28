@@ -12,16 +12,18 @@ disable=
     R1702, #too-many-nested-blocks
     R1710, #inconsistent-return-statements
     R0201, #no-self-use
+    C0302, #too-many-lines
+    R0904, #too-many-public-methods
+    C0201, #consider-iterating-dictionary
 
 ignore=
     utilities,
     local_credentials.py,
     output,
-    waits,
     dto
 
 [FORMAT]
-max-line-length=205
+max-line-length=200
 max-statements=100
 max-attributes=30
 min-public-methods=1
@@ -39,6 +41,29 @@ good-names=
     la,
     ra,
     pa,
+    ia,
+    lp,
+    ap,
+    aa,
+    cp,
+    sp,
+    dp,
+    s3,
+    fp,
+    ha,
+    hp,
+    pp,
+    sn,
+    rp,
+    ss,
+    sh,
+    vp,
+    wp,
+    wa,
+    LOCATION_MIN,
+    LOCATION_MAX,
+    LOCATION_PACKAGE_CONVERSION,
+    ROUND_BUY
 
 bad-names=
     var,

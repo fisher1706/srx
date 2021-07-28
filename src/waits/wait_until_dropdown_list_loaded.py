@@ -1,4 +1,4 @@
-class wait_until_dropdown_list_loaded():
+class wait_until_dropdown_list_loaded(): #pylint: disable=C0103
     def __init__(self, count):
         self.count = count
 
@@ -6,5 +6,4 @@ class wait_until_dropdown_list_loaded():
         xpath = f"//div[@test-id='select-box'][{self.count}]/div/div[2]/div/div"
         if driver.find_element_by_xpath(xpath).text == "Loading...":
             return False
-        else:
-            return True
+        return True
