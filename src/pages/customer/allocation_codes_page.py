@@ -1,5 +1,5 @@
-from src.pages.customer.customer_portal_page import CustomerPortalPage
 from selenium.webdriver.common.keys import Keys
+from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.resources.locator import Locator
 
 class AllocationCodesPage(CustomerPortalPage):
@@ -26,20 +26,19 @@ class AllocationCodesPage(CustomerPortalPage):
         self.wait_until_page_loaded()
 
     def enter_values(self, values):
-        if (values is not None):
+        if values is not None:
             for value in values:
                 element = self.get_element_by_xpath("//label[text()='Values']/..//input")
                 element.send_keys(value)
                 element.send_keys(Keys.ENTER)
 
     def is_required(self, condition):
-        if (condition is not None):
+        if condition is not None:
             if condition:
                 return "Yes"
-            elif not condition:
+            if not condition:
                 return "No"
-            else:
-                return None
+            return None
 
     def check_allocation_code(self, allocation_code_body):
         table_cells = {
