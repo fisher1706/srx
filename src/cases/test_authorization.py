@@ -178,7 +178,7 @@ def test_log_out_checkout_portal(ui):
     lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/auth")
 
 @pytest.mark.regression
-def test_log_in_checkout_passcode(self,ui):
+def test_log_in_checkout_passcode(ui):
     ui.testrail_case_id = 4556
 
     lp = LoginPage(ui)
@@ -193,7 +193,7 @@ def test_log_in_checkout_passcode(self,ui):
     lp.url_should_be(f"{ui.session_context.url.new_checkout_portal}/dashboard")
 
 @pytest.mark.regression
-def test_log_out_checkout_passcode(self,ui):
+def test_log_out_checkout_passcode(ui):
     ui.testrail_case_id = 4559
 
     lp = LoginPage(ui)
@@ -211,7 +211,7 @@ def test_log_out_checkout_passcode(self,ui):
     cpp.log_out_checkout_groupe()
 
 @pytest.mark.regression
-def test_invalid_log_in_passcode(self,ui):
+def test_invalid_log_in_passcode(ui):
     ui.testrail_case_id = 4557
 
     lp = LoginPage(ui)
