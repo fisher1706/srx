@@ -1,5 +1,5 @@
-import pytest
 import random
+import pytest
 from src.api.admin.smart_shelves_api import SmartShelvesApi
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.setups.setup_locker import SetupLocker
@@ -27,7 +27,7 @@ def test_remove_locker_from_smart_shelf(api, delete_smart_shelf, delete_hardware
 
     ssa.update_smart_shelf(locker_body, locker_body_second=False)
     locker_conf = ha.get_locker_configuration(locker_id)
-    assert (locker_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_locker['smart_shelf_id']}"
+    assert (locker_conf[0]["smartShelfHardware"] is None), f"First locker should not have smart shelf with ID {response_locker['smart_shelf_id']}"
 
 @pytest.mark.regression
 def test_smart_shelves_change_door(api, delete_smart_shelf, delete_hardware):
@@ -55,7 +55,7 @@ def test_smart_shelves_change_door(api, delete_smart_shelf, delete_hardware):
     ssa.update_smart_shelf(locker_body, locker_body_second=locker_body_second)
     locker_1_conf = ha.get_locker_configuration(locker_id)
     locker_2_conf = ha.get_locker_configuration(locker_id_second)
-    assert (locker_1_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_locker_1['smart_shelf_id']}"
+    assert (locker_1_conf[0]["smartShelfHardware"] is None), f"First locker should not have smart shelf with ID {response_locker_1['smart_shelf_id']}"
     assert (locker_2_conf[0]["smartShelfHardware"]["id"] == response_locker_1["smart_shelf_id"]), f"Second locker should have smart shelf with ID {response_locker_1['smart_shelf_id']}"
 
 @pytest.mark.regression
@@ -75,7 +75,7 @@ def test_smart_shelves_delete_check_locker(api, delete_hardware):
 
     ssa.delete_smart_shelves(response_locker["smart_shelf_id"])
     locker_conf = ha.get_locker_configuration(locker_id)
-    assert (locker_conf[0]["smartShelfHardware"] == None), f"First locker should not have smart shelf with ID {response_locker['smart_shelf_id']}"
+    assert (locker_conf[0]["smartShelfHardware"] is None), f"First locker should not have smart shelf with ID {response_locker['smart_shelf_id']}"
 
 @pytest.mark.regression
 def test_planogram_assign_smart_shelf(ui, delete_shipto, delete_hardware, delete_smart_shelf):
@@ -100,7 +100,7 @@ def test_planogram_assign_smart_shelf(ui, delete_shipto, delete_hardware, delete
     ssa.update_smart_shelf(locker_body, locker_body_second=False)
 
     lp.log_in_distributor_portal()
-    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
+    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"], shipto_id=response_shipto["shipto_id"])
     lpp.assign_smart_shelf_to_locker_door(response_locker["smart_shelf_number"])
 
 @pytest.mark.regression
@@ -123,7 +123,7 @@ def test_planogram_merge_split_cells(ui, delete_shipto, delete_hardware, delete_
     locker_body = response_locker["locker"]
 
     lp.log_in_distributor_portal()
-    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
+    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"], shipto_id=response_shipto["shipto_id"])
     ssp.merge_cells(3, is_planogram=True, door_number=1)
     ssp.check_cells_number(2, is_planogram=True, door_number=1)
     ssp.split_cells(1, is_planogram=True, door_number=1)
@@ -156,7 +156,7 @@ def test_planogram_without_weights_assign_smart_shelf(ui, delete_shipto, delete_
     ha.update_locker_configuration(locker_body["id"], True)
 
     lp.log_in_distributor_portal()
-    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
+    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"], shipto_id=response_shipto["shipto_id"])
     lpp.check_first_door_is_unavaliable_planogram()
 
 @pytest.mark.regression
@@ -261,7 +261,7 @@ def test_shelves_assign_via_hardware_check_planogram(ui, delete_shipto, delete_h
     lp.log_in_distributor_portal()
     ssp.open_smart_shelves()
     ssp.assign_smart_shelf_to_locker(response_locker["smart_shelf_number"], locker, "1")
-    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"] , shipto_id=response_shipto["shipto_id"])
+    lpp.follow_locker_planogram_url(customer_id=locker_body["customerUser"], shipto_id=response_shipto["shipto_id"])
     lpp.check_smart_shelf_via_planogram(response_locker["smart_shelf_number"], "1")
 
 @pytest.mark.regression
@@ -347,9 +347,7 @@ def test_smart_shelves_merge_cells(ui, delete_smart_shelf, delete_hardware):
     # create locker for main distributor
     setup_locker = SetupLocker(ui)
     setup_locker.add_option("smart_shelf")
-    response_locker = setup_locker.setup()
-
-    locker_body = response_locker["locker"]
+    setup_locker.setup()
 
     lp.log_in_admin_portal()
     ss.open_smart_shelves()
@@ -368,9 +366,7 @@ def test_smart_shelves_merge_cells_distributor(ui, delete_smart_shelf, delete_ha
     # create smart shelf for main distributor
     setup_locker = SetupLocker(ui)
     setup_locker.add_option("smart_shelf")
-    response_locker = setup_locker.setup()
-
-    locker_body = response_locker["locker"]
+    setup_locker.setup()
 
     lp.log_in_distributor_portal()
     dss.open_smart_shelves()
@@ -389,9 +385,7 @@ def test_smart_shelves_remove_locker_distributor(ui, delete_smart_shelf, delete_
     # create smart shelf for main distributor
     setup_locker = SetupLocker(ui)
     setup_locker.add_option("smart_shelf")
-    response_locker = setup_locker.setup()
-
-    locker_body = response_locker["locker"]
+    setup_locker.setup()
 
     lp.log_in_admin_portal()
     ss.open_smart_shelves()
@@ -416,7 +410,7 @@ def test_smart_shelves_unavailable_door(ui, delete_smart_shelf, delete_hardware)
     lp.log_in_admin_portal()
     ss.open_smart_shelves()
     ss.check_first_door_is_unavaliable(locker, create=True)
-    
+
 @pytest.mark.regression
 def test_smart_shelves_without_weights(ui, delete_smart_shelf, delete_hardware):
     ui.testrail_case_id = 1922
@@ -427,9 +421,7 @@ def test_smart_shelves_without_weights(ui, delete_smart_shelf, delete_hardware):
     # create smart shelf for main distributor
     setup_locker = SetupLocker(ui)
     setup_locker.add_option("smart_shelf")
-    response_locker_1 = setup_locker.setup()
-
-    locker_body = response_locker_1["locker"]
+    setup_locker.setup()
 
     # create locker with 'without weights' configuration
     setup_locker.add_option("smart_shelf", False)

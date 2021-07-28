@@ -1,9 +1,9 @@
+import copy
+import pytest
 from src.resources.permissions import Permissions
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.resources.tools import Tools
-import pytest
-import copy
 
 class TestButtons():
     @pytest.mark.parametrize("permissions", [
@@ -11,7 +11,7 @@ class TestButtons():
             "user": None,
             "testrail_case_id": 2285
         },
-        { 
+        {
             "user": Permissions.mobile_buttons("ENABLE", True),
             "testrail_case_id": 2286
         }
@@ -59,14 +59,14 @@ class TestButtons():
         la.update_location(location_list, response_location["shipto_id"], expected_status_code=400, mobile=True)
 
         locations = LocationApi(mobile_api).get_locations(response_location["shipto_id"], mobile=True)
-        assert locations[0]["orderingConfig"]["dsn"] == None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
+        assert locations[0]["orderingConfig"]["dsn"] is None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
 
     @pytest.mark.parametrize("permissions", [
         {
             "user": None,
             "testrail_case_id": 2289
         },
-        { 
+        {
             "user": Permissions.mobile_buttons("ENABLE", True),
             "testrail_case_id": 2290
         }
@@ -91,7 +91,7 @@ class TestButtons():
         la.update_location(location_list, response_location["shipto_id"], mobile=True)
 
         locations = LocationApi(mobile_api).get_locations(response_location["shipto_id"], mobile=True)
-        assert locations[0]["orderingConfig"]["dsn"] == None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
+        assert locations[0]["orderingConfig"]["dsn"] is None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
 
     @pytest.mark.acl
     @pytest.mark.regression
@@ -114,4 +114,4 @@ class TestButtons():
         la.update_location(location_list, response_location["shipto_id"], expected_status_code=400, mobile=True)
 
         locations = LocationApi(mobile_api).get_locations(response_location["shipto_id"], mobile=True)
-        assert locations[0]["orderingConfig"]["dsn"] != None, f"Button DSN should Not be empty"
+        assert locations[0]["orderingConfig"]["dsn"] is not None, "Button DSN should Not be empty"

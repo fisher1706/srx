@@ -107,7 +107,7 @@ def test_success_login_new_checkout_portal(ui):
     BaseAuthorization.base_success_login_new_checkout(ui)
 
 @pytest.mark.smoke
-def test_success_login_new_checkout_portal(smoke_ui):
+def test_success_login_new_checkout_portal_smoke(smoke_ui):
     BaseAuthorization.base_success_login_new_checkout(smoke_ui)
 
 @pytest.mark.skip
