@@ -1,14 +1,12 @@
+import copy
 from src.api.admin.admin_hardware_api import AdminHardwareApi
-from src.api.distributor.user_api import UserApi
 from src.api.distributor.distributor_hardware_api import DistributorHardwareApi
 from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
-import copy
 
 class SetupRfid(BaseSetup):
     def __init__(self, context):
         super().__init__(context)
-        
         self.setup_name = "RFID"
         self.options = {
             "shipto_id": None
@@ -18,17 +16,15 @@ class SetupRfid(BaseSetup):
     def setup(self):
         self.set_rfid()
         self.set_shipto()
-
         return copy.deepcopy(self.rfid)
 
     def set_rfid(self):
         aha = AdminHardwareApi(self.context)
-
         self.rfid = aha.create_rfid()
         self.context.dynamic_context["delete_hardware_id"].append(self.rfid["id"])
 
     def set_shipto(self):
-        if (self.options["shipto_id"] is not None):
+        if self.options["shipto_id"] is not None:
             rfid_dto = {
                 "id": self.rfid["id"],
                 "deviceName": Tools.random_string_u(),
@@ -38,6 +34,5 @@ class SetupRfid(BaseSetup):
                 "type": "RFID",
                 "value": self.rfid["value"]
             }
-
             dha = DistributorHardwareApi(self.context)
             dha.update_hardware(rfid_dto)

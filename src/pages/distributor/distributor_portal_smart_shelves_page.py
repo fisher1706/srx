@@ -53,7 +53,6 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
             for x in range(1, number_of_cells + 1):
                 self.click_xpath(f"//div[@data-door={door_number}]//div[@data-cell='{x}']")
             self.click_xpath(self.xpath_merge_cells)
-            self.wait_until_progress_bar_loaded()
             self.click_xpath(f"//div[@data-door={door_number}]//div[@data-cell='1']")
 
     def split_cells(self, position_of_cell, is_planogram=False, door_number=None):
@@ -68,7 +67,6 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
         else:
             self.click_xpath(f"//div[@data-cell='{position_of_cell}']")
             self.click_xpath(self.xpath_split_cells)
-            self.wait_until_progress_bar_loaded()
             self.click_xpath(f"//div[@data-door={door_number}]//div[@data-cell='1']")
 
     def check_cells_number(self, number_of_cells, is_planogram=False, door_number=None):

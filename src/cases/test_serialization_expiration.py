@@ -1,5 +1,5 @@
-import pytest
 import time
+import pytest
 from src.resources.tools import Tools
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.settings_api import SettingsApi
@@ -23,7 +23,7 @@ def test_sn_expires_when_enable_auto_expire(api, delete_shipto):
     sna = SerialNumberApi(api)
     sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -44,7 +44,7 @@ def test_sn_created_in_expired_status_when_auto_expire_enabled(api, delete_shipt
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "EXPIRED"
@@ -60,9 +60,8 @@ def test_sn_expires_when_update_doe_if_auto_expire_enabled(api, delete_shipto):
     response_location = setup_location.setup()
 
     sna = SerialNumberApi(api)
-    sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -85,7 +84,7 @@ def test_create_sn_in_expired_status_without_settings(api, delete_shipto):
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": current_date_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": current_date_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "EXPIRED"
@@ -102,7 +101,7 @@ def test_update_sn_to_expired_status_without_settings(api, delete_shipto):
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -136,7 +135,7 @@ def test_return_sn_to_assigned_from_expired_when_create_in_expired_and_disabled_
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration":current_date_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration":current_date_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "EXPIRED"
@@ -159,7 +158,7 @@ def test_return_sn_to_assigned_from_expired_when_create_in_assigned_and_disabled
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -198,11 +197,11 @@ def test_return_sn_to_available_from_expired_when_disabled_setting(api, conditio
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
-    
+
     sn_dto["status"] = "AVAILABLE"
     sna.update_serial_number(sn_dto)
 
@@ -243,7 +242,7 @@ def test_no_expiration_alarm_when_update_to_issued(api, conditions, delete_shipt
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -278,7 +277,7 @@ def test_no_expiration_alarm_when_update_doe(api, conditions, delete_shipto):
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -320,7 +319,7 @@ def test_issued_sn_cannot_be_expired_when_update_doe_without_auto_expire(conditi
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -359,7 +358,7 @@ def test_issued_sn_cannot_be_expired_when_update_doe_with_auto_expire(conditions
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -399,7 +398,7 @@ def test_issued_sn_cannot_be_expired_when_turn_on_auto_expire(conditions, api, d
     sna = SerialNumberApi(api)
     sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -436,9 +435,8 @@ def test_return_sn_to_assigned_from_expired_when_update_doe_and_enabled_setting(
     response_location = setup_location.setup()
 
     sna = SerialNumberApi(api)
-    sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "EXPIRED"
@@ -460,9 +458,8 @@ def test_return_sn_to_available_from_expired_when_update_doe_and_enabled_setting
     response_location = setup_location.setup()
 
     sna = SerialNumberApi(api)
-    sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -498,7 +495,7 @@ def test_return_sn_to_assigned_from_expired_when_turn_off_settings(api, delete_s
     sna = SerialNumberApi(api)
     sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "EXPIRED"
@@ -521,7 +518,7 @@ def test_return_sn_to_available_from_expired_when_turn_off_settings(api, delete_
     sna = SerialNumberApi(api)
     sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -556,7 +553,7 @@ def test_return_sn_to_assigned_from_expired_when_update_days_for_settings(api, d
     sna = SerialNumberApi(api)
     sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "EXPIRED"
@@ -578,7 +575,7 @@ def test_return_sn_to_available_from_expired_when_update_days_for_settings(api, 
     sna = SerialNumberApi(api)
     sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
@@ -612,7 +609,7 @@ def test_full_expire_in_alarm_flow(api, delete_shipto):
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
     sta = SettingsApi(api)
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_4_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_4_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["dateExpirationAlarmCountDown"] == 4
@@ -650,7 +647,7 @@ def test_return_sn_to_assigned_from_expired_when_turn_on_settings_and_update_doe
     sna = SerialNumberApi(api)
     sta = SettingsApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, additional_options={"dateExpiration": in_3_days_timestamp})
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"

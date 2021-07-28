@@ -2,7 +2,6 @@ import pytest
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.locker_planogram_page import LockerPlanogramPage
 from src.api.distributor.location_api import LocationApi
-from src.api.distributor.shipto_api import ShiptoApi
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_locker import SetupLocker
 from src.api.setups.setup_product import SetupProduct
@@ -19,7 +18,7 @@ def test_create_noweight_locker_location_via_planogram(ui, delete_shipto, delete
 
     response_shipto = SetupShipto(ui).setup()
     shipto_id = response_shipto["shipto_id"]
-    
+
     response_product = SetupProduct(ui).setup()
     product_sku = response_product["partSku"]
     round_buy = response_product["roundBuy"]
@@ -41,7 +40,6 @@ def test_locker_planogram(ui, delete_shipto, delete_hardware):
 
     lp = LoginPage(ui)
     lpp = LockerPlanogramPage(ui)
-    sta = ShiptoApi(ui)
 
     #create shipto
     response_shipto = SetupShipto(ui).setup()
@@ -57,4 +55,3 @@ def test_locker_planogram(ui, delete_shipto, delete_hardware):
     lp.log_in_distributor_portal()
     lpp.sidebar_hardware()
     lpp.open_locker_planogram(locker, response_shipto["shipto_id"])
-

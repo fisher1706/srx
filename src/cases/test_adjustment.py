@@ -57,7 +57,7 @@ def test_inventory_status_with_1_usage_history_record(api, conditions, delete_sh
     usage_history = [
         [usage_history_body["Order Number"], None, usage_history_body["ShipTo Number"], None, usage_history_body["Distributor SKU"], usage_history_body["Quantity"], usage_history_body["Date"]]
     ]
-    
+
     ia.full_import_usage_history(usage_history)
     sa.save_and_adjust_moving_status(True, response_location["shipto_id"], sleep=5)
     location = la.get_locations(shipto_id=response_location["shipto_id"])
@@ -108,7 +108,7 @@ def test_inventory_status_with_2_usage_history_records(api, conditions, delete_s
         [usage_history_body["Order Number"], None, usage_history_body["ShipTo Number"], None, usage_history_body["Distributor SKU"], usage_history_body["Quantity"], usage_history_body["Date1"]],
         [usage_history_body["Order Number"], None, usage_history_body["ShipTo Number"], None, usage_history_body["Distributor SKU"], usage_history_body["Quantity"], usage_history_body["Date2"]]
     ]
-    
+
     ia.full_import_usage_history(usage_history)
     sa.save_and_adjust_moving_status(True, response_location["shipto_id"], sleep=10)
     location = la.get_locations(shipto_id=response_location["shipto_id"])

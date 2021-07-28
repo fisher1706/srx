@@ -1,10 +1,10 @@
+import pytest
 from src.api.mobile.mobile_rfid_api import MobileRfidApi
 from src.api.distributor.rfid_api import RfidApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.setups.setup_location import SetupLocation
 from src.resources.permissions import Permissions
-import pytest
 
 
 @pytest.mark.regression
@@ -226,7 +226,8 @@ def test_delete_available_label_for_rfid_with_reoreder(mobile_api, conditions, d
 
     updated_active_transactions = ta.get_transaction(shipto_id=response_location["shipto_id"], status="ACTIVE")["entities"]
     assert len(updated_active_transactions) == 1, "Active transactions should not been created"
-    assert updated_active_transactions[0]["reorderQuantity"] == conditions["reorder_qty_after_unassign_available"], f"Reorder quantity should be equal {conditions['reorder_qty_after_unassign_available']}"
+    assert updated_active_transactions[0]["reorderQuantity"] == conditions["reorder_qty_after_unassign_available"], \
+        f"Reorder quantity should be equal {conditions['reorder_qty_after_unassign_available']}"
 
 
 @pytest.mark.regression

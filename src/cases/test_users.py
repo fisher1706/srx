@@ -66,7 +66,7 @@ def test_customer_user_crud(ui):
     edit_customer_user_body["lastName"] = f"User {Tools.random_string_l()}"
     edit_customer_user_body["role"] = "Customer Super User"
     #-------------------
-    
+
     lp.log_in_customer_portal()
     cup.sidebar_users_and_groups()
     cup.click_xpath(Locator.xpath_button_tab_by_name("Users"))
@@ -83,7 +83,7 @@ def test_customer_user_crud(ui):
         "user": None,
         "testrail_case_id": 28
     },
-    { 
+    {
         "user": Permissions.distributor_users("EDIT"),
         "testrail_case_id": 2178
     }
@@ -351,11 +351,11 @@ def test_checkout_group_assign_shipto(ui, delete_shipto, delete_checkout_group):
         "case": 1, #CRD on Admin portal
         "testrail_case_id": 2580
     },
-    { 
+    {
         "case": 2, #Create on admin portal, Read and Delete on distributor portal
         "testrail_case_id": 2578
     },
-    { 
+    {
         "case": 3, #Create on distributor portal, Read and Delete on admin portal
         "testrail_case_id": 2579
     }
@@ -365,7 +365,7 @@ def test_crud_user_on_admin_and_distributor_portal(api, case):
     api.testrail_case_id = case["testrail_case_id"]
 
     aua = AdminUserApi(api)
-    ua =UserApi(api)
+    ua = UserApi(api)
 
     user = {
         "email": Tools.random_email(),
@@ -430,9 +430,9 @@ def test_smoke_create_user(smoke_api):
         "user": None,
         "testrail_case_id": 2206
     },
-    { 
+    {
         "user": Permissions.distributor_users("EDIT"),
-            "testrail_case_id": 2207
+        "testrail_case_id": 2207
     }
     ])
 @pytest.mark.regression

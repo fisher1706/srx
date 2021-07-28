@@ -1,6 +1,6 @@
-import pytest
 import copy
 import time
+import pytest
 from src.resources.tools import Tools
 from src.resources.permissions import Permissions
 from src.pages.general.login_page import LoginPage
@@ -34,7 +34,7 @@ def test_different_multiple_po_number(ui, delete_shipto):
     shipto_2_dto = response_location_2["shipto"]
     new_shipto_1 = response_location_1["shipto_id"]
     new_shipto_2 = response_location_2["shipto_id"]
-    
+
     sta.set_reorder_controls_settings_for_shipto(new_shipto_1, scan_to_order=True)
     sta.set_reorder_controls_settings_for_shipto(new_shipto_2, scan_to_order=True)
 
@@ -81,7 +81,7 @@ def test_general_multiple_po_number(ui, delete_shipto):
     shipto_2_dto = response_location_2["shipto"]
     new_shipto_1 = response_location_1["shipto_id"]
     new_shipto_2 = response_location_2["shipto_id"]
-    
+
     sta.set_reorder_controls_settings_for_shipto(new_shipto_1, scan_to_order=True)
     sta.set_reorder_controls_settings_for_shipto(new_shipto_2, scan_to_order=True)
 
@@ -119,7 +119,7 @@ def test_create_transaction_for_noweight_locker(api, delete_shipto, delete_hardw
     location["onHandInventory"] = 1
     location["orderingConfig"]["lockerWithNoWeights"] = True
     location["id"] = response_location["location_id"]
-    la.update_location([location],response_location["shipto_id"])        
+    la.update_location([location], response_location["shipto_id"])
     time.sleep(5)
     transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
     assert len(transaction) == 1, "The number of transactions should be equal to 1"
@@ -132,17 +132,17 @@ def test_integration_submit_transaction_to_quote(smoke_api):
     ta = TransactionApi(smoke_api)
 
     transactions = ta.get_transaction(status="ACTIVE")
-    if (transactions["totalElements"] != 0):
+    if transactions["totalElements"] != 0:
         smoke_api.logger.info("There are some active transactions, they will be closed")
         ta.update_transactions_with_specific_status("ACTIVE", 0, "DO_NOT_REORDER")
-    
+
     transactions = ta.get_transaction(status="QUOTED")
-    if (transactions["totalElements"] != 0):
+    if transactions["totalElements"] != 0:
         smoke_api.logger.info("There are some quoted transactions, they will be closed")
         ta.update_transactions_with_specific_status("QUOTED", 0, "DO_NOT_REORDER")
 
     transactions = ta.get_transaction(status="ORDERED")
-    if (transactions["totalElements"] != 0):
+    if transactions["totalElements"] != 0:
         smoke_api.logger.info("There are some ordered transactions, they will be closed")
         ta.update_transactions_with_specific_status("ORDERED", 0, "DO_NOT_REORDER")
 
@@ -150,7 +150,7 @@ def test_integration_submit_transaction_to_quote(smoke_api):
     transactions = ta.get_transaction(status="ACTIVE")
     transaction_id = transactions["entities"][0]["id"]
     assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
-    
+
     post_data = {
         "poNumber": {
             "poNumber": "TEST DO NOT PROCESS",
@@ -194,7 +194,7 @@ def test_integration_submit_transaction_to_quote(smoke_api):
     assert transactions["totalElements"] == 1
 
     ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
-    
+
     transactions = ta.get_transaction(status="QUOTED")
     assert transactions["totalElements"] == 0
 
@@ -222,30 +222,29 @@ def test_smoke_label_transaction_and_activity_log(smoke_api):
     location["onHandInventory"] = 0
     location_list = [copy.deepcopy(location)]
     la.update_location(location_list, smoke_api.data.shipto_id)
-    for i in range(6):
+    for _ in range(6):
         transactions = ta.get_transaction(status="ACTIVE")
         transactions_qty = transactions["totalElements"]
         if transactions_qty == 0:
             time.sleep(5)
             continue
-        elif transactions_qty == 1:
+        if transactions_qty == 1:
             break
         else:
             smoke_api.logger.error(f"Incorrect QTY of transactions: '{transactions_qty}'")
     else:
-        smoke_api.logger.error(f"New transaction has not been created")
+        smoke_api.logger.error("New transaction has not been created")
 
     transaction_id = transactions["entities"][0]["id"]
     assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
     ta.update_replenishment_item(transaction_id, 0, "DO_NOT_REORDER")
-    for i in range(3):
+    for _ in range(3):
         time.sleep(10)
         activity_log_after = ala.get_activity_log()
         last_activity_log_id_after = activity_log_after["content"]["entities"][0]["id"]
         if last_activity_log_id_after <= last_activity_log_id_before:
             continue
-        else:
-            break
+        break
     assert last_activity_log_id_before < last_activity_log_id_after, "There are no new records in activity log"
 
 @pytest.mark.parametrize("permissions", [
@@ -253,7 +252,7 @@ def test_smoke_label_transaction_and_activity_log(smoke_api):
         "user": None,
         "testrail_case_id": 2299
     },
-    { 
+    {
         "user": Permissions.orders("EDIT"),
         "testrail_case_id": 2300
     }
@@ -307,10 +306,10 @@ def test_zero_quantity_of_new_transaction(api, delete_shipto):
     api.testrail_case_id = 1841
     ta = TransactionApi(api)
     la = LocationApi(api)
-    
+
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
-    setup_location.add_option("transaction",'ACTIVE')
+    setup_location.add_option("transaction", 'ACTIVE')
     response_location = setup_location.setup()
 
     distributor_sku = response_location["product"]["partSku"]
@@ -318,31 +317,31 @@ def test_zero_quantity_of_new_transaction(api, delete_shipto):
     round_buy = response_location["product"]["roundBuy"]
     new_quantity = quantity + round_buy
 
-    transaction_first = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")
-    transaction_id=transaction_first["entities"][-1]["id"]
+    transaction_first = ta.get_transaction(distributor_sku, shipto_id=response_location["shipto_id"], status="ACTIVE")
+    transaction_id = transaction_first["entities"][-1]["id"]
     ta.update_replenishment_item(transaction_id, quantity, "QUOTED")
     ta.create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
-    second_transaction = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")["entities"]
+    second_transaction = ta.get_transaction(distributor_sku, shipto_id=response_location["shipto_id"], status="ACTIVE")["entities"]
     assert second_transaction[0]["reorderQuantity"] == 0
-    
-    transaction_first = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="QUOTED")
-    transaction_id_changed=transaction_first["entities"][-1]["id"]
+
+    transaction_first = ta.get_transaction(distributor_sku, shipto_id=response_location["shipto_id"], status="QUOTED")
+    transaction_id_changed = transaction_first["entities"][-1]["id"]
     ta.update_replenishment_item(transaction_id_changed, quantity, "ORDERED")
-    transaction_second = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")
-    transaction_id_second=transaction_second["entities"][-1]["id"]
+    transaction_second = ta.get_transaction(distributor_sku, shipto_id=response_location["shipto_id"], status="ACTIVE")
+    transaction_id_second = transaction_second["entities"][-1]["id"]
     ta.update_replenishment_item(transaction_id_second, new_quantity, "DELIVERED")
     ta.create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
-    third_transaction = ta.get_transaction(distributor_sku,status="ACTIVE")["entities"]
+    third_transaction = ta.get_transaction(distributor_sku, status="ACTIVE")["entities"]
     assert third_transaction[0]["reorderQuantity"] == 0
 
-    transaction_first = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ORDERED")
-    transaction_id_changed=transaction_first["entities"][-1]["id"]
+    transaction_first = ta.get_transaction(distributor_sku, shipto_id=response_location["shipto_id"], status="ORDERED")
+    transaction_id_changed = transaction_first["entities"][-1]["id"]
     ta.update_replenishment_item(transaction_id_changed, quantity, "SHIPPED")
-    transaction_third = ta.get_transaction(distributor_sku, shipto_id = response_location["shipto_id"], status="ACTIVE")
-    transaction_id_third=transaction_third["entities"][-1]["id"]
+    transaction_third = ta.get_transaction(distributor_sku, shipto_id=response_location["shipto_id"], status="ACTIVE")
+    transaction_id_third = transaction_third["entities"][-1]["id"]
     ta.update_replenishment_item(transaction_id_third, new_quantity, "DELIVERED")
     ta.create_active_item(response_location["shipto_id"], la.get_ordering_config_by_sku(response_location["shipto_id"], distributor_sku))
-    fourth_transaction = ta.get_transaction(distributor_sku,status="ACTIVE")["entities"]
+    fourth_transaction = ta.get_transaction(distributor_sku, status="ACTIVE")["entities"]
     assert fourth_transaction[0]["reorderQuantity"] == 0
 
 @pytest.mark.parametrize("conditions", [
@@ -383,7 +382,7 @@ def test_close_transactions_when_update_to_assets(api, conditions, delete_shipto
 
     ta = TransactionApi(api)
     pa = ProductApi(api)
-    
+
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
     setup_location.setup_product.add_option("round_buy", 1)

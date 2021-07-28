@@ -1,26 +1,26 @@
+import hashlib
 from src.api.api import API
 from src.resources.messages import Message
-import hashlib
 
 class CheckoutApi(API):
     def checkout_cart(self, location_id, location_type, quantity=None, epc=None, issue_product=None, return_product=None, passcode=None):
-        if (location_type == "LABEL"):
+        if location_type == "LABEL":
             cart = [{
                 "locationId": location_id,
                 "quantity": quantity,
                 "type": location_type
             }]
-        if (location_type == "RFID"):
+        if location_type == "RFID":
             cart = [{
                 "locationId": location_id,
                 "epc": epc,
                 "type": location_type
             }]
-        if (issue_product):
+        if issue_product:
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/issue")
-        elif (return_product):
+        elif return_product:
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/return")
-        if (passcode is not None):
+        if passcode is not None:
             token = self.get_checkout_group_token()
             sub_token = self.get_checkout_user_sub_token(passcode)
             additional_header = {
@@ -30,8 +30,7 @@ class CheckoutApi(API):
         else:
             token = self.get_checkout_token()
             response = self.send_post(url, token, cart)
-        response_json = response.json()
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="processed"))
         else:
             self.logger.error(str(response.content))
@@ -42,11 +41,11 @@ class CheckoutApi(API):
             "epc": epc,
             "type": location_type
         }
-        if (issue_product):
+        if issue_product:
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/issue/item/rfid/validate")
-        elif (return_product):
+        elif return_product:
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/return/item/rfid/validate")
-        if (passcode is not None):
+        if passcode is not None:
             token = self.get_checkout_group_token()
             sub_token = self.get_checkout_user_sub_token(passcode)
             additional_header = {
@@ -56,15 +55,14 @@ class CheckoutApi(API):
         else:
             token = self.get_checkout_token()
             response = self.send_post(url, token, cart)
-        response_json = response.json()
-        if (response.status_code == 200):
-            self.logger.info(f"RFID is validated")
+        if response.status_code == 200:
+            self.logger.info("RFID is validated")
         else:
             self.logger.error(str(response.content))
 
     def get_cart(self, passcode=None):
         url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart")
-        if (passcode is not None):
+        if passcode is not None:
             token = self.get_checkout_group_token()
             sub_token = self.get_checkout_user_sub_token(passcode)
             additional_header = {
@@ -75,16 +73,16 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_get(url, token)
 
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
-    
+
     def close_cart(self, passcode=None):
         url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/close")
-        if (passcode is not None):
+        if passcode is not None:
             token = self.get_checkout_group_token()
             sub_token = self.get_checkout_user_sub_token(passcode)
             additional_header = {
@@ -94,17 +92,17 @@ class CheckoutApi(API):
         else:
             token = self.get_checkout_token()
             response = self.send_post(url, token)
-        if (response.status_code == 200):
-            self.logger.info(f"Cart is empty now")
+        if response.status_code == 200:
+            self.logger.info("Cart is empty now")
         else:
             self.logger.error(str(response.content))
 
     def issue_product(self, location_dto, passcode=None):
-        if (location_dto[0]["orderingConfig"]["type"] == "LABEL"):
+        if location_dto[0]["orderingConfig"]["type"] == "LABEL":
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/carts/issue/label/process")
-        if (location_dto[0]["orderingConfig"]["type"] == "RFID"):
+        if location_dto[0]["orderingConfig"]["type"] == "RFID":
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/carts/issue/rfid/process")
-        if (passcode is not None):
+        if passcode is not None:
             token = self.get_checkout_group_token()
             sub_token = self.get_checkout_user_sub_token(passcode)
             additional_header = {
@@ -114,17 +112,17 @@ class CheckoutApi(API):
         else:
             token = self.get_checkout_token()
             response = self.send_post(url, token, location_dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(f"{location_dto[0]['quantity']} items of product '{location_dto[0]['orderingConfig']['product']['partSku']}' has been successfully issued")
         else:
             self.logger.error(str(response.content))
-    
+
     def return_product(self, location_dto, passcode=None):
-        if (location_dto[0]["orderingConfig"]["type"] == "LABEL"):
+        if location_dto[0]["orderingConfig"]["type"] == "LABEL":
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/carts/return/label/process")
-        if (location_dto[0]["orderingConfig"]["type"] == "RFID"):
+        if location_dto[0]["orderingConfig"]["type"] == "RFID":
             url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/carts/return/rfid/process")
-        if (passcode is not None):
+        if passcode is not None:
             token = self.get_checkout_group_token()
             sub_token = self.get_checkout_user_sub_token(passcode)
             additional_header = {
@@ -134,7 +132,7 @@ class CheckoutApi(API):
         else:
             token = self.get_checkout_token()
             response = self.send_post(url, token, location_dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(f"{location_dto[0]['quantity']} items of product '{location_dto[0]['orderingConfig']['product']['partSku']}' has been successfully returned")
         else:
             self.logger.error(str(response.content))
@@ -147,10 +145,9 @@ class CheckoutApi(API):
             "Sub-Authorization": sha256passcode
         }
         response = self.send_post(url, token, additional_headers=additional_header)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="Sub-Authorization token for checkout user", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["passToken"]
-

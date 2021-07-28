@@ -17,7 +17,7 @@ from src.api.distributor.rfid_api import RfidApi
         "user": None,
         "testrail_case_id": 1918
     },
-    { 
+    {
         "user": Permissions.rfids("EDIT"),
         "testrail_case_id": 2245
     }
@@ -79,7 +79,7 @@ def test_rfid_crud_view_permission(api, permission_api, delete_distributor_secur
         "user": None,
         "testrail_case_id": 2243
     },
-    { 
+    {
         "user": Permissions.rfids("EDIT"),
         "testrail_case_id": 2244
     }
@@ -114,7 +114,7 @@ def test_rfid_label_import_as_available(ui, permission_ui, permissions, delete_s
         "user": None,
         "testrail_case_id": 2254
     },
-    { 
+    {
         "user": Permissions.rfids("EDIT"),
         "testrail_case_id": 2255
     }
@@ -157,7 +157,7 @@ def test_create_rfid_transaction_as_issued(api, delete_shipto, delete_hardware):
     setup_location.add_option("rfid_labels", 3)
     setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
     response_location = setup_location.setup()
-    
+
     ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
     ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][1]["rfid_id"], "AVAILABLE")
     ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][2]["rfid_id"], "AVAILABLE")
@@ -190,7 +190,7 @@ def test_create_rfid_transaction_at_min(api, delete_shipto, delete_hardware):
     ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "AVAILABLE")
 
     sta.set_reorder_controls_settings_for_shipto(response_location["shipto_id"])
-    
+
     ra.rfid_issue(response_location["rfid"]["value"], test_label)
     rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])
     test_label_body = rfid_labels_response[0]
@@ -200,7 +200,8 @@ def test_create_rfid_transaction_at_min(api, delete_shipto, delete_hardware):
     transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])
     transaction_count = transaction["totalElements"]
     assert transaction_count == 1, f"The number of transactions should be equal to 1, but now it is {transaction_count}"
-    assert transaction["entities"][0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
+    assert transaction["entities"][0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*3), \
+        f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*3}"
     assert transaction["entities"][0]["product"]["partSku"] == response_location["product"]["partSku"]
 
 @pytest.mark.regression
@@ -283,8 +284,9 @@ def test_full_return_rfid_available_flow(api, delete_shipto, delete_hardware):
     mra.rfid_put_away(response_location["shipto_id"], response_location["rfid_labels"][0]["rfid_id"])
     rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])
 
-    assert len(rfid_labels_response) == 1, f"Location with ID = '{response_location['location_id']}' should contain only 1 RFID label, now {len(rfid_labels_response)}"
-    
+    assert len(rfid_labels_response) == 1, \
+        f"Location with ID = '{response_location['location_id']}' should contain only 1 RFID label, now {len(rfid_labels_response)}"
+
     test_label_body = rfid_labels_response[0]
 
     assert test_label_body["state"] == "AVAILABLE", f"RFID label should be in AVAILABLE status, now {test_label_body['state']}"
@@ -326,8 +328,9 @@ def test_full_rfid_available_flow(api, delete_shipto, delete_hardware):
     mra.rfid_put_away(response_location["shipto_id"], response_location["rfid_labels"][0]["rfid_id"])
     rfid_labels_response = ra.get_rfid_labels(response_location["location_id"])
 
-    assert len(rfid_labels_response) == 1, f"Location with ID = '{response_location['location_id']}' should contain only 1 RFID label, now {len(rfid_labels_response)}"
-    
+    assert len(rfid_labels_response) == 1, \
+        f"Location with ID = '{response_location['location_id']}' should contain only 1 RFID label, now {len(rfid_labels_response)}"
+
     test_label_body = rfid_labels_response[0]
 
     assert test_label_body["state"] == "AVAILABLE", f"RFID label should be in AVAILABLE status, now {test_label_body['state']}"

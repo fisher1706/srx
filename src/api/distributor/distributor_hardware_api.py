@@ -6,7 +6,7 @@ class DistributorHardwareApi(API):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/hardware")
         token = self.get_distributor_token()
         response = self.send_put(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Hardware", id=dto['id'], operation="updated"))
         else:
             self.logger.error(str(response.content))
@@ -15,7 +15,7 @@ class DistributorHardwareApi(API):
         url = self.url.get_iothub_api_url_for_env("/generic/list-devices")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="Device statuses", operation="got"))
         else:
             self.logger.error(str(response.content))

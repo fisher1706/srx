@@ -1,10 +1,9 @@
+import copy
+import pytest
 from src.resources.permissions import Permissions
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.resources.tools import Tools
-import pytest
-import copy
-
 
 @pytest.mark.parametrize("permissions", [
     {
@@ -60,7 +59,7 @@ def test_assign_dsn_to_button_without_permissions(mobile_api, permission_api, de
     la.update_location(location_list, response_location["shipto_id"], expected_status_code=400, mobile=True)
 
     locations = LocationApi(mobile_api).get_locations(response_location["shipto_id"], mobile=True)
-    assert locations[0]["orderingConfig"]["dsn"] == None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
+    assert locations[0]["orderingConfig"]["dsn"] is None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
 
 
 @pytest.mark.parametrize("permissions", [
@@ -93,7 +92,7 @@ def test_unassign_dsn_from_button(mobile_api, permission_api, permissions, delet
     la.update_location(location_list, response_location["shipto_id"], mobile=True)
 
     locations = LocationApi(mobile_api).get_locations(response_location["shipto_id"], mobile=True)
-    assert locations[0]["orderingConfig"]["dsn"] == None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
+    assert locations[0]["orderingConfig"]["dsn"] is None, f"Button DSN should be empty, but it is {locations[0]['orderingConfig']['dsn']}"
 
 
 @pytest.mark.acl
@@ -117,4 +116,4 @@ def test_unassign_dsn_from_button_without_permissions(mobile_api, permission_api
     la.update_location(location_list, response_location["shipto_id"], expected_status_code=400, mobile=True)
 
     locations = LocationApi(mobile_api).get_locations(response_location["shipto_id"], mobile=True)
-    assert locations[0]["orderingConfig"]["dsn"] != None, f"Button DSN should Not be empty"
+    assert locations[0]["orderingConfig"]["dsn"] is not None, "Button DSN should Not be empty"

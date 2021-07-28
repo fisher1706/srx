@@ -1,10 +1,9 @@
+import pytest
 from src.api.mobile.mobile_transaction_api import MobileTransactionApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
 from src.resources.permissions import Permissions
-import pytest
-
 
 @pytest.mark.parametrize("permissions", [
     {
@@ -58,7 +57,6 @@ def test_bulk_create_transaction_without_permission(mobile_api, permission_api, 
     mobile_api.testrail_case_id = 2463
     Permissions.set_configured_user(mobile_api, Permissions.mobile_labels("ENABLE", False))
     mta = MobileTransactionApi(permission_api)
-    ta = TransactionApi(mobile_api)
 
     setup_location = SetupLocation(mobile_api)
     setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
@@ -339,13 +337,17 @@ def test_bulk_create_for_exist_transactions_in_different_status(mobile_api, cond
     mta.bulk_create(response_location_1["shipto_id"], data_for_new_transactions)
 
     new_transactions_in_active = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status="ACTIVE")["entities"]
-    assert len(new_transactions_in_active) == 2, f"There are should be 2 transactions in ACTIVE status"
-    assert new_transactions_in_active[0]["reorderQuantity"] == conditions["reorder_qty_new_1"], f"Reorder quantity of {new_transactions_in_active[0]['productPartSku']} should be equal to {conditions['reorder_qty_new_1']}"
-    assert new_transactions_in_active[1]["reorderQuantity"] == conditions["reorder_qty_new_2"], f"Reorder quantity of {new_transactions_in_active[1]['productPartSku']} should be equal to {conditions['reorder_qty_new_2']}"
+    assert len(new_transactions_in_active) == 2, "There are should be 2 transactions in ACTIVE status"
+    assert new_transactions_in_active[0]["reorderQuantity"] == conditions["reorder_qty_new_1"], \
+        f"Reorder quantity of {new_transactions_in_active[0]['productPartSku']} should be equal to {conditions['reorder_qty_new_1']}"
+    assert new_transactions_in_active[1]["reorderQuantity"] == conditions["reorder_qty_new_2"], \
+        f"Reorder quantity of {new_transactions_in_active[1]['productPartSku']} should be equal to {conditions['reorder_qty_new_2']}"
 
     transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"], status=conditions["status"])["entities"]
-    assert transactions[0]["reorderQuantity"] == conditions["reorder_qty_exist_1"], f"Reorder quantity of {transactions[0]['productPartSku']} should be equal to {conditions['reorder_qty_exist_1']}"
-    assert transactions[1]["reorderQuantity"] == conditions["reorder_qty_exist_2"], f"Reorder quantity of {transactions[1]['productPartSku']} should be equal to {conditions['reorder_qty_exist_2']}"
+    assert transactions[0]["reorderQuantity"] == conditions["reorder_qty_exist_1"], \
+        f"Reorder quantity of {transactions[0]['productPartSku']} should be equal to {conditions['reorder_qty_exist_1']}"
+    assert transactions[1]["reorderQuantity"] == conditions["reorder_qty_exist_2"], \
+        f"Reorder quantity of {transactions[1]['productPartSku']} should be equal to {conditions['reorder_qty_exist_2']}"
 
     total_transactions_count = ta.get_transactions_count(shipto_id=response_location_1["shipto_id"])
     assert total_transactions_count == 4, "The total transactions count should be equal 4"
@@ -372,7 +374,7 @@ def test_bulk_create_for_exist_transactions_in_different_status(mobile_api, cond
     }
 ])
 @pytest.mark.regression
-def test_bulk_create_with_qnty_not_alligned_roundBuy(mobile_api, conditions, delete_shipto):
+def test_bulk_create_with_qnty_not_alligned_round_buy(mobile_api, conditions, delete_shipto):
     mobile_api.testrail_case_id = conditions["testrail_case_id"]
     mta = MobileTransactionApi(mobile_api)
     ta = TransactionApi(mobile_api)

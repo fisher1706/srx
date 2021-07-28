@@ -64,14 +64,14 @@ def test_common_set_of_hubs_for_locker_and_vending(ui, delete_hardware):
     iothub_dto = ha.create_iothub() #create IoT Hub via rest api
     ui.dynamic_context["delete_hardware_id"].append(iothub_dto["id"])
     iothub_name = f"{iothub_dto['id']} ({iothub_dto['value']}) / {ui.data.distributor_name}"
-    
+
     hp.sidebar_hardware()
     hp.wait_until_page_loaded()
     hp.iothub_should_be_available("Locker", iothub_name)
     hp.iothub_should_be_available("Vending", iothub_name)
     hp.iothub_should_be_available("IP Camera", iothub_name)
 
-    locker_serial_number = hp.create_locker(ui.data.distributor_name, iothub_name) #create locker
+    hp.create_locker(ui.data.distributor_name, iothub_name) #create locker
     hp.check_last_hardware(device_type="LOCKER", distributor=ui.data.distributor_name)
 
     hp.iothub_should_not_be_available("Locker", iothub_name)
@@ -84,7 +84,7 @@ def test_common_set_of_hubs_for_locker_and_vending(ui, delete_hardware):
     hp.iothub_should_be_available("Vending", iothub_name)
     hp.iothub_should_be_available("IP Camera", iothub_name)
 
-    locker_serial_number = hp.create_vending(ui.data.distributor_name, iothub_name) #create vending
+    hp.create_vending(ui.data.distributor_name, iothub_name) #create vending
     hp.check_last_hardware(device_type="VENDING", distributor=ui.data.distributor_name)
 
     hp.iothub_should_not_be_available("Locker", iothub_name)

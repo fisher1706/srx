@@ -83,7 +83,7 @@ def test_accept_distributor_user_invitation_and_reset_password(ui, conditions, d
 
     #set a new password
     new_reset_password = Tools.random_string_l()
-    
+
     lp.input_data_id(new_reset_password, Locator.id_new_password)
     lp.input_data_id(new_reset_password, Locator.id_confirm_password)
     lp.click_on_submit_button()
@@ -194,7 +194,7 @@ def test_accept_customer_user_invitation_and_reset_password(ui, delete_customer_
 
     #set a new password
     new_reset_password = Tools.random_string_l()
-    
+
     lp.input_data_id(new_reset_password, Locator.id_new_password)
     lp.input_data_id(new_reset_password, Locator.id_confirm_password)
     lp.click_on_submit_button()
@@ -257,7 +257,7 @@ def test_accept_checkout_group_invitation_and_reset_password(ui, delete_checkout
 
     #set a new password
     new_reset_password = Tools.random_string_l()
-    
+
     cpp.input_data_id(new_reset_password, "mat-input-0")
     cpp.input_data_id(new_reset_password, "mat-input-1")
     cpp.click_xpath(Locator.xpath_button_type)

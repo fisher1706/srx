@@ -10,7 +10,7 @@ from src.api.setups.setup_shipto import SetupShipto
         "user": None,
         "testrail_case_id": 2301
     },
-    { 
+    {
         "user": Permissions.cribcrawls("EDIT"),
         "testrail_case_id": 2302
     }

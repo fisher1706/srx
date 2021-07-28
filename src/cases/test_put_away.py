@@ -24,10 +24,10 @@ def test_put_away_for_existing_transaction(api, delete_shipto):
     transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
     status = transaction["entities"][0]["status"]
     assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_location['product']['partSku']} should be in status DELIVERED, but status is {status}"
-    assert transaction_id == transaction["entities"][0]["id"], f"Existing transaction should be moved to DELIVERED"
+    assert transaction_id == transaction["entities"][0]["id"], "Existing transaction should be moved to DELIVERED"
 
 @pytest.mark.regression
-def test_put_away_by_SKU(api, delete_shipto):
+def test_put_away_by_sku(api, delete_shipto):
     api.testrail_case_id = 2040
 
     ta = TransactionApi(api)
@@ -46,7 +46,7 @@ def test_put_away_by_SKU(api, delete_shipto):
     assert f"{status}" == "DELIVERED", f"Transaction for SKU {response_location['product']['partSku']} should be in status DELIVERED, but status is {status}"
 
 @pytest.mark.regression
-def test_put_away_by_nonexistent_SKU(api, delete_shipto):
+def test_put_away_by_nonexistent_sku(api, delete_shipto):
     api.testrail_case_id = 2041
 
     pa = PutAwayApi(api)
@@ -67,7 +67,7 @@ def test_put_away_by_nonexistent_SKU(api, delete_shipto):
     assert transaction_count == 0, f"There should be 0 transactions for shipto {shipto_id}"
 
 @pytest.mark.regression
-def test_put_away_for_several_transactions_same_SKU(api, delete_shipto):
+def test_put_away_for_several_transactions_same_sku(api, delete_shipto):
     api.testrail_case_id = 2042
 
     ta = TransactionApi(api)
@@ -99,7 +99,6 @@ def test_bulk_put_away(api, delete_shipto):
 
     ta = TransactionApi(api)
     pa = PutAwayApi(api)
-    la = LocationApi(api)
 
     setup_location = SetupLocation(api)
     setup_location.add_option("transaction", "ORDERED")
@@ -124,7 +123,6 @@ def test_put_away_qnty_0(api, delete_shipto):
 
     ta = TransactionApi(api)
     pa = PutAwayApi(api)
-    la = LocationApi(api)
 
     setup_location = SetupLocation(api)
     setup_location.add_option("transaction", "ORDERED")
@@ -156,7 +154,7 @@ def test_put_away_asset(api, delete_shipto):
     }
     pa.put_away([dto])
     transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
-    assert transaction["totalElements"] == 0, f"There should not be transactions for asset product"
+    assert transaction["totalElements"] == 0, "There should not be transactions for asset product"
 
 @pytest.mark.regression
 def test_bulk_put_away_locker_location(api, delete_shipto, delete_hardware):
@@ -199,7 +197,7 @@ def test_put_away_active_transaction(api, delete_shipto):
     assert f"{status}" == "ACTIVE", f"Transaction for SKU {response_location['product']['partSku']} should be in status ACTIVE, but status is {status}"
 
 @pytest.mark.regression
-def test_put_away_by_SKU_and_unmatched_transaction(api, delete_shipto):
+def test_put_away_by_sku_and_unmatched_transaction(api, delete_shipto):
     api.testrail_case_id = 2077
 
     ta = TransactionApi(api)

@@ -23,7 +23,7 @@ class LockerPlanogramPage(DistributorPortalPage):
     def open_locker_planogram(self, locker, shipto):
         self.get_element_by_xpath(Locator.xpath_table_row)
         locker_row = self.scan_table(scan_by=locker, column_header="Serial Number", pagination=False)
-        self.get_element_by_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.xpath_planogram_button).click()
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, locker_row)+Locator.xpath_planogram_button)
         self.wait_until_progress_bar_loaded()
         #check device
         text = self.get_element_text(Locator.xpath_dropdown_in_dialog(1))
@@ -39,14 +39,12 @@ class LockerPlanogramPage(DistributorPortalPage):
             self.logger.error(f"URL contains wrong shipto id {shipto}")
     
     def assign_smart_shelf_to_locker_door(self, smart_shelf):
-        self.wait_until_progress_bar_loaded()
         self.click_xpath(Locator.xpath_configure_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), smart_shelf)
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
     
     def check_smart_shelf_via_planogram(self, smart_shelf, door_number):
-        self.wait_until_progress_bar_loaded()
         self.click_xpath(Locator.xpath_configure_button)
         self.get_element_by_xpath(Locator.xpath_dropdown_in_dialog(2))
         self.wait_untill_dropdown_not_empty(Locator.xpath_dropdown_in_dialog(2))
@@ -63,6 +61,5 @@ class LockerPlanogramPage(DistributorPortalPage):
         self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
 
     def check_first_door_is_unavaliable_planogram(self):
-        self.wait_until_progress_bar_loaded()
         self.click_xpath(Locator.xpath_configure_button)
         self.should_be_disabled_xpath(f"{Locator.xpath_dropdown_in_dialog(2)}//input")

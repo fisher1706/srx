@@ -1,5 +1,5 @@
-import pytest
 import copy
+import pytest
 from src.resources.tools import Tools
 from src.api.distributor.settings_api import SettingsApi
 from src.api.setups.setup_location import SetupLocation
@@ -114,8 +114,8 @@ def test_create_variant_when_update_clc(api, delete_customer):
     setup_location.setup_shipto.setup_customer.add_option("clc")
     response_location = setup_location.setup()
 
-    customer_product =  pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
-    assert customer_product["variant"] == False
+    customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+    assert not customer_product["variant"]
     assert customer_product["roundBuy"] == 10
 
     customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
@@ -123,8 +123,8 @@ def test_create_variant_when_update_clc(api, delete_customer):
     customer_product["roundBuy"] = 1
     pa.update_customer_product(customer_product, product_id, customer_id=response_location["customer_id"])
 
-    customer_product =  pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
-    assert customer_product["variant"] == True
+    customer_product = pa.get_customer_product(response_location["customer_id"], response_location["product"]["partSku"])[0]
+    assert customer_product["variant"]
     assert customer_product["roundBuy"] == 1
 
     distributor_product = pa.get_product(response_location["product"]["partSku"])[0]

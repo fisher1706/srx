@@ -1,5 +1,5 @@
-import pytest
 import random
+import pytest
 from src.pages.general.login_page import LoginPage
 from src.pages.admin.fees_page import FeesPage
 

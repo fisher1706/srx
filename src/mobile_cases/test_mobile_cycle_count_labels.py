@@ -1,10 +1,9 @@
+import pytest
 from src.api.mobile.mobile_cycle_count_api import MobileCycleCountApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
 from src.api.setups.setup_location import SetupLocation
 from src.resources.permissions import Permissions
-import pytest
-
 
 @pytest.mark.parametrize("permissions", [
     {
@@ -23,7 +22,7 @@ import pytest
 ])
 @pytest.mark.acl
 @pytest.mark.regression
-def test_update_ohi_with_qty_multiple_of_issueQty(mobile_api, permission_api, permissions, delete_shipto, delete_distributor_security_group):
+def test_update_ohi_with_qty_multiple_of_issue_qty(mobile_api, permission_api, permissions, delete_shipto, delete_distributor_security_group):
     mobile_api.testrail_case_id = permissions["testrail_case_id"]
     context = Permissions.set_configured_user(mobile_api, permissions["user"], permission_context=permission_api)
     mca = MobileCycleCountApi(context)
@@ -116,7 +115,7 @@ def test_update_ohi_without_permission(mobile_api, permission_api, delete_shipto
     }
 ])
 @pytest.mark.regression
-def test_update_ohi_with_qty_non_multiple_of_issueQty(mobile_api, conditions, delete_shipto):
+def test_update_ohi_with_qty_non_multiple_of_issue_qty(mobile_api, conditions, delete_shipto):
     mobile_api.testrail_case_id = conditions["testrail_case_id"]
     mca = MobileCycleCountApi(mobile_api)
     la = LocationApi(mobile_api)
@@ -166,7 +165,7 @@ def test_update_ohi_with_disabled_track_ohi_option(mobile_api, delete_shipto):
     mca.update_ohi(data, response_location["shipto_id"], response_location["location_id"], expected_status_code=400)
 
     locations = la.get_locations(response_location["shipto_id"])
-    assert locations[0]["onHandInventory"] is None, f"OHI of location should be null"
+    assert locations[0]["onHandInventory"] is None, "OHI of location should be null"
 
 
 @pytest.mark.parametrize("conditions", [
@@ -208,4 +207,5 @@ def test_update_ohi_with_qty_less_or_equal_min(mobile_api, conditions, delete_sh
 
     transactions_active = ta.get_transaction(shipto_id=response_location["shipto_id"], status="ACTIVE")["entities"]
 
-    assert len(transactions_active) == 1 and transactions_active[0]["reorderQuantity"] == conditions["reorder_quantity"], f"Transactions quantity in Active status should be 1 and reorder quantity should be{conditions['reorder_quantity']}"
+    assert len(transactions_active) == 1 and transactions_active[0]["reorderQuantity"] == conditions["reorder_quantity"], \
+        f"Transactions quantity in Active status should be 1 and reorder quantity should be {conditions['reorder_quantity']}"
