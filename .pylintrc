@@ -36,13 +36,10 @@ good-names=
     ui
 
 bad-names=
-    i,
-    k,
-    n,
     var,
     test,
-    my_var,
     foo,
+    obj
 
 [TYPECHECK]
 ignored-modules=sys

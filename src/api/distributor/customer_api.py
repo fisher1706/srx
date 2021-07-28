@@ -9,13 +9,12 @@ class CustomerApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
-        if (response.status_code == 201):
+        if response.status_code == 201:
             self.logger.info(f"New customer '{dto['name']}' has been successfully created")
             response_json = response.json()
             new_customer = (response_json["data"].split("/"))[-1]
             return new_customer
-        else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="creation", status_code=response.status_code, content=response.content))
+        self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def delete_customer(self, customer_id, expected_status_code=None):
@@ -23,7 +22,7 @@ class CustomerApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="deleted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="deletion", status_code=response.status_code, content=response.content))
@@ -34,7 +33,7 @@ class CustomerApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
-        if (response.status_code == 201):
+        if response.status_code == 201:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="updated"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="updating", status_code=response.status_code, content=response.content))
@@ -47,7 +46,7 @@ class CustomerApi(API):
             "number": number
         }
         response = self.send_get(url, token, params=params)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="Customers", operation="got"))
         else:
             self.logger.error(str(response.content))
