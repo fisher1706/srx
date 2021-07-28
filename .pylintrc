@@ -26,14 +26,19 @@ max-statements=100
 max-attributes=30
 min-public-methods=1
 max-args=8
-min-similarity-lines=8
+min-similarity-lines=15
+max-locals=30
 
 [BASIC]
 good-names=
     ua,
     sa,
     ca,
-    ui
+    ui,
+    ta,
+    la,
+    ra,
+    pa,
 
 bad-names=
     var,

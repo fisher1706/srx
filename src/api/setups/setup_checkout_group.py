@@ -1,13 +1,12 @@
+import copy
 from src.api.customer.checkout_group_api import CheckoutGroupApi
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.resources.tools import Tools
 from src.api.setups.base_setup import BaseSetup
-import copy
 
 class SetupCheckoutGroup(BaseSetup):
     def __init__(self, context):
         super().__init__(context)
-
         self.setup_name = "Checkout Group"
         self.options = {
             "email": None,
