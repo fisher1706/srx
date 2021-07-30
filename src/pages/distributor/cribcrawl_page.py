@@ -4,9 +4,9 @@ from src.resources.tools import Tools
 
 class CribcrawlPage(DistributorPortalPage):
     def follow_cribcrawl_url(self, customer_id=None, shipto_id=None):
-        if (customer_id is None):
+        if customer_id is None:
             customer_id = self.data.customer_id
-        if (shipto_id is None):
+        if shipto_id is None:
             shipto_id = self.data.shipto_id
         self.follow_url(self.url.get_url_for_env(f"storeroomlogix.com/customers/{customer_id}/shiptos/{shipto_id}#cribcrawl-list", "distributor"))
 

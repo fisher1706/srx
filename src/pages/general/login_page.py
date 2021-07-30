@@ -69,9 +69,9 @@ class LoginPage(BasePage):
 
     def log_in_distributor_portal(self, email=None, password=None, expected_url=None):
         self.follow_auth_portal()
-        if (email is None):
+        if email is None:
             email = self.context.distributor_email
-        if (password is None):
+        if password is None:
             password = self.context.distributor_password
         self.input_email(email)
         self.input_password(password)
@@ -81,9 +81,9 @@ class LoginPage(BasePage):
 
     def log_in_customer_portal(self, email=None, password=None):
         self.follow_auth_portal()
-        if (email is None):
+        if email is None:
             email = self.context.customer_email
-        if (password is None):
+        if password is None:
             password = self.context.customer_password
         self.input_email(email)
         self.input_password(password)
