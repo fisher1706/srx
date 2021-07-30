@@ -281,13 +281,13 @@ def test_transaction_crud_and_split(ui, permission_ui, permissions, delete_distr
     osp.sidebar_order_status()
     osp.wait_until_page_loaded()
     new_transaction_row = osp.scan_table(distributor_sku, "Distributor SKU")
-    quantity = osp.get_table_item_text_by_header("Quantity", new_transaction_row)
+    quantity = osp.get_table_item_text_by_header("Quantity Ordered", new_transaction_row)
     assert osp.get_table_item_text_by_header("Status", new_transaction_row) == "ACTIVE"
     new_quantity = int(quantity) + int(round_buy)
     osp.update_transaction(new_transaction_row, quantity=new_quantity, status="SHIPPED")
 
     assert osp.get_table_item_text_by_header("Status", new_transaction_row) == "SHIPPED"
-    assert osp.get_table_item_text_by_header("Quantity", new_transaction_row) == str(new_quantity)
+    assert osp.get_table_item_text_by_header("Quantity Ordered", new_transaction_row) == str(new_quantity)
 
     osp.split_transaction(new_transaction_row, round_buy)
 
