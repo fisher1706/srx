@@ -1,7 +1,7 @@
+import os
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
 from src.resources.tools import Tools
-import os
 
 class SettingsPage(DistributorPortalPage):
     def import_document(self):
@@ -20,4 +20,3 @@ class SettingsPage(DistributorPortalPage):
         self.click_xpath(Locator.xpath_dialog + Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.elements_count_should_be(Locator.xpath_by_count(Locator.xpath_table, 1) + Locator.xpath_table_row, start_number_of_rows-1)
-

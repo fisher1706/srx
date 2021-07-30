@@ -50,7 +50,7 @@ class CheckoutGroupsPage(CustomerPortalPage):
         self.click_id(self.id_associate)
         self.get_element_by_xpath(Locator.xpath_select_button)
         for index in range(1, self.get_element_count(Locator.xpath_dialog+Locator.xpath_table_row)+1):
-            if(self.get_element_text(Locator.xpath_table_item_in_dialog(index, 1)) == str(shipto_number)):
+            if self.get_element_text(Locator.xpath_table_item_in_dialog(index, 1)) == str(shipto_number):
                 self.click_xpath(Locator.xpath_by_count(Locator.xpath_dialog+Locator.xpath_table_row+Locator.xpath_button_type, index))
                 break
         else:
@@ -80,7 +80,7 @@ class CheckoutGroupsPage(CustomerPortalPage):
         self.click_id(self.id_associate)
         self.get_element_by_xpath(Locator.xpath_select_button)
         for index in range(1, self.get_element_count(Locator.xpath_dialog+Locator.xpath_table_row)+1):
-            if(self.get_element_text(Locator.xpath_table_item_in_dialog(index, 4)) == str(user_email)):
+            if self.get_element_text(Locator.xpath_table_item_in_dialog(index, 4)) == str(user_email):
                 self.click_xpath(Locator.xpath_by_count(Locator.xpath_dialog+Locator.xpath_table_row+Locator.xpath_button_type, index))
                 break
         else:

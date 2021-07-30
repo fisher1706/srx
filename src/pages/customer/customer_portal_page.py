@@ -15,10 +15,10 @@ class CustomerPortalPage(BasePage):
 
     def sign_out(self):
         self.click_id("sidebar-sign_out")
-    
+
     def sidebar_assets(self):
         self.click_id("sidebar-assets")
-    
+
     def customer_sidebar_should_contain_email(self, email=None):
         if email is None:
             email = self.context.customer_email

@@ -1,6 +1,6 @@
+import re
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
-import re
 
 class DistributorUsersPage(DistributorPortalPage):
     distributor_user_body = {
@@ -104,4 +104,3 @@ class DistributorUsersPage(DistributorPortalPage):
         self.delete_dialog_should_be_about(full_name)
         self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()
-
