@@ -1,5 +1,5 @@
-import pytest
 import copy
+import pytest
 from src.api.setups.setup_product import SetupProduct
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
@@ -238,8 +238,8 @@ def test_update_package_conversion_and_round_buy_of_distributor_product_with_ser
     response_product[conditions["field"]] = 2
 
     pa.update_product(dto=response_product, product_id=product_id)
-    customer_product =  pa.get_customer_product(response_location["customer_id"], response_product["partSku"])[0]
-    assert customer_product["variant"] == True
+    customer_product = pa.get_customer_product(response_location["customer_id"], response_product["partSku"])[0]
+    assert customer_product["variant"]
     assert customer_product[conditions["field"]] == 1
 
     distributor_product = pa.get_product(response_product["partSku"])[0]
@@ -323,8 +323,8 @@ def test_ohi_location_updated_to_serialized(api, delete_shipto):
     location_dto = la.get_locations(shipto_id=response_location["shipto_id"])[0]
     location_dto["serialized"] = True
     location_dto["id"] = location_id
-    la.update_location([location_dto],response_location["shipto_id"])           
-    
+    la.update_location([location_dto], response_location["shipto_id"])
+
     locations = la.get_locations(response_location["shipto_id"])
     assert locations[0]["serialized"], "Location should be serialized"
     assert locations[0]["onHandInventory"] == 0, "OHI should becomes equal to 0 after updating location to serialized"
@@ -403,7 +403,7 @@ def test_ohi_of_updated_serialized_product_location(api, delete_shipto):
     location_dto = la.get_locations(shipto_id=response_location["shipto_id"])[0]
     location_dto["id"] = location_id
     location_dto["onHandInventory"] = 10
-    la.update_location([location_dto],response_location["shipto_id"])           
+    la.update_location([location_dto], response_location["shipto_id"])
 
     locations = la.get_locations(response_location["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"
@@ -424,7 +424,7 @@ def test_ohi_of_updated_serialized_location(api, delete_shipto):
     location_dto = la.get_locations(shipto_id=response_location["shipto_id"])[0]
     location_dto["id"] = location_id
     location_dto["onHandInventory"] = 10
-    la.update_location([location_dto],response_location["shipto_id"])
+    la.update_location([location_dto], response_location["shipto_id"])
 
     locations = la.get_locations(response_location["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "OHI of serialized location should not be available for the manually updating"

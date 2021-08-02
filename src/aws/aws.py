@@ -1,7 +1,8 @@
-from src.resources.tools import Tools
 import boto3
+from src.resources.tools import Tools
 
 class AWS():
+    'The parent class for all AWS services'
     def __init__(self, context):
         self.context = context
         self.logger = context.logger
@@ -13,7 +14,7 @@ class AWS():
             secret_access_key = credentials["Credentials"]["SecretAccessKey"]
             session_token = credentials["Credentials"]["SessionToken"]
             self.session = boto3.Session(aws_access_key_id=access_key_id,
-                                    aws_secret_access_key=secret_access_key,
-                                    aws_session_token=session_token)
+                                         aws_secret_access_key=secret_access_key,
+                                         aws_session_token=session_token)
         else:
             self.session = boto3.Session()

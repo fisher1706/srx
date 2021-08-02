@@ -39,8 +39,8 @@ class Tools():
         folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         folder += "/output/"+filename
         headers = []
-        for n in range(len(rows[0])):
-            headers.append(n)
+        for header in range(len(rows[0])):
+            headers.append(header)
         table = []
         table.append(headers)
         for row in rows:
@@ -51,9 +51,12 @@ class Tools():
 
     @staticmethod
     def generate_log(folder, data):
-        with open(folder, 'a') as f:
-            for entry in data:
-                f.write(str(entry) + '\n')
+        try:
+            with open(folder, 'a') as file:
+                for entry in data:
+                    file.write(str(entry) + '\n')
+        except:
+            pass
 
     @staticmethod
     def ymd_dateformat(months):
@@ -96,6 +99,6 @@ class Tools():
         return root.xpath("//b[text()='Reset password']/../@href")
 
     @staticmethod
-    def add_to_dict_if_not_none(dict, key, value):
+    def add_to_dict_if_not_none(dictionary, key, value):
         if value is not None:
-            dict[key] = value
+            dictionary[key] = value

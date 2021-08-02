@@ -1,5 +1,5 @@
-import pytest
 import random
+import pytest
 from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.resources.permissions import Permissions
@@ -20,7 +20,7 @@ from src.api.setups.setup_customer import SetupCustomer
         "user": None,
         "testrail_case_id": 31
     },
-    { 
+    {
         "user": Permissions.customers("EDIT"),
         "testrail_case_id": 2241
     }
@@ -65,7 +65,7 @@ def test_customer_crud(ui, permission_ui, permissions, delete_distributor_securi
 @pytest.mark.regression
 def test_customer_unique_number(api, delete_customer):
     api.testrail_case_id = 6544
-    
+
     ca = CustomerApi(api)
 
     response_customer = SetupCustomer(api).setup()
@@ -80,8 +80,8 @@ def test_customer_unique_number(api, delete_customer):
     not_unique_data["name"] = "Name"
     not_unique_data["number"] = customer["number"]
 
-    ca.create_customer(dto=not_unique_data, expected_status_code=400)#cannot create customer with exists number 
-    
+    ca.create_customer(dto=not_unique_data, expected_status_code=400) #cannot create customer with exists number
+
 @pytest.mark.acl
 @pytest.mark.regression
 def test_customer_crud_view_permission(api, permission_api, delete_distributor_security_group, delete_customer):
@@ -108,7 +108,7 @@ def test_customer_crud_view_permission(api, permission_api, delete_distributor_s
         "user": None,
         "testrail_case_id": 241
     },
-    { 
+    {
         "user": Permissions.shiptos("EDIT"),
         "testrail_case_id": 2274
     }
@@ -180,7 +180,7 @@ def test_shipto_crud_view_permission(api, permission_api, delete_distributor_sec
         "user": None,
         "testrail_case_id": 1842
     },
-    { 
+    {
         "user": Permissions.usage_history("EDIT"),
         "testrail_case_id": 2268
     }
@@ -205,7 +205,7 @@ def test_usage_history_import(ui, permission_ui, permissions, delete_distributor
     usage_history_body["Date"] = "Sun, Dec 30, 2018"
     #-------------------
     usage_history = [
-        [usage_history_body["Order Number"], usage_history_body["Customer Number"], usage_history_body["ShipTo Number"], usage_history_body["ShipTo Name"], usage_history_body["Distributor SKU"], usage_history_body["Quantity"], "2018/12/30 10:15:30"]
+        [usage_history_body["Order Number"], usage_history_body["Customer Number"], usage_history_body["ShipTo Number"], usage_history_body["ShipTo Name"], usage_history_body["Distributor SKU"], usage_history_body["Quantity"], "2018/12/30 10:15:30"] #pylint: disable=C0301
     ]
     lp.log_in_distributor_portal()
     uhp.follow_usage_history_url()
@@ -269,7 +269,7 @@ def test_allocation_code_crud(ui):
         "user": None,
         "testrail_case_id": 3790
     }
-    # { 
+    # {
     #     "user": Permissions.customers("EDIT"),
     #     # "testrail_case_id": 3791
     # }
@@ -277,21 +277,20 @@ def test_allocation_code_crud(ui):
 @pytest.mark.regression
 def test_customer_setup_wizard_required_steps(ui, permission_ui, api, permissions, delete_distributor_security_group):
     ui.testrail_case_id = permissions["testrail_case_id"]
-    context = Permissions.set_configured_user(ui, permissions["user"],permission_context=permission_ui)
+    context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
     lp = LoginPage(context)
     cp = CustomersPage(context)
     ca = CustomerApi(api)
     dcp = DistributorCustomerUsersPage(context)
     customer_body = cp.customer_body.copy()
-    
+
     customer_body["name"] = Tools.random_string_l(10)
     customer_body["number"] = Tools.random_string_u(10)
     customer_body["customerType"] = "Not specified"
     customer_body["marketType"] = "Not specified"
     email = Tools.random_string_l(10)+ "@agilevision.io"
 
-    
     lp.log_in_distributor_portal()
     cp.sidebar_customers()
     cp.click_on_customer_setup_wizard_button()
@@ -314,20 +313,20 @@ def test_customer_setup_wizard_view_permission(ui, permission_ui, delete_distrib
 
     lp = LoginPage(context)
     cp = CustomersPage(context)
-    
+
     lp.log_in_distributor_portal()
-    cp.check_customer_setup_wizard_button()    
+    cp.check_customer_setup_wizard_button()
 
 @pytest.mark.regression
 def test_customer_setup_wizard_all_steps(ui, api, delete_distributor_security_group):
-    ui.testrail_case_id= 3793
+    ui.testrail_case_id = 3793
 
     lp = LoginPage(ui)
     cp = CustomersPage(ui)
     ca = CustomerApi(api)
     dcp = DistributorCustomerUsersPage(ui)
     customer_body = cp.customer_body.copy()
-    
+
     customer_body["name"] = Tools.random_string_l(10)
     customer_body["number"] = Tools.random_string_u(10)
     customer_body["customerType"] = "Not specified"

@@ -6,7 +6,7 @@ class RfidPage(DistributorPortalPage):
     xpath_rfid_add = f"{Locator.xpath_dialog+Locator.xpath_button_type}//span[text()='Add']"
 
     def add_rfid_label(self, label=None):
-        if (label is None):
+        if label is None:
             label = Tools.random_string_u()
         self.click_id(Locator.id_add_button)
         self.wait_until_page_loaded()

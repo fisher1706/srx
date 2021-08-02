@@ -1,8 +1,5 @@
-from selenium import webdriver
-
-class dialog_is_not_present(object):
+class dialog_is_not_present(): #pylint: disable=C0103
     def __call__(self, driver):
-        if (driver.find_element_by_xpath("/html/body").get_attribute("style") == "overflow: hidden;"):
+        if driver.find_element_by_xpath("/html/body").get_attribute("style") == "overflow: hidden;":
             return False
-        else:
-            return True
+        return True

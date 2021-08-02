@@ -1,7 +1,7 @@
+import copy
 from src.api.distributor.user_api import UserApi
 from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
-import copy
 
 class SetupDistributorUser(BaseSetup):
     def __init__(self, context):
@@ -42,7 +42,7 @@ class SetupDistributorUser(BaseSetup):
                     "id": self.options["group"]
                 }
             self.user["warehouses"] = [{
-                    "id": self.context.data.warehouse_id
+                "id": self.context.data.warehouse_id
             }]
 
         else:
@@ -53,5 +53,5 @@ class SetupDistributorUser(BaseSetup):
             self.user["warehouses"] = []
 
         self.user_id = ua.create_distributor_user(copy.deepcopy(self.user), expected_status_code=self.options["expected_status_code"])
-        if (self.user_id is not None):
+        if self.user_id is not None:
             self.context.dynamic_context["delete_distributor_user_id"].append(self.user_id)

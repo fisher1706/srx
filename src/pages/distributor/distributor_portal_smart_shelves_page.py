@@ -40,24 +40,23 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
             self.check_last_table_item_by_header(cell, table_cells[cell])
 
     def merge_cells(self, number_of_cells, is_planogram=False, door_number=None):
-        if (not is_planogram):
+        if not is_planogram:
             self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
-            for x in range(number_of_cells):
-                self.click_xpath(f"//div[@data-cell='{x}']")
+            for cell in range(number_of_cells):
+                self.click_xpath(f"//div[@data-cell='{cell}']")
             self.click_xpath(self.xpath_merge_cells)
             self.click_xpath(Locator.xpath_submit_button)
             self.click_xpath(Locator.xpath_label_confirm)
             self.dialog_should_not_be_visible()
             self.wait_until_page_loaded()
         else:
-            for x in range(1, number_of_cells + 1):
-                self.click_xpath(f"//div[@data-door={door_number}]//div[@data-cell='{x}']")
+            for cell in range(1, number_of_cells + 1):
+                self.click_xpath(f"//div[@data-door={door_number}]//div[@data-cell='{cell}']")
             self.click_xpath(self.xpath_merge_cells)
-            self.wait_until_progress_bar_loaded()
             self.click_xpath(f"//div[@data-door={door_number}]//div[@data-cell='1']")
 
     def split_cells(self, position_of_cell, is_planogram=False, door_number=None):
-        if (not is_planogram):
+        if not is_planogram:
             self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
             self.click_xpath(f"//div[@data-cell='{position_of_cell}']")
             self.click_xpath(self.xpath_split_cells)
@@ -68,11 +67,10 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
         else:
             self.click_xpath(f"//div[@data-cell='{position_of_cell}']")
             self.click_xpath(self.xpath_split_cells)
-            self.wait_until_progress_bar_loaded()
             self.click_xpath(f"//div[@data-door={door_number}]//div[@data-cell='1']")
 
     def check_cells_number(self, number_of_cells, is_planogram=False, door_number=None):
-        if (not is_planogram):
+        if not is_planogram:
             self.check_last_table_item_by_header("Qnty of Cells", "4")
             self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
             self.elements_count_should_be("//div[@data-cell]", number_of_cells)

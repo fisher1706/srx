@@ -1,37 +1,37 @@
+import time
 from src.api.api import API
 from src.resources.tools import Tools
 from src.resources.messages import Message
-import time
 
 class SettingsApi(API):
     def update_reorder_controls_settings_shipto(self, dto, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/checkout-software/settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Reorder Controls settings of shipto", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
     def set_reorder_controls_settings_for_shipto(self, shipto_id, reorder_controls=None, track_ohi=None, scan_to_order=None, enable_reorder_control=None):
         #DEFAULT configuration is enabled Reorder Controls at MIN and enabled Track OHI. Scan to order is disabled
-        if (reorder_controls is None):
+        if reorder_controls is None:
             reorder_controls = "MIN"
-        if (track_ohi is None):
+        if track_ohi is None:
             track_ohi = True
-        if (scan_to_order is None):
+        if scan_to_order is None:
             scan_to_order = False
         if (enable_reorder_control is None and not scan_to_order):
             enable_reorder_control = True
 
         checkout_settings_dto = Tools.get_dto("reorder_controls_settings_dto.json")
-        if (not track_ohi):
+        if not track_ohi:
             (checkout_settings_dto["settings"]["labelOptions"]).remove("TRACK_OHI")
-        if (not scan_to_order):
+        if not scan_to_order:
             (checkout_settings_dto["settings"]["labelOptions"]).remove("ENABLE_SCAN_TO_ORDER")
-        if (not enable_reorder_control):
+        if not enable_reorder_control:
             (checkout_settings_dto["settings"]["labelOptions"]).remove("ENABLE_REORDER_CONTROLS")
-        if (reorder_controls == "ISSUED"):
+        if reorder_controls == "ISSUED":
             checkout_settings_dto["settings"]["reorderControls"] = "ADD_AS_ISSUED"
         self.update_reorder_controls_settings_shipto(checkout_settings_dto, shipto_id)
 
@@ -39,12 +39,12 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/checkout-software/settings")
         response = self.send_get(url, token)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Checkout Software settings of shipto", id=shipto_id, operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        if (not bool(response_json["data"])):
+        if not bool(response_json["data"]):
             self.logger.error(f"Checkout software settings of shipto with ID = '{shipto_id}' are empty")
         return response_json["data"]
 
@@ -108,7 +108,9 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def save_and_adjust_moving_status(self, enabled, shipto_id, customer_id=None, current_shiptos=[], use_all=False, sleep=0):
+    def save_and_adjust_moving_status(self, enabled, shipto_id, customer_id=None, current_shiptos=None, use_all=False, sleep=0):
+        if current_shiptos is None:
+            current_shiptos = list()
         time.sleep(sleep)
         dto = {
             "currentShipTos": current_shiptos,

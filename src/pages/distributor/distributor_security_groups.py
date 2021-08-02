@@ -14,8 +14,8 @@ class DistributorSecurityGroups(DistributorPortalPage):
     def create_security_group(self, distributor_security_group_body):
         self.click_id(Locator.id_add_button)
         self.input_by_name("name", distributor_security_group_body["name"])
-        for x in range(1, 4):
-            self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, x))
+        for checkbox in range(1, 4):
+            self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
         self.click_xpath(Locator.xpath_submit_button)
         self.wait_until_page_loaded()
         self.get_element_by_xpath(Locator.xpath_table_row)
@@ -24,11 +24,11 @@ class DistributorSecurityGroups(DistributorPortalPage):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_view_button, row))
         text = self.get_element_by_xpath("//input[@name='name']").get_attribute("value")
         assert text == distributor_security_group_body["name"], f"Name contains incorrect text: {text}"
-        for x in range(1, 4):
-            if (distributor_security_group_body["checked"]):
-                self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, x), True)
+        for checkbox in range(1, 4):
+            if distributor_security_group_body["checked"]:
+                self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), True)
             else:
-                self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, x), False)
+                self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), False)
         self.wait_until_page_loaded()
         self.click_xpath("//a[@href='/users-groups#security-groups']")
 
@@ -36,11 +36,11 @@ class DistributorSecurityGroups(DistributorPortalPage):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, row-1))
         self.input_by_name("name", distributor_security_group_body["name"])
         self.click_xpath(Locator.xpath_submit_button)
-        for x in range(1, 4):
-            if (distributor_security_group_body["checked"]):
-                self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, x))
+        for checkbox in range(1, 4):
+            if distributor_security_group_body["checked"]:
+                self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
             else:
-                self.unselect_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, x))
+                self.unselect_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
         self.click_xpath(f"({Locator.xpath_save_button})[last()]")
         self.wait_until_page_loaded()
         self.click_xpath("//a[@href='/users-groups#security-groups']")

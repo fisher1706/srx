@@ -1,5 +1,5 @@
-import pytest
 import copy
+import pytest
 from src.api.mobile.mobile_transaction_api import MobileTransactionApi
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.location_api import LocationApi
@@ -149,9 +149,9 @@ def test_immediately_autosubmit_for_reorder_control_transaction(api, delete_ship
 
     location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
     location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*0.5
-    la.update_location([location],response_location["shipto_id"])
+    la.update_location([location], response_location["shipto_id"])
     transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
-    assert transaction[0]["status"]== "ORDERED"
+    assert transaction[0]["status"] == "ORDERED"
 
 @pytest.mark.regression
 def test_same_order_id_after_bulk_create_with_autosubmit_immediately(api, delete_shipto):

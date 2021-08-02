@@ -1,5 +1,5 @@
-import pytest
 import random
+import pytest
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.pricing_page import PricingPage
 from src.resources.permissions import Permissions
@@ -9,7 +9,7 @@ from src.resources.permissions import Permissions
         "user": None,
         "testrail_case_id": 35
     },
-    { 
+    {
         "user": Permissions.pricing("EDIT"),
         "testrail_case_id": 2277
     }

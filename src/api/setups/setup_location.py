@@ -1,3 +1,4 @@
+import copy
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.shipto_api import ShiptoApi
@@ -9,12 +10,10 @@ from src.api.setups.setup_locker import SetupLocker
 from src.api.setups.setup_rfid import SetupRfid
 from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
-import copy
 
 class SetupLocation(BaseSetup):
     def __init__(self, context):
         super().__init__(context)
-
         self.setup_name = "Location"
         self.options = {
             "product": None,
@@ -43,6 +42,7 @@ class SetupLocation(BaseSetup):
         self.iothub = None
         self.locker = None
         self.rfid = None
+        self.expected_status_code = None
         self.transaction = {}
         self.put_away = {}
         self.rfid_labels = []
@@ -123,14 +123,14 @@ class SetupLocation(BaseSetup):
             self.location["attributeName1"] = self.product["partSku"]
             self.location["attributeValue1"] = self.product["partSku"]
         else:
-            self.location["attributeName1"] = self.options["location_pairs"]["attributeName1"]
-            self.location["attributeValue1"] = self.options["location_pairs"]["attributeValue1"]
-            self.location["attributeName2"] = self.options["location_pairs"]["attributeName2"]
-            self.location["attributeValue2"] = self.options["location_pairs"]["attributeValue2"]
-            self.location["attributeName3"] = self.options["location_pairs"]["attributeName3"]
-            self.location["attributeValue3"] = self.options["location_pairs"]["attributeValue3"]
-            self.location["attributeName4"] = self.options["location_pairs"]["attributeName4"]
-            self.location["attributeValue4"] = self.options["location_pairs"]["attributeValue4"]
+            self.location["attributeName1"] = self.options["location_pairs"]["attributeName1"] #pylint: disable=E1136
+            self.location["attributeValue1"] = self.options["location_pairs"]["attributeValue1"] #pylint: disable=E1136
+            self.location["attributeName2"] = self.options["location_pairs"]["attributeName2"] #pylint: disable=E1136
+            self.location["attributeValue2"] = self.options["location_pairs"]["attributeValue2"] #pylint: disable=E1136
+            self.location["attributeName3"] = self.options["location_pairs"]["attributeName3"] #pylint: disable=E1136
+            self.location["attributeValue3"] = self.options["location_pairs"]["attributeValue3"] #pylint: disable=E1136
+            self.location["attributeName4"] = self.options["location_pairs"]["attributeName4"] #pylint: disable=E1136
+            self.location["attributeValue4"] = self.options["location_pairs"]["attributeValue4"] #pylint: disable=E1136
 
         location_min = self.product["roundBuy"] if self.options["min"] is None else self.options["min"]
         location_max = self.product["roundBuy"]*3 if self.options["max"] is None else self.options["max"]
@@ -155,10 +155,9 @@ class SetupLocation(BaseSetup):
             self.location["autoSubmit"] = bool(self.options["autosubmit"])
         if self.options["customer_sku"] is not None:
             self.location["customerSku"] = self.options["customer_sku"]
-        
         location_list = [copy.deepcopy(self.location)]
         la.create_location(copy.deepcopy(location_list), self.shipto_id, expected_status_code=self.expected_status_code, customer_id=self.customer_id)
-        if (self.expected_status_code is None):
+        if self.expected_status_code is None:
             self.location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"], customer_id=self.customer_id)[-1]["id"]
 
     def set_rfid_labels(self):
@@ -166,7 +165,7 @@ class SetupLocation(BaseSetup):
             ra = RfidApi(self.context)
             la = LocationApi(self.context)
             location_id = la.get_location_by_sku(self.shipto_id, self.product["partSku"])[-1]["id"]
-            for index in range(self.options["rfid_labels"]):
+            for _ in range(self.options["rfid_labels"]):
                 self.rfid_labels.append(ra.create_rfid(location_id))
 
     def set_transaction(self):
@@ -184,19 +183,19 @@ class SetupLocation(BaseSetup):
                 sa.update_reorder_controls_settings_shipto(settings, self.shipto_id)
                 transaction = ta.get_transaction(sku=self.product["partSku"], shipto_id=self.shipto_id)
                 transaction_id = transaction["entities"][0]["id"]
-                reorderQuantity = transaction["entities"][0]["reorderQuantity"]
+                reorder_quhantity = transaction["entities"][0]["reorderQuantity"]
 
                 if self.options["transaction"] != "ACTIVE":
-                    ta.update_replenishment_item(transaction_id, reorderQuantity, self.options["transaction"])
+                    ta.update_replenishment_item(transaction_id, reorder_quhantity, self.options["transaction"])
 
                 self.transaction = {
                     "transaction_id": transaction_id,
-                    "reorderQuantity": reorderQuantity
+                    "reorderQuantity": reorder_quhantity
                 }
 
                 self.put_away = {
                     "shipToId": self.shipto_id,
                     "partSku": self.product["partSku"],
-                    "quantity": reorderQuantity,
+                    "quantity": reorder_quhantity,
                     "transactionId": transaction_id
                 }

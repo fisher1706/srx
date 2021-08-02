@@ -53,16 +53,16 @@ class CustomersPage(DistributorPortalPage):
 
     def check_customer_setup_wizard_button(self):
         self.wait_until_page_loaded()
-        if (self.get_element_count("//button/span[text()='Customer setup wizard']") == 0):
-            self.logger.info(f"Button is hidden for user")
+        if self.get_element_count("//button/span[text()='Customer setup wizard']") == 0:
+            self.logger.info("Button is hidden for user")
         else:
-            self.logger.error(f"Create setup wizard button is enabled for user")
-            
+            self.logger.error("Create setup wizard button is enabled for user")
+
     def select_warehouse(self):
         self.click_xpath(f"{Locator.xpath_table_item(1, 5)}//button")
         self.click_xpath(Locator.xpath_next)
-    
-    def add_customer_info(self,customer_body):
+
+    def add_customer_info(self, customer_body):
         self.wait_until_page_loaded()
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), customer_body.pop("customerType"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), customer_body.pop("marketType"))
@@ -70,7 +70,7 @@ class CustomersPage(DistributorPortalPage):
             self.input_by_name(field, customer_body[field])
         self.click_xpath(Locator.xpath_next)
 
-    def add_customer_portal_user(self,email):
+    def add_customer_portal_user(self, email):
         self.wait_until_page_loaded()
         self.select_checkbox(Locator.xpath_checkbox)
         self.get_element_by_xpath("//input[@value='']").send_keys(email)
@@ -85,14 +85,14 @@ class CustomersPage(DistributorPortalPage):
 
     def check_customer_portal_user(self, expected_email):
         self.wait_until_page_loaded()
-        self.check_last_table_item_by_header("Email",expected_email)
+        self.check_last_table_item_by_header("Email", expected_email)
 
-    def check_settings_reorder_list_settings(self,expected_email):
+    def check_settings_reorder_list_settings(self, expected_email):
         self.wait_until_page_loaded()
         self.click_xpath("//span[text()='Reorder List Settings']")
-        self.get_element_by_xpath("//input[@name='email']").get_attribute("value")  == expected_email 
+        assert self.get_element_by_xpath("//input[@name='email']").get_attribute("value") == expected_email
 
-    def change_automation_settings(self,email):
+    def change_automation_settings(self, email):
         self.wait_until_page_loaded()
         self.click_xpath("//span[text()='Use Defaults']")
         self.clear_xpath("//input[@name='email']")

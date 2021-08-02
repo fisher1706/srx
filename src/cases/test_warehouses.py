@@ -10,7 +10,7 @@ from src.api.distributor.warehouse_api import WarehouseApi
         "user": None,
         "testrail_case_id": 29
     },
-    # { 
+    # {
     #     "user": Permissions.warehouses("EDIT"),
     #     "testrail_case_id": 2269
     # }
@@ -62,7 +62,7 @@ def test_warehouses_crud(ui, permission_ui, permissions, delete_distributor_secu
 def test_warehouses_unique_number(api):
     api.testrail_case_id = 6545
 
-    wa = WarehouseApi(api) 
+    wa = WarehouseApi(api)
 
     warehouse_body = wa.warehouse_body.copy()
     warehouse_number = f"NUMBER {Tools.random_string_u()}"

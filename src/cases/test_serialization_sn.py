@@ -1,6 +1,6 @@
-import pytest
 import copy
 import time
+import pytest
 from src.resources.tools import Tools
 from src.resources.permissions import Permissions
 from src.api.setups.setup_location import SetupLocation
@@ -20,9 +20,9 @@ def test_cannot_create_sn_for_not_serialized_location(api, delete_shipto):
     sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], Tools.random_string_u(), expected_status_code=400)
 
 @pytest.mark.regression
-def test_cannot_create_2_same_SNs(api, delete_shipto):
+def test_cannot_create_2_same_sns(api, delete_shipto):
     api.testrail_case_id = 2117
-    
+
     setup_location = SetupLocation(api)
     setup_location.add_option("serialized")
     setup_location.setup_product.add_option("round_buy", 1)
@@ -49,7 +49,7 @@ def test_ohi_serialized_location_equal_to_sn_in_available_status(api, delete_shi
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     locations = la.get_locations(response_location["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
@@ -76,7 +76,7 @@ def test_ohi_serialized_product_location_equal_to_sn_in_available_status(api, de
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     locations = la.get_locations(response_location["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
@@ -104,7 +104,7 @@ def test_ohi_serialized_location_is_not_reseted_when_update_product(api, delete_
     la = LocationApi(api)
     pa = ProductApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     locations = la.get_locations(response_location["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
@@ -176,7 +176,7 @@ def test_serialized_ohi_decreased_when_available_in_issued(api, conditions, dele
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     locations = la.get_locations(response_location["shipto_id"])
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
@@ -208,7 +208,7 @@ def test_serialized_ohi_decreased_when_available_in_expired(api, delete_shipto):
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
 
     locations = la.get_locations(response_location["shipto_id"])
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
@@ -239,7 +239,7 @@ def test_delete_sn_when_delete_location(api, delete_shipto):
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
     serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
     assert serial_number_count == 1
 
@@ -260,7 +260,7 @@ def test_delete_sn_when_turn_off_serialization_for_location(api, delete_shipto):
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
     serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
     assert serial_number_count == 1
 
@@ -286,7 +286,7 @@ def test_create_serial_number_with_lot(api, delete_shipto):
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
     lot = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot)
 
     sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
     assert sn_dto["number"] == sn
@@ -304,14 +304,14 @@ def test_cannot_create_sn_with_lot_if_lot_turned_off_for_location(api, delete_sh
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
     lot = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot, expected_status_code=400)
+    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot, expected_status_code=400)
 
 @pytest.mark.parametrize("permissions", [
     {
         "user": None,
         "testrail_case_id": 2143
     },
-    { 
+    {
         "user": Permissions.serialization("EDIT"),
         "testrail_case_id": 2256
     }
@@ -400,7 +400,7 @@ def test_serial_number_crud_view_permission(api, permission_api, delete_distribu
         "user": None,
         "testrail_case_id": 2257
     },
-    { 
+    {
         "user": Permissions.serialization("EDIT"),
         "testrail_case_id": 2258
     }
@@ -435,7 +435,7 @@ def test_serial_number_import(ui, permission_ui, permissions, delete_shipto, del
     shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
 
     serial_numbers = [
-        [serial_number_body["number"], serial_number_body["lot"], product_sku, None, serial_number_body["dateShipment"], serial_number_body["dateManufacture"], serial_number_body["dateExpiration"], serial_number_body["dateWarrantyExpires"], None]
+        [serial_number_body["number"], serial_number_body["lot"], product_sku, None, serial_number_body["dateShipment"], serial_number_body["dateManufacture"], serial_number_body["dateExpiration"], serial_number_body["dateWarrantyExpires"], None] #pylint: disable=C0301
     ]
 
     lp.log_in_distributor_portal()
@@ -478,7 +478,7 @@ def test_serialized_ohi_decreased_when_delete_location(api, delete_shipto):
         "user": None,
         "testrail_case_id": 2259
     },
-    { 
+    {
         "user": Permissions.serialization("EDIT"),
         "testrail_case_id": 2260
     }

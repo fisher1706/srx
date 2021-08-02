@@ -1,11 +1,13 @@
-import logging
-from src.resources.tools import Tools
 import traceback
 import time
 import os
+import logging
 from selenium.webdriver.common.by import By
+from src.resources.tools import Tools
 
 class Logger():
+    'The class ensure all necessary logging'
+
     def __init__(self, context):
         self.logging = logging
         self.log = ""
@@ -15,14 +17,14 @@ class Logger():
         self.logging.info(string)
         self.log += f"\n[INFO] {string}"
 
-    def error(self, string):
-        if self.context.screenshot:
+    def error(self, string, only_msg=False):
+        if self.context.screenshot and not only_msg:
             path = f"{os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))}/screenshots/"
             if not os.path.exists(path):
                 try:
                     os.mkdir(path)
                 except OSError:
-                    self.info(f"Creation of Screenshots directory is failed")
+                    self.info("Creation of Screenshots directory is failed")
             self.context.driver.save_screenshot(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.png")
             Tools.generate_log(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.log", self.context.driver.get_log("performance"))
             self.info("EXCEPTION")
@@ -30,7 +32,7 @@ class Logger():
             try:
                 self.info(f"TEXT: \n{self.context.driver.find_element(By.XPATH, '//body').text}")
             except:
-                self.info(f"TEXT NOT FOUND")
+                self.info("TEXT NOT FOUND")
         if self.context.is_teardown:
             self.warning("\n\nError during teardown")
         trace = traceback.format_exc()
