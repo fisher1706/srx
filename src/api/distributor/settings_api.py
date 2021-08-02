@@ -175,3 +175,23 @@ class SettingsApi(API):
             "customerCatalogEnabled": flag
         }
         self.update_customer_level_catalog_flag(dto, customer_id)
+
+    def get_cash_settings(self, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/customer-settings")
+        token = self.get_distributor_token()
+        response = self.send_get(url, token)
+        if response.status_code == 200:
+            self.logger.info(f"Cash settings= '{shipto_id}' has been successfully got")
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]
+
+    def update_cash_settings(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/customer-settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if response.status_code == 200:
+            self.logger.info(f"Cash settings= '{shipto_id}' has been successfully updated")
+        else:
+            self.logger.error(str(response.content))
