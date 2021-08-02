@@ -1,0 +1,81 @@
+[MASTER]
+disable=
+    C0114, #missing-module-docstring
+    C0115, #missing-class-docstring
+    C0116, #missing-function-docstring
+    W0613, #unused-argument
+    R1723, #no-else-break
+    C0415, #import-outside-toplevel
+    W0621, #redefined-outer-name
+    R0912, #too-many-branches
+    W0702, #bare-except
+    R1702, #too-many-nested-blocks
+    R1710, #inconsistent-return-statements
+    R0201, #no-self-use
+    C0302, #too-many-lines
+    R0904, #too-many-public-methods
+    C0201, #consider-iterating-dictionary
+
+ignore=
+    utilities,
+    local_credentials.py,
+    output,
+    dto,
+    buildspec.yml,
+    integration-logix-buildspec.yml,
+    smoke-buildspec.yml,
+    pytest.ini,
+    requirements.txt,
+    .gitignore
+
+[FORMAT]
+max-line-length=200
+max-statements=100
+max-attributes=30
+min-public-methods=1
+max-args=8
+min-similarity-lines=15
+max-locals=30
+
+[BASIC]
+good-names=
+    srx-robot,
+    ua,
+    sa,
+    ca,
+    ui,
+    ta,
+    la,
+    ra,
+    pa,
+    ia,
+    lp,
+    ap,
+    aa,
+    cp,
+    sp,
+    dp,
+    s3,
+    fp,
+    ha,
+    hp,
+    pp,
+    sn,
+    rp,
+    ss,
+    sh,
+    vp,
+    wp,
+    wa,
+    LOCATION_MIN,
+    LOCATION_MAX,
+    LOCATION_PACKAGE_CONVERSION,
+    ROUND_BUY
+
+bad-names=
+    var,
+    foo,
+    obj
+
+[TYPECHECK]
+ignored-modules=sys

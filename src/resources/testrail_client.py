@@ -11,12 +11,13 @@
 # Copyright Gurock Software GmbH. See license.md for details.
 #
 
-import requests
 import json
 import base64
-
+import requests
 
 class APIClient:
+    'TestRail APIClient'
+
     def __init__(self, base_url):
         self.user = ''
         self.password = ''

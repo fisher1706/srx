@@ -1,5 +1,5 @@
-import pytest
 import copy
+import pytest
 from src.api.setups.setup_location import SetupLocation
 from src.resources.tools import Tools
 from src.resources.permissions import Permissions
@@ -16,7 +16,7 @@ from src.api.setups.setup_product import SetupProduct
         "user": None,
         "testrail_case_id": 33
     },
-    { 
+    {
         "user": Permissions.catalog("EDIT"),
         "testrail_case_id": 2266
     }
@@ -76,7 +76,7 @@ def test_product_crud(ui, permission_ui, permissions, delete_distributor_securit
         "user": None,
         "testrail_case_id": 34
     },
-    { 
+    {
         "user": Permissions.catalog("EDIT"),
         "testrail_case_id": 2267
     }
@@ -97,7 +97,7 @@ def test_product_import(ui, permission_ui, permissions, delete_distributor_secur
     product_body["roundBuy"] = "39"
     #-------------------
     products = [
-        [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None] #pylint: disable=C0301
     ]
     #-------------------
 
@@ -109,7 +109,7 @@ def test_product_import(ui, permission_ui, permissions, delete_distributor_secur
 @pytest.mark.regression
 def test_universal_catalog_crud(ui):
     ui.testrail_case_id = 1857
-    
+
     lp = LoginPage(ui)
     ucp = UniversalCatalogPage(ui)
     universal_product_body = ucp.universal_product_body.copy()
@@ -193,8 +193,11 @@ def test_universal_catalog_by_distributor_catalog(api):
     setup_product = SetupProduct(api)
     setup_product.add_option("product", product_dto)
     setup_product.setup()
-    
-    universal_catalog = uca.get_universal_catalog(upc=product_dto["upc"], gtin=product_dto["gtin"], manufacturer=product_dto["manufacturer"], manufacturer_part_number=product_dto["manufacturerPartNumber"])
+
+    universal_catalog = uca.get_universal_catalog(upc=product_dto["upc"],
+                                                  gtin=product_dto["gtin"],
+                                                  manufacturer=product_dto["manufacturer"],
+                                                  manufacturer_part_number=product_dto["manufacturerPartNumber"])
     assert len(universal_catalog) == 1, "Only 1 element in universal catalog should match to the filter"
     assert universal_catalog[0]["distributorName"] == api.data.distributor_name
     assert universal_catalog[0]["upc"] == product_dto["upc"]
@@ -214,7 +217,7 @@ def test_smoke_ui_import_prodcut(smoke_ui):
     product_body["roundBuy"] = "39"
     #-------------------
     products = [
-        [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None] #pylint: disable=C0301
     ]
     #-------------------
 
@@ -231,7 +234,7 @@ def test_smoke_import_prodcut(smoke_api):
     url = response["url"]
     filename = response["filename"]
     pa.file_upload(url)
-    import_status = pa.get_import_status(filename)
+    pa.get_import_status(filename)
 
 @pytest.mark.regression
 def test_cannot_create_location_with_incorrect_min_max(api, delete_customer):
@@ -249,7 +252,7 @@ def test_cannot_create_location_with_incorrect_min_max(api, delete_customer):
         "clc": None,
         "testrail_case_id": 7519
     },
-    { 
+    {
         "clc": True,
         "testrail_case_id": 7522
     }

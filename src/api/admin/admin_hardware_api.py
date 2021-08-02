@@ -7,7 +7,7 @@ class AdminHardwareApi(API):
         url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware")
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
-        if (response.status_code == 201):
+        if response.status_code == 201:
             self.logger.info(f"New hardware with type '{dto['type']}' has been successfully created")
         else:
             self.logger.error(str(response.content))
@@ -15,7 +15,7 @@ class AdminHardwareApi(API):
         return response_json["data"]
 
     def create_iothub(self, distributor_id=None):
-        if (distributor_id is None):
+        if distributor_id is None:
             distributor_id = self.data.distributor_id
         dto = {
             "distributorId": distributor_id,
@@ -36,7 +36,7 @@ class AdminHardwareApi(API):
         }
         return self.create_hardware(dto)
 
-    def create_storage(self, doorsQuantity, columnsQuantity, iothub_id=None):
+    def create_storage(self, doors_quantity, columns_quantity, iothub_id=None):
         dto = {
             "value": "",
             "type": "STORAGE",
@@ -47,13 +47,13 @@ class AdminHardwareApi(API):
             "hardwareVersion": "v1",
             "lockerType": {
                 "id":"",
-                "doorsQuantity": doorsQuantity,
-                "columnsQuantity": columnsQuantity,
+                "doorsQuantity": doors_quantity,
+                "columnsQuantity": columns_quantity,
                 "cellsWithoutWeightQuantity": 4
                 }
         }
         return self.create_hardware(dto)
-    
+
     def update_locker(self, locker_id, locker_type_id, iothub_id=None, version="v1"):
         dto = {
             "id": locker_id,
@@ -69,7 +69,7 @@ class AdminHardwareApi(API):
         return self.update_hardware(dto)
 
     def create_rfid(self, distributor_id=None):
-        if (distributor_id is None):
+        if distributor_id is None:
             distributor_id = self.data.distributor_id
         dto = {
             "distributorId": distributor_id,
@@ -80,12 +80,12 @@ class AdminHardwareApi(API):
     def delete_hardware(self, hardware_id):
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/hardware/{hardware_id}")
         token = self.get_admin_token()
-        for count in range (1, 5):
+        for _ in range(1, 5):
             response = self.send_delete(url, token)
-            if (response.status_code == 200):
+            if response.status_code == 200:
                 self.logger.info(Message.entity_with_id_operation_done.format(entity="Hardware", id=hardware_id, operation="deleted"))
                 break
-            elif (response.status_code == 400):
+            elif response.status_code == 400:
                 self.logger.info(f"Hardware with ID = '{hardware_id}' cannot be deleted now")
                 self.logger.info(str(response.content))
             else:
@@ -98,7 +98,7 @@ class AdminHardwareApi(API):
         url = self.url.get_api_url_for_env("/admin-portal/admin/locker-types")
         token = self.get_admin_token()
         response = self.send_get(url, token)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="Locker Type", operation="got"))
         else:
             self.logger.error(str(response.content))
@@ -111,10 +111,10 @@ class AdminHardwareApi(API):
 
     def update_locker_configuration(self, locker_id, condition, number=None):
         locker_configuration = self.get_locker_configuration(locker_id)
-        if (number is None):
+        if number is None:
             number = Tools.random_string_l(15)
         for door in locker_configuration:
-            if (door["number"] == 1):
+            if door["number"] == 1:
                 first_door_id = door["id"]
                 break
         else:
@@ -131,7 +131,7 @@ class AdminHardwareApi(API):
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/lockers/{locker_id}/configuration")
         token = self.get_admin_token()
         response = self.send_put(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Configuration of locker", id=locker_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
@@ -140,7 +140,7 @@ class AdminHardwareApi(API):
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/lockers/{locker_id}/configuration")
         token = self.get_admin_token()
         response = self.send_get(url, token)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Configuration of locker", id=locker_id, operation="got"))
         else:
             self.logger.error(str(response.content))
@@ -151,7 +151,7 @@ class AdminHardwareApi(API):
         url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/hardware")
         token = self.get_admin_token()
         response = self.send_put(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Hardware", id=dto['id'], operation="updated"))
         else:
             self.logger.error(str(response.content))

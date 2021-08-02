@@ -9,7 +9,7 @@ class DistributorSettingsApi(API):
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/{distributor_id}/freeze-variables")
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
-        if (response.status_code == 200):
+        if response.status_code == 200:
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Freeze settings of distributor", id=distributor_id, operation="updated"))
         else:
             self.logger.error(str(response.content))

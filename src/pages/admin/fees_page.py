@@ -20,7 +20,6 @@ class FeesPage(AdminPortalPage):
             self.check_table_item_by_header(row+1, "Price", f"${fee_price[field]}.00")
 
     def undo(self, fee_price):
-        for field in fee_price.keys():
+        for _ in fee_price.keys():
             self.click_id("item-action-undefined")
         self.wait_until_page_loaded()
-

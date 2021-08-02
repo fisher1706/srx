@@ -1,3 +1,4 @@
+import copy
 import pytest
 from src.pages.general.login_page import LoginPage
 from src.pages.customer.assets_page import AssetsPage
@@ -10,7 +11,6 @@ from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.product_api import ProductApi
 from src.api.customer.checkout_group_api import CheckoutGroupApi
 from src.api.customer.assets_api import AssetsApi
-import copy
 
 @pytest.mark.regression
 def test_issue_return_assets_label(ui, delete_shipto):
@@ -30,7 +30,7 @@ def test_issue_return_assets_label(ui, delete_shipto):
     shipto_name = response_location["shipto"]["number"]
     shipto_id = response_location["shipto_id"]
     total = response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
-    
+
     lp.log_in_customer_portal()
     ap.sidebar_assets()
     ap.check_all_assets_tab(asset, shipto_name, total, total, 0)
@@ -38,7 +38,7 @@ def test_issue_return_assets_label(ui, delete_shipto):
     setup_issue_return(ui, shipto_id, asset, quantity=2, issue_product=True)
     lp.page_refresh()
     lp.wait_until_progress_bar_loaded()
-    ap.check_all_assets_tab(asset, shipto_name, int(total)-2, total,  2)
+    ap.check_all_assets_tab(asset, shipto_name, int(total)-2, total, 2)
     ap.check_checked_out_tab(asset, shipto_name, int(total)-2, total, 2)
     # return 1 asset
     setup_issue_return(ui, shipto_id, asset, quantity=1, return_product=True)
@@ -125,7 +125,7 @@ def test_create_location_for_asset(api, delete_shipto):
     setup_location.setup_product.add_option("asset")
     response_location = setup_location.setup()
 
-    # check assetFlag 
+    #check assetFlag
     assert response_location["product"]["assetFlag"], f"Location {response_location['product']['partSku']} does not have asset flag = true"
     aa.check_asset_in_all_assets_list(response_location["product"]["partSku"])
 
@@ -176,10 +176,10 @@ def test_issue_return_assets_rfid(api, delete_shipto, delete_hardware):
 
     setup_issue_return(api, shipto_id, asset, epc=epc, issue_product=True)
     result_checked_out = aa.check_asset_in_checked_out_list(asset)
-    assert result_checked_out["credit"] == response_location["product"]["roundBuy"], f"QTY of cheked out asset is NOT correct"
-    assert result_checked_out["location"]["onHandInventory"] == 0, f"OHI of cheked out asset is NOT correct"
+    assert result_checked_out["credit"] == response_location["product"]["roundBuy"], "QTY of cheked out asset is NOT correct"
+    assert result_checked_out["location"]["onHandInventory"] == 0, "OHI of cheked out asset is NOT correct"
     result_all_assets = aa.check_asset_in_all_assets_list(asset)
-    assert result_all_assets["onHandInventory"] == 0, f"OHI of cheked out asset is NOT correct"
+    assert result_all_assets["onHandInventory"] == 0, "OHI of cheked out asset is NOT correct"
     rfid_labels = ra.get_rfid_labels(location_id)
     assert rfid_labels[0]["state"] == "ISSUED", f"RFID label has incorrect status {rfid_labels[0]['state']}"
 

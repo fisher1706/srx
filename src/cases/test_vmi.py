@@ -1,5 +1,5 @@
-import pytest
 import copy
+import pytest
 from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.resources.permissions import Permissions
@@ -40,7 +40,7 @@ def test_vmi_list_partial_sku_match(ui):
         "user": None,
         "testrail_case_id": 2288
     },
-    { 
+    {
         "user": Permissions.locations("EDIT"),
         "testrail_case_id": 2292
     }
@@ -83,7 +83,7 @@ def test_location_crud(ui, permission_ui, permissions, delete_distributor_securi
         "user": None,
         "testrail_case_id": 2294
     },
-    { 
+    {
         "user": Permissions.locations("EDIT"),
         "testrail_case_id": 2295
     }
@@ -174,7 +174,7 @@ def test_location_crud_view_permission(api, permission_api, delete_distributor_s
         "user": None,
         "testrail_case_id": 2296
     },
-    { 
+    {
         "user": Permissions.locations("EDIT"),
         "testrail_case_id": 2297
     }
@@ -201,7 +201,7 @@ def test_location_import(ui, permission_ui, permissions, delete_distributor_secu
     location_body["type"] = "LABEL"
     #-------------------
     locations = [
-        [location_body["attributeName1"], location_body["attributeValue1"], None, None, None, None, None, None, location_body["sku"], location_body["orderingConfig.currentInventoryControls.min"], location_body["orderingConfig.currentInventoryControls.max"], location_body["type"], None, None, None, None, None]
+        [location_body["attributeName1"], location_body["attributeValue1"], None, None, None, None, None, None, location_body["sku"], location_body["orderingConfig.currentInventoryControls.min"], location_body["orderingConfig.currentInventoryControls.max"], location_body["type"], None, None, None, None, None] #pylint: disable=C0301
     ]
     #-------------------
 
@@ -224,7 +224,7 @@ def test_vmi_list_settings_customer_portal(api, delete_shipto):
     fields = copy.deepcopy(dto["settings"])
     fields.pop("useDefault")
     fields.pop("enableVmiList")
-    
+
     for field in fields.keys():
         dto_copy = copy.deepcopy(dto)
         dto_copy["settings"][field] = "VIEW"
@@ -242,7 +242,7 @@ def test_vmi_list_settings_customer_portal(api, delete_shipto):
             "lot": "lot" in location,
             "triggerType": "type" in location["orderingConfig"],
             "suggestedMinMax": "suggestedInventoryControls" in location["orderingConfig"],
-            "location": "attributeName1" in location and "attributeValue1" in location and 
+            "location": "attributeName1" in location and "attributeValue1" in location and
                         "attributeName2" in location and "attributeValue2" in location and
                         "attributeName3" in location and "attributeValue3" in location and
                         "attributeName4" in location and "attributeValue4" in location,
@@ -267,7 +267,7 @@ def test_vmi_list_settings_customer_portal(api, delete_shipto):
         "result": "OK",
         "testrail_case_id": 3194
     },
-    { 
+    {
         "value": "VIEW",
         "result": "FAIL",
         "testrail_case_id": 3195
@@ -292,7 +292,7 @@ def test_vmi_list_edit_min_max_customer_portal(api, conditions, delete_shipto):
         dto["settings"][field] = "VIEW"
     dto["settings"]["limits"] = conditions["value"]
     sa.update_vmi_settings(dto, response_location["shipto_id"])
-    
+
     location = cvla.get_locations(shipto_id=response_location["shipto_id"])[0]
     location["orderingConfig"]["currentInventoryControls"]["min"] *= 2
     location["orderingConfig"]["currentInventoryControls"]["max"] *= 2
@@ -314,7 +314,7 @@ def test_vmi_list_edit_min_max_customer_portal(api, conditions, delete_shipto):
         "asset": True,
         "testrail_case_id": 2026
     },
-    { 
+    {
         "asset": False,
         "testrail_case_id": 2024
     }
@@ -354,11 +354,11 @@ def test_vmi_analysis_total_qty_ordered_last_year(api, delete_shipto):
     response_location = setup_location.setup()
 
     vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]
-    assert vmi_analysis["quantityOrderedLastYear"] == 0 or vmi_analysis["quantityOrderedLastYear"] == None
+    assert vmi_analysis["quantityOrderedLastYear"] == 0 or vmi_analysis["quantityOrderedLastYear"] is None
 
     ta.update_replenishment_item(response_location["transaction"]["transaction_id"], response_location["transaction"]["reorderQuantity"], "SHIPPED")
     vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]
-    assert vmi_analysis["quantityOrderedLastYear"] == 0 or vmi_analysis["quantityOrderedLastYear"] == None
+    assert vmi_analysis["quantityOrderedLastYear"] == 0 or vmi_analysis["quantityOrderedLastYear"] is None
 
     ta.update_replenishment_item(response_location["transaction"]["transaction_id"], response_location["transaction"]["reorderQuantity"], "DELIVERED")
     vmi_analysis = la.get_vmi_analysis(response_location["shipto_id"])[0]

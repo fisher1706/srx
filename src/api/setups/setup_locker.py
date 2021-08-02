@@ -1,15 +1,14 @@
+import copy
+import time
 from src.api.admin.admin_hardware_api import AdminHardwareApi
 from src.api.distributor.distributor_hardware_api import DistributorHardwareApi
 from src.api.admin.smart_shelves_api import SmartShelvesApi
 from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
-import copy
-import time
 
 class SetupLocker(BaseSetup):
     def __init__(self, context):
         super().__init__(context)
-        
         self.setup_name = "Locker"
         self.options = {
             "iothub": True,
@@ -45,12 +44,12 @@ class SetupLocker(BaseSetup):
 
     def set_hardware(self):
         aha = AdminHardwareApi(self.context)
-        if (self.options["distributor_id"] is None):
-            if (self.options["iothub"]):
+        if self.options["distributor_id"] is None:
+            if self.options["iothub"]:
                 self.iothub = aha.create_iothub()
                 self.iothub_id = self.iothub["id"]
         else:
-            if (self.options["iothub"]):
+            if self.options["iothub"]:
                 self.iothub = aha.create_iothub(self.options["distributor_id"])
                 self.iothub_id = self.iothub["id"]
         self.context.dynamic_context["delete_hardware_id"].append(self.iothub_id)
@@ -59,11 +58,11 @@ class SetupLocker(BaseSetup):
         self.locker = aha.create_locker(locker_type_id=first_locker_type_id, iothub_id=self.iothub_id)
         self.locker_id = self.locker["id"]
         self.context.dynamic_context["delete_hardware_id"].insert(0, self.locker_id)
-        if (self.options["no_weight"]):
+        if self.options["no_weight"]:
             aha.update_locker_configuration(self.locker_id, True)
 
     def set_shipto(self):
-        if (self.options["shipto_id"] is not None):
+        if self.options["shipto_id"] is not None:
             iothub_dto = {}
             iothub_dto["id"] = self.iothub_id
             iothub_dto["deviceName"] = Tools.random_string_u()
@@ -77,7 +76,7 @@ class SetupLocker(BaseSetup):
             dha.update_hardware(iothub_dto)
 
     def set_smart_shelf(self):
-        if (self.options["smart_shelf"]):
+        if self.options["smart_shelf"]:
             ssa = SmartShelvesApi(self.context)
             self.door = ssa.get_door_configuration(self.locker_id)[0]
             smart_shelves_dto = Tools.get_dto("smart_shelves_dto.json")
