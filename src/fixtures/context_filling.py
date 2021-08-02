@@ -184,7 +184,7 @@ def testrail(request, context):
                 continue
             if response.status_code > 201 and response.status_code != 500:
                 error = str(response.content)
-                context.logger.error(f"TestRail API returned HTTP {response.status_code} ({error})")
+                context.logger.error(f"TestRail API returned HTTP {response.status_code} ({error})", only_msg=True)
                 break
             else:
                 break

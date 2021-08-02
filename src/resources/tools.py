@@ -51,9 +51,12 @@ class Tools():
 
     @staticmethod
     def generate_log(folder, data):
-        with open(folder, 'a') as file:
-            for entry in data:
-                file.write(str(entry) + '\n')
+        try:
+            with open(folder, 'a') as file:
+                for entry in data:
+                    file.write(str(entry) + '\n')
+        except:
+            pass
 
     @staticmethod
     def ymd_dateformat(months):
