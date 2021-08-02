@@ -258,6 +258,7 @@ class BasePage():
         return self.get_element_count(Locator.xpath_table_row)
 
     def get_header_column(self, header):
+        self.get_element_by_xpath(Locator.xpath_table_header_column) #wait for the headers appear
         headers = self.driver.find_elements_by_xpath(Locator.xpath_table_header_column)
         for index, item in enumerate(headers):
             if item.text == header:
