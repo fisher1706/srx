@@ -17,8 +17,8 @@ class Logger():
         self.logging.info(string)
         self.log += f"\n[INFO] {string}"
 
-    def error(self, string):
-        if self.context.screenshot:
+    def error(self, string, only_msg=False):
+        if self.context.screenshot and not only_msg:
             path = f"{os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))}/screenshots/"
             if not os.path.exists(path):
                 try:
