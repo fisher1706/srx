@@ -195,3 +195,4 @@ class SettingsApi(API):
             self.logger.info(f"Cash settings= '{shipto_id}' has been successfully updated")
         else:
             self.logger.error(str(response.content))
+            
