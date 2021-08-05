@@ -49,7 +49,7 @@ def test_pricing_import(ui, permission_ui, permissions, delete_distributor_secur
     pp.check_price_by_name(pricing_body.copy())
 
 @pytest.mark.regression
-def test_price_is_updated_after_disabling_cache(ui):
+def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
     ui.testrail_case_id = 7608
     sta = SettingsApi(ui)
     lp = LoginPage(ui)
@@ -109,7 +109,7 @@ def test_price_is_updated_after_disabling_cache(ui):
     la.check_updated_price(name="Banana", shipto_id=response_location["shipto_id"], expected_price=float(temporary_price))
 
 @pytest.mark.regression
-def test_price_is_not_updated(ui):
+def test_price_is_not_updated(ui, delete_shipto):
     ui.testrail_case_id = 7606
     sta = SettingsApi(ui)
     lp = LoginPage(ui)
@@ -168,7 +168,7 @@ def test_price_is_not_updated(ui):
         time.sleep(5)
 
 @pytest.mark.regression
-def test_price_is_updated(ui):
+def test_price_is_updated(ui, delete_shipto):
     ui.testrail_case_id = 7607
     sta = SettingsApi(ui)
     lp = LoginPage(ui)
