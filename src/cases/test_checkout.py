@@ -21,7 +21,6 @@ from src.api.customer.customer_user_api import CustomerUserApi
     ])
 @pytest.mark.regression
 def test_label_transactions(api, conditions, delete_shipto):
-
     api.testrail_case_id = conditions["testrail_case_id"]
 
     la = LocationApi(api)
@@ -77,7 +76,6 @@ def test_label_transactions(api, conditions, delete_shipto):
     ])
 @pytest.mark.regression
 def test_label_transactions_checkout_group(api, conditions, delete_shipto):
-
     api.testrail_case_id = conditions["testrail_case_id"]
 
     la = LocationApi(api)
@@ -122,7 +120,6 @@ def test_label_transactions_checkout_group(api, conditions, delete_shipto):
 
 @pytest.mark.regression
 def test_label_issue_with_discrepancy_status(api, delete_shipto):
-
     api.testrail_case_id = 4586
 
     la = LocationApi(api)
