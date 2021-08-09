@@ -196,13 +196,12 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_post(url, token, cart)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="processed"))
+            self.logger.info(f"{location['orderingConfig']['product']['partSku']}  has been successfully added to the cart")
         else:
             self.logger.error(str(response.content))
 
-    def checkout_close_cart(self, location, cart_id, actual_quantity=None, planned_quantity=None, passcode=None, action=None):
+    def checkout_close_cartv2(self, location, cart_id, actual_quantity=None, planned_quantity=None, passcode=None, action=None):
         url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/v2/cart/items")
-        
         data = [{
             "action": action,
             "actualQnty": actual_quantity,
@@ -224,6 +223,6 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_put(url, token, data)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="processed"))
+            self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="closed"))
         else:
             self.logger.error(str(response.content))

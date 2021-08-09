@@ -45,7 +45,7 @@ def test_label_transactions(api, conditions, delete_shipto):
 
     cart_id_list = ca.get_cartv2(passcode=None)["items"]
     for item in cart_id_list:
-        ca.checkout_close_cart(location, cart_id=item['id'], actual_quantity=1, planned_quantity=1, passcode=None, action=conditions["action"])
+        ca.checkout_close_cartv2(location, cart_id=item['id'], actual_quantity=1, planned_quantity=1, passcode=None, action=conditions["action"])
 
     assert  ca.get_cartv2(passcode=None)["status"] == "CLOSED"
 
@@ -105,7 +105,7 @@ def test_label_transactions_checkout_group(api, conditions, delete_shipto):
 
     cart_id_list = ca.get_cartv2(passcode=api.data.passcode)["items"]
     for item in cart_id_list:
-        ca.checkout_close_cart(location, cart_id=item['id'], actual_quantity=1, planned_quantity=1, passcode=api.data.passcode, action=conditions["action"])
+        ca.checkout_close_cartv2(location, cart_id=item['id'], actual_quantity=1, planned_quantity=1, passcode=api.data.passcode, action=conditions["action"])
     assert  ca.get_cartv2(passcode=api.data.passcode)["status"] == "CLOSED"
 
     transaction = cua.get_customer_user_transactions()[0]
@@ -146,7 +146,7 @@ def test_label_issue_with_discrepancy_status(api, delete_shipto):
 
     cart_id_list = ca.get_cartv2(passcode=None)["items"]
     for item in cart_id_list:
-        ca.checkout_close_cart(location, cart_id=item['id'], actual_quantity=location["onHandInventory"]+1, planned_quantity=location["onHandInventory"]+1, passcode=None, action="ISSUE")
+        ca.checkout_close_cartv2(location, cart_id=item['id'], actual_quantity=location["onHandInventory"]+1, planned_quantity=location["onHandInventory"]+1, passcode=None, action="ISSUE")
 
     assert  ca.get_cartv2(passcode=None)["status"] == "CLOSED"
 
