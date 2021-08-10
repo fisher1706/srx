@@ -80,6 +80,26 @@ class CheckoutApi(API):
         response_json = response.json()
         return response_json["data"]
 
+    def get_cartv2(self, passcode=None):
+        url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/v2/cart")
+        if passcode is not None:
+            token = self.get_checkout_group_token()
+            sub_token = self.get_checkout_user_sub_token(passcode)
+            additional_header = {
+                "Sub-Authorization": sub_token
+            }
+            response = self.send_get(url, token, additional_headers=additional_header)
+        else:
+            token = self.get_checkout_token()
+            response = self.send_get(url, token)
+
+        if response.status_code == 200:
+            self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="got"))
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]
+
     def close_cart(self, passcode=None):
         url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart/close")
         if passcode is not None:
@@ -151,3 +171,58 @@ class CheckoutApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["passToken"]
+
+    def checkout_add_to_cartv2(self, location, location_type, quantity=None, issue_product=None, return_product=None, passcode=None, action=None):
+        if location_type == "LABEL":
+            cart = [{
+                "action": action,
+                "allocationCodes": None,
+                "location": location,
+                "plannedQnty": quantity,
+                "status": "REQUESTED"
+            }]
+        if issue_product:
+            url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/v2/cart/issue/items")
+        elif return_product:
+            url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/v2/cart/return/items")
+        if passcode is not None:
+            token = self.get_checkout_group_token()
+            sub_token = self.get_checkout_user_sub_token(passcode)
+            additional_header = {
+                "Sub-Authorization": sub_token
+            }
+            response = self.send_post(url, token, cart, additional_headers=additional_header)
+        else:
+            token = self.get_checkout_token()
+            response = self.send_post(url, token, cart)
+        if response.status_code == 200:
+            self.logger.info(f"{location['orderingConfig']['product']['partSku']}  has been successfully added to the cart")
+        else:
+            self.logger.error(str(response.content))
+
+    def checkout_close_cartv2(self, location, cart_id, actual_quantity=None, planned_quantity=None, passcode=None, action=None):
+        url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/v2/cart/items")
+        data = [{
+            "action": action,
+            "actualQnty": actual_quantity,
+            "allocationCodes": None,
+            "id": cart_id,
+            "location": location,
+            "plannedQnty": planned_quantity,
+            "snOrRfid": None,
+            "status": "CONFIRMED"
+        }]
+        if passcode is not None:
+            token = self.get_checkout_group_token()
+            sub_token = self.get_checkout_user_sub_token(passcode)
+            additional_header = {
+                "Sub-Authorization": sub_token
+            }
+            response = self.send_put(url, token, data, additional_headers=additional_header)
+        else:
+            token = self.get_checkout_token()
+            response = self.send_put(url, token, data)
+        if response.status_code == 200:
+            self.logger.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="closed"))
+        else:
+            self.logger.error(str(response.content))
