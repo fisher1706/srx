@@ -34,13 +34,18 @@ class TransactionApi(API):
             self.logger.error("New transaction has not been created")
             self.logger.error(str(response.content))
 
-    def update_replenishment_item(self, transaction_id, quantity, status):
+    def update_replenishment_item(self, transaction_id, quantity_ordered, status, quantity_shipped=None):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/item/update")
         token = self.get_distributor_token()
+        if (quantity_shipped is None and (status == "SHIPPED" or status == "DELIVERED")):
+            quantity_shipped = quantity_ordered
+        if (quantity_shipped is None and status == "DO_NOT_REORDER"):
+            quantity_shipped = 0
         dto = {
-            "reorderQuantity": quantity,
+            "reorderQuantity": quantity_ordered,
+            "shippedQuantity": quantity_shipped,
             "status": status,
-            "id": transaction_id
+            "id": transaction_id,
         }
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
