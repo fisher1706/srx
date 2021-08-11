@@ -834,7 +834,7 @@ def test_reorder_controls_with_quantity_on_reorder(api, conditions, delete_shipt
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -954,7 +954,7 @@ def test_reorder_controls_update_quantity_on_reorder_qnty_with_existing_active_f
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1014,7 +1014,7 @@ def test_reorder_controls_update_quantity_on_reorder_status_with_existing_active
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1092,7 +1092,7 @@ def test_reorder_controls_update_quantity_on_reorder_qnty_with_existing_active_f
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1224,7 +1224,7 @@ def test_reorder_controls_update_active_transaction(api, conditions, delete_ship
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1277,7 +1277,7 @@ def test_reorder_controls_is_not_triggered_by_update_transaction_from_customer_p
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": "ISSUED"})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": "ISSUED"})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1359,7 +1359,7 @@ def test_reorder_controls_submit_replenishment_list_for_create(api, conditions, 
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1442,7 +1442,7 @@ def test_reorder_controls_update_quantity_on_reorder_status_with_existing_active
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1509,7 +1509,7 @@ def test_reorder_controls_with_quantity_on_reorder_update_min_and_max_for_create
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1601,7 +1601,7 @@ def test_reorder_controls_with_quantity_on_reorder_update_min_and_max_for_update
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.add_option("min", LOCATION_MIN)
@@ -1726,7 +1726,7 @@ def test_reorder_controls_rounding(api, conditions, delete_shipto):
     #setup
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
+                                           {"scan_to_order": True, "enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions["reorder_controls"]})
     setup_location.setup_product.add_option("round_buy", ROUND_BUY)
     setup_location.setup_product.add_option("package_conversion", LOCATION_PACKAGE_CONVERSION)
     setup_location.setup_product.add_option("issue_quantity", 1)
@@ -1771,7 +1771,7 @@ def test_create_transaction_by_pack_conversion_update_with_clc(api, conditions, 
 
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions['reorder_controls']})
+                                           {"enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions['reorder_controls']})
     setup_location.setup_shipto.add_option("customer")
     setup_location.setup_shipto.setup_customer.add_option("clc")
     setup_location.add_option("ohi", "MAX")
@@ -1807,7 +1807,7 @@ def test_close_transaction_by_pack_conversion_update_with_clc(api, conditions, d
 
     setup_location = SetupLocation(api)
     setup_location.setup_shipto.add_option("reorder_controls_settings",
-                                            {"enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions['reorder_controls']})
+                                           {"enable_reorder_control": True, "track_ohi": True, "reorder_controls": conditions['reorder_controls']})
     setup_location.add_option("ohi", "MAX")
     setup_location.setup_shipto.add_option("customer")
     setup_location.setup_shipto.setup_customer.add_option("clc")

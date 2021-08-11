@@ -37,7 +37,7 @@ class TransactionApi(API):
     def update_replenishment_item(self, transaction_id, quantity_ordered, status, quantity_shipped=None):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/item/update")
         token = self.get_distributor_token()
-        if (quantity_shipped is None and (status == "SHIPPED" or status == "DELIVERED")):
+        if (quantity_shipped is None and status in ("SHIPPED", "DELIVERED")):
             quantity_shipped = quantity_ordered
         if (quantity_shipped is None and status == "DO_NOT_REORDER"):
             quantity_shipped = 0
