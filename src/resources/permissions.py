@@ -106,6 +106,15 @@ class Permissions():
         return response
 
     @staticmethod
+    def mobile_rfid_putaway(action, value):
+        response = [{
+            "feature": "distributor.mobile.rfid.put.away",
+            "action": action,
+            "value": value
+        }]
+        return response
+
+    @staticmethod
     def mobile_rfid_manifest(action, value):
         response = [{
             "feature": "distributor.mobile.rfid.manifest",
