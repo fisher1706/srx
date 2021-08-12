@@ -34,12 +34,13 @@ class TransactionApi(API):
             self.logger.error("New transaction has not been created")
             self.logger.error(str(response.content))
 
-    def update_replenishment_item(self, transaction_id, quantity_ordered, status, quantity_shipped=None):
+    @default_expected_code(200)
+    def update_replenishment_item(self, transaction_id, quantity_ordered, status, quantity_shipped=-1, expected_status_code=None):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/item/update")
         token = self.get_distributor_token()
-        if (quantity_shipped is None and status in ("SHIPPED", "DELIVERED")):
+        if (quantity_shipped == -1 and status in ("SHIPPED", "DELIVERED")):
             quantity_shipped = quantity_ordered
-        if (quantity_shipped is None and status == "DO_NOT_REORDER"):
+        if (quantity_shipped == -1 and status == "DO_NOT_REORDER"):
             quantity_shipped = 0
         dto = {
             "reorderQuantity": quantity_ordered,
@@ -48,10 +49,12 @@ class TransactionApi(API):
             "id": transaction_id,
         }
         response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            self.logger.info(f"Transaction '{transaction_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Transaction", id=transaction_id, operation="updated"))
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="updating", status_code=response.status_code, content=response.content))
+
 
     def get_transaction(self, sku=None, status=None, shipto_id=None, ids=None):
         params = dict()

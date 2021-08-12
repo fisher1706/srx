@@ -76,7 +76,7 @@ def test_rfid_putaway_with_permission(mobile_api, conditions, delete_shipto):
     mobile_api.testrail_case_id = conditions["testrail_case_id"]
     mra = MobileRfidApi(mobile_api)
     ra = RfidApi(mobile_api)
-    la =LocationApi(mobile_api)
+    la = LocationApi(mobile_api)
 
     setup_location = SetupLocation(mobile_api)
     setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
@@ -89,7 +89,7 @@ def test_rfid_putaway_with_permission(mobile_api, conditions, delete_shipto):
     rfid_labels = mra.get_rfids_labels_by_location(response_location["location_id"])
     ra.update_rfid_label(response_location["location_id"], rfid_labels[0]["id"], conditions["state"])
     updated_rfid_labels = mra.get_rfids_labels_by_location(response_location["location_id"])
-    mra.rfid_put_away(response_location["shipto_id"], updated_rfid_labels[0]["id"], expected_status_code = conditions["expected_code"])
+    mra.rfid_put_away(response_location["shipto_id"], updated_rfid_labels[0]["id"], expected_status_code=conditions["expected_code"])
 
     rfid_labels_after_putaway = mra.get_rfids_labels_by_location(response_location["location_id"])
     assert rfid_labels_after_putaway[0]["state"] == conditions["state_after_putaway"], f"Status of RFID Tag should be {conditions['state_after_putaway']}"
@@ -106,7 +106,7 @@ def test_rfid_putaway_without_permission(mobile_api, permission_api, delete_ship
     mra = MobileRfidApi(permission_api)
     super_mra = MobileRfidApi(mobile_api)
     ra = RfidApi(mobile_api)
-    la =LocationApi(mobile_api)
+    la = LocationApi(mobile_api)
 
     setup_location = SetupLocation(mobile_api)
     setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False})
