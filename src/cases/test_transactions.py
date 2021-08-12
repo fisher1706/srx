@@ -407,3 +407,51 @@ def test_close_transactions_when_update_to_assets(api, conditions, delete_shipto
     transactions = ta.get_transaction(ids=transaction_id)
     assert transactions["totalElements"] == 1
     assert transactions["entities"][0]["status"] == conditions["updated_to_status"]
+
+@pytest.mark.parametrize("conditions", [
+    {
+        "status": "SHIPPED",
+        "testrail_case_id": 8094
+    },
+    {
+        "status": "DELIVERED",
+        "testrail_case_id": 8095
+    },
+    ])
+@pytest.mark.regression
+def test_cannot_update_to_shipped_or_delivered_without_quantity_shipped(api, conditions, delete_shipto):
+    api.testrail_case_id = conditions["testrail_case_id"]
+
+    ta = TransactionApi(api)
+
+    setup_location = SetupLocation(api)
+    setup_location.add_option("transaction", 'ACTIVE')
+    setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": True})
+    response_location = setup_location.setup()
+
+    ta.update_replenishment_item(response_location["transaction"]["transaction_id"],
+                                 response_location["transaction"]["reorderQuantity"],
+                                 conditions["status"], quantity_shipped=None,
+                                 expected_status_code=400)
+
+@pytest.mark.regression
+def test_ohi_increased_by_shipped_quantity(api, delete_shipto):
+    api.testrail_case_id = 8096
+
+    ta = TransactionApi(api)
+    la = LocationApi(api)
+
+    setup_location = SetupLocation(api)
+    setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": False, "track_ohi": True, "enable_reorder_controls": False})
+    setup_location.add_option("transaction", 'ACTIVE')
+    setup_location.add_option("ohi", 0)
+    setup_location.setup_product.add_option("package_conversion", 2)
+    response_location = setup_location.setup()
+
+    locations = la.get_locations(response_location["shipto_id"])
+    assert locations[0]["onHandInventory"] == 0
+    quantity_shipped = response_location["transaction"]["reorderQuantity"]+response_location["product"]["roundBuy"]
+    ta.update_replenishment_item(response_location["transaction"]["transaction_id"], response_location["transaction"]["reorderQuantity"], "DELIVERED", quantity_shipped=quantity_shipped)
+
+    locations = la.get_locations(response_location["shipto_id"])
+    assert locations[0]["onHandInventory"] == quantity_shipped * response_location["product"]["packageConversion"]
