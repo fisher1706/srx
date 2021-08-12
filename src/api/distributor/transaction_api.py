@@ -40,8 +40,10 @@ class TransactionApi(API):
         token = self.get_distributor_token()
         if (quantity_shipped == -1 and status in ("SHIPPED", "DELIVERED")):
             quantity_shipped = quantity_ordered
-        if (quantity_shipped == -1 and status == "DO_NOT_REORDER"):
+        elif (quantity_shipped == -1 and status == "DO_NOT_REORDER"):
             quantity_shipped = 0
+        elif quantity_shipped == -1:
+            quantity_shipped = None
         dto = {
             "reorderQuantity": quantity_ordered,
             "shippedQuantity": quantity_shipped,
