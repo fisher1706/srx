@@ -1,4 +1,5 @@
 import pytest
+from src.resources.tools import Tools
 from src.api.mobile.mobile_rfid_api import MobileRfidApi
 from src.api.distributor.rfid_api import RfidApi
 from src.api.distributor.location_api import LocationApi
@@ -251,6 +252,7 @@ def test_create_existing_label_for_rfid(mobile_api, delete_shipto):
 def test_delete_non_existent_label_for_rfid(mobile_api, delete_shipto):
     mobile_api.testrail_case_id = 7006
     mra = MobileRfidApi(mobile_api)
+    non_existing_rfid_tag = Tools.random_string_u
 
     setup_location = SetupLocation(mobile_api)
     setup_location.add_option("type", "RFID")
@@ -258,7 +260,7 @@ def test_delete_non_existent_label_for_rfid(mobile_api, delete_shipto):
 
     mra.create_rfid_label(response_location["location_id"], response_location["shipto_id"], response_location["product"]["partSku"])
 
-    mra.delete_rfid_label(response_location["location_id"], "NON-EXISTING RFID TAG", expected_status_code=404)
+    mra.delete_rfid_label(response_location["location_id"], non_existing_rfid_tag, expected_status_code=404)
 
     rfid_labels = mra.get_rfids_labels_by_location(response_location["location_id"])
     assert len(rfid_labels) == 1, "There should be 1 RFID label"
