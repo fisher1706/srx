@@ -2,13 +2,15 @@ from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
 
 class OrderStatusPage(DistributorPortalPage):
-    def update_transaction(self, row, quantity=None, status=None):
-        if (quantity is not None or status is not None):
+    def update_transaction(self, row, reorder_quantity=None, shipped_quantity=None, status=None):
+        if (reorder_quantity is not None or status is not None):
             self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, row))
-            if quantity is not None:
-                self.input_by_name("reorderQuantity", quantity)
+            if reorder_quantity is not None:
+                self.input_by_name("reorderQuantity", reorder_quantity)
             if status is not None:
                 self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), status)
+            if shipped_quantity is not None:
+                self.input_by_name("shippedQuantity", shipped_quantity)
             self.click_xpath(Locator.xpath_submit_button)
             self.wait_until_page_loaded()
 
