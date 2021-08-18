@@ -81,14 +81,16 @@ class MobileRfidApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def rfid_put_away(self, shipto_id, rfid_id):
+    @default_expected_code(200)
+    def rfid_put_away(self, shipto_id, rfid_id, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/putaway/shiptos/{shipto_id}/rfids/{rfid_id}/available")
         token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
             self.logger.info(f"RFID label with ID = '{rfid_id}' has been put away")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(f"RFID PutAway completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     @default_expected_code(200)
     def create_rfid_label(self, location_id, shipto_id, product_sku, expected_status_code=None, label=None):
