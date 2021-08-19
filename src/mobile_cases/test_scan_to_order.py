@@ -263,8 +263,6 @@ def test_bulk_create_for_exist_transactions_in_active(mobile_api, conditions, de
         "reorder_qty_exist_2": 50,
         "reorder_qty_new_1": 40,
         "reorder_qty_new_2": 20
-
-
     },
     {
         "status": "SHIPPED",
@@ -283,7 +281,6 @@ def test_bulk_create_for_exist_transactions_in_active(mobile_api, conditions, de
         "reorder_qty_exist_2": 54,
         "reorder_qty_new_1": 36,
         "reorder_qty_new_2": 42
-
     }
 ])
 @pytest.mark.regression
