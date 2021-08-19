@@ -57,7 +57,7 @@ def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
     la = LocationApi(ui)
 
     product_dto = Tools.get_dto("product_dto.json")
-    product_dto["partSku"] = "BANANA"
+    product_dto["partSku"] = "PRICING_SKU"
     product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
     product_dto["roundBuy"] = "1"
     product_dto["upc"] = Tools.random_string_u(18)
@@ -70,13 +70,13 @@ def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
     setup_location.add_option("product", product_dto)
     response_location = setup_location.setup()
 
-    location_responce = la.get_location_by_sku(sku="Banana", shipto_id=response_location["shipto_id"])
+    location_responce = la.get_location_by_sku(sku="PRICING_SKU", shipto_id=response_location["shipto_id"])
     price = location_responce[0]["orderingConfig"]["price"]
     pricing_body = pp.pricing_body.copy()
     temporary_price = str(random.choice(range(100)))
 
     #-------------------
-    pricing_body["Distributor SKU"] = "BANANA"
+    pricing_body["Distributor SKU"] = "PRICING_SKU"
     pricing_body["Price"] = "$"+temporary_price+".00"
     pricing_body["UOM"] = "M"
     pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
@@ -91,7 +91,7 @@ def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
     pp.select_customer_shipto(customer_name=ui.data.customer_name)
     pp.import_pricing(pricing)
 
-    location_responce_updated = la.get_location_by_sku(sku="Banana", shipto_id=response_location["shipto_id"])
+    location_responce_updated = la.get_location_by_sku(sku="PRICING_SKU", shipto_id=response_location["shipto_id"])
     price_after_update = location_responce_updated[0]["orderingConfig"]["price"]
 
     assert price == price_after_update
@@ -106,7 +106,7 @@ def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
 
     sta.update_cash_settings(dto=response_cache, shipto_id=response_location["shipto_id"])
 
-    la.check_updated_price(name="Banana", shipto_id=response_location["shipto_id"], expected_price=float(temporary_price))
+    la.check_updated_price(name="PRICING_SKU", shipto_id=response_location["shipto_id"], expected_price=float(temporary_price))
 
 @pytest.mark.regression
 def test_price_is_not_updated(ui, delete_shipto):
@@ -117,7 +117,7 @@ def test_price_is_not_updated(ui, delete_shipto):
     la = LocationApi(ui)
 
     product_dto = Tools.get_dto("product_dto.json")
-    product_dto["partSku"] = "BANANA"
+    product_dto["partSku"] = "PRICING_SKU"
     product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
     product_dto["roundBuy"] = "1"
     product_dto["upc"] = Tools.random_string_u(18)
@@ -130,13 +130,13 @@ def test_price_is_not_updated(ui, delete_shipto):
     setup_location.add_option("product", product_dto)
     response_location = setup_location.setup()
 
-    location_responce = la.get_location_by_sku(sku="Banana", shipto_id=response_location["shipto_id"])
+    location_responce = la.get_location_by_sku(sku="PRICING_SKU", shipto_id=response_location["shipto_id"])
     price = location_responce[0]["orderingConfig"]["price"]
     pricing_body = pp.pricing_body.copy()
     temporary_price = str(random.choice(range(100)))
 
     #-------------------
-    pricing_body["Distributor SKU"] = "BANANA"
+    pricing_body["Distributor SKU"] = "PRICING_SKU"
     pricing_body["Price"] = "$"+temporary_price+".00"
     pricing_body["UOM"] = "M"
     pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
@@ -160,7 +160,7 @@ def test_price_is_not_updated(ui, delete_shipto):
     pp.select_customer_shipto(customer_name=ui.data.customer_name)
     pp.import_pricing(pricing)
 
-    location_responce_updated = la.get_location_by_sku(sku="Banana", shipto_id=response_location["shipto_id"])
+    location_responce_updated = la.get_location_by_sku(sku="PRICING_SKU", shipto_id=response_location["shipto_id"])
     price_after_update = location_responce_updated[0]["orderingConfig"]["price"]
 
     for _ in range(6):
@@ -176,7 +176,7 @@ def test_price_is_updated(ui, delete_shipto):
     la = LocationApi(ui)
 
     product_dto = Tools.get_dto("product_dto.json")
-    product_dto["partSku"] = "BANANA"
+    product_dto["partSku"] = "PRICING_SKU"
     product_dto["shortDescription"] = f"{product_dto['partSku']} - short description"
     product_dto["roundBuy"] = "1"
     product_dto["upc"] = Tools.random_string_u(18)
@@ -193,7 +193,7 @@ def test_price_is_updated(ui, delete_shipto):
     temporary_price = str(random.choice(range(100)))
 
     #-------------------
-    pricing_body["Distributor SKU"] = "BANANA"
+    pricing_body["Distributor SKU"] = "PRICING_SKU"
     pricing_body["Price"] = "$"+temporary_price+".00"
     pricing_body["UOM"] = "M"
     pricing_body["Expiration Date"] = "Fri, Dec 12, 2025"
@@ -217,5 +217,5 @@ def test_price_is_updated(ui, delete_shipto):
     pp.select_customer_shipto(customer_name=ui.data.customer_name)
     pp.import_pricing(pricing)
 
-    la.check_updated_price(name="Banana", shipto_id=response_location["shipto_id"], expected_price=float(temporary_price))
+    la.check_updated_price(name="PRICING_SKU", shipto_id=response_location["shipto_id"], expected_price=float(temporary_price))
    
