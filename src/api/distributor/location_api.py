@@ -1,3 +1,4 @@
+import time
 from src.api.api import API
 from src.fixtures.decorators import default_expected_code
 from src.resources.messages import Message
@@ -101,3 +102,18 @@ class LocationApi(API):
             response_json = response.json()
             return response_json["data"]["entities"]
         self.logger.info(Message.info_operation_with_expected_code.format(entity="VMI Analysis", operation="reading", status_code=response.status_code, content=response.content))
+
+    def check_updated_price(self, name, shipto_id, expected_price, repeat=10):
+        for _ in range(1, repeat):
+            location_responce = self.get_location_by_sku(sku=name, shipto_id=shipto_id)
+            old_price = location_responce[0]["orderingConfig"]["price"]
+            if old_price == expected_price:
+                if old_price == expected_price:
+                    self.logger.info("Price is updated correctly")
+                else:
+                    self.logger.error(f"'{old_price}' =! '{expected_price}'")
+                break
+            self.logger.info("Price is not updated. Next attempt after 5 second")
+            time.sleep(5)
+        else:
+            self.logger.error(f"Actual price'{old_price}' but expected '{expected_price}'")

@@ -42,3 +42,14 @@ class CustomerUserApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
+
+    def get_customer_user_transactions(self):
+        url = self.url.get_api_url_for_env("/customer-portal/customer/reports/full-transactions?&sort=createdAt,desc")
+        token = self.get_customer_token()
+        response = self.send_get(url, token)
+        if response.status_code == 200:
+            self.logger.info(Message.entity_operation_done.format(entity="Customer User Transation Report", operation="got"))
+        else:
+            self.logger.error(str(response.content))
+        response_json = response.json()
+        return response_json["data"]["entities"]
