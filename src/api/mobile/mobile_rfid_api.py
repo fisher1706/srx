@@ -150,17 +150,12 @@ class MobileRfidApi(API):
             self.logger.info(f"Item with ID = '{item_id}' has not been deleted from the manifest with ID = '{manifest_id}' and completed with code = '{response.status_code}'")
     
     @default_expected_code(200)
-    def replace_rfid_label_in_manifest(self, manifest_id, item_id, expected_status_code=None):
-        url = self.url.get_api_url_for_env(f"/distributor-portal​/distributor​/manifest​/{manifest_id}​/items​/{item_id}​/replace")
+    def replace_rfid_label_in_manifest(self, manifest_id, item_id, label, expected_status_code=None):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/items/{item_id}/replace")
         token = self.get_mobile_distributor_token()
         dto = {
-            "antennaPort": 21,
-            "peakRssi": -51,
-            "firstSeenTimestamp": "2018-06-14T00:15:54.36879Z",
-            "epc": "G2801160611102054A93EBD80"
+            "epc": str(label + "_replaced")
         }
-        print(url)
-        print(token)
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
