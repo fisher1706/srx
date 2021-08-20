@@ -145,8 +145,6 @@ def test_add_tags_in_different_statuses_to_manifest(mobile_api, conditions, dele
     manifest = mra.get_manifest(initial_manifest["device_id"])
     assert len(manifest["items"]) == 0, f"In Manifest with ID = {initial_manifest['data']['id']} should not be any items"
 
-    mra.close_manifest(initial_manifest["data"]["id"])
-
 @pytest.mark.parametrize("conditions", [
     {
         "testrail_case_id": 8119,
