@@ -31,20 +31,22 @@ class MobileRfidApi(API):
                 return response
             if stop_cycle:
                 self.logger.error("Error during getting the delivery manifest")
-
-    def create_return_manifest(self):
+    
+    @default_expected_code(200)
+    def create_manifest(self, type, expected_status_code=None):
         device_id = Tools.random_string_u(20)
-        url = self.url.get_api_url_for_env("/distributor-portal/distributor/manifest/return")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{type}")
         token = self.get_mobile_distributor_token()
         additional_header = {
             "deviceId": device_id
         }
         response = self.send_post(url, token, additional_headers=additional_header)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
+        response_json = response.json()
         if response.status_code == 200:
-            response_json = response.json()
-            self.logger.info(f"Return manifest with ID = '{response_json['data']['id']}' has been successfully created")
+            self.logger.info(f"{type} manifest with ID = '{response_json['data']['id']}' has been successfully created")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(f"{type} manifest has not been created and completed with status code = '{response.status_code}'")
         response = {
             "data": response_json["data"],
             "device_id": device_id
@@ -60,26 +62,30 @@ class MobileRfidApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def add_to_manifest(self, label, manifest_id, shipto_id):
+    @default_expected_code(200)
+    def add_to_manifest(self, label, manifest_id, shipto_id, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/shiptos/{shipto_id}/items/add")
         token = self.get_mobile_distributor_token()
         dto = {
             "epc": str(label)
         }
         response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
             self.logger.info(f"Label '{label}' has been successfully added to the manifest")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(f"Adding item to Manifest completed with status_code = '{response.status_code}', as expected: {response.content}")
 
-    def submit_manifest(self, manifest_id):
+    @default_expected_code(200)
+    def submit_manifest(self, manifest_id, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/submit")
         token = self.get_mobile_distributor_token()
         response = self.send_post(url, token)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
             self.logger.info(f"Manifest with ID = '{manifest_id}' has been successfully submitted")
         else:
-            self.logger.error(str(response.content))
+            self.logger.info(f"Submit Manifest with ID = '{manifest_id}' completed with code = '{response.status_code}'")
 
     @default_expected_code(200)
     def rfid_put_away(self, shipto_id, rfid_id, expected_status_code=None):
@@ -131,3 +137,28 @@ class MobileRfidApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
+    
+    @default_expected_code(200)
+    def delete_rfid_label_from_manifest(self, manifest_id, item_id, expected_status_code=None):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/items/{item_id}/delete")
+        token = self.get_mobile_distributor_token()
+        response = self.send_post(url, token)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
+        if response.status_code == 200:
+            self.logger.info(f"Item with ID = '{item_id}' has been successfully deleted from the manifest with ID = '{manifest_id}'")
+        else:
+            self.logger.info(f"Item with ID = '{item_id}' has not been deleted from the manifest with ID = '{manifest_id}' and completed with code = '{response.status_code}'")
+    
+    @default_expected_code(200)
+    def replace_rfid_label_in_manifest(self, manifest_id, item_id, label, expected_status_code=None):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/items/{item_id}/replace")
+        token = self.get_mobile_distributor_token()
+        dto = {
+            "epc": str(label + "_replaced")
+        }
+        response = self.send_post(url, token, dto)
+        assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
+        if response.status_code == 200:
+            self.logger.info(f"Item with ID = '{item_id}' has been successfully replaced from the manifest with ID = '{manifest_id}'")
+        else:
+            self.logger.info(f"Item with ID = '{item_id}' has not been replaced in the manifest with ID = '{manifest_id}' and completed with code = '{response.status_code}'")

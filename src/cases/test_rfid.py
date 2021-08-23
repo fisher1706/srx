@@ -261,7 +261,7 @@ def test_full_return_rfid_available_flow(api, delete_shipto, delete_hardware):
     test_label = response_location["rfid_labels"][0]["label"]
     ra.update_rfid_label(response_location["location_id"], response_location["rfid_labels"][0]["rfid_id"], "ISSUED")
 
-    initial_manifest_body = mra.create_return_manifest()
+    initial_manifest_body = mra.create_manifest("RETURN")
     mra.add_to_manifest(test_label, initial_manifest_body["data"]["id"], response_location["shipto_id"])
     manifest_body_1 = mra.get_manifest(initial_manifest_body["device_id"])
 
