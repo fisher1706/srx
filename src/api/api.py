@@ -10,7 +10,7 @@ class API():
         self.data = context.data
 
     def get_token(self, username, password, pool_id, client_id):
-        aws = AWSSRP(username=username, password=password, pool_id=pool_id, client_id=client_id)
+        aws = AWSSRP(username=username, password=password, pool_id=pool_id, client_id=client_id, pool_region='us-east-1')
         tokens = aws.authenticate_user()
         return tokens['AuthenticationResult']['IdToken']
 
