@@ -47,8 +47,6 @@ def test_product_crud(ui, permission_ui, permissions, delete_distributor_securit
     edit_product_body["height"] = "200"
     edit_product_body["width"] = "300"
     edit_product_body["depth"] = "400"
-    edit_product_body["issueQuantity"] = "500"
-    edit_product_body["packageConversion"] = "600"
     edit_product_body["manufacturerPartNumber"] = "700"
     edit_product_body["manufacturer"] = "800"
     edit_product_body["alternative"] = "900"
@@ -97,7 +95,7 @@ def test_product_import(ui, permission_ui, permissions, delete_distributor_secur
     product_body["roundBuy"] = "39"
     #-------------------
     products = [
-        [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None, None, None] #pylint: disable=C0301
+        [product_body["partSku"], None, None, product_body["shortDescription"], None, None, None, None, None, None, None, None, None, None, product_body["roundBuy"], None, None, None, None, None, None, None, None, None, None, None, None] #pylint: disable=C0301
     ]
     #-------------------
 
