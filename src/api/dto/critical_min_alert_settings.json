@@ -1,0 +1,8 @@
+{
+    "settings": {
+        "enabled": false,
+        "useDefault": false,
+        "alertEmails": null
+    },
+    "useDefault": false
+}
