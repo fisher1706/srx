@@ -31,11 +31,11 @@ class MobileRfidApi(API):
                 return response
             if stop_cycle:
                 self.logger.error("Error during getting the delivery manifest")
-    
+
     @default_expected_code(200)
-    def create_manifest(self, type, expected_status_code=None):
+    def create_manifest(self, manifest_type, expected_status_code=None):
         device_id = Tools.random_string_u(20)
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{type}")
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_type}")
         token = self.get_mobile_distributor_token()
         additional_header = {
             "deviceId": device_id
@@ -44,9 +44,9 @@ class MobileRfidApi(API):
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         response_json = response.json()
         if response.status_code == 200:
-            self.logger.info(f"{type} manifest with ID = '{response_json['data']['id']}' has been successfully created")
+            self.logger.info(f"{manifest_type} manifest with ID = '{response_json['data']['id']}' has been successfully created")
         else:
-            self.logger.info(f"{type} manifest has not been created and completed with status code = '{response.status_code}'")
+            self.logger.info(f"{manifest_type} manifest has not been created and completed with status code = '{response.status_code}'")
         response = {
             "data": response_json["data"],
             "device_id": device_id
@@ -137,7 +137,7 @@ class MobileRfidApi(API):
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
-    
+
     @default_expected_code(200)
     def delete_rfid_label_from_manifest(self, manifest_id, item_id, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/items/{item_id}/delete")
@@ -148,7 +148,7 @@ class MobileRfidApi(API):
             self.logger.info(f"Item with ID = '{item_id}' has been successfully deleted from the manifest with ID = '{manifest_id}'")
         else:
             self.logger.info(f"Item with ID = '{item_id}' has not been deleted from the manifest with ID = '{manifest_id}' and completed with code = '{response.status_code}'")
-    
+
     @default_expected_code(200)
     def replace_rfid_label_in_manifest(self, manifest_id, item_id, label, expected_status_code=None):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/manifest/{manifest_id}/items/{item_id}/replace")

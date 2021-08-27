@@ -3,7 +3,7 @@ from src.api.api import API
 from src.api.distributor.transaction_api import TransactionApi
 
 class MobileTransactionApi(API):
-    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None, status=None, first_delay=5):
+    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None, status=None, first_delay=5): #pylint: disable=R0913
         if customer_id is None:
             customer_id = self.data.customer_id
         if admin_context is not None:
