@@ -218,7 +218,7 @@ def test_allocation_code_crud(ui):
 
     lp = LoginPage(ui)
     acp = AllocationCodesPage(ui)
-    ala = ActivityLogApi(ui)
+    # ala = ActivityLogApi(ui)
     allocation_code_body = acp.allocation_code_body.copy()
     edit_allocation_code_body = acp.allocation_code_body.copy()
 
@@ -233,36 +233,36 @@ def test_allocation_code_crud(ui):
     edit_allocation_code_body["values"] = [Tools.random_string_u(7)]
     edit_allocation_code_body["isRequired"] = False
     #-------------------
-    options = {
-        "action": None,
-        "event_type": "AllocationCodes",
-        "name": None
-    }
+    # options = {
+    #     "action": None,
+    #     "event_type": "AllocationCodes",
+    #     "name": None
+    # }
 
     lp.log_in_customer_portal()
     acp.sidebar_allocation_codes()
     acp.add_allocation_code(allocation_code_body.copy())
 
     acp.check_allocation_code(allocation_code_body.copy())
-    allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
-    options["action"] = "ALLOCATION_CODES_CREATE"
-    options["name"] = allocation_code_body["name"]
-    ala.check_event(allocation_code_event, options)
+    # allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
+    # options["action"] = "ALLOCATION_CODES_CREATE"
+    # options["name"] = allocation_code_body["name"]
+    # ala.check_event(allocation_code_event, options)
 
     acp.update_allocation_code(allocation_code_body["name"], edit_allocation_code_body.copy())
-    options["action"] = "ALLOCATION_CODES_UPDATE"
-    options["name"] = edit_allocation_code_body["name"]
-    allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
-    ala.check_event(allocation_code_event, options)
+    # options["action"] = "ALLOCATION_CODES_UPDATE"
+    # options["name"] = edit_allocation_code_body["name"]
+    # allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
+    # ala.check_event(allocation_code_event, options)
 
     acp.sidebar_allocation_codes()
     acp.wait_until_page_loaded()
     acp.check_allocation_code(edit_allocation_code_body.copy())
     acp.delete_allocation_code(edit_allocation_code_body["name"])
-    allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
-    options["action"] = "ALLOCATION_CODES_DELETE"
-    options["name"] = edit_allocation_code_body["name"]
-    ala.check_event(allocation_code_event, options)
+    # allocation_code_event = ala.get_activity_log(size=1, shiptos=[f"{ui.data.shipto_id}"], wait=5)
+    # options["action"] = "ALLOCATION_CODES_DELETE"
+    # options["name"] = edit_allocation_code_body["name"]
+    # ala.check_event(allocation_code_event, options)
 
 @pytest.mark.parametrize("permissions", [
     {

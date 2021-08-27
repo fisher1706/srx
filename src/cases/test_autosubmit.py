@@ -182,7 +182,7 @@ def test_same_order_id_after_bulk_create_with_autosubmit_immediately(api, delete
         }
     ]
 
-    mta.bulk_create(response_location_1["shipto_id"], data, status="QUOTED")
+    mta.bulk_create(response_location_1["shipto_id"], data, status="QUOTED", first_delay=15)
     transactions = ta.get_transaction(shipto_id=response_location_1["shipto_id"])["entities"]
 
     assert len(transactions) == 2, "The number of transactions should be equal to 2"

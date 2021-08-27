@@ -3,7 +3,7 @@ from src.api.api import API
 from src.api.distributor.transaction_api import TransactionApi
 
 class MobileTransactionApi(API):
-    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None, status=None):
+    def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None, status=None, first_delay=5):
         if customer_id is None:
             customer_id = self.data.customer_id
         if admin_context is not None:
@@ -22,7 +22,7 @@ class MobileTransactionApi(API):
                 'shipToId': shipto_id
             }
             response = self.send_post(url, token, dto, params=params)
-            time.sleep(5)
+            time.sleep(first_delay)
             new_transactions_count = ta.get_transactions_count(shipto_id=shipto_id, status=status)
             if new_transactions_count >= transactions_count+len_of_dto:
                 if response.status_code == 200:
