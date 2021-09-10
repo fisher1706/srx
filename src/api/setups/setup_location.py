@@ -31,7 +31,8 @@ class SetupLocation(BaseSetup):
             "transaction": None,
             "dsn": None,
             "min": None,
-            "max": None
+            "max": None,
+            "critical_min": None
         }
         self.location = Tools.get_dto("location_dto.json")
         self.location_id = None
@@ -143,6 +144,7 @@ class SetupLocation(BaseSetup):
                 "min": location_min,
                 "max": location_max
             },
+            "criticalMin": self.options["critical_min"] if self.options["critical_min"] is not None else None,
             "dsn": self.options["dsn"]
         }
         if self.options["ohi"] == "MAX":

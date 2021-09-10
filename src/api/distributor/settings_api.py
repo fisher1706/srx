@@ -176,23 +176,37 @@ class SettingsApi(API):
         }
         self.update_customer_level_catalog_flag(dto, customer_id)
 
-    def get_cash_settings(self, shipto_id):
+    def get_cache_settings(self, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/customer-settings")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(f"Cash settings= '{shipto_id}' has been successfully got")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Cache settings of ShipTo", id=shipto_id, operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
-    def update_cash_settings(self, dto, shipto_id):
+    def update_cache_settings(self, dto, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/customer-settings/save")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"Cash settings= '{shipto_id}' has been successfully updated")
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Cache settings of ShipTo", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
-            
+
+    def update_critical_min_alert_settings(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/critical-min-alert/settings")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if response.status_code == 200:
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Critical Min settings of ShipTo", id=shipto_id, operation="updated"))
+        else:
+            self.logger.error(str(response.content))
+
+    def set_critical_min_alert_settings(self, shipto_id, enabled, emails=None):
+        critical_min_alert_dto = Tools.get_dto("critical_min_alert_settings.json")
+        critical_min_alert_dto["settings"]["enabled"] = bool(enabled)
+        critical_min_alert_dto["settings"]["alertEmails"] = emails
+        self.update_critical_min_alert_settings(critical_min_alert_dto, shipto_id)

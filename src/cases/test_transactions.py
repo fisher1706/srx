@@ -57,7 +57,6 @@ def test_different_multiple_po_number(ui, delete_shipto):
     }
     rlp.submit_replenishment_list_different_po(new_po_number_body)
 
-
     sa.check_po_number_by_number(shipto_1_dto["number"], po_number_body[shipto_1_dto["number"]])
     sa.check_po_number_by_number(shipto_2_dto["number"], po_number_body[shipto_2_dto["number"]])
 
