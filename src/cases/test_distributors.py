@@ -16,6 +16,7 @@ def test_distributor_crud(ui):
 
     #-------------------
     distributor_body["name"] = "my First"
+    distributor_body["externalDistributorNumber"] = Tools.random_string_u(5)
     distributor_body["invoiceEmail"] = Tools.random_email()
     distributor_body["address.line1"] = "my adress line 1"
     distributor_body["address.line2"] = "my adress line 2"
@@ -29,6 +30,7 @@ def test_distributor_crud(ui):
 
     #-------------------
     edit_distributor_body["name"] = "my Edit First"
+    edit_distributor_body["externalDistributorNumber"] = Tools.random_string_u(5)
     edit_distributor_body["invoiceEmail"] = Tools.random_email()
     edit_distributor_body["address.line1"] = "my Edit adress line 1"
     edit_distributor_body["address.line2"] = "my Edit adress line 2"
