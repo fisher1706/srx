@@ -980,7 +980,7 @@ def test_reorder_controls_update_quantity_on_reorder_qnty_with_existing_active_f
     assert transaction["entities"][0]["reorderQuantity"] == 7
 
     #update quantityOnReorder
-    ta.update_replenishment_item(transaction_id, conditions["SHIPPED"], "SHIPPED")
+    ta.update_replenishment_item(transaction_id, 1, "SHIPPED", conditions["SHIPPED"])
 
     #check new ACTIVE transaction
     transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
@@ -1619,7 +1619,7 @@ def test_reorder_controls_with_quantity_on_reorder_update_min_and_max_for_update
     assert transaction["entities"][-1]["reorderQuantity"] == LOCATION_MAX
 
     #update ACTIVE -> qntyOnReorder
-    ta.update_replenishment_item(transaction_id, conditions["start_qnty_on_reorder"], "ORDERED")
+    ta.update_replenishment_item(transaction_id, 1, "SHIPPED", conditions["start_qnty_on_reorder"])
 
     #check ACTIVE
     transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")

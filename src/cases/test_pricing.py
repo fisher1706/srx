@@ -65,7 +65,6 @@ def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
     product_dto["manufacturer"] = Tools.random_string_u(18)
     product_dto["manufacturerPartNumber"] = Tools.random_string_u(18)
 
-
     setup_location = SetupLocation(ui)
     setup_location.add_option("product", product_dto)
     response_location = setup_location.setup()
@@ -96,7 +95,7 @@ def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
 
     assert price == price_after_update
 
-    response_cache = sta.get_cash_settings(shipto_id=response_location["shipto_id"])
+    response_cache = sta.get_cache_settings(shipto_id=response_location["shipto_id"])
 
     response_cache["pricingSource"]["settings"]["useCache"] = False
     response_cache["pricingSource"]["defaultSettings"]["useCache"] = False
@@ -104,7 +103,7 @@ def test_price_is_updated_after_disabling_cache(ui, delete_shipto):
     response_cache.pop("orderCloseSettings", None)
     response_cache.pop("replenishmentListRules", None)
 
-    sta.update_cash_settings(dto=response_cache, shipto_id=response_location["shipto_id"])
+    sta.update_cache_settings(dto=response_cache, shipto_id=response_location["shipto_id"])
 
     la.check_updated_price(name="PRICING_SKU", shipto_id=response_location["shipto_id"], expected_price=float(temporary_price))
 
@@ -145,7 +144,7 @@ def test_price_is_not_updated(ui, delete_shipto):
         [pricing_body["Distributor SKU"], temporary_price, pricing_body["UOM"], "12/12/2025 10:15:30"]
     ]
     #-------------------
-    response_cache = sta.get_cash_settings(shipto_id=response_location["shipto_id"])
+    response_cache = sta.get_cache_settings(shipto_id=response_location["shipto_id"])
 
     response_cache["pricingSource"]["settings"]["useCache"] = False
     response_cache["pricingSource"]["defaultSettings"]["useCache"] = True
@@ -153,7 +152,7 @@ def test_price_is_not_updated(ui, delete_shipto):
     response_cache.pop("orderCloseSettings", None)
     response_cache.pop("replenishmentListRules", None)
 
-    sta.update_cash_settings(dto=response_cache, shipto_id=response_location["shipto_id"])
+    sta.update_cache_settings(dto=response_cache, shipto_id=response_location["shipto_id"])
 
     lp.log_in_distributor_portal()
     pp.sidebar_pricing()
@@ -202,7 +201,7 @@ def test_price_is_updated(ui, delete_shipto):
         [pricing_body["Distributor SKU"], temporary_price, pricing_body["UOM"], "12/12/2025 10:15:30"]
     ]
     #-------------------
-    response_cache = sta.get_cash_settings(shipto_id=response_location["shipto_id"])
+    response_cache = sta.get_cache_settings(shipto_id=response_location["shipto_id"])
 
     response_cache["pricingSource"]["settings"]["useCache"] = False
     response_cache["pricingSource"]["defaultSettings"]["useCache"] = False
@@ -210,7 +209,7 @@ def test_price_is_updated(ui, delete_shipto):
     response_cache.pop("orderCloseSettings", None)
     response_cache.pop("replenishmentListRules", None)
 
-    sta.update_cash_settings(dto=response_cache, shipto_id=response_location["shipto_id"])
+    sta.update_cache_settings(dto=response_cache, shipto_id=response_location["shipto_id"])
 
     lp.log_in_distributor_portal()
     pp.sidebar_pricing()

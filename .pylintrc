@@ -26,7 +26,8 @@ ignore=
     smoke-buildspec.yml,
     pytest.ini,
     requirements.txt,
-    .gitignore
+    .gitignore,
+    format.json
 
 [FORMAT]
 max-line-length=200

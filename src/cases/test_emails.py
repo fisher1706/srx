@@ -1,11 +1,15 @@
 import pytest
+from src.api.distributor.settings_api import SettingsApi
+from src.api.distributor.location_api import LocationApi
 from src.resources.tools import Tools
+from src.resources.process_email import ProcessEmail
 from src.resources.locator import Locator
 from src.aws.s3 import S3
 from src.api.setups.setup_distributor_user import SetupDistributorUser
 from src.api.setups.setup_customer import SetupCustomer
 from src.api.setups.setup_customer_user_as_customer import SetupCustomerUserAsCustomer
 from src.api.setups.setup_checkout_group import SetupCheckoutGroup
+from src.api.setups.setup_location import SetupLocation
 from src.pages.general.login_page import LoginPage
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.pages.customer.customer_portal_page import CustomerPortalPage
@@ -47,7 +51,7 @@ def test_accept_distributor_user_invitation_and_reset_password(ui, conditions, d
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "distributor_user_invitation"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    temporary_password = Tools.get_password_from_email(email_filename)
+    temporary_password = ProcessEmail.get_password_from_email(email_filename)
     new_password = Tools.random_string_l()
 
     #create users's password
@@ -78,7 +82,7 @@ def test_accept_distributor_user_invitation_and_reset_password(ui, conditions, d
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "distributor_user_reset"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    acception_link = Tools.get_reset_password_link_from_email(email_filename)[0]
+    acception_link = ProcessEmail.get_reset_password_link_from_email(email_filename)[0]
     lp.follow_url(acception_link)
 
     #set a new password
@@ -112,7 +116,7 @@ def test_accept_new_customer_user_invitation(ui, delete_customer):
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "customer_user_invitation_accept"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    acception_link = Tools.get_acception_link_from_email(email_filename)[0]
+    acception_link = ProcessEmail.get_acception_link_from_email(email_filename)[0]
     lp.follow_url(acception_link)
     lp.get_element_by_xpath("//h3[text()='Your invite was successfully accepted']")
 
@@ -121,7 +125,7 @@ def test_accept_new_customer_user_invitation(ui, delete_customer):
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "customer_user_invitation_password"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    temporary_password = Tools.get_password_from_email(email_filename)
+    temporary_password = ProcessEmail.get_password_from_email(email_filename)
     new_password = Tools.random_string_l()
 
     lp.follow_auth_portal()
@@ -159,7 +163,7 @@ def test_accept_customer_user_invitation_and_reset_password(ui, delete_customer_
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "customer_user_invitation"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    temporary_password = Tools.get_password_from_email(email_filename)
+    temporary_password = ProcessEmail.get_password_from_email(email_filename)
     new_password = Tools.random_string_l()
 
     lp.follow_auth_portal()
@@ -189,7 +193,7 @@ def test_accept_customer_user_invitation_and_reset_password(ui, delete_customer_
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "customer_user_reset"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    acception_link = Tools.get_reset_password_link_from_email(email_filename)[0]
+    acception_link = ProcessEmail.get_reset_password_link_from_email(email_filename)[0]
     lp.follow_url(acception_link)
 
     #set a new password
@@ -222,7 +226,7 @@ def test_accept_checkout_group_invitation_and_reset_password(ui, delete_checkout
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "checkout_group_invitation"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    temporary_password = Tools.get_password_from_email(email_filename)
+    temporary_password = ProcessEmail.get_password_from_email(email_filename)
     new_password = Tools.random_string_l()
 
     lp.follow_checkout_portal()
@@ -252,7 +256,7 @@ def test_accept_checkout_group_invitation_and_reset_password(ui, delete_checkout
     last_email_key = s3.get_last_modified_object_in_bucket(ui.data.email_data_bucket).key
     email_filename = "checkout_group_reset"
     s3.download_by_key(ui.data.email_data_bucket, last_email_key, email_filename)
-    acception_link = Tools.get_reset_password_link_from_email(email_filename)[0]
+    acception_link = ProcessEmail.get_reset_password_link_from_email(email_filename)[0]
     lp.follow_url(acception_link)
 
     #set a new password
@@ -266,3 +270,41 @@ def test_accept_checkout_group_invitation_and_reset_password(ui, delete_checkout
     cpp.sign_in_checkout_portal()
     cpp.get_element_by_xpath(f"//div[text()='{user_email}']")
     assert "Passcode" in ui.driver.page_source
+
+@pytest.mark.regression
+def test_critical_min_alert_email(api, delete_shipto):
+    api.testrail_case_id = 8140
+
+    s3 = S3(api)
+    la = LocationApi(api)
+    sa = SettingsApi(api)
+
+    setup_location = SetupLocation(api)
+    setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+    setup_location.setup_product.add_option("round_buy", 10)
+    setup_location.setup_product.add_option("package_conversion", 5)
+    setup_location.add_option("critical_min", 10)
+    setup_location.add_option("ohi", 300)
+    response_location = setup_location.setup()
+
+    user_email = api.data.ses_email.format(suffix=Tools.random_string_l(15))
+    sa.set_critical_min_alert_settings(response_location["shipto_id"], True, user_email)
+
+    s3.clear_bucket(api.data.email_data_bucket)
+    objects = s3.get_objects_in_bucket(api.data.email_data_bucket)
+    objects_count = len(objects)
+
+    location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+    location["onHandInventory"] = 50
+    la.update_location([location], response_location["shipto_id"])
+    location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+    assert location["onHandInventory"] == 50
+
+    s3.wait_for_new_object(api.data.email_data_bucket, objects_count)
+
+    last_email_key = s3.get_last_modified_object_in_bucket(api.data.email_data_bucket).key
+    email_filename = "customer_user_invitation"
+    s3.download_by_key(api.data.email_data_bucket, last_email_key, email_filename)
+    assert "Critical Min Alert" in ProcessEmail.get_email_subject(email_filename)
+    assert response_location["product"]["partSku"] in ProcessEmail.get_email_subject(email_filename)
+    assert user_email in ProcessEmail.get_email_to(email_filename)[0]

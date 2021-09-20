@@ -1,9 +1,10 @@
-selenium 
+selenium
 requests
-boto3 
-warrant 
-pytest 
-mail-parser 
-beautifulsoup4 
+boto3
+warrant
+pytest
+mail-parser
+beautifulsoup4
 lxml
 pylint
+pytest-repeat
