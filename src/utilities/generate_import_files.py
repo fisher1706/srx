@@ -9,7 +9,7 @@ body = []
 for i in range(500):
     SKU = Tools.random_string_u(20)
 
-    product_row = [SKU, None, None, SKU, None, None, None, None, None, None, None, None, None, 10, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    product_row = [SKU, None, None, SKU, None, None, None, None, None, None, None, None, None, None, 1, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
     location_row = [SKU,SKU,SKU,SKU,None,None,None,None,SKU,10,20,"LABEL",SKU+"_cust",None,"Customer","off",1]
     pricing_row = [SKU, 10, 1, "2030-12-12T10:15:30"]
     rfid_row = [SKU, SKU, SKU]
