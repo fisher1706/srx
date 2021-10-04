@@ -4,6 +4,7 @@ from src.resources.locator import Locator
 class DistributorAdminPage(AdminPortalPage):
     distributor_body = {
         "name": None,
+        "externalDistributorNumber": None,
         "invoiceEmail": None,
         "address.line1": None,
         "address.line2": None,
@@ -41,6 +42,7 @@ class DistributorAdminPage(AdminPortalPage):
         primary_address = " ".join([distributor_body["address.line1"], distributor_body["address.line2"], distributor_body["address.city"], state_short_code, distributor_body["address.zipCode"]])
         table_cells = {
             "Name": distributor_body["name"],
+            "External Distributor Number": distributor_body["externalDistributorNumber"],
             "Invoice Email": distributor_body["invoiceEmail"],
             "Primary Address": primary_address,
             "Billing Delay": distributor_body["billingDelay"],

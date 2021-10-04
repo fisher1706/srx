@@ -197,7 +197,7 @@ def testrail(request, context):
 def testrail_smoke_result(session_context):
     yield
     testrail_client = Testrail(session_context.testrail_email, session_context.testrail_password)
-    tests = testrail_client.get_tests(session_context.smoke_data.smoke_testrail_run_id).json()
+    tests = testrail_client.get_tests(session_context.smoke_data.smoke_testrail_run_id).json()["tests"]
     for test in tests:
         if test["status_id"] == 5:
             testrail_client.run_report(session_context.smoke_data.report_id)
