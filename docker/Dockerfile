@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
+ENV TZ=Europe/Kiev
 RUN apt-get update
 RUN apt-get install -y python3-pip python3-dev wget chromium-browser unzip
 RUN cd /usr/local/bin && ln -s /usr/bin/python3 python
