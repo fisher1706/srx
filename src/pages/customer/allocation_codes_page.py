@@ -46,8 +46,8 @@ class AllocationCodesPage(CustomerPortalPage):
             "Type": allocation_code_body["type"],
             "Values": allocation_code_body["values"],
         }
-        for cell in table_cells.keys():
-            self.check_table_item_by_header(self.get_row_of_table_item_by_header(table_cells["Name"], "Name"), cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_table_item_by_header(self.get_row_of_table_item_by_header(table_cells["Name"], "Name"), cell, value)
 
     def update_allocation_code(self, current_name, allocation_code_body):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_row_of_table_item_by_header(current_name, "Name")))

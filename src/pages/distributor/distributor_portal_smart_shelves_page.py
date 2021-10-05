@@ -36,8 +36,8 @@ class DistributorSmartShelvesPage(DistributorPortalPage):
             "Assigned Device Name": smart_shelves_body["assign_to"],
             "Qnty of Cells": "4"
         }
-        for cell in table_cells.keys():
-            self.check_last_table_item_by_header(cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_last_table_item_by_header(cell, value)
 
     def merge_cells(self, number_of_cells, is_planogram=False, door_number=None):
         if not is_planogram:

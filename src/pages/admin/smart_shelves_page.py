@@ -42,8 +42,8 @@ class SmartShelvesPage(AdminPortalPage):
             "Distributor": smart_shelves_body["distributor"],
             "Qnty of Cells": "4"
         }
-        for cell in table_cells.keys():
-            self.check_last_table_item_by_header(cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_last_table_item_by_header(cell, value)
 
     def update_smart_shelves(self, smart_shelves_body):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))

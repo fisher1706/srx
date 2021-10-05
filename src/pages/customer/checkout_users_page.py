@@ -35,8 +35,8 @@ class CheckoutUsersPage(CustomerPortalPage):
             "Role": "Checkout User",
             "Phone": checkout_user_body["phone"]
         }
-        for cell in table_cells.keys():
-            self.check_table_item_by_header(row, cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_table_item_by_header(row, cell, value)
 
     def update_new_checkout_user(self, checkout_user_body, row, first_group=False):
         self.wait_until_page_loaded()

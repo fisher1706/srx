@@ -49,8 +49,8 @@ class CatalogPage(DistributorPortalPage):
             "Issue Quantity": product_body["issueQuantity"],
             "Package Conversion": product_body["packageConversion"],
         }
-        for cell in table_cells.keys():
-            self.check_last_table_item_by_header(cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_last_table_item_by_header(cell, value)
         #Not fully checking. Also need to check ALL fields in Details dialog
 
     def update_last_product(self, product_body):

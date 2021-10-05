@@ -36,8 +36,8 @@ class CustomersPage(DistributorPortalPage):
             "Customer Type": customer_body["customerType"],
             "Market Type": customer_body["marketType"]
         }
-        for cell in table_cells.keys():
-            self.check_last_table_item_by_header(cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_last_table_item_by_header(cell, value)
 
     def update_last_customer(self, customer_body):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_table_rows_number())+Locator.xpath_customer_info_button)
