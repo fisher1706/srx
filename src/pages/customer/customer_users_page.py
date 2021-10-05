@@ -31,8 +31,8 @@ class CustomerUsersPage(CustomerPortalPage):
             "Last Name": customer_user_body["lastName"],
             "Security Group": customer_user_body["role"],
         }
-        for cell in table_cells.keys():
-            self.check_last_table_item_by_header(cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_last_table_item_by_header(cell, value)
 
     def update_last_customer_user(self, customer_user_body):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, self.get_table_rows_number()))

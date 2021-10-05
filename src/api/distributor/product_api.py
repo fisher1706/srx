@@ -36,24 +36,25 @@ class ProductApi(API):
 
     def file_upload(self, url, retries=3):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/dto/smoke-product-template.csv"
-        files = {"file": (path, open(path, "rb"))}
-        timeout = 0.2
-        for _ in range(retries+1):
-            try:
-                response = requests.put(url, files=files)
-            except:
-                self.logger.info(f"Usuccessful attempt to put a file. Retry in {timeout} sec")
-                time.sleep(timeout)
-                timeout *= 2
-                continue
+        with open(path, "rb") as import_file:
+            files = {"file": (path, import_file)}
+            timeout = 0.2
+            for _ in range(retries+1):
+                try:
+                    response = requests.put(url, files=files)
+                except:
+                    self.logger.info(f"Usuccessful attempt to put a file. Retry in {timeout} sec")
+                    time.sleep(timeout)
+                    timeout *= 2
+                    continue
+                else:
+                    break
             else:
-                break
-        else:
-            self.logger.error("Max retries exceeded")
-        if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="File", operation="upload"))
-        else:
-            self.logger.error(str(response.content))
+                self.logger.error("Max retries exceeded")
+            if response.status_code == 200:
+                self.logger.info(Message.entity_operation_done.format(entity="File", operation="upload"))
+            else:
+                self.logger.error(str(response.content))
 
     def get_import_status(self, filename, import_type="PARSE_AND_VALIDATE"):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/import-status/Products/{filename}")
@@ -63,7 +64,7 @@ class ProductApi(API):
         token = self.get_distributor_token()
         for _ in range(20):
             response = self.send_get(url, token, params=params)
-            if response.status_code == 404 or response.status_code == 502:
+            if response.status_code in (404, 502):
                 self.logger.info("File not found. Next attempt after 5 seconds")
                 time.sleep(5)
                 continue

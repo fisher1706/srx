@@ -35,8 +35,8 @@ class VmiPage(DistributorPortalPage):
         table_cells = {
             "Distributor SKU": location_body["sku"],
         }
-        for cell in table_cells.keys():
-            self.check_last_table_item_by_header(cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_last_table_item_by_header(cell, value)
 
     def import_location(self, locations):
         Tools.generate_csv("locations.csv", locations)

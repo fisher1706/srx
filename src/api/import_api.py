@@ -41,24 +41,25 @@ class ImportApi(API):
     def file_upload(self, url, filename, retries=3):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         path += "/output/"+filename
-        files = {"file": (path, open(path, "rb"))}
-        timeout = 0.2
-        response = None
-        for _ in range(retries+1):
-            try:
-                response = requests.put(url, files=files)
-            except:
-                time.sleep(timeout)
-                timeout *= 2
-                continue
+        with open(path, "rb") as import_file:
+            files = {"file": (path, import_file)}
+            timeout = 0.2
+            response = None
+            for _ in range(retries+1):
+                try:
+                    response = requests.put(url, files=files)
+                except:
+                    time.sleep(timeout)
+                    timeout *= 2
+                    continue
+                else:
+                    break
             else:
-                break
-        else:
-            self.logger.error("Max retries exceeded: "+str(response.content))
-        if response.status_code == 200:
-            self.logger.info("File has been successfuly upload")
-        else:
-            self.logger.error(str(response.content))
+                self.logger.error("Max retries exceeded: "+str(response.content))
+            if response.status_code == 200:
+                self.logger.info("File has been successfuly upload")
+            else:
+                self.logger.error(str(response.content))
 
     def get_import_status(self, url):
         token = self.get_distributor_token()

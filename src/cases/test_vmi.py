@@ -255,11 +255,11 @@ def test_vmi_list_settings_customer_portal(api, delete_shipto):
             "customerSku": "customerSku" in location
         }
 
-        for condition in mapping.keys():
+        for condition, value in mapping.items():
             if condition == field:
-                assert mapping[condition], f"{condition} should be TRUE, but it FALSE"
+                assert value, f"{condition} should be TRUE, but it FALSE"
             else:
-                assert not mapping[condition], f"{condition} should be FALSE, but it TRUE"
+                assert not value, f"{condition} should be FALSE, but it TRUE"
 
 @pytest.mark.parametrize("conditions", [
     {
