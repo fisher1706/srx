@@ -28,8 +28,8 @@ class CheckoutGroupsPage(CustomerPortalPage):
             "Owner": owner,
             "Associated Shipto": shipto
         }
-        for cell in table_cells.keys():
-            self.check_table_item_by_header(row, cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_table_item_by_header(row, cell, value)
 
     def update_new_checkout_group(self, checkout_group_body, row):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_table_row, row))
@@ -66,8 +66,8 @@ class CheckoutGroupsPage(CustomerPortalPage):
             "Address": [shipto_body["address"]["zipCode"], shipto_body["address"]["line1"], shipto_body["address"]["line2"], shipto_body["address"]["city"]],
             "Distributor": self.data.distributor_name
         }
-        for cell in table_cells.keys():
-            self.check_table_item_by_header(row, cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_table_item_by_header(row, cell, value)
 
     def unassign_shipto(self, row):
         shipto_number = self.get_table_item_text_by_header("Shipto Number", row)
@@ -95,8 +95,8 @@ class CheckoutGroupsPage(CustomerPortalPage):
             "Last Name": user_body["lastName"],
             "Email": user_body["email"]
         }
-        for cell in table_cells.keys():
-            self.check_table_item_by_header(row, cell, table_cells[cell])
+        for cell, value in table_cells.items():
+            self.check_table_item_by_header(row, cell, value)
 
     def unassign_user(self, row):
         full_name = self.get_last_table_item_text_by_header("First Name")
