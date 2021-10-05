@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
-RUN apt-get install -y python3-pip python3-dev wget chromium-browser unzip
+RUN apt-get install -y python3-pip python3-dev wget google-chrome-stable unzip
 RUN cd /usr/local/bin && ln -s /usr/bin/python3 python
 RUN pip3 install selenium requests boto3 warrant pytest mail-parser beautifulsoup4 lxml
 RUN cd /
