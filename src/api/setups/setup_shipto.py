@@ -95,8 +95,8 @@ class SetupShipto(BaseSetup):
                 self.context.logger.warning(f"Unknown 'reorder_controls_settings' option: '{self.options['reorder_controls_settings']}'")
 
     def set_autosubmit_settings(self):
+        sta = SettingsApi(self.context)
         if self.options["autosubmit_settings"] is not None:
-            sta = SettingsApi(self.context)
             if self.options["autosubmit_settings"] == "DEFAULT":
                 sta.set_autosubmit_settings_shipto(self.shipto_id)
             elif isinstance(self.options["autosubmit_settings"], dict):
@@ -107,6 +107,8 @@ class SetupShipto(BaseSetup):
                     self.options["autosubmit_settings"].get("as_order"))
             else:
                 self.context.logger.warning(f"Unknown 'autosubmit_settings' option: '{self.options['autosubmit_settings']}'")
+        else:
+            sta.set_autosubmit_settings_shipto(self.shipto_id, False, False, False)
 
     def set_serialization_settings(self):
         if self.options["serialization_settings"] is not None:

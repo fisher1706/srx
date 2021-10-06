@@ -23,6 +23,7 @@ class S3(AWS):
     def download_by_key(self, bucket_name, key, filename):
         folder = f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/output/"
         self.resource.Bucket(bucket_name).download_file(key, folder+filename)
+        self.logger.info("File has been succesfully downloaded from S3")
 
     def clear_bucket(self, bucket_name):
         bucket = self.resource.Bucket(bucket_name)
@@ -36,6 +37,7 @@ class S3(AWS):
             objects = self.get_objects_in_bucket(bucket_name)
             objects_count = len(objects)
             if objects_count > current_count:
+                self.logger.info("New object has appeared in the bucket")
                 break
             else:
                 self.logger.info("Waiting for the new object appears in the bucket. Next attempt in 10 seconds")

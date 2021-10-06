@@ -201,12 +201,13 @@ class SettingsApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Critical Min settings of ShipTo", id=shipto_id, operation="updated"))
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Critical Min & Stockout settings of ShipTo", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
-    def set_critical_min_alert_settings(self, shipto_id, enabled, emails=None):
+    def set_critical_min_and_stockout_alert_settings(self, shipto_id, critical_min, stockout, emails=None):
         critical_min_alert_dto = Tools.get_dto("critical_min_alert_settings.json")
-        critical_min_alert_dto["settings"]["enabled"] = bool(enabled)
+        critical_min_alert_dto["settings"]["enabled"] = bool(critical_min)
+        critical_min_alert_dto["settings"]["enableStockOut"] = bool(stockout)
         critical_min_alert_dto["settings"]["alertEmails"] = emails
         self.update_critical_min_alert_settings(critical_min_alert_dto, shipto_id)
