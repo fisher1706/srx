@@ -1,6 +1,7 @@
 {
     "settings": {
         "enabled": false,
+        "enableStockOut": false,
         "useDefault": false,
         "alertEmails": null
     },
