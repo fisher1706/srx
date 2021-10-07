@@ -14,6 +14,7 @@ class Locator():
     id_drop_down_button = "dropDownButton"
     id_new_password = "newPassword"
     id_confirm_password = "confirmPassword"
+    id_item_action_import = "item-action-import"
 
     #XPATHs
     xpath_forgot_password = "//a[@href='/forgot-password']"

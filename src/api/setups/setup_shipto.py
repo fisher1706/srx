@@ -107,7 +107,7 @@ class SetupShipto(BaseSetup):
                     self.options["autosubmit_settings"].get("as_order"))
             else:
                 self.context.logger.warning(f"Unknown 'autosubmit_settings' option: '{self.options['autosubmit_settings']}'")
-        else:
+        elif self.shipto_id is not None:
             sta.set_autosubmit_settings_shipto(self.shipto_id, False, False, False)
 
     def set_serialization_settings(self):
