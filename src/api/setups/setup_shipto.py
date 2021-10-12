@@ -50,13 +50,6 @@ class SetupShipto(BaseSetup):
         sa = ShiptoApi(self.context)
 
         self.shipto["number"] = self.options["number"] if self.options["number"] is not None else Tools.random_string_l(10)
-        self.shipto["address"] = {
-            "zipCode": "12345",
-            "line1": "addressLn1",
-            "line2": "addressLn1",
-            "city": "Ct",
-            "state": "AL"
-        }
         self.shipto["poNumber"] = Tools.random_string_l(10)
         self.shipto["apiWarehouse"] = {
             "id": self.context.data.warehouse_id

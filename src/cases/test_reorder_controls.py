@@ -3,6 +3,7 @@ import time
 import pytest
 from src.resources.tools import Tools
 from src.api.setups.setup_location import SetupLocation
+from src.api.setups.setup_organization import SetupOrganization
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
@@ -2029,3 +2030,53 @@ def test_create_transaction_by_pack_conversion_update_for_distributor_catalog_on
     customer_product = pa.get_customer_product(response_location_2["customer_id"], response_location_1["product"]["partSku"])[0]
     assert customer_product["variant"]
     assert customer_product["packageConversion"] == 1
+
+@pytest.mark.parametrize("conditions", [
+    {
+        "coefficient": 0,
+        "transaction_qty": 1,
+        "reorder_qty_coefficient": 3,
+        "testrail_case_id": 9022
+    },
+    # {
+    #     "coefficient": 1,
+    #     "transaction_qty": 1,
+    #     "reorder_qty_coefficient": 2,
+    #     "testrail_case_id": 9023
+    # },
+    # {
+    #     "coefficient": 2,
+    #     "transaction_qty": 0,
+    #     "reorder_qty_coefficient": 0,
+    #     "testrail_case_id": 9024
+    # }
+    ])
+@pytest.mark.regression
+def test_create_transaction_at_min_by_ohi_update_on_customer_portal_supplier(api, conditions, delete_site, delete_subsite, delete_supplier):
+    api.testrail_case_id = conditions["testrail_case_id"]
+
+    # ta = TransactionApi(api)
+    # la = LocationApi(api)
+
+    # setup_location = SetupLocation(api)
+    # setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
+    # setup_location.add_option("ohi", "MAX")
+    # response_location = setup_location.setup()
+
+    # #update OHi
+    # location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+    # location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions["coefficient"]
+    # la.update_location([location], response_location["shipto_id"])
+    # time.sleep(5)
+    # transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
+    # assert len(transaction) == conditions["transaction_qty"], f"The number of transactions should be equal to {conditions['transaction_qty']}"
+    # if conditions["transaction_qty"] != 0:
+    #     assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*conditions["reorder_qty_coefficient"]), \
+    #         f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*conditions['reorder_qty_coefficient']}"
+    #     assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
+
+    setup_organization = SetupOrganization(api)
+    setup_organization.add_option("site")
+    setup_organization.add_option("subsite")
+    setup_organization.add_option("supplier")
+    response_organization = setup_organization.setup()

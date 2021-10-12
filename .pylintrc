@@ -70,6 +70,7 @@ good-names=
     vp,
     wp,
     wa,
+    oa,
     LOCATION_MIN,
     LOCATION_MAX,
     LOCATION_PACKAGE_CONVERSION,
