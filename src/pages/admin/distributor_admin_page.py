@@ -20,7 +20,8 @@ class DistributorAdminPage(AdminPortalPage):
         "Agreements": True,
         "Taxes": True,
         "Level": None,
-        "Billing Info": True
+        "Billing Info": True,
+        "Bill by all Ship-tos": True
     }
 
     def create_distributor(self, distributor_body, state, bill_by, checkbox_list):
