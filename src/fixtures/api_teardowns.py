@@ -109,3 +109,12 @@ def delete_supplier(context):
     supplier_id_list = context.dynamic_context["delete_supplier_id"]
     for supplier_id in supplier_id_list:
         oa.delete_supplier(supplier_id)
+
+@pytest.fixture(scope="function")
+def delete_customer_shipto(context):
+    yield
+    context.is_teardown = True
+    oa = OrganizationApi(context)
+    shipto_id_list = context.dynamic_context["delete_customer_shipto_id"]
+    for shipto_id in shipto_id_list:
+        oa.delete_shipto(shipto_id)

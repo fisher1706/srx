@@ -2079,4 +2079,7 @@ def test_create_transaction_at_min_by_ohi_update_on_customer_portal_supplier(api
     setup_organization.add_option("site")
     setup_organization.add_option("subsite")
     setup_organization.add_option("supplier")
+    setup_organization.add_option("shipto")
+    setup_organization.setup_customer_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False, "track_ohi": False, "reorder_controls": "MIN"})
     response_organization = setup_organization.setup()
+    time.sleep(20)

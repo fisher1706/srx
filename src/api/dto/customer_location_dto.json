@@ -1,0 +1,29 @@
+{
+    "orderingConfig": {
+        "product": {
+            "distributor": {
+                "id": null
+            },
+            "partSku": null,
+            "customerSku": null
+        },
+        "currentInventoryControls": {
+            "min": null,
+            "max": null
+        },
+        "criticalMin": null,
+        "type": null
+    },
+    "sharedSpaceId": null,
+    "inventoryOwned": "CUSTOMER",
+    "onHandInventory": null,
+    "distributorId": null,
+    "attributeName1": null,
+    "attributeValue1": null,
+    "attributeName2": null,
+    "attributeValue2": null,
+    "attributeName3": null,
+    "attributeValue3": null,
+    "attributeName4": null,
+    "attributeValue4": null
+}

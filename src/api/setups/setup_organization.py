@@ -1,6 +1,6 @@
 import copy
 from src.api.setups.base_setup import BaseSetup
-from src.api.setups.setup_shipto_customer import SetupShiptoCustomer
+from src.api.setups.setup_customer_shipto import SetupCustomerShipto
 from src.api.customer.organization_api import OrganizationApi
 from src.resources.tools import Tools
 
@@ -21,9 +21,9 @@ class SetupOrganization(BaseSetup):
         self.site_id = None
         self.subsite = Tools.get_dto("subsite_dto.json")
         self.subsite_id = None
-        self.shipto = Tools.get_dto("customer_shipto_dto.json")
+        self.shipto = None
         self.shipto_id = None
-        self.setup_shipto_customer = SetupShiptoCustomer(self.context)
+        self.setup_customer_shipto = SetupCustomerShipto(self.context)
         self.oa = OrganizationApi(self.context)
 
     def setup(self):
@@ -70,4 +70,9 @@ class SetupOrganization(BaseSetup):
                 self.context.dynamic_context["delete_supplier_id"].append(self.supplier_id)
 
     def set_shipto(self):
-        pass
+        if isinstance(self.options["shipto"], bool) and self.options["shipto"]:
+            self.setup_customer_shipto.add_option("subsite_id", self.subsite_id)
+            self.setup_customer_shipto.add_option("supplier_id", self.supplier_id)
+            response_shipto_customer = self.setup_customer_shipto.setup()
+            self.shipto = response_shipto_customer["shipto"]
+            self.shipto_id = response_shipto_customer["shipto_id"]
