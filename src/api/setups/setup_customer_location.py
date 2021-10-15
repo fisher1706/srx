@@ -3,6 +3,7 @@ from src.api.customer.customer_location_api import CustomerLocationApi
 from src.api.setups.setup_organization import SetupOrganization
 from src.api.setups.setup_customer_product import SetupCustomerProduct
 from src.api.setups.base_setup import BaseSetup
+from src.api.setups.general_functions import GeneralFunctions
 from src.resources.tools import Tools
 
 class SetupCustomerLocation(BaseSetup):
@@ -70,40 +71,14 @@ class SetupCustomerLocation(BaseSetup):
     def set_location(self):
         cla = CustomerLocationApi(self.context)
 
-        if self.options["location_pairs"] is None:
-            self.location["attributeName1"] = self.product["partSku"]
-            self.location["attributeValue1"] = self.product["partSku"]
-        else:
-            self.location["attributeName1"] = self.options["location_pairs"]["attributeName1"] #pylint: disable=E1136
-            self.location["attributeValue1"] = self.options["location_pairs"]["attributeValue1"] #pylint: disable=E1136
-            self.location["attributeName2"] = self.options["location_pairs"]["attributeName2"] #pylint: disable=E1136
-            self.location["attributeValue2"] = self.options["location_pairs"]["attributeValue2"] #pylint: disable=E1136
-            self.location["attributeName3"] = self.options["location_pairs"]["attributeName3"] #pylint: disable=E1136
-            self.location["attributeValue3"] = self.options["location_pairs"]["attributeValue3"] #pylint: disable=E1136
-            self.location["attributeName4"] = self.options["location_pairs"]["attributeName4"] #pylint: disable=E1136
-            self.location["attributeValue4"] = self.options["location_pairs"]["attributeValue4"] #pylint: disable=E1136
-
-        location_min = self.product["roundBuy"] if self.options["min"] is None else self.options["min"]
-        location_max = self.product["roundBuy"]*3 if self.options["max"] is None else self.options["max"]
-        self.location["orderingConfig"] = {
-            "product": {
-                "partSku": self.product["partSku"],
-                "customerSku": self.product["customerSku"]
-            },
-            "type": self.options["type"],
-            "currentInventoryControls": {
-                "min": location_min,
-                "max": location_max
-            },
-            "criticalMin": self.options["critical_min"] if self.options["critical_min"] is not None else None,
-        }
+        GeneralFunctions.fill_location_body(self.location, self.product, self.options)
+        print(self.location)
+        self.location["orderingConfig"]["product"]["customerSku"] = self.product["customerSku"]
         if self.options["ohi"] == "MAX":
             package_conversion = self.product["packageConversion"] if self.product["packageConversion"] is not None else 1
-            self.location["onHandInventory"] = location_max * package_conversion
+            self.location["onHandInventory"] = self.location["orderingConfig"]["currentInventoryControls"]["max"] * package_conversion
         else:
             self.location["onHandInventory"] = self.options["ohi"]
-        if self.options["autosubmit"] is not None:
-            self.location["autoSubmit"] = bool(self.options["autosubmit"])
         cla.create_location(copy.deepcopy(self.location))
 
     def set_transaction(self):

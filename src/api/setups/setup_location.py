@@ -9,6 +9,7 @@ from src.api.setups.setup_product import SetupProduct
 from src.api.setups.setup_locker import SetupLocker
 from src.api.setups.setup_rfid import SetupRfid
 from src.api.setups.base_setup import BaseSetup
+from src.api.setups.general_functions import GeneralFunctions
 from src.resources.tools import Tools
 
 class SetupLocation(BaseSetup):
@@ -112,49 +113,14 @@ class SetupLocation(BaseSetup):
 
     def set_location(self):
         la = LocationApi(self.context)
-
-        if self.options["locker_location"]:
-            self.location["attributeName1"] = "Locker"
-            self.location["attributeValue1"] = self.locker["value"]
-            self.location["attributeName2"] = "Door"
-            self.location["attributeValue2"] = "1"
-            self.location["attributeName3"] = "Cell"
-            self.location["attributeValue3"] = "1"
-        elif self.options["location_pairs"] is None:
-            self.location["attributeName1"] = self.product["partSku"]
-            self.location["attributeValue1"] = self.product["partSku"]
-        else:
-            self.location["attributeName1"] = self.options["location_pairs"]["attributeName1"] #pylint: disable=E1136
-            self.location["attributeValue1"] = self.options["location_pairs"]["attributeValue1"] #pylint: disable=E1136
-            self.location["attributeName2"] = self.options["location_pairs"]["attributeName2"] #pylint: disable=E1136
-            self.location["attributeValue2"] = self.options["location_pairs"]["attributeValue2"] #pylint: disable=E1136
-            self.location["attributeName3"] = self.options["location_pairs"]["attributeName3"] #pylint: disable=E1136
-            self.location["attributeValue3"] = self.options["location_pairs"]["attributeValue3"] #pylint: disable=E1136
-            self.location["attributeName4"] = self.options["location_pairs"]["attributeName4"] #pylint: disable=E1136
-            self.location["attributeValue4"] = self.options["location_pairs"]["attributeValue4"] #pylint: disable=E1136
-
-        location_min = self.product["roundBuy"] if self.options["min"] is None else self.options["min"]
-        location_max = self.product["roundBuy"]*3 if self.options["max"] is None else self.options["max"]
-        self.location["orderingConfig"] = {
-            "product": {
-                "partSku": self.product["partSku"]
-            },
-            "type": self.options["type"],
-            "currentInventoryControls": {
-                "min": location_min,
-                "max": location_max
-            },
-            "criticalMin": self.options["critical_min"] if self.options["critical_min"] is not None else None,
-            "dsn": self.options["dsn"]
-        }
+        GeneralFunctions.fill_location_body(self.location, self.product, self.options, None if self.locker is None else self.locker["value"])
+        self.location["orderingConfig"]["dsn"] = self.options["dsn"]
         if self.options["ohi"] == "MAX":
-            self.location["onHandInventory"] = location_max*self.product["packageConversion"]
+            self.location["onHandInventory"] = self.location["orderingConfig"]["currentInventoryControls"]["max"]*self.product["packageConversion"]
         else:
             self.location["onHandInventory"] = self.options["ohi"]
             self.location["serialized"] = bool(self.options["serialized"])
             self.location["lot"] = bool(self.options["lot"])
-        if self.options["autosubmit"] is not None:
-            self.location["autoSubmit"] = bool(self.options["autosubmit"])
         if self.options["customer_sku"] is not None:
             self.location["customerSku"] = self.options["customer_sku"]
         location_list = [copy.deepcopy(self.location)]
