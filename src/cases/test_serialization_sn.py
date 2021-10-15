@@ -20,138 +20,121 @@ def test_cannot_create_sn_for_not_serialized_location(api, delete_shipto):
     sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], Tools.random_string_u(), expected_status_code=400)
 
 @pytest.mark.regression
-def test_cannot_create_2_same_sns(api, delete_shipto):
+def test_cannot_create_2_same_sns(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2117
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location_1 = setup_location.setup()
+    preset = serialized_location_preset(api)
 
-    setup_location.add_option("product", response_location_1["product"])
+    setup_location = SetupLocation(api)
+    setup_location.add_option("product", preset["product"])
     response_location_2 = setup_location.setup()
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
 
-    sna.create_serial_number(response_location_1["location_id"], response_location_1["shipto_id"], sn)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
     sna.create_serial_number(response_location_2["location_id"], response_location_2["shipto_id"], sn, expected_status_code=400)
 
 @pytest.mark.regression
-def test_ohi_serialized_location_equal_to_sn_in_available_status(api, delete_shipto):
+def test_ohi_serialized_location_equal_to_sn_in_available_status(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2106
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["status"] = "AVAILABLE"
     sna.update_serial_number(sn_dto)
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     assert sn_dto["status"] == "AVAILABLE"
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 1
 
 @pytest.mark.regression
-def test_ohi_serialized_product_location_equal_to_sn_in_available_status(api, delete_shipto):
+def test_ohi_serialized_product_location_equal_to_sn_in_available_status(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2109
 
-    setup_location = SetupLocation(api)
-    setup_location.setup_product.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["status"] = "AVAILABLE"
     sna.update_serial_number(sn_dto)
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     assert sn_dto["status"] == "AVAILABLE"
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 1
 
 @pytest.mark.regression
-def test_ohi_serialized_location_is_not_reseted_when_update_product(api, delete_shipto):
+def test_ohi_serialized_location_is_not_reseted_when_update_product(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2145
 
-    setup_location = SetupLocation(api)
-    setup_location.setup_product.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     pa = ProductApi(api)
     sn = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0, "Serialized location should be created with OHI = 0"
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["status"] = "AVAILABLE"
     sna.update_serial_number(sn_dto)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 1
 
-    product_dto = response_location["product"]
+    product_dto = preset["product"]
     product_id = product_dto.pop("id")
     product_dto["image"] = sn
     pa.update_product(product_dto, product_id)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 1
 
 @pytest.mark.regression
-def test_sn_created_in_assigned_status_for_serialized_location(api, delete_shipto):
+def test_sn_created_in_assigned_status_for_serialized_location(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2108
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], Tools.random_string_u())
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], Tools.random_string_u())
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
 
 @pytest.mark.regression
-def test_sn_created_in_assigned_status_for_serialized_product_location(api, delete_shipto):
+def test_sn_created_in_assigned_status_for_serialized_product_location(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2110
 
-    setup_location = SetupLocation(api)
-    setup_location.setup_product.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], Tools.random_string_u())
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], Tools.random_string_u())
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     assert sn_dto["status"] == "ASSIGNED"
 
 @pytest.mark.parametrize("conditions", [
@@ -165,146 +148,126 @@ def test_sn_created_in_assigned_status_for_serialized_product_location(api, dele
     }
     ])
 @pytest.mark.regression
-def test_serialized_ohi_decreased_when_available_in_issued(api, conditions, delete_shipto):
+def test_serialized_ohi_decreased_when_available_in_issued(api, serialized_location_preset, conditions, delete_shipto):
     api.testrail_case_id = conditions["testrail_case_id"]
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
 
-    locations = la.get_locations(response_location["shipto_id"])
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    locations = la.get_locations(preset["shipto_id"])
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["status"] = "AVAILABLE"
     sna.update_serial_number(sn_dto)
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 1
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["status"] = conditions["status"]
     sna.update_serial_number(sn_dto)
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     assert sn_dto["status"] == conditions["status"]
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0
 
 @pytest.mark.regression
-def test_serialized_ohi_decreased_when_available_in_expired(api, delete_shipto):
+def test_serialized_ohi_decreased_when_available_in_expired(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2112
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    setup_location.setup_shipto.add_option("serialization_settings", "OFF")
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api, serialization_settings="OFF")
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
 
-    locations = la.get_locations(response_location["shipto_id"])
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    locations = la.get_locations(preset["shipto_id"])
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["status"] = "AVAILABLE"
     sna.update_serial_number(sn_dto)
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 1
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["dateExpiration"] = time.time()*1000
     sna.update_serial_number(sn_dto)
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     assert sn_dto["status"] == "EXPIRED"
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0
 
 @pytest.mark.regression
-def test_delete_sn_when_delete_location(api, delete_shipto):
+def test_delete_sn_when_delete_location(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2114
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
-    serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
+    serial_number_count = sna.get_serial_number_count(shipto_id=preset["shipto_id"])
     assert serial_number_count == 1
 
-    la.location_bulk_update("REMOVE_ALL", response_location["shipto_id"], ids=[response_location["location_id"]])
+    la.location_bulk_update("REMOVE_ALL", preset["shipto_id"], ids=[preset["location_id"]])
     time.sleep(5)
-    serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
+    serial_number_count = sna.get_serial_number_count(shipto_id=preset["shipto_id"])
     assert serial_number_count == 0, "Serial Numbers should be deleted when you delete their location"
 
 @pytest.mark.regression
-def test_delete_sn_when_turn_off_serialization_for_location(api, delete_shipto):
+def test_delete_sn_when_turn_off_serialization_for_location(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2115
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
-    serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
+    serial_number_count = sna.get_serial_number_count(shipto_id=preset["shipto_id"])
     assert serial_number_count == 1
 
-    location_dto = copy.deepcopy(response_location["location"])
-    location_dto["id"] = response_location["location_id"]
+    location_dto = copy.deepcopy(preset["location"])
+    location_dto["id"] = preset["location_id"]
     location_dto["serialized"] = False
     location_list = [copy.deepcopy(location_dto)]
-    la.update_location(location_list, response_location["shipto_id"])
+    la.update_location(location_list, preset["shipto_id"])
 
-    serial_number_count = sna.get_serial_number_count(shipto_id=response_location["shipto_id"])
+    serial_number_count = sna.get_serial_number_count(shipto_id=preset["shipto_id"])
     assert serial_number_count == 0, "Serial Numbers should be deleted when you turn off serialization for their location"
 
 @pytest.mark.regression
-def test_create_serial_number_with_lot(api, delete_shipto):
+def test_create_serial_number_with_lot(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2141
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.add_option("lot")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api, lot=True)
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
     lot = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn, lot=lot)
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     assert sn_dto["number"] == sn
     assert sn_dto["lot"] == lot
 
 @pytest.mark.regression
-def test_cannot_create_sn_with_lot_if_lot_turned_off_for_location(api, delete_shipto):
+def test_cannot_create_sn_with_lot_if_lot_turned_off_for_location(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2142
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     sn = Tools.random_string_u()
     lot = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn, lot=lot, expected_status_code=400)
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn, lot=lot, expected_status_code=400)
 
 @pytest.mark.parametrize("permissions", [
     {
@@ -318,7 +281,7 @@ def test_cannot_create_sn_with_lot_if_lot_turned_off_for_location(api, delete_sh
     ])
 @pytest.mark.acl
 @pytest.mark.regression
-def test_serial_number_crud(ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
+def test_serial_number_crud(ui, permission_ui, permissions, serialized_location_preset, delete_shipto, delete_distributor_security_group):
     ui.testrail_case_id = permissions["testrail_case_id"]
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
@@ -340,14 +303,10 @@ def test_serial_number_crud(ui, permission_ui, permissions, delete_shipto, delet
     edit_serial_number_body["dateWarrantyExpires"] = "08/02/2025"
     #-------------------
 
-    setup_location = SetupLocation(ui)
-    setup_location.add_option("serialized")
-    setup_location.add_option("lot")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(ui, lot=True)
 
-    shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
-    product_sku = response_location["product"]["partSku"]
+    shipto_text = f"{context.data.customer_name} - {preset['shipto']['number']}"
+    product_sku = preset["product"]["partSku"]
 
     lp.log_in_distributor_portal()
     sp.sidebar_serialization()
@@ -371,25 +330,22 @@ def test_serial_number_crud(ui, permission_ui, permissions, delete_shipto, delet
 
 @pytest.mark.acl
 @pytest.mark.regression
-def test_serial_number_crud_view_permission(api, permission_api, delete_distributor_security_group, delete_shipto):
+def test_serial_number_crud_view_permission(api, permission_api, serialized_location_preset, delete_distributor_security_group, delete_shipto):
     api.testrail_case_id = 2262
 
     Permissions.set_configured_user(api, Permissions.serialization("VIEW"))
 
     sna = SerialNumberApi(permission_api)
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sn_failed = Tools.random_string_u()
-    sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn_failed, expected_status_code=400) #cannot create Serial Number
+    sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn_failed, expected_status_code=400) #cannot create Serial Number
 
     sn = Tools.random_string_u()
-    sn_id = SerialNumberApi(api).create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sn_id = SerialNumberApi(api).create_serial_number(preset["location_id"], preset["shipto_id"], sn)
 
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0] #can read Serial Number
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0] #can read Serial Number
     assert sn_dto["number"] == sn #--//--//--
 
     sna.update_serial_number(sn_dto, expected_status_code=400) #cannot update Serial Number
@@ -407,7 +363,7 @@ def test_serial_number_crud_view_permission(api, permission_api, delete_distribu
     ])
 @pytest.mark.acl
 @pytest.mark.regression
-def test_serial_number_import(ui, permission_ui, permissions, delete_shipto, delete_distributor_security_group):
+def test_serial_number_import(ui, permission_ui, permissions, serialized_location_preset, delete_shipto, delete_distributor_security_group):
     ui.testrail_case_id = permissions["testrail_case_id"]
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
@@ -425,14 +381,10 @@ def test_serial_number_import(ui, permission_ui, permissions, delete_shipto, del
     serial_number_body["dateWarrantyExpires"] = "08/02/2025"
     #-------------------
 
-    setup_location = SetupLocation(ui)
-    setup_location.add_option("serialized")
-    setup_location.add_option("lot")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(ui, lot=True)
 
-    product_sku = response_location["product"]["partSku"]
-    shipto_text = f"{context.data.customer_name} - {response_location['shipto']['number']}"
+    product_sku = preset["product"]["partSku"]
+    shipto_text = f"{context.data.customer_name} - {preset['shipto']['number']}"
 
     serial_numbers = [
         [serial_number_body["number"], serial_number_body["lot"], product_sku, None, serial_number_body["dateShipment"], serial_number_body["dateManufacture"], serial_number_body["dateExpiration"], serial_number_body["dateWarrantyExpires"], None] #pylint: disable=C0301
@@ -448,29 +400,26 @@ def test_serial_number_import(ui, permission_ui, permissions, delete_shipto, del
     sp.check_last_serial_number(serial_number_body)
 
 @pytest.mark.regression
-def test_serialized_ohi_decreased_when_delete_location(api, delete_shipto):
+def test_serialized_ohi_decreased_when_delete_location(api, serialized_location_preset, delete_shipto):
     api.testrail_case_id = 2144
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api)
 
     sna = SerialNumberApi(api)
     la = LocationApi(api)
     sn = Tools.random_string_u()
-    sn_id = sna.create_serial_number(response_location["location_id"], response_location["shipto_id"], sn)
+    sn_id = sna.create_serial_number(preset["location_id"], preset["shipto_id"], sn)
 
-    locations = la.get_locations(response_location["shipto_id"])
-    sn_dto = sna.get_serial_number(shipto_id=response_location["shipto_id"])[0]
+    locations = la.get_locations(preset["shipto_id"])
+    sn_dto = sna.get_serial_number(shipto_id=preset["shipto_id"])[0]
     sn_dto["status"] = "AVAILABLE"
     sna.update_serial_number(sn_dto)
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 1
 
     sna.delete_serial_number(sn_id)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0
 
 @pytest.mark.parametrize("permissions", [
@@ -485,22 +434,18 @@ def test_serialized_ohi_decreased_when_delete_location(api, delete_shipto):
     ])
 @pytest.mark.acl
 @pytest.mark.regression
-def test_create_serial_numbers_by_lot(api, permission_api, permissions, delete_shipto, delete_distributor_security_group):
+def test_create_serial_numbers_by_lot(api, permission_api, permissions, serialized_location_preset, delete_shipto, delete_distributor_security_group):
     api.testrail_case_id = permissions["testrail_case_id"]
     context = Permissions.set_configured_user(api, permissions["user"], permission_context=permission_api)
 
-    setup_location = SetupLocation(api)
-    setup_location.add_option("serialized")
-    setup_location.add_option("lot")
-    setup_location.setup_product.add_option("round_buy", 1)
-    response_location = setup_location.setup()
+    preset = serialized_location_preset(api, lot=True)
 
     sna = SerialNumberApi(context)
 
     sn_dto = Tools.get_dto("lot_generate_dto.json")
-    sn_dto["locationId"] = response_location["location_id"]
+    sn_dto["locationId"] = preset["location_id"]
     sn_dto["lot"] = Tools.random_string_l()
     sn_dto["numberQuantity"] = 3
 
     sna.create_serial_numbers_by_lot(sn_dto)
-    assert len(sna.get_serial_number(shipto_id=response_location["shipto_id"])) == 3
+    assert len(sna.get_serial_number(shipto_id=preset["shipto_id"])) == 3
