@@ -33,8 +33,8 @@ class SetupOrganization(BaseSetup):
         self.set_shipto()
 
         response = {
-            "user": self.supplier,
-            "user_id": self.supplier_id,
+            "supplier": self.supplier,
+            "supplier_id": self.supplier_id,
             "site": self.site,
             "site_id": self.site_id,
             "subsite": self.subsite,

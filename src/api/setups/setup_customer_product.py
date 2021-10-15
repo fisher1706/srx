@@ -16,7 +16,7 @@ class SetupCustomerProduct(BaseSetup):
             "issue_quantity": None,
             "supplier_id": None
         }
-        self.product = Tools.get_dto("product_dto.json")
+        self.product = Tools.get_dto("customer_product_dto.json")
         self.product_id = None
 
     def setup(self):
@@ -27,6 +27,7 @@ class SetupCustomerProduct(BaseSetup):
         cpa = CustomerProductApi(self.context)
         if self.options["product"] is None:
             self.product["partSku"] = Tools.random_string_u(18)
+            self.product["customerSku"] = self.product["partSku"]
             self.product["shortDescription"] = f"{self.product['partSku']} - short description"
             self.product["assetFlag"] = bool(self.options["asset"])
             if bool(self.options["asset"]):
@@ -38,5 +39,5 @@ class SetupCustomerProduct(BaseSetup):
             self.product["distributor"]["id"] = self.options["supplier_id"]
         else:
             self.product = self.options["product"]
-        self.product_id = cpa.create_product(copy.deepcopy(self.product), expected_status_code=self.expected_status_code)
+        self.product_id = cpa.create_product(copy.deepcopy(self.product), self.options["supplier_id"])
         self.product["id"] = self.product_id

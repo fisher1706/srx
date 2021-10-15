@@ -3,14 +3,15 @@ import time
 import pytest
 from src.resources.tools import Tools
 from src.api.setups.setup_location import SetupLocation
-from src.api.setups.setup_organization import SetupOrganization
+from src.api.setups.setup_customer_location import SetupCustomerLocation
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.distributor.location_api import LocationApi
 from src.api.distributor.product_api import ProductApi
 from src.api.distributor.rfid_api import RfidApi
 from src.api.distributor.serial_number_api import SerialNumberApi
-from src.api.customer.submit_api import SubmitApi
+from src.api.customer.replenishment_list_api import ReplenishmentListApi
+from src.api.customer.customer_location_api import CustomerLocationApi
 
 @pytest.mark.parametrize("conditions", [
     {
@@ -1268,7 +1269,7 @@ def test_reorder_controls_is_not_triggered_by_update_transaction_from_customer_p
 
     ta = TransactionApi(api)
     la = LocationApi(api)
-    sa = SubmitApi(api)
+    rla = ReplenishmentListApi(api)
 
     LOCATION_MIN = 4
     LOCATION_MAX = 10
@@ -1296,7 +1297,7 @@ def test_reorder_controls_is_not_triggered_by_update_transaction_from_customer_p
     assert transaction["entities"][-1]["reorderQuantity"] == LOCATION_MAX
 
     #update transaction from customer portal
-    sa.update_replenishment_item(response_location["shipto_id"], transaction_id, LOCATION_MAX-1)
+    rla.update_replenishment_item(response_location["shipto_id"], transaction_id, LOCATION_MAX-1)
 
     #check new transaction's quantity
     transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"], status="ACTIVE")
@@ -1350,7 +1351,7 @@ def test_reorder_controls_submit_replenishment_list_for_create(api, conditions, 
 
     ta = TransactionApi(api)
     la = LocationApi(api)
-    sa = SubmitApi(api)
+    rla = ReplenishmentListApi(api)
 
     LOCATION_MIN = 4
     LOCATION_MAX = 10
@@ -1383,7 +1384,7 @@ def test_reorder_controls_submit_replenishment_list_for_create(api, conditions, 
         "reorderQuantity": conditions["submitted_quantity"],
         "status": "QUOTED"
     }]
-    sa.submit_replenishment_list(items)
+    rla.submit_replenishment_list(items)
     time.sleep(5)
 
     #check start transaction result
@@ -2038,48 +2039,44 @@ def test_create_transaction_by_pack_conversion_update_for_distributor_catalog_on
         "reorder_qty_coefficient": 3,
         "testrail_case_id": 9022
     },
-    # {
-    #     "coefficient": 1,
-    #     "transaction_qty": 1,
-    #     "reorder_qty_coefficient": 2,
-    #     "testrail_case_id": 9023
-    # },
-    # {
-    #     "coefficient": 2,
-    #     "transaction_qty": 0,
-    #     "reorder_qty_coefficient": 0,
-    #     "testrail_case_id": 9024
-    # }
+    {
+        "coefficient": 1,
+        "transaction_qty": 1,
+        "reorder_qty_coefficient": 2,
+        "testrail_case_id": 9023
+    },
+    {
+        "coefficient": 2,
+        "transaction_qty": 0,
+        "reorder_qty_coefficient": 0,
+        "testrail_case_id": 9024
+    }
     ])
 @pytest.mark.regression
 def test_create_transaction_at_min_by_ohi_update_on_customer_portal_supplier(api, conditions, delete_site, delete_subsite, delete_supplier):
     api.testrail_case_id = conditions["testrail_case_id"]
 
-    # ta = TransactionApi(api)
-    # la = LocationApi(api)
+    rla = ReplenishmentListApi(api)
+    cla = CustomerLocationApi(api)
 
-    # setup_location = SetupLocation(api)
-    # setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
-    # setup_location.add_option("ohi", "MAX")
-    # response_location = setup_location.setup()
-
-    # #update OHi
-    # location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
-    # location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions["coefficient"]
-    # la.update_location([location], response_location["shipto_id"])
-    # time.sleep(5)
-    # transaction = ta.get_transaction(shipto_id=response_location["shipto_id"])["entities"]
-    # assert len(transaction) == conditions["transaction_qty"], f"The number of transactions should be equal to {conditions['transaction_qty']}"
-    # if conditions["transaction_qty"] != 0:
-    #     assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*conditions["reorder_qty_coefficient"]), \
-    #         f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*conditions['reorder_qty_coefficient']}"
-    #     assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]
-
-    setup_organization = SetupOrganization(api)
-    setup_organization.add_option("site")
-    setup_organization.add_option("subsite")
-    setup_organization.add_option("supplier")
-    setup_organization.add_option("shipto")
-    setup_organization.setup_customer_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False, "track_ohi": False, "reorder_controls": "MIN"})
-    response_organization = setup_organization.setup()
-    time.sleep(20)
+    setup_customer_location = SetupCustomerLocation(api)
+    setup_customer_location.add_option("ohi", "MAX")
+    setup_customer_location.setup_organization.add_option("site")
+    setup_customer_location.setup_organization.add_option("subsite")
+    setup_customer_location.setup_organization.add_option("supplier")
+    setup_customer_location.setup_organization.add_option("shipto")
+    setup_customer_location.setup_organization.setup_customer_shipto.add_option("reorder_controls_settings", "DEFAULT")
+    response_location = setup_customer_location.setup()
+    #update OHi
+    locations = cla.get_locations(shipto_ids=response_location["organization"]["shipto_id"])
+    assert len(locations) == 1
+    location = locations[0]
+    location["onHandInventory"] = response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]*conditions["coefficient"]
+    cla.update_location([location])
+    time.sleep(5)
+    transaction = rla.get_replenishment_list(shipto_ids=response_location["organization"]["shipto_id"])
+    assert len(transaction) == conditions["transaction_qty"], f"The number of transactions should be equal to {conditions['transaction_qty']}"
+    if conditions["transaction_qty"] != 0:
+        assert transaction[0]["reorderQuantity"] == (response_location["product"]["roundBuy"]*conditions["reorder_qty_coefficient"]), \
+            f"Reorder quantity of transaction should be equal to {response_location['product']['roundBuy']*conditions['reorder_qty_coefficient']}"
+        assert transaction[0]["product"]["partSku"] == response_location["product"]["partSku"]

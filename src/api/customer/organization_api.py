@@ -32,8 +32,8 @@ class OrganizationApi(API):
         if response.status_code == 201:
             self.logger.info(f"New Supplier '{dto['name']}' has been successfully created")
             response_json = response.json()
-            subsite_id = (response_json["data"]["id"])
-            return subsite_id
+            supplier_id = (response_json["data"]["id"])
+            return supplier_id
         self.logger.error(str(response.content))
 
     def create_shipto(self, dto):
@@ -43,8 +43,8 @@ class OrganizationApi(API):
         if response.status_code == 201:
             self.logger.info(f"New ShipTo '{dto['name']}' has been successfully created")
             response_json = response.json()
-            subsite_id = (response_json["data"]["id"])
-            return subsite_id
+            shipto_id = (response_json["data"]["id"])
+            return shipto_id
         self.logger.error(str(response.content))
 
     @default_expected_code(200)
