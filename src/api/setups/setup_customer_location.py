@@ -27,7 +27,7 @@ class SetupCustomerLocation(BaseSetup):
         self.location_id = None
         self.product = None
         self.organization = None
-        self.transaction = {}
+        self.transaction = dict()
         self.setup_customer_product = SetupCustomerProduct(self.context)
         self.setup_organization = SetupOrganization(self.context)
 
