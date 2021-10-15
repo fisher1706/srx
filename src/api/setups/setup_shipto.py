@@ -58,7 +58,7 @@ class SetupShipto(BaseSetup):
         self.shipto_id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"], customer_id=self.customer_id)
         if self.shipto_id is not None:
             sta = SettingsApi(self.context)
-            sta.set_critical_min_and_stockout_alert_settings(self.shipto_id)
+            sta.set_vmi_list_integration_settings(self.shipto_id)
             if self.options["delete"]:
                 self.context.dynamic_context["delete_shipto_id"].append(self.shipto_id)
 

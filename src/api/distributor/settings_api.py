@@ -221,6 +221,6 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def set_critical_min_and_stockout_alert_settings(self, shipto_id):
+    def set_vmi_list_integration_settings(self, shipto_id):
         vmi_integration_dto = Tools.get_dto("vmi_integration_settings_dto.json")
         self.update_vmi_list_integration_settings(vmi_integration_dto, shipto_id)

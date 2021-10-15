@@ -27,7 +27,7 @@ class CustomerLocationApi(API):
 
     @default_expected_code(200)
     def get_locations(self, shipto_ids, product_sku=None, expected_status_code=None):
-        url = self.url.get_api_url_for_env(f"/customer-portal/customer/locations")
+        url = self.url.get_api_url_for_env("/customer-portal/customer/locations")
         params = {
             "shipToIds": shipto_ids,
             "orderingConfig.product.partSku": product_sku

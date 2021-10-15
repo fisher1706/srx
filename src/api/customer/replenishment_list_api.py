@@ -37,5 +37,4 @@ class ReplenishmentListApi(API):
             self.logger.info(Message.entity_operation_done.format(entity="Replenisment List", operation="got"))
             response_json = response.json()
             return response_json["data"]["items"]
-        else:
-            self.logger.error(str(response.content))
+        self.logger.error(str(response.content))
