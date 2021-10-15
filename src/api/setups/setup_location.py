@@ -44,9 +44,9 @@ class SetupLocation(BaseSetup):
         self.locker = None
         self.rfid = None
         self.expected_status_code = None
-        self.transaction = {}
-        self.put_away = {}
-        self.rfid_labels = []
+        self.transaction = dict()
+        self.put_away = dict()
+        self.rfid_labels = list()
         self.setup_product = SetupProduct(self.context)
         self.setup_shipto = SetupShipto(self.context)
         self.setup_locker = SetupLocker(self.context)

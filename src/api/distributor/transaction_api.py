@@ -57,7 +57,6 @@ class TransactionApi(API):
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="updating", status_code=response.status_code, content=response.content))
 
-
     def get_transaction(self, sku=None, status=None, shipto_id=None, ids=None):
         params = dict()
         Tools.add_to_dict_if_not_none(params, "productPartSku", sku)

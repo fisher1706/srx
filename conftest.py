@@ -6,7 +6,8 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 pytest_plugins = [
     "src.fixtures.context_filling",
     "src.fixtures.high_level_contexts",
-    "src.fixtures.api_teardowns"
+    "src.fixtures.api_teardowns",
+    "src.fixtures.presets"
 ]
 
 def pytest_addoption(parser):
