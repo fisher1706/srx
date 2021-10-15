@@ -50,21 +50,17 @@ class SetupShipto(BaseSetup):
         sa = ShiptoApi(self.context)
 
         self.shipto["number"] = self.options["number"] if self.options["number"] is not None else Tools.random_string_l(10)
-        self.shipto["address"] = {
-            "zipCode": "12345",
-            "line1": "addressLn1",
-            "line2": "addressLn1",
-            "city": "Ct",
-            "state": "AL"
-        }
         self.shipto["poNumber"] = Tools.random_string_l(10)
         self.shipto["apiWarehouse"] = {
             "id": self.context.data.warehouse_id
         }
 
         self.shipto_id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"], customer_id=self.customer_id)
-        if self.shipto_id is not None and self.options["delete"]:
-            self.context.dynamic_context["delete_shipto_id"].append(self.shipto_id)
+        if self.shipto_id is not None:
+            sta = SettingsApi(self.context)
+            sta.set_vmi_list_integration_settings(self.shipto_id)
+            if self.options["delete"]:
+                self.context.dynamic_context["delete_shipto_id"].append(self.shipto_id)
 
     def set_checkout_settings(self):
         if self.options["checkout_settings"] is not None:
