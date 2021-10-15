@@ -2052,13 +2052,13 @@ def test_create_transaction_by_pack_conversion_update_for_distributor_catalog_on
     # }
     ])
 @pytest.mark.regression
-def test_create_transaction_at_min_by_ohi_update_on_customer_portal_supplier(api, conditions, customer_full_organization_location_preset, delete_site, delete_subsite, delete_supplier):
+def test_create_transaction_at_min_by_ohi_update_on_customer_portal_supplier(api, conditions, customer_organization_location_preset, delete_site, delete_subsite, delete_supplier):
     api.testrail_case_id = conditions["testrail_case_id"]
 
     rla = ReplenishmentListApi(api)
     cla = CustomerLocationApi(api)
 
-    preset = customer_full_organization_location_preset(api)
+    preset = customer_organization_location_preset(api)
 
     #update OHi
     locations = cla.get_locations(shipto_ids=preset["organization"]["shipto_id"])
@@ -2075,12 +2075,12 @@ def test_create_transaction_at_min_by_ohi_update_on_customer_portal_supplier(api
         assert transaction[0]["product"]["partSku"] == preset["product"]["partSku"]
 
 @pytest.mark.regression
-def test_cannot_update_ohi_with_disabled_trackohi_customer(api, customer_full_organization_location_preset, delete_site, delete_subsite, delete_supplier):
+def test_cannot_update_ohi_with_disabled_trackohi_customer(api, customer_organization_location_preset, delete_site, delete_subsite, delete_supplier):
     api.testrail_case_id = 9021
 
     cla = CustomerLocationApi(api)
 
-    preset = customer_full_organization_location_preset(api, reorder_controls_settings={"enable_reorder_control": False, "track_ohi": False})
+    preset = customer_organization_location_preset(api, reorder_controls_settings={"enable_reorder_control": False, "track_ohi": False})
 
     locations = cla.get_locations(shipto_ids=preset["organization"]["shipto_id"])
     location = locations[0]
