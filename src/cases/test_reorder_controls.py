@@ -2038,18 +2038,18 @@ def test_create_transaction_by_pack_conversion_update_for_distributor_catalog_on
         "reorder_qty_coefficient": 3,
         "testrail_case_id": 9022
     },
-    # {
-    #     "coefficient": 1,
-    #     "transaction_qty": 1,
-    #     "reorder_qty_coefficient": 2,
-    #     "testrail_case_id": 9023
-    # },
-    # {
-    #     "coefficient": 2,
-    #     "transaction_qty": 0,
-    #     "reorder_qty_coefficient": 0,
-    #     "testrail_case_id": 9024
-    # }
+    {
+        "coefficient": 1,
+        "transaction_qty": 1,
+        "reorder_qty_coefficient": 2,
+        "testrail_case_id": 9023
+    },
+    {
+        "coefficient": 2,
+        "transaction_qty": 0,
+        "reorder_qty_coefficient": 0,
+        "testrail_case_id": 9024
+    }
     ])
 @pytest.mark.regression
 def test_create_transaction_at_min_by_ohi_update_on_customer_portal_supplier(api, conditions, customer_organization_location_preset, delete_site, delete_subsite, delete_supplier):
