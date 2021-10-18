@@ -296,7 +296,7 @@ def test_critical_min_and_stockout_alert_email(api, conditions, delete_shipto):
     setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
     setup_location.setup_product.add_option("round_buy", 10)
     setup_location.setup_product.add_option("package_conversion", 5)
-    setup_location.add_option("critical_min", 10)
+    setup_location.add_option("critical_min", 10 if conditions["critical_min"] else None)
     setup_location.add_option("ohi", 300)
     response_location = setup_location.setup()
 
