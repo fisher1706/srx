@@ -50,7 +50,11 @@ class SetupShipto(BaseSetup):
         sa = ShiptoApi(self.context)
 
         self.shipto["number"] = self.options["number"] if self.options["number"] is not None else f"{Tools.random_string_l(10)}-{self.context.testrail_case_id}"
-        self.shipto["poNumber"] = Tools.random_string_l(10)
+        self.shipto["poNumbers"].append({
+            "value": Tools.random_string_l(10),
+            "default": True,
+            "expectedSpend": ""
+        })
         self.shipto["apiWarehouse"] = {
             "id": self.context.data.warehouse_id
         }

@@ -47,8 +47,8 @@ def test_different_multiple_po_number(ui, delete_shipto):
     rlp.select_by_sku(product_1_dto["partSku"])
     rlp.select_by_sku(product_2_dto["partSku"])
     po_number_body = {
-        shipto_1_dto["number"]:shipto_1_dto["poNumber"],
-        shipto_2_dto["number"]:shipto_2_dto["poNumber"]
+        shipto_1_dto["number"]:shipto_1_dto["poNumbers"][0]["value"],
+        shipto_2_dto["number"]:shipto_2_dto["poNumbers"][0]["value"]
     }
     rlp.check_po_number_in_dialog(po_number_body.copy())
     new_po_number_body = {
@@ -96,8 +96,11 @@ def test_general_multiple_po_number(ui, delete_shipto):
     new_po_number = Tools.random_string_l(10)
     rlp.submit_replenishment_list_general_po(new_po_number)
 
-    sa.check_po_number_by_number(shipto_1_dto["number"], shipto_1_dto["poNumber"])
-    sa.check_po_number_by_number(shipto_2_dto["number"], shipto_2_dto["poNumber"])
+    sa.check_po_number_by_number(shipto_1_dto["number"], shipto_1_dto["poNumbers"][0]["value"])
+    sa.check_po_number_by_number(shipto_2_dto["number"], shipto_2_dto["poNumbers"][0]["value"])
+
+    assert ta.get_transaction(product_1_dto["partSku"], shipto_id=new_shipto_1)["entities"][0]["poNumber"] == new_po_number
+    assert ta.get_transaction(product_2_dto["partSku"], shipto_id=new_shipto_2)["entities"][0]["poNumber"] == new_po_number
 
 @pytest.mark.regression
 def test_create_transaction_for_noweight_locker(api, delete_shipto, delete_hardware):

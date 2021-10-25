@@ -72,8 +72,8 @@ class SetupCustomerLocation(BaseSetup):
         cla = CustomerLocationApi(self.context)
 
         GeneralFunctions.fill_location_body(self.location, self.product, self.options)
-        print(self.location)
         self.location["orderingConfig"]["product"]["customerSku"] = self.product["customerSku"]
+        self.location["orderingConfig"]["product"]["roundBuy"] = self.product["roundBuy"]
         if self.options["ohi"] == "MAX":
             package_conversion = self.product["packageConversion"] if self.product["packageConversion"] is not None else 1
             self.location["onHandInventory"] = self.location["orderingConfig"]["currentInventoryControls"]["max"] * package_conversion

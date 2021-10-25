@@ -61,7 +61,6 @@ def test_customer_crud(ui, permission_ui, permissions, delete_distributor_securi
     cp.check_last_customer(edit_customer_body.copy())
     cp.delete_last_customer()
 
-
 @pytest.mark.regression
 def test_customer_unique_number(api, delete_customer):
     api.testrail_case_id = 6544
@@ -134,7 +133,6 @@ def test_shipto_crud(ui, permission_ui, permissions, delete_distributor_security
     #-------------------
     edit_shipto_body["number"] = Tools.random_string_l(12)
     edit_shipto_body["name"] = Tools.random_string_l(10)
-    edit_shipto_body["poNumber"] = Tools.random_string_l(10)
     edit_shipto_body["address.zipCode"] = "77777"
     edit_shipto_body["address.line1"] = "test_address 1"
     edit_shipto_body["address.line2"] = "test_address 2"

@@ -1,7 +1,7 @@
 {
     "number": null,
     "name": null,
-    "poNumber": null,
+    "poNumbers": [],
     "address": {
         "zipCode": "1",
         "line1": "1",
