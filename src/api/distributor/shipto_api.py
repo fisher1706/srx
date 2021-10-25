@@ -56,7 +56,7 @@ class ShiptoApi(API):
 
     def get_po_number_by_number(self, number):
         response = self.get_shipto_by_number(number)
-        return response["data"]["entities"][0]["poNumber"]
+        return response["data"]["entities"][0]["poNumbers"][0]["value"]
 
     def check_po_number_by_number(self, number, expected_po_number):
         actual_po_number = self.get_po_number_by_number(number)
