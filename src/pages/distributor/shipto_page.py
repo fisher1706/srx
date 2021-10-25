@@ -38,7 +38,7 @@ class ShiptoPage(DistributorPortalPage):
             "Shipto Number": shipto_body["number"],
             "Shipto Name": shipto_body["name"],
             "Address": [shipto_body["address.zipCode"], shipto_body["address.line1"], shipto_body["address.line2"], shipto_body["address.city"]],
-            "PO Number": shipto_body["poNumber"]
+            "PO Numbers": shipto_body["poNumber"]
         }
         for cell, value in table_cells.items():
             self.check_last_table_item_by_header(cell, value)

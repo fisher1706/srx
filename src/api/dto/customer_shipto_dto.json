@@ -1,7 +1,8 @@
 {
     "number": null,
     "name": null,
-    "poNumbers": [],
+    "sharedSpaceId": null,
+    "poNumber": null,
     "address": {
         "zipCode": "1",
         "line1": "1",
@@ -9,9 +10,7 @@
         "city": "1",
         "state": "AL"
     },
-    "apiWarehouse": {
-        "id": null
-    },
     "notes": null,
-    "contactId": null
+    "contactId": null,
+    "distributorId": null
 }

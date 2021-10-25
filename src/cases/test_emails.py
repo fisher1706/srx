@@ -271,9 +271,22 @@ def test_accept_checkout_group_invitation_and_reset_password(ui, delete_checkout
     cpp.get_element_by_xpath(f"//div[text()='{user_email}']")
     assert "Passcode" in ui.driver.page_source
 
+
+@pytest.mark.parametrize("conditions", [
+    {
+        "critical_min": True,
+        "stockout": False,
+        "testrail_case_id": 8140
+    },
+    {
+        "critical_min": False,
+        "stockout": True,
+        "testrail_case_id": 9012
+    }
+    ])
 @pytest.mark.regression
-def test_critical_min_alert_email(api, delete_shipto):
-    api.testrail_case_id = 8140
+def test_critical_min_and_stockout_alert_email(api, conditions, delete_shipto):
+    api.testrail_case_id = conditions["testrail_case_id"]
 
     s3 = S3(api)
     la = LocationApi(api)
@@ -283,28 +296,30 @@ def test_critical_min_alert_email(api, delete_shipto):
     setup_location.setup_shipto.add_option("reorder_controls_settings", "DEFAULT")
     setup_location.setup_product.add_option("round_buy", 10)
     setup_location.setup_product.add_option("package_conversion", 5)
-    setup_location.add_option("critical_min", 10)
+    setup_location.add_option("critical_min", 10 if conditions["critical_min"] else None)
     setup_location.add_option("ohi", 300)
     response_location = setup_location.setup()
 
     user_email = api.data.ses_email.format(suffix=Tools.random_string_l(15))
-    sa.set_critical_min_alert_settings(response_location["shipto_id"], True, user_email)
+    sa.set_critical_min_and_stockout_alert_settings(response_location["shipto_id"], critical_min=conditions["critical_min"], stockout=conditions["stockout"], emails=user_email)
 
     s3.clear_bucket(api.data.email_data_bucket)
     objects = s3.get_objects_in_bucket(api.data.email_data_bucket)
     objects_count = len(objects)
 
     location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
-    location["onHandInventory"] = 50
+    ohi = 50 if conditions["critical_min"] else 0
+    location["onHandInventory"] = ohi
     la.update_location([location], response_location["shipto_id"])
     location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
-    assert location["onHandInventory"] == 50
+    assert location["onHandInventory"] == ohi
 
     s3.wait_for_new_object(api.data.email_data_bucket, objects_count)
 
     last_email_key = s3.get_last_modified_object_in_bucket(api.data.email_data_bucket).key
     email_filename = "customer_user_invitation"
     s3.download_by_key(api.data.email_data_bucket, last_email_key, email_filename)
-    assert "Critical Min Alert" in ProcessEmail.get_email_subject(email_filename)
+    subject = "Critical Min Alert" if conditions["critical_min"] else "Stock Out Alert"
+    assert subject in ProcessEmail.get_email_subject(email_filename)
     assert response_location["product"]["partSku"] in ProcessEmail.get_email_subject(email_filename)
     assert user_email in ProcessEmail.get_email_to(email_filename)[0]

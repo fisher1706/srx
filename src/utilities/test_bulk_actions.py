@@ -9,7 +9,7 @@ def test_bulk_delete_shiptos(api):
     shiptos = sa.get_shipto_by_number(None)["data"]["entities"]
 
     for shipto in shiptos:
-        if shipto["id"] > 55774:
+        if shipto["id"] > 61733:
             try:
                 sa.delete_shipto(shipto["id"])
             except:

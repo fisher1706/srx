@@ -49,22 +49,22 @@ class SetupShipto(BaseSetup):
     def set_shipto(self):
         sa = ShiptoApi(self.context)
 
-        self.shipto["number"] = self.options["number"] if self.options["number"] is not None else Tools.random_string_l(10)
-        self.shipto["address"] = {
-            "zipCode": "12345",
-            "line1": "addressLn1",
-            "line2": "addressLn1",
-            "city": "Ct",
-            "state": "AL"
-        }
-        self.shipto["poNumber"] = Tools.random_string_l(10)
+        self.shipto["number"] = self.options["number"] if self.options["number"] is not None else f"{Tools.random_string_l(10)}-{self.context.testrail_case_id}"
+        self.shipto["poNumbers"].append({
+            "value": Tools.random_string_l(10),
+            "default": True,
+            "expectedSpend": ""
+        })
         self.shipto["apiWarehouse"] = {
             "id": self.context.data.warehouse_id
         }
 
         self.shipto_id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"], customer_id=self.customer_id)
-        if self.shipto_id is not None and self.options["delete"]:
-            self.context.dynamic_context["delete_shipto_id"].append(self.shipto_id)
+        if self.shipto_id is not None:
+            sta = SettingsApi(self.context)
+            if self.options["delete"]:
+                self.context.dynamic_context["delete_shipto_id"].append(self.shipto_id)
+            sta.set_vmi_list_integration_settings(self.shipto_id)
 
     def set_checkout_settings(self):
         if self.options["checkout_settings"] is not None:
@@ -95,8 +95,8 @@ class SetupShipto(BaseSetup):
                 self.context.logger.warning(f"Unknown 'reorder_controls_settings' option: '{self.options['reorder_controls_settings']}'")
 
     def set_autosubmit_settings(self):
+        sta = SettingsApi(self.context)
         if self.options["autosubmit_settings"] is not None:
-            sta = SettingsApi(self.context)
             if self.options["autosubmit_settings"] == "DEFAULT":
                 sta.set_autosubmit_settings_shipto(self.shipto_id)
             elif isinstance(self.options["autosubmit_settings"], dict):
@@ -107,6 +107,8 @@ class SetupShipto(BaseSetup):
                     self.options["autosubmit_settings"].get("as_order"))
             else:
                 self.context.logger.warning(f"Unknown 'autosubmit_settings' option: '{self.options['autosubmit_settings']}'")
+        elif self.shipto_id is not None:
+            sta.set_autosubmit_settings_shipto(self.shipto_id, False, False, False)
 
     def set_serialization_settings(self):
         if self.options["serialization_settings"] is not None:

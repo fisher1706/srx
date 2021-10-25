@@ -2,6 +2,7 @@ import time
 import pytest
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_group_api import CheckoutGroupApi
+from src.api.customer.organization_api import OrganizationApi
 from src.api.distributor.user_api import UserApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.customer_api import CustomerApi
@@ -81,3 +82,39 @@ def delete_smart_shelf(context):
     for smart_shelf_id in smart_shelf_id_list:
         time.sleep(3)
         ssa.delete_smart_shelves(smart_shelf_id)
+
+@pytest.fixture(scope="function")
+def delete_site(context):
+    yield
+    context.is_teardown = True
+    oa = OrganizationApi(context)
+    site_id_list = context.dynamic_context["delete_site_id"]
+    for site_id in site_id_list:
+        oa.delete_site(site_id)
+
+@pytest.fixture(scope="function")
+def delete_subsite(context):
+    yield
+    context.is_teardown = True
+    oa = OrganizationApi(context)
+    subsite_id_list = context.dynamic_context["delete_subsite_id"]
+    for subsite_id in subsite_id_list:
+        oa.delete_subsite(subsite_id)
+
+@pytest.fixture(scope="function")
+def delete_supplier(context):
+    yield
+    context.is_teardown = True
+    oa = OrganizationApi(context)
+    supplier_id_list = context.dynamic_context["delete_supplier_id"]
+    for supplier_id in supplier_id_list:
+        oa.delete_supplier(supplier_id)
+
+@pytest.fixture(scope="function")
+def delete_customer_shipto(context):
+    yield
+    context.is_teardown = True
+    oa = OrganizationApi(context)
+    shipto_id_list = context.dynamic_context["delete_customer_shipto_id"]
+    for shipto_id in shipto_id_list:
+        oa.delete_shipto(shipto_id)

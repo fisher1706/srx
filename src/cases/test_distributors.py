@@ -26,7 +26,7 @@ def test_distributor_crud(ui):
     distributor_body["country"] = "Canada"
     state = "Manitoba"
     bill_by = "SKU"
-    checkbox_list = ["Processing Fee", "Supply Force", "User Data", "Agreements", "Taxes", "Billing Info"]
+    checkbox_list = ["Processing Fee", "Supply Force", "User Data", "Agreements", "Taxes", "Billing Info", "Bill by all Ship-tos"]
 
     #-------------------
     edit_distributor_body["name"] = "my Edit First"

@@ -351,6 +351,12 @@ class BasePage():
     def unselect_checkbox_in_dialog_by_name(self, name):
         self.unselect_checkbox(Locator.xpath_checkbox_in_dialog_by_name(name))
 
+    def set_checkbox_value_in_dialog_by_name(self, name, value):
+        if value:
+            self.select_checkbox(Locator.xpath_checkbox_in_dialog_by_name(name))
+        else:
+            self.unselect_checkbox(Locator.xpath_checkbox_in_dialog_by_name(name))
+
     def clear_all_checkboxes_in_dialog(self):
         try:
             checkboxes = self.driver.find_elements_by_xpath(Locator.xpath_dialog+Locator.xpath_checkbox)

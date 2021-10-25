@@ -1,0 +1,13 @@
+{
+    "name": null,
+    "number": null,
+    "contactEmail": "test.example@agilevision.io",
+    "facilityId": null,
+    "address": {
+        "line1": "1",
+        "line2": "1",
+        "city": "1",
+        "state": "AL",
+        "zipCode": "1"
+    }
+}

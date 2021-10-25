@@ -37,7 +37,7 @@ max-statements=100
 max-attributes=30
 min-public-methods=1
 max-args=8
-min-similarity-lines=15
+min-similarity-lines=10
 max-locals=30
 
 [BASIC]
@@ -70,6 +70,7 @@ good-names=
     vp,
     wp,
     wa,
+    oa,
     LOCATION_MIN,
     LOCATION_MAX,
     LOCATION_PACKAGE_CONVERSION,

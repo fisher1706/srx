@@ -1,7 +1,7 @@
 {
-    "number": null,
     "name": null,
-    "poNumbers": [],
+    "number": null,
+    "country": "USA",
     "address": {
         "zipCode": "1",
         "line1": "1",
@@ -9,9 +9,6 @@
         "city": "1",
         "state": "AL"
     },
-    "apiWarehouse": {
-        "id": null
-    },
-    "notes": null,
-    "contactId": null
+    "zoneId": "America/Chicago",
+    "contactEmail": "test.example@agilevision.io"
 }

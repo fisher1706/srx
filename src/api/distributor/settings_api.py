@@ -196,17 +196,31 @@ class SettingsApi(API):
         else:
             self.logger.error(str(response.content))
 
-    def update_critical_min_alert_settings(self, dto, shipto_id):
+    def update_critical_min_and_stockout_alert_settings(self, dto, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/critical-min-alert/settings")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Critical Min settings of ShipTo", id=shipto_id, operation="updated"))
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Critical Min & Stockout settings of ShipTo", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
 
-    def set_critical_min_alert_settings(self, shipto_id, enabled, emails=None):
+    def set_critical_min_and_stockout_alert_settings(self, shipto_id, critical_min, stockout, emails=None):
         critical_min_alert_dto = Tools.get_dto("critical_min_alert_settings.json")
-        critical_min_alert_dto["settings"]["enabled"] = bool(enabled)
+        critical_min_alert_dto["settings"]["enabled"] = bool(critical_min)
+        critical_min_alert_dto["settings"]["enableStockOut"] = bool(stockout)
         critical_min_alert_dto["settings"]["alertEmails"] = emails
-        self.update_critical_min_alert_settings(critical_min_alert_dto, shipto_id)
+        self.update_critical_min_and_stockout_alert_settings(critical_min_alert_dto, shipto_id)
+
+    def update_vmi_list_integration_settings(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/vmi-list-integration/settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if response.status_code == 200:
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="VMI List integration settings of ShipTo", id=shipto_id, operation="updated"))
+        else:
+            self.logger.error(str(response.content))
+
+    def set_vmi_list_integration_settings(self, shipto_id):
+        vmi_integration_dto = Tools.get_dto("vmi_integration_settings_dto.json")
+        self.update_vmi_list_integration_settings(vmi_integration_dto, shipto_id)

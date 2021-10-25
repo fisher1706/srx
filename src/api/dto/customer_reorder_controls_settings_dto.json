@@ -1,0 +1,8 @@
+{
+    "reorderControls": "ADD_AT_MIN",
+    "labelOptions": [
+        "TRACK_OHI",
+        "ENABLE_SCAN_TO_ORDER",
+        "ENABLE_REORDER_CONTROLS"
+    ]
+}

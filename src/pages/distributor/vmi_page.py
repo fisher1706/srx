@@ -40,6 +40,7 @@ class VmiPage(DistributorPortalPage):
 
     def import_location(self, locations):
         Tools.generate_csv("locations.csv", locations)
+        self.click_id(Locator.id_item_action_import)
         self.import_csv(Locator.id_file_upload, "locations.csv")
         self.get_element_by_xpath(Locator.xpath_successfully_imported_msg)
         self.wait_until_page_loaded()

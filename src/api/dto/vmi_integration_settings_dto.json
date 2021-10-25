@@ -1,0 +1,25 @@
+{
+    "useDefault": false,
+    "useErpApi": false,
+    "manual": true,
+    "importing": true,
+    "syncFrequencySettings": {
+        "interval": "DAILY",
+        "time": "00:00",
+        "dayOfWeek": "MONDAY",
+        "zoneId": "America/New_York"
+    },
+    "automaticActions": {
+        "autoValidation": false,
+        "cribCrawlAutoSequenceLocation": false,
+        "autoDeletion": false
+    },
+    "defaultSyncData": {
+        "triggerType": "LABEL",
+        "min": 1,
+        "max": 2
+    },
+    "emails": [
+        "test.example@agilevision.io"
+    ]
+}
