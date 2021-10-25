@@ -65,7 +65,7 @@ class APIClient:
 
         auth = str(
             base64.b64encode(
-                bytes('%s:%s' % (self.user, self.password), 'utf-8')
+                bytes('%s:%s' % (self.user, self.password), 'utf-8') #pylint: disable=C0209
             ),
             'ascii'
         ).strip()
@@ -73,7 +73,7 @@ class APIClient:
 
         if method == 'POST':
             if uri[:14] == 'add_attachment':    # add_attachment API method
-                files = {'attachment': (open(data, 'rb'))}
+                files = {'attachment': (open(data, 'rb'))}  #pylint: disable=R1732
                 response = requests.post(url, headers=headers, files=files, timeout=60)
                 files['attachment'].close()
             else:

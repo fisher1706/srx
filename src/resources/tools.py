@@ -28,7 +28,7 @@ class Tools():
     @staticmethod
     def get_dto(filename, path="/api/dto/"):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+path
-        with open(path+filename, "r") as read_file:
+        with open(path+filename, "r", encoding="utf8") as read_file:
             return json.load(read_file)
 
     @staticmethod
@@ -42,14 +42,14 @@ class Tools():
         table.append(headers)
         for row in rows:
             table.append(row)
-        with open(folder, "w", newline="") as file:
+        with open(folder, "w", newline="", encoding="utf8") as file:
             writer = csv.writer(file)
             writer.writerows(table)
 
     @staticmethod
     def generate_log(folder, data):
         try:
-            with open(folder, 'a') as file:
+            with open(folder, 'a', encoding="utf8") as file:
                 for entry in data:
                     file.write(str(entry) + '\n')
         except:
