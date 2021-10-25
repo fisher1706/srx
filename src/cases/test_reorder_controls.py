@@ -2085,7 +2085,22 @@ def test_cannot_update_ohi_with_disabled_trackohi_customer(api, customer_organiz
     locations = cla.get_locations(shipto_ids=preset["organization"]["shipto_id"])
     location = locations[0]
     location["onHandInventory"] = 0
-    cla.update_location([location], expected_status_code=400)
+    cla.update_location([location], expected_status_code=409)
+
+@pytest.mark.regression
+def test_cannot_update_ohi_with_disabled_trackohi_distributor(api, customer_organization_location_preset, delete_site, delete_subsite, delete_supplier):
+    api.testrail_case_id = 9020
+
+    la = LocationApi(api)
+
+    setup_location = SetupLocation(api)
+    setup_location.setup_shipto.add_option("reorder_controls_settings", {"enable_reorder_control": False, "track_ohi": False})
+    setup_location.add_option("ohi", "MAX")
+    response_location = setup_location.setup()
+
+    location = la.get_locations(shipto_id=response_location["shipto_id"])[0]
+    location["onHandInventory"] = 0
+    la.update_location([location], response_location["shipto_id"], expected_status_code=409)
 
 @pytest.mark.regression
 def test_reorder_controls_doesnt_work_for_buttons(api, delete_shipto):
