@@ -6,7 +6,8 @@ __pycache__
 *.pyc
 geckodriver.log
 local_credentials.py
-output
+*.csv
+*.pdf
 screenshots
 local_qa_get_mobile_token.py
 local_staging_get_mobile_token.py
