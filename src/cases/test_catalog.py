@@ -136,7 +136,6 @@ def test_universal_catalog_crud(ui):
     new_product_row = ucp.scan_table(edit_universal_product_body["upc"], "UPC", edit_table_body.copy())
     ucp.delete_universal_product(new_product_row)
 
-@pytest.mark.current
 @pytest.mark.regression
 def test_universal_catalog_import(ui):
     ui.testrail_case_id = 1858
