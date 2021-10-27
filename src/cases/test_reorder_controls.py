@@ -2088,7 +2088,7 @@ def test_cannot_update_ohi_with_disabled_trackohi_customer(api, customer_organiz
     cla.update_location([location], expected_status_code=409)
 
 @pytest.mark.regression
-def test_cannot_update_ohi_with_disabled_trackohi_distributor(api, customer_organization_location_preset, delete_site, delete_subsite, delete_supplier):
+def test_cannot_update_ohi_with_disabled_trackohi_distributor(api, delete_shipto):
     api.testrail_case_id = 9020
 
     la = LocationApi(api)
