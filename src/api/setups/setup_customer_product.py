@@ -14,7 +14,8 @@ class SetupCustomerProduct(BaseSetup):
             "asset": None,
             "round_buy": None,
             "issue_quantity": None,
-            "supplier_id": None
+            "supplier_id": None,
+            "price": None
         }
         self.product = Tools.get_dto("customer_product_dto.json")
         self.product_id = None
@@ -30,6 +31,7 @@ class SetupCustomerProduct(BaseSetup):
             self.product["customerSku"] = self.product["partSku"]
             self.product["shortDescription"] = f"{self.product['partSku']} - short description"
             self.product["assetFlag"] = bool(self.options["asset"])
+            self.product["price"] = self.options["price"]
             if bool(self.options["asset"]):
                 self.product["roundBuy"] = 1 if self.options["round_buy"] is None else self.options["round_buy"]
             else:
