@@ -8,6 +8,8 @@ from src.resources.permissions import Permissions
 from src.api.setups.setup_location import SetupLocation
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.location_api import LocationApi
+from src.api.customer.replenishment_list_api import ReplenishmentListApi
+from src.api.customer.customer_location_api import CustomerLocationApi
 
 @pytest.mark.parametrize("permissions", [
     {
@@ -217,4 +219,25 @@ def test_price_is_updated(ui, delete_shipto):
     pp.import_pricing(pricing)
 
     la.check_updated_price(name="PRICING_SKU", shipto_id=response_location["shipto_id"], expected_price=float(temporary_price))
-   
+
+@pytest.mark.regression
+def test_check_customer_catalog_price(api, customer_organization_location_preset, delete_site, delete_subsite, delete_supplier):
+    api.testrail_case_id = 9531
+
+    rla = ReplenishmentListApi(api)
+    cla = CustomerLocationApi(api)
+
+    price = random.choice(range(1, 100))
+    preset = customer_organization_location_preset(api, price=price)
+
+    #update OHI
+    locations = cla.get_locations(shipto_ids=preset["organization"]["shipto_id"])
+    assert len(locations) == 1
+    location = locations[0]
+    location["onHandInventory"] = 0
+    cla.update_location([location])
+    time.sleep(5)
+    transaction = rla.get_replenishment_list(shipto_ids=preset["organization"]["shipto_id"])
+    assert len(transaction) == 1, f"The number of transactions should be equal to 1"
+    assert transaction[0]["price"] == price
+    assert transaction[0]["pricePerItem"] == price

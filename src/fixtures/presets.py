@@ -4,13 +4,14 @@ from src.api.setups.setup_location import SetupLocation
 
 @pytest.fixture(scope="function")
 def customer_organization_location_preset():
-    def wrapper(context, ohi="MAX", reorder_controls_settings="DEFAULT"):
+    def wrapper(context, ohi="MAX", reorder_controls_settings="DEFAULT", price=None):
         setup_customer_location = SetupCustomerLocation(context)
         setup_customer_location.add_option("ohi", ohi)
         setup_customer_location.setup_organization.add_option("site")
         setup_customer_location.setup_organization.add_option("subsite")
         setup_customer_location.setup_organization.add_option("supplier")
         setup_customer_location.setup_organization.add_option("shipto")
+        setup_customer_location.setup_customer_product.add_option("price", price)
         setup_customer_location.setup_organization.setup_customer_shipto.add_option("reorder_controls_settings", reorder_controls_settings)
         return setup_customer_location.setup()
     return wrapper
