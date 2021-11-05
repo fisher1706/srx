@@ -1,25 +1,17 @@
 {
-    "useDefault": false,
-    "useErpApi": false,
+    "cribCrawlAutoSequenceLocation": false,
+    "max": 2,
+    "interval": "DAILY",
     "manual": true,
+    "dayOfWeek": "MONDAY",
+    "zoneId": "America/New_York",
+    "autoValidation": false,
+    "time": "00:00",
+    "triggerType": "LABEL",
+    "min": 1,
+    "emails": [],
+    "useDefault": false,
     "importing": true,
-    "syncFrequencySettings": {
-        "interval": "DAILY",
-        "time": "00:00",
-        "dayOfWeek": "MONDAY",
-        "zoneId": "America/New_York"
-    },
-    "automaticActions": {
-        "autoValidation": false,
-        "cribCrawlAutoSequenceLocation": false,
-        "autoDeletion": false
-    },
-    "defaultSyncData": {
-        "triggerType": "LABEL",
-        "min": 1,
-        "max": 2
-    },
-    "emails": [
-        "test.example@agilevision.io"
-    ]
+    "autoDeletion": false,
+    "useErpApi": false
 }
