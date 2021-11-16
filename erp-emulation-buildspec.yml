@@ -8,4 +8,4 @@ phases:
       python: 3.8
   build:
     commands:
-      - echo Test
+      - scp -i $KEY /src/erp_emulator ec2-user@$IP:/home/ec2-user
