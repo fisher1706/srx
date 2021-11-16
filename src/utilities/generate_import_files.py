@@ -19,7 +19,7 @@ def generate_csv(filename, rows):
 
 def random_string_u(length=10):
         letters = string.ascii_uppercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
+        random_string = ''.join(random.choice(letters) for _ in range(length))
         return random_string
 
 products = []
