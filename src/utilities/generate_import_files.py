@@ -1,4 +1,27 @@
-from src.resources.tools import Tools
+import os
+import csv
+import string
+import random
+
+def generate_csv(filename, rows):
+        folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        folder += "/output/"+filename
+        headers = []
+        for header in range(len(rows[0])):
+            headers.append(header)
+        table = []
+        table.append(headers)
+        for row in rows:
+            table.append(row)
+        with open(folder, "w", newline="", encoding="utf8") as file:
+            writer = csv.writer(file)
+            writer.writerows(table)
+
+def random_string_u(length=10):
+        letters = string.ascii_uppercase
+        random_string = ''.join(random.choice(letters) for i in range(length))
+        return random_string
+
 products = []
 locations = []
 pricing = []
@@ -6,10 +29,10 @@ rfids = []
 usage_history = []
 crib_crawl = []
 body = []
-for i in range(500):
-    SKU = Tools.random_string_u(20)
+for i in range(50000):
+    SKU = random_string_u(20)
 
-    product_row = [SKU, None, None, SKU, None, None, None, None, None, None, None, None, None, None, 1, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    product_row = [SKU, SKU, None, SKU, None, SKU, None, None, None, None, None, None, SKU, SKU, 1, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
     location_row = [SKU,SKU,SKU,SKU,None,None,None,None,SKU,10,20,"LABEL",SKU+"_cust",None,"Customer","off",1]
     pricing_row = [SKU, 10, 1, "2030-12-12T10:15:30"]
     rfid_row = [SKU, SKU, SKU]
@@ -26,9 +49,9 @@ for i in range(500):
 
 print(body)
 
-Tools.generate_csv("products.csv", products)
-Tools.generate_csv("locations.csv", locations)
-Tools.generate_csv("pricing.csv", pricing)
-Tools.generate_csv("rfids.csv", rfids)
-Tools.generate_csv("usage_history.csv", usage_history)
-Tools.generate_csv("crib_crawl.csv", crib_crawl)
+generate_csv("products.csv", products)
+generate_csv("locations.csv", locations)
+generate_csv("pricing.csv", pricing)
+generate_csv("rfids.csv", rfids)
+generate_csv("usage_history.csv", usage_history)
+generate_csv("crib_crawl.csv", crib_crawl)
