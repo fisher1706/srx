@@ -1,4 +1,4 @@
-version: 0.2
++version: 0.2
 
 phases:
   install:
@@ -8,4 +8,4 @@ phases:
       python: 3.8
   build:
     commands:
-      - scp -i $KEY /src/erp_emulator ec2-user@$IP:/home/ec2-user
+      - aws s3 cp src/erp_emulator s3://srx-test-erp-emulator-1231q-qa/erp_emulator
