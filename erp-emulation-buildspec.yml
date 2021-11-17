@@ -8,4 +8,4 @@ phases:
       python: 3.8
   build:
     commands:
-      - aws s3 cp src/erp_emulator s3://srx-test-erp-emulator-1231q-qa/erp_emulator
+      - aws s3 cp src/erp_emulator s3://srx-test-erp-emulator-1231q-qa/erp_emulator --recursive
