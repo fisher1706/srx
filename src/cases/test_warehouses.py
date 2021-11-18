@@ -34,7 +34,7 @@ def test_warehouses_crud(ui, permission_ui, permissions, delete_distributor_secu
     warehouse_body["address.line1"] = "test_address 1"
     warehouse_body["address.city"] = "test city"
     warehouse_body["state"] = "Georgia"
-    warehouse_body["timezone"] = "America/Adak (-09:00)"
+    warehouse_body["timezone"] = "America/Adak (-10:00)"
     warehouse_body["contactEmail"] = Tools.random_email()
     warehouse_body["invoiceEmail"] = Tools.random_email()
     #-------------------
@@ -45,7 +45,7 @@ def test_warehouses_crud(ui, permission_ui, permissions, delete_distributor_secu
     edit_warehouse_body["address.line2"] = "edit test_address 1"
     edit_warehouse_body["address.city"] = "edit test city"
     edit_warehouse_body["state"] = "Colorado"
-    edit_warehouse_body["timezone"] = "America/Atka (-09:00)"
+    edit_warehouse_body["timezone"] = "America/Atka (-10:00)"
     edit_warehouse_body["contactEmail"] = Tools.random_email()
     edit_warehouse_body["invoiceEmail"] = Tools.random_email()
     #-------------------

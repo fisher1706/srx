@@ -238,6 +238,6 @@ def test_check_customer_catalog_price(api, customer_organization_location_preset
     cla.update_location([location])
     time.sleep(5)
     transaction = rla.get_replenishment_list(shipto_ids=preset["organization"]["shipto_id"])
-    assert len(transaction) == 1, f"The number of transactions should be equal to 1"
+    assert len(transaction) == 1, "The number of transactions should be equal to 1"
     assert transaction[0]["price"] == price
     assert transaction[0]["pricePerItem"] == price

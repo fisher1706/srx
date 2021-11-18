@@ -12,3 +12,4 @@ screenshots
 local_qa_get_mobile_token.py
 local_staging_get_mobile_token.py
 format.json
+output
