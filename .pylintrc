@@ -29,7 +29,8 @@ ignore=
     pytest.ini,
     requirements.txt,
     .gitignore,
-    format.json
+    format.json,
+    erp-emulation-buildspec.yml
 
 [FORMAT]
 max-line-length=200
