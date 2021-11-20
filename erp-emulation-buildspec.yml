@@ -11,6 +11,6 @@ phases:
       - aws s3 cp src/erp_emulator s3://srx-test-erp-emulator-1231q-qa/erp_emulator --recursive
       - export AUTOMATION_INSTANCE_ID=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=$AUTOMATION_INSTANCE_NAME' --output text --query 'Reservations[*].Instances[*].InstanceId')
       - export MANUAL_INSTANCE_ID=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=$MANUAL_INSTANCE_NAME' --output text --query 'Reservations[*].Instances[*].InstanceId')
-      - echo AUTOMATION_INSTANCE_ID
-      - echo MANUAL_INSTANCE_ID
+      - echo $AUTOMATION_INSTANCE_ID
+      - echo $MANUAL_INSTANCE_ID
       - aws ssm send-command --document-name "AWS-RunShellScript" --document-version "1" --targets '[{"Key":"InstanceIds","Values":['\""${AUTOMATION_INSTANCE_ID}"\"','\""${MANUAL_INSTANCE_ID}"\"']}]' --parameters '{"commands":["aws s3 cp s3://srx-test-erp-emulator-1231q-qa/erp_emulator /home/ec2-user/automation --recursive"],"workingDirectory":[""],"executionTimeout":["600"]}' --timeout-seconds 600 --max-concurrency "50" --max-errors "0" --region us-east-1
