@@ -8,6 +8,7 @@ geckodriver.log
 local_credentials.py
 *.csv
 *.pdf
+*.log
 screenshots
 local_qa_get_mobile_token.py
 local_staging_get_mobile_token.py
