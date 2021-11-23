@@ -25,3 +25,14 @@ def set_available_endpoints():
         "code": 200
     }
     return response
+
+@app.route('/set-sales-orders-status-v1-items', methods = ['POST']) #1.1
+def set_sales_orders_status_v1_items():
+    body = request.get_json()
+    State.sales_orders_status_v1_items = body["data"]
+    response = {
+        "data": State.sales_orders_status_v1_items,
+        "message": None,
+        "code": 200
+    }
+    return response
