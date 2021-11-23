@@ -111,3 +111,16 @@ class TransactionApi(API):
             self.logger.info(Message.entity_operation_done.format(entity="Transaction", operation="submitted"))
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))
+
+    def refresh_order_status(self, order_id, v2):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/erp-test/get-order-status")
+        params = {
+            "orderId": order_id,
+            "isV2Api": v2
+        }
+        token = self.get_distributor_token()
+        response = self.send_get(url, token, params=params)
+        if response.status_code == 200:
+            self.logger.info(f"Order {order_id} has been refreshed")
+        else:
+            self.logger.error(str(response.content))

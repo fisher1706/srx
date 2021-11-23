@@ -1,5 +1,6 @@
 import copy
 from src.api.distributor.shipto_api import ShiptoApi
+from src.api.distributor.customer_api import CustomerApi
 from src.api.distributor.settings_api import SettingsApi
 from src.api.setups.base_setup import BaseSetup
 from src.api.setups.setup_customer import SetupCustomer
@@ -17,12 +18,15 @@ class SetupShipto(BaseSetup):
             "reorder_controls_settings": None,
             "delete": True,
             "customer": False,
+            "customer_id": None,
             "expected_status_code": None,
             "customer.clc": None, #update current customer's settings
+            "rl_submit_integration": None,
         }
         self.shipto = Tools.get_dto("shipto_dto.json")
         self.shipto_id = None
         self.customer_id = None
+        self.warehouse_id = None
         self.setup_customer = SetupCustomer(self.context)
 
     def setup(self):
@@ -33,6 +37,7 @@ class SetupShipto(BaseSetup):
         self.set_serialization_settings()
         self.set_reorder_controls_settings()
         self.set_customer_clc_settings()
+        self.set_reorder_list_submit_integration_settings()
 
         response = {
             "shipto": self.shipto,
@@ -45,6 +50,12 @@ class SetupShipto(BaseSetup):
     def set_customer(self):
         if self.options["customer"]:
             self.customer_id = self.setup_customer.setup()["customer_id"]
+        elif self.options["customer_id"] == "lowest":
+            ca = CustomerApi(self.context)
+            self.customer_id = ca.get_customers()[0]["id"]
+            self.warehouse_id = ca.get_customers()[0]["warehouse"]["id"]
+        elif self.options["customer_id"] is not None:
+            self.customer_id = self.options["customer_id"]
 
     def set_shipto(self):
         sa = ShiptoApi(self.context)
@@ -56,7 +67,7 @@ class SetupShipto(BaseSetup):
             "expectedSpend": ""
         })
         self.shipto["apiWarehouse"] = {
-            "id": self.context.data.warehouse_id
+            "id": self.context.data.warehouse_id if self.warehouse_id is None else self.warehouse_id
         }
 
         self.shipto_id = sa.create_shipto(copy.deepcopy(self.shipto), expected_status_code=self.options["expected_status_code"], customer_id=self.customer_id)
@@ -127,3 +138,8 @@ class SetupShipto(BaseSetup):
         if self.options["customer.clc"] is not None:
             sa = SettingsApi(self.context)
             sa.set_customer_level_catalog_flag(self.options["customer.clc"], self.customer_id)
+
+    def set_reorder_list_submit_integration_settings(self):
+        if self.options["rl_submit_integration"] is not None:
+            sa = SettingsApi(self.context)
+            sa.update_reorder_list_submit_integration_settings(self.shipto_id)

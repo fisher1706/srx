@@ -59,6 +59,16 @@ def pytest_addoption(parser):
     parser.addoption('--permission_customer_password', action='store', default=None,
                      help="Enter password of customer user")
 
+    #SRX account for ILX mocks credentials
+    parser.addoption('--ilx_distributor_email', action='store', default=None,
+                     help="Enter email of distributor user")
+    parser.addoption('--ilx_distributor_password', action='store', default=None,
+                     help="Enter password of distributor user")
+    parser.addoption('--ilx_customer_email', action='store', default=None,
+                     help="Enter email of customer user")
+    parser.addoption('--ilx_customer_password', action='store', default=None,
+                     help="Enter password of customer user")
+
     #testrail
     parser.addoption('--testrail_email', action='store', default=None,
                      help="Enter email of testrail account")
