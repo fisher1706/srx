@@ -3,7 +3,7 @@ from flask import request
 import logging
 
 app = Flask(__name__)
-from ilx import ilx_base_mocks
+from ilx import ilx_base_mocks, ilx_submit_mocks
 
 logging.basicConfig(filename='flask.log',level=logging.DEBUG)
 logger = logging.getLogger('flask_server')
