@@ -8,7 +8,7 @@ class MocksApi(API):
             "data": endpoints_list
         }
         token = self.get_distributor_token()
-        response = self.send_post(url, token, dto)
+        response = self.send_post(url, token, dto, timeout=30)
         if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="List of available endpoints", operation="set"))
         else:
@@ -20,7 +20,7 @@ class MocksApi(API):
             "data": items_list
         }
         token = self.get_distributor_token()
-        response = self.send_post(url, token, dto)
+        response = self.send_post(url, token, dto, timeout=30)
         if response.status_code == 200:
             self.logger.info(Message.entity_operation_done.format(entity="List of salesOrdersStatus items", operation="set"))
         else:
