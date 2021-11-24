@@ -6,8 +6,26 @@ from src.api.mocks_api import MocksApi
 
 @pytest.mark.erp
 @pytest.mark.regression
-def test_sales_order_status_update_status_and_quantity(ilx_api, sync_order_location_preset):
-    ilx_api.testrail_case_id = 10057
+@pytest.mark.parametrize("conditions", [
+    {
+        "status": "ORDERED",
+        "quantity": 200,
+        "testrail_case_id": 10057
+    },
+    {
+        "status": "SHIPPED",
+        "quantity": 20,
+        "testrail_case_id": 10058
+    },
+    {
+        "status": "DELIVERED",
+        "quantity": 80,
+        "testrail_case_id": 10059
+    }
+    ])
+@pytest.mark.regression
+def test_sales_order_status_update_status_and_quantity(ilx_api, sync_order_location_preset, conditions, delete_shipto):
+    ilx_api.testrail_case_id = conditions["testrail_case_id"]
 
     ta = TransactionApi(ilx_api)
     rla = ReplenishmentListApi(ilx_api)
@@ -31,12 +49,12 @@ def test_sales_order_status_update_status_and_quantity(ilx_api, sync_order_locat
     #------------ILX response-------------------
     items_list = [
             {
-                "transactionType": "ORDERED",
+                "transactionType": conditions["status"],
                 "id": f"{transaction_id}-0",
                 "items": [
                     {
                     "dsku": sku,
-                    "quantity": 200
+                    "quantity": conditions["quantity"]
                     }
                 ]
             }
@@ -46,7 +64,14 @@ def test_sales_order_status_update_status_and_quantity(ilx_api, sync_order_locat
     ta.refresh_order_status(transaction_id, False)
     transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
 
-    assert transactions["totalElements"] == 1, "Only 1 transaction should be present"
     assert transactions["entities"][0]["erpOrderId"] == f"{transaction_id}-0"
-    assert transactions["entities"][0]["status"] == "ORDERED"
-    assert transactions["entities"][0]["reorderQuantity"] == 200
+    assert transactions["entities"][0]["status"] == conditions["status"]
+    if conditions["status"] in ("SHIPPED", "DELIVERED"):
+        assert transactions["entities"][0]["reorderQuantity"] == 100
+        assert transactions["entities"][0]["shippedQuantity"] == conditions["quantity"]
+        assert transactions["totalElements"] == 2
+        assert transactions["entities"][1]["status"] == "ACTIVE"
+        assert transactions["entities"][1]["reorderQuantity"] == 100-conditions["quantity"]
+    else:
+        assert transactions["entities"][0]["reorderQuantity"] == 200
+        assert transactions["totalElements"] == 1, "Only 1 transaction should be present"

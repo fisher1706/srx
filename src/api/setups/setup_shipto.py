@@ -74,8 +74,12 @@ class SetupShipto(BaseSetup):
         if self.shipto_id is not None:
             sta = SettingsApi(self.context)
             if self.options["delete"]:
-                self.context.dynamic_context["delete_shipto_id"].append(self.shipto_id)
-            sta.set_vmi_list_integration_settings(self.shipto_id)
+                shipto = {
+                    "shipto_id": self.shipto_id,
+                    "customer_id": self.customer_id
+                }
+                self.context.dynamic_context["delete_shipto_id"].append(shipto)
+            #sta.set_vmi_list_integration_settings(self.shipto_id)
 
     def set_checkout_settings(self):
         if self.options["checkout_settings"] is not None:
