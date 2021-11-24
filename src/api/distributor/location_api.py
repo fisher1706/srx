@@ -52,8 +52,10 @@ class LocationApi(API):
         return response[0]["orderingConfig"]["id"]
 
     @default_expected_code(200)
-    def get_locations(self, shipto_id, expected_status_code=None, mobile=False):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/{shipto_id}/locations")
+    def get_locations(self, shipto_id, expected_status_code=None, mobile=False, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shiptos/{shipto_id}/locations")
         token = self.get_mobile_or_base_token(mobile)
         response = self.send_get(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)

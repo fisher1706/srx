@@ -47,6 +47,12 @@ def session_context(request):
         session_context_object.permission_customer_email = request.config.getoption("permission_customer_email")
         session_context_object.permission_customer_password = request.config.getoption("permission_customer_password")
 
+        #SRX account for ILX mocks credentials
+        session_context_object.ilx_distributor_email = request.config.getoption("ilx_distributor_email")
+        session_context_object.ilx_distributor_password = request.config.getoption("ilx_distributor_password")
+        session_context_object.ilx_customer_email = request.config.getoption("ilx_customer_email")
+        session_context_object.ilx_customer_password = request.config.getoption("ilx_customer_password")
+
         #testrail credentials
         session_context_object.testrail_email = request.config.getoption("testrail_email")
         session_context_object.testrail_password = request.config.getoption("testrail_password")
@@ -82,6 +88,12 @@ def session_context(request):
         session_context_object.permission_distributor_password = creds.permission_distributor_password
         session_context_object.permission_customer_email = creds.permission_customer_email
         session_context_object.permission_customer_password = creds.permission_customer_password
+
+        #SRX account for ILX mocks credentials
+        session_context_object.ilx_distributor_email = creds.ilx_distributor_email
+        session_context_object.ilx_distributor_password = creds.ilx_distributor_password
+        session_context_object.ilx_customer_email = creds.ilx_customer_email
+        session_context_object.ilx_customer_password = creds.ilx_customer_password
 
         #testrail credentials
         session_context_object.testrail_email = creds.testrail_email
@@ -131,6 +143,22 @@ def smoke_context(context, request, testrail_smoke_result):
     context_object.distributor_password = context_object.session_context.smoke_distributor_password
     context_object.customer_email = context_object.session_context.smoke_customer_email
     context_object.customer_password = context_object.session_context.smoke_customer_password
+
+    yield context_object
+    testrail(request, context_object)
+
+@pytest.fixture(scope="function")
+def ilx_context(context, request):
+    context_object = context
+    context_object.data = context_object.session_context.base_data
+
+    #credentials
+    context_object.admin_email = context_object.session_context.base_admin_email
+    context_object.admin_password = context_object.session_context.base_admin_password
+    context_object.distributor_email = context_object.session_context.ilx_distributor_email
+    context_object.distributor_password = context_object.session_context.ilx_distributor_password
+    context_object.customer_email = context_object.session_context.ilx_customer_email
+    context_object.customer_password = context_object.session_context.ilx_customer_password
 
     yield context_object
     testrail(request, context_object)

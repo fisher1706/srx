@@ -75,7 +75,7 @@ class API():
             return self.get_mobile_distributor_token()
         return self.get_distributor_token()
 
-    def send_post(self, url, token, data=None, additional_headers=None, params=None):
+    def send_post(self, url, token, data=None, additional_headers=None, params=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -87,19 +87,19 @@ class API():
             post_data = json.dumps(data)
         else:
             post_data = data
-        return requests.post(url, headers=headers, params=params, data=post_data)
+        return requests.post(url, headers=headers, params=params, data=post_data, timeout=timeout)
 
-    def send_get(self, url, token, params=None, additional_headers=None):
+    def send_get(self, url, token, params=None, additional_headers=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
             "Accept":"application/json"
         }
         if additional_headers is not None:
-            headers.update(additional_headers)
+            headers.update(additional_headers, timeout=timeout)
         return requests.get(url, headers=headers, params=params)
 
-    def send_delete(self, url, token, additional_headers=None):
+    def send_delete(self, url, token, additional_headers=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -107,9 +107,9 @@ class API():
         }
         if additional_headers is not None:
             headers.update(additional_headers)
-        return requests.delete(url, headers=headers)
+        return requests.delete(url, headers=headers, timeout=timeout)
 
-    def send_put(self, url, token, data=None, additional_headers=None):
+    def send_put(self, url, token, data=None, additional_headers=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -121,4 +121,4 @@ class API():
             post_data = json.dumps(data)
         else:
             post_data = data
-        return requests.put(url, headers=headers, data=post_data)
+        return requests.put(url, headers=headers, data=post_data, timeout=timeout)

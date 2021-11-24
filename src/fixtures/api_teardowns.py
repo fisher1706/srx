@@ -51,8 +51,8 @@ def delete_shipto(context):
     context.is_teardown = True
     sa = ShiptoApi(context)
     shipto_id_list = context.dynamic_context["delete_shipto_id"]
-    for shipto_id in shipto_id_list:
-        sa.delete_shipto(shipto_id)
+    for shipto in shipto_id_list:
+        sa.delete_shipto(shipto_id=shipto["shipto_id"], customer_id=shipto["customer_id"])
 
 @pytest.fixture(scope="function")
 def delete_customer(context):

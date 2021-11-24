@@ -10,6 +10,7 @@ class URL():
             self.customer_portal = self.get_url_for_env("storeroomlogix.com", "customer")
             self.checkout_portal = self.get_url_for_env("storeroomlogix.com", "checkout")
             self.new_checkout_portal = self.get_url_for_env("storeroomlogix.com", "next.checkout")
+            self.ilx_mocks = "http://54.175.164.185:8080"
         else:
             raise IOError("Incorrect environment")
 
@@ -30,6 +31,9 @@ class URL():
             'qa': f"https://api-qa.storeroomlogix.com{url}"
         }
         return switcher.get(self.environment)
+
+    def get_ip_url(self, url):
+        return f"{self.ilx_mocks}{url}"
 
     def get_iothub_api_url_for_env(self, url):
         switcher = {

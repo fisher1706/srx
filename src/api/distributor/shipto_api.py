@@ -20,8 +20,10 @@ class ShiptoApi(API):
         self.logger.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
-    def delete_shipto(self, shipto_id, expected_status_code=None):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shipto/{shipto_id}/delete")
+    def delete_shipto(self, shipto_id, expected_status_code=None, customer_id=None):
+        if customer_id is None:
+            customer_id = self.data.customer_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{customer_id}/shipto/{shipto_id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
