@@ -226,7 +226,7 @@ class SettingsApi(API):
         self.update_vmi_list_integration_settings(vmi_integration_dto, shipto_id)
 
     def sync_erp_connection_settings(self):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/erp-connection/settings/sync-available-integration-options")
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/erp-connection/settings/sync-available-integration-options")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         if response.status_code == 200:

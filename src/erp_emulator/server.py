@@ -1,9 +1,9 @@
+import logging
 from flask import Flask
 from flask import request
-import logging
 
 app = Flask(__name__)
-from ilx import ilx_base_mocks, ilx_submit_mocks, ilx_sales_order_mocks
+from ilx import ilx_base_mocks, ilx_submit_mocks, ilx_sales_order_mocks #pylint: disable=C0413,W0611,E0401
 
 logging.basicConfig(filename='flask.log',level=logging.DEBUG)
 logger = logging.getLogger('flask_server')
