@@ -165,7 +165,7 @@ def ilx_context(context, request):
 
 @pytest.fixture(scope="function")
 def permission_context(context, request):
-    context_object = context
+    context_object = copy.copy(context)
     context_object.data = context_object.session_context.base_data
 
     #credentials
