@@ -34,7 +34,7 @@ def serialized_location_preset():
 
 @pytest.fixture(scope="function")
 def sync_order_location_preset():
-    def wrapper(context, sync_endpoint):
+    def wrapper(context, sync_endpoint, disable_reorder_controls=False):
         sa = SettingsApi(context)
         ma = MocksApi(context)
         la = LocationApi(context)
@@ -65,5 +65,7 @@ def sync_order_location_preset():
             "transaction_id": transaction["entities"][0]["id"],
             "reorder_quantity": transaction["entities"][0]["reorderQuantity"]
         }
+        if disable_reorder_controls:
+            sa.set_reorder_controls_settings_for_shipto(preset["shipto_id"], enable_reorder_control=False)
         return preset
     return wrapper

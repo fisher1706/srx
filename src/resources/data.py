@@ -30,6 +30,7 @@ class Data():
     def staging_environment(self):
         self.distributor_name = "QA-distributor"
         self.distributor_id = "98"
+        self.ilx_distributor_id = "832"
         self.warehouse_id = "38"
         self.sub_distributor_name = "Static Test"
         self.sub_distributor_id = 8
@@ -53,6 +54,7 @@ class Data():
     def qa_environment(self):
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
         self.distributor_id = "4"
+        self.ilx_distributor_id = "937"
         self.warehouse_id = "4"
         self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
         self.sub_distributor_id = "5"
