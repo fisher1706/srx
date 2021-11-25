@@ -36,6 +36,7 @@ class Data():
         self.sub_distributor_id = 8
         self.testrail_run_id = 48
         self.mobile_testrail_run_id = 53
+        self.ilx_testrail_run_id = 278
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
         self.customer_id = "54"
@@ -62,6 +63,7 @@ class Data():
         self.shipto_number = "FIRST-QA-SHIPTO"
         self.testrail_run_id = 44
         self.mobile_testrail_run_id = 54
+        self.ilx_testrail_run_id = 279
         self.customer_id = "4"
         self.shipto_id = "4"
         self.checkout_group_id = "816"
