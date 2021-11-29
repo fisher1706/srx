@@ -17,6 +17,7 @@ disable=
     C0201, #consider-iterating-dictionary
     R1734, #use-list-literal
     R1735, #use-dict-literal
+    R0903, #too-few-public-methods
 
 ignore=
     utilities,
@@ -30,7 +31,8 @@ ignore=
     requirements.txt,
     .gitignore,
     format.json,
-    erp-emulation-buildspec.yml
+    erp-emulation-buildspec.yml,
+    flask.log
 
 [FORMAT]
 max-line-length=200
@@ -72,6 +74,7 @@ good-names=
     wp,
     wa,
     oa,
+    ma,
     LOCATION_MIN,
     LOCATION_MAX,
     LOCATION_PACKAGE_CONVERSION,

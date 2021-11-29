@@ -1,6 +1,6 @@
 from flask import request
-from __main__ import app
-from state import State
+from __main__ import app #pylint: disable=E0611
+from state import State #pylint: disable=E0401
 
 @app.route('/')
 def home():

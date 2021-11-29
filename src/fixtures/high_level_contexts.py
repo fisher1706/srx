@@ -44,3 +44,9 @@ def permission_ui(driver, permission_context):
 def permission_api(permission_context):
     context_object = permission_context
     return context_object
+
+@pytest.fixture(scope="function")
+def ilx_api(ilx_context):
+    context_object = ilx_context
+    context_object.testrail_run_id = context_object.data.ilx_testrail_run_id
+    return context_object

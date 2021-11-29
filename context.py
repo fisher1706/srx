@@ -25,6 +25,12 @@ class SessionContext():
     permission_customer_email = None
     permission_customer_password = None
 
+    #SRX account for ILX mocks credentials
+    ilx_distributor_email = None
+    ilx_distributor_password = None
+    ilx_customer_email = None
+    ilx_customer_password = None
+
     #main
     browser_name = None
     cognito_user_pool_id = None
