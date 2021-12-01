@@ -19,7 +19,8 @@ class URL():
             'dev': f"https://{portal}.dev.{url}",
             'staging': f"https://{portal}.staging.{url}",
             'prod': f"https://{portal}.{url}",
-            'qa': f"https://{portal}.qa.{url}"
+            'qa': f"https://{portal}.qa.{url}",
+            'tenant': f"https://app-tenant.{portal}.qa.{url}"
         }
         return switcher.get(self.environment)
 
