@@ -272,7 +272,7 @@ def test_sales_order_status_update_with_simulated_order_close_logic(ilx_api, syn
     }
     ])
 @pytest.mark.erp
-def test_split_single_transaction_with_by_two_items(ilx_api, sync_order_location_preset, conditions, delete_shipto):
+def test_split_single_transaction_by_two_items(ilx_api, sync_order_location_preset, conditions, delete_shipto):
     ilx_api.testrail_case_id = conditions["testrail_case_id"]
 
     LOCATION_MAX = 100
@@ -352,19 +352,19 @@ def test_split_single_transaction_with_by_two_items(ilx_api, sync_order_location
     elif (conditions["status_1"] == "DO_NOT_REORDER" and conditions["status_2"] == "DO_NOT_REORDER"):
         assert transactions["entities"][0]["reorderQuantity"] == conditions["quantity_1"]
         assert transactions["entities"][0]["shippedQuantity"] == 0
-        assert transactions["entities"][0]["backorderedItemId"] == None
+        assert transactions["entities"][0]["backorderedItemId"] == transactions["entities"][1]["id"]
         assert transactions["entities"][1]["reorderQuantity"] == conditions["quantity_2"]
         assert transactions["entities"][1]["shippedQuantity"] == 0
     elif (conditions["status_1"] == "DO_NOT_REORDER" and conditions["status_2"] in ("SHIPPED", "DELIVERED")):
         assert transactions["entities"][0]["reorderQuantity"] == conditions["quantity_1"]
         assert transactions["entities"][0]["shippedQuantity"] == 0
-        assert transactions["entities"][0]["backorderedItemId"] == None
+        assert transactions["entities"][0]["backorderedItemId"] == transactions["entities"][1]["id"]
         assert transactions["entities"][1]["reorderQuantity"] == 0
         assert transactions["entities"][1]["shippedQuantity"] == conditions["quantity_2"]
     elif (conditions["status_1"] in ("SHIPPED", "DELIVERED") and conditions["status_2"] == "DO_NOT_REORDER"):
         assert transactions["entities"][0]["reorderQuantity"] == LOCATION_MAX
         assert transactions["entities"][0]["shippedQuantity"] == conditions["quantity_1"]
-        assert transactions["entities"][0]["backorderedItemId"] == None
+        assert transactions["entities"][0]["backorderedItemId"] == transactions["entities"][1]["id"]
         assert transactions["entities"][1]["reorderQuantity"] == conditions["quantity_2"]
         assert transactions["entities"][1]["shippedQuantity"] == 0
     else:
@@ -415,7 +415,7 @@ def test_split_single_transaction_with_by_two_items(ilx_api, sync_order_location
     },
     ])
 @pytest.mark.erp
-def test_split_single_transaction_with_by_three_items_reorder_controls(ilx_api, sync_order_location_preset, conditions, delete_shipto):
+def test_split_single_transaction_by_three_items_reorder_controls(ilx_api, sync_order_location_preset, conditions, delete_shipto):
     ilx_api.testrail_case_id = conditions["testrail_case_id"]
 
     LOCATION_MAX = 100
@@ -523,7 +523,7 @@ def test_update_external_order_id_by_sales_order_status(ilx_api, sync_order_loca
     rla = ReplenishmentListApi(ilx_api)
     ma = MocksApi(ilx_api)
 
-    preset = sync_order_location_preset(ilx_api, sync_endpoint="salesOrdersStatus")
+    preset = sync_order_location_preset(ilx_api, sync_endpoint="salesOrdersStatus", disable_reorder_controls=True)
     transaction_id = preset["transaction"]["transaction_id"]
     sku = preset["product"]["partSku"]
     items = [{
