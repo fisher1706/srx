@@ -1,7 +1,7 @@
-import random
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.customer_api import CustomerApi
 from src.api.setups.setup_customer import SetupCustomer
+from src.api.distributor.location_api import LocationApi
 
 def test_bulk_delete_shiptos(api):
     sa = ShiptoApi(api)
@@ -30,3 +30,11 @@ def test_bulk_delete_customers(api):
                 ca.delete_customer(customer["id"])
             except:
                 print("FAIL")
+
+def test_bulk_update_locations_ohi(api):
+    la = LocationApi(api)
+    shipto_id = 84769
+    customer_id = 5360
+    locations = la.get_locations(shipto_id=shipto_id, customer_id=customer_id)
+    for location in locations:
+        la.update_location([location], shipto_id=shipto_id, customer_id=customer_id)
