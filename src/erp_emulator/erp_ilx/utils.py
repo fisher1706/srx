@@ -1,4 +1,4 @@
-# C0304: Trailing newlines (trailing-newlines)
+# pylint: disable=C0301, C0114,  C0116
 
 def get_generation(number, status):
     return {

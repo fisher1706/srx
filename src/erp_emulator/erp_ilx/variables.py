@@ -1,4 +1,4 @@
-# pylint: disable=C0304
+# pylint: disable=C0304, C0114
 
 data_case_1 = [
     {"trans": "XX-1"}, {"qnt": 10}, {"status": "PickUpNow"},
