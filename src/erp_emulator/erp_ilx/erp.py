@@ -3,8 +3,8 @@
 from __main__ import app #pylint: disable=E0611
 from flask import request
 
-from utils import create_data_order #pylint: disable=E0401
-from variables import * #pylint: disable=E0401,W0401
+from .utils import create_data_order #pylint: disable=E0401
+from .variables import * #pylint: disable=E0401,W0401
 
 
 @app.route('/external-api/test-full2/test-full2/vmilistsync', methods=['GET'])
