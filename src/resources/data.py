@@ -93,7 +93,7 @@ class Data():
         self.shipto_id = "3"
         self.checkout_group_id = "1"
         self.checkout_user_id = "3"
-        self.customer_user_id = "9"
+        self.customer_user_id = "2"
         self.passcode = "AUTOTEST"
         self.customer_user_passcode = "PSCD"
         self.customer_user_first_name = "dprovorov"

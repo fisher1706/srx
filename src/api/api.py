@@ -96,8 +96,8 @@ class API():
             "Accept":"application/json"
         }
         if additional_headers is not None:
-            headers.update(additional_headers, timeout=timeout)
-        return requests.get(url, headers=headers, params=params)
+            headers.update(additional_headers)
+        return requests.get(url, headers=headers, params=params, timeout=timeout)
 
     def send_delete(self, url, token, additional_headers=None, timeout=90):
         headers = {
