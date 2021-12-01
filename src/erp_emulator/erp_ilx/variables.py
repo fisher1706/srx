@@ -1,3 +1,5 @@
+# pylint: disable=C0304
+
 data_case_1 = [
     {"trans": "XX-1"}, {"qnt": 10}, {"status": "PickUpNow"},
                ]
@@ -65,6 +67,3 @@ data_case_12 = [
     {"trans": "XX-2"}, {"qnt": 60}, {"status": "Invoice"},
     {"trans": "XX-2"}, {"qnt": 30}, {"status": "PickUpNow"}
                 ]
-
-
-

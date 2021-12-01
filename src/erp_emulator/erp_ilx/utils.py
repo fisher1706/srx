@@ -1,7 +1,8 @@
+# C0304: Trailing newlines (trailing-newlines)
 
-def get_generation(id, status):
+def get_generation(number, status):
     return {
-        "generationId": id,
+        "generationId": number,
         "billToId": 12625,
         "priceBranch": "12",
         "shipBranch": "10",
@@ -66,9 +67,3 @@ if __name__ == '__main__':
     x, y = create_data_order(data)
     print(x)
     print(y)
-
-
-
-
-
-
