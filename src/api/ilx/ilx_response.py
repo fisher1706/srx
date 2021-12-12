@@ -1,3 +1,7 @@
+from src.api.api import API
+from context import Context
+from src.resources.local_credentials import LocalCredentials
+
 
 class Response:
     def __init__(self, response):
@@ -13,6 +17,8 @@ class Response:
         schema.parse_obj(self.response_json)
 
     def validate_response_data(self, order_data):
+        print(f"\nOrder data:{order_data}")
+
         assert len(self.data) == len(order_data)
 
         next_ordered = list()
@@ -42,6 +48,15 @@ class Response:
                 assert ordered == next_ordered[number - 1], f'incorrect status for {self.data[number].get("id")}'
 
     def __str__(self):
-        return f"Status code: {self.response_status}"\
-               f"\nRequested url: {self.response.url}"\
-               f"\nResponse body: {self.response_json}"
+        return f"\nStatus code: {self.response_status}" \
+               f"\nRequested url: {self.response.url}" \
+               f"\nResponse body: {self.response_json}" \
+
+
+
+
+
+if __name__ == '__main__':
+    cont = Context()
+
+    print(cont.__dict__)
