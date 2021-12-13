@@ -3,7 +3,7 @@ class URL():
         self.environment = environment
         if self.environment is None:
             self.environment = 'qa'
-        if self.environment in ('dev', 'staging', 'prod', 'qa'):
+        if self.environment in ('dev', 'staging', 'prod', 'qa', 'tenant'):
             self.admin_portal = self.get_url_for_env("storeroomlogix.com", "admin")
             self.auth_portal = self.get_url_for_env("storeroomlogix.com", "auth")
             self.distributor_portal = self.get_url_for_env("storeroomlogix.com", "distributor")
@@ -15,20 +15,28 @@ class URL():
             raise IOError("Incorrect environment")
 
     def get_url_for_env(self, url, portal):
-        switcher = {
-            'dev': f"https://{portal}.dev.{url}",
-            'staging': f"https://{portal}.staging.{url}",
-            'prod': f"https://{portal}.{url}",
-            'qa': f"https://{portal}.qa.{url}"
-        }
-        return switcher.get(self.environment)
+        if self.environment != "tenant":
+            switcher = {
+                'dev': f"https://{portal}.dev.{url}",
+                'staging': f"https://{portal}.staging.{url}",
+                'prod': f"https://{portal}.{url}",
+                'qa': f"https://{portal}.qa.{url}",
+            }
+            return switcher.get(self.environment)
+        if portal in ("admin", "checkout"):
+            return f"https://{portal}.tenant.{url}"
+        elif portal == "next.checkout":
+            return f"https://app-tenant.{url}/checkout"
+        else:
+            return f"https://app-tenant.{url}/{portal}"
 
     def get_api_url_for_env(self, url):
         switcher = {
             'dev': f"https://api-dev.storeroomlogix.com{url}",
             'staging': f"https://api-staging.storeroomlogix.com{url}",
             'prod': f"https://api-prod.storeroomlogix.com{url}",
-            'qa': f"https://api-qa.storeroomlogix.com{url}"
+            'qa': f"https://api-qa.storeroomlogix.com{url}",
+            'tenant': f"https://api-tenant.storeroomlogix.com{url}"
         }
         return switcher.get(self.environment)
 

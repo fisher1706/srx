@@ -74,6 +74,7 @@ class Locator():
     xpath_complete_button = "//button/span[text()='Complete']"
     xpath_sign_out = "//div[text()='Sign Out']"
     xpath_reset_password = "//div[text()='Reset password']"
+    xpath_actions_button = "//button[@data-testid='sticky-last-more-button']"
 
     @staticmethod
     def xpath_by_count(xpath, count):

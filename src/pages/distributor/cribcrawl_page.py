@@ -8,7 +8,7 @@ class CribcrawlPage(DistributorPortalPage):
             customer_id = self.data.customer_id
         if shipto_id is None:
             shipto_id = self.data.shipto_id
-        self.follow_url(self.url.get_url_for_env(f"storeroomlogix.com/customers/{customer_id}/shiptos/{shipto_id}#cribcrawl-list", "distributor"))
+        self.follow_url(f"{self.url.distributor_portal}/customers/{customer_id}/shiptos/{shipto_id}#cribcrawl-list")
 
     def check_last_cribcrawl(self, cribcrawl_body):
         self.open_last_page()
