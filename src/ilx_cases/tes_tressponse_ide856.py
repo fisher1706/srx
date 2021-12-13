@@ -23,8 +23,8 @@ def generate_test_files(number, test_type):
 
     for i in range(number):
         file_name, data = GenerateIDE856.generate_data_edi_856_rtf(test_type)
-        test_data.append([v for k, v in data.items() if k in [3, 8, 15, 18]])
         Utils.create_rtf_file(settings.PATH_RTF_OUT, file_name, data)
+        test_data.append([v for k, v in data.items() if k in [3, 8, 15, 18]])
 
     Utils.upload_sftp_files(settings.HOST_EDI856, settings.USERNAME_EDI856, settings.PASSWORD_EDI856,
                             settings.PATH_RTF_OUT, settings.INBOX_EDI856)
@@ -45,10 +45,8 @@ def test_response_ide_856(number, test_type, generate_test_files):
 
     for data in test_data:
         case = data[1].split('*')[2]
-        print(case)
         headers = {'Authorization': settings.token}
         resp = requests.get(url=Utils.generate_url(settings.url, case=case), headers=headers)
-        print(resp)
         response = Response(resp)
         if test_type == 'pass':
             response.validate_response_schema(ValidatorIDE)

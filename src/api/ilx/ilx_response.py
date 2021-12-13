@@ -1,8 +1,3 @@
-from src.api.api import API
-from context import Context
-from src.resources.local_credentials import LocalCredentials
-
-
 class Response:
     def __init__(self, response):
         self.response = response
@@ -47,6 +42,11 @@ class Response:
             if number > 0:
                 assert ordered == next_ordered[number - 1], f'incorrect status for {self.data[number].get("id")}'
 
+    def validate_response_edi(self, edi_data):
+        assert self.data[0].get('id') == edi_data[0].split('*')[2]
+        assert self.data[0].get('poNumber') == edi_data[2].split('*')[1]
+        assert self.data[0].get('items')[0].get('quantity') == edi_data[3].split('*')[2]
+
     def __str__(self):
         return f"\nStatus code: {self.response_status}" \
                f"\nRequested url: {self.response.url}" \
@@ -56,7 +56,11 @@ class Response:
 
 
 
-if __name__ == '__main__':
-    cont = Context()
 
-    print(cont.__dict__)
+
+
+
+
+
+
+

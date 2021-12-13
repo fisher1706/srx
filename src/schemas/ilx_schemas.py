@@ -24,3 +24,27 @@ class Response(BaseModel):
 
 class Validator(BaseModel):
     response: List[Response]
+
+
+class ItemsIDE(BaseModel):
+    quantity: str
+
+
+class ResponseIDE(BaseModel):
+    transactionType: str
+    id: str
+    items: List[ItemsIDE]
+    poNumber: str
+
+
+class ValidatorIDE(BaseModel):
+    response: List[ResponseIDE]
+
+
+
+
+
+
+
+
+
