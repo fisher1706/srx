@@ -1,14 +1,16 @@
 import boto3
 from src.resources.tools import Tools
 
+
 class AWS():
     'The parent class for all AWS services'
+
     def __init__(self, context):
         self.context = context
         self.logger = context.logger
         self.url = context.session_context.url
         self.data = context.data
-        if not context.session_context.credentials:
+        if not context.session_context.cred:
             credentials = Tools.get_dto("creds.json", path="/output/")
             access_key_id = credentials["Credentials"]["AccessKeyId"]
             secret_access_key = credentials["Credentials"]["SecretAccessKey"]

@@ -2,6 +2,7 @@ from flask import request
 from __main__ import app #pylint: disable=E0611
 from state import State #pylint: disable=E0401
 
+
 @app.route('/')
 def home():
     return "<h1>This is ILX mock server for automation tests<h1>"
