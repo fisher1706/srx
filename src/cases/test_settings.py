@@ -11,7 +11,7 @@ def test_document_import(ui):
     sp = SettingsPage(ui)
 
     lp.log_in_distributor_portal()
-    sp.follow_url(ui.session_context.url.get_url_for_env("storeroomlogix.com/profile#pricing", "distributor"))
+    sp.follow_url(f"{ui.session_context.url.distributor_portal}/profile#pricing")
     sp.import_document()
     sp.delete_last_document()
 
