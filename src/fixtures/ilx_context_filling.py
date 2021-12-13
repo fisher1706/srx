@@ -3,7 +3,6 @@ import time
 import pytest
 from ilx_context import IlxContext, IlxSessionContext
 from src.resources.ilx_data import IlxData
-from src.resources.logger import Logger
 from src.resources.testrail import Testrail
 
 @pytest.fixture(scope="session")
