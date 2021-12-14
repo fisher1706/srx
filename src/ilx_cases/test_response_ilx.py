@@ -6,6 +6,7 @@ from src.erp_emulator.erp_ilx import variables
 from src.schemas.ilx_schemas import Validator
 from src.utilities.ilx_utils import Utils
 
+
 @pytest.mark.ilx
 @pytest.mark.parametrize('case, data_case, testrail_case_id', [
     ('case1', variables.data_case_1, 10084),
@@ -22,11 +23,14 @@ from src.utilities.ilx_utils import Utils
 def test_response_ilx_sale_order_v2(ilx_context, case, data_case, testrail_case_id):
     ilx_context.ilx_testrail_case_id = testrail_case_id
 
+    # ilx_context.ilx_data.
+
     headers = {'Authorization': ilx_context.ilx_auth_token}
     resp = requests.get(url=Utils.generate_url(ilx_context.ilx_data.ilx_url, case=case), headers=headers)
+
     response = Response(resp)
-    print(response.response_json)
-    assert response.response_status == 200, str(response.response_json)
+    response.assert_response_status(200)
     response.validate_response_schema(Validator)
     response.validate_response_data(data_case)
+
     print(response.__str__())

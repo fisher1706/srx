@@ -5,18 +5,19 @@ from ilx_context import IlxContext, IlxSessionContext
 from src.resources.ilx_data import IlxData
 from src.resources.testrail import Testrail
 
+
 @pytest.fixture(scope="session")
 def ilx_session_context(request):
     ilx_session_context_object = IlxSessionContext()
 
-    #main args
+    # main args
     ilx_session_context_object.ilx_credentials = request.config.getoption("ilx_credentials")
     ilx_session_context_object.ilx_environment = request.config.getoption("ilx_environment")
     ilx_session_context_object.ilx_base_data = IlxData(ilx_session_context_object.ilx_environment)
 
-    #credentials
+    # credentials
     if ilx_session_context_object.ilx_credentials:
-        #base credentials
+        # base credentials
         ilx_session_context_object.ilx_auth_token = request.config.getoption("ilx_auth_token")
         ilx_session_context_object.ilx_testrail_email = request.config.getoption("testrail_email")
         ilx_session_context_object.ilx_testrail_password = request.config.getoption("testrail_password")
@@ -25,23 +26,36 @@ def ilx_session_context(request):
         from src.resources.ilx_local_credentials import IlxLocalCredentials
         creds = IlxLocalCredentials(ilx_session_context_object.ilx_environment)
 
-        #base credentials
-        ilx_session_context_object.ilx_auth_token = creds.ilx_auth_token
+        # base credentials
         ilx_session_context_object.ilx_testrail_email = creds.ilx_testrail_email
         ilx_session_context_object.ilx_testrail_password = creds.ilx_testrail_password
 
+        ilx_session_context_object.ilx_auth_token = creds.ilx_auth_token
+
+        ilx_session_context_object.edi_856_auth_token = creds.edi_856_auth_token
+        ilx_session_context_object.USERNAME_EDI856 = creds.USERNAME_EDI856
+        ilx_session_context_object.PASSWORD_EDI856 = creds.PASSWORD_EDI856
+
     return ilx_session_context_object
+
 
 @pytest.fixture(scope="function")
 def ilx_context(ilx_session_context, request):
     ilx_context_object = IlxContext()
     ilx_context_object.ilx_session_context = ilx_session_context
     ilx_context_object.ilx_data = ilx_context_object.ilx_session_context.ilx_base_data
+
     ilx_context_object.ilx_testrail_run_id = 282
+
     ilx_context_object.ilx_auth_token = ilx_session_context.ilx_auth_token
+
+    ilx_context_object.edi_856_auth_token = ilx_session_context.edi_856_auth_token
+    ilx_context_object.PASSWORD_EDI856 = ilx_session_context.PASSWORD_EDI856
+    ilx_context_object.USERNAME_EDI856 = ilx_session_context.USERNAME_EDI856
 
     yield ilx_context_object
     testrail(request, ilx_context_object)
+
 
 def testrail(request, ilx_context):
     if ilx_context.ilx_testrail_case_id is not None:
@@ -56,11 +70,14 @@ def testrail(request, ilx_context):
                 ilx_context.ilx_testrail_status_id = 1
                 ilx_context.ilx_testrail_comment = "[PYTEST] Test passed"
             else:
-                raise Exception(f"Failed call: {request.node.rep_setup.failed}; Passed call: {request.node.rep_setup.passed}")
+                raise Exception(
+                    f"Failed call: {request.node.rep_setup.failed}; Passed call: {request.node.rep_setup.passed}")
         else:
-            raise Exception(f"Failed setup: {request.node.rep_setup.failed}; Passed setup: {request.node.rep_setup.passed}")
+            raise Exception(
+                f"Failed setup: {request.node.rep_setup.failed}; Passed setup: {request.node.rep_setup.passed}")
 
-        testrail = Testrail(ilx_context.ilx_session_context.ilx_testrail_email, ilx_context.ilx_session_context.ilx_testrail_password)
+        testrail = Testrail(ilx_context.ilx_session_context.ilx_testrail_email,
+                            ilx_context.ilx_session_context.ilx_testrail_password)
         retries = 3
         for iteration in range(retries):
             time.sleep(iteration)
@@ -70,7 +87,7 @@ def testrail(request, ilx_context):
                                                     ilx_context.ilx_testrail_comment)
             if response.status_code == 500:
                 if iteration + 1 < retries:
-                    print(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
+                    print(f"Cannot connect to the testRail API. Next attempt after {iteration + 1} seconds")
                 continue
             if response.status_code > 201 and response.status_code != 500:
                 error = str(response.content)
