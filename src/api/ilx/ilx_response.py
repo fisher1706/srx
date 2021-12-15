@@ -1,3 +1,5 @@
+#pylint: disable=C0200, C0305
+
 class Response:
     def __init__(self, response):
         self.response = response

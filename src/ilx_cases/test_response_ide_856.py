@@ -1,3 +1,5 @@
+#pylint: disable=C0305
+
 import time
 import pytest
 import requests
@@ -17,7 +19,7 @@ def test_response_ide_856(ilx_context, number, test_type, testrail_case_id):
     Utils.cleaner(ilx_context.ilx_data.PATH_OUT)
     test_data = list()
 
-    for i in range(number):
+    for _ in range(number):
         file_name, data = GenerateIDE856.generate_data_edi_856_rtf(test_type)
         Utils.create_rtf_file(ilx_context.ilx_data.PATH_OUT, file_name, data)
         test_data.append([v for k, v in data.items() if k in [3, 8, 15, 18]])

@@ -1,4 +1,7 @@
+#pylint: disable=C0103
+
 class IlxData:
+
     'The class contains the predefined data using in regression tests'
 
     def __init__(self, environment):

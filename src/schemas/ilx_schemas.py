@@ -1,4 +1,4 @@
-#pylint: disable=E0611,W0105
+#pylint: disable=E0611,W0105,C0305
 
 from typing import List
 from pydantic import BaseModel

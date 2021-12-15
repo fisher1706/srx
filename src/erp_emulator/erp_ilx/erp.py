@@ -1,10 +1,10 @@
-# pylint: disable=C0301, C0114,  C0116
+# pylint: disable=C0301,C0114,C0116,W0614
 
-from __main__ import app #pylint: disable=E0611
+from __main__ import app  # pylint: disable=E0611
 from flask import request
 
-from .utils import create_data_order #pylint: disable=E0401
-from .variables import * #pylint: disable=E0401,W0401
+from .utils import create_data_order  # pylint: disable=E0401
+from .variables import *  # pylint: disable=E0401,W0401
 
 
 @app.route('/external-api/test-full2/test-full2/vmilistsync', methods=['GET'])
@@ -96,7 +96,7 @@ def get_full2():
 
 
 @app.route('/external-api/test-full2/test-full2/SalesOrdersV2/<order_id>', methods=['GET'])
-def get_order(order_id): #pylint: disable=R0911
+def get_order(order_id):  # pylint: disable=R0911
     response = {
         "updateKey": "BDE70949B9362887889DD492808EA2B3",
         "id": order_id
@@ -107,80 +107,73 @@ def get_order(order_id): #pylint: disable=R0911
     }
 
     if order_id == "case1":
-        generations, lines = create_data_order(data_case_1) #pylint: disable=E0602
+        generations, lines = create_data_order(data_case_1)  # pylint: disable=E0602
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case2":
-        generations, lines = create_data_order(data_case_2) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_2)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case3":
-        generations, lines = create_data_order(data_case_3) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_3)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case4":
-        generations, lines = create_data_order(data_case_4) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_4)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case5":
-        generations, lines = create_data_order(data_case_5) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_5)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case6":
-        generations, lines = create_data_order(data_case_6) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_6)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case7":
-        generations, lines = create_data_order(data_case_7) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_7)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case8":
-        generations, lines = create_data_order(data_case_8) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_8)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case10":
-        generations, lines = create_data_order(data_case_10) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_10)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     if order_id == "case11":
-        generations, lines = create_data_order(data_case_11) #pylint: disable=E0602:
+        generations, lines = create_data_order(data_case_11)  # pylint: disable=E0602:
         response["generations"] = generations
         response["lines"] = lines
 
-        return response #pylint: disable=R0911
-
-    if order_id == "case12":
-        generations, lines = create_data_order(data_case_12) #pylint: disable=E0602:
-        response["generations"] = generations
-        response["lines"] = lines
-
-        return response #pylint: disable=R0911
+        return response  # pylint: disable=R0911
 
     return error_response, 400
