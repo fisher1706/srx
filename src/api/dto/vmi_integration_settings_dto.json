@@ -1,16 +1,17 @@
 {
-    "useErpApi": false,
-    "manual": true,
-    "importing": true,
+    "cribCrawlAutoSequenceLocation": false,
+    "max": 2,
     "interval": "DAILY",
-    "time": "00:00",
+    "manual": true,
     "dayOfWeek": "MONDAY",
     "zoneId": "America/New_York",
     "autoValidation": false,
-    "cribCrawlAutoSequenceLocation": false,
-    "autoDeletion": false,
+    "time": "00:00",
     "triggerType": "LABEL",
     "min": 1,
-    "max": 2,
-    "emails": "vmisync@agilevision.io"
+    "emails": "test@agilevision.io",
+    "useDefault": false,
+    "importing": true,
+    "autoDeletion": false,
+    "useErpApi": false
 }
