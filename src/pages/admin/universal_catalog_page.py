@@ -10,7 +10,8 @@ class UniversalCatalogPage(AdminPortalPage):
         "upc": None
     }
 
-    def remapping_to_table_keys(self, body):
+    @classmethod
+    def remapping_to_table_keys(cls, body):
         new_body = {
             "UPC": body["upc"],
             "GTIN": body["gtin"],

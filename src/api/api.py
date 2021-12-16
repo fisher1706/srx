@@ -9,7 +9,8 @@ class API():
         self.url = context.session_context.url
         self.data = context.data
 
-    def get_token(self, username, password, pool_id, client_id):
+    @classmethod
+    def get_token(cls, username, password, pool_id, client_id):
         aws = AWSSRP(username=username, password=password, pool_id=pool_id, client_id=client_id, pool_region='us-east-1')
         tokens = aws.authenticate_user()
         return tokens['AuthenticationResult']['IdToken']
@@ -23,7 +24,10 @@ class API():
                 username = self.context.distributor_email
             if password is None:
                 password = self.context.distributor_password
-            self.context.distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id)
+            self.context.distributor_token = self.get_token(username,
+                                                            password,
+                                                            self.context.session_context.cognito_user_pool_id,
+                                                            self.context.session_context.cognito_client_id)
         return self.context.distributor_token
 
     def get_mobile_distributor_token(self, username=None, password=None):
@@ -32,7 +36,10 @@ class API():
                 username = self.context.distributor_email
             if password is None:
                 password = self.context.distributor_password
-            self.context.mobile_distributor_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_mobile_client_id)
+            self.context.mobile_distributor_token = self.get_token(username,
+                                                                   password,
+                                                                   self.context.session_context.cognito_user_pool_id,
+                                                                   self.context.session_context.cognito_mobile_client_id)
         return self.context.mobile_distributor_token
 
     def get_customer_token(self, username=None, password=None):
@@ -41,7 +48,10 @@ class API():
                 username = self.context.customer_email
             if password is None:
                 password = self.context.customer_password
-            self.context.customer_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_client_id)
+            self.context.customer_token = self.get_token(username,
+                                                         password,
+                                                         self.context.session_context.cognito_user_pool_id,
+                                                         self.context.session_context.cognito_client_id)
         return self.context.customer_token
 
     def get_admin_token(self):
@@ -58,7 +68,10 @@ class API():
                 username = self.context.customer_email
             if password is None:
                 password = self.context.customer_password
-            self.context.checkout_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
+            self.context.checkout_token = self.get_token(username,
+                                                         password,
+                                                         self.context.session_context.cognito_user_pool_id,
+                                                         self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_token
 
     def get_checkout_group_token(self, username=None, password=None):
@@ -67,7 +80,10 @@ class API():
                 username = self.context.checkout_group_email
             if password is None:
                 password = self.context.checkout_group_password
-            self.context.checkout_group_token = self.get_token(username, password, self.context.session_context.cognito_user_pool_id, self.context.session_context.cognito_checkout_client_id)
+            self.context.checkout_group_token = self.get_token(username,
+                                                               password,
+                                                               self.context.session_context.cognito_user_pool_id,
+                                                               self.context.session_context.cognito_checkout_client_id)
         return self.context.checkout_group_token
 
     def get_mobile_or_base_token(self, mobile):
@@ -75,7 +91,8 @@ class API():
             return self.get_mobile_distributor_token()
         return self.get_distributor_token()
 
-    def send_post(self, url, token, data=None, additional_headers=None, params=None, timeout=90):
+    @classmethod
+    def send_post(cls, url, token, data=None, additional_headers=None, params=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -89,7 +106,8 @@ class API():
             post_data = data
         return requests.post(url, headers=headers, params=params, data=post_data, timeout=timeout)
 
-    def send_get(self, url, token, params=None, additional_headers=None, timeout=90):
+    @classmethod
+    def send_get(cls, url, token, params=None, additional_headers=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -99,7 +117,8 @@ class API():
             headers.update(additional_headers)
         return requests.get(url, headers=headers, params=params, timeout=timeout)
 
-    def send_delete(self, url, token, additional_headers=None, timeout=90):
+    @classmethod
+    def send_delete(cls, url, token, additional_headers=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
@@ -109,7 +128,8 @@ class API():
             headers.update(additional_headers)
         return requests.delete(url, headers=headers, timeout=timeout)
 
-    def send_put(self, url, token, data=None, additional_headers=None, timeout=90):
+    @classmethod
+    def send_put(cls, url, token, data=None, additional_headers=None, timeout=90):
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",

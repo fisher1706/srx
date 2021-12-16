@@ -32,14 +32,6 @@ class AllocationCodesPage(CustomerPortalPage):
                 element.send_keys(value)
                 element.send_keys(Keys.ENTER)
 
-    def is_required(self, condition):
-        if condition is not None:
-            if condition:
-                return "Yes"
-            if not condition:
-                return "No"
-            return None
-
     def check_allocation_code(self, allocation_code_body):
         table_cells = {
             "Name": allocation_code_body["name"],

@@ -21,7 +21,8 @@ class ActivityLogApi(API):
         response_json = response.json()
         return response_json["data"]
 
-    def check_event(self, event, options):
+    @classmethod
+    def check_event(cls, event, options):
         if options.get("action") is not None:
             assert event["content"]["entities"][0]["action"] == options["action"], f"Action should be: {options['action']}, but it is {event['content']['entities'][0]['action']}"
         if options.get("event_type") is not None:

@@ -3,7 +3,7 @@ class URL():
         self.environment = environment
         if self.environment is None:
             self.environment = 'qa'
-        if self.environment in ('dev', 'staging', 'prod', 'qa', 'tenant'):
+        if self.environment in ('dev', 'staging', 'prod', 'qa'):
             self.admin_portal = self.get_url_for_env("storeroomlogix.com", "admin")
             self.auth_portal = self.get_url_for_env("storeroomlogix.com", "auth")
             self.distributor_portal = self.get_url_for_env("storeroomlogix.com", "distributor")
@@ -25,29 +25,15 @@ class URL():
             return switcher.get(self.environment)
         if portal in ("admin", "checkout"):
             return f"https://{portal}.tenant.{url}"
-        elif portal == "next.checkout":
+        if portal == "next.checkout":
             return f"https://app-tenant.{url}/checkout"
-        else:
-            return f"https://app-tenant.{url}/{portal}"
+        return f"https://app-tenant.{url}/{portal}"
 
     def get_api_url_for_env(self, url):
-        switcher = {
-            'dev': f"https://api-dev.storeroomlogix.com{url}",
-            'staging': f"https://api-staging.storeroomlogix.com{url}",
-            'prod': f"https://api-prod.storeroomlogix.com{url}",
-            'qa': f"https://api-qa.storeroomlogix.com{url}",
-            'tenant': f"https://api-tenant.storeroomlogix.com{url}"
-        }
-        return switcher.get(self.environment)
+        return f"https://api-{self.environment}.storeroomlogix.com{url}"
 
     def get_ip_url(self, url):
         return f"{self.ilx_mocks}{url}"
 
     def get_iothub_api_url_for_env(self, url):
-        switcher = {
-            'dev': f"https://iothub-api.storeroomlogix.com/dev{url}",
-            'staging': f"https://iothub-api.storeroomlogix.com/staging{url}",
-            'prod': f"https://iothub-api.storeroomlogix.com/prod{url}",
-            'qa': f"https://iothub-api.storeroomlogix.com/qa{url}"
-        }
-        return switcher.get(self.environment)
+        return f"https://iothub-api.storeroomlogix.com/{self.environment}{url}"

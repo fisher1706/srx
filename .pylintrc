@@ -11,10 +11,8 @@ disable=
     W0702, #bare-except
     R1702, #too-many-nested-blocks
     R1710, #inconsistent-return-statements
-    R0201, #no-self-use
     C0302, #too-many-lines
     R0904, #too-many-public-methods
-    C0201, #consider-iterating-dictionary
     R1734, #use-list-literal
     R1735, #use-dict-literal
     R0903, #too-few-public-methods
