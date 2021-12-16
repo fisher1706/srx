@@ -1,8 +1,10 @@
 import boto3
 from src.resources.tools import Tools
 
+
 class AWS():
     'The parent class for all AWS services'
+
     def __init__(self, context):
         self.context = context
         self.logger = context.logger

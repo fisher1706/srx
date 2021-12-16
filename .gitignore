@@ -17,3 +17,6 @@ local_staging_get_mobile_token.py
 format.json
 output
 .idea
+.outbox
+.inbox
+

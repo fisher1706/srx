@@ -5,6 +5,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 pytest_plugins = [
     "src.fixtures.context_filling",
+    "src.fixtures.ilx_context_filling",
     "src.fixtures.high_level_contexts",
     "src.fixtures.api_teardowns",
     "src.fixtures.presets"
@@ -84,6 +85,22 @@ def pytest_addoption(parser):
                      help="Enter cognito_checkout_client_id")
     parser.addoption('--cognito_mobile_client_id', action='store', default=None,
                      help="Enter cognito_mobile_client_id")
+
+    #ilx
+    parser.addoption('--ilx_environment', action='store', default='dev',
+                     help="Choose environment: 'dev', 'qa', 'prod'")
+    parser.addoption('--ilx_credentials', action='store', nargs='?', const=True, default=False,
+                     help="If selected, credentials will be retrieved ONLY from the command line")
+    parser.addoption('--ilx_auth_token', action='store', default=None,
+                     help="Enter ilx_auth_token")
+
+    parser.addoption('--edi_856_auth_token', action='store', default=None,
+                     help="Enter edi_856_auth_token")
+    parser.addoption('--user_name_edi_856', action='store', default=None,
+                     help="Enter user_name_edi_856")
+    parser.addoption('--password_edi_856', action='store', default=None,
+                     help="Enter password_edi_856")
+
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):
