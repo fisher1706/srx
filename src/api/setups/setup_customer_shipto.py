@@ -45,7 +45,11 @@ class SetupCustomerShipto(BaseSetup):
         self.shipto_id = oa.create_shipto(copy.deepcopy(self.shipto))
         if self.shipto_id is not None:
             #adding to both ID lists to be able to delete shiptos from different portal
-            self.context.dynamic_context["delete_shipto_id"].append(self.shipto_id)
+            shipto = {
+                    "shipto_id": self.shipto_id,
+                    "customer_id": None
+                }
+            self.context.dynamic_context["delete_shipto_id"].append(shipto)
             self.context.dynamic_context["delete_customer_shipto_id"].append(self.shipto_id)
 
     def set_checkout_settings(self):

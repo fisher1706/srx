@@ -59,6 +59,16 @@ def pytest_addoption(parser):
     parser.addoption('--permission_customer_password', action='store', default=None,
                      help="Enter password of customer user")
 
+    #SRX account for ILX mocks credentials
+    parser.addoption('--ilx_distributor_email', action='store', default=None,
+                     help="Enter email of distributor user")
+    parser.addoption('--ilx_distributor_password', action='store', default=None,
+                     help="Enter password of distributor user")
+    parser.addoption('--ilx_customer_email', action='store', default=None,
+                     help="Enter email of customer user")
+    parser.addoption('--ilx_customer_password', action='store', default=None,
+                     help="Enter password of customer user")
+
     #testrail
     parser.addoption('--testrail_email', action='store', default=None,
                      help="Enter email of testrail account")
@@ -105,11 +115,6 @@ def driver(request, session_context):
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    # execute all other hooks to obtain the report object
     outcome = yield
     rep = outcome.get_result()
-
-    # set a report attribute for each phase of a call, which can
-    # be "setup", "call", "teardown"
-
     setattr(item, "rep_" + rep.when, rep)

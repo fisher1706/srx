@@ -151,19 +151,19 @@ class SetupLocation(BaseSetup):
                 sa.update_reorder_controls_settings_shipto(settings, self.shipto_id)
                 transaction = ta.get_transaction(sku=self.product["partSku"], shipto_id=self.shipto_id)
                 transaction_id = transaction["entities"][0]["id"]
-                reorder_quhantity = transaction["entities"][0]["reorderQuantity"]
+                reorder_quantity = transaction["entities"][0]["reorderQuantity"]
 
                 if self.options["transaction"] != "ACTIVE":
-                    ta.update_replenishment_item(transaction_id, reorder_quhantity, self.options["transaction"])
+                    ta.update_replenishment_item(transaction_id, reorder_quantity, self.options["transaction"])
 
                 self.transaction = {
                     "transaction_id": transaction_id,
-                    "reorderQuantity": reorder_quhantity
+                    "reorderQuantity": reorder_quantity
                 }
 
                 self.put_away = {
                     "shipToId": self.shipto_id,
                     "partSku": self.product["partSku"],
-                    "quantity": reorder_quhantity,
+                    "quantity": reorder_quantity,
                     "transactionId": transaction_id
                 }

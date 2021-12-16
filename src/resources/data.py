@@ -8,6 +8,8 @@ class Data():
             self.staging_environment()
         elif environment == 'qa':
             self.qa_environment()
+        elif environment == 'tenant':
+            self.tenant_environment()
 
     def dev_environment(self):
         self.distributor_name = "QA-distributor"
@@ -30,11 +32,13 @@ class Data():
     def staging_environment(self):
         self.distributor_name = "QA-distributor"
         self.distributor_id = "98"
+        self.ilx_distributor_id = "832"
         self.warehouse_id = "38"
         self.sub_distributor_name = "Static Test"
         self.sub_distributor_id = 8
         self.testrail_run_id = 48
         self.mobile_testrail_run_id = 53
+        self.ilx_testrail_run_id = 278
         self.customer_name = "Static Customer"
         self.shipto_number = "2048"
         self.customer_id = "54"
@@ -53,6 +57,7 @@ class Data():
     def qa_environment(self):
         self.distributor_name = "MAIN-QA-DISTRIBUTOR"
         self.distributor_id = "4"
+        self.ilx_distributor_id = "937"
         self.warehouse_id = "4"
         self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
         self.sub_distributor_id = "5"
@@ -60,6 +65,7 @@ class Data():
         self.shipto_number = "FIRST-QA-SHIPTO"
         self.testrail_run_id = 44
         self.mobile_testrail_run_id = 54
+        self.ilx_testrail_run_id = 279
         self.customer_id = "4"
         self.shipto_id = "4"
         self.checkout_group_id = "816"
@@ -72,6 +78,27 @@ class Data():
         self.default_security_group_id = 2160
         self.email_data_bucket = "srx-email-testing-0641q-qa"
         self.ses_email = "automation_testing_email+{suffix}@mail.qa.storeroomlogix.com"
+
+    def tenant_environment(self):
+        self.distributor_name = "MAIN-QA-DISTRIBUTOR"
+        self.distributor_id = "14"
+        self.warehouse_id = "4"
+        self.sub_distributor_name = "SECOND-QA-DISTRIBUTOR"
+        self.sub_distributor_id = "15"
+        self.customer_name = "MAIN CUSTOMER"
+        self.shipto_number = "MAIN SHIPTO"
+        self.testrail_run_id = 280
+        self.mobile_testrail_run_id = 281
+        self.customer_id = "4"
+        self.shipto_id = "3"
+        self.checkout_group_id = "1"
+        self.checkout_user_id = "3"
+        self.customer_user_id = "2"
+        self.passcode = "AUTOTEST"
+        self.customer_user_passcode = "PSCD"
+        self.customer_user_first_name = "dprovorov"
+        self.customer_user_last_name = "dprovorov"
+        self.default_security_group_id = 80
 
 class SmokeData():
     'The class contains the predefined data using in smoke tests'
