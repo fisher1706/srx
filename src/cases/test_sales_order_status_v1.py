@@ -501,7 +501,7 @@ def test_split_single_transaction_by_three_items_reorder_controls(ilx_api, sync_
         assert transactions[1]["backorderedItemId"] == transactions[2]["id"]
         assert transactions[2]["reorderQuantity"] == (LOCATION_MAX - TRANSACTION_QUANTITY * 2)
         assert transactions[2]["shippedQuantity"] == TRANSACTION_QUANTITY
-        assert transactions[2]["backorderedItemId"] == None
+        assert transactions[2]["backorderedItemId"] is None
     if (conditions["status_1"] in ("SHIPPED", "DELIVERED") and conditions["status_2"] in ("SHIPPED", "DELIVERED") and conditions["status_3"] in ("QUOTED", "ORDERED")):
         assert transactions[0]["reorderQuantity"] == LOCATION_MAX
         assert transactions[0]["shippedQuantity"] == TRANSACTION_QUANTITY
@@ -510,8 +510,8 @@ def test_split_single_transaction_by_three_items_reorder_controls(ilx_api, sync_
         assert transactions[1]["shippedQuantity"] == TRANSACTION_QUANTITY
         assert transactions[1]["backorderedItemId"] == transactions[2]["id"]
         assert transactions[2]["reorderQuantity"] == TRANSACTION_QUANTITY
-        assert transactions[2]["shippedQuantity"] == None
-        assert transactions[2]["backorderedItemId"] == None
+        assert transactions[2]["shippedQuantity"] is None
+        assert transactions[2]["backorderedItemId"] is None
 
 @pytest.mark.erp
 def test_update_external_order_id_by_sales_order_status(ilx_api, sync_order_location_preset, delete_shipto):
