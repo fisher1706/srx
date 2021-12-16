@@ -1,5 +1,3 @@
-#pylint: disable=C0200, C0305
-
 class Response:
     def __init__(self, response):
         self.response = response
@@ -19,20 +17,23 @@ class Response:
         assert len(self.data) == len(order_data), f'different data between order and shipment for: {self.response_json}'
 
         next_ordered = list()
-        for number in range(len(order_data)):
-            ordered = self.data[number].get('items')[0].get('quantityOrdered')
-            shipped = self.data[number].get('items')[0].get('quantityShipped')
-            status = self.data[number].get('transactionType')
 
-            stock_qtn = order_data[number].get('qnt')
-            stock_status = order_data[number].get('status')
+        number = len(order_data)
 
-            assert shipped == stock_qtn, f'difference between data_order and data_ilx {self.data[number].get("id")}'
+        for num in range(number):
+            ordered = self.data[num].get('items')[0].get('quantityOrdered')
+            shipped = self.data[num].get('items')[0].get('quantityShipped')
+            status = self.data[num].get('transactionType')
+
+            stock_qtn = order_data[num].get('qnt')
+            stock_status = order_data[num].get('status')
+
+            assert shipped == stock_qtn, f'difference between data_order and data_ilx {self.data[num].get("id")}'
 
             if stock_status in ['Invoice']:
-                assert status == 'DELIVERED', f'incorrect status for: {self.data[number].get("id")}'
+                assert status == 'DELIVERED', f'incorrect status for: {self.data[num].get("id")}'
             else:
-                assert status == 'ORDERED', f'incorrect status for: {self.data[number].get("id")}'
+                assert status == 'ORDERED', f'incorrect status for: {self.data[num].get("id")}'
 
             delta = ordered - shipped
 
@@ -41,8 +42,8 @@ class Response:
             else:
                 next_ordered.append(0)
 
-            if number > 0:
-                assert ordered == next_ordered[number - 1], f'incorrect quantity for: {self.data[number].get("id")}'
+            if num > 0:
+                assert ordered == next_ordered[num - 1], f'incorrect quantity for: {self.data[num].get("id")}'
 
     def validate_response_edi(self, edi_data):
         assert self.data[0].get('id') == edi_data[0].split('*')[2], f'incorrect id for: {self}'
@@ -54,16 +55,4 @@ class Response:
         return f"\nStatus code: {self.response_status}" \
                f"\nRequested url: {self.response.url}" \
                f"\nResponse body: {self.response_json}" \
-
-
-
-
-
-
-
-
-
-
-
-
 

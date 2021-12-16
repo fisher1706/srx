@@ -1,5 +1,3 @@
-#pylint: disable=C0103
-
 class IlxData:
 
     'The class contains the predefined data using in regression tests'
@@ -21,13 +19,13 @@ class IlxData:
         self.edi_856_url = 'https://api.dev.integrationlogix.com/external-api/' \
                            '12bf8a81-6dd6-4611-b407-368aabcc11f0/test_edi/salesOrdersStatus'
 
-        self.PATH_OUT = '/home/oleg/PycharmProjects/srx-robot/src/ilx_cases/outbox/'
-        self.PATH_IN = '.src/ilx_cases/inbox/'
+        self.path_out = '/home/oleg/PycharmProjects/srx-robot/src/ilx_cases/outbox/'
+        self.path_in = '.src/ilx_cases/inbox/'
 
-        self.HOST_EDI856 = 'ftps.dev.integrationlogix.com'
-        self.INBOX_EDI856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Inbox/'
-        self.REJECTED_EDI856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Rejected/'
-        self.OUTBOX_EDI856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Outbox/'
+        self.host_edi_856 = 'ftps.dev.integrationlogix.com'
+        self.inbox_edi_856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Inbox/'
+        self.reject_edi_856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Rejected/'
+        self.outbox_edi_856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Outbox/'
 
     def prod_environment(self):
         pass

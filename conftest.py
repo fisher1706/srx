@@ -94,6 +94,14 @@ def pytest_addoption(parser):
     parser.addoption('--ilx_auth_token', action='store', default=None,
                      help="Enter ilx_auth_token")
 
+    parser.addoption('--edi_856_auth_token', action='store', default=None,
+                     help="Enter edi_856_auth_token")
+    parser.addoption('--user_name_edi_856', action='store', default=None,
+                     help="Enter user_name_edi_856")
+    parser.addoption('--password_edi_856', action='store', default=None,
+                     help="Enter password_edi_856")
+
+
 @pytest.fixture(scope="function")
 def driver(request, session_context):
     browser_name = session_context.browser_name

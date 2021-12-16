@@ -10,7 +10,7 @@ class AWS():
         self.logger = context.logger
         self.url = context.session_context.url
         self.data = context.data
-        if not context.session_context.cred:
+        if not context.session_context.credentials:
             credentials = Tools.get_dto("creds.json", path="/output/")
             access_key_id = credentials["Credentials"]["AccessKeyId"]
             secret_access_key = credentials["Credentials"]["SecretAccessKey"]

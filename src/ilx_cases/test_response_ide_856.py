@@ -1,5 +1,3 @@
-# pylint: disable=C0305
-
 import time
 import pytest
 import requests
@@ -16,16 +14,16 @@ from src.utilities.ilx_utils import Utils
 def test_response_ide_856(ilx_context, number, test_type, testrail_case_id):
     ilx_context.ilx_testrail_case_id = testrail_case_id
 
-    Utils.cleaner(ilx_context.ilx_data.PATH_OUT)
+    Utils.cleaner(ilx_context.ilx_data.path_out)
     test_data = list()
 
     for _ in range(number):
         file_name, data = GenerateIDE856.generate_data_edi_856_rtf(test_type)
-        Utils.create_rtf_file(ilx_context.ilx_data.PATH_OUT, file_name, data)
+        Utils.create_rtf_file(ilx_context.ilx_data.path_out, file_name, data)
         test_data.append([v for k, v in data.items() if k in [3, 8, 15, 18]])
 
-    Utils.upload_sftp_files(ilx_context.ilx_data.HOST_EDI856, ilx_context.USERNAME_EDI856, ilx_context.PASSWORD_EDI856,
-                            ilx_context.ilx_data.PATH_OUT, ilx_context.ilx_data.INBOX_EDI856)
+    Utils.upload_sftp_files(ilx_context.ilx_data.host_edi_856, ilx_context.user_name_edi_856, ilx_context.
+                            password_edi_856, ilx_context.ilx_data.path_out, ilx_context.ilx_data.inbox_edi_856)
 
     time.sleep(5)
 
@@ -42,4 +40,4 @@ def test_response_ide_856(ilx_context, number, test_type, testrail_case_id):
         else:
             assert len(response.response_json) == 0
 
-        print(response.__str__())
+        print(response.__str__)

@@ -1,5 +1,3 @@
-# pylint: disable=C0304,C0114,C0305
-
 data_case_1 = [
     {"trans": "XX-1", "qnt": 10, "status": "PickUpNow"},
 ]
@@ -59,8 +57,3 @@ data_case_11 = [
     {"trans": "XX-4", "qnt": 60, "status": "PickUpNow"},
     {"trans": "XX-5", "qnt": 30, "status": "PickUpNow"}
 ]
-
-url_ilx: str = 'https://api.dev.integrationlogix.com/external-api/' \
-               '50ff3a5c-677b-433f-a22d-826659633c61/ilx-test/salesOrdersStatus2'
-
-

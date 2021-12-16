@@ -1,11 +1,5 @@
-#pylint: disable=E0611,W0105,C0305
-
 from typing import List
-from pydantic import BaseModel
-
-"""
-Validate SOURCE RESPONSE BODY SCHEMA
-"""
+from pydantic import BaseModel #pylint: disable=E0611
 
 
 class Items(BaseModel):
@@ -39,12 +33,3 @@ class ResponseIDE(BaseModel):
 
 class ValidatorIDE(BaseModel):
     response: List[ResponseIDE]
-
-
-
-
-
-
-
-
-

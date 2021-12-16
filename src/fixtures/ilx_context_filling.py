@@ -33,8 +33,8 @@ def ilx_session_context(request):
         ilx_session_context_object.ilx_auth_token = creds.ilx_auth_token
 
         ilx_session_context_object.edi_856_auth_token = creds.edi_856_auth_token
-        ilx_session_context_object.USERNAME_EDI856 = creds.USERNAME_EDI856
-        ilx_session_context_object.PASSWORD_EDI856 = creds.PASSWORD_EDI856
+        ilx_session_context_object.user_name_edi_856 = creds.user_name_edi_856
+        ilx_session_context_object.password_edi_856 = creds.password_edi_856
 
     return ilx_session_context_object
 
@@ -50,8 +50,8 @@ def ilx_context(ilx_session_context, request):
     ilx_context_object.ilx_auth_token = ilx_session_context.ilx_auth_token
 
     ilx_context_object.edi_856_auth_token = ilx_session_context.edi_856_auth_token
-    ilx_context_object.PASSWORD_EDI856 = ilx_session_context.PASSWORD_EDI856
-    ilx_context_object.USERNAME_EDI856 = ilx_session_context.USERNAME_EDI856
+    ilx_context_object.password_edi_856 = ilx_session_context.password_edi_856
+    ilx_context_object.user_name_edi_856 = ilx_session_context.user_name_edi_856
 
     yield ilx_context_object
     testrail(request, ilx_context_object)
