@@ -19,7 +19,6 @@ class Response:
         next_ordered = list()
 
         number = len(order_data)
-
         for num in range(number):
             ordered = self.data[num].get('items')[0].get('quantityOrdered')
             shipped = self.data[num].get('items')[0].get('quantityShipped')

@@ -55,7 +55,7 @@ class UtilsServerIlx:
         name_orders = [line.get("status") for line in data_orders if line.get("status")]
         qnt_orders = [line.get("qnt") for line in data_orders if line.get("qnt")]
 
-        generations = [UtilsServerIlx.create_generation(name_orders)]
+        generations = UtilsServerIlx.create_generation(name_orders)
         lines = [UtilsServerIlx.get_line(number, qnt_orders)]
 
         return generations, lines
