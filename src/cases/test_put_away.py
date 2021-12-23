@@ -38,8 +38,11 @@ def test_put_away_by_sku(api, delete_shipto):
 
     dto = {
         "shipToId": response_location["shipto_id"],
-        "partSku": response_location["product"]["partSku"]
+        "partSku": response_location["product"]["partSku"],
+        "quantity": response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
+
     }
+
     pa.put_away([dto])
     transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
     status = transaction["entities"][0]["status"]
@@ -169,10 +172,11 @@ def test_bulk_put_away_locker_location(api, delete_shipto, delete_hardware):
 
     dto = {
         "shipToId": response_location["shipto_id"],
-        "partSku": response_location["product"]["partSku"]
+        "partSku": response_location["product"]["partSku"],
+        "quantity": response_location["location"]["orderingConfig"]["currentInventoryControls"]["max"]
     }
-    pa.put_away([dto])
 
+    pa.put_away([dto])
     transaction = ta.get_transaction(sku=response_location["product"]["partSku"], shipto_id=response_location["shipto_id"])
     assert transaction["totalElements"] == 1
 
