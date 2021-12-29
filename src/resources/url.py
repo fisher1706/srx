@@ -15,22 +15,19 @@ class URL():
             raise IOError("Incorrect environment")
 
     def get_url_for_env(self, url, portal):
-        if self.environment != "tenant":
-            switcher = {
-                'dev': f"https://{portal}.dev.{url}",
-                'staging': f"https://{portal}.staging.{url}",
-                'prod': f"https://{portal}.{url}",
-                'qa': f"https://{portal}.qa.{url}",
-            }
-            return switcher.get(self.environment)
-        if portal in ("admin", "checkout"):
-            return f"https://{portal}.tenant.{url}"
-        if portal == "next.checkout":
-            return f"https://app-tenant.{url}/checkout"
-        return f"https://app-tenant.{url}/{portal}"
+        if self.environment == "prod":
+            if portal == "admin":
+                return f"https://{portal}.{url}"
+            return f"https://app.{url}/{portal}"
+        else:
+            if portal == "admin":
+                return f"https://{portal}.{self.environment}.{url}"
+            return f"https://app-{self.environment}.{url}/{portal}"
 
     def get_api_url_for_env(self, url):
-        return f"https://api-{self.environment}.storeroomlogix.com{url}"
+        if self.environment == "prod":
+            return f"https://api.storeroomlogix.com{url}"
+        return f"https://api.{self.environment}.storeroomlogix.com{url}"
 
     def get_ip_url(self, url):
         return f"{self.ilx_mocks}{url}"
