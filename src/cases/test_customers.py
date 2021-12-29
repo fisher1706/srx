@@ -9,7 +9,6 @@ from src.pages.distributor.shipto_page import ShiptoPage
 from src.pages.distributor.usage_history_page import UsageHistoryPage
 from src.pages.distributor.distributor_customer_users_page  import DistributorCustomerUsersPage
 from src.pages.customer.allocation_codes_page import AllocationCodesPage
-#from src.api.distributor.activity_log_api import ActivityLogApi
 from src.api.distributor.customer_api import CustomerApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.setups.setup_shipto import SetupShipto
