@@ -19,10 +19,9 @@ class URL():
             if portal == "admin":
                 return f"https://{portal}.{url}"
             return f"https://app.{url}/{portal}"
-        else:
-            if portal == "admin":
-                return f"https://{portal}.{self.environment}.{url}"
-            return f"https://app-{self.environment}.{url}/{portal}"
+        if portal == "admin":
+            return f"https://{portal}.{self.environment}.{url}"
+        return f"https://app-{self.environment}.{url}/{portal}"
 
     def get_api_url_for_env(self, url):
         if self.environment == "prod":

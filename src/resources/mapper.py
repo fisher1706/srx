@@ -9,9 +9,8 @@ def transaction(status=None, quantity_ordered=None, quantity_shipped=None):
 
 def several_transactions(*args):
     mapper = types.SimpleNamespace()
-    for index, set in enumerate(args):
-        mapper.__setattr__(f"status_{index+1}", set[0])
-        mapper.__setattr__(f"quantity_ordered_{index+1}", set[1])
-        mapper.__setattr__(f"quantity_shipped_{index+1}", set[2])
+    for index, args_set in enumerate(args):
+        mapper.__setattr__(f"status_{index+1}", args_set[0])
+        mapper.__setattr__(f"quantity_ordered_{index+1}", args_set[1])
+        mapper.__setattr__(f"quantity_shipped_{index+1}", args_set[2])
     return mapper
-
