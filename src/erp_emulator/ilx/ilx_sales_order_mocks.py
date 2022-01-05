@@ -9,7 +9,7 @@ def sales_orders_status_v1(external_order_id):
     return response
 
 @app.route('/external-api/automation/automation/salesOrdersStatusV2/<external_order_id>', methods = ['GET'])
-def sales_orders_status_v1(external_order_id):
+def sales_orders_status_v2(external_order_id):
     response = {
         "response": State.sales_orders_status_v2_items
     }
