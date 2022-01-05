@@ -37,3 +37,14 @@ def set_sales_orders_status_v1_items():
         "code": 200
     }
     return response
+
+@app.route('/set-sales-orders-status-v2-items', methods = ['POST']) #1.1
+def set_sales_orders_status_v2_items():
+    body = request.get_json()
+    State.sales_orders_status_v2_items = body["data"]
+    response = {
+        "data": State.sales_orders_status_v2_items,
+        "message": None,
+        "code": 200
+    }
+    return response
