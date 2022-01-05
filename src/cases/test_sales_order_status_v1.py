@@ -28,16 +28,16 @@ from src.api.mocks_api import MocksApi
     }
     ])
 @pytest.mark.erp
-def test_sales_order_status_update_status_and_quantity(ilx_api, sync_order_location_preset, conditions, delete_shipto):
-    ilx_api.testrail_case_id = conditions["testrail_case_id"]
+def test_sales_order_status_update_status_and_quantity(srx_integration_api, sync_order_location_preset, conditions, delete_shipto):
+    srx_integration_api.testrail_case_id = conditions["testrail_case_id"]
 
     LOCATION_MAX = 100
 
-    ta = TransactionApi(ilx_api)
-    rla = ReplenishmentListApi(ilx_api)
-    ma = MocksApi(ilx_api)
+    ta = TransactionApi(srx_integration_api)
+    rla = ReplenishmentListApi(srx_integration_api)
+    ma = MocksApi(srx_integration_api)
 
-    preset = sync_order_location_preset(ilx_api, sync_endpoint="salesOrdersStatus")
+    preset = sync_order_location_preset(srx_integration_api, sync_endpoint="salesOrdersStatus")
     transaction_id = preset["transaction"]["transaction_id"]
     sku = preset["product"]["partSku"]
     items = [{
@@ -90,18 +90,18 @@ def test_sales_order_status_update_status_and_quantity(ilx_api, sync_order_locat
         assert transactions["entities"][1]["reorderQuantity"] == LOCATION_MAX
 
 @pytest.mark.erp
-def test_sales_order_status_update_with_simulated_order_close_logic(ilx_api, sync_order_location_preset, delete_shipto):
-    ilx_api.testrail_case_id = 10060
+def test_sales_order_status_update_with_simulated_order_close_logic(srx_integration_api, sync_order_location_preset, delete_shipto):
+    srx_integration_api.testrail_case_id = 10060
 
     LOCATION_MAX = 100
     TRANSACTION_QUANTITY_1 = 20 #pylint: disable=C0103
     TRANSACTION_QUANTITY_2 = 40 #pylint: disable=C0103
 
-    ta = TransactionApi(ilx_api)
-    rla = ReplenishmentListApi(ilx_api)
-    ma = MocksApi(ilx_api)
+    ta = TransactionApi(srx_integration_api)
+    rla = ReplenishmentListApi(srx_integration_api)
+    ma = MocksApi(srx_integration_api)
 
-    preset = sync_order_location_preset(ilx_api, sync_endpoint="salesOrdersStatus", disable_reorder_controls=True)
+    preset = sync_order_location_preset(srx_integration_api, sync_endpoint="salesOrdersStatus", disable_reorder_controls=True)
     transaction_id = preset["transaction"]["transaction_id"]
     sku = preset["product"]["partSku"]
     items = [{
@@ -272,16 +272,16 @@ def test_sales_order_status_update_with_simulated_order_close_logic(ilx_api, syn
     }
     ])
 @pytest.mark.erp
-def test_split_single_transaction_by_two_items(ilx_api, sync_order_location_preset, conditions, delete_shipto):
-    ilx_api.testrail_case_id = conditions["testrail_case_id"]
+def test_split_single_transaction_by_two_items(srx_integration_api, sync_order_location_preset, conditions, delete_shipto):
+    srx_integration_api.testrail_case_id = conditions["testrail_case_id"]
 
     LOCATION_MAX = 100
 
-    ta = TransactionApi(ilx_api)
-    rla = ReplenishmentListApi(ilx_api)
-    ma = MocksApi(ilx_api)
+    ta = TransactionApi(srx_integration_api)
+    rla = ReplenishmentListApi(srx_integration_api)
+    ma = MocksApi(srx_integration_api)
 
-    preset = sync_order_location_preset(ilx_api, sync_endpoint="salesOrdersStatus", disable_reorder_controls=True)
+    preset = sync_order_location_preset(srx_integration_api, sync_endpoint="salesOrdersStatus", disable_reorder_controls=True)
     transaction_id = preset["transaction"]["transaction_id"]
     sku = preset["product"]["partSku"]
     items = [{
@@ -368,7 +368,7 @@ def test_split_single_transaction_by_two_items(ilx_api, sync_order_location_pres
         assert transactions["entities"][1]["reorderQuantity"] == conditions["quantity_2"]
         assert transactions["entities"][1]["shippedQuantity"] == 0
     else:
-        ilx_api.logger.error("No such statuses combination. Please add")
+        srx_integration_api.logger.error("No such statuses combination. Please add")
 
 @pytest.mark.parametrize("conditions", [
     {
@@ -415,17 +415,17 @@ def test_split_single_transaction_by_two_items(ilx_api, sync_order_location_pres
     },
     ])
 @pytest.mark.erp
-def test_split_single_transaction_by_three_items_reorder_controls(ilx_api, sync_order_location_preset, conditions, delete_shipto):
-    ilx_api.testrail_case_id = conditions["testrail_case_id"]
+def test_split_single_transaction_by_three_items_reorder_controls(srx_integration_api, sync_order_location_preset, conditions, delete_shipto):
+    srx_integration_api.testrail_case_id = conditions["testrail_case_id"]
 
     LOCATION_MAX = 100
     TRANSACTION_QUANTITY = 10 #pylint: disable=C0103
 
-    ta = TransactionApi(ilx_api)
-    rla = ReplenishmentListApi(ilx_api)
-    ma = MocksApi(ilx_api)
+    ta = TransactionApi(srx_integration_api)
+    rla = ReplenishmentListApi(srx_integration_api)
+    ma = MocksApi(srx_integration_api)
 
-    preset = sync_order_location_preset(ilx_api, sync_endpoint="salesOrdersStatus")
+    preset = sync_order_location_preset(srx_integration_api, sync_endpoint="salesOrdersStatus")
     transaction_id = preset["transaction"]["transaction_id"]
     sku = preset["product"]["partSku"]
     items = [{
@@ -485,7 +485,7 @@ def test_split_single_transaction_by_three_items_reorder_controls(ilx_api, sync_
             transactions.remove(transaction)
             break
     else:
-        ilx_api.logger.error("There is no ACTIVE transaction")
+        srx_integration_api.logger.error("There is no ACTIVE transaction")
     assert transactions[0]["erpOrderId"] == f"{transaction_id}-1"
     assert transactions[1]["erpOrderId"] == f"{transaction_id}-2"
     assert transactions[2]["erpOrderId"] == f"{transaction_id}-3"
@@ -514,16 +514,16 @@ def test_split_single_transaction_by_three_items_reorder_controls(ilx_api, sync_
         assert transactions[2]["backorderedItemId"] is None
 
 @pytest.mark.erp
-def test_update_external_order_id_by_sales_order_status(ilx_api, sync_order_location_preset, delete_shipto):
-    ilx_api.testrail_case_id = 10082
+def test_update_external_order_id_by_sales_order_status(srx_integration_api, sync_order_location_preset, delete_shipto):
+    srx_integration_api.testrail_case_id = 10082
 
     TRANSACTION_QUANTITY = 10 #pylint: disable=C0103
 
-    ta = TransactionApi(ilx_api)
-    rla = ReplenishmentListApi(ilx_api)
-    ma = MocksApi(ilx_api)
+    ta = TransactionApi(srx_integration_api)
+    rla = ReplenishmentListApi(srx_integration_api)
+    ma = MocksApi(srx_integration_api)
 
-    preset = sync_order_location_preset(ilx_api, sync_endpoint="salesOrdersStatus", disable_reorder_controls=True)
+    preset = sync_order_location_preset(srx_integration_api, sync_endpoint="salesOrdersStatus", disable_reorder_controls=True)
     transaction_id = preset["transaction"]["transaction_id"]
     sku = preset["product"]["partSku"]
     items = [{
