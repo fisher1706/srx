@@ -148,7 +148,7 @@ def smoke_context(context, request, testrail_smoke_result):
     testrail(request, context_object)
 
 @pytest.fixture(scope="function")
-def ilx_context(context, request):
+def srx_integration_context(context, request):
     context_object = context
     context_object.data = context_object.session_context.base_data
 
