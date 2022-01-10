@@ -125,3 +125,17 @@ class TransactionApi(API):
             self.logger.info(f"Order {order_id} has been refreshed")
         else:
             self.logger.error(str(response.content))
+
+    def transactions_bulk_update(self, status, order_ids):
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/statuses/bulk-update")
+        token = self.get_distributor_token()
+        dto = {
+            "all": False,
+            "orderIds": order_ids,
+            "status": status
+        }
+        response = self.send_post(url, token, data=dto)
+        if response.status_code == 200:
+            self.logger.info(f"Orders {order_ids} has been updated")
+        else:
+            self.logger.error(str(response.content))

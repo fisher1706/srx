@@ -25,9 +25,9 @@ def test_bulk_delete_customers(api):
     customers = ca.get_customers()
 
     for customer in customers:
-        if customer["id"] > 3046:
+        if customer["id"] > 6811:
             try:
-                ca.delete_customer(customer["id"])
+                ca.delete_customer(customer["id"], warehouse_id=customer["warehouse"]["id"])
             except:
                 print("FAIL")
 
