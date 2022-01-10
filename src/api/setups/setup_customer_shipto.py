@@ -36,8 +36,8 @@ class SetupCustomerShipto(BaseSetup):
     def set_shipto(self):
         oa = OrganizationApi(self.context)
 
-        self.shipto["number"] = self.options["number"] if self.options["number"] is not None else Tools.random_string_l(10)
-        self.shipto["name"] = Tools.random_string_l(10)
+        self.shipto["number"] = self.options["number"] if self.options["number"] is not None else f"{Tools.random_string_l(10)}-{self.context.testrail_case_id}"
+        self.shipto["name"] = f"{Tools.random_string_l(10)}-{self.context.testrail_case_id}"
         self.shipto["poNumber"] = Tools.random_string_l(10)
         self.shipto["distributorId"] = self.options["supplier_id"]
         self.shipto["sharedSpaceId"] = self.options["subsite_id"]

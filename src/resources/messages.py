@@ -2,6 +2,7 @@ class Message():
     'The class contains default message templates'
 
     assert_status_code = "Incorrect status_code! Expected: {expected}; Actual: {actual}; Repsonse content:\n{content}"
+    assert_default_message = "{} should be equal to {}, now {}"
     info_operation_with_expected_code = "{entity} {operation} completed with status_code = '{status_code}', as expected: {content}"
     entity_with_id_operation_done = "{entity} with ID = {id} has been successfully {operation}"
     entity_operation_done = "{entity} has been successfully {operation}"

@@ -17,8 +17,10 @@ class CustomerApi(API):
         self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
-    def delete_customer(self, customer_id, expected_status_code=None):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{self.data.warehouse_id}/customers/{customer_id}/delete")
+    def delete_customer(self, customer_id, warehouse_id=None, expected_status_code=None):
+        if warehouse_id is None:
+            warehouse_id = self.data.warehouse_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{warehouse_id}/customers/{customer_id}/delete")
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
