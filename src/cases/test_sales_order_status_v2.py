@@ -1,5 +1,4 @@
 
-import copy
 import pytest
 from src.api.customer.replenishment_list_api import ReplenishmentListApi
 from src.api.distributor.transaction_api import TransactionApi
@@ -49,9 +48,7 @@ def test_sales_orders_status_v2_update_status_and_quantity(srx_integration_api, 
     transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
 
     assert transactions["totalElements"] == 1, "Only 1 transaction should be present"
-    assert transactions["entities"][0]["erpOrderId"] == f"{transaction_id}"
-    assert transactions["entities"][0]["status"] == "QUOTED"
-    assert transactions["entities"][0]["reorderQuantity"] == LOCATION_MAX
+    ComplexAssert.transaction(transactions["entities"][0], "QUOTED", LOCATION_MAX, order_id=transaction_id)
     #------------ILX response-------------------
     items_list = [
             {
@@ -73,31 +70,21 @@ def test_sales_orders_status_v2_update_status_and_quantity(srx_integration_api, 
     transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
 
     assert transactions["totalElements"] == 2
-    assert transactions["entities"][0]["erpOrderId"] == f"{transaction_id}"
-    assert transactions["entities"][0]["release"] == "1"
-    assert transactions["entities"][0]["status"] == param.status
-    assert transactions["entities"][0]["reorderQuantity"] == param.quantity_ordered
-    ComplexAssert.v2_shipped_quantity(transactions["entities"][0]["shippedQuantity"], param.status, param.quantity_shipped)
-    assert transactions["entities"][1]["erpOrderId"] is None
-    assert transactions["entities"][1]["release"] is None
-    assert transactions["entities"][1]["status"] == "ACTIVE"
-    assert transactions["entities"][1]["shippedQuantity"] is None
-    assert transactions["entities"][1]["reorderQuantity"] == LOCATION_MAX-param.quantity_ordered
+    ComplexAssert.transaction(transactions["entities"][0], param.status, param.quantity_ordered, param.quantity_shipped, transaction_id, 1)
+    ComplexAssert.transaction(transactions["entities"][1], "ACTIVE", LOCATION_MAX-param.quantity_ordered)
 
 @pytest.mark.parametrize("conditions", [
     {
         "init": several_transactions(("SHIPPED", 100, 20), ("ORDERED", 80, 80)),
-        "new": several_transactions(("SHIPPED", 80, 40), ("SHIPPED", 60, 60)),
+        "new": several_transactions(("SHIPPED", 80, 40), ("SHIPPED", 80, 80)),
         "testrail_case_id": 11346
     }
     ])
 @pytest.mark.erp
-def test_sales_orders_status_v2_update_several_transactions(srx_integration_api, sync_order_location_preset, conditions, delete_shipto):
+def test_sales_orders_status_v2_update_several_transactions_no_backorders(srx_integration_api, sync_order_location_preset, conditions, delete_shipto):
     srx_integration_api.testrail_case_id = conditions["testrail_case_id"]
     init = conditions["init"]
     new = conditions["new"]
-
-    LOCATION_MAX = 100
 
     ta = TransactionApi(srx_integration_api)
     rla = ReplenishmentListApi(srx_integration_api)
@@ -146,52 +133,43 @@ def test_sales_orders_status_v2_update_several_transactions(srx_integration_api,
     transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
 
     assert transactions["totalElements"] == 2
-    assert transactions["entities"][0]["erpOrderId"] == f"{transaction_id}"
-    assert transactions["entities"][0]["release"] == "1"
-    assert transactions["entities"][0]["status"] == init.status_1
-    assert transactions["entities"][0]["reorderQuantity"] == init.quantity_ordered_1
-    ComplexAssert.v2_shipped_quantity(transactions["entities"][0]["shippedQuantity"], init.status_1, init.quantity_shipped_1)
-    assert transactions["entities"][1]["erpOrderId"] == f"{transaction_id}"
-    assert transactions["entities"][1]["release"] == "2"
-    assert transactions["entities"][1]["status"] == init.status_2
-    assert transactions["entities"][1]["reorderQuantity"] == init.quantity_ordered_2
-    ComplexAssert.v2_shipped_quantity(transactions["entities"][1]["shippedQuantity"], init.status_2, init.quantity_shipped_2)
+    ComplexAssert.transaction(transactions["entities"][0], init.status_1, init.quantity_ordered_1, init.quantity_shipped_1, transaction_id, 1)
+    ComplexAssert.transaction(transactions["entities"][1], init.status_2, init.quantity_ordered_2, init.quantity_shipped_2, transaction_id, 2)
     #------------ILX response-------------------
-    # items_list = [
-    #         {
-    #             "transactionType": "SHIPPED",
-    #             "id": f"{transaction_id}-1",
-    #             "items": [
-    #                 {
-    #                     "dsku": sku,
-    #                     "quantity": 20
-    #                 }
-    #             ]
-    #         },
-    #         {
-    #             "transactionType": "SHIPPED",
-    #             "id": f"{transaction_id}-2",
-    #             "items": [
-    #                 {
-    #                     "dsku": sku,
-    #                     "quantity": 40
-    #                 }
-    #             ]
-    #         }
-    #     ]
-    # #-------------------------------------------
-    # ma.set_list_of_sales_orders_v1_items(copy.deepcopy(items_list))
-    # ta.refresh_order_status(f"{transaction_id}-1", False)
-    # transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
+    items_list = [
+            {
+                "transactionType": new.status_1,
+                "id": f"{transaction_id}",
+                "release": 1,
+                "items": [
+                    {
+                        "dsku": sku,
+                        "quantityShipped": new.quantity_shipped_1,
+                        "quantityOrdered": new.quantity_ordered_1
+                    }
+                ]
+            },
+            {
+                "transactionType": new.status_2,
+                "id": f"{transaction_id}",
+                "release": 2,
+                "items": [
+                    {
+                        "dsku": sku,
+                        "quantityShipped": new.quantity_shipped_2,
+                        "quantityOrdered": new.quantity_ordered_2
+                    }
+                ]
+            }
+        ]
+    #-------------------------------------------
+    ma.set_list_of_sales_orders_v2_items(items_list)
+    ta.refresh_order_status(transaction_id, True)
+    transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
 
-    # assert transactions["totalElements"] == 2
-    # assert transactions["entities"][0]["erpOrderId"] == f"{transaction_id}-1"
-    # assert transactions["entities"][0]["status"] == "SHIPPED"
-    # assert transactions["entities"][0]["reorderQuantity"] == LOCATION_MAX
-    # assert transactions["entities"][0]["shippedQuantity"] == TRANSACTION_QUANTITY_1
-    # assert transactions["entities"][1]["erpOrderId"] == f"{transaction_id}-2"
-    # assert transactions["entities"][1]["status"] == "QUOTED"
-    # assert transactions["entities"][1]["reorderQuantity"] == TRANSACTION_QUANTITY_2
+    assert transactions["totalElements"] == 2
+    ComplexAssert.transaction(transactions["entities"][0], new.status_1, new.quantity_ordered_1, new.quantity_shipped_1, transaction_id, 1)
+    ComplexAssert.transaction(transactions["entities"][1], new.status_2, new.quantity_ordered_2, new.quantity_shipped_2, transaction_id, 2)
 
 # @pytest.mark.parametrize("conditions", [
 #     {
