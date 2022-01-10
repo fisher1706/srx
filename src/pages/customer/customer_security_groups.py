@@ -29,7 +29,7 @@ class CustomerSecurityGroups(CustomerPortalPage):
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), True)
             else:
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), False)
-        self.click_xpath("//a[@href='/users-and-groups#security-groups']")
+        self.click_xpath("//a[@href='/customer/users-and-groups#security-groups']")
 
     def update_security_group(self, security_group_body, row):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, row-2))
@@ -42,7 +42,7 @@ class CustomerSecurityGroups(CustomerPortalPage):
             self.unselect_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
         self.click_xpath(f"({Locator.xpath_submit_button})[last()]")
         self.wait_until_page_loaded()
-        self.click_xpath("//a[@href='/users-and-groups#security-groups']")
+        self.click_xpath("//a[@href='/customer/users-and-groups#security-groups']")
 
     def delete_security_group(self, security_group_body, row):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, row-2))
