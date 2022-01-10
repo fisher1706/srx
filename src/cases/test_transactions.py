@@ -451,57 +451,37 @@ def test_cannot_update_to_shipped_or_delivered_without_quantity_shipped(api, con
     },
     ])
 @pytest.mark.regression
-def test_ohi_increased_by_shipped_quantity(api, conditions, delete_shipto):
+def test_ohi_increased_by_shipped_quantity(api, transaction_location_preset, conditions, delete_shipto):
     api.testrail_case_id = conditions["testrail_case_id"]
 
-    LOCATION_MIN = 0
-    LOCATION_MAX = 100
-    ROUND_BUY = 10
-    PACKAGE_CONVERSION = 2
+    LOCATION_PACKAGE_CONVERSION = 2
 
     ta = TransactionApi(api)
     la = LocationApi(api)
 
-    setup_location = SetupLocation(api)
-    setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": False, "track_ohi": True, "enable_reorder_controls": True})
-    setup_location.add_option("transaction", 'ACTIVE')
-    setup_location.add_option("ohi", 0)
-    setup_location.add_option("min", LOCATION_MIN)
-    setup_location.add_option("max", LOCATION_MAX)
-    setup_location.setup_product.add_option("package_conversion", PACKAGE_CONVERSION)
-    setup_location.setup_product.add_option("round_buy", ROUND_BUY)
-    response_location = setup_location.setup()
+    preset = transaction_location_preset(api, location_min=0, location_max=100, package_conversion=LOCATION_PACKAGE_CONVERSION, round_buy=10)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0
-    ta.update_replenishment_item(response_location["transaction"]["transaction_id"], response_location["transaction"]["reorderQuantity"], "DELIVERED", quantity_shipped=conditions["quantity_shipped"])
+    ta.update_replenishment_item(preset["transaction"]["transaction_id"], preset["transaction"]["reorderQuantity"], "DELIVERED", quantity_shipped=conditions["quantity_shipped"])
 
-    locations = la.get_locations(response_location["shipto_id"])
-    assert locations[0]["onHandInventory"] == conditions["quantity_shipped"] * PACKAGE_CONVERSION
+    locations = la.get_locations(preset["shipto_id"])
+    assert locations[0]["onHandInventory"] == conditions["quantity_shipped"] * LOCATION_PACKAGE_CONVERSION
 
-def test_ohi_increased_by_transaction_bulk_update(api, delete_shipto):
+def test_ohi_increased_by_transaction_bulk_update(api, transaction_location_preset, delete_shipto):
     api.testrail_case_id = 11350
-    LOCATION_MIN = 0
+
     LOCATION_MAX = 100
-    ROUND_BUY = 10
-    PACKAGE_CONVERSION = 2
+    LOCATION_PACKAGE_CONVERSION = 2
 
     ta = TransactionApi(api)
     la = LocationApi(api)
 
-    setup_location = SetupLocation(api)
-    setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": False, "track_ohi": True, "enable_reorder_controls": True})
-    setup_location.add_option("transaction", 'ACTIVE')
-    setup_location.add_option("ohi", 0)
-    setup_location.add_option("min", LOCATION_MIN)
-    setup_location.add_option("max", LOCATION_MAX)
-    setup_location.setup_product.add_option("package_conversion", PACKAGE_CONVERSION)
-    setup_location.setup_product.add_option("round_buy", ROUND_BUY)
-    response_location = setup_location.setup()
+    preset = transaction_location_preset(api, location_min=0, location_max=LOCATION_MAX, package_conversion=LOCATION_PACKAGE_CONVERSION, round_buy=10)
 
-    locations = la.get_locations(response_location["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == 0
-    ta.transactions_bulk_update("DELIVERED", [response_location["transaction"]["transaction_id"]])
+    ta.transactions_bulk_update("DELIVERED", [preset["transaction"]["transaction_id"]])
 
-    locations = la.get_locations(response_location["shipto_id"])
-    assert locations[0]["onHandInventory"] == LOCATION_MAX * PACKAGE_CONVERSION
+    locations = la.get_locations(preset["shipto_id"])
+    assert locations[0]["onHandInventory"] == LOCATION_MAX * LOCATION_PACKAGE_CONVERSION
