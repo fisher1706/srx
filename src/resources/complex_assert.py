@@ -11,7 +11,7 @@ class ComplexAssert():
     @staticmethod
     def transaction(transaction, status, quantity_ordered, quantity_shipped=None, order_id=None, release=None):
         assert transaction["erpOrderId"] == str(order_id), Message.assert_default_message.format("ERP Order ID", order_id, transaction["erpOrderId"])
-        assert transaction["release"] == None if release is None else str(release), Message.assert_default_message.format("Release", release, transaction["release"])
+        assert transaction["release"] is None if release is None else str(release), Message.assert_default_message.format("Release", release, transaction["release"])
         assert transaction["status"] == status, Message.assert_default_message.format("Status", status, transaction["status"])
         assert transaction["reorderQuantity"] == quantity_ordered, Message.assert_default_message.format("Reorder Quantity", quantity_ordered, transaction["reorderQuantity"])
         ComplexAssert.v2_quantity_shipped(transaction["shippedQuantity"], status, quantity_shipped)

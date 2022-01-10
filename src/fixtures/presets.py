@@ -33,6 +33,20 @@ def serialized_location_preset():
     return wrapper
 
 @pytest.fixture(scope="function")
+def transaction_location_preset():
+    def wrapper(context, ohi=0, location_min=None, location_max=None, package_conversion=None, round_buy=None):
+        setup_location = SetupLocation(context)
+        setup_location.setup_shipto.add_option("reorder_controls_settings", {"scan_to_order": False, "track_ohi": True, "enable_reorder_controls": True})
+        setup_location.add_option("transaction", 'ACTIVE')
+        setup_location.add_option("ohi", ohi)
+        setup_location.add_option("min", location_min)
+        setup_location.add_option("max", location_max)
+        setup_location.setup_product.add_option("package_conversion", package_conversion)
+        setup_location.setup_product.add_option("round_buy", round_buy)
+        return setup_location.setup()
+    return wrapper
+
+@pytest.fixture(scope="function")
 def sync_order_location_preset():
     def wrapper(context, sync_endpoint, disable_reorder_controls=False):
         sa = SettingsApi(context)
