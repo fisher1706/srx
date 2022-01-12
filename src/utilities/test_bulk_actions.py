@@ -1,11 +1,8 @@
-from hashlib import new
 from src.api.mobile.mobile_transaction_api import MobileTransactionApi
 from src.api.distributor.shipto_api import ShiptoApi
 from src.api.distributor.customer_api import CustomerApi
 from src.api.setups.setup_customer import SetupCustomer
 from src.api.distributor.location_api import LocationApi
-from src.api.setups.setup_location import SetupLocation
-
 
 def test_bulk_delete_shiptos(api):
     sa = ShiptoApi(api)
