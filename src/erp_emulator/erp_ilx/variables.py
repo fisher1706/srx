@@ -57,3 +57,9 @@ data_case_11 = [
     {"trans": "XX-4", "qnt": 60, "status": "PickUpNow"},
     {"trans": "XX-5", "qnt": 30, "status": "PickUpNow"}
 ]
+
+data_infor = [
+    {'orderno': '21982806', 'ordersuf': '03', 'stage': 'Pd', 'custpo': 'SRX VMI', 'qty': 50, 'qty_stk': 30},
+    {'orderno': '21982807', 'ordersuf': '03', 'stage': 'Pd', 'custpo': 'SRX VMI', 'qty': 40, 'qty_stk': 20},
+
+]

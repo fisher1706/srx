@@ -64,9 +64,6 @@ class UtilsServerIlx:
 if __name__ == '__main__':
     utils = UtilsServerIlx()
 
-    # inbox = [{"trans": "XX-1"}, {"qnt": 10}, {"status": "Invoice"},
-    #         {"trans": "XX-2"}, {"qnt": 20}, {"status": "PickUpNow"}]
-
     data = [{"trans": "XX-1", "qnt": 10, "status": "Invoice"},
             {"trans": "XX-2", "qnt": 20, "status": "PickUpNow"}]
 
