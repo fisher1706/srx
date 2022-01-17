@@ -76,3 +76,7 @@ class Utils:
         except Exception as e:
             print(e)
         srv.close()
+
+    @staticmethod
+    def get_data_order_infor(order_no, data_infor):
+        return [data for data in data_infor if str (order_no) == str(data.get ('orderno'))][0]

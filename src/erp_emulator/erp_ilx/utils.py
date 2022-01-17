@@ -55,7 +55,7 @@ class UtilsServerIlx:
         name_orders = [line.get("status") for line in data_orders if line.get("status")]
         qnt_orders = [line.get("qnt") for line in data_orders if line.get("qnt")]
 
-        generations = [UtilsServerIlx.create_generation(name_orders)]
+        generations = UtilsServerIlx.create_generation(name_orders)
         lines = [UtilsServerIlx.get_line(number, qnt_orders)]
 
         return generations, lines
@@ -63,9 +63,6 @@ class UtilsServerIlx:
 
 if __name__ == '__main__':
     utils = UtilsServerIlx()
-
-    # inbox = [{"trans": "XX-1"}, {"qnt": 10}, {"status": "Invoice"},
-    #         {"trans": "XX-2"}, {"qnt": 20}, {"status": "PickUpNow"}]
 
     data = [{"trans": "XX-1", "qnt": 10, "status": "Invoice"},
             {"trans": "XX-2", "qnt": 20, "status": "PickUpNow"}]
