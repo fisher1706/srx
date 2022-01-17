@@ -56,9 +56,9 @@ def test_customer_crud(ui, permission_ui, permissions, delete_distributor_securi
     cp.check_last_customer(customer_body.copy())
     cp.update_last_customer(edit_customer_body.copy())
     cp.sidebar_customers()
-    cp.wait_until_page_loaded()
+    cp.last_page(wait=False)
     cp.check_last_customer(edit_customer_body.copy())
-    cp.delete_last_customer()
+    cp.delete_last_customer(edit_customer_body["name"])
 
 @pytest.mark.regression
 def test_customer_unique_number(api, delete_customer):

@@ -100,6 +100,75 @@ def test_sales_orders_status_v2_update_status_and_quantity(srx_integration_api, 
 
 @pytest.mark.parametrize("conditions", [
     {
+        "init": Transaction("QUOTED", 100),
+        "new": Transaction.several(("QUOTED", 50, 100),("ORDERED", 40, 100)),
+        "additional": Transaction("ACTIVE", 10),
+        "testrail_case_id": 11352
+    }
+    ])
+@pytest.mark.erp
+def test_sales_orders_status_v2_split_single_transaction_with_two(srx_integration_api, sync_order_location_preset, conditions, delete_shipto):
+    srx_integration_api.testrail_case_id = conditions["testrail_case_id"]
+    init = conditions["init"]
+    new = conditions["new"]
+    additional = conditions["additional"]
+
+    LOCATION_MAX = 100
+
+    ta = TransactionApi(srx_integration_api)
+    rla = ReplenishmentListApi(srx_integration_api)
+    ma = MocksApi(srx_integration_api)
+    la = LocationApi(srx_integration_api)
+
+    preset = sync_order_location_preset(srx_integration_api, sync_endpoint="salesOrdersStatusV2")
+    transaction_id = preset["transaction"]["transaction_id"]
+    sku = preset["product"]["partSku"]
+    items = [{
+        "id": transaction_id,
+        "reorderQuantity": preset["transaction"]["reorder_quantity"],
+        "status": "QUOTED"
+    }]
+    rla.submit_replenishment_list(items)
+
+    if init.status != "QUOTED" or init.quantity_ordered != LOCATION_MAX:
+        ta.update_replenishment_item(transaction_id, init.quantity_ordered, init.status, init.quantity_shipped)
+
+    transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"], customer_id=preset["customer_id"])
+
+    assert locations[0]["onHandInventory"] == 0
+    assert transactions["totalElements"] == 1, "Only 1 transaction should be present"
+    ComplexAssert.transaction(transactions["entities"][0], init.status, init.quantity_ordered, init.quantity_shipped, transaction_id)
+    #------------ILX response-------------------
+    items_list = [
+            {
+                "transactionType": new.status,
+                "id": f"{transaction_id}",
+                "release": 1,
+                "items": [
+                    {
+                        "dsku": sku,
+                        "quantityShipped": new.quantity_shipped,
+                        "quantityOrdered": new.quantity_ordered
+                    }
+                ]
+            }
+        ]
+    #-------------------------------------------
+    ma.set_list_of_sales_orders_v2_items(items_list)
+    ta.refresh_order_status(transaction_id, True)
+    transactions = ta.get_transaction(shipto_id=preset["shipto_id"])
+    locations = la.get_locations(preset["shipto_id"], customer_id=preset["customer_id"])
+
+    assert locations[0]["onHandInventory"] == 0
+    assert transactions["totalElements"] == 2
+    ComplexAssert.transaction(transactions["entities"][0], new.status, new.quantity_ordered, new.quantity_shipped, transaction_id, 1, transactions["entities"][1]["id"])
+    additional_erp_order_id = transaction_id if additional.status == "BACKORDERED" else None
+    ComplexAssert.transaction(transactions["entities"][1], additional.status, additional.quantity_ordered, additional.quantity_shipped, additional_erp_order_id)
+
+
+@pytest.mark.parametrize("conditions", [
+    {
         "init": Transaction.several(("SHIPPED", 100, 20), ("ORDERED", 80, 80)),
         "new": Transaction.several(("SHIPPED", 80, 40), ("SHIPPED", 80, 80)),
         "additional": Transaction(),
