@@ -132,9 +132,13 @@ class BasePage():
         element = self.get_element_by_id(element_id)
         assert element.is_enabled(), f"Element with ID = '{element_id}' is disabled, but should be enabled"
 
-    def should_be_enabled_xpath(self, xpath):
+    def should_be_enabled_xpath(self, xpath, wait=False):
         element = self.get_element_by_xpath(xpath)
-        assert element.is_enabled(), f"Element with XPATH = '{xpath}' is disabled, but should be enabled"
+        if not wait:
+            assert element.is_enabled(), f"Element with XPATH = '{xpath}' is disabled, but should be enabled"
+        else:
+            WebDriverWait(self.driver, 7).until_not(wait_until_disabled(xpath)) #pylint: disable=E1102
+            assert element.is_enabled(), f"Element with XPATH = '{xpath}' is disabled, but should be enabled"
 
     def get_authorization_token(self):
         cookies = self.driver.get_cookies()
@@ -246,6 +250,21 @@ class BasePage():
                 self.should_be_last_page()
                 self.wait_until_page_loaded()
 
+    def last_page(self, pagination=None, wait=True):
+        self.select_pagination(pagination)
+        if wait:
+            try:
+                WebDriverWait(self.driver, 7).until_not(wait_until_disabled(Locator.xapth_button_last_page))
+            except:
+                pass
+        self.click_xpath(Locator.xapth_button_last_page)
+        self.get_element_by_xpath(Locator.xpath_get_table_item(2, 1))
+
+    def select_pagination(self, number_of_elements):
+        if number_of_elements is not None:
+            self.click_xpath(Locator.xpath_listbox)
+            self.click_xpath(Locator.xpath_select_pagination(number_of_elements))
+
     def should_be_last_page(self):
         try:
             WebDriverWait(self.driver, 15).until(last_page()) #pylint: disable=E1102
@@ -301,6 +320,36 @@ class BasePage():
                     self.logger.info(f"{row} element in '{header}' column is correct")
             else:
                 self.element_should_have_text(Locator.xpath_table_item(row, column), expected_text)
+
+    def check_table_item(self, expected_text, cell=None, header=None, row=None, last=None):
+        if expected_text is not None:
+            if (cell is None and header is None) or (cell is not None and header is not None):
+                self.logger.error("Either 'cell' or 'header' parameter should be defined")
+            column = cell if header is None else self.get_header_column(header)
+        
+            if isinstance(expected_text, list):
+                if last is not None:
+                    current_text = self.get_element_text(Locator.xpath_get_last_table_item(column))
+                elif row is not None:
+                    current_text = self.get_element_text(Locator.xpath_get_table_item(row, column))
+                else:
+                    self.logger.error("Either 'row' or 'last' parameter should be defined")
+                correctness = True
+                for element in expected_text:
+                    if element is not None:
+                        if element not in current_text:
+                            self.logger.error(f"{row} element in '{header}' column is incorrect")
+                            correctness = False
+                            break
+                if correctness:
+                    self.logger.info(f"{row} element in '{header}' column is correct")
+            else:
+                if last is not None:
+                    self.element_should_have_text(Locator.xpath_get_last_table_item(column), expected_text)
+                elif row is not None:
+                    self.element_should_have_text(Locator.xpath_get_table_item(row, column), expected_text)
+                else:
+                    self.logger.error("Either 'row' or 'last' parameter should be defined")
 
     def delete_dialog_should_be_about(self, expected_text):
         self.wait_until_page_loaded(1)

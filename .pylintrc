@@ -16,6 +16,7 @@ disable=
     R1734, #use-list-literal
     R1735, #use-dict-literal
     R0903, #too-few-public-methods
+    W1203, #logging-fstring-interpolation
 
 ignore=
     utilities,

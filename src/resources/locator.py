@@ -31,6 +31,7 @@ class Locator():
     xpath_confirm_button = "//button[@data-testid='confirm-button']"
     xpath_dialog_cancel_button = "//button[@data-testid='cancel-button']"
     xpath_pagination_bottom = "//div[@class='pagination-bottom']"
+    xpath_pagination_navigation = "//nav[@aria-label='pagination navigation']"
     xpath_continue_import = "//button/span[text()='Continue import']"
     xpath_successfully_imported_msg = "//span[@id='client-snackbar']//strong[text()='Successfully imported']"
     xpath_successfully_uploaded_document_msg = "//span[text()='Document uploaded successfully!']"
@@ -39,6 +40,8 @@ class Locator():
     xpath_button_type = "//button[@type='button']"
     xpath_button_save = "//button[@label='Save']"
     xpath_role_row = "//div[@role='row']"
+    xpath_last_role_row = f"({xpath_role_row})[last()]"
+    xpath_role_cell = "//div[@role='cell']"
     xpath_replenishment_item = "//div[@data-testid='replenishment-item']"
     xpath_replenishment_item_sku = "//div[@data-testid='part-sku']"
     xpath_submit_reorder_list_button = "//button/span[text()='Submit']"
@@ -75,6 +78,9 @@ class Locator():
     xpath_sign_out = "//div[text()='Sign Out']"
     xpath_reset_password = "//div[text()='Reset password']"
     xpath_actions_button = "//button[@data-testid='sticky-last-more-button']"
+    xpath_listbox = "//div[@aria-haspopup='listbox']/.."
+    xpath_role_listbox = "//ul[@role='listbox']"
+    xapth_button_last_page = "//button[@aria-label='Go to last page']"
 
     @staticmethod
     def xpath_by_count(xpath, count):
@@ -101,6 +107,18 @@ class Locator():
         return f"(({sub_xpath}{Locator.xpath_table_row})[{row}]{Locator.xpath_table_column})[{column}]"
 
     @staticmethod
+    def xpath_get_table_item(row, column):
+        return f"(({Locator.xpath_role_row})[{row}]{Locator.xpath_role_cell})[{column}]"
+
+    @staticmethod
+    def xpath_get_last_table_item(column):
+        return f"(({Locator.xpath_role_row})[last()]{Locator.xpath_role_cell})[{column}]"
+
+    @staticmethod
+    def xpath_get_row_by_index(index):
+        return f"//div[@role='row' and @data-row-index='{index}']"
+
+    @staticmethod
     def xpath_table_item_in_dialog(row, column):
         return f"(({Locator.xpath_dialog}{Locator.xpath_table_row})[{row}]{Locator.xpath_table_column})[{column}]"
 
@@ -115,6 +133,10 @@ class Locator():
     @staticmethod
     def xpath_dropdown_sku(sku):
         return f"{Locator.xpath_dropdown_list_item}//span[text()='{sku}']/../.."
+
+    @staticmethod
+    def xpath_select_pagination(value):
+        return f"{Locator.xpath_role_listbox}/li[@data-value='{value}']"
 
     def __setattr__(self, key, value):
         if hasattr(key):

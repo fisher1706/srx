@@ -40,7 +40,7 @@ class CustomerApi(API):
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="updating", status_code=response.status_code, content=response.content))
 
-    def get_customers(self, name=None, number=None):
+    def get_customers(self, name=None, number=None, full=None):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/customers")
         token = self.get_distributor_token()
         params = {
@@ -53,4 +53,6 @@ class CustomerApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
+        if full:
+            return response_json["data"]
         return response_json["data"]["entities"]
