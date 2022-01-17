@@ -101,6 +101,9 @@ def pytest_addoption(parser):
     parser.addoption('--password_edi_856', action='store', default=None,
                      help="Enter password_edi_856")
 
+    parser.addoption ('--ilx_infor_token', action='store', default='qa',
+                      help="Enter ilx_infor_token")
+
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):

@@ -27,8 +27,14 @@ class IlxData:
         self.reject_edi_856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Rejected/'
         self.outbox_edi_856 = '/test_edi_salesOrdersStatus/EDI/X12_856/Outbox/'
 
+        # INFOR
+        self.ilx_infor_url = 'https://api.qa.integrationlogix.com/external-api' \
+                             '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/infor_final/infor_final'
+
     def prod_environment(self):
         pass
 
     def qa_environment(self):
-        pass
+        # INFOR
+        self.ilx_infor_url = 'https://api.qa.integrationlogix.com/external-api' \
+                             '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/infor_final/infor_final'

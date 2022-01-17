@@ -1,32 +1,27 @@
-import time
 import pytest
 import requests
+
 from src.api.ilx.ilx_response import Response
-from src.schemas.ilx_schemas import ValidatorIDE
-from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
+from src.erp_emulator.erp_ilx import variables
 from src.utilities.ilx_utils import Utils
 
 
-@pytest.mark.parametrize('number, test_type, testrail_case_id', [
-    (1, 'pass', 10200),
-    (1, 'fail', 10201)
+@pytest.mark.parametrize('order_no, infor_data, testrail_case_id', [
+    ('21982806', variables.data_infor, 11383),
+    ('21982807', variables.data_infor, 11384),
+    ('21982808', variables.data_infor, 11385),
+    ('21982809', variables.data_infor, 11386),
+    ('21982810', variables.data_infor, 11387),
+    ('21982811', variables.data_infor, 11388),
 ])
-def test_response_ide_856(ilx_context, number, test_type, testrail_case_id):
+def test_response_infor(ilx_context, order_no, infor_data, testrail_case_id):
     ilx_context.ilx_testrail_case_id = testrail_case_id
 
+    headers = {'Authorization': ilx_context.ilx_infor_token}
 
+    resp = requests.get(url=Utils.generate_url(ilx_context.ilx_data.ilx_infor_url, order_no=order_no), headers=headers)
+    response = Response(resp)
+    response.assert_response_status(200)
+    response.validate_response_infor(Utils.get_data_order_infor(order_no, infor_data))
 
-    for data in test_data:
-        case = data[1].split('*')[2]
-        headers = {'Authorization': ilx_context.edi_856_auth_token}
-
-        resp = requests.get(url=Utils.generate_url(ilx_context.ilx_data.edi_856_url, case=case), headers=headers)
-
-        response = Response(resp)
-        if test_type == 'pass':
-            response.validate_response_schema(ValidatorIDE)
-            response.validate_response_edi(data)
-        else:
-            assert len(response.response_json) == 0
-
-        print(response)
+    print(response)

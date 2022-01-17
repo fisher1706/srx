@@ -139,13 +139,10 @@ def get_order(order_id):
 @app.route('/external-api/test-full2/test-full2/sxapioegetsingleorderv3', methods=['GET', 'POST'])
 def get_order_infor_qa():
     orderNumber  = request.get_json().get('request').get('orderNumber')
-    resp = Infor.response
-    online_field = Infor.online_field
-
     response = {'error': f'orderNumber: {orderNumber} - not found'}
 
     for data in data_infor:
         if str(data.get('orderno')) == str(orderNumber):
-            return Infor.generate_resp_infor(data, online_field, resp)
+            return Infor.generate_resp_infor(data, Infor.online_field, Infor.response)
 
     return response, 400

@@ -18,9 +18,12 @@ def ilx_session_context(request):
     # credentials
     if ilx_session_context_object.ilx_credentials:
         # base credentials
+        ilx_session_context_object.ilx_testrail_email = request.config.getoption ("testrail_email")
+        ilx_session_context_object.ilx_testrail_password = request.config.getoption ("testrail_password")
+
         ilx_session_context_object.ilx_auth_token = request.config.getoption("ilx_auth_token")
-        ilx_session_context_object.ilx_testrail_email = request.config.getoption("testrail_email")
-        ilx_session_context_object.ilx_testrail_password = request.config.getoption("testrail_password")
+        ilx_session_context_object.ilx_infor_token = request.config.getoption ("ilx_infor_token")
+
 
     elif not ilx_session_context_object.ilx_credentials:
         from src.resources.ilx_local_credentials import IlxLocalCredentials
@@ -35,6 +38,8 @@ def ilx_session_context(request):
         ilx_session_context_object.edi_856_auth_token = creds.edi_856_auth_token
         ilx_session_context_object.user_name_edi_856 = creds.user_name_edi_856
         ilx_session_context_object.password_edi_856 = creds.password_edi_856
+
+        ilx_session_context_object.ilx_infor_token = creds.ilx_infor_token
 
     return ilx_session_context_object
 
@@ -52,6 +57,8 @@ def ilx_context(ilx_session_context, request):
     ilx_context_object.edi_856_auth_token = ilx_session_context.edi_856_auth_token
     ilx_context_object.password_edi_856 = ilx_session_context.password_edi_856
     ilx_context_object.user_name_edi_856 = ilx_session_context.user_name_edi_856
+
+    ilx_context_object.ilx_infor_token = ilx_session_context.ilx_infor_token
 
     yield ilx_context_object
     testrail(request, ilx_context_object)

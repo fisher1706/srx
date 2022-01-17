@@ -59,7 +59,10 @@ data_case_11 = [
 ]
 
 data_infor = [
-    {'orderno': '21982806', 'ordersuf': '03', 'stage': 'Pd', 'custpo': 'SRX VMI', 'qty': 50, 'qty_stk': 30},
-    {'orderno': '21982807', 'ordersuf': '03', 'stage': 'Pd', 'custpo': 'SRX VMI', 'qty': 40, 'qty_stk': 20},
-
+    {'orderno': '21982806', 'ordersuf': '05', 'stage': 'Ent', 'custpo': 'SRX VMI', 'qty': 0, 'qty_stk': 0},
+    {'orderno': '21982807', 'ordersuf': '06', 'stage': 'Ord', 'custpo': 'SRX VMI', 'qty': 20, 'qty_stk': 20},
+    {'orderno': '21982808', 'ordersuf': '07', 'stage': 'Pck', 'custpo': 'SRX VMI', 'qty': 30, 'qty_stk': 30},
+    {'orderno': '21982809', 'ordersuf': '08', 'stage': 'Shp', 'custpo': 'SRX VMI', 'qty': 40, 'qty_stk': 40},
+    {'orderno': '21982810', 'ordersuf': '09', 'stage': 'Inv', 'custpo': 'SRX VMI', 'qty': 50, 'qty_stk': 50},
+    {'orderno': '21982811', 'ordersuf': '10', 'stage': 'Pd', 'custpo': 'SRX VMI', 'qty': 60, 'qty_stk': 60}
 ]

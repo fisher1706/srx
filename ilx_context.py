@@ -6,9 +6,12 @@ class IlxSessionContext:
     ilx_credentials = None
 
     ilx_auth_token = None
+
     edi_856_auth_token = None
     user_name_edi_856 = None
     password_edi_856 = None
+
+    ilx_infor_token = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):
@@ -23,13 +26,15 @@ class IlxContext:
     ilx_testrail_status_id = None
     ilx_testrail_comment = None
     ilx_session_context = None
-
     ilx_data = None
 
     ilx_auth_token = None
+
     edi_856_auth_token = None
     user_name_edi_856 = None
     password_edi_856 = None
+
+    ilx_infor_token = None
 
 
     def __setattr__(self, key, value):
