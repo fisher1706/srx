@@ -4,6 +4,7 @@ from flask import request
 
 from .utils import UtilsServerIlx as ServUtils #pylint: disable=E0401
 from .variables import * #pylint: disable=E0401,W0401
+from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
 
 
 @app.route('/external-api/test-full2/test-full2/syndicalist', methods=['GET'])
@@ -110,55 +111,38 @@ def get_order(order_id):
 
     if order_id == "case1":
         generations, lines = ServUtils.create_data_order(data_case_1)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case2":
         generations, lines = ServUtils.create_data_order(data_case_2)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case3":
         generations, lines = ServUtils.create_data_order(data_case_3)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case4":
         generations, lines = ServUtils.create_data_order(data_case_4)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case5":
         generations, lines = ServUtils.create_data_order(data_case_5)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case6":
         generations, lines = ServUtils.create_data_order(data_case_6)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case7":
         generations, lines = ServUtils.create_data_order(data_case_7)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case8":
         generations, lines = ServUtils.create_data_order(data_case_8)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case10":
         generations, lines = ServUtils.create_data_order(data_case_10)
-        response["generations"] = generations
-        response["lines"] = lines
-
     elif order_id == "case11":
         generations, lines = ServUtils.create_data_order(data_case_11)
-        response["generations"] = generations
-        response["lines"] = lines
-
     else:
         return error_response, 400
 
+    response.update({"generations": generations, "lines": lines})
     return response
+
+
+@app.route('/external-api/test-full2/test-full2/sxapioegetsingleorderv3', methods=['GET', 'POST'])
+def get_order_infor_qa():
+    orderNumber  = request.get_json().get('request').get('orderNumber')
+    response = {'error': f'orderNumber: {orderNumber} - not found'}
+
+    for data in data_infor:
+        if str(data.get('orderno')) == str(orderNumber):
+            return Infor.generate_resp_infor(data, Infor.online_field, Infor.response)
+
+    return response, 400

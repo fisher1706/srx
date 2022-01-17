@@ -19,7 +19,6 @@ class Response:
         next_ordered = list()
 
         number = len(order_data)
-
         for num in range(number):
             ordered = self.data[num].get('items')[0].get('quantityOrdered')
             shipped = self.data[num].get('items')[0].get('quantityShipped')
@@ -50,6 +49,24 @@ class Response:
         assert self.data[0].get('poNumber') == edi_data[2].split('*')[1], f'incorrect poNumber for: {self}'
         assert self.data[0].get('items')[0].get('quantity') == edi_data[3].split('*')[2], \
             f'incorrect quantity for: {self}'
+
+    def validate_response_infor(self, infor_data):
+        assert self.data[0].get('id') == infor_data.get('orderno'), f'incorrect orderno for: {self.response_json}'
+        assert self.data[0].get('release') == infor_data.get('ordersuf'), f'incorrect release for: {self.response_json}'
+        assert self.data[0].get('items')[0].get('quantityShipped') == infor_data.get('qty_stk'), \
+            f'incorrect quantityShipped for: {self.response_json}'
+        assert self.data[0].get('items')[0].get('quantityOrdered') == infor_data.get('qty_stk'), \
+            f'incorrect quantityOrdered for: {self.response_json}'
+
+        if infor_data.get('stage') in ['Shp', 'Inv', 'Pd']:
+            assert str(self.data[0].get('transactionType')) == 'SHIPPED', \
+                f'incorrect transactionType for: {self.response_json}'
+        elif infor_data.get('stage') in ['Ord', 'Pck']:
+            assert self.data[0].get('transactionType') == 'ORDERED', \
+                f'incorrect transactionType for: {self.response_json}'
+        else:
+            assert self.data[0].get('transactionType') == 'QUOTED', \
+                f'incorrect transactionType for: {self.response_json}'
 
     def __str__(self):
         return f"\nStatus code: {self.response_status}" \

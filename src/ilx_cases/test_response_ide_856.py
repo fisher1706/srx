@@ -40,4 +40,4 @@ def test_response_ide_856(ilx_context, number, test_type, testrail_case_id):
         else:
             assert len(response.response_json) == 0
 
-        print(response.__str__)
+        print(response)
