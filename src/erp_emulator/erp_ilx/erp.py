@@ -1,10 +1,10 @@
 from __main__ import app #pylint: disable=E0611
 
 from flask import request
-
+from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
 from .utils import UtilsServerIlx as ServUtils #pylint: disable=E0401
 from .variables import * #pylint: disable=E0401,W0401
-from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
+
 
 
 @app.route('/external-api/test-full2/test-full2/syndicalist', methods=['GET'])
@@ -138,11 +138,11 @@ def get_order(order_id):
 
 @app.route('/external-api/test-full2/test-full2/sxapioegetsingleorderv3', methods=['GET', 'POST'])
 def get_order_infor_qa():
-    orderNumber  = request.get_json().get('request').get('orderNumber')
-    response = {'error': f'orderNumber: {orderNumber} - not found'}
+    order_number  = request.get_json().get('request').get('orderNumber')
+    response = {'error': f'orderNumber: {order_number} - not found'}
 
     for data in data_infor:
-        if str(data.get('orderno')) == str(orderNumber):
+        if str(data.get('orderno')) == str(order_number):
             return Infor.generate_resp_infor(data, Infor.online_field, Infor.response)
 
     return response, 400

@@ -81,6 +81,7 @@ class Locator():
     xpath_listbox = "//div[@aria-haspopup='listbox']/.."
     xpath_role_listbox = "//ul[@role='listbox']"
     xapth_button_last_page = "//button[@aria-label='Go to last page']"
+    xpath_reload_button = "//button[@data-testid='reload-button']"
 
     @staticmethod
     def xpath_by_count(xpath, count):
