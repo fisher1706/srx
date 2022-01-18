@@ -87,17 +87,19 @@ class UserApi(API):
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="updating", status_code=response.status_code, content=response.content))
 
-    def get_distributor_user(self, email):
+    def get_distributor_user(self, email=None, full=False):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/users/pageable")
         params = dict()
         Tools.add_to_dict_if_not_none(params, "email", email)
         token = self.get_distributor_token()
         response = self.send_get(url, token, params=params)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Distributor User", operation="got"))
+            self.logger.info(Message.entity_operation_done.format(entity="Distributor Users", operation="got"))
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
+        if full:
+            return response_json["data"]
         return response_json["data"]["entities"]
 
     @default_expected_code(200)

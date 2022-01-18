@@ -252,9 +252,10 @@ class BasePage():
 
     def last_page(self, pagination=None, wait=True):
         self.select_pagination(pagination)
+        self.get_element_by_xpath(Locator.xpath_get_table_item(2, 1))
         if wait:
             try:
-                WebDriverWait(self.driver, 7).until_not(wait_until_disabled(Locator.xapth_button_last_page))
+                WebDriverWait(self.driver, 7).until_not(wait_until_disabled(Locator.xapth_button_last_page)) #pylint: disable=E1102
             except:
                 pass
         self.click_xpath(Locator.xapth_button_last_page)
@@ -326,7 +327,7 @@ class BasePage():
             if (cell is None and header is None) or (cell is not None and header is not None):
                 self.logger.error("Either 'cell' or 'header' parameter should be defined")
             column = cell if header is None else self.get_header_column(header)
-        
+
             if isinstance(expected_text, list):
                 if last is not None:
                     current_text = self.get_element_text(Locator.xpath_get_last_table_item(column))
