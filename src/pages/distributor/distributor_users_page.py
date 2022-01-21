@@ -66,8 +66,8 @@ class DistributorUsersPage(DistributorPortalPage):
         self.dialog_should_not_be_visible()
 
     def create_distributor_super_user(self, distributor_superuser_body):
-        self.wait_until_page_loaded()
-        start_number_of_rows = self.get_table_rows_number()
+        ua = UserApi(self.context)
+        start_number_of_rows = ua.get_distributor_user(full=True)["totalElements"]
         self.click_id(Locator.id_add_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), distributor_superuser_body.pop("role"))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), distributor_superuser_body.pop("position"))
@@ -75,30 +75,21 @@ class DistributorUsersPage(DistributorPortalPage):
             self.input_by_name(field, distributor_superuser_body[field])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
-        self.wait_until_page_loaded()
-        self.elements_count_should_be(Locator.xpath_table_row, start_number_of_rows+1)
+        self.last_page(10)
+        self.get_element_by_xpath(Locator.xpath_get_row_by_index(start_number_of_rows%10))
 
     def check_last_distributor_super_user(self, distributor_superuser_body):
-        self.open_last_page()
         table_cells = {
             "Email": distributor_superuser_body["email"],
             "First name": distributor_superuser_body["firstName"],
             "Last name": distributor_superuser_body["lastName"]
         }
         for cell, value in table_cells.items():
-            self.check_last_table_item_by_header(cell, value)
+            self.check_table_item(value, header=cell, last=True)
 
     def update_last_distributor_super_user(self, distributor_superuser_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_last_role_row+Locator.xpath_edit_button)
         for field in distributor_superuser_body.keys():
             self.input_by_name(field, distributor_superuser_body[field])
         self.click_xpath(Locator.xpath_submit_button)
-        self.dialog_should_not_be_visible()
-
-    def delete_last_distributor_super_user(self):
-        full_name = self.get_last_table_item_text_by_header("First name")
-        full_name += " " + self.get_last_table_item_text_by_header("Last name")
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
-        self.delete_dialog_should_be_about(full_name)
-        self.click_xpath(Locator.xpath_confirm_button)
         self.dialog_should_not_be_visible()

@@ -102,6 +102,19 @@ class ProductApi(API):
             return response_json["data"]["entities"]
         self.logger.error(str(response.content))
 
+    def get_products_total_elements(self):
+        url = self.url.get_api_url_for_env("/distributor-portal/distributor/products")
+        params = {
+            "size": 1
+        }
+        token = self.get_distributor_token()
+        response = self.send_get(url, token, params=params)
+        if response.status_code == 200:
+            self.logger.info(Message.entity_operation_done.format(entity="Product", operation="got"))
+            response_json = response.json()
+            return response_json["data"]["totalElements"]
+        self.logger.error(str(response.content))
+
     def get_customer_product(self, customer_id=None, product_sku=None):
         if customer_id is None:
             customer_id = self.data.customer_id

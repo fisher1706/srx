@@ -12,10 +12,12 @@ class OrderStatusPage(DistributorPortalPage):
             if shipped_quantity is not None:
                 self.input_by_name("shippedQuantity", shipped_quantity)
             self.click_xpath(Locator.xpath_submit_button)
+            self.dialog_should_not_be_visible()
             self.wait_until_page_loaded()
 
     def split_transaction(self, row, quantity):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_split_button, row))
         self.input_by_name("splitFrom", quantity)
         self.click_xpath(Locator.xpath_submit_button)
+        self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()

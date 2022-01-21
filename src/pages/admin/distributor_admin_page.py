@@ -11,7 +11,9 @@ class DistributorAdminPage(AdminPortalPage):
         "address.city": None,
         "address.zipCode": None,
         "billingDelay": None,
-        "country": None
+        "country": None,
+        "state": None,
+        "ship_to_level": None
     }
     table_cells_checkbox = {
         "Process.Fee": True,
@@ -24,14 +26,14 @@ class DistributorAdminPage(AdminPortalPage):
         "Bill by all Ship-tos": True
     }
 
-    def create_distributor(self, distributor_body, state, bill_by, checkbox_list):
+    def create_distributor(self, distributor_body, checkbox_list):
         check_mark = self.get_element_count(Locator.xpath_check_mark)
         self.click_id(Locator.id_add_button)
         for checkbox in checkbox_list:
             self.select_checkbox_in_dialog_by_name(checkbox)
         self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), distributor_body.pop("country"))
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), state)
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(3), bill_by)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), distributor_body.pop("state"))
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(3), distributor_body.pop("ship_to_level"))
         for field in distributor_body.keys():
             self.input_by_name(field, distributor_body[field])
         self.click_xpath(Locator.xpath_submit_button)
@@ -57,14 +59,13 @@ class DistributorAdminPage(AdminPortalPage):
         checked = sum(1 for value in table_cells_checkbox.values() if value)
         self.elements_count_should_be(Locator.xpath_check_mark, check_mark+checked)
 
-    def update_last_distributor(self, distributor_body, state, bill_by, checkbox_list, ship_to_level):
+    def update_last_distributor(self, distributor_body, checkbox_list):
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
         for checkbox in checkbox_list:
             self.unselect_checkbox_in_dialog_by_name(checkbox)
         self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(1), distributor_body.pop("country"))
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), state)
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(3), bill_by)
-        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(4), ship_to_level)
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(2), distributor_body.pop("state"))
+        self.select_in_dropdown_via_input(Locator.xpath_dropdown_in_dialog(3), distributor_body.pop("ship_to_level"))
         for field in distributor_body.keys():
             self.input_by_name(field, distributor_body[field])
         self.click_xpath(Locator.xpath_submit_button)

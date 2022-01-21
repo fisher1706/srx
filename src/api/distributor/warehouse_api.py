@@ -62,8 +62,8 @@ class WarehouseApi(API):
         else:
             self.logger.error(str(response.content))
         response_json = response.json()
-        return response_json
+        return response_json["data"]
 
     def get_first_warehouse_id(self):
         response = self.get_warehouses()
-        return response["data"]["entities"][0]["id"]
+        return response["entities"][0]["id"]

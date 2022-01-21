@@ -10,6 +10,7 @@ from src.api.admin.universal_catalog_api import UniversalCatalogApi
 from src.api.distributor.product_api import ProductApi
 from src.api.distributor.location_api import LocationApi
 from src.api.setups.setup_product import SetupProduct
+from src.resources.locator import Locator
 
 @pytest.mark.parametrize("permissions", [
     {
@@ -69,6 +70,8 @@ def test_product_crud(ui, permission_ui, permissions, delete_distributor_securit
     cp.create_product(product_body.copy())
     cp.check_last_product(product_body.copy())
     cp.update_last_product(edit_product_body.copy())
+    cp.click_xpath(Locator.xpath_reload_button)
+    cp.last_page(wait=False)
     cp.check_last_product(edit_product_body.copy())
 
 @pytest.mark.parametrize("permissions", [
@@ -104,6 +107,7 @@ def test_product_import(ui, permission_ui, permissions, delete_distributor_secur
     lp.log_in_distributor_portal()
     cp.sidebar_catalog()
     cp.import_product(products)
+    cp.last_page(10)
     cp.check_last_product(product_body.copy())
 
 @pytest.mark.regression

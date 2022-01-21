@@ -252,13 +252,17 @@ class BasePage():
 
     def last_page(self, pagination=None, wait=True):
         self.select_pagination(pagination)
-        self.get_element_by_xpath(Locator.xpath_get_table_item(2, 1))
+        self.wait_for_the_first_element_in_table()
         if wait:
             try:
                 WebDriverWait(self.driver, 7).until_not(wait_until_disabled(Locator.xapth_button_last_page)) #pylint: disable=E1102
             except:
                 pass
-        self.click_xpath(Locator.xapth_button_last_page)
+        if self.get_element_by_xpath(Locator.xapth_button_last_page).is_enabled():
+            self.click_xpath(Locator.xapth_button_last_page)
+            self.wait_for_the_first_element_in_table()
+
+    def wait_for_the_first_element_in_table(self):
         self.get_element_by_xpath(Locator.xpath_get_table_item(2, 1))
 
     def select_pagination(self, number_of_elements):

@@ -167,12 +167,14 @@ def test_distributor_superuser_crud(ui):
 
     lp.log_in_distributor_portal()
     dup.sidebar_users()
-    dup.click_xpath(Locator.xpath_button_tab_by_name("Users"))
     dup.create_distributor_super_user(distributor_superuser_body.copy())
     dup.check_last_distributor_super_user(distributor_superuser_body.copy())
     dup.update_last_distributor_super_user(edit_distributor_superuser_body.copy())
+    dup.click_xpath(Locator.xpath_reload_button)
+    dup.last_page(wait=False)
     dup.check_last_distributor_super_user(edit_distributor_superuser_body.copy())
-    dup.delete_last_distributor_super_user()
+    full_name = edit_distributor_superuser_body["firstName"] + " " + edit_distributor_superuser_body["lastName"]
+    dup.delete_last_distributor_user(full_name)
 
 @pytest.mark.regression
 def test_checkout_user_import_without_group(ui):
