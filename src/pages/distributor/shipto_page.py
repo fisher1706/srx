@@ -43,8 +43,9 @@ class ShiptoPage(DistributorPortalPage):
         for cell, value in table_cells.items():
             self.check_last_table_item_by_header(cell, value)
 
-    def update_last_shipto(self, shipto_body):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_actions_button, self.get_table_rows_number()))
+    def update_last_shipto(self, shipto_body, actions_pop_up=True):
+        if actions_pop_up:
+            self.click_xpath(Locator.xpath_by_count(Locator.xpath_actions_button, self.get_table_rows_number()))
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_shipto_info_button, self.get_table_rows_number()))
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(2), shipto_body.pop("state"))
         for field in shipto_body.keys():
@@ -52,10 +53,11 @@ class ShiptoPage(DistributorPortalPage):
         self.click_xpath(Locator.xpath_submit_button)
         self.wait_until_page_loaded()
 
-    def delete_last_shipto(self):
+    def delete_last_shipto(self, actions_pop_up=True):
         start_number_of_rows = self.get_table_rows_number()
         name = self.get_last_table_item_text_by_header("Shipto Number")
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_actions_button, self.get_table_rows_number()))
+        if actions_pop_up:
+            self.click_xpath(Locator.xpath_by_count(Locator.xpath_actions_button, self.get_table_rows_number()))
         self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, self.get_table_rows_number()))
         self.delete_dialog_should_be_about(name)
         self.click_xpath(Locator.xpath_submit_button)

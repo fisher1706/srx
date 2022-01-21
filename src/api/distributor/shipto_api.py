@@ -56,6 +56,19 @@ class ShiptoApi(API):
         response_json = response.json()
         return response_json
 
+    def get_shiptos_total_elements(self):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable")
+        params = {
+            "size": 1
+        }
+        token = self.get_distributor_token()
+        response = self.send_get(url, token, params=params)
+        if response.status_code == 200:
+            self.logger.info(Message.entity_operation_done.format(entity="Product", operation="got"))
+            response_json = response.json()
+            return response_json["data"]["totalElements"]
+        self.logger.error(str(response.content))
+
     def get_po_number_by_number(self, number):
         response = self.get_shipto_by_number(number)
         return response["data"]["entities"][0]["poNumbers"][0]["value"]

@@ -23,6 +23,5 @@ class UsageHistoryPage(DistributorPortalPage):
         self.wait_until_page_loaded()
 
     def check_last_usage_history(self, usage_history_body):
-        self.open_last_page()
-        for cell in usage_history_body.keys():
-            self.check_last_table_item_by_header(cell, usage_history_body[cell])
+        for cell, value in usage_history_body.items():
+            self.check_table_item(value, header=cell, last=True)

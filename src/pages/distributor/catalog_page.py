@@ -1,6 +1,7 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.tools import Tools
 from src.resources.locator import Locator
+from src.api.distributor.product_api import ProductApi
 
 class CatalogPage(DistributorPortalPage):
     product_body = {
@@ -32,6 +33,8 @@ class CatalogPage(DistributorPortalPage):
     }
 
     def create_product(self, product_body):
+        pa = ProductApi(self.context)
+        start_number_of_rows = pa.get_products_total_elements()
         self.click_id(Locator.id_add_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), product_body.pop("lifecycleStatus"))
         for field in product_body.keys():
@@ -39,9 +42,10 @@ class CatalogPage(DistributorPortalPage):
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
+        self.last_page(10)
+        self.get_element_by_xpath(Locator.xpath_get_row_by_index(start_number_of_rows%10))
 
     def check_last_product(self, product_body):
-        self.open_last_page()
         table_cells = {
             "Distributor SKU": product_body["partSku"],
             "Short Description": product_body["shortDescription"],
@@ -50,12 +54,10 @@ class CatalogPage(DistributorPortalPage):
             "Package Conversion": product_body["packageConversion"],
         }
         for cell, value in table_cells.items():
-            self.check_last_table_item_by_header(cell, value)
-        #Not fully checking. Also need to check ALL fields in Details dialog
+            self.check_table_item(value, header=cell, last=True)
 
     def update_last_product(self, product_body):
-        self.open_last_page()
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, self.get_table_rows_number()))
+        self.click_xpath(Locator.xpath_last_role_row+Locator.xpath_edit_button)
         self.select_in_dropdown(Locator.xpath_dropdown_in_dialog(1), product_body.pop("lifecycleStatus"))
         for field in product_body.keys():
             self.input_by_name(field, product_body[field])

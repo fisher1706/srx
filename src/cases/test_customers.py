@@ -143,14 +143,15 @@ def test_shipto_crud(ui, permission_ui, permissions, delete_distributor_security
 
     lp.log_in_distributor_portal()
     sp.follow_shipto_url()
+    sp.get_element_by_xpath(Locator.xpath_table_item(1, 1))
     sp.create_shipto(shipto_body.copy())
     sp.check_last_shipto(shipto_body.copy())
-    sp.update_last_shipto(edit_shipto_body.copy())
+    sp.update_last_shipto(edit_shipto_body.copy(), False)
     sp.should_be_disabled_xpath(Locator.xpath_submit_button)
     sp.driver.find_element_by_link_text('Shiptos').click()
     sp.wait_until_page_loaded()
     sp.check_last_shipto(edit_shipto_body.copy())
-    sp.delete_last_shipto()
+    sp.delete_last_shipto(False)
 
 @pytest.mark.acl
 @pytest.mark.regression
@@ -206,7 +207,9 @@ def test_usage_history_import(ui, permission_ui, permissions, delete_distributor
     ]
     lp.log_in_distributor_portal()
     uhp.follow_usage_history_url()
+    uhp.select_pagination(10)
     uhp.import_usage_history(usage_history)
+    uhp.last_page(wait=False)
     uhp.check_last_usage_history(usage_history_body.copy())
 
 @pytest.mark.regression
