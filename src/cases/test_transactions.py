@@ -468,6 +468,7 @@ def test_ohi_increased_by_shipped_quantity(api, transaction_location_preset, con
     locations = la.get_locations(preset["shipto_id"])
     assert locations[0]["onHandInventory"] == conditions["quantity_shipped"] * LOCATION_PACKAGE_CONVERSION
 
+@pytest.mark.regression
 def test_ohi_increased_by_transaction_bulk_update(api, transaction_location_preset, delete_shipto):
     api.testrail_case_id = 11350
 
