@@ -71,7 +71,7 @@ def ilx_context(ilx_session_context, request):
     ilx_context_object.ilx_password = ilx_session_context.ilx_password
 
     yield ilx_context_object
-    # testrail(request, ilx_context_object)
+    testrail(request, ilx_context_object)
 
 
 def testrail(request, ilx_context):

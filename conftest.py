@@ -144,10 +144,8 @@ def driver_ilx(request, ilx_session_context):
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
         browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
-
         if request.cls is not None:
             request.cls.browser = browser
-
     elif browser_name == "firefox":
         browser = webdriver.Firefox()
     elif browser_name == "chrome-headless":

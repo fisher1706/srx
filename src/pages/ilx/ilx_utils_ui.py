@@ -8,14 +8,8 @@ class IlxUtils:
         timestamp = int(time.time())
         return f'{name}-{timestamp}'
 
-
-if __name__ == '__main__':
-    u = IlxUtils()
-
-    # x = u.generate_name('group')
-    # print(x)
-
-    x = string = "Добро пожалов\nать!"
-    print("Индекс первой буквы 'о':", string.find('\n'))
-
-
+    @staticmethod
+    def diff(list_1, list_2):
+        pairs = zip(list_1, list_2)
+        resp = [(x, y) for x, y in pairs if x != y]
+        return resp
