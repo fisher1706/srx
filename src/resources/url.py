@@ -8,8 +8,8 @@ class URL():
             self.auth_portal = self.get_url_for_env("storeroomlogix.com", "auth")
             self.distributor_portal = self.get_url_for_env("storeroomlogix.com", "distributor")
             self.customer_portal = self.get_url_for_env("storeroomlogix.com", "customer")
-            self.checkout_portal = self.get_url_for_env("storeroomlogix.com", "checkout")
-            self.new_checkout_portal = self.get_url_for_env("storeroomlogix.com", "next.checkout")
+            self.checkout_portal = self.get_url_for_env("storeroomlogix.com", "old_checkout")
+            self.new_checkout_portal = self.get_url_for_env("storeroomlogix.com", "checkout")
             self.ilx_mocks = "http://54.175.164.185:8080"
         else:
             raise IOError("Incorrect environment")
@@ -18,9 +18,13 @@ class URL():
         if self.environment == "prod":
             if portal == "admin":
                 return f"https://{portal}.{url}"
+            if portal == "old_checkout":
+                return f"https://checkout.{url}"
             return f"https://app.{url}/{portal}"
         if portal == "admin":
             return f"https://{portal}.{self.environment}.{url}"
+        if portal == "old_checkout":
+            return f"https://checkout.{self.environment}.{url}"
         return f"https://app-{self.environment}.{url}/{portal}"
 
     def get_api_url_for_env(self, url):

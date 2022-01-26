@@ -106,6 +106,7 @@ def test_success_login_checkout_portal_smoke(smoke_ui):
 def test_success_login_new_checkout_portal(ui):
     BaseAuthorization.base_success_login_new_checkout(ui)
 
+@pytest.mark.skip
 @pytest.mark.smoke
 def test_success_login_new_checkout_portal_smoke(smoke_ui):
     BaseAuthorization.base_success_login_new_checkout(smoke_ui)
@@ -143,23 +144,25 @@ def test_redirect_distributor(smoke_ui):
     lp = LoginPage(smoke_ui)
     dpp = DistributorPortalPage(smoke_ui)
 
-    lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "distributor"))
-    lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/sign-in", "auth"))
+    url = smoke_ui.session_context.url
+
+    lp.follow_url(url.distributor_portal)
+    lp.url_should_be(url.auth_portal+"/sign-in")
     lp.input_email(smoke_ui.distributor_email)
     lp.input_password(smoke_ui.distributor_password)
-    lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "customer"))
-    lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/sign-in", "auth"))
+    lp.follow_url(url.customer_portal)
+    lp.url_should_be(url.auth_portal+"/sign-in")
     lp.input_email(smoke_ui.distributor_email)
     lp.input_password(smoke_ui.distributor_password)
     lp.click_on_submit_button()
-    lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/marketing", "distributor"))
+    lp.url_should_be(url.distributor_portal+"/marketing")
     lp.get_element_by_id(Locator.id_enter_here)
 
-    lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "distributor"), smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
-    lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
+    lp.follow_url(url.distributor_portal, url.distributor_portal+"/customers")
+    lp.url_should_be(url.distributor_portal+"/customers")
     dpp.distributor_sidebar_should_contain_email()
-    lp.follow_url(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com", "customer"), smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
-    lp.url_should_be(smoke_ui.session_context.url.get_url_for_env("storeroomlogix.com/customers", "distributor"))
+    lp.follow_url(url.customer_portal, url.distributor_portal+"/customers")
+    lp.url_should_be(url.distributor_portal+"/customers")
     dpp.distributor_sidebar_should_contain_email()
 
 @pytest.mark.regression
