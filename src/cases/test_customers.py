@@ -304,7 +304,7 @@ def test_customer_setup_wizard_required_steps(ui, permission_ui, api, permission
     cp.check_customer_portal_user(email)
     cp.sidebar_customers()
     cp.wait_until_page_loaded()
-    cp.delete_last_customer()
+    cp.delete_last_customer(customer_body["name"])
 
 @pytest.mark.regression
 def test_customer_setup_wizard_view_permission(ui, permission_ui, delete_distributor_security_group):
@@ -351,7 +351,7 @@ def test_customer_setup_wizard_all_steps(ui, api, delete_distributor_security_gr
     cp.check_settings_reorder_list_settings(email)
     cp.sidebar_customers()
     cp.wait_until_page_loaded()
-    cp.delete_last_customer()
+    cp.delete_last_customer(customer_body["name"])
 
 @pytest.mark.regression
 def test_create_shipto_with_deleted_number(api, delete_shipto):
