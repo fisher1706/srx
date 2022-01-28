@@ -16,18 +16,18 @@ from src.api.setups.setup_customer import SetupCustomer
 
 @pytest.mark.parametrize("permissions", [
     {
-        "user": None
-        # "testrail_case_id": 31
+        "user": None,
+        "testrail_case_id": 31
     },
     {
-        "user": Permissions.customers("EDIT")
-        # "testrail_case_id": 2241
+        "user": Permissions.customers("EDIT"),
+        "testrail_case_id": 2241
     }
     ])
 @pytest.mark.acl
 @pytest.mark.regression
 def test_customer_crud(ui, permission_ui, permissions, delete_distributor_security_group):
-    # ui.testrail_case_id = permissions["testrail_case_id"]
+    ui.testrail_case_id = permissions["testrail_case_id"]
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
     lp = LoginPage(context)
