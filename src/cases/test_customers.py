@@ -16,18 +16,18 @@ from src.api.setups.setup_customer import SetupCustomer
 
 @pytest.mark.parametrize("permissions", [
     {
-        "user": None,
-        "testrail_case_id": 31
+        "user": None
+        # "testrail_case_id": 31
     },
     {
-        "user": Permissions.customers("EDIT"),
-        "testrail_case_id": 2241
+        "user": Permissions.customers("EDIT")
+        # "testrail_case_id": 2241
     }
     ])
 @pytest.mark.acl
 @pytest.mark.regression
 def test_customer_crud(ui, permission_ui, permissions, delete_distributor_security_group):
-    ui.testrail_case_id = permissions["testrail_case_id"]
+    # ui.testrail_case_id = permissions["testrail_case_id"]
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
 
     lp = LoginPage(context)
@@ -298,12 +298,14 @@ def test_customer_setup_wizard_required_steps(ui, permission_ui, api, permission
     cp.add_customer_info(customer_body.copy())
     cp.add_customer_portal_user(email)
     cp.click_complete()
+    cp.change_rows_per_page()
     cp.check_last_customer(customer_body.copy())
     response_customer = ca.get_customers(name=customer_body["name"])[-1]
     dcp.follow_customer_users_url(customer_id=response_customer["id"])
     cp.check_customer_portal_user(email)
     cp.sidebar_customers()
     cp.wait_until_page_loaded()
+    cp.change_rows_per_page()
     cp.delete_last_customer(customer_body["name"])
 
 @pytest.mark.regression
@@ -342,7 +344,7 @@ def test_customer_setup_wizard_all_steps(ui, api, delete_distributor_security_gr
     cp.click_next()
     cp.click_next()
     cp.change_automation_settings(email)
-    cp.wait_until_page_loaded()
+    cp.change_rows_per_page()
     cp.check_last_customer(customer_body.copy())
     response_customer = ca.get_customers(name=customer_body["name"])[-1]
     dcp.follow_customer_users_url(customer_id=response_customer["id"])
@@ -351,6 +353,7 @@ def test_customer_setup_wizard_all_steps(ui, api, delete_distributor_security_gr
     cp.check_settings_reorder_list_settings(email)
     cp.sidebar_customers()
     cp.wait_until_page_loaded()
+    cp.change_rows_per_page()
     cp.delete_last_customer(customer_body["name"])
 
 @pytest.mark.regression
