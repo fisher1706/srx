@@ -160,11 +160,9 @@ def driver_ilx(request, ilx_session_context):
         browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
     else:
         raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
-    # browser.set_page_load_timeout(30)
+    browser.set_page_load_timeout(30)
     yield browser
-    # browser.quit()
-
-
+    browser.quit()
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):

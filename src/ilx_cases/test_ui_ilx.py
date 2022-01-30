@@ -11,6 +11,12 @@ def login_ilx(ui_ilx):
 @pytest.mark.usefixtures('login_ilx')
 class TestGroups:
 
+    def test_create_access_key(self, ui_ilx):
+        ui_ilx.ilx_testrail_case_id = 11393
+        access_key = IlxUtils.generate_name('key')
+        resp = IlxPage(ui_ilx).create_access_key(access_key)
+        assert str(resp) == access_key, 'api key is not created'
+
     def test_create_group(self, ui_ilx):
         ui_ilx.ilx_testrail_case_id = 11390
         group = IlxUtils.generate_name('group')
@@ -35,15 +41,10 @@ class TestGroups:
         resp = IlxPage(ui_ilx).delete_group(data_group[3])
         assert resp is None, 'group is not deleted'
 
-    def test_create_access_key(self, ui_ilx):
-        ui_ilx.ilx_testrail_case_id = 11393
-        access_key = IlxUtils.generate_name('key')
-        resp = IlxPage(ui_ilx).create_access_key(access_key)
-        assert str(resp) == 'API keys', 'api key is not created'
-
 
 @pytest.mark.usefixtures('login_ilx')
 class TestIntegrations:
+
     def test_create_integration(self, ui_ilx):
         ui_ilx.ilx_testrail_case_id = 11394
         integration = IlxUtils.generate_name('a-int')
@@ -65,6 +66,14 @@ class TestIntegrations:
         after = IlxPage(ui_ilx).get_data_group()
         resp = IlxUtils.diff(before, after)
         assert len(resp) > 0, 'integration not added to group'
+
+    def test_add_integration_to_connection(self, ui_ilx):
+        ui_ilx.ilx_testrail_case_id = 11411
+        connect = IlxPage(ui_ilx).get_connections()
+        if not connect:
+            TestConnections().test_create_connection(ui_ilx)
+        resp = IlxPage(ui_ilx).add_to_connection()
+        assert str(resp) == 'Integrations', 'integration not added to connection'
 
     @pytest.mark.parametrize('operation, testrail_case_id', [
         ('move', 11397),
@@ -109,9 +118,30 @@ class TestIntegrations:
         resp = IlxUtils.diff(before, after)
         assert len (resp) > 0, 'integration not deleted'
 
-@pytest.mark.skip
+
 @pytest.mark.usefixtures('login_ilx')
 class TestConnections:
+
     def test_create_connection(self, ui_ilx):
+        ui_ilx.ilx_testrail_case_id = 11412
         connect = IlxUtils.generate_name('a-connect')
-        IlxPage(ui_ilx).create_connection(connect)
+        resp = IlxPage(ui_ilx).create_connection(connect)
+        assert resp.text == connect, 'connection is not created'
+
+    def test_edit_connection(self, ui_ilx):
+        ui_ilx.ilx_testrail_case_id = 11413
+        connect = IlxPage(ui_ilx).get_connections()
+        if not connect:
+            self.test_create_connection(ui_ilx)
+        resp = IlxPage(ui_ilx).edit_connection()
+        assert resp.split('-')[-1] == 'edit', 'connection is not edited'
+
+    def test_delete_connection(self, ui_ilx):
+        ui_ilx.ilx_testrail_case_id = 11414
+        before = IlxPage(ui_ilx).get_connections()
+        if not before:
+            self.test_create_connection(ui_ilx)
+            before = IlxPage(ui_ilx).get_connections()
+        IlxPage(ui_ilx).delete_connection()
+        after = IlxPage(ui_ilx).get_connections()
+        assert before - after == 1, 'connection is not deleted'

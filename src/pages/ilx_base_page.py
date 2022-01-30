@@ -45,6 +45,9 @@ class IlxBase:
     def open_browser(self):
         self.ilx_driver.get(self.url)
 
+    def refresh_browser(self):
+        self.ilx_driver.refresh()
+
     def is_visible(self, find_by, locator):
         return self.__wait.until(ec.visibility_of_element_located((self.__get_element_by(find_by), locator)))
 
@@ -64,5 +67,4 @@ class IlxBase:
         element = self.is_visible(find_by, locator)
         actions = ActionChains(self.ilx_driver)
         actions.move_to_element(element).perform()
-
         return element
