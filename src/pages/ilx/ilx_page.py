@@ -11,8 +11,8 @@ class IlxPage(IlxBase):
         self.is_visible('name', LocatorIlx.ilx_email).send_keys(self.ilx_context.ilx_email)
         self.is_visible('name', LocatorIlx.ilx_password).send_keys(self.ilx_context.ilx_password)
         self.is_visible('class_name', LocatorIlx.button).click()
-        el = self.is_visible('xpath', LocatorIlx.user_email)
-        assert str(el.text) == self.ilx_context.ilx_email, 'Can not login to ILX!'
+        element = self.is_visible('xpath', LocatorIlx.user_email)
+        assert str(element.text) == self.ilx_context.ilx_email, 'Can not login to ILX!'
 
     def create_group(self, group):
         self.are_visible('class_name', LocatorIlx.button)[0].click()
@@ -79,12 +79,12 @@ class IlxPage(IlxBase):
     def edit_integration(self):
         self.is_visible('xpath', LocatorIlx.button_int).click()
 
-        """edit name"""
+        # """edit name"""
         self.is_visible('xpath', LocatorIlx.button_edit_int).click()
         self.is_visible('xpath', LocatorIlx.int_name).send_keys('-edit')
         self.is_visible('xpath', LocatorIlx.button_int_save).click()
 
-        """add api key"""
+        # """add api key"""
         self.is_visible('xpath', LocatorIlx.int_description).click()
         self.is_visible('xpath', LocatorIlx.int_auth).click()
         self.is_visible ('xpath', LocatorIlx.open_chose_key).click()
@@ -129,9 +129,9 @@ class IlxPage(IlxBase):
             time.sleep (2)
             self.is_visible('xpath', LocatorIlx.save_api_key).click()
 
-        el = self.is_visible('xpath', LocatorIlx.get_connect)
+        element = self.is_visible('xpath', LocatorIlx.get_connect)
 
-        return el.text
+        return element.text
 
     def move_to_group(self):
         try:
@@ -186,9 +186,9 @@ class IlxPage(IlxBase):
         self.is_visible('xpath', LocatorIlx.connection_save).click()
         time.sleep(3)
 
-        el = self.is_visible('xpath', LocatorIlx.connect_name)
+        element = self.is_visible('xpath', LocatorIlx.connect_name)
 
-        return el
+        return element
 
     def delete_connection(self):
         self.is_visible ('xpath', LocatorIlx.access).click ()
@@ -234,8 +234,8 @@ class IlxPage(IlxBase):
         return name.text
 
     def get_connections(self):
-        el = self.is_visible('xpath', LocatorIlx.data_connects)
-        if el.get_attribute('class').find('jss49') < 0:
+        element = self.is_visible('xpath', LocatorIlx.data_connects)
+        if element.get_attribute('class').find('jss49') < 0:
             self.is_visible('xpath', LocatorIlx.data_connects).click()
         time.sleep(5)
         self.is_visible('xpath', LocatorIlx.connection).click()
@@ -269,6 +269,6 @@ class IlxPage(IlxBase):
         self.is_visible('xpath', LocatorIlx.input_access_key).send_keys(access_key)
         self.is_visible('xpath', LocatorIlx.create_access_key).click()
         time.sleep(2)
-        el = self.is_visible('xpath', LocatorIlx.access_key_name)
+        element = self.is_visible('xpath', LocatorIlx.access_key_name)
 
-        return el.get_attribute('value')
+        return element.get_attribute('value')

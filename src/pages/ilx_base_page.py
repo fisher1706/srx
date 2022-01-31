@@ -39,8 +39,7 @@ class IlxBase:
         data = [element.text for element in elements if str(element.text) == str(name)]
         if data:
             return data[0]
-        else:
-            return None
+        return None
 
     def open_browser(self):
         self.ilx_driver.get(self.url)
