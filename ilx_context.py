@@ -13,6 +13,13 @@ class IlxSessionContext:
 
     ilx_infor_token = None
 
+    ilx_browser_name = None
+    ilx_driver = None
+    ilx_url = None
+    ilx_email = None
+    ilx_password = None
+
+
     def __setattr__(self, key, value):
         if hasattr(self, key):
             object.__setattr__(self, key, value)
@@ -36,6 +43,11 @@ class IlxContext:
 
     ilx_infor_token = None
 
+    ilx_browser_name = None
+    ilx_driver = None
+    ilx_url = None
+    ilx_email = None
+    ilx_password = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):

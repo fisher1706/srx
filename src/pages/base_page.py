@@ -11,8 +11,8 @@ from src.resources.locator import Locator
 class BasePage():
     def __init__(self, context):
         self.context = context
-        self.driver = context.driver
-        self.url = self.context.session_context.url
+        self.driver = context.ilx_driver
+        self.url = self.context.session_context.ilx_url
         self.logger = context.logger
         self.data = context.data
 
