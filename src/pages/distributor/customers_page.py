@@ -85,12 +85,23 @@ class CustomersPage(DistributorPortalPage):
 
     def check_customer_portal_user(self, expected_email):
         self.wait_until_page_loaded()
-        self.check_last_table_item_by_header("Email", expected_email)
+        table_cells = {
+            "Email": expected_email
+        }
+        for cell, value in table_cells.items():
+            self.check_table_item(value, header=cell, last=True)
 
     def check_settings_reorder_list_settings(self, expected_email):
         self.wait_until_page_loaded()
         self.click_xpath("//span[text()='Reorder List Settings']")
         assert self.get_element_by_xpath("//input[@name='email']").get_attribute("value") == expected_email
+
+    def change_rows_per_page(self):
+        ca = CustomerApi(self.context)
+        start_number_of_rows = ca.get_customers(full=True)["totalElements"]
+        self.last_page(10)
+        self.get_element_by_xpath(Locator.xpath_get_row_by_index(start_number_of_rows%10))
+        self.wait_until_page_loaded()
 
     def change_automation_settings(self, email):
         self.wait_until_page_loaded()
