@@ -108,7 +108,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):
-    browser_name = session_context.ilx_browser_name
+    browser_name = session_context.browser_name
     browser = None
     if browser_name == "chrome":
         chrome_options = Options()
