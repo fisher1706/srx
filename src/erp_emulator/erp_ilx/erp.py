@@ -1,9 +1,16 @@
+import os
+import sys
+
 from __main__ import app #pylint: disable=E0611
 
 from flask import request
-from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
 from .utils import UtilsServerIlx as ServUtils #pylint: disable=E0401
 from .variables import * #pylint: disable=E0401,W0401
+
+sys_path = os.path.join(os.path.dirname(__file__), '../../..')
+sys.path.append(sys_path)
+
+from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
 
 
 

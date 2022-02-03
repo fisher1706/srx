@@ -13,6 +13,7 @@ def ilx_session_context(request):
     # main args
     ilx_session_context_object.ilx_credentials = request.config.getoption("ilx_credentials")
     ilx_session_context_object.ilx_environment = request.config.getoption("ilx_environment")
+    ilx_session_context_object.ilx_browser_name = request.config.getoption("browser_name")
     ilx_session_context_object.ilx_base_data = IlxData(ilx_session_context_object.ilx_environment)
 
     # credentials
@@ -23,8 +24,6 @@ def ilx_session_context(request):
 
         ilx_session_context_object.ilx_auth_token = request.config.getoption("ilx_auth_token")
         ilx_session_context_object.ilx_infor_token = request.config.getoption ("ilx_infor_token")
-
-
     elif not ilx_session_context_object.ilx_credentials:
         from src.resources.ilx_local_credentials import IlxLocalCredentials
         creds = IlxLocalCredentials(ilx_session_context_object.ilx_environment)
@@ -32,14 +31,14 @@ def ilx_session_context(request):
         # base credentials
         ilx_session_context_object.ilx_testrail_email = creds.ilx_testrail_email
         ilx_session_context_object.ilx_testrail_password = creds.ilx_testrail_password
-
         ilx_session_context_object.ilx_auth_token = creds.ilx_auth_token
-
         ilx_session_context_object.edi_856_auth_token = creds.edi_856_auth_token
         ilx_session_context_object.user_name_edi_856 = creds.user_name_edi_856
         ilx_session_context_object.password_edi_856 = creds.password_edi_856
-
         ilx_session_context_object.ilx_infor_token = creds.ilx_infor_token
+        ilx_session_context_object.ilx_url = creds.ilx_url
+        ilx_session_context_object.ilx_email = creds.ilx_email
+        ilx_session_context_object.ilx_password = creds.ilx_password
 
     return ilx_session_context_object
 
@@ -47,6 +46,7 @@ def ilx_session_context(request):
 @pytest.fixture(scope="function")
 def ilx_context(ilx_session_context, request):
     ilx_context_object = IlxContext()
+
     ilx_context_object.ilx_session_context = ilx_session_context
     ilx_context_object.ilx_data = ilx_context_object.ilx_session_context.ilx_base_data
 
@@ -59,6 +59,9 @@ def ilx_context(ilx_session_context, request):
     ilx_context_object.user_name_edi_856 = ilx_session_context.user_name_edi_856
 
     ilx_context_object.ilx_infor_token = ilx_session_context.ilx_infor_token
+
+    ilx_context_object.ilx_email = ilx_session_context.ilx_email
+    ilx_context_object.ilx_password = ilx_session_context.ilx_password
 
     yield ilx_context_object
     testrail(request, ilx_context_object)
