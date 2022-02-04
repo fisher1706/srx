@@ -92,6 +92,7 @@ def pytest_addoption(parser):
                      help="Choose environment: 'dev', 'qa', 'prod'")
     parser.addoption('--ilx_credentials', action='store', nargs='?', const=True, default=False,
                      help="If selected, credentials will be retrieved ONLY from the command line")
+
     parser.addoption('--ilx_auth_token', action='store', default=None,
                      help="Enter ilx_auth_token")
 
@@ -104,6 +105,9 @@ def pytest_addoption(parser):
 
     parser.addoption ('--ilx_infor_token', action='store', default='qa',
                       help="Enter ilx_infor_token")
+
+    parser.addoption ('--ilx_wmi_token', action='store', default='qa',
+                      help="Enter ilx_wmi_token")
 
 
 @pytest.fixture(scope="function")

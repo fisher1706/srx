@@ -68,6 +68,14 @@ class Response:
             assert self.data[0].get('transactionType') == 'QUOTED', \
                 f'incorrect transactionType for: {self.response_json}'
 
+    def validate_response_wmi(self, data):
+        assert self.response_json.get('metadata').get('startIndex') == data.get('startIndex'), \
+            f'incorrect startIndex for id: {data.get("customerId")}'
+        assert self.response_json.get('metadata').get ('pageSize') == data.get ('pageSize'), \
+            f'incorrect pageSize for id: {data.get ("customerId")}'
+        assert len(self.response_json.get('results')) == data.get('pageSize'), \
+            f'incorrect "results" for id: {data.get ("customerId")}'
+
     def __str__(self):
         return f"\nStatus code: {self.response_status}" \
                f"\nRequested url: {self.response.url}" \

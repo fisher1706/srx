@@ -19,6 +19,8 @@ class IlxSessionContext:
     ilx_email = None
     ilx_password = None
 
+    ilx_wmi_token = None
+
 
     def __setattr__(self, key, value):
         if hasattr(self, key):
@@ -48,6 +50,8 @@ class IlxContext:
     ilx_url = None
     ilx_email = None
     ilx_password = None
+
+    ilx_wmi_token = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):

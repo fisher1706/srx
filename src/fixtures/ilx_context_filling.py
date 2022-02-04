@@ -23,7 +23,10 @@ def ilx_session_context(request):
         ilx_session_context_object.ilx_testrail_password = request.config.getoption ("testrail_password")
 
         ilx_session_context_object.ilx_auth_token = request.config.getoption("ilx_auth_token")
-        ilx_session_context_object.ilx_infor_token = request.config.getoption ("ilx_infor_token")
+        ilx_session_context_object.ilx_infor_token = request.config.getoption("ilx_infor_token")
+
+        ilx_session_context_object.ilx_wmi_token = request.config.getoption("ilx_wmi_token")
+
     elif not ilx_session_context_object.ilx_credentials:
         from src.resources.ilx_local_credentials import IlxLocalCredentials
         creds = IlxLocalCredentials(ilx_session_context_object.ilx_environment)
@@ -31,14 +34,20 @@ def ilx_session_context(request):
         # base credentials
         ilx_session_context_object.ilx_testrail_email = creds.ilx_testrail_email
         ilx_session_context_object.ilx_testrail_password = creds.ilx_testrail_password
+
         ilx_session_context_object.ilx_auth_token = creds.ilx_auth_token
+
         ilx_session_context_object.edi_856_auth_token = creds.edi_856_auth_token
         ilx_session_context_object.user_name_edi_856 = creds.user_name_edi_856
         ilx_session_context_object.password_edi_856 = creds.password_edi_856
+
         ilx_session_context_object.ilx_infor_token = creds.ilx_infor_token
+
         ilx_session_context_object.ilx_url = creds.ilx_url
         ilx_session_context_object.ilx_email = creds.ilx_email
         ilx_session_context_object.ilx_password = creds.ilx_password
+
+        ilx_session_context_object.ilx_wmi_token = creds.ilx_wmi_token
 
     return ilx_session_context_object
 
@@ -62,6 +71,8 @@ def ilx_context(ilx_session_context, request):
 
     ilx_context_object.ilx_email = ilx_session_context.ilx_email
     ilx_context_object.ilx_password = ilx_session_context.ilx_password
+
+    ilx_context_object.ilx_wmi_token = ilx_session_context.ilx_wmi_token
 
     yield ilx_context_object
     testrail(request, ilx_context_object)

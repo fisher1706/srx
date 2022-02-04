@@ -2,16 +2,18 @@ import os
 import sys
 
 from __main__ import app #pylint: disable=E0611
-
 from flask import request
-from .utils import UtilsServerIlx as ServUtils #pylint: disable=E0401
-from .variables import * #pylint: disable=E0401,W0401
 
 sys_path = os.path.join(os.path.dirname(__file__), '../../..')
 sys.path.append(sys_path)
 
-from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
+from src.utilities.generate_data_test import GenerateInforOrderStatusV2 as Infor #pylint: disable=C0413
+from src.utilities.generate_data_test import GenerateVmiList as Vmi #pylint: disable=C0413
+from src.erp_emulator.erp_ilx.utils import UtilsServerIlx as ServUtils #pylint: disable=C0413
+from src.erp_emulator.erp_ilx.variables import * #pylint: disable=C0413,W0401
 
+# from utils import UtilsServerIlx as ServUtils
+# from variables import *
 
 
 @app.route('/external-api/test-full2/test-full2/syndicalist', methods=['GET'])
@@ -144,12 +146,27 @@ def get_order(order_id):
 
 
 @app.route('/external-api/test-full2/test-full2/sxapioegetsingleorderv3', methods=['GET', 'POST'])
-def get_order_infor_qa():
+def get_order_infor():
     order_number  = request.get_json().get('request').get('orderNumber')
     response = {'error': f'orderNumber: {order_number} - not found'}
 
     for data in data_infor:
         if str(data.get('orderno')) == str(order_number):
             return Infor.generate_resp_infor(data, Infor.online_field, Infor.response)
+
+    return response, 400
+
+
+@app.route('/external-api/test-full2/test-full2/CustomerPartNumbers', methods=['GET'])
+def get_vmi_sync():
+    customer_id = request.args['customerId']
+    page_size = request.args['pageSize']
+
+    response = {'error': f'incorrect data for customerId: {customer_id}'}
+
+    for data in data_wmi_sync:
+        if str(data['customerId']) == customer_id and str(data['pageSize']) == page_size:
+            resp = Vmi().create_response_vmi(data)
+            return resp
 
     return response, 400

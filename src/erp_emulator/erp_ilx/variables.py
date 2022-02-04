@@ -66,3 +66,9 @@ data_infor = [
     {'orderno': '21982810', 'ordersuf': '09', 'stage': 'Inv', 'custpo': 'SRX VMI', 'qty': 50, 'qty_stk': 50},
     {'orderno': '21982811', 'ordersuf': '10', 'stage': 'Pd', 'custpo': 'SRX VMI', 'qty': 60, 'qty_stk': 60}
 ]
+
+data_wmi_sync = [
+    {"customerId": 60428, "productId": 326, "pageSize": 5, "startIndex": 2},
+    {"customerId": 60430, "productId": 745, "pageSize": 4, "startIndex": 1},
+    {"customerId": 60437, "productId": 421, "pageSize": 3, "startIndex": 1}
+]
