@@ -27,6 +27,8 @@ def ilx_session_context(request):
 
         ilx_session_context_object.ilx_wmi_token = request.config.getoption("ilx_wmi_token")
 
+        ilx_session_context_object.ilx_billing_token = request.config.getoption('ilx_billing_token')
+
     elif not ilx_session_context_object.ilx_credentials:
         from src.resources.ilx_local_credentials import IlxLocalCredentials
         creds = IlxLocalCredentials(ilx_session_context_object.ilx_environment)
@@ -48,6 +50,8 @@ def ilx_session_context(request):
         ilx_session_context_object.ilx_password = creds.ilx_password
 
         ilx_session_context_object.ilx_wmi_token = creds.ilx_wmi_token
+
+        ilx_session_context_object.ilx_billing_token = creds.ilx_billing_token
 
     return ilx_session_context_object
 
@@ -73,6 +77,8 @@ def ilx_context(ilx_session_context, request):
     ilx_context_object.ilx_password = ilx_session_context.ilx_password
 
     ilx_context_object.ilx_wmi_token = ilx_session_context.ilx_wmi_token
+
+    ilx_context_object.ilx_billing_token = ilx_session_context.ilx_billing_token
 
     yield ilx_context_object
     testrail(request, ilx_context_object)

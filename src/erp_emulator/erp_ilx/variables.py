@@ -72,3 +72,8 @@ data_wmi_sync = [
     {"customerId": 60430, "productId": 745, "pageSize": 4, "startIndex": 1},
     {"customerId": 60437, "productId": 421, "pageSize": 3, "startIndex": 1}
 ]
+
+data_billing = [
+    {"customer": "test_01", "number": 5},
+    {"customer": "test_02", "number": 0}
+]

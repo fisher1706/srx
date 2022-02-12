@@ -21,6 +21,8 @@ class IlxSessionContext:
 
     ilx_wmi_token = None
 
+    ilx_billing_token = None
+
 
     def __setattr__(self, key, value):
         if hasattr(self, key):
@@ -52,6 +54,8 @@ class IlxContext:
     ilx_password = None
 
     ilx_wmi_token = None
+
+    ilx_billing_token = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):

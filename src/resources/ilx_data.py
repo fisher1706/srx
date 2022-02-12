@@ -40,4 +40,9 @@ class IlxData:
                              '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/infor_final/infor_final'
 
         # WMI
-        self.ilx_wmi_url = 'https://api.qa.integrationlogix.com/external-api/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/vmi_sync/vmi_sync'
+        self.ilx_wmi_url = 'https://api.qa.integrationlogix.com/external-api' \
+                           '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/vmi_sync/vmi_sync'
+
+        # BILLING
+        self.ilx_billing_url = 'https://api.qa.integrationlogix.com/external-api' \
+                               '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/billing_test/billing_test'

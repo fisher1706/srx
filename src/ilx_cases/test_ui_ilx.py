@@ -1,4 +1,4 @@
-#pylint: R0201
+#pylint:disable=R0201
 import pytest
 from src.pages.ilx.ilx_page import IlxPage
 from src.pages.ilx.ilx_utils_ui import IlxUtils

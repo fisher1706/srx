@@ -2,6 +2,7 @@ from random import random
 import random
 from datetime import datetime
 from pprint import pprint
+from ilx_utils import Utils
 
 
 class GenerateIDE856:
@@ -152,6 +153,24 @@ class GenerateVmiList:
 
         return resp
 
+
+class GenerateBilling:
+    @staticmethod
+    def generate_results(num):
+        results = [{
+            "referenceId": "test_" + str(i),
+            "id": Utils.random_str(),
+        } for i in range(num)]
+
+        return results
+
+    def generate_resp_billing(self, num):
+        resp = {
+            "hasErrors": random.choice([True, False]),
+            "results": self.generate_results(num)
+        }
+
+        return resp
 
 
 if __name__ == '__main__':

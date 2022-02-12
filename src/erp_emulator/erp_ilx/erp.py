@@ -9,11 +9,9 @@ sys.path.append(sys_path)
 
 from src.utilities.generate_data_test import GenerateInforOrderStatusV2 as Infor #pylint: disable=C0413
 from src.utilities.generate_data_test import GenerateVmiList as Vmi #pylint: disable=C0413
+from src.utilities.generate_data_test import GenerateBilling as Billing #pylint: disable=C0413
 from src.erp_emulator.erp_ilx.utils import UtilsServerIlx as ServUtils #pylint: disable=C0413
 from src.erp_emulator.erp_ilx.variables import * #pylint: disable=C0413,W0401
-
-# from utils import UtilsServerIlx as ServUtils
-# from variables import *
 
 
 @app.route('/external-api/test-full2/test-full2/syndicalist', methods=['GET'])
@@ -167,6 +165,19 @@ def get_vmi_sync():
     for data in data_wmi_sync:
         if str(data['customerId']) == customer_id and str(data['pageSize']) == page_size:
             resp = Vmi().create_response_vmi(data)
+            return resp
+
+    return response, 400
+
+
+@app.route('/external-api/test-full2/test-full2/billing', methods=['GET', 'POST'])
+def billing_line():
+    customer = request.get_json().get('records')[0].get('AcctSeed_Customer_c')
+    response = {'error': f'incorrect - data - for - customer: {customer}'}
+
+    for data in data_billing:
+        if data['customer'] == customer:
+            resp = Billing().generate_resp_billing(data['number'])
             return resp
 
     return response, 400

@@ -76,6 +76,10 @@ class Response:
         assert len(self.response_json.get('results')) == data.get('pageSize'), \
             f'incorrect "results" for id: {data.get ("customerId")}'
 
+    def validate_response_billing(self, data):
+        assert len(self.response_json.get('results')) == data.get('number'), \
+            f'incorrect "results" for customer: {data.get("customer")}'
+
     def __str__(self):
         return f"\nStatus code: {self.response_status}" \
                f"\nRequested url: {self.response.url}" \

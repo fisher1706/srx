@@ -109,6 +109,9 @@ def pytest_addoption(parser):
     parser.addoption ('--ilx_wmi_token', action='store', default='qa',
                       help="Enter ilx_wmi_token")
 
+    parser.addoption ('--ilx_billing_token', action='store', default='qa',
+                      help="Enter ilx_billing_token")
+
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):
