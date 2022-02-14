@@ -46,3 +46,9 @@ class IlxData:
         # BILLING
         self.ilx_billing_url = 'https://api.qa.integrationlogix.com/external-api' \
                                '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/billing_test/billing_test'
+
+        # ECLIPSE PRICE
+        self.ilx_billing_url = 'https://api.qa.integrationlogix.com/external-api' \
+                               '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/get_pricing_eclipse/get_pricing_eclipse'
+
+

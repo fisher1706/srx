@@ -10,6 +10,7 @@ sys.path.append(sys_path)
 from src.utilities.generate_data_test import GenerateInforOrderStatusV2 as Infor #pylint: disable=C0413
 from src.utilities.generate_data_test import GenerateVmiList as Vmi #pylint: disable=C0413
 from src.utilities.generate_data_test import GenerateBilling as Billing #pylint: disable=C0413
+from src.utilities.generate_data_test import GetPricingEclipse as PriceEclipse #pylint: disable=C0413
 from src.erp_emulator.erp_ilx.utils import UtilsServerIlx as ServUtils #pylint: disable=C0413
 from src.erp_emulator.erp_ilx.variables import * #pylint: disable=C0413,W0401
 
@@ -179,5 +180,18 @@ def billing_line():
         if data['customer'] == customer:
             resp = Billing().generate_resp_billing(data['number'])
             return resp
+
+    return response, 400
+
+
+@app.route('/external-api/test-full2/test-full2/pricing_eclipse', methods=['GET', 'POST'])
+def price_eclipse():
+    customer = request.get_json().get('customerNumber')
+    qnt = request.get_json().get('dsku')
+    response = {'error': f'incorrect - data - for - customer: {customer}'}
+
+    for data in data_price_eclipse:
+        if data['customerNumber'] == customer:
+            return PriceEclipse().create_rep_price_eclipse(customer, qnt)
 
     return response, 400

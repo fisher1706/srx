@@ -23,14 +23,13 @@ def test_response_billing(ilx_context, customer_num, billing_data, testrail_case
     data = {
         "date": str(int(time.time())),
         "billingLines": [{
-            "price": '{:.2f}'.format(random.randint(1000, 2000) * 0.01), #pylint:disable=C0209
+            "price": '{:.2f}'.format(random.randint(1000, 2000) * 0.01),  # pylint:disable=C0209
             "comment": Utils.random_str(size=10),
             "quantity": str(random.randint(10, 200)),
             "salesForceSku": str(random.randint(10, 200))
         }],
         "externalDistributorNumber": customer_num
     }
-
 
     resp = requests.post(url=ilx_context.ilx_data.ilx_billing_url, headers=headers, json=data)
     response = Response(resp)
@@ -39,6 +38,7 @@ def test_response_billing(ilx_context, customer_num, billing_data, testrail_case
     response.validate_response_billing(Utils.get_data_billing(customer_num, billing_data))
 
     print(response)
+
 
 @pytest.mark.xfail(reason='incorrect data for test')
 @pytest.mark.parametrize('customer_num, billing_data, testrail_case_id', [
@@ -56,14 +56,13 @@ def test_response_billing_negative(ilx_context, customer_num, billing_data, test
     data = {
         "date": str(int(time.time())),
         "billingLines": [{
-            "price": '{:.2f}'.format(random.randint(1000, 2000) * 0.01), #pylint:disable=C0209
+            "price": '{:.2f}'.format(random.randint(1000, 2000) * 0.01),  # pylint:disable=C0209
             "comment": Utils.random_str(size=10),
             "quantity": str(random.randint(10, 200)),
             "salesForceSku": str(random.randint(10, 200))
         }],
         "externalDistributorNumber": customer_num
     }
-
 
     resp = requests.post(url=ilx_context.ilx_data.ilx_billing_url, headers=headers, json=data)
     response = Response(resp)

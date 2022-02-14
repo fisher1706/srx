@@ -77,3 +77,8 @@ data_billing = [
     {"customer": "test_01", "number": 5},
     {"customer": "test_02", "number": 0}
 ]
+
+data_price_eclipse = [
+    {"customerNumber": 100, "dsku": 200},
+    {"customerNumber": 200, "dsku": 100}
+]
