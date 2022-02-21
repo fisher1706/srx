@@ -82,3 +82,12 @@ data_price_eclipse = [
     {"customerNumber": 100, "dsku": 200},
     {"customerNumber": 200, "dsku": 100}
 ]
+
+data_gerrie_electric = [
+   {"orderNumber": "123", "customerNumber": "456", "quantityOrdered": 100, "quantityShipped": 200, "type": "QUOTED"},
+   {"orderNumber": "789", "customerNumber": "765", "quantityOrdered": 0, "quantityShipped": 200, "type": "ORDERED"},
+   {"orderNumber": "345", "customerNumber": "876", "quantityOrdered": 100, "quantityShipped": 0, "type": "SHIPPED"},
+   {"orderNumber": "347", "customerNumber": "877", "quantityOrdered": 100, "quantityShipped": 0,
+    "type": "DO_NOT_REORDER"},
+   {"orderNumber": "348", "customerNumber": "873", "quantityOrdered": 100, "quantityShipped": 0, "type": "SHIPPED"}
+]

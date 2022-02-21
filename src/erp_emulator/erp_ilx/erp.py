@@ -11,6 +11,7 @@ from src.utilities.generate_data_test import GenerateInforOrderStatusV2 as Infor
 from src.utilities.generate_data_test import GenerateVmiList as Vmi #pylint: disable=C0413
 from src.utilities.generate_data_test import GenerateBilling as Billing #pylint: disable=C0413
 from src.utilities.generate_data_test import GetPricingEclipse as PriceEclipse #pylint: disable=C0413
+from src.utilities.generate_data_test import GetResponseGerrie as Gerrie #pylint: disable=C0413
 from src.erp_emulator.erp_ilx.utils import UtilsServerIlx as ServUtils #pylint: disable=C0413
 from src.erp_emulator.erp_ilx.variables import * #pylint: disable=C0413,W0401
 
@@ -193,5 +194,18 @@ def price_eclipse():
     for data in data_price_eclipse:
         if data['customerNumber'] == customer:
             return PriceEclipse().create_rep_price_eclipse(customer, qnt)
+
+    return response, 400
+
+
+@app.route('/external-api/test-full2/test-full2/test', methods=['GET', 'POST'])
+def get_order_history():
+    customer_number = request.args['customerNumber']
+    order_number = request.args['orderNumber']
+    response = {'error': f'incorrect data for test: customer_number - {customer_number}, order_number - {order_number}'}
+
+    for data in data_gerrie_electric:
+        if data['orderNumber'] == order_number and data['customerNumber'] == customer_number:
+            return Gerrie.generate_resp_gerrie(data)
 
     return response, 400

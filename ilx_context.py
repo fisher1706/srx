@@ -25,6 +25,8 @@ class IlxSessionContext:
 
     ilx_eclipse_price_token = None
 
+    ilx_gerrie_token = None
+
     def __setattr__(self, key, value):
         if hasattr(self, key):
             object.__setattr__(self, key, value)
@@ -59,6 +61,8 @@ class IlxContext:
     ilx_billing_token = None
 
     ilx_eclipse_price_token = None
+
+    ilx_gerrie_token = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):

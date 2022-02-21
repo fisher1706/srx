@@ -116,6 +116,9 @@ def pytest_addoption(parser):
     parser.addoption('--ilx_eclipse_price_token', action='store', default='qa',
                      help="Enter ilx_eclipse_price_token")
 
+    parser.addoption('--ilx_gerrie_token', action='store', default='qa',
+                     help="Enter ilx_gerrie_token")
+
 
 @pytest.fixture(scope="function")
 def driver(request, session_context):

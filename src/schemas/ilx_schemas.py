@@ -1,5 +1,6 @@
 from typing import List
-from pydantic import BaseModel #pylint: disable=E0611
+from pydantic import BaseModel  # pylint: disable=E0611
+
 
 # ilx
 class Items(BaseModel):
@@ -40,6 +41,27 @@ class ValidatorIDE(BaseModel):
 class ResultBilling(BaseModel):
     id: str
 
+
 class ValidatorBilling(BaseModel):
     hasErrors: str
-    results : List[ResultBilling]
+    results: List[ResultBilling]
+
+
+# gerrie
+class ItemsGerrie(BaseModel):
+    quantityShipped: int
+    quantityOrdered: int
+    msku: str
+    dsku: str
+
+
+class ResultGerrie(BaseModel):
+    id: str
+    poNumber: str
+    release: str
+    transactionType: str
+    items: List[ItemsGerrie]
+
+
+class ValidatorGerrie(BaseModel):
+    response: List[ResultGerrie]

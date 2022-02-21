@@ -192,6 +192,32 @@ class GetPricingEclipse:
         return response
 
 
+class GetResponseGerrie:
+
+    @staticmethod
+    def generate_resp_gerrie(data_test):
+        response = {
+            'response': [
+                {
+                    "id": Utils.random_str(8),
+                    "items": [
+                        {
+                            "dsku": str(random.randint(100, 500)),
+                            "msku": str(random.randint(10, 50)),
+                            "quantityOrdered": data_test.get("quantityOrdered"),
+                            "quantityShipped": data_test.get("quantityShipped"),
+                        }
+                    ],
+                    "release": Utils.random_str(10),
+                    "poNumber": Utils.random_str(6),
+                    "transactionType": data_test.get("tran_type")
+                }
+            ]
+        }
+
+        return response
+
+
 if __name__ == '__main__':
     g = GenerateVmiList()
 

@@ -80,6 +80,14 @@ class Response:
         assert len(self.response_json.get('results')) == data.get('number'), \
             f'incorrect "results" for customer: {data.get("customer")}'
 
+    def validate_response_gerrie(self, data):
+        assert self.response_json.get('response')[0].get('transactionType') == data.get('type'), \
+            f'incorrect transactionType for orderNumber {data.get("orderNumber")}'
+        assert self.response_json.get('response')[0].get('items')[0].get('quantityShipped') \
+               == data.get('quantityShipped'), f'incorrect quantityShipped for orderNumber {data.get("orderNumber")}'
+        assert self.response_json.get('response')[0].get('items')[0].get('quantityOrdered') \
+               == data.get('quantityOrdered'), f'incorrect quantityOrdered for orderNumber {data.get("orderNumber")}'
+
     def __str__(self):
         return f"\nStatus code: {self.response_status}" \
                f"\nRequested url: {self.response.url}" \

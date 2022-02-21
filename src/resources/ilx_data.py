@@ -51,4 +51,8 @@ class IlxData:
         self.ilx_billing_url = 'https://api.qa.integrationlogix.com/external-api' \
                                '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/get_pricing_eclipse/get_pricing_eclipse'
 
+        # JERRIE
+        self.ilx_gerrie_url = 'https://api.qa.integrationlogix.com/external-api' \
+                              '/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/sales_orders_jd/sales_orders_jd'
+
 
