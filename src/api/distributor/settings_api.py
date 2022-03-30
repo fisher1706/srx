@@ -243,3 +243,16 @@ class SettingsApi(API):
             self.logger.info(Message.entity_with_id_operation_done.format(entity="Reorder List Submit Integration settings of ShipTo", id=shipto_id, operation="updated"))
         else:
             self.logger.error(str(response.content))
+
+    def update_consignments_settings(self, dto, shipto_id):
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/shiptos/{shipto_id}/consignment/settings/save")
+        token = self.get_distributor_token()
+        response = self.send_post(url, token, dto)
+        if response.status_code == 200:
+            self.logger.info(Message.entity_with_id_operation_done.format(entity="Consignments settings of ShipTo", id=shipto_id, operation="updated"))
+        else:
+            self.logger.error(str(response.content))
+
+    def set_consignments_settings(self, shipto_id):
+        consignments_dto = Tools.get_dto("consignments_settings_dto.json")
+        self.update_consignments_settings(consignments_dto, shipto_id)
