@@ -1,0 +1,8 @@
+{
+    "settings": {
+        "consignmentEnabled": false,
+        "perVmiItemEnabled": false,
+        "useDefault": false
+    },
+    "useDefault": false
+}

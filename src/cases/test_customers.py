@@ -129,6 +129,7 @@ def test_shipto_crud(ui, permission_ui, permissions, delete_distributor_security
     shipto_body["address.line1"] = "test_address 1"
     shipto_body["address.city"] = "test city"
     shipto_body["state"] = "Alaska"
+    shipto_body["consignmentWarehouseName"] = "1"
     #-------------------
     edit_shipto_body["number"] = Tools.random_string_l(12)
     edit_shipto_body["name"] = Tools.random_string_l(10)
@@ -139,6 +140,7 @@ def test_shipto_crud(ui, permission_ui, permissions, delete_distributor_security
     edit_shipto_body["state"] = "Alaska"
     edit_shipto_body["notes"] = "some notes"
     edit_shipto_body["contactId"] = "11111"
+    edit_shipto_body["consignmentWarehouseName"] = "2"
     #-------------------
 
     lp.log_in_distributor_portal()
@@ -146,12 +148,12 @@ def test_shipto_crud(ui, permission_ui, permissions, delete_distributor_security
     sp.get_element_by_xpath(Locator.xpath_table_item(1, 1))
     sp.create_shipto(shipto_body.copy())
     sp.check_last_shipto(shipto_body.copy())
-    sp.update_last_shipto(edit_shipto_body.copy(), False)
+    sp.update_last_shipto(edit_shipto_body.copy(), True if permissions["user"] is None else False)
     sp.should_be_disabled_xpath(Locator.xpath_submit_button)
     sp.driver.find_element_by_link_text('Shiptos').click()
     sp.wait_until_page_loaded()
     sp.check_last_shipto(edit_shipto_body.copy())
-    sp.delete_last_shipto(False)
+    sp.delete_last_shipto(True if permissions["user"] is None else False)
 
 @pytest.mark.acl
 @pytest.mark.regression

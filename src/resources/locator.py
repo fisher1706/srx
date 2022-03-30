@@ -17,7 +17,7 @@ class Locator():
     id_item_action_import = "item-action-import"
 
     #XPATHs
-    xpath_forgot_password = "//a[@href='/auth/forgot-password']"
+    xpath_forgot_password = "//a[text()='Reset my password']"
     xpath_submit_button = "//button[@type='submit']"
     xpath_dialog = "//div[@role='dialog']"
     xpath_select_box = "//div[@test-id='select-box']/div"
