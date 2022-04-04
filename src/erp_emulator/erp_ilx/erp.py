@@ -10,7 +10,7 @@ from .variables import * #pylint: disable=E0401,W0401
 sys_path = os.path.join(os.path.dirname(__file__), '../../..')
 sys.path.append(sys_path)
 
-from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor
+from src.utilities.grnerate_data_test import GenerateInforOrderStatusV2 as Infor #pylint: disable=C0413, C0411
 
 
 

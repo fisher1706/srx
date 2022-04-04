@@ -50,3 +50,8 @@ def srx_integration_api(srx_integration_context):
     context_object = srx_integration_context
     context_object.testrail_run_id = context_object.data.ilx_testrail_run_id
     return context_object
+
+@pytest.fixture(scope="function")
+def load_api(load_context):
+    context_object = load_context
+    return context_object
