@@ -1,0 +1,14 @@
+{
+    "name": null,
+    "number": null,
+    "address": {
+        "line1": "1",
+        "line2": "1",
+        "city": "1",
+        "state": "AL",
+        "zipCode": "1"
+    },
+    "zoneId": "America/Detroit",
+    "contactEmail": null,
+    "invoiceEmail": null
+}
