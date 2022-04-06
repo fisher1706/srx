@@ -3,12 +3,43 @@ import copy
 import time
 from collections import defaultdict
 import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from context import Context, SessionContext
 from src.resources.url import URL
 from src.resources.data import Data, SmokeData
 from src.resources.logger import Logger
 from src.resources.testrail import Testrail
+from src.resources.tools import Tools
 
+@pytest.fixture(scope="function")
+def driver(request, session_context):
+    browser_name = session_context.browser_name
+    browser = None
+    if browser_name == "chrome":
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1300,1000")
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+    elif browser_name == "firefox":
+        browser = webdriver.Firefox()
+    elif browser_name == "chrome-headless":
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--enable-automation")
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+    else:
+        raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
+    browser.set_page_load_timeout(30)
+    yield browser
+    browser.quit()
 
 @pytest.fixture(scope="session")
 def session_context(request):
@@ -23,99 +54,14 @@ def session_context(request):
     session_context_object.base_data = Data(session_context_object.environment)
     session_context_object.smoke_data = SmokeData(session_context_object.environment)
 
-    #credentials
-    if session_context_object.credentials:
-        #base credentials
-        session_context_object.base_admin_email = request.config.getoption("base_admin_email")
-        session_context_object.base_admin_password = request.config.getoption("base_admin_password")
-        session_context_object.base_distributor_email = request.config.getoption("base_distributor_email")
-        session_context_object.base_distributor_password = request.config.getoption("base_distributor_password")
-        session_context_object.base_customer_email = request.config.getoption("base_customer_email")
-        session_context_object.base_customer_password = request.config.getoption("base_customer_password")
-        session_context_object.base_checkout_group_email = request.config.getoption("base_checkout_group_email")
-        session_context_object.base_checkout_group_password = request.config.getoption("base_checkout_group_password")
+    user_keys = Tools.get_yaml("user_keys.yml")
 
-        #smoke credentials
-        session_context_object.smoke_distributor_email = request.config.getoption("smoke_distributor_email")
-        session_context_object.smoke_distributor_password = request.config.getoption("smoke_distributor_password")
-        session_context_object.smoke_customer_email = request.config.getoption("smoke_customer_email")
-        session_context_object.smoke_customer_password = request.config.getoption("smoke_customer_password")
-
-        #permission credentials
-        session_context_object.permission_distributor_email = request.config.getoption("permission_distributor_email")
-        session_context_object.permission_distributor_password = request.config.getoption("permission_distributor_password")
-        session_context_object.permission_customer_email = request.config.getoption("permission_customer_email")
-        session_context_object.permission_customer_password = request.config.getoption("permission_customer_password")
-
-        #SRX account for ILX mocks credentials
-        session_context_object.ilx_distributor_email = request.config.getoption("ilx_distributor_email")
-        session_context_object.ilx_distributor_password = request.config.getoption("ilx_distributor_password")
-        session_context_object.ilx_customer_email = request.config.getoption("ilx_customer_email")
-        session_context_object.ilx_customer_password = request.config.getoption("ilx_customer_password")
-
-        #SRX account for load testing
-        session_context_object.load_distributor_email = request.config.getoption("load_distributor_email")
-        session_context_object.load_distributor_password = request.config.getoption("load_distributor_password")
-        session_context_object.load_customer_email = request.config.getoption("load_customer_email")
-        session_context_object.load_customer_password = request.config.getoption("load_customer_password")
-
-        #testrail credentials
-        session_context_object.testrail_email = request.config.getoption("testrail_email")
-        session_context_object.testrail_password = request.config.getoption("testrail_password")
-
-        #cognito credentials
-        session_context_object.cognito_user_pool_id = request.config.getoption("cognito_user_pool_id")
-        session_context_object.cognito_client_id = request.config.getoption("cognito_client_id")
-        session_context_object.cognito_mobile_client_id = request.config.getoption("cognito_mobile_client_id")
-        session_context_object.cognito_checkout_client_id = request.config.getoption("cognito_checkout_client_id")
-
-    elif not session_context_object.credentials:
-        from src.resources.local_credentials import LocalCredentials
-        creds = LocalCredentials(session_context_object.environment)
-
-        #base credentials
-        session_context_object.base_admin_email = creds.base_admin_email
-        session_context_object.base_admin_password = creds.base_admin_password
-        session_context_object.base_distributor_email = creds.base_distributor_email
-        session_context_object.base_distributor_password = creds.base_distributor_password
-        session_context_object.base_customer_email = creds.base_customer_email
-        session_context_object.base_customer_password = creds.base_customer_password
-        session_context_object.base_checkout_group_email = creds.base_checkout_group_email
-        session_context_object.base_checkout_group_password = creds.base_checkout_group_password
-
-        #smoke credentials
-        session_context_object.smoke_distributor_email = creds.smoke_distributor_email
-        session_context_object.smoke_distributor_password = creds.smoke_distributor_password
-        session_context_object.smoke_customer_email = creds.smoke_customer_email
-        session_context_object.smoke_customer_password = creds.smoke_customer_password
-
-        #permission credentials
-        session_context_object.permission_distributor_email = creds.permission_distributor_email
-        session_context_object.permission_distributor_password = creds.permission_distributor_password
-        session_context_object.permission_customer_email = creds.permission_customer_email
-        session_context_object.permission_customer_password = creds.permission_customer_password
-
-        #SRX account for ILX mocks credentials
-        session_context_object.ilx_distributor_email = creds.ilx_distributor_email
-        session_context_object.ilx_distributor_password = creds.ilx_distributor_password
-        session_context_object.ilx_customer_email = creds.ilx_customer_email
-        session_context_object.ilx_customer_password = creds.ilx_customer_password
-
-        #SRX account for load testing
-        session_context_object.load_distributor_email = creds.load_distributor_email
-        session_context_object.load_distributor_password = creds.load_distributor_password
-        session_context_object.load_customer_email = creds.load_customer_email
-        session_context_object.load_customer_password = creds.load_customer_password
-
-        #testrail credentials
-        session_context_object.testrail_email = creds.testrail_email
-        session_context_object.testrail_password = creds.testrail_password
-
-        #cognito credentials
-        session_context_object.cognito_user_pool_id = creds.USER_POOL_ID
-        session_context_object.cognito_client_id = creds.CLIENT_ID
-        session_context_object.cognito_mobile_client_id = creds.MOBILE_CLIENT_ID
-        session_context_object.cognito_checkout_client_id = creds.CHECKOUT_CLIENT_ID
+    for user_key in user_keys["keys"]:
+        if session_context_object.credentials:
+            session_context_object.__setattr__(user_key, request.config.getoption(user_key))
+        else:
+            user_local_values = Tools.get_yaml("user_local_values.yml")
+            session_context_object.__setattr__(user_key, user_local_values[session_context_object.environment].get(user_key))
 
     return session_context_object
 
