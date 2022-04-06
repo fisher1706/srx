@@ -2,6 +2,7 @@ import string
 import random
 import os
 import json
+import yaml
 import csv
 import time
 
@@ -30,6 +31,12 @@ class Tools():
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+path
         with open(path+filename, "r", encoding="utf8") as read_file:
             return json.load(read_file)
+
+    @staticmethod
+    def get_yaml(filename, path="/"):
+        path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+path
+        with open(path+filename, "r") as read_file:
+            return yaml.safe_load(read_file)
 
     @staticmethod
     def generate_csv(filename, rows):
