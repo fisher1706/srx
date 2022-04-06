@@ -3,6 +3,9 @@ import copy
 import time
 from collections import defaultdict
 import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from context import Context, SessionContext
 from src.resources.url import URL
 from src.resources.data import Data, SmokeData
@@ -10,6 +13,33 @@ from src.resources.logger import Logger
 from src.resources.testrail import Testrail
 from src.resources.tools import Tools
 
+@pytest.fixture(scope="function")
+def driver(request, session_context):
+    browser_name = session_context.browser_name
+    browser = None
+    if browser_name == "chrome":
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1300,1000")
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+    elif browser_name == "firefox":
+        browser = webdriver.Firefox()
+    elif browser_name == "chrome-headless":
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--enable-automation")
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+    else:
+        raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
+    browser.set_page_load_timeout(30)
+    yield browser
+    browser.quit()
 
 @pytest.fixture(scope="session")
 def session_context(request):

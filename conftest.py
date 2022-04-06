@@ -1,7 +1,5 @@
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 pytest_plugins = [
     "src.fixtures.context_filling",
@@ -94,75 +92,14 @@ def pytest_addoption(parser):
                      help="If selected, credentials will be retrieved ONLY from the command line")
     parser.addoption('--ilx_auth_token', action='store', default=None,
                      help="Enter ilx_auth_token")
-
     parser.addoption('--edi_856_auth_token', action='store', default=None,
                      help="Enter edi_856_auth_token")
     parser.addoption('--user_name_edi_856', action='store', default=None,
                      help="Enter user_name_edi_856")
     parser.addoption('--password_edi_856', action='store', default=None,
                      help="Enter password_edi_856")
-
     parser.addoption ('--ilx_infor_token', action='store', default='qa',
                       help="Enter ilx_infor_token")
-
-
-@pytest.fixture(scope="function")
-def driver(request, session_context):
-    browser_name = session_context.browser_name
-    browser = None
-    if browser_name == "chrome":
-        chrome_options = Options()
-        chrome_options.add_argument("--window-size=1300,1000")
-        capabilities = DesiredCapabilities.CHROME
-        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
-        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
-    elif browser_name == "firefox":
-        browser = webdriver.Firefox()
-    elif browser_name == "chrome-headless":
-        chrome_options = Options()
-        chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--enable-automation")
-        capabilities = DesiredCapabilities.CHROME
-        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
-        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
-    else:
-        raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
-    browser.set_page_load_timeout(30)
-    yield browser
-    browser.quit()
-
-@pytest.fixture(scope="function")
-def driver_ilx(request, ilx_session_context):
-    browser_name = ilx_session_context.ilx_browser_name
-    browser = None
-    if browser_name == "chrome":
-        chrome_options = Options()
-        chrome_options.add_argument("--start-maximized")
-        capabilities = DesiredCapabilities.CHROME
-        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
-        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
-        if request.cls is not None:
-            request.cls.browser = browser
-    elif browser_name == "firefox":
-        browser = webdriver.Firefox()
-    elif browser_name == "chrome-headless":
-        chrome_options = Options()
-        chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--enable-automation")
-        capabilities = DesiredCapabilities.CHROME
-        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
-        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
-    else:
-        raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
-    browser.set_page_load_timeout(30)
-    yield browser
-    browser.quit()
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):

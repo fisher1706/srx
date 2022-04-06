@@ -1,10 +1,42 @@
 import sys
 import time
 import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from ilx_context import IlxContext, IlxSessionContext
 from src.resources.ilx_data import IlxData
 from src.resources.testrail import Testrail
 
+@pytest.fixture(scope="function")
+def driver_ilx(request, ilx_session_context):
+    browser_name = ilx_session_context.ilx_browser_name
+    browser = None
+    if browser_name == "chrome":
+        chrome_options = Options()
+        chrome_options.add_argument("--start-maximized")
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+        if request.cls is not None:
+            request.cls.browser = browser
+    elif browser_name == "firefox":
+        browser = webdriver.Firefox()
+    elif browser_name == "chrome-headless":
+        chrome_options = Options()
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--enable-automation")
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+        browser = webdriver.Chrome(options=chrome_options, desired_capabilities=capabilities)
+    else:
+        raise pytest.UsageError("--browser_name should be 'chrome', 'chrome-headless' or 'firefox'")
+    browser.set_page_load_timeout(30)
+    yield browser
+    browser.quit()
 
 @pytest.fixture(scope="session")
 def ilx_session_context(request):
