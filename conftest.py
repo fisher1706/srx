@@ -2,8 +2,8 @@ import pytest
 
 
 pytest_plugins = [
-    "src.fixtures.context_filling",
-    "src.fixtures.ilx_context_filling",
+    "src.fixtures.context_fixtures",
+    "src.fixtures.ilx_context_fixtures",
     "src.fixtures.high_level_contexts",
     "src.fixtures.ilx_high_level_contexts",
     "src.fixtures.api_teardowns",
