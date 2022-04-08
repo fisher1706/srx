@@ -1,6 +1,6 @@
 from src.api.setups.setup_product import SetupProduct
 
-def test_warehouses_setup(load_api):
+def test_product_setup(load_api):
     for index in range(2000000):
         setup_product = SetupProduct(load_api)
         if index%5 == 0:

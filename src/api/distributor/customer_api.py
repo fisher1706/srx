@@ -4,8 +4,10 @@ from src.fixtures.decorators import default_expected_code
 
 class CustomerApi(API):
     @default_expected_code(201)
-    def create_customer(self, dto, expected_status_code=None):
-        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{self.data.warehouse_id}/customers/create")
+    def create_customer(self, dto, warehouse_id=None, expected_status_code=None):
+        if warehouse_id is None:
+            warehouse_id = self.data.warehouse_id
+        url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/warehouses/{warehouse_id}/customers/create")
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
