@@ -11,6 +11,7 @@ class SetupCustomer(BaseSetup):
         self.setup_name = "Customer"
         self.options = {
             "expected_status_code": None,
+            "warehouse_id": None,
             "user": False,
             "clc": None
         }
@@ -38,7 +39,7 @@ class SetupCustomer(BaseSetup):
         self.customer["number"] = f"{Tools.random_string_u(10)}-{self.context.testrail_case_id}"
         self.customer["name"] = f"{Tools.random_string_u(10)}-{self.context.testrail_case_id}"
         self.customer["warehouse"]["id"] = self.context.data.warehouse_id
-        self.customer_id = ca.create_customer(copy.deepcopy(self.customer), expected_status_code=self.options["expected_status_code"])
+        self.customer_id = ca.create_customer(copy.deepcopy(self.customer), warehouse_id=self.options["warehouse_id"], expected_status_code=self.options["expected_status_code"])
         if self.customer_id is not None:
             self.context.dynamic_context["delete_customer_id"].append(self.customer_id)
 
