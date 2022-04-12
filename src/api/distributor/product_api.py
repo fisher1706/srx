@@ -89,10 +89,11 @@ class ProductApi(API):
         else:
             self.logger.info(Message.info_operation_with_expected_code.format(entity="Product", operation="updating", status_code=response.status_code, content=response.content))
 
-    def get_product(self, product_sku=None):
+    def get_product(self, product_sku=None, size=None):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/products")
         params = {
-            "partSku": product_sku
+            "partSku": product_sku,
+            "size": size
         }
         token = self.get_distributor_token()
         response = self.send_get(url, token, params=params)

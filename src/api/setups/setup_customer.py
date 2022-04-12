@@ -11,6 +11,8 @@ class SetupCustomer(BaseSetup):
         self.setup_name = "Customer"
         self.options = {
             "expected_status_code": None,
+            "name": None,
+            "number": None,
             "warehouse_id": None,
             "user": False,
             "clc": None
@@ -36,8 +38,8 @@ class SetupCustomer(BaseSetup):
 
     def set_customer(self):
         ca = CustomerApi(self.context)
-        self.customer["number"] = f"{Tools.random_string_u(10)}-{self.context.testrail_case_id}"
-        self.customer["name"] = f"{Tools.random_string_u(10)}-{self.context.testrail_case_id}"
+        self.customer["number"] = f"{Tools.random_string_u(10)}-{self.context.testrail_case_id}" if self.options["number"] is None else self.options["number"]
+        self.customer["name"] = f"{Tools.random_string_u(10)}-{self.context.testrail_case_id}" if self.options["name"] is None else self.options["name"]
         self.customer["warehouse"]["id"] = self.context.data.warehouse_id
         self.customer_id = ca.create_customer(copy.deepcopy(self.customer), warehouse_id=self.options["warehouse_id"], expected_status_code=self.options["expected_status_code"])
         if self.customer_id is not None:
