@@ -434,11 +434,11 @@ def test_smoke_create_user(smoke_api):
     {
         "user": None,
         "testrail_case_id": 2206
-    },
-    {
-        "user": Permissions.distributor_users("EDIT"),
-        "testrail_case_id": 2207
     }
+    # {
+    #     "user": Permissions.distributor_users("EDIT"),
+    #     "testrail_case_id": 2207
+    # }
     ])
 @pytest.mark.regression
 def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_distributor_security_group):
@@ -446,6 +446,7 @@ def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
     lp = LoginPage(context)
     dsg = DistributorSecurityGroups(context)
+    ua = UserApi(context)
     distributor_security_group_body = dsg.distributor_security_group_body.copy()
     edit_security_group_body = dsg.distributor_security_group_body.copy()
 
@@ -454,13 +455,14 @@ def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_
 
     edit_security_group_body["name"] = Tools.random_string_l(10)
     edit_security_group_body["checked"] = False
+    last_new_element_id = ua.get_security_groups()['totalElements'] + 1
+    xpath_last_row = Locator.xpath_role_row + '[' + str(last_new_element_id) + ']'
 
     lp.log_in_distributor_portal()
     dsg.open_security_groups()
     dsg.create_security_group(distributor_security_group_body)
-    row = dsg.get_row_of_table_item_by_column(distributor_security_group_body["name"], 1)
-    dsg.check_security_group(distributor_security_group_body, row)
-    dsg.update_security_group(edit_security_group_body, row)
-    dsg.element_should_have_text(Locator.xpath_table_item(row, 1), edit_security_group_body["name"])
-    dsg.check_security_group(edit_security_group_body, row)
-    dsg.delete_security_group(edit_security_group_body, row)
+    dsg.check_security_group(distributor_security_group_body, xpath_last_row)
+    dsg.update_security_group(edit_security_group_body, xpath_last_row)
+    dsg.element_should_have_text(xpath_last_row, edit_security_group_body["name"])
+    dsg.check_security_group(edit_security_group_body, xpath_last_row)
+    dsg.delete_security_group(edit_security_group_body, xpath_last_row)

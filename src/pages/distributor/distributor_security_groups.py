@@ -17,11 +17,10 @@ class DistributorSecurityGroups(DistributorPortalPage):
         for checkbox in range(1, 4):
             self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
         self.click_xpath(Locator.xpath_submit_button)
-        self.wait_until_page_loaded()
         self.get_element_by_xpath(Locator.xpath_table_row)
 
-    def check_security_group(self, distributor_security_group_body, row):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_view_button, row))
+    def check_security_group(self, distributor_security_group_body, xpath_last_row):
+        self.click_xpath(xpath_last_row + Locator.xpath_view_button)
         text = self.get_element_by_xpath("//input[@name='name']").get_attribute("value")
         assert text == distributor_security_group_body["name"], f"Name contains incorrect text: {text}"
         for checkbox in range(1, 4):
@@ -29,11 +28,11 @@ class DistributorSecurityGroups(DistributorPortalPage):
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), True)
             else:
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), False)
-        self.wait_until_page_loaded()
-        self.click_xpath("//a[@href='/users-groups#security-groups']")
+        self.click_xpath(Locator.xpath_return_to_security_groups)
+        self.get_element_by_xpath(xpath_last_row)
 
-    def update_security_group(self, distributor_security_group_body, row):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_edit_button, row-1))
+    def update_security_group(self, distributor_security_group_body, xpath_last_row):
+        self.click_xpath(xpath_last_row + Locator.xpath_edit_button)
         self.input_by_name("name", distributor_security_group_body["name"])
         self.click_xpath(Locator.xpath_submit_button)
         for checkbox in range(1, 4):
@@ -42,12 +41,12 @@ class DistributorSecurityGroups(DistributorPortalPage):
             else:
                 self.unselect_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
         self.click_xpath(f"({Locator.xpath_save_button})[last()]")
-        self.wait_until_page_loaded()
-        self.click_xpath("//a[@href='/users-groups#security-groups']")
-        self.wait_until_page_loaded()
+        self.click_xpath(Locator.xpath_return_to_security_groups)
+        self.get_element_by_xpath(xpath_last_row)
 
-    def delete_security_group(self, distributor_security_group_body, row):
-        self.click_xpath(Locator.xpath_by_count(Locator.xpath_remove_button, row-1))
+
+    def delete_security_group(self, distributor_security_group_body, xpath_last_row):
+        self.click_xpath(xpath_last_row + Locator.xpath_remove_button)
         self.delete_dialog_should_be_about(distributor_security_group_body["name"])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
