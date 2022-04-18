@@ -3,9 +3,9 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.resources.permissions import Permissions
 from src.api.admin.admin_user_api import AdminUserApi
+from src.api.distributor.user_api import UserApi
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
-from src.api.distributor.user_api import UserApi
 from src.api.setups.setup_customer_user_as_customer import SetupCustomerUserAsCustomer
 from src.api.setups.setup_checkout_group import SetupCheckoutGroup
 from src.api.setups.setup_shipto import SetupShipto
@@ -72,9 +72,12 @@ def test_customer_user_crud(ui):
     cup.click_xpath(Locator.xpath_button_tab_by_name("Users"))
     cup.create_customer_user(customer_user_body.copy())
     cup.check_last_customer_user(customer_user_body.copy())
+    cup.click_xpath(Locator.xpath_reload_button)
+    cup.last_page(wait=False)
     cup.update_last_customer_user(edit_customer_user_body.copy())
+    cup.click_xpath(Locator.xpath_reload_button)
+    cup.last_page(wait=False)
     cup.sidebar_users_and_groups()
-    cup.wait_until_page_loaded()
     cup.check_last_customer_user(edit_customer_user_body.copy())
     cup.delete_last_customer_user()
 
@@ -446,7 +449,7 @@ def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
     lp = LoginPage(context)
     dsg = DistributorSecurityGroups(context)
-    ua = UserApi(context)
+    
     distributor_security_group_body = dsg.distributor_security_group_body.copy()
     edit_security_group_body = dsg.distributor_security_group_body.copy()
 
@@ -455,14 +458,11 @@ def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_
 
     edit_security_group_body["name"] = Tools.random_string_l(10)
     edit_security_group_body["checked"] = False
-    last_new_element_id = ua.get_security_groups()['totalElements'] + 1
-    xpath_last_row = Locator.xpath_role_row + '[' + str(last_new_element_id) + ']'
 
     lp.log_in_distributor_portal()
     dsg.open_security_groups()
     dsg.create_security_group(distributor_security_group_body)
-    dsg.check_security_group(distributor_security_group_body, xpath_last_row)
-    dsg.update_security_group(edit_security_group_body, xpath_last_row)
-    dsg.element_should_have_text(xpath_last_row, edit_security_group_body["name"])
-    dsg.check_security_group(edit_security_group_body, xpath_last_row)
-    dsg.delete_security_group(edit_security_group_body, xpath_last_row)
+    dsg.check_security_group(distributor_security_group_body)
+    dsg.update_security_group(edit_security_group_body)
+    dsg.check_security_group(edit_security_group_body)
+    dsg.delete_security_group(edit_security_group_body)

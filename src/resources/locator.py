@@ -121,6 +121,10 @@ class Locator():
         return f"//div[@role='row' and @data-row-index='{index}']"
 
     @staticmethod
+    def xpath_get_table_item_by_index(index, column):
+        return f"//div[@role='row' and @data-row-index='{index}']{Locator.xpath_role_cell}[{column}]"
+
+    @staticmethod
     def xpath_table_item_in_dialog(row, column):
         return f"(({Locator.xpath_dialog}{Locator.xpath_table_row})[{row}]{Locator.xpath_table_column})[{column}]"
 
