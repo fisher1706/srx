@@ -33,7 +33,7 @@ class DistributorSecurityGroups(DistributorPortalPage):
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), True)
             else:
                 self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), False)
-        self.click_xpath(Locator.xpath_return_to_security_groups)
+        self.click_xpath("//a[@href='/distributor/users-groups#security-groups']")
         self.last_page()
         self.element_should_have_text(Locator.xpath_get_last_table_item(1), distributor_security_group_body["name"])
 
@@ -48,7 +48,7 @@ class DistributorSecurityGroups(DistributorPortalPage):
                 self.unselect_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
         self.click_xpath(f"({Locator.xpath_save_button})[last()]")
         self.check_reset_permissions()
-        self.click_xpath(Locator.xpath_return_to_security_groups)
+        self.click_xpath("//a[@href='/distributor/users-groups#security-groups']")
         self.click_xpath(Locator.xpath_reload_button)
         self.last_page()
         self.element_should_have_text(Locator.xpath_get_last_table_item(1), distributor_security_group_body["name"])
@@ -62,6 +62,6 @@ class DistributorSecurityGroups(DistributorPortalPage):
     def check_reset_permissions(self):
         for checkbox in range(5, 36):
             self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
-        self.click_xpath(Locator.xpath_button_reset_permissions)
+        self.click_xpath("//button[@data-testid='reset-button']")
         for checkbox in range(5, 36):
             self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), False)

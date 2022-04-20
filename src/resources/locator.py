@@ -82,8 +82,6 @@ class Locator():
     xpath_role_listbox = "//ul[@role='listbox']"
     xapth_button_last_page = "//button[@aria-label='Go to last page']"
     xpath_reload_button = "//button[@data-testid='reload-button']"
-    xpath_return_to_security_groups = "//a[@href='/distributor/users-groups#security-groups']"
-    xpath_button_reset_permissions = "//button[@data-testid='reset-button']"
 
     @staticmethod
     def xpath_by_count(xpath, count):
