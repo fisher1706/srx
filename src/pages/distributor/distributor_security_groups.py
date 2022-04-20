@@ -62,6 +62,6 @@ class DistributorSecurityGroups(DistributorPortalPage):
     def check_reset_permissions(self):
         for checkbox in range(5, 36):
             self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
-        self.click_xpath("//button[@data-testid='reset-button']")
+        self.click_xpath(Locator.xpath_by_count(Locator.xpath_button_reset, 2))
         for checkbox in range(5, 36):
             self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), False)
