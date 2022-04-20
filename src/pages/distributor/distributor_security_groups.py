@@ -47,6 +47,7 @@ class DistributorSecurityGroups(DistributorPortalPage):
             else:
                 self.unselect_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
         self.click_xpath(f"({Locator.xpath_save_button})[last()]")
+        self.check_reset_permissions()
         self.click_xpath(Locator.xpath_return_to_security_groups)
         self.click_xpath(Locator.xpath_reload_button)
         self.last_page()
@@ -57,3 +58,10 @@ class DistributorSecurityGroups(DistributorPortalPage):
         self.delete_dialog_should_be_about(distributor_security_group_body["name"])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
+    
+    def check_reset_permissions(self):
+        for checkbox in range(5, 36):
+            self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))
+        self.click_xpath(Locator.xpath_button_reset_permissions)
+        for checkbox in range(5, 36):
+            self.checkbox_should_be(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox), False)

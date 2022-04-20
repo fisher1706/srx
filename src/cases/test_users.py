@@ -437,11 +437,11 @@ def test_smoke_create_user(smoke_api):
     {
         "user": None,
         "testrail_case_id": 2206
+    },
+    {
+        "user": Permissions.distributor_users("EDIT"),
+        "testrail_case_id": 2207
     }
-    # {
-    #     "user": Permissions.distributor_users("EDIT"),
-    #     "testrail_case_id": 2207
-    # }
     ])
 @pytest.mark.regression
 def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_distributor_security_group):
