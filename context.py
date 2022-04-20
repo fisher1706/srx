@@ -82,8 +82,6 @@ class Context():
     #testrail
     testrail_run_id = None
     testrail_case_id = None
-    testrail_status_id = None
-    testrail_comment = None
 
     #main
     session_context = None
@@ -91,9 +89,7 @@ class Context():
     is_teardown = False
     driver = None
     data = None
-    logger = None
     screenshot = None
-    warnings_counter = 0
 
     def __setattr__(self, key, value):
         if hasattr(self, key):

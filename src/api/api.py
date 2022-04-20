@@ -5,7 +5,6 @@ from warrant.aws_srp import AWSSRP
 class API():
     def __init__(self, context):
         self.context = context
-        self.logger = context.logger
         self.url = context.session_context.url
         self.data = context.data
 

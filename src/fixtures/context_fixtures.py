@@ -1,4 +1,3 @@
-import sys
 import copy
 import time
 from collections import defaultdict
@@ -7,9 +6,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from context import Context, SessionContext
+from glbl import LOG
 from src.resources.url import URL
 from src.resources.data import Data, SmokeData
-from src.resources.logger import Logger
 from src.resources.testrail import Testrail
 from src.resources.tools import Tools
 
@@ -70,7 +69,7 @@ def context(session_context):
     context_object = Context()
     context_object.dynamic_context = defaultdict(list)
     context_object.session_context = session_context
-    context_object.logger = Logger(context_object)
+    LOG.clear()
     return context_object
 
 @pytest.fixture(scope="function")
@@ -89,7 +88,7 @@ def base_context(context, request):
     context_object.checkout_group_password = context_object.session_context.base_checkout_group_password
 
     yield context_object
-    testrail(request, context_object)
+    finalize(request, context_object)
 
 @pytest.fixture(scope="function")
 def smoke_context(context, request, testrail_smoke_result):
@@ -103,7 +102,7 @@ def smoke_context(context, request, testrail_smoke_result):
     context_object.customer_password = context_object.session_context.smoke_customer_password
 
     yield context_object
-    testrail(request, context_object)
+    finalize(request, context_object)
 
 @pytest.fixture(scope="function")
 def srx_integration_context(context, request):
@@ -119,7 +118,7 @@ def srx_integration_context(context, request):
     context_object.customer_password = context_object.session_context.ilx_customer_password
 
     yield context_object
-    testrail(request, context_object)
+    finalize(request, context_object)
 
 @pytest.fixture(scope="function")
 def load_context(context, request):
@@ -133,7 +132,7 @@ def load_context(context, request):
     context_object.customer_password = context_object.session_context.load_customer_password
 
     yield context_object
-    testrail(request, context_object)
+    finalize(request, context_object)
 
 @pytest.fixture(scope="function")
 def permission_context(context, request):
@@ -147,25 +146,21 @@ def permission_context(context, request):
     context_object.customer_password = context_object.session_context.permission_customer_password
     return context_object
 
-def testrail(request, context):
+def finalize(request, context):
     if context.testrail_run_id is not None:
         if context.testrail_case_id is not None:
+            status = None
+            comment = str()
             if request.node.rep_setup.failed:
-                context.testrail_status_id = 3
-                context.testrail_comment = "[PYTEST] Unsuccessful attempt to run a test"
+                status = 3
+                comment = "[PYTEST] Unsuccessful attempt to run a test"
             elif request.node.rep_setup.passed:
                 if request.node.rep_call.failed:
-                    context.testrail_status_id = 5
-                    context.testrail_comment = f"[PYTEST] Test failed \n{context.logger}\n{sys.last_value}"
+                    status = 5
+                    comment = f"[PYTEST] Test failed\n{LOG.text}"
                 elif request.node.rep_call.passed:
-                    if context.warnings_counter == 0:
-                        context.testrail_status_id = 1
-                        context.testrail_comment = "[PYTEST] Test passed"
-                    elif context.warnings_counter > 0:
-                        context.testrail_status_id = 6
-                        context.testrail_comment = f"[PYTEST] Test passed with '{context.warnings_counter}' warnings\n{context.logger}"
-                    else:
-                        raise Exception(f"warnings_counter = '{context.warnings_counter}'")
+                        status = 1
+                        comment = "[PYTEST] Test passed"
                 else:
                     raise Exception(f"Failed call: {request.node.rep_setup.failed}; Passed call: {request.node.rep_setup.passed}")
             else:
@@ -175,24 +170,25 @@ def testrail(request, context):
             retries = 3
             for iteration in range(retries):
                 time.sleep(iteration)
+                
                 response = testrail.add_result_for_case(context.testrail_run_id,
                                                         context.testrail_case_id,
-                                                        context.testrail_status_id,
-                                                        context.testrail_comment)
+                                                        status,
+                                                        comment)
                 if response.status_code == 500:
                     if iteration + 1 < retries:
-                        context.logger.warning(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
+                        LOG.warning(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
                     continue
                 if response.status_code > 201 and response.status_code != 500:
                     error = str(response.content)
-                    context.logger.error(f"TestRail API returned HTTP {response.status_code} ({error})", only_msg=True)
+                    LOG.error(f"TestRail API returned HTTP {response.status_code} ({error})")
                     break
                 else:
                     break
             else:
-                context.logger.error("The result of the test has not been added to the TestRail")
+                LOG.error("The result of the test has not been added to the TestRail")
         else:
-            context.logger.warning("Testrail is not configured")
+            LOG.warning("Testrail is not configured")
 
 @pytest.fixture(scope="session")
 def testrail_smoke_result(session_context):
