@@ -1,4 +1,5 @@
 import os
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
@@ -78,19 +79,31 @@ class BasePage():
         else:
             self.logger.info(f"Element with ID = '{element_id}' is clicked")
 
-    def click_xpath(self, xpath, timeout=20):
+    def click_xpath(self, xpath, timeout=20, retries=5):
         element = self.get_element_by_xpath(xpath)
-        try:
-            actions = ActionChains(self.driver)
-            actions.move_to_element(element).perform()
-            WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath)))
-            element.click()
-        except TimeoutException:
-            self.logger.error(f"Element with XPATH = '{xpath}' is not clickable")
-        except:
-            self.logger.error(f"Element with XPATH = '{xpath}' cannot be clicked")
-        else:
-            self.logger.info(f"Element with XPATH = '{xpath}' is clicked")
+        for retry in range(retries):
+            try:
+                actions = ActionChains(self.driver)
+                actions.move_to_element(element).perform()
+                WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath)))
+                element.click()
+            except TimeoutException:
+                if retry == retries - 1:
+                    self.logger.error(f"Element with XPATH = '{xpath}' is not clickable")
+                else:
+                    self.logger.info(f"Element with XPATH = '{xpath}' is not clickable")
+                time.sleep(1)
+                continue
+            except:
+                if retry == retries - 1:
+                    self.logger.error(f"Element with XPATH = '{xpath}' cannot be clicked")
+                else:
+                    self.logger.info(f"Element with XPATH = '{xpath}' cannot be clicked")
+                time.sleep(1)
+                continue
+            else:
+                self.logger.info(f"Element with XPATH = '{xpath}' is clicked")
+                break
 
     def input_data_id(self, data, element_id, hide_log=False):
         self.clear_id(element_id)

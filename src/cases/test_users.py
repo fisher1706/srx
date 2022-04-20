@@ -3,9 +3,9 @@ from src.resources.tools import Tools
 from src.resources.locator import Locator
 from src.resources.permissions import Permissions
 from src.api.admin.admin_user_api import AdminUserApi
+from src.api.distributor.user_api import UserApi
 from src.api.customer.customer_user_api import CustomerUserApi
 from src.api.customer.checkout_user_api import CheckoutUserApi
-from src.api.distributor.user_api import UserApi
 from src.api.setups.setup_customer_user_as_customer import SetupCustomerUserAsCustomer
 from src.api.setups.setup_checkout_group import SetupCheckoutGroup
 from src.api.setups.setup_shipto import SetupShipto
@@ -72,9 +72,12 @@ def test_customer_user_crud(ui):
     cup.click_xpath(Locator.xpath_button_tab_by_name("Users"))
     cup.create_customer_user(customer_user_body.copy())
     cup.check_last_customer_user(customer_user_body.copy())
+    cup.click_xpath(Locator.xpath_reload_button)
+    cup.last_page(wait=False)
     cup.update_last_customer_user(edit_customer_user_body.copy())
+    cup.click_xpath(Locator.xpath_reload_button)
+    cup.last_page(wait=False)
     cup.sidebar_users_and_groups()
-    cup.wait_until_page_loaded()
     cup.check_last_customer_user(edit_customer_user_body.copy())
     cup.delete_last_customer_user()
 
@@ -446,6 +449,7 @@ def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
     lp = LoginPage(context)
     dsg = DistributorSecurityGroups(context)
+    
     distributor_security_group_body = dsg.distributor_security_group_body.copy()
     edit_security_group_body = dsg.distributor_security_group_body.copy()
 
@@ -458,9 +462,7 @@ def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_
     lp.log_in_distributor_portal()
     dsg.open_security_groups()
     dsg.create_security_group(distributor_security_group_body)
-    row = dsg.get_row_of_table_item_by_column(distributor_security_group_body["name"], 1)
-    dsg.check_security_group(distributor_security_group_body, row)
-    dsg.update_security_group(edit_security_group_body, row)
-    dsg.element_should_have_text(Locator.xpath_table_item(row, 1), edit_security_group_body["name"])
-    dsg.check_security_group(edit_security_group_body, row)
-    dsg.delete_security_group(edit_security_group_body, row)
+    dsg.check_security_group(distributor_security_group_body)
+    dsg.update_security_group(edit_security_group_body)
+    dsg.check_security_group(edit_security_group_body)
+    dsg.delete_security_group(edit_security_group_body)
