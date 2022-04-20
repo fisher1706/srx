@@ -82,7 +82,8 @@ class Locator():
     xpath_role_listbox = "//ul[@role='listbox']"
     xapth_button_last_page = "//button[@aria-label='Go to last page']"
     xpath_reload_button = "//button[@data-testid='reload-button']"
-
+    xpath_button_reset = "//button[@type='reset']"
+    
     @staticmethod
     def xpath_by_count(xpath, count):
         return f"({xpath})[{count}]"
@@ -118,6 +119,10 @@ class Locator():
     @staticmethod
     def xpath_get_row_by_index(index):
         return f"//div[@role='row' and @data-row-index='{index}']"
+
+    @staticmethod
+    def xpath_get_table_item_by_index(index, column):
+        return f"//div[@role='row' and @data-row-index='{index}']{Locator.xpath_role_cell}[{column}]"
 
     @staticmethod
     def xpath_table_item_in_dialog(row, column):
