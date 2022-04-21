@@ -30,7 +30,6 @@ class LOG():
         LOG.join(f"[DEBUG] {message}")
         logging.debug(message)
 
-
     @staticmethod
     def info(message):
         LOG.join(f"[INFO] {message}")
