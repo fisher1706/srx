@@ -3,6 +3,7 @@ from src.api.api import API
 from src.resources.messages import Message
 from src.resources.tools import Tools
 from src.fixtures.decorators import default_expected_code
+from glbl import LOG, ERROR
 
 class TransactionApi(API):
     def create_active_item(self, shipto_id, ordering_config_id, repeat=21, customer_id=None):
@@ -22,17 +23,17 @@ class TransactionApi(API):
             new_transactions_count = self.get_transactions_count(shipto_id=shipto_id)
             if new_transactions_count >= transactions_count+1:
                 if response.status_code == 200:
-                    self.logger.info(Message.entity_operation_done.format(entity="Transaction", operation="created"))
+                    LOG.info(Message.entity_operation_done.format(entity="Transaction", operation="created"))
                 else:
-                    self.logger.error(str(response.content))
+                    ERROR(str(response.content))
                 if new_transactions_count > transactions_count+1:
-                    self.logger.warning("Unexpected count of transactions")
+                    LOG.warning("Unexpected count of transactions")
                 break
-            self.logger.info("Transaction cannot be created now due to the deduplication mechanism. Next attempt after 5 second")
+            LOG.info("Transaction cannot be created now due to the deduplication mechanism. Next attempt after 5 second")
             time.sleep(5)
         else:
-            self.logger.error("New transaction has not been created")
-            self.logger.error(str(response.content))
+            ERROR("New transaction has not been created")
+            ERROR(str(response.content))
 
     @default_expected_code(200)
     def update_replenishment_item(self, transaction_id, quantity_ordered, status, quantity_shipped=-1, expected_status_code=None):
@@ -53,9 +54,9 @@ class TransactionApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Transaction", id=transaction_id, operation="updated"))
+            LOG.info(Message.entity_with_id_operation_done.format(entity="Transaction", id=transaction_id, operation="updated"))
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="updating", status_code=response.status_code, content=response.content))
+            LOG.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_transaction(self, sku=None, status=None, shipto_id=None, ids=None):
         params = dict()
@@ -70,7 +71,7 @@ class TransactionApi(API):
             elif isinstance(ids, (int, str)):
                 ids_string = ids
             else:
-                self.logger.error(f"Incorrect type 'ids' parameter. Expected 'str', 'int' or 'list'. Now '{type(ids)}'")
+                ERROR(f"Incorrect type 'ids' parameter. Expected 'str', 'int' or 'list'. Now '{type(ids)}'")
             params["replenishmentIds"] = ids
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/items")
         token = self.get_distributor_token()
@@ -78,7 +79,7 @@ class TransactionApi(API):
         if response.status_code == 200:
             pass
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -108,9 +109,9 @@ class TransactionApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Transaction", operation="submitted"))
+            LOG.info(Message.entity_operation_done.format(entity="Transaction", operation="submitted"))
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))
+            LOG.info(Message.info_operation_with_expected_code.format(entity="Transaction", operation="submit", status_code=response.status_code, content=response.content))
 
     def refresh_order_status(self, order_id, v_2, distributor_id=None):
         url = self.url.get_api_url_for_env("/admin-portal/admin/orders/erp-test/get-order-status")
@@ -122,9 +123,9 @@ class TransactionApi(API):
         token = self.get_admin_token()
         response = self.send_get(url, token, params=params)
         if response.status_code == 200:
-            self.logger.info(f"Order {order_id} has been refreshed")
+            LOG.info(f"Order {order_id} has been refreshed")
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
 
     def transactions_bulk_update(self, status, order_ids):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/replenishments/list/statuses/bulk-update")
@@ -136,6 +137,6 @@ class TransactionApi(API):
         }
         response = self.send_post(url, token, data=dto)
         if response.status_code == 200:
-            self.logger.info(f"Orders {order_ids} has been updated")
+            LOG.info(f"Orders {order_ids} has been updated")
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))

@@ -2,6 +2,7 @@ import time
 from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 from src.resources.locator import Locator
+from glbl import LOG, ERROR
 
 class SmartShelvesPage(AdminPortalPage):
     smart_shelves_body = {
@@ -115,9 +116,9 @@ class SmartShelvesPage(AdminPortalPage):
         time.sleep(3)#need to use wait
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
         if f"{text}" == "2":
-            self.logger.info("First door is unavailable as expected")
+            LOG.info("First door is unavailable as expected")
         else:
-            self.logger.error("First door shoud not be avaliable")
+            ERROR("First door shoud not be avaliable")
         self.click_xpath(Locator.xpath_dropdown_in_dialog(3))
         self.click_xpath(Locator.xpath_label_cancel)
         self.dialog_should_not_be_visible()
@@ -160,13 +161,13 @@ class SmartShelvesPage(AdminPortalPage):
         text = self.get_element_text(f"{Locator.xpath_dropdown_list_item}/div")
         if in_list:
             if f"{text}" == f"{smart_shelf}":
-                self.logger.info(f"There is {smart_shelf} as expected")
+                LOG.info(f"There is {smart_shelf} as expected")
             else:
-                self.logger.error(f"Smart Shelf {smart_shelf} should be in the list")
+                ERROR(f"Smart Shelf {smart_shelf} should be in the list")
         else:
             if f"{text}" == f"{smart_shelf}":
-                self.logger.error(f"Smart Shelf {smart_shelf} should not be in the list")
+                ERROR(f"Smart Shelf {smart_shelf} should not be in the list")
             else:
-                self.logger.info(f"There is no {smart_shelf} as expected")
+                LOG.info(f"There is no {smart_shelf} as expected")
         self.click_xpath(Locator.xpath_close_button)
         self.dialog_should_not_be_visible()

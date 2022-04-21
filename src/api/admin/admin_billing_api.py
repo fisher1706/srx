@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
+from glbl import CHECK
 
 class AdminBillingApi(API):
     def billing_calculate(self, timestamp):
@@ -9,10 +10,9 @@ class AdminBillingApi(API):
         }
         token = self.get_admin_token()
         response = self.send_post(url, token, params=params)
-        if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Billing calculation", operation="completed"))
-        else:
-            self.logger.error(str(response.content))
+        CHECK(response.status_code == 200,
+            Message.entity_operation_done.format(entity="Billing calculation", operation="completed"),
+            str(response.content))
 
     def billing_transit(self, timestamp):
         url = self.url.get_api_url_for_env("/admin-portal/admin/distributors/transitInventoryStatus")
@@ -21,7 +21,6 @@ class AdminBillingApi(API):
         }
         token = self.get_admin_token()
         response = self.send_post(url, token, params=params)
-        if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Billing transition", operation="completed"))
-        else:
-            self.logger.error(str(response.content))
+        CHECK(response.status_code == 200,
+            Message.entity_operation_done.format(entity="Billing transition", operation="completed"),
+            str(response.content))

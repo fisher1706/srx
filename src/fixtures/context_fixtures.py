@@ -1,12 +1,14 @@
 import copy
 import time
+import os
 from collections import defaultdict
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.common.by import By
 from context import Context, SessionContext
-from glbl import LOG
+from glbl import LOG, VAR
 from src.resources.url import URL
 from src.resources.data import Data, SmokeData
 from src.resources.testrail import Testrail
@@ -70,6 +72,7 @@ def context(session_context):
     context_object.dynamic_context = defaultdict(list)
     context_object.session_context = session_context
     LOG.clear()
+    VAR.clear()
     return context_object
 
 @pytest.fixture(scope="function")
@@ -157,20 +160,33 @@ def finalize(request, context):
             elif request.node.rep_setup.passed:
                 if request.node.rep_call.failed:
                     status = 5
+                    if context.session_context.screenshot and context.driver is not None:
+                        path = f"{os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))}/screenshots/"
+                        if not os.path.exists(path):
+                            try:
+                                os.mkdir(path)
+                            except OSError:
+                                LOG.error("Creation of Screenshots directory is failed")
+                        context.driver.save_screenshot(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.png")
+                        Tools.generate_log(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.log", context.driver.get_log("performance"))
+                        LOG.info(f"URL: \n{context.driver.current_url}")
+                        try:
+                            LOG.info(f"TEXT: \n{context.driver.find_element(By.XPATH, '//body').text}")
+                        except:
+                            LOG.info("TEXT NOT FOUND")
                     comment = f"[PYTEST] Test failed\n{LOG.text}"
                 elif request.node.rep_call.passed:
+                    if VAR.teardown_error:
+                        status = 6
+                        comment = f"[PYTEST] Test passed, but teardown is failed\n{LOG.text}"
+                    else:
                         status = 1
                         comment = "[PYTEST] Test passed"
-                else:
-                    raise Exception(f"Failed call: {request.node.rep_setup.failed}; Passed call: {request.node.rep_setup.passed}")
-            else:
-                raise Exception(f"Failed setup: {request.node.rep_setup.failed}; Passed setup: {request.node.rep_setup.passed}")
 
             testrail = Testrail(context.session_context.testrail_email, context.session_context.testrail_password)
             retries = 3
             for iteration in range(retries):
                 time.sleep(iteration)
-                
                 response = testrail.add_result_for_case(context.testrail_run_id,
                                                         context.testrail_case_id,
                                                         status,
@@ -196,6 +212,6 @@ def testrail_smoke_result(session_context):
     testrail_client = Testrail(session_context.testrail_email, session_context.testrail_password)
     tests = testrail_client.get_tests(session_context.smoke_data.smoke_testrail_run_id).json()["tests"]
     for test in tests:
-        if test["status_id"] == 5:
+        if test["status_id"] in (5, 6):
             testrail_client.run_report(session_context.smoke_data.report_id)
             break

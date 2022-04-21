@@ -2,6 +2,7 @@ from src.resources.tools import Tools
 from src.resources.messages import Message
 from src.api.api import API
 from src.fixtures.decorators import default_expected_code
+from glbl import LOG, ERROR
 
 class UserApi(API):
     def get_distributor_users(self, shipto_id):
@@ -9,9 +10,9 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Distributor User", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Distributor User", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -27,9 +28,9 @@ class UserApi(API):
         }
         response = self.send_put(url, token, dto)
         if response.status_code == 201:
-            self.logger.info(f"Customer Super User {email} has been successfuly created")
+            LOG.info(f"Customer Super User {email} has been successfuly created")
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         new_user_id = (response_json["data"].split("/"))[-1]
         return new_user_id
@@ -39,9 +40,9 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Customer User", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Customer User", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -54,9 +55,9 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 201:
-            self.logger.info(f"Distributor Super User {dto['email']} has been successfuly created")
+            LOG.info(f"Distributor Super User {dto['email']} has been successfuly created")
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         new_user_id = (response_json["data"].split("/"))[-1]
         return new_user_id
@@ -68,11 +69,11 @@ class UserApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 201:
-            self.logger.info(f"Distributor User {dto['email']} has been successfuly created")
+            LOG.info(f"Distributor User {dto['email']} has been successfuly created")
             response_json = response.json()
             new_user_id = (response_json["data"].split("/"))[-1]
             return new_user_id
-        self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="creation", status_code=response.status_code, content=response.content))
+        LOG.info(Message.info_operation_with_expected_code.format(entity="User", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def update_distributor_user(self, dto, expected_status_code=None, user_id=None):
@@ -83,9 +84,9 @@ class UserApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            self.logger.info(f"User {dto['email']} has been successfuly updated")
+            LOG.info(f"User {dto['email']} has been successfuly updated")
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="updating", status_code=response.status_code, content=response.content))
+            LOG.info(Message.info_operation_with_expected_code.format(entity="User", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_distributor_user(self, email=None, full=False):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/users/pageable")
@@ -94,9 +95,9 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token, params=params)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Distributor Users", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Distributor Users", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         if full:
             return response_json["data"]
@@ -109,18 +110,18 @@ class UserApi(API):
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Distributor User", id=user_id, operation="deleted"))
+            LOG.info(Message.entity_with_id_operation_done.format(entity="Distributor User", id=user_id, operation="deleted"))
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="User", operation="deletion", status_code=response.status_code, content=response.content))
+            LOG.info(Message.info_operation_with_expected_code.format(entity="User", operation="deletion", status_code=response.status_code, content=response.content))
 
     def get_acl_sctructure(self):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/acl-structure")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="ACL Structure", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="ACL Structure", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -129,9 +130,9 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(f"Security Group {dto['name']} has been successfuly created")
+            LOG.info(f"Security Group {dto['name']} has been successfuly created")
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         new_security_group_id = (response_json["data"].split("/"))[-1]
         return new_security_group_id
@@ -143,18 +144,18 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Security Group", id=security_group_id, operation="deleted"))
+            LOG.info(Message.entity_with_id_operation_done.format(entity="Security Group", id=security_group_id, operation="deleted"))
         else:
-            self.logger.error(str(response.content))
-    
+            ERROR(str(response.content))
+
     def get_security_groups(self):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/user-groups")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info("Security groups have been successfuly got")
+            LOG.info("Security groups have been successfuly got")
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -163,15 +164,15 @@ class UserApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code != 200:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
 
     def get_current_user(self):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/users/current")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Current User", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Current User", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]

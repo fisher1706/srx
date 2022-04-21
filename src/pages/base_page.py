@@ -8,7 +8,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from src.waits import wait_until_disabled, page_url_is, dialog_is_not_present, elements_count_should_be, is_page_loading, last_page, wait_until_dropdown_list_loaded, wait_until_dropdown_is_not_empty #pylint: disable=C0301
 from src.resources.locator import Locator
-from glbl import LOG, ERROR, CHECK
+from glbl import LOG, ERROR
 
 class BasePage():
     def __init__(self, context):

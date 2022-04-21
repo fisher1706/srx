@@ -5,6 +5,7 @@ from src.api.distributor.settings_api import SettingsApi
 from src.api.setups.base_setup import BaseSetup
 from src.api.setups.setup_customer import SetupCustomer
 from src.resources.tools import Tools
+from glbl import LOG
 
 class SetupShipto(BaseSetup):
     def __init__(self, context):
@@ -93,7 +94,7 @@ class SetupShipto(BaseSetup):
                     self.options["checkout_settings"].get("checkout_software"),
                     self.options["checkout_settings"].get("qr_code_kit"))
             else:
-                self.context.logger.warning(f"Unknown 'checkout_settings' option: '{self.options['checkout_settings']}'")
+                LOG.warning(f"Unknown 'checkout_settings' option: '{self.options['checkout_settings']}'")
 
     def set_reorder_controls_settings(self):
         if self.options["reorder_controls_settings"] is not None:
@@ -108,7 +109,7 @@ class SetupShipto(BaseSetup):
                     self.options["reorder_controls_settings"].get("scan_to_order"),
                     self.options["reorder_controls_settings"].get("enable_reorder_control"))
             else:
-                self.context.logger.warning(f"Unknown 'reorder_controls_settings' option: '{self.options['reorder_controls_settings']}'")
+                LOG.warning(f"Unknown 'reorder_controls_settings' option: '{self.options['reorder_controls_settings']}'")
 
     def set_autosubmit_settings(self):
         sta = SettingsApi(self.context)
@@ -122,7 +123,7 @@ class SetupShipto(BaseSetup):
                     self.options["autosubmit_settings"].get("immediately"),
                     self.options["autosubmit_settings"].get("as_order"))
             else:
-                self.context.logger.warning(f"Unknown 'autosubmit_settings' option: '{self.options['autosubmit_settings']}'")
+                LOG.warning(f"Unknown 'autosubmit_settings' option: '{self.options['autosubmit_settings']}'")
         elif self.shipto_id is not None:
             sta.set_autosubmit_settings_shipto(self.shipto_id, False, False, False)
 
@@ -137,7 +138,7 @@ class SetupShipto(BaseSetup):
                     self.options["serialization_settings"].get("expiration"),
                     self.options["serialization_settings"].get("alarm"))
             else:
-                self.context.logger.warning(f"Unknown 'serialization_settings' option: '{self.options['serialization_settings']}'")
+                LOG.warning(f"Unknown 'serialization_settings' option: '{self.options['serialization_settings']}'")
 
     def set_customer_clc_settings(self):
         if self.options["customer.clc"] is not None:

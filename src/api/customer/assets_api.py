@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
+from glbl import LOG, ERROR
 
 class AssetsApi(API):
     def get_all_assets(self):
@@ -7,9 +8,9 @@ class AssetsApi(API):
         token = self.get_customer_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Asset", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Asset", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
 
@@ -20,24 +21,24 @@ class AssetsApi(API):
             assets_list.append(item["orderingConfig"]["product"]["partSku"])
         if should_be:
             if asset in assets_list:
-                self.logger.info(f"Assest {asset} is present in all assets list")
+                LOG.info(f"Assest {asset} is present in all assets list")
                 position = assets_list.index(asset)
                 return response_assets[position]
-            self.logger.error(f"Assest {asset} is NOT present in all assets list")
+            ERROR(f"Assest {asset} is NOT present in all assets list")
         else:
             if asset not in assets_list:
-                self.logger.info(f"Assest {asset} is NOT present in all assets list")
+                LOG.info(f"Assest {asset} is NOT present in all assets list")
             else:
-                self.logger.error(f"Assest {asset} IS present in all assets list, but should not")
+                ERROR(f"Assest {asset} IS present in all assets list, but should not")
 
     def get_list_of_assets_by_user(self, user_id):
         url = self.url.get_api_url_for_env(f"/customer-portal/customer/assets-user-checked-out/{user_id}")
         token = self.get_customer_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="List of User", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="List of User", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
 
@@ -46,9 +47,9 @@ class AssetsApi(API):
         token = self.get_customer_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Checked Out asset", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Checked Out asset", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
 
@@ -59,12 +60,12 @@ class AssetsApi(API):
             assets_list.append(item["partSku"])
         if should_be:
             if asset in assets_list:
-                self.logger.info(f"Assest {asset} is present in checked out assets list")
+                LOG.info(f"Assest {asset} is present in checked out assets list")
                 position = assets_list.index(asset)
                 return response_assets[position]
-            self.logger.error(f"Assest {asset} is NOT present in checked out assets list")
+            ERROR(f"Assest {asset} is NOT present in checked out assets list")
         else:
             if asset not in assets_list:
-                self.logger.info(f"Assest {asset} is NOT present in checked out assets list")
+                LOG.info(f"Assest {asset} is NOT present in checked out assets list")
             else:
-                self.logger.error(f"Assest {asset} IS present in checked out assets list, but should not")
+                ERROR(f"Assest {asset} IS present in checked out assets list, but should not")

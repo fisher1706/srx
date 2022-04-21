@@ -1,5 +1,6 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
+from glbl import LOG, ERROR
 
 class LockerPlanogramPage(DistributorPortalPage):
     def follow_locker_planogram_url(self, customer_id=None, shipto_id=None):
@@ -27,15 +28,15 @@ class LockerPlanogramPage(DistributorPortalPage):
         #check device
         text = self.get_element_text(Locator.xpath_dropdown_in_dialog(1))
         if text == f"{locker}":
-            self.logger.info(f"Selected Device is {locker} as expected")
+            LOG.info(f"Selected Device is {locker} as expected")
         else:
-            self.logger.error(f"Selected Device is {text} but should be {locker}")
+            ERROR(f"Selected Device is {text} but should be {locker}")
         current_url = self.driver.current_url
         result = f"{shipto}" in current_url
         if result:
-            self.logger.info(f"URL contains shipto id {shipto}")
+            LOG.info(f"URL contains shipto id {shipto}")
         else:
-            self.logger.error(f"URL contains wrong shipto id {shipto}")
+            ERROR(f"URL contains wrong shipto id {shipto}")
 
     def assign_smart_shelf_to_locker_door(self, smart_shelf):
         self.click_xpath(Locator.xpath_configure_button)
@@ -55,9 +56,9 @@ class LockerPlanogramPage(DistributorPortalPage):
                 text = self.get_element_text(Locator.xpath_dropdown_in_dialog(2))
                 if text != "":
                     break
-        self.logger.info(f"Text in dropdown is {text}")
+        LOG.info(f"Text in dropdown is {text}")
         assert f"{text}" == f"{smart_shelf}", f"Smart shelf {smart_shelf} is NOT assigned to the locker as expected"
-        self.logger.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
+        LOG.info(f"Smart shelf {smart_shelf} is assigned to the locker as expected")
 
     def check_first_door_is_unavaliable_planogram(self):
         self.click_xpath(Locator.xpath_configure_button)

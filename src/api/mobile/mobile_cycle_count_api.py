@@ -1,5 +1,6 @@
 from src.api.api import API
 from src.fixtures.decorators import default_expected_code
+from glbl import LOG
 
 class MobileCycleCountApi(API):
     @default_expected_code(200)
@@ -11,6 +12,6 @@ class MobileCycleCountApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
         if response.status_code == 200:
-            self.logger.info("OHI updated successfully")
+            LOG.info("OHI updated successfully")
         else:
-            self.logger.info(f"Update OHI completed with status_code = '{response.status_code}', as expected: {response.content}")
+            LOG.info(f"Update OHI completed with status_code = '{response.status_code}', as expected: {response.content}")

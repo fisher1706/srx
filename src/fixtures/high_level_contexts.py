@@ -5,7 +5,6 @@ def ui(driver, base_context):
     context_object = base_context
     context_object.driver = driver
     context_object.testrail_run_id = context_object.data.testrail_run_id
-    context_object.screenshot = context_object.session_context.screenshot
     return context_object
 
 @pytest.fixture(scope="function")
@@ -25,7 +24,6 @@ def smoke_ui(driver, smoke_context):
     context_object = smoke_context
     context_object.driver = driver
     context_object.testrail_run_id = context_object.data.smoke_testrail_run_id
-    context_object.screenshot = context_object.session_context.screenshot
     return context_object
 
 @pytest.fixture(scope="function")

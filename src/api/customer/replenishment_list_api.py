@@ -1,6 +1,7 @@
 from src.api.api import API
 from src.resources.tools import Tools
 from src.resources.messages import Message
+from glbl import LOG, ERROR
 
 class ReplenishmentListApi(API):
     def update_replenishment_item(self, shipto_id, replenishment_item_id, reorder_quantity):
@@ -11,9 +12,9 @@ class ReplenishmentListApi(API):
         }
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Replenishment item quantity", operation="updated"))
+            LOG.info(Message.entity_operation_done.format(entity="Replenishment item quantity", operation="updated"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
 
     def submit_replenishment_list(self, items):
         url = self.url.get_api_url_for_env("/customer-portal/customer/replenishment/list")
@@ -22,9 +23,9 @@ class ReplenishmentListApi(API):
         replenishment_list_dto["items"] = items
         response = self.send_post(url, token, replenishment_list_dto)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Replenishment list", operation="updated"))
+            LOG.info(Message.entity_operation_done.format(entity="Replenishment list", operation="updated"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
 
     def get_replenishment_list(self, shipto_ids):
         url = self.url.get_api_url_for_env("/customer-portal/customer/replenishment/list")
@@ -34,7 +35,7 @@ class ReplenishmentListApi(API):
         token = self.get_customer_token()
         response = self.send_get(url, token, params=params)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Replenisment List", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Replenisment List", operation="got"))
             response_json = response.json()
             return response_json["data"]["items"]
-        self.logger.error(str(response.content))
+        ERROR(str(response.content))

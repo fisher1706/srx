@@ -11,6 +11,7 @@ from src.api.distributor.rfid_api import RfidApi
 from src.api.distributor.serial_number_api import SerialNumberApi
 from src.api.customer.replenishment_list_api import ReplenishmentListApi
 from src.api.customer.customer_location_api import CustomerLocationApi
+from glbl import ERROR
 
 @pytest.mark.parametrize("conditions", [
     {
@@ -1025,7 +1026,7 @@ def test_reorder_controls_update_quantity_on_reorder_status_with_existing_active
     elif conditions["reorder_controls"] == "ISSUED":
         start_ohi = LOCATION_MAX * LOCATION_PACKAGE_CONVERSION
     else:
-        api.logger.error("Incorrect 'reorder_controls' value")
+        ERROR("Incorrect 'reorder_controls' value")
     setup_location.add_option("ohi", start_ohi)
     response_location = setup_location.setup()
 
@@ -1088,7 +1089,7 @@ def test_reorder_controls_update_quantity_on_reorder_qnty_with_existing_active_f
         new_reorder_quantity = LOCATION_MAX - 1
         result = 1
     else:
-        api.logger.error("Incorrect 'case' value")
+        ERROR("Incorrect 'case' value")
 
     #setup
     setup_location = SetupLocation(api)

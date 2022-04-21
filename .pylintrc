@@ -32,7 +32,9 @@ ignore=
     .gitignore,
     format.json,
     erp-emulation-buildspec.yml,
-    flask.log
+    flask.log,
+    user_keys.yml,
+    user_local_values.yml
 
 [FORMAT]
 max-line-length=200
@@ -78,7 +80,11 @@ good-names=
     LOCATION_MIN,
     LOCATION_MAX,
     LOCATION_PACKAGE_CONVERSION,
-    ROUND_BUY
+    ROUND_BUY,
+    LOG,
+    VAR,
+    CHECK,
+    ERROR
 
 bad-names=
     var,

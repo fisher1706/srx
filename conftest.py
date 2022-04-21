@@ -119,4 +119,4 @@ def pytest_runtest_makereport(item, call):
     setattr(item, "rep_" + rep.when, rep)
 
 def pytest_exception_interact(report):
-    LOG.error(f'Test exception:\n{report.longreprtext}')
+    LOG.error(f'Exception:\n{report.longreprtext}')

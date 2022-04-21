@@ -1,5 +1,6 @@
 from src.api.checkout.checkout_api import CheckoutApi
 from src.api.distributor.location_api import LocationApi
+from glbl import LOG
 
 def setup_issue_return(context, shipto_id, product, quantity=None, epc=None, issue_product=None, return_product=None, passcode=None):
     ca = CheckoutApi(context)
@@ -12,9 +13,9 @@ def setup_issue_return(context, shipto_id, product, quantity=None, epc=None, iss
     # check if cart is empry
     cart_response = ca.get_cart(passcode=passcode)
     if cart_response["items"] is None:
-        context.logger.info("Cart is empty")
+        LOG.info("Cart is empty")
     elif cart_response["items"] is not None:
-        context.logger.info(f"Cart have {len(cart_response['items'])}, cart will be closed")
+        LOG.info(f"Cart have {len(cart_response['items'])}, cart will be closed")
         ca.close_cart(passcode=passcode)
 
     if location_type == "LABEL":

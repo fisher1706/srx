@@ -83,5 +83,3 @@ def test_customer_setup(load_api):
                 location_list.append(location)
             for start_index in range(0, locations_per_shipto, create_location_step):
                 la.create_location(copy.deepcopy(location_list[start_index:start_index+create_location_step]), shipto_id, customer_id=customer_id)
-        
-

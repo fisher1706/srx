@@ -1,5 +1,6 @@
 from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.resources.locator import Locator
+from glbl import LOG, ERROR
 
 class ReorderListPage(CustomerPortalPage):
     xpath_po_dialog_row = "//table/tbody/tr"
@@ -18,7 +19,7 @@ class ReorderListPage(CustomerPortalPage):
                 self.select_checkbox(item_xpath+Locator.xpath_checkbox)
                 break
         else:
-            self.logger.error(f"Replenishment item with SKU = '{expected_sku}' not found")
+            ERROR(f"Replenishment item with SKU = '{expected_sku}' not found")
 
     def get_item_xpath_in_po_dialog(self, row, column):
         return f"(({Locator.xpath_dialog}{self.xpath_po_dialog_row})[{row}]{self.xpath_po_dialog_column})[{column}]"
@@ -36,12 +37,12 @@ class ReorderListPage(CustomerPortalPage):
                 if self.get_item_text_in_po_dialog(index, 1) == shipto:
                     po_value = self.get_element_by_xpath(f"{self.get_item_xpath_in_po_dialog(index, 4)}//input[@type='text']").get_attribute("value")
                     if po_number_body[shipto] == po_value:
-                        self.logger.info(f"PO number of '{shipto}' shipto is correct")
+                        LOG.info(f"PO number of '{shipto}' shipto is correct")
                     else:
-                        self.logger.error(f"PO number of '{shipto}' shipto is incorrect")
+                        ERROR(f"PO number of '{shipto}' shipto is incorrect")
                     break
             else:
-                self.logger.error(f"There is no shipto '{shipto}' in dialog")
+                ERROR(f"There is no shipto '{shipto}' in dialog")
         self.click_xpath(Locator.xpath_cancel_button)
         self.dialog_should_not_be_visible()
 
@@ -56,7 +57,7 @@ class ReorderListPage(CustomerPortalPage):
                     self.input_data_xpath(po_number_body[shipto], self.get_item_xpath_in_po_dialog(index, 4)+Locator.xpath_type_text)
                     break
             else:
-                self.logger.error(f"There is no shipto '{shipto}' in dialog")
+                ERROR(f"There is no shipto '{shipto}' in dialog")
         self.click_xpath(Locator.xpath_submit_button)
         self.get_element_by_xpath(Locator.xpath_successfully_submitted_reorder_list)
 

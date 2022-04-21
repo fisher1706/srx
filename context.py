@@ -86,10 +86,8 @@ class Context():
     #main
     session_context = None
     dynamic_context = None
-    is_teardown = False
     driver = None
     data = None
-    screenshot = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):
