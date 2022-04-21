@@ -7,7 +7,6 @@ class AWS():
 
     def __init__(self, context):
         self.context = context
-        self.logger = context.logger
         self.url = context.session_context.url
         self.data = context.data
         if not context.session_context.credentials:

@@ -1,6 +1,7 @@
 import os
 import time
 import requests
+from glbl import LOG, ERROR, CHECK
 from src.api.api import API
 from src.resources.tools import Tools
 
@@ -27,10 +28,9 @@ class ImportApi(API):
     def get_upload_url(self, url):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
-        if response.status_code == 200:
-            self.logger.info("Upload URL has been successfully created")
-        else:
-            self.logger.error(str(response.content))
+        CHECK(response.status_code == 200,
+            "Upload URL has been successfully created",
+            str(response.content))
         response_json = response.json()
         return_response = {
             "url": response_json["data"]["url"],
@@ -55,34 +55,32 @@ class ImportApi(API):
                 else:
                     break
             else:
-                self.logger.error("Max retries exceeded: "+str(response.content))
-            if response.status_code == 200:
-                self.logger.info("File has been successfuly upload")
-            else:
-                self.logger.error(str(response.content))
+                ERROR("Max retries exceeded: "+str(response.content))
+            CHECK(response.status_code == 200,
+                "File has been successfuly upload",
+                str(response.content))
 
     def get_import_status(self, url):
         token = self.get_distributor_token()
         for _ in range(6):
             response = self.send_get(url, token)
             if response.status_code == 404:
-                self.logger.info("File not found. Next attempt after 5 seconds")
+                LOG.info("File not found. Next attempt after 5 seconds")
                 time.sleep(5)
                 continue
             if response.status_code == 200:
-                self.logger.info("File status successfuly got")
+                LOG.info("File status successfuly got")
                 break
             else:
-                self.logger.error(str(response.content))
+                ERROR(str(response.content))
         else:
-            self.logger.error("File not found after 30 seconds waiting")
+            ERROR("File not found after 30 seconds waiting")
         response_json = response.json()
         return response_json["data"]
 
     def parse(self, url):
         token = self.get_distributor_token()
         response = self.send_post(url, token)
-        if response.status_code == 200:
-            self.logger.info("File has been succesfully parsed")
-        else:
-            self.logger.error(str(response.content))
+        CHECK(response.status_code == 200,
+            "File has been succesfully parsed",
+            str(response.content))

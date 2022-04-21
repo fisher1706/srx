@@ -449,7 +449,7 @@ def test_distrubutor_security_group_crud(ui, permissions, permission_ui, delete_
     context = Permissions.set_configured_user(ui, permissions["user"], permission_context=permission_ui)
     lp = LoginPage(context)
     dsg = DistributorSecurityGroups(context)
-    
+
     distributor_security_group_body = dsg.distributor_security_group_body.copy()
     edit_security_group_body = dsg.distributor_security_group_body.copy()
 

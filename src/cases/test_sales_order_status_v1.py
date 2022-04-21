@@ -4,6 +4,7 @@ import pytest
 from src.api.customer.replenishment_list_api import ReplenishmentListApi
 from src.api.distributor.transaction_api import TransactionApi
 from src.api.mocks_api import MocksApi
+from glbl import ERROR
 
 @pytest.mark.parametrize("conditions", [
     {
@@ -368,7 +369,7 @@ def test_split_single_transaction_by_two_items(srx_integration_api, sync_order_l
         assert transactions["entities"][1]["reorderQuantity"] == conditions["quantity_2"]
         assert transactions["entities"][1]["shippedQuantity"] == 0
     else:
-        srx_integration_api.logger.error("No such statuses combination. Please add")
+        ERROR("No such statuses combination. Please add")
 
 @pytest.mark.parametrize("conditions", [
     {
@@ -485,7 +486,7 @@ def test_split_single_transaction_by_three_items_reorder_controls(srx_integratio
             transactions.remove(transaction)
             break
     else:
-        srx_integration_api.logger.error("There is no ACTIVE transaction")
+        ERROR("There is no ACTIVE transaction")
     assert transactions[0]["erpOrderId"] == f"{transaction_id}-1"
     assert transactions[1]["erpOrderId"] == f"{transaction_id}-2"
     assert transactions[2]["erpOrderId"] == f"{transaction_id}-3"

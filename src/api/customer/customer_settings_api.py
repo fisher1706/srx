@@ -1,6 +1,7 @@
 from src.api.api import API
 from src.resources.tools import Tools
 from src.resources.messages import Message
+from glbl import LOG, ERROR
 
 class CustomerSettingsApi(API):
     def update_reorder_controls_settings_shipto(self, dto, supplier_id):
@@ -8,9 +9,9 @@ class CustomerSettingsApi(API):
         token = self.get_customer_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Reorder Controls settings of shipto", id=supplier_id, operation="updated"))
+            LOG.info(Message.entity_with_id_operation_done.format(entity="Reorder Controls settings of shipto", id=supplier_id, operation="updated"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
 
     def set_reorder_controls_settings_for_shipto(self, supplier_id, reorder_controls=None, track_ohi=None, scan_to_order=None, enable_reorder_control=None):
         #DEFAULT configuration is enabled Reorder Controls at MIN and enabled Track OHI. Scan to order is disabled

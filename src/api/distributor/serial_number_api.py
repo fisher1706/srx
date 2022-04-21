@@ -1,6 +1,7 @@
 from src.api.api import API
 from src.fixtures.decorators import default_expected_code
 from src.resources.messages import Message
+from glbl import LOG, ERROR
 
 class SerialNumberApi(API):
     @default_expected_code(201)
@@ -24,9 +25,9 @@ class SerialNumberApi(API):
         if response.status_code == 201:
             response_json = response.json()
             sn_id = (response_json["data"].split("/"))[-1]
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Serial Number", id=sn_id, operation="created"))
+            LOG.info(Message.entity_with_id_operation_done.format(entity="Serial Number", id=sn_id, operation="created"))
             return sn_id
-        self.logger.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="creation", status_code=response.status_code, content=response.content))
+        LOG.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(201)
     def create_serial_numbers_by_lot(self, dto, expected_status_code=None):
@@ -35,9 +36,9 @@ class SerialNumberApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 201:
-            self.logger.info(f"{dto['numberQuantity']} Serial Numbers have been created with lot = {dto['lot']}")
+            LOG.info(f"{dto['numberQuantity']} Serial Numbers have been created with lot = {dto['lot']}")
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="creation by lot", status_code=response.status_code, content=response.content))
+            LOG.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="creation by lot", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def update_serial_number(self, dto, expected_status_code=None):
@@ -48,9 +49,9 @@ class SerialNumberApi(API):
         if response.status_code == 200:
             response_json = response.json()
             sn_id = (response_json["data"].split("/"))[-1]
-            self.logger.info(f"Serial Number '{dto['number']}' has been successfully updated")
+            LOG.info(f"Serial Number '{dto['number']}' has been successfully updated")
             return sn_id
-        self.logger.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="updating", status_code=response.status_code, content=response.content))
+        LOG.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_serial_number(self, shipto_id):
         return self.get_serial_number_base(shipto_id)["entities"]
@@ -66,9 +67,9 @@ class SerialNumberApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token, params)
         if response.status_code == 200:
-            self.logger.info(Message.entity_operation_done.format(entity="Serial Number", operation="got"))
+            LOG.info(Message.entity_operation_done.format(entity="Serial Number", operation="got"))
         else:
-            self.logger.error(str(response.content))
+            ERROR(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -79,6 +80,6 @@ class SerialNumberApi(API):
         response = self.send_delete(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            self.logger.info(Message.entity_with_id_operation_done.format(entity="Serial Number", id=serial_number_id, operation="deleted"))
+            LOG.info(Message.entity_with_id_operation_done.format(entity="Serial Number", id=serial_number_id, operation="deleted"))
         else:
-            self.logger.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="deletion", status_code=response.status_code, content=response.content))
+            LOG.info(Message.info_operation_with_expected_code.format(entity="Serial Number", operation="deletion", status_code=response.status_code, content=response.content))

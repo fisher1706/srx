@@ -1,6 +1,7 @@
 import time
 from src.api.api import API
 from src.api.distributor.transaction_api import TransactionApi
+from glbl import LOG, ERROR
 
 class MobileTransactionApi(API):
     def bulk_create(self, shipto_id, dto, customer_id=None, repeat=10, failed=False, admin_context=None, status=None, first_delay=5): #pylint: disable=R0913
@@ -26,17 +27,17 @@ class MobileTransactionApi(API):
             new_transactions_count = ta.get_transactions_count(shipto_id=shipto_id, status=status)
             if new_transactions_count >= transactions_count+len_of_dto:
                 if response.status_code == 200:
-                    self.logger.info("New transactions have been successfully created")
+                    LOG.info("New transactions have been successfully created")
                 else:
-                    self.logger.error(str(response.content))
+                    ERROR(str(response.content))
                 if new_transactions_count > transactions_count+len_of_dto:
-                    self.logger.warning("Unexpected count of transactions")
+                    LOG.warning("Unexpected count of transactions")
                 break
-            self.logger.info("Transactions cannot be created now due to the deduplication mechanism. Next attempt after 5 second")
+            LOG.info("Transactions cannot be created now due to the deduplication mechanism. Next attempt after 5 second")
             time.sleep(5)
         else:
             if failed:
-                self.logger.info("New transactions have not been created as expected")
+                LOG.info("New transactions have not been created as expected")
             else:
-                self.logger.error("New transactions have not been created")
-                self.logger.error(str(response.content))
+                ERROR("New transactions have not been created")
+                ERROR(str(response.content))

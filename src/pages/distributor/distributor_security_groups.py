@@ -58,7 +58,7 @@ class DistributorSecurityGroups(DistributorPortalPage):
         self.delete_dialog_should_be_about(distributor_security_group_body["name"])
         self.click_xpath(Locator.xpath_submit_button)
         self.dialog_should_not_be_visible()
-    
+
     def check_reset_permissions(self):
         for checkbox in range(5, 36):
             self.select_checkbox(Locator.xpath_by_count(Locator.xpath_checkbox, checkbox))

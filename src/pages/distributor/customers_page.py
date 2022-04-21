@@ -1,6 +1,7 @@
 from src.pages.distributor.distributor_portal_page import DistributorPortalPage
 from src.resources.locator import Locator
 from src.api.distributor.customer_api import CustomerApi
+from glbl import LOG, ERROR
 
 class CustomersPage(DistributorPortalPage):
     customer_body = {
@@ -54,9 +55,9 @@ class CustomersPage(DistributorPortalPage):
     def check_customer_setup_wizard_button(self):
         self.wait_until_page_loaded()
         if self.get_element_count("//button/span[text()='Customer setup wizard']") == 0:
-            self.logger.info("Button is hidden for user")
+            LOG.info("Button is hidden for user")
         else:
-            self.logger.error("Create setup wizard button is enabled for user")
+            ERROR("Create setup wizard button is enabled for user")
 
     def select_warehouse(self):
         self.click_xpath(f"{Locator.xpath_table_item(1, 5)}//button")
