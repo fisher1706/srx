@@ -2,7 +2,7 @@ from src.api.api import API
 from src.resources.messages import Message
 from src.resources.tools import Tools
 from src.fixtures.decorators import default_expected_code
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class ShiptoApi(API):
     @default_expected_code(201)
@@ -14,11 +14,11 @@ class ShiptoApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 201:
-            LOG.info(f"New ShipTo '{dto['number']}' has been successfully created")
+            Log.info(f"New ShipTo '{dto['number']}' has been successfully created")
             response_json = response.json()
             new_shipto = (response_json["data"].split("/"))[-1]
             return new_shipto
-        LOG.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="creation", status_code=response.status_code, content=response.content))
+        Log.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def delete_shipto(self, shipto_id, expected_status_code=None, customer_id=None):
@@ -29,9 +29,9 @@ class ShiptoApi(API):
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="ShipTo", id=shipto_id, operation="deleted"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="ShipTo", id=shipto_id, operation="deleted"))
         else:
-            LOG.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="deletion", status_code=response.status_code, content=response.content))
+            Log.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="deletion", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def update_shipto(self, dto, shipto_id, expected_status_code=None):
@@ -40,9 +40,9 @@ class ShiptoApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="ShipTo", id=shipto_id, operation="updated"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="ShipTo", id=shipto_id, operation="updated"))
         else:
-            LOG.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="updating", status_code=response.status_code, content=response.content))
+            Log.info(Message.info_operation_with_expected_code.format(entity="ShipTo", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_shipto_by_number(self, number):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/customers/{self.data.customer_id}/shiptos/pageable")
@@ -51,9 +51,9 @@ class ShiptoApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token, params=params)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="ShipTo", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="ShipTo", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json
 
@@ -65,10 +65,10 @@ class ShiptoApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token, params=params)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Product", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Product", operation="got"))
             response_json = response.json()
             return response_json["data"]["totalElements"]
-        ERROR(str(response.content))
+        Error.error(str(response.content))
 
     def get_po_number_by_number(self, number):
         response = self.get_shipto_by_number(number)
@@ -77,17 +77,17 @@ class ShiptoApi(API):
     def check_po_number_by_number(self, number, expected_po_number):
         actual_po_number = self.get_po_number_by_number(number)
         if actual_po_number == expected_po_number:
-            LOG.info("PO number is correct")
+            Log.info("PO number is correct")
         else:
-            ERROR(f"PO number should be '{expected_po_number}', but now it is '{actual_po_number}'")
+            Error.error(f"PO number should be '{expected_po_number}', but now it is '{actual_po_number}'")
 
     def get_shipto_by_id(self, shipto_id):
         url = self.url.get_api_url_for_env(f"/distributor-portal/distributor/shiptos/{shipto_id}")
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="ShipTo", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="ShipTo", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]

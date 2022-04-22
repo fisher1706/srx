@@ -1,7 +1,7 @@
 import os
 import time
 from src.aws.aws import AWS
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class S3(AWS):
     'The class for using S3 service'
@@ -24,7 +24,7 @@ class S3(AWS):
     def download_by_key(self, bucket_name, key, filename):
         folder = f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/output/"
         self.resource.Bucket(bucket_name).download_file(key, folder+filename)
-        LOG.info("File has been succesfully downloaded from S3")
+        Log.info("File has been succesfully downloaded from S3")
 
     def clear_bucket(self, bucket_name):
         bucket = self.resource.Bucket(bucket_name)
@@ -38,9 +38,9 @@ class S3(AWS):
             objects = self.get_objects_in_bucket(bucket_name)
             objects_count = len(objects)
             if objects_count > current_count:
-                LOG.info("New object has appeared in the bucket")
+                Log.info("New object has appeared in the bucket")
                 break
             else:
-                LOG.info("Waiting for the new object appears in the bucket. Next attempt in 10 seconds")
+                Log.info("Waiting for the new object appears in the bucket. Next attempt in 10 seconds")
         else:
-            ERROR(f"There is no new objects in the bucket after {retries*10} seconds")
+            Error.error(f"There is no new objects in the bucket after {retries*10} seconds")

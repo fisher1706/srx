@@ -12,7 +12,7 @@ from src.api.customer.customer_vmi_list_api import CustomerVmiListApi
 from src.api.setups.setup_product import SetupProduct
 from src.api.setups.setup_shipto import SetupShipto
 from src.api.setups.setup_location import SetupLocation
-from glbl import ERROR
+from glbl import Error
 
 @pytest.mark.regression
 def test_vmi_list_partial_sku_match(ui):
@@ -308,7 +308,7 @@ def test_vmi_list_edit_min_max_customer_portal(api, conditions, delete_shipto):
         assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
         assert updated_location["orderingConfig"]["currentInventoryControls"]["min"] == response_location["location"]["orderingConfig"]["currentInventoryControls"]["min"]
     else:
-        ERROR("Unexpected result")
+        Error.error("Unexpected result")
 
 @pytest.mark.parametrize("conditions", [
     {

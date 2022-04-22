@@ -1,7 +1,7 @@
 import os
 import time
 import requests
-from glbl import LOG, ERROR, CHECK
+from glbl import Log, Error
 from src.api.api import API
 from src.resources.tools import Tools
 
@@ -28,7 +28,7 @@ class ImportApi(API):
     def get_upload_url(self, url):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
-        CHECK(response.status_code == 200,
+        Error.check(response.status_code == 200,
             "Upload URL has been successfully created",
             str(response.content))
         response_json = response.json()
@@ -55,8 +55,8 @@ class ImportApi(API):
                 else:
                     break
             else:
-                ERROR("Max retries exceeded: "+str(response.content))
-            CHECK(response.status_code == 200,
+                Error.error("Max retries exceeded: "+str(response.content))
+            Error.check(response.status_code == 200,
                 "File has been successfuly upload",
                 str(response.content))
 
@@ -65,22 +65,22 @@ class ImportApi(API):
         for _ in range(6):
             response = self.send_get(url, token)
             if response.status_code == 404:
-                LOG.info("File not found. Next attempt after 5 seconds")
+                Log.info("File not found. Next attempt after 5 seconds")
                 time.sleep(5)
                 continue
             if response.status_code == 200:
-                LOG.info("File status successfuly got")
+                Log.info("File status successfuly got")
                 break
             else:
-                ERROR(str(response.content))
+                Error.error(str(response.content))
         else:
-            ERROR("File not found after 30 seconds waiting")
+            Error.error("File not found after 30 seconds waiting")
         response_json = response.json()
         return response_json["data"]
 
     def parse(self, url):
         token = self.get_distributor_token()
         response = self.send_post(url, token)
-        CHECK(response.status_code == 200,
+        Error.check(response.status_code == 200,
             "File has been succesfully parsed",
             str(response.content))

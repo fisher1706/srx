@@ -1,6 +1,6 @@
 from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.resources.locator import Locator
-from glbl import LOG
+from glbl import Log
 
 class AssetsPage(CustomerPortalPage):
     xpath_filter = "//span[text()='Filter']"
@@ -41,7 +41,7 @@ class AssetsPage(CustomerPortalPage):
         self.click_tab_by_name("Checked Out")
         elements = self.get_element_count(self.xpath_asset_card)
         if elements == 0:
-            LOG.info("Checked out list is empty")
+            Log.info("Checked out list is empty")
         else:
             self.click_xpath(self.xpath_filter)
             self.input_data_xpath(asset, self.xpath_sku_input)

@@ -8,7 +8,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from src.waits import wait_until_disabled, page_url_is, dialog_is_not_present, elements_count_should_be, is_page_loading, last_page, wait_until_dropdown_list_loaded, wait_until_dropdown_is_not_empty #pylint: disable=C0301
 from src.resources.locator import Locator
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class BasePage():
     def __init__(self, context):
@@ -24,11 +24,11 @@ class BasePage():
             expected_url = url if expected_url is None else expected_url
             current_url = self.driver.current_url
             if current_url != expected_url:
-                ERROR(f"Error during try to follow URL = '{url}'. Current: {current_url}; Expected: {expected_url}")
+                Error.error(f"Error during try to follow URL = '{url}'. Current: {current_url}; Expected: {expected_url}")
             else:
-                LOG.info(f"URL = '{url}' is followed")
+                Log.info(f"URL = '{url}' is followed")
         else:
-            LOG.info(f"URL = '{url}' is followed")
+            Log.info(f"URL = '{url}' is followed")
             self.wait_for_complete_ready_state()
 
     def get_element_by_xpath(self, xpath, clickable=False):
@@ -37,7 +37,7 @@ class BasePage():
             if clickable:
                 element = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, xpath)))
         except:
-            ERROR(f"Element with XPATH = '{xpath}' not found")
+            Error.error(f"Element with XPATH = '{xpath}' not found")
         else:
             return element
 
@@ -47,7 +47,7 @@ class BasePage():
             if clickable:
                 element = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.ID, element_id)))
         except:
-            ERROR(f"Element with ID = '{element_id}' not found")
+            Error.error(f"Element with ID = '{element_id}' not found")
         else:
             return element
 
@@ -55,10 +55,10 @@ class BasePage():
         try:
             elements = self.driver.find_elements_by_xpath(xpath)
         except:
-            ERROR(f"Elements with XPATH = '{xpath}' do not found")
+            Error.error(f"Elements with XPATH = '{xpath}' do not found")
         else:
             count = len(elements)
-            LOG.info(f"There are '{count}' elements with XPATH = '{xpath}'")
+            Log.info(f"There are '{count}' elements with XPATH = '{xpath}'")
             return count
 
     def get_element_text(self, xpath):
@@ -73,11 +73,11 @@ class BasePage():
             WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((By.ID, element_id)))
             element.click()
         except TimeoutException:
-            ERROR(f"Element with ID = '{element_id}' is not clickable")
+            Error.error(f"Element with ID = '{element_id}' is not clickable")
         except:
-            ERROR(f"Element with ID = '{element_id}' cannot be clicked")
+            Error.error(f"Element with ID = '{element_id}' cannot be clicked")
         else:
-            LOG.info(f"Element with ID = '{element_id}' is clicked")
+            Log.info(f"Element with ID = '{element_id}' is clicked")
 
     def click_xpath(self, xpath, timeout=20, retries=5):
         element = self.get_element_by_xpath(xpath)
@@ -89,20 +89,20 @@ class BasePage():
                 element.click()
             except TimeoutException:
                 if retry == retries - 1:
-                    ERROR(f"Element with XPATH = '{xpath}' is not clickable")
+                    Error.error(f"Element with XPATH = '{xpath}' is not clickable")
                 else:
-                    LOG.info(f"Element with XPATH = '{xpath}' is not clickable")
+                    Log.info(f"Element with XPATH = '{xpath}' is not clickable")
                 time.sleep(1)
                 continue
             except:
                 if retry == retries - 1:
-                    ERROR(f"Element with XPATH = '{xpath}' cannot be clicked")
+                    Error.error(f"Element with XPATH = '{xpath}' cannot be clicked")
                 else:
-                    LOG.info(f"Element with XPATH = '{xpath}' cannot be clicked")
+                    Log.info(f"Element with XPATH = '{xpath}' cannot be clicked")
                 time.sleep(1)
                 continue
             else:
-                LOG.info(f"Element with XPATH = '{xpath}' is clicked")
+                Log.info(f"Element with XPATH = '{xpath}' is clicked")
                 break
 
     def input_data_id(self, data, element_id, hide_log=False):
@@ -111,11 +111,11 @@ class BasePage():
         try:
             element.send_keys(data)
         except:
-            ERROR(f"Cannot input '{data}' into element with ID = '{element_id}'")
+            Error.error(f"Cannot input '{data}' into element with ID = '{element_id}'")
         else:
             if hide_log:
                 data = "***"
-            LOG.info(f"Data '{data}' inputed into element with ID = '{element_id}'")
+            Log.info(f"Data '{data}' inputed into element with ID = '{element_id}'")
 
     def input_data_xpath(self, data, xpath, hide_log=False):
         self.clear_xpath(xpath)
@@ -123,11 +123,11 @@ class BasePage():
         try:
             element.send_keys(data)
         except:
-            ERROR(f"Cannot input '{data}' into element with XPATH = '{xpath}'")
+            Error.error(f"Cannot input '{data}' into element with XPATH = '{xpath}'")
         else:
             if hide_log:
                 data = "***"
-            LOG.info(f"Data '{data}' inputed into element with XPATH = '{xpath}'")
+            Log.info(f"Data '{data}' inputed into element with XPATH = '{xpath}'")
 
     def should_be_disabled_id(self, element_id):
         element = self.get_element_by_id(element_id)
@@ -167,16 +167,16 @@ class BasePage():
         try:
             WebDriverWait(self.driver, 20).until(page_url_is(url)) #pylint: disable=E1102
         except:
-            ERROR("Incorrect page url")
+            Error.error("Incorrect page url")
         else:
-            LOG.info("Page url is correct")
+            Log.info("Page url is correct")
 
     def url_should_contain(self, text):
         current_url = self.driver.current_url
         if f"{text}" in current_url:
-            LOG.info(f"URL contains text '{text}'")
+            Log.info(f"URL contains text '{text}'")
         else:
-            ERROR(f"URL does not contain '{text}'")
+            Error.error(f"URL does not contain '{text}'")
 
     def input_by_name(self, name, data, hide_log=None):
         if data is not None:
@@ -195,12 +195,12 @@ class BasePage():
             try:
                 element.send_keys(Keys.BACKSPACE)
             except:
-                ERROR(f"Cannot complete BACKSPACE for element {xpath}")
+                Error.error(f"Cannot complete BACKSPACE for element {xpath}")
 
     def select_in_dropdown(self, xpath, name):
         if name is not None:
             self.click_xpath(xpath)
-            LOG.info(f"Dropdown list with XPATH = '{xpath}' is opened")
+            Log.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.click_xpath(f"{xpath}/..//div[text()='{name}' and @tabindex='-1']")
 
     def manage_shipto(self, shiptos, prefix_path=""):
@@ -215,32 +215,32 @@ class BasePage():
                         self.click_xpath(f"{Locator.xpath_table_item_in_dialog(row, 5)}//button")
                         break
                 else:
-                    ERROR(f"There is no ShipTo '{shipto}'")
+                    Error.error(f"There is no ShipTo '{shipto}'")
             self.click_xpath(f"{Locator.xpath_dialog}{Locator.xpath_submit_button}//span[text()='Save']")
 
     def dialog_should_not_be_visible(self):
         try:
             WebDriverWait(self.driver, 15).until(dialog_is_not_present()) #pylint: disable=E1102
         except:
-            ERROR("Dialog is not closed")
+            Error.error("Dialog is not closed")
         else:
-            LOG.info("Dialog is closed")
+            Log.info("Dialog is closed")
 
     def dialog_should_be_visible(self):
         try:
             WebDriverWait(self.driver, 15).until_not(dialog_is_not_present()) #pylint: disable=E1102
         except:
-            ERROR("Dialog is not opened")
+            Error.error("Dialog is not opened")
         else:
-            LOG.info("Dialog is opened")
+            Log.info("Dialog is opened")
 
     def elements_count_should_be(self, xpath, number, time=15):
         try:
             WebDriverWait(self.driver, time).until(elements_count_should_be(xpath, number)) #pylint: disable=E1102
         except:
-            ERROR(f"Count of elements is incorrect: should be '{number}', now '{self.get_element_count(xpath)}'")
+            Error.error(f"Count of elements is incorrect: should be '{number}', now '{self.get_element_count(xpath)}'")
         else:
-            LOG.info("Count of elements is correct")
+            Log.info("Count of elements is correct")
 
     def wait_until_page_loaded(self, time=3):
         try:
@@ -287,9 +287,9 @@ class BasePage():
         try:
             WebDriverWait(self.driver, 15).until(last_page()) #pylint: disable=E1102
         except:
-            ERROR("Last page is not opened")
+            Error.error("Last page is not opened")
         else:
-            LOG.info("Last page is opened")
+            Log.info("Last page is opened")
 
     def get_table_rows_number(self):
         return self.get_element_count(Locator.xpath_table_row)
@@ -316,7 +316,7 @@ class BasePage():
         column = self.get_header_column(header)
         if column:
             return self.get_table_item_text_by_indexes(row, column)
-        ERROR(f"There is no header '{header}'")
+        Error.error(f"There is no header '{header}'")
 
     def check_table_item_by_header(self, row, header, expected_text):
         if expected_text is not None:
@@ -325,24 +325,24 @@ class BasePage():
             if column:
                 current_text = self.get_table_item_text_by_indexes(row, column)
             else:
-                ERROR(f"There is no header '{header}'")
+                Error.error(f"There is no header '{header}'")
             if isinstance(expected_text, list):
                 correctness = True
                 for element in expected_text:
                     if element is not None:
                         if element not in current_text:
-                            ERROR(f"{row} element in '{header}' column is incorrect")
+                            Error.error(f"{row} element in '{header}' column is incorrect")
                             correctness = False
                             break
                 if correctness:
-                    LOG.info(f"{row} element in '{header}' column is correct")
+                    Log.info(f"{row} element in '{header}' column is correct")
             else:
                 self.element_should_have_text(Locator.xpath_table_item(row, column), expected_text)
 
     def check_table_item(self, expected_text, cell=None, header=None, row=None, last=None):
         if expected_text is not None:
             if (cell is None and header is None) or (cell is not None and header is not None):
-                ERROR("Either 'cell' or 'header' parameter should be defined")
+                Error.error("Either 'cell' or 'header' parameter should be defined")
             column = cell if header is None else self.get_header_column(header)
 
             if isinstance(expected_text, list):
@@ -351,38 +351,38 @@ class BasePage():
                 elif row is not None:
                     current_text = self.get_element_text(Locator.xpath_get_table_item(row, column))
                 else:
-                    ERROR("Either 'row' or 'last' parameter should be defined")
+                    Error.error("Either 'row' or 'last' parameter should be defined")
                 correctness = True
                 for element in expected_text:
                     if element is not None:
                         if element not in current_text:
-                            ERROR(f"{row} element in '{header}' column is incorrect")
+                            Error.error(f"{row} element in '{header}' column is incorrect")
                             correctness = False
                             break
                 if correctness:
-                    LOG.info(f"{row} element in '{header}' column is correct")
+                    Log.info(f"{row} element in '{header}' column is correct")
             else:
                 if last is not None:
                     self.element_should_have_text(Locator.xpath_get_last_table_item(column), expected_text)
                 elif row is not None:
                     self.element_should_have_text(Locator.xpath_get_table_item(row, column), expected_text)
                 else:
-                    ERROR("Either 'row' or 'last' parameter should be defined")
+                    Error.error("Either 'row' or 'last' parameter should be defined")
 
     def delete_dialog_should_be_about(self, expected_text):
         self.wait_until_page_loaded(1)
         current_text = str(self.delete_dialog_about())
         if current_text == expected_text:
-            LOG.info(f"Delete dialog about '{current_text}'")
+            Log.info(f"Delete dialog about '{current_text}'")
         else:
-            ERROR(f"Delete dialog about '{current_text}', but should be about '{expected_text}'")
+            Error.error(f"Delete dialog about '{current_text}', but should be about '{expected_text}'")
 
     def delete_dialog_about(self):
         xpath = Locator.xpath_dialog+"//b"
         try:
             element = self.get_element_by_xpath(xpath)
         except:
-            ERROR(f"Element with XPATH = '{xpath}' not found")
+            Error.error(f"Element with XPATH = '{xpath}' not found")
         else:
             return element.text
 
@@ -390,27 +390,27 @@ class BasePage():
         try:
             WebDriverWait(self.driver, 20).until(EC.title_is(title))
         except:
-            ERROR(f"Title should be '{title}', but now it is '{self.driver.title}'")
+            Error.error(f"Title should be '{title}', but now it is '{self.driver.title}'")
         else:
-            LOG.info(f"Title is '{title}'")
+            Log.info(f"Title is '{title}'")
 
     def select_checkbox(self, xpath):
         element = self.get_element_by_xpath(xpath)
         checked = element.get_attribute("checked")
         if checked == 'true':
-            LOG.info(f"Checkbox with XPATH = '{xpath}' has been already checked")
+            Log.info(f"Checkbox with XPATH = '{xpath}' has been already checked")
         elif checked is None:
             element.click()
-            LOG.info(f"Checkbox with XPATH = '{xpath}' is checked")
+            Log.info(f"Checkbox with XPATH = '{xpath}' is checked")
 
     def unselect_checkbox(self, xpath):
         element = self.get_element_by_xpath(xpath)
         checked = element.get_attribute("checked")
         if checked == 'true':
             element.click()
-            LOG.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
+            Log.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
         elif checked is None:
-            LOG.info(f"Checkbox with XPATH = '{xpath}' has been already unchecked")
+            Log.info(f"Checkbox with XPATH = '{xpath}' has been already unchecked")
 
     def select_checkbox_in_dialog_by_name(self, name):
         self.select_checkbox(Locator.xpath_checkbox_in_dialog_by_name(name))
@@ -428,7 +428,7 @@ class BasePage():
         try:
             checkboxes = self.driver.find_elements_by_xpath(Locator.xpath_dialog+Locator.xpath_checkbox)
         except:
-            ERROR("Checkboxes in dialog not found")
+            Error.error("Checkboxes in dialog not found")
         else:
             for element in checkboxes:
                 checked = element.get_attribute("checked")
@@ -440,16 +440,16 @@ class BasePage():
         checked = element.get_attribute("checked")
         if condition:
             if checked == 'true':
-                LOG.info(f"Checkbox with XPATH = '{xpath}' is checked")
+                Log.info(f"Checkbox with XPATH = '{xpath}' is checked")
             elif checked is None:
-                ERROR(f"Checkbox with XPATH = '{xpath}' should be checked")
+                Error.error(f"Checkbox with XPATH = '{xpath}' should be checked")
         elif not condition:
             if checked is None:
-                LOG.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
+                Log.info(f"Checkbox with XPATH = '{xpath}' is unchecked")
             elif checked == 'true':
-                ERROR(f"Checkbox with XPATH = '{xpath}' should be unchecked")
+                Error.error(f"Checkbox with XPATH = '{xpath}' should be unchecked")
         else:
-            ERROR("Incorrect checkbox condition")
+            Error.error("Incorrect checkbox condition")
 
     def scan_table(self, scan_by, column_header, body=None, pagination=True):
         column = self.get_header_column(column_header)
@@ -461,7 +461,7 @@ class BasePage():
                 for row in range(1, self.get_table_rows_number()+1):
                     cell_value = self.get_table_item_text_by_indexes(row, column)
                     if cell_value == scan_by:
-                        LOG.info(f"Text '{scan_by}' is found in the table")
+                        Log.info(f"Text '{scan_by}' is found in the table")
                         if body is None:
                             return row
                         for cell in body.keys():
@@ -474,13 +474,13 @@ class BasePage():
                         pagination_buttons[-1].click()
                         self.wait_until_page_loaded()
                     else:
-                        ERROR(f"There is no value '{scan_by}' in the '{column}' column")
+                        Error.error(f"There is no value '{scan_by}' in the '{column}' column")
                         break
                 else:
-                    ERROR(f"There is no value '{scan_by}' in the '{column}' column")
+                    Error.error(f"There is no value '{scan_by}' in the '{column}' column")
                     break
         else:
-            ERROR(f"There is no header '{column_header}'")
+            Error.error(f"There is no header '{column_header}'")
 
     def import_csv(self, element_id, filename):
         folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -511,9 +511,9 @@ class BasePage():
             element = self.get_element_by_xpath(xpath)
             if element.get_attribute("value") != condition:
                 element.click()
-                LOG.info(f"Value of slider with XPATH = '{xpath}' is changed")
+                Log.info(f"Value of slider with XPATH = '{xpath}' is changed")
             else:
-                LOG.info(f"Slider with XPATH = '{xpath}' already has necessary value")
+                Log.info(f"Slider with XPATH = '{xpath}' already has necessary value")
 
     def page_refresh(self):
         self.driver.refresh()
@@ -528,25 +528,25 @@ class BasePage():
         try:
             WebDriverWait(self.driver, 15).until(wait_until_dropdown_list_loaded(count)) #pylint: disable=E1102
         except:
-            ERROR("Dropdown list is not loaded")
+            Error.error("Dropdown list is not loaded")
         else:
-            LOG.info("Dropdown list is loaded")
+            Log.info("Dropdown list is loaded")
 
     def check_found_dropdown_list_item(self, item_xpath, expected_text):
         item_text = self.get_element_text(item_xpath)
         number = self.get_element_count(item_xpath)
         if number == 1:
             if item_text == expected_text:
-                LOG.info("Dropdown list element has been found")
+                Log.info("Dropdown list element has been found")
             else:
-                ERROR(f"The text of dropdown list element is '{item_text}'")
+                Error.error(f"The text of dropdown list element is '{item_text}'")
         else:
-            ERROR(f"The number of dropdown list elements = '{number}'")
+            Error.error(f"The number of dropdown list elements = '{number}'")
 
     def select_in_dropdown_via_input(self, xpath, name, span=None):
         if name is not None:
             self.click_xpath(xpath)
-            LOG.info(f"Dropdown list with XPATH = '{xpath}' is opened")
+            Log.info(f"Dropdown list with XPATH = '{xpath}' is opened")
             self.input_data_xpath(name, f"{xpath}//input")
             #self.get_element_by_xpath(f"{xpath}//input").send_keys(Keys.ENTER)
             if span:
@@ -579,18 +579,18 @@ class BasePage():
         try:
             WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.XPATH, xpath), text))
         except:
-            ERROR(f"Element with XPATH = '{xpath}' was found but text is different: '{self.get_element_text(xpath)}' != '{text}'")
+            Error.error(f"Element with XPATH = '{xpath}' was found but text is different: '{self.get_element_text(xpath)}' != '{text}'")
         else:
-            LOG.info(f"Element with XPATH = '{xpath}' contains correct text")
+            Log.info(f"Element with XPATH = '{xpath}' contains correct text")
 
     def element_should_have_text_id(self, element_id, text):
         self.get_element_by_id(element_id)
         try:
             WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, element_id), text))
         except:
-            ERROR(f"Element with XPATH = '{element_id}' was found but text is different")
+            Error.error(f"Element with XPATH = '{element_id}' was found but text is different")
         else:
-            LOG.info(f"Element with XPATH = '{element_id}' contains correct text")
+            Log.info(f"Element with XPATH = '{element_id}' contains correct text")
 
     def element_text_should_be_empty(self, xpath):
         text = self.get_element_text(xpath)

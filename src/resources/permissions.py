@@ -1,6 +1,6 @@
 from src.api.distributor.user_api import UserApi
 from src.resources.tools import Tools
-from glbl import ERROR
+from glbl import Error
 
 class Permissions():
     'The class contains the methods for working with permissions and predefined permission sets'
@@ -28,7 +28,7 @@ class Permissions():
                                 action["permission"] = permission["value"]
                         break
                 else:
-                    ERROR(f"No permission '{permission['feature']}' found")
+                    Error.error(f"No permission '{permission['feature']}' found")
 
             security_group = Tools.get_dto("security_group_dto.json")
             security_group["entries"] = acl

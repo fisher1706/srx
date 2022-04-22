@@ -2,7 +2,7 @@ import time
 from src.api.api import API
 from src.fixtures.decorators import default_expected_code
 from src.resources.messages import Message
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class LocationApi(API):
     @default_expected_code(200)
@@ -14,9 +14,9 @@ class LocationApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(f"New location '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully created")
+            Log.info(f"New location '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully created")
         else:
-            LOG.info(Message.info_operation_with_expected_code.format(entity="Location", operation="creation", status_code=response.status_code, content=response.content))
+            Log.info(Message.info_operation_with_expected_code.format(entity="Location", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def update_location(self, dto, shipto_id, expected_status_code=None, mobile=False, customer_id=None):
@@ -27,9 +27,9 @@ class LocationApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(f"Location with SKU = '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully updated")
+            Log.info(f"Location with SKU = '{dto[0]['orderingConfig']['product']['partSku']}' has been successfully updated")
         else:
-            LOG.info(Message.info_operation_with_expected_code.format(entity="Location", operation="updating", status_code=response.status_code, content=response.content))
+            Log.info(Message.info_operation_with_expected_code.format(entity="Location", operation="updating", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def get_location_by_sku(self, shipto_id, sku, expected_status_code=None, mobile=False, customer_id=None):
@@ -43,10 +43,10 @@ class LocationApi(API):
         response = self.send_get(url, token, params=params)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Location", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Location", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
-        LOG.info(Message.info_operation_with_expected_code.format(entity="Location", operation="reading", status_code=response.status_code, content=response.content))
+        Log.info(Message.info_operation_with_expected_code.format(entity="Location", operation="reading", status_code=response.status_code, content=response.content))
 
     def get_ordering_config_by_sku(self, shipto_id, sku, customer_id=None):
         response = self.get_location_by_sku(shipto_id, sku, customer_id=customer_id)
@@ -61,10 +61,10 @@ class LocationApi(API):
         response = self.send_get(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Location", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Location", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
-        LOG.info(Message.info_operation_with_expected_code.format(entity="Location", operation="reading", status_code=response.status_code, content=response.content))
+        Log.info(Message.info_operation_with_expected_code.format(entity="Location", operation="reading", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def delete_location(self, location_id, shipto_id, expected_status_code=None, customer_id=None):
@@ -76,9 +76,9 @@ class LocationApi(API):
         response = self.send_post(url, token, location_dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Location", id=location_id, operation="deleted"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Location", id=location_id, operation="deleted"))
         else:
-            LOG.info(Message.info_operation_with_expected_code.format(entity="Location", operation="deletion", status_code=response.status_code, content=response.content))
+            Log.info(Message.info_operation_with_expected_code.format(entity="Location", operation="deletion", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def location_bulk_update(self, action, shipto_id, expected_status_code=None, all_flag=False, customer_id=None, ids=None):
@@ -92,7 +92,7 @@ class LocationApi(API):
         token = self.get_distributor_token()
         response = self.send_post(url, token, ids, params=params)
         assert expected_status_code == response.status_code, f"Incorrect status_code! Expected: '{expected_status_code}'; Actual: {response.status_code}; Repsonse content:\n{str(response.content)}"
-        LOG.info(f"Location bulk update completed with status_code = '{response.status_code}', as expected: {response.content}")
+        Log.info(f"Location bulk update completed with status_code = '{response.status_code}', as expected: {response.content}")
 
     @default_expected_code(200)
     def get_vmi_analysis(self, shipto_id, expected_status_code=None, mobile=False):
@@ -101,10 +101,10 @@ class LocationApi(API):
         response = self.send_get(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="VMI Analysis", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="VMI Analysis", operation="got"))
             response_json = response.json()
             return response_json["data"]["entities"]
-        LOG.info(Message.info_operation_with_expected_code.format(entity="VMI Analysis", operation="reading", status_code=response.status_code, content=response.content))
+        Log.info(Message.info_operation_with_expected_code.format(entity="VMI Analysis", operation="reading", status_code=response.status_code, content=response.content))
 
     def check_updated_price(self, name, shipto_id, expected_price, repeat=10):
         for _ in range(1, repeat):
@@ -112,11 +112,11 @@ class LocationApi(API):
             old_price = location_responce[0]["orderingConfig"]["price"]
             if old_price == expected_price:
                 if old_price == expected_price:
-                    LOG.info("Price is updated correctly")
+                    Log.info("Price is updated correctly")
                 else:
-                    ERROR(f"'{old_price}' =! '{expected_price}'")
+                    Error.error(f"'{old_price}' =! '{expected_price}'")
                 break
-            LOG.info("Price is not updated. Next attempt after 5 second")
+            Log.info("Price is not updated. Next attempt after 5 second")
             time.sleep(5)
         else:
-            ERROR(f"Actual price'{old_price}' but expected '{expected_price}'")
+            Error.error(f"Actual price'{old_price}' but expected '{expected_price}'")

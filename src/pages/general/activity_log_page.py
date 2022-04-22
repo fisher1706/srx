@@ -1,6 +1,6 @@
 from src.pages.base_page import BasePage
 from src.resources.locator import Locator
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class ActivityLogPage(BasePage):
     def get_full_activity_log_row(self, row_number):
@@ -31,11 +31,11 @@ class ActivityLogPage(BasePage):
         expanding_xpath = Locator.xpath_table_item(row_number, 1, sub_xpath=Locator.xpath_by_count(Locator.xpath_table, 1))
         expanding_element = self.get_element_by_xpath(f"{expanding_xpath}/div/div")
         if expanding_element.get_attribute('class') == "rt-expander -open":
-            LOG.info(f"Row '{row_number}' already expanded")
+            Log.info(f"Row '{row_number}' already expanded")
         elif expanding_element.get_attribute('class') == "rt-expander":
             self.click_xpath(expanding_xpath)
         else:
-            ERROR("Incorrect attribute of expanding element")
+            Error.error("Incorrect attribute of expanding element")
 
     def get_full_last_activity_log(self):
         return self.get_full_activity_log_row(1)

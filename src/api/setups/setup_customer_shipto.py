@@ -3,7 +3,7 @@ from src.api.customer.organization_api import OrganizationApi
 from src.api.customer.customer_settings_api import CustomerSettingsApi
 from src.api.setups.base_setup import BaseSetup
 from src.resources.tools import Tools
-from glbl import LOG
+from glbl import Log
 
 class SetupCustomerShipto(BaseSetup):
     def __init__(self, context):
@@ -69,7 +69,7 @@ class SetupCustomerShipto(BaseSetup):
                     self.options["reorder_controls_settings"].get("scan_to_order"),
                     self.options["reorder_controls_settings"].get("enable_reorder_control"))
             else:
-                LOG.warning(f"Unknown 'reorder_controls_settings' option: '{self.options['reorder_controls_settings']}'")
+                Log.warning(f"Unknown 'reorder_controls_settings' option: '{self.options['reorder_controls_settings']}'")
 
     def set_autosubmit_settings(self):
         pass

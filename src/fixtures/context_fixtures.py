@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.by import By
 from context import Context, SessionContext
-from glbl import LOG, VAR
+from glbl import Log, Var
 from src.resources.url import URL
 from src.resources.data import Data, SmokeData
 from src.resources.testrail import Testrail
@@ -71,8 +71,8 @@ def context(session_context):
     context_object = Context()
     context_object.dynamic_context = defaultdict(list)
     context_object.session_context = session_context
-    LOG.clear()
-    VAR.clear()
+    Log.clear()
+    Var.clear()
     return context_object
 
 @pytest.fixture(scope="function")
@@ -166,19 +166,19 @@ def finalize(request, context):
                             try:
                                 os.mkdir(path)
                             except OSError:
-                                LOG.error("Creation of Screenshots directory is failed")
+                                Log.error("Creation of Screenshots directory is failed")
                         context.driver.save_screenshot(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.png")
                         Tools.generate_log(f"{path}{time.strftime('%Y.%m.%dT%H:%M:%S', time.localtime(time.time()))}.log", context.driver.get_log("performance"))
-                        LOG.info(f"URL: \n{context.driver.current_url}")
+                        Log.info(f"URL: \n{context.driver.current_url}")
                         try:
-                            LOG.info(f"TEXT: \n{context.driver.find_element(By.XPATH, '//body').text}")
+                            Log.info(f"TEXT: \n{context.driver.find_element(By.XPATH, '//body').text}")
                         except:
-                            LOG.info("TEXT NOT FOUND")
-                    comment = f"[PYTEST] Test failed\n{LOG.text}"
+                            Log.info("TEXT NOT FOUND")
+                    comment = f"[PYTEST] Test failed\n{Log.text}"
                 elif request.node.rep_call.passed:
-                    if VAR.teardown_error:
+                    if Var.teardown_error:
                         status = 6
-                        comment = f"[PYTEST] Test passed, but teardown is failed\n{LOG.text}"
+                        comment = f"[PYTEST] Test passed, but teardown is failed\n{Log.text}"
                     else:
                         status = 1
                         comment = "[PYTEST] Test passed"
@@ -193,18 +193,18 @@ def finalize(request, context):
                                                         comment)
                 if response.status_code == 500:
                     if iteration + 1 < retries:
-                        LOG.warning(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
+                        Log.warning(f"Cannot connect to the testRail API. Next attempt after {iteration+1} seconds")
                     continue
                 if response.status_code > 201 and response.status_code != 500:
                     error = str(response.content)
-                    LOG.error(f"TestRail API returned HTTP {response.status_code} ({error})")
+                    Log.error(f"TestRail API returned HTTP {response.status_code} ({error})")
                     break
                 else:
                     break
             else:
-                LOG.error("The result of the test has not been added to the TestRail")
+                Log.error("The result of the test has not been added to the TestRail")
         else:
-            LOG.warning("Testrail is not configured")
+            Log.warning("Testrail is not configured")
 
 @pytest.fixture(scope="session")
 def testrail_smoke_result(session_context):
