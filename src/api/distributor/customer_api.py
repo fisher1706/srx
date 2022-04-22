@@ -1,7 +1,7 @@
 from src.api.api import API
 from src.resources.messages import Message
 from src.fixtures.decorators import default_expected_code
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class CustomerApi(API):
     @default_expected_code(201)
@@ -13,11 +13,11 @@ class CustomerApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 201:
-            LOG.info(f"New customer '{dto['name']}' has been successfully created")
+            Log.info(f"New customer '{dto['name']}' has been successfully created")
             response_json = response.json()
             new_customer = (response_json["data"].split("/"))[-1]
             return new_customer
-        LOG.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="creation", status_code=response.status_code, content=response.content))
+        Log.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="creation", status_code=response.status_code, content=response.content))
 
     @default_expected_code(200)
     def delete_customer(self, customer_id, warehouse_id=None, expected_status_code=None):
@@ -28,9 +28,9 @@ class CustomerApi(API):
         response = self.send_post(url, token)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="deleted"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="deleted"))
         else:
-            LOG.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="deletion", status_code=response.status_code, content=response.content))
+            Log.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="deletion", status_code=response.status_code, content=response.content))
 
     @default_expected_code(201)
     def update_customer(self, dto, customer_id, expected_status_code=None):
@@ -39,9 +39,9 @@ class CustomerApi(API):
         response = self.send_post(url, token, dto)
         assert expected_status_code == response.status_code, Message.assert_status_code.format(expected=expected_status_code, actual=response.status_code, content=response.content)
         if response.status_code == 201:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="updated"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Customer", id=customer_id, operation="updated"))
         else:
-            LOG.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="updating", status_code=response.status_code, content=response.content))
+            Log.info(Message.info_operation_with_expected_code.format(entity="Customer", operation="updating", status_code=response.status_code, content=response.content))
 
     def get_customers(self, name=None, number=None, full=None):
         url = self.url.get_api_url_for_env("/distributor-portal/distributor/customers")
@@ -52,9 +52,9 @@ class CustomerApi(API):
         }
         response = self.send_get(url, token, params=params)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Customers", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Customers", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         if full:
             return response_json["data"]

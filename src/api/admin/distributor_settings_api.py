@@ -1,7 +1,7 @@
 from src.api.api import API
 from src.resources.tools import Tools
 from src.resources.messages import Message
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class DistributorSettingsApi(API):
     def update_freeze_settings(self, dto, distributor_id=None):
@@ -11,9 +11,9 @@ class DistributorSettingsApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Freeze settings of distributor", id=distributor_id, operation="updated"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Freeze settings of distributor", id=distributor_id, operation="updated"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def set_freeze_settings(self, slow, frozen, distributor_id=None):
         dto = Tools.get_dto("freeze_settings_dto.json")

@@ -1,6 +1,6 @@
 from src.pages.customer.customer_portal_page import CustomerPortalPage
 from src.resources.locator import Locator
-from glbl import ERROR
+from glbl import Error
 
 class CheckoutGroupsPage(CustomerPortalPage):
     checkout_group_body = {
@@ -55,7 +55,7 @@ class CheckoutGroupsPage(CustomerPortalPage):
                 self.click_xpath(Locator.xpath_by_count(Locator.xpath_dialog+Locator.xpath_table_row+Locator.xpath_button_type, index))
                 break
         else:
-            ERROR(f"There is no shipto '{shipto_number}'")
+            Error.error(f"There is no shipto '{shipto_number}'")
         self.click_xpath(Locator.xpath_button_save)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()
@@ -85,7 +85,7 @@ class CheckoutGroupsPage(CustomerPortalPage):
                 self.click_xpath(Locator.xpath_by_count(Locator.xpath_dialog+Locator.xpath_table_row+Locator.xpath_button_type, index))
                 break
         else:
-            ERROR(f"There is no shipto '{user_email}'")
+            Error.error(f"There is no shipto '{user_email}'")
         self.click_xpath(Locator.xpath_button_save)
         self.dialog_should_not_be_visible()
         self.wait_until_page_loaded()

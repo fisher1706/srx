@@ -2,7 +2,7 @@ import random
 from src.pages.admin.admin_portal_page import AdminPortalPage
 from src.resources.tools import Tools
 from src.resources.locator import Locator
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class HardwarePage(AdminPortalPage):
     xpath_weight_radio = "//input[@name='noWeight' and @type='radio' and @value='false']"
@@ -84,15 +84,15 @@ class HardwarePage(AdminPortalPage):
 
     def iothub_should_be_available(self, type_name, hub_text):
         if self.is_iothub_available_in_dialog(type_name, hub_text):
-            LOG.info(f"IoT Hub '{hub_text}' is found")
+            Log.info(f"IoT Hub '{hub_text}' is found")
         else:
-            ERROR(f"IoT Hub '{hub_text}' is not found")
+            Error.error(f"IoT Hub '{hub_text}' is not found")
 
     def iothub_should_not_be_available(self, type_name, hub_text):
         if not self.is_iothub_available_in_dialog(type_name, hub_text):
-            LOG.info(f"There is no IoT Hub '{hub_text}'")
+            Log.info(f"There is no IoT Hub '{hub_text}'")
         else:
-            ERROR(f"There is IoT Hub '{hub_text}', but it should NOT be here")
+            Error.error(f"There is IoT Hub '{hub_text}', but it should NOT be here")
 
     def create_locker(self, distributor, iothub_name):
         self.click_id(Locator.id_add_button)

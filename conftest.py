@@ -1,5 +1,5 @@
 import pytest
-from glbl import LOG
+from glbl import Log
 
 
 pytest_plugins = [
@@ -119,4 +119,4 @@ def pytest_runtest_makereport(item, call):
     setattr(item, "rep_" + rep.when, rep)
 
 def pytest_exception_interact(report):
-    LOG.error(f'Exception:\n{report.longreprtext}')
+    Log.error(f'Exception:\n{report.longreprtext}')

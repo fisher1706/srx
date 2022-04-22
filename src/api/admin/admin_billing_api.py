@@ -1,6 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
-from glbl import CHECK
+from glbl import Error
 
 class AdminBillingApi(API):
     def billing_calculate(self, timestamp):
@@ -10,7 +10,7 @@ class AdminBillingApi(API):
         }
         token = self.get_admin_token()
         response = self.send_post(url, token, params=params)
-        CHECK(response.status_code == 200,
+        Error.check(response.status_code == 200,
             Message.entity_operation_done.format(entity="Billing calculation", operation="completed"),
             str(response.content))
 
@@ -21,6 +21,6 @@ class AdminBillingApi(API):
         }
         token = self.get_admin_token()
         response = self.send_post(url, token, params=params)
-        CHECK(response.status_code == 200,
+        Error.check(response.status_code == 200,
             Message.entity_operation_done.format(entity="Billing transition", operation="completed"),
             str(response.content))

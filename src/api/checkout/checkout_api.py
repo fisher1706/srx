@@ -1,7 +1,7 @@
 import hashlib
 from src.api.api import API
 from src.resources.messages import Message
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class CheckoutApi(API):
     def checkout_cart(self, location_id, location_type, quantity=None, epc=None, issue_product=None, return_product=None, passcode=None):
@@ -32,9 +32,9 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_post(url, token, cart)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="processed"))
+            Log.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="processed"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def validate_rfid(self, location_id, location_type, epc, issue_product=None, return_product=None, passcode=None):
         cart = {
@@ -57,9 +57,9 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_post(url, token, cart)
         if response.status_code == 200:
-            LOG.info("RFID is validated")
+            Log.info("RFID is validated")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def get_cart(self, passcode=None):
         url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/cart")
@@ -75,9 +75,9 @@ class CheckoutApi(API):
             response = self.send_get(url, token)
 
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -95,9 +95,9 @@ class CheckoutApi(API):
             response = self.send_get(url, token)
 
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -114,9 +114,9 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_post(url, token)
         if response.status_code == 200:
-            LOG.info("Cart is empty now")
+            Log.info("Cart is empty now")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def issue_product(self, location_dto, passcode=None):
         if location_dto[0]["orderingConfig"]["type"] == "LABEL":
@@ -134,9 +134,9 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_post(url, token, location_dto)
         if response.status_code == 200:
-            LOG.info(f"{location_dto[0]['quantity']} items of product '{location_dto[0]['orderingConfig']['product']['partSku']}' has been successfully issued")
+            Log.info(f"{location_dto[0]['quantity']} items of product '{location_dto[0]['orderingConfig']['product']['partSku']}' has been successfully issued")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def return_product(self, location_dto, passcode=None):
         if location_dto[0]["orderingConfig"]["type"] == "LABEL":
@@ -154,9 +154,9 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_post(url, token, location_dto)
         if response.status_code == 200:
-            LOG.info(f"{location_dto[0]['quantity']} items of product '{location_dto[0]['orderingConfig']['product']['partSku']}' has been successfully returned")
+            Log.info(f"{location_dto[0]['quantity']} items of product '{location_dto[0]['orderingConfig']['product']['partSku']}' has been successfully returned")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def get_checkout_user_sub_token(self, passcode):
         url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/checkout-users/passcode")
@@ -167,9 +167,9 @@ class CheckoutApi(API):
         }
         response = self.send_post(url, token, additional_headers=additional_header)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Sub-Authorization token for checkout user", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Sub-Authorization token for checkout user", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["passToken"]
 
@@ -197,9 +197,9 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_post(url, token, cart)
         if response.status_code == 200:
-            LOG.info(f"{location['orderingConfig']['product']['partSku']}  has been successfully added to the cart")
+            Log.info(f"{location['orderingConfig']['product']['partSku']}  has been successfully added to the cart")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def checkout_close_cartv2(self, location, cart_id, actual_quantity=None, planned_quantity=None, passcode=None, action=None):
         url = self.url.get_api_url_for_env("/customer-portal/customer/checkout/v2/cart/items")
@@ -224,6 +224,6 @@ class CheckoutApi(API):
             token = self.get_checkout_token()
             response = self.send_put(url, token, data)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="closed"))
+            Log.info(Message.entity_operation_done.format(entity="Checkout Cart", operation="closed"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))

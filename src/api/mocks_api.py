@@ -1,6 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
-from glbl import CHECK
+from glbl import Error
 
 class MocksApi(API):
     def set_list_of_available_endpoints(self, endpoints_list):
@@ -10,7 +10,7 @@ class MocksApi(API):
         }
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto, timeout=30)
-        CHECK(response.status_code == 200,
+        Error.check(response.status_code == 200,
             Message.entity_operation_done.format(entity="List of available endpoints", operation="set"),
             str(response.content))
 
@@ -21,7 +21,7 @@ class MocksApi(API):
         }
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto, timeout=30)
-        CHECK(response.status_code == 200,
+        Error.check(response.status_code == 200,
             Message.entity_operation_done.format(entity="List of salesOrdersStatus items", operation="set"),
             str(response.content))
 
@@ -32,6 +32,6 @@ class MocksApi(API):
         }
         token = self.get_distributor_token()
         response = self.send_post(url, token, dto, timeout=30)
-        CHECK(response.status_code == 200,
+        Error.check(response.status_code == 200,
             Message.entity_operation_done.format(entity="List of salesOrdersStatusV2 items", operation="set"),
             str(response.content))

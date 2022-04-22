@@ -1,7 +1,7 @@
 from src.api.api import API
 from src.resources.tools import Tools
 from src.resources.messages import Message
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class AdminHardwareApi(API):
     def create_hardware(self, dto):
@@ -9,9 +9,9 @@ class AdminHardwareApi(API):
         token = self.get_admin_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 201:
-            LOG.info(f"New hardware with type '{dto['type']}' has been successfully created")
+            Log.info(f"New hardware with type '{dto['type']}' has been successfully created")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -84,25 +84,25 @@ class AdminHardwareApi(API):
         for _ in range(1, 5):
             response = self.send_delete(url, token)
             if response.status_code == 200:
-                LOG.info(Message.entity_with_id_operation_done.format(entity="Hardware", id=hardware_id, operation="deleted"))
+                Log.info(Message.entity_with_id_operation_done.format(entity="Hardware", id=hardware_id, operation="deleted"))
                 break
             elif response.status_code == 400:
-                LOG.info(f"Hardware with ID = '{hardware_id}' cannot be deleted now")
-                LOG.info(str(response.content))
+                Log.info(f"Hardware with ID = '{hardware_id}' cannot be deleted now")
+                Log.info(str(response.content))
             else:
-                ERROR(str(response.content))
+                Error.error(str(response.content))
                 break
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def get_locker_types(self):
         url = self.url.get_api_url_for_env("/admin-portal/admin/locker-types")
         token = self.get_admin_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Locker Type", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Locker Type", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
 
@@ -119,7 +119,7 @@ class AdminHardwareApi(API):
                 first_door_id = door["id"]
                 break
         else:
-            ERROR("Something went wrong: there is no lockerdoor with number 1")
+            Error.error("Something went wrong: there is no lockerdoor with number 1")
         dto = [{
             "id": first_door_id,
             "number": 1,
@@ -133,18 +133,18 @@ class AdminHardwareApi(API):
         token = self.get_admin_token()
         response = self.send_put(url, token, dto)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Configuration of locker", id=locker_id, operation="updated"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Configuration of locker", id=locker_id, operation="updated"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def get_locker_configuration(self, locker_id):
         url = self.url.get_api_url_for_env(f"/admin-portal/admin/distributors/lockers/{locker_id}/configuration")
         token = self.get_admin_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Configuration of locker", id=locker_id, operation="got"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Configuration of locker", id=locker_id, operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -153,6 +153,6 @@ class AdminHardwareApi(API):
         token = self.get_admin_token()
         response = self.send_put(url, token, dto)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Hardware", id=dto['id'], operation="updated"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Hardware", id=dto['id'], operation="updated"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))

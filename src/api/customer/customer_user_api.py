@@ -1,6 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class CustomerUserApi(API):
     def create_customer_user(self, dto):
@@ -8,9 +8,9 @@ class CustomerUserApi(API):
         token = self.get_customer_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            LOG.info(f"New customer user '{dto['email']}' has been successfully created")
+            Log.info(f"New customer user '{dto['email']}' has been successfully created")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         new_customer_user = (response_json["data"]["id"])
         return new_customer_user
@@ -20,27 +20,27 @@ class CustomerUserApi(API):
         token = self.get_customer_token()
         response = self.send_delete(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Customer User", id=customer_user_id, operation="deleted"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Customer User", id=customer_user_id, operation="deleted"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def update_customer_user(self, dto):
         url = self.url.get_api_url_for_env(f"/customer-portal/customer/users/{dto['id']}")
         token = self.get_customer_token()
         response = self.send_put(url, token, dto)
         if response.status_code == 200:
-            LOG.info(f"Customer user '{dto['email']}' has been successfully udated")
+            Log.info(f"Customer user '{dto['email']}' has been successfully udated")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def get_customer_users(self):
         url = self.url.get_api_url_for_env("/customer-portal/customer/users")
         token = self.get_customer_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Customer User", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Customer User", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]
 
@@ -49,8 +49,8 @@ class CustomerUserApi(API):
         token = self.get_customer_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Customer User Transation Report", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Customer User Transation Report", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]["entities"]

@@ -1,6 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class CheckoutGroupApi(API):
     def create_checkout_group(self, dto):
@@ -8,9 +8,9 @@ class CheckoutGroupApi(API):
         token = self.get_customer_token()
         response = self.send_post(url, token, dto)
         if response.status_code == 200:
-            LOG.info(f"New checkout group '{dto['name']}' has been successfully created")
+            Log.info(f"New checkout group '{dto['name']}' has been successfully created")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]
 
@@ -19,9 +19,9 @@ class CheckoutGroupApi(API):
         token = self.get_customer_token()
         response = self.send_delete(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_with_id_operation_done.format(entity="Checkout Group", id=checkout_group_id, operation="deleted"))
+            Log.info(Message.entity_with_id_operation_done.format(entity="Checkout Group", id=checkout_group_id, operation="deleted"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
 
     def add_shipto_to_checkout_group(self, shipto_id=None, checkout_group_id=None):
         if shipto_id is None:
@@ -40,6 +40,6 @@ class CheckoutGroupApi(API):
         token = self.get_customer_token()
         response = self.send_post(url, token, shipto_dto)
         if response.status_code == 200:
-            LOG.info(f"Shipto {shipto_id} was successfully added to the checkout group {checkout_group_id}")
+            Log.info(f"Shipto {shipto_id} was successfully added to the checkout group {checkout_group_id}")
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))

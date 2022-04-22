@@ -13,7 +13,7 @@ from src.api.distributor.location_api import LocationApi
 from src.api.distributor.product_api import ProductApi
 from src.api.distributor.settings_api import SettingsApi
 from src.api.distributor.activity_log_api import ActivityLogApi
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 @pytest.mark.regression
 def test_different_multiple_po_number(ui, delete_shipto):
@@ -146,7 +146,7 @@ def test_smoke_label_transaction_and_activity_log(smoke_api):
     # close all Active transactions
     transactions = ta.get_transaction(status="ACTIVE")
     if transactions["totalElements"] != 0:
-        LOG.info("There are some active transactions, they will be closed")
+        Log.info("There are some active transactions, they will be closed")
         ta.update_transactions_with_specific_status("ACTIVE", 0, "DO_NOT_REORDER")
     transactions = ta.get_transaction(status="ACTIVE")
     assert transactions["totalElements"] == 0
@@ -162,9 +162,9 @@ def test_smoke_label_transaction_and_activity_log(smoke_api):
         if transactions_qty == 1:
             break
         else:
-            ERROR(f"Incorrect QTY of transactions: '{transactions_qty}'")
+            Error.error(f"Incorrect QTY of transactions: '{transactions_qty}'")
     else:
-        ERROR("New transaction has not been created")
+        Error.error("New transaction has not been created")
 
     transaction_id = transactions["entities"][0]["id"]
     assert transactions["totalElements"] != 0, "There is no ACTIVE transaction"
@@ -231,7 +231,7 @@ def test_transaction_crud_and_split(ui, permission_ui, permissions, delete_distr
     elif str(transactions["entities"][0]["reorderQuantity"]) == str(quantity):
         assert str(transactions["entities"][1]["reorderQuantity"]) == str(round_buy)
     else:
-        ERROR(f"Incorrect quantity of transactions: '{transactions['entities'][0]['reorderQuantity']}' and {transactions['entities'][1]['reorderQuantity']}, when RoundBuy = '{round_buy}'")
+        Error.error(f"Incorrect quantity of transactions: '{transactions['entities'][0]['reorderQuantity']}' and {transactions['entities'][1]['reorderQuantity']}, when RoundBuy = '{round_buy}'")
 
 #deprecated
 def test_zero_quantity_of_new_transaction(api, delete_shipto):

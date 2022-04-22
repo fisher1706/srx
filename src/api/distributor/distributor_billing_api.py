@@ -1,6 +1,6 @@
 from src.resources.messages import Message
 from src.api.api import API
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class DistributorBillingApi(API):
     def get_distributor_fees(self):
@@ -8,8 +8,8 @@ class DistributorBillingApi(API):
         token = self.get_distributor_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Distributor fees", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Distributor fees", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json["data"]

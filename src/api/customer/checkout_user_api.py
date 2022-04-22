@@ -1,6 +1,6 @@
 from src.api.api import API
 from src.resources.messages import Message
-from glbl import LOG, ERROR
+from glbl import Log, Error
 
 class CheckoutUserApi(API):
     def get_checkout_users(self):
@@ -8,9 +8,9 @@ class CheckoutUserApi(API):
         token = self.get_customer_token()
         response = self.send_get(url, token)
         if response.status_code == 200:
-            LOG.info(Message.entity_operation_done.format(entity="Checkout User", operation="got"))
+            Log.info(Message.entity_operation_done.format(entity="Checkout User", operation="got"))
         else:
-            ERROR(str(response.content))
+            Error.error(str(response.content))
         response_json = response.json()
         return response_json
 
@@ -20,10 +20,10 @@ class CheckoutUserApi(API):
         for index in range(count):
             if checkout_user_body["email"] == checkout_users["data"][index]["email"]:
                 if (checkout_user_body["lastName"] == checkout_users["data"][index]["lastName"] and checkout_user_body["firstName"] == checkout_users["data"][index]["firstName"]):
-                    LOG.info(f"There is checkout user with email '{checkout_user_body['email']}'")
+                    Log.info(f"There is checkout user with email '{checkout_user_body['email']}'")
                     break
         else:
-            ERROR(f"There is NO checkout user with email '{checkout_user_body['email']}'")
+            Error.error(f"There is NO checkout user with email '{checkout_user_body['email']}'")
         return count
 
     def checkout_user_should_not_be_present(self, checkout_user_body):
@@ -31,8 +31,8 @@ class CheckoutUserApi(API):
         count = len(checkout_users["data"])
         for index in range(count):
             if (checkout_user_body["firstName"] == checkout_users["data"][index]["firstName"] and checkout_user_body["lastName"] == checkout_users["data"][index]["lastName"]):
-                ERROR(f"There is checkout user with email '{checkout_user_body['email']}'")
+                Error.error(f"There is checkout user with email '{checkout_user_body['email']}'")
                 break
         else:
-            LOG.info(f"There is NO checkout user with email '{checkout_user_body['email']}'")
+            Log.info(f"There is NO checkout user with email '{checkout_user_body['email']}'")
         return count

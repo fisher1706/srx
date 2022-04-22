@@ -1,63 +1,66 @@
 import logging
 import pytest
 
-def ERROR(message):
-    if VAR.is_teardown:
-        VAR.teardown_error = True
-    LOG.error(message)
-    pytest.fail()
+class Error():
+    @staticmethod
+    def error(message):
+        if Var.is_teardown:
+            Var.teardown_error = True
+        Log.error(message)
+        pytest.fail()
 
-def CHECK(statement: bool, message_if_true: str, message_if_false: str):
-    if statement:
-        LOG.info(message_if_true)
-    else:
-        ERROR(message_if_false)
+    @staticmethod
+    def check(statement: bool, message_if_true: str, message_if_false: str):
+        if statement:
+            Log.info(message_if_true)
+        else:
+            Error.error(message_if_false)
 
-class LOG():
+class Log():
     text = str()
 
     @staticmethod
     def join(message):
-        LOG.text = "\n".join([LOG.text, message])
+        Log.text = "\n".join([Log.text, message])
 
     @staticmethod
     def clear():
-        LOG.text = str()
+        Log.text = str()
 
     #----LOG LEVELS----
     @staticmethod
     def debug(message):
-        LOG.join(f"[DEBUG] {message}")
+        Log.join(f"[DEBUG] {message}")
         logging.debug(message)
 
     @staticmethod
     def info(message):
-        LOG.join(f"[INFO] {message}")
+        Log.join(f"[INFO] {message}")
         logging.info(message)
 
     @staticmethod
     def warning(message):
-        LOG.join(f"[WARNING] {message}")
+        Log.join(f"[WARNING] {message}")
         logging.warning(message)
 
     @staticmethod
     def error(message):
-        LOG.join(f"[ERROR] {message}")
+        Log.join(f"[ERROR] {message}")
         logging.error(message)
 
     @staticmethod
     def critical(message):
-        LOG.join(f"[CRITICAL] {message}")
+        Log.join(f"[CRITICAL] {message}")
         logging.critical(message)
 
-class VAR():
+class Var():
     is_teardown = None
     teardown_error = None
 
     @staticmethod
     def clear():
-        VAR.is_teardown = False
-        VAR.teardown_error = False
+        Var.is_teardown = False
+        Var.teardown_error = False
 
     def __setattr__(self, key, value):
         if hasattr(self, key):
