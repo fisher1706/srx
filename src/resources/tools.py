@@ -6,7 +6,6 @@ import csv
 import time
 import yaml
 
-
 class Tools():
     @staticmethod
     def random_string_u(length=10):

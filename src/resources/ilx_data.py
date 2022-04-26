@@ -72,4 +72,5 @@ class IlxData:
                                      'a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/infor_billing/infor_billing'
 
         # INFOR TRANSFERS
-        self.ilx_infor_transfers_url = 'https://api.qa.integrationlogix.com/external-api/a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/infor_status/infor_status'
+        self.ilx_infor_transfers_url = 'https://api.qa.integrationlogix.com/external-api/' \
+                                       'a568e5d3-38d4-4cd1-9aa1-3484afa78a0f/infor_status/infor_status'
