@@ -1,7 +1,7 @@
 import pytest
 import requests
 
-from src.api.ilx.ilx_response import Response
+from src.api.ilx.ilx_response import Response, ResponseNegative
 from src.erp_emulator.erp_ilx import variables
 
 
@@ -11,7 +11,7 @@ from src.erp_emulator.erp_ilx import variables
 def test_response_wmi(ilx_context, case, wmi_data, testrail_case_id):
     ilx_context.ilx_testrail_case_id = testrail_case_id
 
-    headers = {'Authorization': ilx_context.ilx_wmi_token}
+    headers = {'Authorization': ilx_context.ilx_qa_token}
 
     params = {
         'startIndex': wmi_data[case]['startIndex'],
@@ -29,7 +29,6 @@ def test_response_wmi(ilx_context, case, wmi_data, testrail_case_id):
     print(response)
 
 
-@pytest.mark.xfail(reason='incorrect data for test')
 @pytest.mark.parametrize('case, param, wmi_data, testrail_case_id', [
     (1, 'customerId', variables.data_wmi_sync, 11422),
     (2, 'pageSize', variables.data_wmi_sync, 11423)
@@ -40,9 +39,9 @@ def test_response_wmi_negative(ilx_context, case, param, wmi_data, testrail_case
     if param == 'customerId':
         wmi_data[case].update({"customerId": 666})
     else:
-        wmi_data[case].update ({"pageSize": 1})
+        wmi_data[case].update({"pageSize": 1})
 
-    headers = {'Authorization': ilx_context.ilx_wmi_token}
+    headers = {'Authorization': ilx_context.ilx_qa_token}
 
     params = {
         'startIndex': wmi_data[case]['startIndex'],
@@ -53,8 +52,7 @@ def test_response_wmi_negative(ilx_context, case, param, wmi_data, testrail_case
 
     resp = requests.get(url=ilx_context.ilx_data.ilx_wmi_url, headers=headers, params=params)
 
-    response = Response(resp)
-    response.assert_response_status(200)
-    response.validate_response_wmi(wmi_data[case])
+    response = ResponseNegative(resp)
+    response.assert_response_negative_status(400)
 
     print(response)

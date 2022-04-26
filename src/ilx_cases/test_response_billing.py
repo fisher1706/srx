@@ -16,7 +16,7 @@ def test_response_billing(ilx_context, customer_num, billing_data, testrail_case
     ilx_context.ilx_testrail_case_id = testrail_case_id
 
     headers = {
-        'Authorization': ilx_context.ilx_billing_token,
+        'Authorization': ilx_context.ilx_qa_token,
         'Content-Type': 'application/json;charset=utf-8'
     }
 
@@ -49,7 +49,7 @@ def test_response_billing_negative(ilx_context, customer_num, billing_data, test
     customer_num += '_fail'
 
     headers = {
-        'Authorization': ilx_context.ilx_billing_token,
+        'Authorization': ilx_context.ilx_qa_token,
         'Content-Type': 'application/json;charset=utf-8'
     }
 
@@ -67,6 +67,5 @@ def test_response_billing_negative(ilx_context, customer_num, billing_data, test
     resp = requests.post(url=ilx_context.ilx_data.ilx_billing_url, headers=headers, json=data)
     response = Response(resp)
     response.assert_response_status(200)
-    response.validate_response_schema(ValidatorBilling)
-    response.validate_response_billing(Utils.get_data_billing(customer_num, billing_data))
+
     print(response)

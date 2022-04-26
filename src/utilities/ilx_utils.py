@@ -85,7 +85,7 @@ class Utils:
 
     @staticmethod
     def random_str(size=16, chars=string.ascii_letters + string.digits):
-        return ''.join (random.choice (chars) for _ in range (size))
+        return ''.join(random.choice(chars) for _ in range(size))
 
     @staticmethod
     def get_data_billing(customer_num, data_billing):

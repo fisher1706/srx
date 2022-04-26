@@ -19,19 +19,13 @@ def ilx_session_context(request):
     # credentials
     if ilx_session_context_object.ilx_credentials:
         # base credentials
-        ilx_session_context_object.ilx_testrail_email = request.config.getoption ("testrail_email")
-        ilx_session_context_object.ilx_testrail_password = request.config.getoption ("testrail_password")
+        ilx_session_context_object.ilx_testrail_email = request.config.getoption("testrail_email")
+        ilx_session_context_object.ilx_testrail_password = request.config.getoption("testrail_password")
 
-        ilx_session_context_object.ilx_auth_token = request.config.getoption("ilx_auth_token")
+        ilx_session_context_object.ilx_erp_token = request.config.getoption("ilx_erp_token")
         ilx_session_context_object.ilx_infor_token = request.config.getoption("ilx_infor_token")
 
-        ilx_session_context_object.ilx_wmi_token = request.config.getoption("ilx_wmi_token")
-
-        ilx_session_context_object.ilx_billing_token = request.config.getoption('ilx_billing_token')
-
-        ilx_session_context_object.ilx_eclipse_price_token = request.config.getoption('ilx_eclipse_price_token')
-
-        ilx_session_context_object.ilx_gerrie_token = request.config.getoption('ilx_gerrie_token')
+        ilx_session_context_object.ilx_qa_token = request.config.getoption('ilx_qa_token')
 
     elif not ilx_session_context_object.ilx_credentials:
         from src.resources.ilx_local_credentials import IlxLocalCredentials
@@ -41,7 +35,7 @@ def ilx_session_context(request):
         ilx_session_context_object.ilx_testrail_email = creds.ilx_testrail_email
         ilx_session_context_object.ilx_testrail_password = creds.ilx_testrail_password
 
-        ilx_session_context_object.ilx_auth_token = creds.ilx_auth_token
+        ilx_session_context_object.ilx_erp_token = creds.ilx_erp_token
 
         ilx_session_context_object.edi_856_auth_token = creds.edi_856_auth_token
         ilx_session_context_object.user_name_edi_856 = creds.user_name_edi_856
@@ -53,13 +47,7 @@ def ilx_session_context(request):
         ilx_session_context_object.ilx_email = creds.ilx_email
         ilx_session_context_object.ilx_password = creds.ilx_password
 
-        ilx_session_context_object.ilx_wmi_token = creds.ilx_wmi_token
-
-        ilx_session_context_object.ilx_billing_token = creds.ilx_billing_token
-
-        ilx_session_context_object.ilx_eclipse_price_token = creds.ilx_eclipse_price_token
-
-        ilx_session_context_object.ilx_gerrie_token = creds.ilx_gerrie_token
+        ilx_session_context_object.ilx_qa_token = creds.ilx_qa_token
 
     return ilx_session_context_object
 
@@ -73,7 +61,7 @@ def ilx_context(ilx_session_context, request):
 
     ilx_context_object.ilx_testrail_run_id = 282
 
-    ilx_context_object.ilx_auth_token = ilx_session_context.ilx_auth_token
+    ilx_context_object.ilx_erp_token = ilx_session_context.ilx_erp_token
 
     ilx_context_object.edi_856_auth_token = ilx_session_context.edi_856_auth_token
     ilx_context_object.password_edi_856 = ilx_session_context.password_edi_856
@@ -84,13 +72,7 @@ def ilx_context(ilx_session_context, request):
     ilx_context_object.ilx_email = ilx_session_context.ilx_email
     ilx_context_object.ilx_password = ilx_session_context.ilx_password
 
-    ilx_context_object.ilx_wmi_token = ilx_session_context.ilx_wmi_token
-
-    ilx_context_object.ilx_billing_token = ilx_session_context.ilx_billing_token
-
-    ilx_context_object.ilx_eclipse_price_token = ilx_session_context.ilx_eclipse_price_token
-
-    ilx_context_object.ilx_gerrie_token = ilx_session_context.ilx_gerrie_token
+    ilx_context_object.ilx_qa_token = ilx_session_context.ilx_qa_token
 
     yield ilx_context_object
     testrail(request, ilx_context_object)

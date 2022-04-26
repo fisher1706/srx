@@ -71,7 +71,7 @@ class Response:
     def validate_response_wmi(self, data):
         assert self.response_json.get('metadata').get('startIndex') == data.get('startIndex'), \
             f'incorrect startIndex for id: {data.get("customerId")}'
-        assert self.response_json.get('metadata').get ('pageSize') == data.get ('pageSize'), \
+        assert self.response_json.get('metadata').get('pageSize') == data.get('pageSize'), \
             f'incorrect pageSize for id: {data.get ("customerId")}'
         assert len(self.response_json.get('results')) == data.get('pageSize'), \
             f'incorrect "results" for id: {data.get ("customerId")}'
@@ -88,8 +88,44 @@ class Response:
         assert self.response_json.get('response')[0].get('items')[0].get('quantityOrdered') \
                == data.get('quantityOrdered'), f'incorrect quantityOrdered for orderNumber {data.get("orderNumber")}'
 
+    def validate_response_quote_infor(self, data):
+        assert self.response_json.get('id') == data.get('invNr'), f'incorrect id for customer {data.get("custNo")}'
+        assert self.response_json.get('transactionType') == data.get('transactionType'), \
+            f'incorrect transactionType for customer {data.get("custNo")}'
+
+    def validate_response_quote_eclipse(self, data):
+        assert self.response_json.get('id') == data.get('productId'), \
+            f'incorrect id for customer {data.get("customer")}'
+        assert self.response_json.get('transactionType') == 'QUOTED', \
+            f'incorrect transactionType for customer {data.get("customer")}'
+
+    def validate_response_price_d1(self, data):
+        assert self.response_json.get('unitName') == data.get('item'), f'incorrect id for customer {data.get("dsku")}'
+
+    def validate_response_infor_billing(self, data):
+        assert self.response_json.get('id') == '0' + data.get('shipToNo'), \
+            f'incorrect id for shipToNo = {data.get("shipToNo")}'
+
+    def validate_response_infor_transfers(self, data):
+        assert self.response_json.get('id') == data.get('cErrorMessage'), \
+            f'incorrect id, id must be - {data.get("cErrorMessage")}'
+
     def __str__(self):
         return f"\nStatus code: {self.response_status}" \
                f"\nRequested url: {self.response.url}" \
                f"\nResponse body: {self.response_json}" \
+
+
+
+class ResponseNegative:
+    def __init__(self, response):
+        self.response = response
+        self.response_status = response.status_code
+
+    def assert_response_negative_status(self, status_code):
+        assert self.response_status == status_code, f'incorrect response status {self.response_status}'
+
+    def __str__(self):
+        return f"\nStatus code: {self.response_status}" \
+               f"\nRequested url: {self.response.url}" \
 

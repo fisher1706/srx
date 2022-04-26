@@ -65,3 +65,32 @@ class ResultGerrie(BaseModel):
 
 class ValidatorGerrie(BaseModel):
     response: List[ResultGerrie]
+
+
+# quote infor
+class ValidatorQuoteInfor(BaseModel):
+    id: str
+    transactionType: str
+
+
+# quote eclipse
+class ValidatorQuoteEclipse(BaseModel):
+    id: str
+    transactionType: str
+
+
+# price d1
+class ValidatorPriceD1(BaseModel):
+    price: str
+    unitName: str
+
+
+# infor billing
+class ValidatorInforBilling(BaseModel):
+    id: str
+    transactionType: str
+
+
+# infor transfers
+class ValidatorInforTransfers(BaseModel):
+    id: str

@@ -54,32 +54,32 @@ class GenerateIDE856:
 
 class GenerateInforOrderStatusV2:
     response = {
-            "response": {
-                "cErrorMessage": "",
-                "tFieldlist": {
-                    "t-fieldlist": None
-                },
-                "tOelineitemV3": {
-                    "t-oelineitemV3": None
-                },
-                "tOetaxsa": {
-                    "t-oetaxsa": [
-                        {
-                            "seqno": 1,
-                            "locallabels": "State",
-                            "taxcode": "IN",
-                            "localdescrip": "IN - State",
-                            "taxgroupnm": "STANDARD",
-                            "taxamt": "14.72",
-                            "taxsaleamt": "210.23"
-                        }
-                    ]
-                },
-                "tOetaxar": {
-                    "t-oetaxar": []
-                }
+        "response": {
+            "cErrorMessage": "",
+            "tFieldlist": {
+                "t-fieldlist": None
+            },
+            "tOelineitemV3": {
+                "t-oelineitemV3": None
+            },
+            "tOetaxsa": {
+                "t-oetaxsa": [
+                    {
+                        "seqno": 1,
+                        "locallabels": "State",
+                        "taxcode": "IN",
+                        "localdescrip": "IN - State",
+                        "taxgroupnm": "STANDARD",
+                        "taxamt": "14.72",
+                        "taxsaleamt": "210.23"
+                    }
+                ]
+            },
+            "tOetaxar": {
+                "t-oetaxar": []
             }
         }
+    }
 
     online_field = {
         "lineNo": 1,
@@ -103,7 +103,6 @@ class GenerateInforOrderStatusV2:
         "tiedorder": "",
         "bono": 2,
     }
-
 
     @staticmethod
     def generate_resp_infor(data_infor, field_online, response):
@@ -218,22 +217,281 @@ class GetResponseGerrie:
         return response
 
 
+class GenerateQuoteInfor:
+    @staticmethod
+    def create_response_quote_infor(data_test):
+        response = {
+            "response": {
+                "sxt_func_ack": {"sxt_func_ack": []},
+                "sxapi_oehdr": {
+                    "sxapi_oehdr": [
+                        {
+                            "invoiceDt": "",
+                            "invNr": data_test.get('invNr'),
+                            "invSuf": "00",
+                            "custPo": str(random.randint(1000, 2000)),
+                            "invType": "",
+                            "refer": "",
+                            "partnerId": "",
+                            "buyParty": "",
+                            "dept": "",
+                            "orderDisp": "",
+                            "event": "",
+                            "vendNo2": "",
+                            "cancelDt": datetime.now().strftime("%m/%d/%y"),
+                            "shipDt": "",
+                            "promiseDt": datetime.now().strftime("%m/%d/%y"),
+                            "reqShipDt": datetime.now().strftime("%m/%d/%y"),
+                            "shipVia": "",
+                            "poIssDt": "",
+                            "enterDt": datetime.now().strftime("%m/%d/%y"),
+                            "pkgId": "",
+                            "ackType": "AD",
+                            "currentDt": datetime.now().strftime("%m/%d/%y"),
+                            "user1": "",
+                            "user2": "",
+                            "user3": "",
+                            "userInv": "",
+                            "transType": data_test.get('transType'),
+                            "shipInstr": "",
+                            "placedBy": "",
+                            "whse": str(random.randint(10, 20)),
+                            "coreChg": "",
+                            "datcCost": "",
+                            "downPmt": "",
+                            "specDiscAmt": "",
+                            "restockAmt": "",
+                            "taxAmt": '{:.2f}'.format(random.randint(10, 20) * 0.01).zfill(10),
+                            "gstTaxAmt": "",
+                            "pstTaxAmt": "",
+                            "woDiscAmt": "",
+                            "termsDiscAmt": '{:.2f}'.format(random.randint(10, 20) * 0.1).zfill(13),
+                            "coNo": str(random.randint(1, 10))
+                        }
+                    ]
+                },
+                "sxapi_oeitm": {"sxapi_oeitm": []},
+                "cErrorMessage": ""
+            }
+        }
+
+        return response
+
+
+class GenerateQuoteEclipse:
+    @staticmethod
+    def create_response_quote_eclipse(data_test):
+        response = {
+            "results": [
+                {
+                    "generations": [{
+                        "status": data_test.get('orderStatus'),
+                    }],
+                    "id": data_test.get('productId')
+                }
+            ]
+        }
+
+        return response
+
+
+class GetPricingD1:
+
+    @staticmethod
+    def create_resp_price_d1(prod_id):
+        response = {
+            "unitName": prod_id,
+            "price": '{:.2f}'.format(random.randint(1000, 2000) * 0.01),
+        }
+
+        return response
+
+
+class GetBillingInfor:
+    @staticmethod
+    def create_resp_billing_infor(num):
+        date_now = datetime.now().strftime('%d/%m/%y')
+
+        response = {
+            "response": {
+                "sxt_func_ack": {
+                    "sxt_func_ack": [
+                        {
+                            "coNo": 1,
+                            "correlation_data": "",
+                            "data1": f"{num}-00",
+                            "errorNo": 0,
+                            "msg": f"Order: {num}-00, has been created.",
+                            "seqNo": 0,
+                            "trxType": ""
+                        }
+                    ]
+                },
+                "sxapi_oehdr": {
+                    "sxapi_oehdr": [
+                        {
+                            "invoiceDt": "",
+                            "invNr": f"0{num}",
+                            "invSuf": "00",
+                            "custPo": "SX27714_32",
+                            "invType": "",
+                            "refer": "",
+                            "partnerId": "IDCX_COMAU-01",
+                            "buyParty": "",
+                            "dept": "",
+                            "orderDisp": "",
+                            "event": "",
+                            "vendNo2": "",
+                            "cancelDt": "",
+                            "shipDt": "",
+                            "promiseDt": f"{date_now}",
+                            "reqShipDt": f"{date_now}",
+                            "shipVia": "CAP WEST",
+                            "poIssDt": "        ",
+                            "enterDt": f"{date_now}",
+                            "pkgId": "",
+                            "ackType": "AD",
+                            "currentDt": f"{date_now}",
+                            "user1": "",
+                            "user2": "",
+                            "user3": "",
+                            "userInv": "",
+                            "transType": "SO",
+                            "shipInstr": "",
+                            "placedBy": "",
+                            "whse": "X610",
+                            "coreChg": "",
+                            "datcCost": "",
+                            "downPmt": "",
+                            "specDiscAmt": "",
+                            "restockAmt": "",
+                            "taxAmt": "",
+                            "gstTaxAmt": "",
+                            "pstTaxAmt": "",
+                            "woDiscAmt": "",
+                            "termsDiscAmt": "",
+                            "coNo": "1"
+                        }
+                    ]
+                },
+                "sxapi_oeitm": {
+                    "sxapi_oeitm": [
+                        {
+                            "lineIden": "0001",
+                            "qtyUom": "EA",
+                            "prodSvcCd": "",
+                            "sellerProd": "WOOD114030K12M005",
+                            "buyerProd": "",
+                            "descrip": "WOOD 114030K12M005 MC 4P",
+                            "user1": "",
+                            "user2": "",
+                            "user3": "",
+                            "user4": "",
+                            "user5": "",
+                            "ordStatCd": "",
+                            "chgCd": "",
+                            "boType": "y",
+                            "user6": "",
+                            "user7": "",
+                            "user8": "",
+                            "user9": "",
+                            "user10": "",
+                            "specCostTy": "Y",
+                            "sCostUnit": "000001.000000",
+                            "xrefProdTy": "",
+                            "taxableFl": "n",
+                            "taxableTy": "",
+                            "taxGroup": "1",
+                            "promiseDt": f"{date_now}",
+                            "reqShipDt": f"{date_now}",
+                            "specNsType": "s",
+                            "upc": "",
+                            "sxLineNo": "0001",
+                            "qtyShip": "000001.00",
+                            "price": "0000045.68000",
+                            "discPct": "",
+                            "qtyOrd": "000001.00",
+                            "discAmt": "",
+                            "taxAmt1": "0000000.00000",
+                            "taxAmt2": "0000000.00000",
+                            "taxAmt3": "0000000.00000",
+                            "taxAmt4": "0000000.00000",
+                            "upcSection1": "000000000000",
+                            "upcSection2": "000000000000",
+                            "upcSection3": "000000786788",
+                            "upcSection4": "000000002291",
+                            "upcSection5": "000000000000",
+                            "upcSection6": "000000000000",
+                            "restockChg": "000000000.00",
+                            "spCostUnit": "EA"
+                        }
+                    ]
+                },
+                "cErrorMessage": ""
+            }
+        }
+
+        return response
+
+
+class InforTransfers:
+    @staticmethod
+    def get_resp_infor_transfers(data):
+        response = {
+            "cErrorMessage": data,
+            "tFieldlist": {
+                "t-fieldlist": [
+                    {
+                        "wtno": random.randint(1, 10),
+                        "stage": "Ord",
+                        "wtsuf": random.randint(1, 10),
+                        "transtype": Utils.random_str(),
+                        "shipfmwhse": Utils.random_str(),
+                        "shiptowhse": Utils.random_str()
+                    }
+                ]
+            },
+            "tWtlineitemv2": {
+                "t-wtlineitemv2": [
+                    {
+                        "bono": random.randint(1, 10),
+                        "unit": Utils.random_str(),
+                        "duedt": Utils.random_str(),
+                        "lineno": random.randint(1, 10),
+                        "netamt": random.randint(1, 10),
+                        "netord": random.randint(1, 10),
+                        "netrcv": random.randint(1, 10),
+                        "qtyord": random.randint(1, 10),
+                        "qtyrcv": random.randint(1, 10),
+                        "qtyship": random.randint(1, 10),
+                        "sortFld": Utils.random_str(),
+                        "prodcost": random.randint(1, 10),
+                        "shipprod": Utils.random_str(),
+                        "unitconv": random.randint(1, 10),
+                        "approvety": Utils.random_str(),
+                        "ordertype": Utils.random_str(),
+                        "proddesc": Utils.random_str(),
+                        "proddesc2": Utils.random_str(),
+                        "stkqtyord": random.randint(1, 10),
+                        "stkqtyrcv": random.randint(1, 10),
+                        "tiedorder": Utils.random_str(),
+                        "nonstockty": Utils.random_str(),
+                        "orderaltno": random.randint(1, 10),
+                        "stkqtyship": random.randint(1, 10),
+                        "prodinrcvfl": random.choice([True, False]),
+                        "rcvunavailfl": random.choice([True, False])
+                    }
+                ]
+            }
+        }
+
+        return response
+
+
 if __name__ == '__main__':
-    g = GenerateVmiList()
+    g = GetPricingD1()
+    item = 'zapel'
 
-    data = {
-        "customerId": 60428,
-        "productId": 700,
-        "pageSize": 5,
-        "startIndex": 3,
-    }
+    resp = g.create_resp_price_d1(item)
 
-
-    x = g.create_string_id(data)
-    print(x)
-
-    y = g.create_items(data)
-    pprint(y)
-
-    z = g.create_response_vmi(data)
-    pprint(z)
+    print(resp)

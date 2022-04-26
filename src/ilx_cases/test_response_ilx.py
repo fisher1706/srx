@@ -22,7 +22,7 @@ from src.utilities.ilx_utils import Utils
 ])
 def test_response_ilx_sale_order_v2(ilx_context, case, data_case, testrail_case_id):
     ilx_context.ilx_testrail_case_id = testrail_case_id
-    headers = {'Authorization': ilx_context.ilx_auth_token}
+    headers = {'Authorization': ilx_context.ilx_erp_token}
     resp = requests.get(url=Utils.generate_url(ilx_context.ilx_data.ilx_url, case=case), headers=headers)
 
     response = Response(resp)
