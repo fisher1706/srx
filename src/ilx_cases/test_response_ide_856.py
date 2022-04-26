@@ -3,7 +3,7 @@ import pytest
 import requests
 from src.api.ilx.ilx_response import Response
 from src.schemas.ilx_schemas import ValidatorIDE
-from src.utilities.grnerate_data_test import GenerateIDE856
+from src.utilities.generate_data_test import GenerateIDE856
 from src.utilities.ilx_utils import Utils
 
 

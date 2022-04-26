@@ -1,0 +1,34 @@
+#dev
+    # ILX-ERP
+    ilx_erp_token = 'f1422b40374a49e3ad39e1c4f85b3a5a'
+
+    # EDI_856
+    edi_856_auth_token = '7665f79ea9fa42a7ba940be7acded248'
+    user_name_edi_856 = 'test_edi_856'
+    password_edi_856 = 'Zapel_1706'
+
+    # INFOR
+    ilx_infor_token = 'a552945a85364af89653fe94d91bd57f'
+
+#qa
+    # ILX-ERP
+    ilx_erp_token = 'f1422b40374a49e3ad39e1c4f85b3a5a'
+
+    # EDI_856
+    edi_856_auth_token = '7665f79ea9fa42a7ba940be7acded248'
+    user_name_edi_856 = 'test_edi_856'
+    password_edi_856 = 'Zapel_1706'
+
+    # INFOR
+    ilx_infor_token = 'a552945a85364af89653fe94d91bd57f'
+
+    # UI
+    ilx_url = 'https://hub.qa.integrationlogix.com/'
+    ilx_email = 'olazeba+ilx+qa@agilevision.io'
+    ilx_password = '*Zapel_1706'
+
+    ilx_qa_token = 'a552945a85364af89653fe94d91bd57f'
+
+#testrail credentials
+    self.ilx_testrail_email = 'olazeba@agilevision.io'
+    self.ilx_testrail_password = '2.VyMIhcQu1I85YxR7X1-OotH2UhJ79ExYl8c03f6'

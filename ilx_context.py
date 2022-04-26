@@ -5,7 +5,7 @@ class IlxSessionContext:
     ilx_base_data = None
     ilx_credentials = None
 
-    ilx_auth_token = None
+    ilx_erp_token = None
 
     edi_856_auth_token = None
     user_name_edi_856 = None
@@ -18,7 +18,7 @@ class IlxSessionContext:
     ilx_url = None
     ilx_email = None
     ilx_password = None
-
+    ilx_qa_token = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):
@@ -35,7 +35,7 @@ class IlxContext:
     ilx_session_context = None
     ilx_data = None
 
-    ilx_auth_token = None
+    ilx_erp_token = None
 
     edi_856_auth_token = None
     user_name_edi_856 = None
@@ -48,6 +48,8 @@ class IlxContext:
     ilx_url = None
     ilx_email = None
     ilx_password = None
+
+    ilx_qa_token = None
 
     def __setattr__(self, key, value):
         if hasattr(self, key):

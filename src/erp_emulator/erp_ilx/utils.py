@@ -60,6 +60,16 @@ class UtilsServerIlx:
 
         return generations, lines
 
+    @staticmethod
+    def create_resp_error(test_data, resp_data):
+        diff = dict(set(test_data.items()) - set(resp_data.items()))
+        resp = 'incorrect - data - for: '
+
+        for i in diff.keys():
+            resp += '{' + str(i) + '} '
+
+        return f"{resp}"
+
 
 if __name__ == '__main__':
     utils = UtilsServerIlx()

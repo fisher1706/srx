@@ -1,0 +1,44 @@
+keys:
+  #base credentials
+  - base_admin_email
+  - base_admin_password
+  - base_distributor_email
+  - base_distributor_password
+  - base_customer_email
+  - base_customer_password
+  - base_checkout_group_email
+  - base_checkout_group_password
+
+  #smoke credentials
+  - smoke_distributor_email
+  - smoke_distributor_password
+  - smoke_customer_email
+  - smoke_customer_password
+
+  #permission credentials
+  - permission_distributor_email
+  - permission_distributor_password
+  - permission_customer_email
+  - permission_customer_password
+
+  #SRX account for ILX mocks credentials
+  - ilx_distributor_email
+  - ilx_distributor_password
+  - ilx_customer_email
+  - ilx_customer_password
+
+  #SRX account for ILX mocks credentials
+  - load_distributor_email
+  - load_distributor_password
+  - load_customer_email
+  - load_customer_password
+
+  #cognito credentials
+  - cognito_user_pool_id
+  - cognito_client_id
+  - cognito_mobile_client_id
+  - cognito_checkout_client_id
+
+  #testrail credentials
+  - testrail_email
+  - testrail_password

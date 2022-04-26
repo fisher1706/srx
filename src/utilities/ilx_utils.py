@@ -1,5 +1,7 @@
 import pysftp
 import os
+import string
+import random
 
 
 class Utils:
@@ -79,4 +81,12 @@ class Utils:
 
     @staticmethod
     def get_data_order_infor(order_no, data_infor):
-        return [data for data in data_infor if str (order_no) == str(data.get ('orderno'))][0]
+        return [data for data in data_infor if str(order_no) == str(data.get('orderno'))][0]
+
+    @staticmethod
+    def random_str(size=16, chars=string.ascii_letters + string.digits):
+        return ''.join(random.choice(chars) for _ in range(size))
+
+    @staticmethod
+    def get_data_billing(customer_num, data_billing):
+        return [data for data in data_billing if str(customer_num) == str(data.get('customer'))][0]
